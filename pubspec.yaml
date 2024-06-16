@@ -1,0 +1,40 @@
+name: architecture
+description: "architecture with getX"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  
+
+
+
+  get: ^4.6.6
+  flutter_screenutil: ^5.9.0
+  dio: ^5.4.3+1
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10+1
+  shared_preferences: ^2.2.3
+  another_carousel_pro: ^1.0.2
+  rename: ^3.0.2
+  flutter_launcher_icons: ^0.13.1
+  flutter_splash_screen: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
