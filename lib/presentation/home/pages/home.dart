@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,60 +15,73 @@ class Home extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Silakan Login",
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 20.sp,
-          ),
+        leading: Image.asset(
+          'assets/images/eraph_logo.png',
+          fit: BoxFit.cover,
+          height: 50.h,
+          width: 50.w,
         ),
-        backgroundColor: AppColors.kRedColor,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 10.0),
-          child: IconButton(
-            icon: Icon(
-              CupertinoIcons.profile_circled,
-              color: AppColors.white,
-            ),
-            iconSize: 45,
-            onPressed: () {},
-          ),
-        ),
+        backgroundColor: AppColors.white,
+        // leading: Padding(
+        //   padding: const EdgeInsets.only(left: 10.0),
+        //   child: IconButton(
+        //     icon: Icon(
+        //       CupertinoIcons.profile_circled,
+        //       color: AppColors.white,
+        //     ),
+        //     iconSize: 45,
+        //     onPressed: () {},
+        //   ),
+        // ),
         actions: [
           IconButton(
             icon: Icon(
-              CupertinoIcons.qrcode,
-              color: AppColors.white,
+              CupertinoIcons.bars,
+              color: AppColors.black,
             ),
+            iconSize: 50,
             onPressed: () {},
           )
         ],
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8.0, left: 15, right: 15),
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 250.h,
-                    child: AnotherCarousel(
-                      images: const [
-                        AssetImage("assets/images/c1.jpg"),
-                        AssetImage("assets/images/c1.jpg"),
-                        AssetImage("assets/images/c1.jpg"),
-                      ],
-                      autoplay: true,
-                      showIndicator: false,
-                      borderRadius: true,
-                    ),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                SizedBox(
+                  height: 250.h,
+                  child: AnotherCarousel(
+                    images: const [
+                      AssetImage("assets/images/c1.jpg"),
+                      AssetImage("assets/images/c1.jpg"),
+                      AssetImage("assets/images/c1.jpg"),
+                    ],
+                    autoplay: true,
+                    showIndicator: true,
+                    dotColor: Colors.black,
+                    dotSize: 10,
+                    dotBgColor: Colors.transparent,
+                    borderRadius: false,
+                    overlayShadow: false,
+                    indicatorBgPadding: 5,
+                    dotSpacing: 40,
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                //Location
+
+                //property type
+
+                //price range
+
+                //ai search
+              ],
+            ),
+          ],
         ),
       ),
     );

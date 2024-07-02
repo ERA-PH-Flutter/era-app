@@ -7,6 +7,6 @@ class AppColors {
   static Color hint = const Color(0xff8A8A8A);
   static Color textFieldBackground = const Color(0xffEFF1F6);
   static Color kPrimaryColor = const Color(0xFF6F35A5);
-  static Color kPrimaryLightColor = const Color(0xFFF1E6FF);
-  static Color kRedColor = const Color(0xFFA32920);
+  static Color blue = const Color(0xFF0D3279);
+  static Color kRedColor = const Color(0xFF8A0B0B);
 }
