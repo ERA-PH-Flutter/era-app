@@ -13,18 +13,17 @@ class FarmerText extends StatelessWidget {
   final TextAlign? textAlign;
   final TextOverflow? textOverflow;
   final TextDecoration? textDecoration;
-  const FarmerText({
-    required this.text,
-    this.style,
-    super.key,
-    this.fontSize,
-    this.lineHeight,
-    this.color,
-    this.fontWeight,
-    this.textAlign,
-    this.textOverflow,
-    this.textDecoration
-  });
+  const FarmerText(
+      {required this.text,
+      this.style,
+      super.key,
+      this.fontSize,
+      this.lineHeight,
+      this.color,
+      this.fontWeight,
+      this.textAlign,
+      this.textOverflow,
+      this.textDecoration});
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +34,15 @@ class FarmerText extends StatelessWidget {
           TextStyle(
               decoration: textDecoration ?? TextDecoration.none,
               decorationColor: color ?? AppColors.black,
-              fontFamily:
-              GoogleFonts.poppins(fontWeight: fontWeight ?? FontWeight.w500)
+              fontFamily: GoogleFonts.montserrat(
+                      fontWeight: fontWeight ?? FontWeight.w500)
                   .fontFamily,
               fontSize: fontSize ?? 13.sp,
               fontWeight: fontWeight ?? FontWeight.w500,
               color: color ?? AppColors.white,
               overflow: textOverflow ?? TextOverflow.visible,
               height: lineHeight //?? 1.19,
-          ),
+              ),
     );
   }
 }
