@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 
-
 class AppTextField extends StatelessWidget {
   final String? svgIcon;
   final String? hint;
@@ -60,11 +59,9 @@ class AppTextField extends StatelessWidget {
     return SizedBox(
       height: height ?? 48.h,
       child: CupertinoTextField(
-        expands: expands??false,
+        expands: expands ?? false,
         enabled: isEnabled!,
-        onChanged: onChange ?? (string){
-
-        },
+        onChanged: onChange ?? (string) {},
         inputFormatters: inputFormatters,
         textAlign: TextAlign.justify,
         textAlignVertical: alignVertical ?? TextAlignVertical.center,
@@ -75,49 +72,49 @@ class AppTextField extends StatelessWidget {
           color: AppColors.hint,
           height: 0.0,
           fontFamily:
-          GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
+              GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
         ),
         suffix: isSuffix!
             ? GestureDetector(
-          onTap: onObscure ?? () {},
-          child: Padding(
-            padding: EdgeInsets.only(right: 20.w),
-            child: GestureDetector(
-                onTap: onSuffixTap,
-                child: SvgPicture.asset(
-                  suffixIcons ?? AppSvgAssets.hide,
-                  height: 18.h,
-                  color: obscureText! ? AppColors.hint : AppColors.primary,
-                )),
-          ),
-        )
+                onTap: onObscure ?? () {},
+                child: Padding(
+                  padding: EdgeInsets.only(right: 20.w),
+                  child: GestureDetector(
+                      onTap: onSuffixTap,
+                      child: SvgPicture.asset(
+                        suffixIcons ?? AppSvgAssets.hide,
+                        height: 18.h,
+                        color:
+                            obscureText! ? AppColors.hint : AppColors.primary,
+                      )),
+                ),
+              )
             : const SizedBox.shrink(),
         prefix: isPrefix!
             ? Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(15.w,0,7.5.w,0),
-              child: SvgPicture.asset(
-                svgIcon ?? AppSvgAssets.person,
-                height: 18.h,
-              ),
-            ),
-            if (countryPicker != null) ...[countryPicker!]
-          ],
-        )
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(15.w, 0, 7.5.w, 0),
+                    child: SvgPicture.asset(
+                      svgIcon ?? AppSvgAssets.person,
+                      height: 18.h,
+                    ),
+                  ),
+                  if (countryPicker != null) ...[countryPicker!]
+                ],
+              )
             : const SizedBox.shrink(),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
+          borderRadius: BorderRadius.circular(30.r),
           color: bgColor ?? AppColors.textFieldBackground,
         ),
         keyboardType: keyboardType ?? TextInputType.emailAddress,
         placeholder: !isHint! ? '' : hint ?? "John Doe",
         controller: controller,
-        padding: padding??EdgeInsets.symmetric(horizontal: 10.h,vertical: 5.w),
-        style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w400,
-            fontSize: 17.sp
-        ),
+        padding:
+            padding ?? EdgeInsets.symmetric(horizontal: 10.h, vertical: 5.w),
+        style:
+            GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 17.sp),
       ),
     );
   }

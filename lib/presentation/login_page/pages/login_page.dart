@@ -34,7 +34,7 @@ class LoginPage extends GetView<LoginPageController> {
                     Image.asset(
                       "assets/images/eraph_logo.png",
                     ),
-                    SizedBox(height: 50.h),
+                    SizedBox(height: 30.h),
                     Column(
                       children: [
                         SizedBox(height: 20.h),
@@ -115,7 +115,7 @@ class LoginPage extends GetView<LoginPageController> {
                                   },
                                   text: "L O G I N",
                                   bgColor: AppColors.kRedColor,
-                                  fontSize: 20.sp,
+                                  fontSize: 25.sp,
                                   fontWeight: FontWeight.w700,
                                 ),
                                 SizedBox(height: 20.h),
@@ -168,14 +168,59 @@ class LoginPage extends GetView<LoginPageController> {
                   ],
                 ),
                 SizedBox(height: 20.h),
-
+                //not final
+                // GestureDetector(
+                //   onTap: () {
+                //     // Get.toNamed("");
+                //   },
+                //   child: Container(
+                //     margin: EdgeInsets.symmetric(
+                //       horizontal: 40,
+                //     ),
+                //     height: 40.h,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10),
+                //       color: AppColors.blue,
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         FarmerText(
+                //           text: 'G',
+                //           color: AppColors.white,
+                //           fontSize: 30.sp,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //         SizedBox(width: 10.w),
+                //         FarmerText(
+                //           text: 'Sign in with Google',
+                //           color: AppColors.white,
+                //           fontSize: 15.sp,
+                //           fontWeight: FontWeight.w400,
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 Button(
                   onTap: () {
                     Get.toNamed("/home");
                   },
+                  //maybe insert logo here "G"
                   text: "Sign in with Google",
                   bgColor: AppColors.blue,
                   fontSize: 15.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+                SizedBox(height: 30.h),
+                Button(
+                  onTap: () {
+                    Get.toNamed("/home");
+                  },
+                  text: "CREATE ACCOUNT",
+                  bgColor: AppColors.kRedColor,
+                  fontSize: 25.sp,
+                  fontWeight: FontWeight.w700,
                 ),
               ],
             ),

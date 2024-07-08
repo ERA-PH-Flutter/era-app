@@ -11,7 +11,6 @@ import 'app/constants/colors.dart';
 class App extends StatelessWidget {
   const App({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -24,10 +23,8 @@ class App extends StatelessWidget {
             primaryColor: AppColors.primary,
             fontFamily: GoogleFonts.poppins().fontFamily,
             dialogBackgroundColor: Colors.transparent,
-            bottomSheetTheme: const BottomSheetThemeData(
-                backgroundColor: Colors.white
-            )
-        ),
+            bottomSheetTheme:
+                const BottomSheetThemeData(backgroundColor: Colors.white)),
         initialRoute: "/",
         getPages: appRoutes(),
         initialBinding: SplashBinding(),
