@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "257014263809",
+    "firebase_url": "https://era-philippines-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "era-philippines",
+    "storage_bucket": "era-philippines.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257014263809:android:b49ec21b6dd68c0aa5d000",
+        "android_client_info": {
+          "package_name": "com.example.architecture"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwxVU4RDoho0zmAeOXXq0uCZU6Z0f4X-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
