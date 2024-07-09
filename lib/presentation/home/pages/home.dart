@@ -1,14 +1,20 @@
 import 'dart:math';
 
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:architecture/app/constants/assets.dart';
+import 'package:architecture/app/models/navbaritems.dart';
+import 'package:architecture/app/widgets/app_nav_items.dart';
 import 'package:architecture/app/widgets/app_text.dart';
 import 'package:architecture/app/widgets/app_text_listing.dart';
 import 'package:architecture/app/widgets/app_textfield.dart';
+import 'package:architecture/app/widgets/button.dart';
 import 'package:architecture/app/widgets/custom_image_viewer.dart';
 import 'package:architecture/app/widgets/listing_widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:architecture/app/constants/colors.dart';
@@ -24,6 +30,7 @@ class Home extends GetView<HomeController> {
       'assets/images/e2.JPG',
       'assets/images/e3.JPG',
     ];
+
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset(
@@ -65,27 +72,27 @@ class Home extends GetView<HomeController> {
                 Stack(
                   children: [
                     SizedBox(
-                      height: 250.h,
+                      height: 269.h,
                       child: AnotherCarousel(
                         images: const [
-                          AssetImage("assets/images/c1.jpg"),
-                          AssetImage("assets/images/c1.jpg"),
-                          AssetImage("assets/images/c1.jpg"),
+                          AssetImage("assets/images/e1.JPG"),
+                          AssetImage("assets/images/e2.JPG"),
+                          AssetImage("assets/images/e3.JPG"),
                         ],
                         autoplay: true,
                         showIndicator: true,
                         dotColor: Colors.black,
-                        dotSize: 10,
+                        dotSize: 5,
                         dotBgColor: Colors.transparent,
                         borderRadius: false,
                         overlayShadow: false,
-                        indicatorBgPadding: 5,
+                        indicatorBgPadding: 15,
                         dotSpacing: 40,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 40.h),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 40.0),
                   padding: EdgeInsets.all(8.0),
@@ -113,7 +120,7 @@ class Home extends GetView<HomeController> {
                         //Location
                         AppTextField(
                           hint: 'Location',
-                          svgIcon: 'assets/icons/eraicon.svg',
+                          svgIcon: 'assets/icons/marker.png',
                           bgColor: AppColors.white,
                         ),
 
@@ -122,7 +129,7 @@ class Home extends GetView<HomeController> {
 
                         AppTextField(
                           hint: 'Location',
-                          svgIcon: 'assets/icons/eraicon.svg',
+                          svgIcon: 'assets/icons/house.png',
                           bgColor: AppColors.white,
                         ),
                         //price range
@@ -130,7 +137,7 @@ class Home extends GetView<HomeController> {
 
                         AppTextField(
                           hint: 'Location',
-                          svgIcon: 'assets/icons/eraicon.svg',
+                          svgIcon: 'assets/icons/money.png',
                           bgColor: AppColors.white,
                         ),
                         //ai search
@@ -138,7 +145,7 @@ class Home extends GetView<HomeController> {
 
                         AppTextField(
                           hint: 'Location',
-                          svgIcon: 'assets/icons/eraicon.svg',
+                          svgIcon: 'assets/icons/send.png',
                           bgColor: AppColors.white,
                         ),
                         SizedBox(height: 20.h),
@@ -189,7 +196,6 @@ class Home extends GetView<HomeController> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 20.h),
                         Container(
                           margin: EdgeInsets.symmetric(
                               horizontal: 5.0, vertical: 10),
@@ -219,6 +225,9 @@ class Home extends GetView<HomeController> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 30.h,
+                ),
                 ListingWidget(),
                 SizedBox(
                   height: 20.h,
@@ -245,7 +254,7 @@ class Home extends GetView<HomeController> {
                 //NOT SURE where folder to put this dynamic carousel slider
                 Container(
                   padding: EdgeInsets.all(15.0),
-                  decoration: BoxDecoration(color: AppColors.hint),
+                  decoration: BoxDecoration(color: AppColors.carouselBgColor),
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -268,18 +277,80 @@ class Home extends GetView<HomeController> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Container(
+                  width: 360.w,
+                  height: 343.h,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/c1.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/eraph_logo.png',
+                        fit: BoxFit.cover,
+                        height: 50.h,
+                        width: 50.w,
+                      ),
+                      Text(''),
+                      Button(
+                        text: 'VIEW PROJECT',
+                        onTap: () {},
+                        bgColor: AppColors.white,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: Obx(() {
+        return CurvedNavigationBar(
+          height: 70.h,
+          color: AppColors.blue,
+          backgroundColor: AppColors.white,
+          buttonBackgroundColor: AppColors.white,
+          index: controller.selectedIndex.value,
+          onTap: controller.changeIndex,
+          items: navBarItems.map((item) {
+            int currentIndex = navBarItems.indexOf(item);
+            String iconPath = controller.selectedIndex.value == currentIndex
+                ? item.selectedIcon
+                : item.defaultIcon;
+
+            return AppNavItems(iconPath: iconPath, label: item.label);
+          }).toList(),
+        );
+      }),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.business),
+      //       label: 'Business',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.school),
+      //       label: 'School',
+      //     ),
+      //   ],
+      //   // currentIndex: _selectedIndex,
+      //   selectedItemColor: Colors.amber[800],
+      //   // onTap: _onItemTapped,
+      // ),
     );
   }
 }
-
-
-
-
 
 // import 'package:architecture/app/constants/colors.dart';
 // import 'package:architecture/presentation/home/controllers/home_controller.dart';
@@ -289,7 +360,6 @@ class Home extends GetView<HomeController> {
 // import 'package:flutter/src/widgets/framework.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:get/get.dart';
-
 
 // class Home extends GetView<HomeController> {
 //   const Home({super.key});

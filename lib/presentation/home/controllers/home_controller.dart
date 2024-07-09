@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:architecture/app/constants/assets.dart';
 import 'package:architecture/presentation/home/pages/home.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,12 @@ enum HomeState {
 }
 
 class HomeController extends GetxController {
+  var selectedIndex = 0.obs;
+
+  void changeIndex(int index) {
+    selectedIndex.value = index;
+  }
+
   var store = Get.find<LocalStorageService>();
 }
  
