@@ -98,6 +98,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "curved_navigation_bar",
+      "rootUri": "file:///C:/Users/missy/AppData/Local/Pub/Cache/hosted/pub.dev/curved_navigation_bar-1.0.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "dio",
       "rootUri": "file:///C:/Users/missy/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.4.3+1",
       "packageUri": "lib/",
@@ -560,7 +566,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-07-08T12:00:53.179566Z",
+  "generated": "2024-07-09T05:33:35.484010Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///C:/flutter",

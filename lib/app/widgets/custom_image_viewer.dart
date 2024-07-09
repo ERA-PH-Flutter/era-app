@@ -11,8 +11,8 @@ class CustomImageViewer {
       BoxFit? fit,
       double? radius}) {
     return Container(
-      width: 523.w,
-      height: 205.h,
+      // width: 500.w,
+      height: 177.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius ?? 8),
         border: Border.all(
