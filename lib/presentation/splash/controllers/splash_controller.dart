@@ -1,5 +1,5 @@
-import 'package:architecture/presentation/home/pages/home.dart';
-import 'package:architecture/router/route_string.dart';
+import 'package:eraphilippines/presentation/home/pages/home.dart';
+import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 
 import '../../../app/services/local_storage.dart';

@@ -1,4 +1,4 @@
-import 'package:architecture/presentation/home/controllers/home_controller.dart';
+import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 

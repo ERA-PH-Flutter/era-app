@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:architecture/app/widgets/listing_card.dart';
+import 'package:eraphilippines/app/widgets/listing_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';

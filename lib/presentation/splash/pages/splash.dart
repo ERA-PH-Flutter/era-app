@@ -1,4 +1,4 @@
-import 'package:architecture/presentation/splash/controllers/splash_controller.dart';
+import 'package:eraphilippines/presentation/splash/controllers/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';

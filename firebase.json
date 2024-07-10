@@ -1,1 +1,29 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"era-philippines","appId":"1:257014263809:android:b49ec21b6dd68c0aa5d000","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"era-philippines","configurations":{"android":"1:257014263809:android:b49ec21b6dd68c0aa5d000","ios":"1:257014263809:ios:63fc4aac3df257a9a5d000","web":"1:257014263809:web:83934a184bee1fd7a5d000"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "era-philippines",
+          "appId": "1:257014263809:android:b49ec21b6dd68c0aa5d000",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "era-philippines",
+          "configurations": {
+            "android": "1:257014263809:android:b49ec21b6dd68c0aa5d000",
+            "ios": "1:257014263809:ios:63fc4aac3df257a9a5d000",
+            "web": "1:257014263809:web:83934a184bee1fd7a5d000"
+          }
+        }
+      }
+    }
+  },
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}

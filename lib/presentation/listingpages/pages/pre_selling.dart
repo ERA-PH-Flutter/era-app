@@ -1,5 +1,5 @@
-import 'package:architecture/app/widgets/app_text.dart';
-import 'package:architecture/presentation/home/controllers/home_controller.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';

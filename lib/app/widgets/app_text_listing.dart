@@ -1,4 +1,4 @@
-import 'package:architecture/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 

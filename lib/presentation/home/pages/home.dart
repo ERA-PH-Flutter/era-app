@@ -1,15 +1,15 @@
 import 'dart:math';
 
 import 'package:another_carousel_pro/another_carousel_pro.dart';
-import 'package:architecture/app/constants/assets.dart';
-import 'package:architecture/app/models/navbaritems.dart';
-import 'package:architecture/app/widgets/app_nav_items.dart';
-import 'package:architecture/app/widgets/app_text.dart';
-import 'package:architecture/app/widgets/app_text_listing.dart';
-import 'package:architecture/app/widgets/app_textfield.dart';
-import 'package:architecture/app/widgets/button.dart';
-import 'package:architecture/app/widgets/custom_image_viewer.dart';
-import 'package:architecture/app/widgets/listing_widgets.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
+import 'package:eraphilippines/app/models/navbaritems.dart';
+import 'package:eraphilippines/app/widgets/app_nav_items.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/app_text_listing.dart';
+import 'package:eraphilippines/app/widgets/app_textfield.dart';
+import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
+import 'package:eraphilippines/app/widgets/listing_widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,8 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:architecture/app/constants/colors.dart';
-import 'package:architecture/presentation/home/controllers/home_controller.dart';
+import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
 
 class Home extends GetView<HomeController> {
   const Home({super.key});
@@ -352,9 +352,9 @@ class Home extends GetView<HomeController> {
   }
 }
 
-// import 'package:architecture/app/constants/colors.dart';
-// import 'package:architecture/presentation/home/controllers/home_controller.dart';
-// import 'package:architecture/presentation/login_page/controllers/login_page_controller.dart';
+// import 'package:eraphilippines/app/constants/colors.dart';
+// import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
+// import 'package:eraphilippines/presentation/login_page/controllers/login_page_controller.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/framework.dart';

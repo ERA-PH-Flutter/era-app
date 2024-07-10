@@ -1,5 +1,5 @@
-name: architecture
-description: "architecture with getX"
+name: eraphilippines
+description: "ERA Philippines"
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -11,9 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  
-
-
   flutter_staggered_grid_view: ^0.4.0
   get: ^4.6.6
   flutter_screenutil: ^5.9.0
@@ -27,8 +24,13 @@ dependencies:
   flutter_splash_screen: ^3.0.0
   cached_network_image: ^3.3.1
   carousel_slider: ^4.2.1
-  firebase_core: ^3.1.1
   curved_navigation_bar: ^1.0.6
+  #firebase
+  firebase_core: ^3.2.0
+  firebase_storage: ^12.1.1
+  firebase_auth: ^5.1.2
+  firebase_database: ^11.0.3
+  google_sign_in: ^6.2.1
 
 dev_dependencies:
   flutter_test:

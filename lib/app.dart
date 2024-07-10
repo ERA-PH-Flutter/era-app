@@ -1,6 +1,6 @@
-import 'package:architecture/presentation/splash/controllers/splash_binding.dart';
-import 'package:architecture/presentation/splash/pages/splash.dart';
-import 'package:architecture/router/route.dart';
+import 'package:eraphilippines/presentation/splash/controllers/splash_binding.dart';
+import 'package:eraphilippines/presentation/splash/pages/splash.dart';
+import 'package:eraphilippines/router/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

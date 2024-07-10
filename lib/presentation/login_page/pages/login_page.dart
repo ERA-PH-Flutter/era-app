@@ -1,6 +1,7 @@
-import 'package:architecture/app/constants/colors.dart';
-import 'package:architecture/app/widgets/app_text.dart';
-import 'package:architecture/app/widgets/button.dart';
+import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/services/firebase_auth.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,13 +23,6 @@ class LoginPage extends GetView<LoginPageController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // Padding(
-                //   padding: const EdgeInsets.all(15),
-                //   child: Text("Skip",
-                //       style: TextStyle(
-                //         color: AppColors.hint,
-                //       )),
-                // ),
                 Column(
                   children: [
                     Image.asset(
@@ -44,18 +38,14 @@ class LoginPage extends GetView<LoginPageController> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 35),
                               child: TextFormField(
+                                controller: controller.email,
                                 style: TextStyle(
                                     color: AppColors.black, fontSize: 15.sp),
                                 decoration: InputDecoration(
-                                  hintText: 'Username',
+                                  hintText: 'Email',
                                   hintStyle: TextStyle(color: AppColors.hint),
                                   fillColor: AppColors.white,
                                   filled: true,
-                                  // focusedBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   // borderSide: BorderSide(
-                                  //   //     color: Color(0xFFA32920), width: 2.0),
-                                  // ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(
@@ -70,29 +60,27 @@ class LoginPage extends GetView<LoginPageController> {
                               ),
                             ),
                             SizedBox(height: 20.h),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(left: 10.0),
-                            //   child: Text("Password",
-                            //       style: TextStyle(
-                            //           fontSize: 15.sp,
-                            //           fontWeight: FontWeight.bold)),
-                            // ),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 35),
-                              child: TextFormField(
+                              child: Obx(()=>TextFormField(
+                                controller: controller.password,
+                                obscureText: controller.passwordVisible.value,
                                 style: TextStyle(
                                     color: AppColors.black, fontSize: 15.sp),
                                 decoration: InputDecoration(
                                   hintText: 'Password',
-
-                                  // suffixIcon: Icon(Icons.visibility_off),
                                   hintStyle: TextStyle(color: AppColors.hint),
                                   fillColor: AppColors.white,
                                   filled: true,
-                                  // focusedBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  // ),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                        controller.passwordVisible.value ? CupertinoIcons.eye_fill : CupertinoIcons.eye_slash_fill
+                                    ),
+                                    onPressed: (){
+                                      controller.passwordVisible.value = !controller.passwordVisible.value;
+                                    },
+                                  ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(
@@ -104,14 +92,14 @@ class LoginPage extends GetView<LoginPageController> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
-                              ),
+                              ),)
                             ),
                             SizedBox(height: 20.h),
                             Column(
                               children: [
                                 Button(
                                   onTap: () {
-                                    Get.toNamed("/home");
+                                    controller.login();
                                   },
                                   text: "L O G I N",
                                   bgColor: AppColors.kRedColor,
@@ -137,7 +125,6 @@ class LoginPage extends GetView<LoginPageController> {
                     ),
                   ],
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -230,18 +217,3 @@ class LoginPage extends GetView<LoginPageController> {
     );
   }
 }
-
- 
-
-
-       // Obx(() => Text(controller.text.value)),
-            // CupertinoButton.filled(
-            //     child: Text("change text to hello world"),
-            //     onPressed: () {
-            //       controller.text.value = "hello world";
-            //     }),
-            // CupertinoButton(
-            //     child: Text("change text to blank"),
-            //     onPressed: () {
-            //       controller.text.value = "";
-            //     }),

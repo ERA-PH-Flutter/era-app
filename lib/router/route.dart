@@ -1,10 +1,10 @@
-import 'package:architecture/presentation/base/controllers/base_binding.dart';
-import 'package:architecture/presentation/home/controllers/home_binding.dart';
-import 'package:architecture/presentation/listingpages/controllers/listing_binding.dart';
-import 'package:architecture/presentation/listingpages/pages/pre_selling.dart';
-import 'package:architecture/presentation/listingpages/pages/rental.dart';
-import 'package:architecture/presentation/login_page/pages/login_page.dart';
-import 'package:architecture/router/route_string.dart';
+import 'package:eraphilippines/presentation/base/controllers/base_binding.dart';
+import 'package:eraphilippines/presentation/home/controllers/home_binding.dart';
+import 'package:eraphilippines/presentation/listingpages/controllers/listing_binding.dart';
+import 'package:eraphilippines/presentation/listingpages/pages/pre_selling.dart';
+import 'package:eraphilippines/presentation/listingpages/pages/rental.dart';
+import 'package:eraphilippines/presentation/login_page/pages/login_page.dart';
+import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/route_middleware.dart';
 
