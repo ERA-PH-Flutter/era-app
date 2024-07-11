@@ -34,6 +34,7 @@ class Authentication{
   }
   logout()async{
     try{
+      await GoogleSignIn().signOut();
       await auth.signOut();
     } on FirebaseAuthException catch(e){
       print(e);
@@ -48,7 +49,7 @@ class Authentication{
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       print(e);
     }

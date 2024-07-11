@@ -55,7 +55,9 @@ class Home extends GetView<HomeController> {
               color: AppColors.black,
             ),
             iconSize: 50,
-            onPressed: () {},
+            onPressed: () {
+              controller.logout();
+            },
           )
         ],
       ),

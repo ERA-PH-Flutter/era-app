@@ -20,11 +20,14 @@ class LoginPageController extends GetxController {
     var login = await Authentication().login(email:email.text.trim(),password: password.text.trim());
     if(login != null){
       //todo assign local user
-
       Get.offAllNamed(RouteString.home);
     }else{
       //todo show error
     }
+  }
+  googleLogin()async{
+    print(await Authentication().signInWithGoogle());
+    //Get.offAllNamed(RouteString.home);
   }
 }
 

@@ -190,7 +190,7 @@ class LoginPage extends GetView<LoginPageController> {
                 // ),
                 Button(
                   onTap: () {
-                    Get.toNamed("/home");
+                    controller.googleLogin();
                   },
                   //maybe insert logo here "G"
                   text: "Sign in with Google",

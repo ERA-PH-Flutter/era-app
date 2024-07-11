@@ -1,4 +1,6 @@
 
+import 'package:eraphilippines/app/services/firebase_auth.dart';
+import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 import '../../../app/services/local_storage.dart';
 
@@ -16,6 +18,11 @@ class HomeController extends GetxController {
   }
 
   var store = Get.find<LocalStorageService>();
+
+  logout(){
+    Authentication().logout();
+    Get.offAllNamed(RouteString.loginpage);
+  }
 }
  
 
