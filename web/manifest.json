@@ -3,7 +3,7 @@
     "short_name": "architecture",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
+    "background_color": "#hexcode",
     "theme_color": "#0175C2",
     "description": "architecture with getx",
     "orientation": "portrait-primary",

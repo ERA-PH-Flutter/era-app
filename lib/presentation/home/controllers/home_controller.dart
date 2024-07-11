@@ -1,9 +1,4 @@
-import 'dart:async';
 
-import 'package:another_carousel_pro/another_carousel_pro.dart';
-import 'package:eraphilippines/app/constants/assets.dart';
-import 'package:eraphilippines/presentation/home/pages/home.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../../app/services/local_storage.dart';
 

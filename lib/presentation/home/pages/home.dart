@@ -1,7 +1,5 @@
-import 'dart:math';
 
 import 'package:another_carousel_pro/another_carousel_pro.dart';
-import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/widgets/app_nav_items.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -14,7 +12,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -94,7 +91,7 @@ class Home extends GetView<HomeController> {
                 ),
                 SizedBox(height: 40.h),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 40.0),
+                  margin: EdgeInsets.symmetric(horizontal: 25.w),
                   padding: EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     color: AppColors.white,
@@ -313,10 +310,10 @@ class Home extends GetView<HomeController> {
       ),
       bottomNavigationBar: Obx(() {
         return CurvedNavigationBar(
-          height: 70.h,
+          height: 75.h,
           color: AppColors.blue,
-          backgroundColor: AppColors.white,
-          buttonBackgroundColor: AppColors.white,
+          backgroundColor: Colors.white.withOpacity(0),
+          buttonBackgroundColor: Colors.white.withOpacity(0),
           index: controller.selectedIndex.value,
           onTap: controller.changeIndex,
           items: navBarItems.map((item) {
@@ -325,7 +322,7 @@ class Home extends GetView<HomeController> {
                 ? item.selectedIcon
                 : item.defaultIcon;
 
-            return AppNavItems(iconPath: iconPath, label: item.label);
+            return AppNavItems(iconPath: iconPath, label: item.label,isActive: controller.selectedIndex.value == currentIndex);
           }).toList(),
         );
       }),

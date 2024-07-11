@@ -37,8 +37,4 @@ appRoutes() => [
     ];
 
 class MyMiddleware extends GetMiddleware {
-  @override
-  GetPage? onPageCalled(GetPage? page) {
-    return super.onPageCalled(page);
-  }
 }

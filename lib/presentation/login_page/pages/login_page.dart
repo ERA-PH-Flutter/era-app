@@ -1,5 +1,4 @@
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:flutter/cupertino.dart';

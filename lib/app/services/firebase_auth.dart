@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 class Authentication{
-  var auth = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   Authentication();
   login({
     email,
@@ -15,6 +15,7 @@ class Authentication{
     }on FirebaseAuthException catch(e){
       print(e);
     }
+    return auth.currentUser!.uid;
   }
   signup({
     email,
@@ -25,7 +26,7 @@ class Authentication{
         email: email,
         password: password,
       );
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       //todo handle error and exception
     } catch (e) {
       //todo handle error and exception

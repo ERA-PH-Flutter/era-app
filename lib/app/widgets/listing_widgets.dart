@@ -1,7 +1,7 @@
-import 'dart:io';
 
 import 'package:eraphilippines/app/widgets/listing_card.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
@@ -34,7 +34,7 @@ class ListingWidget extends StatelessWidget {
     return GestureDetector(
       child: StaggeredGridView.countBuilder(
         shrinkWrap: true,
-        padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
         itemCount: listings.length,
         crossAxisCount: 2,
         itemBuilder: (context, index) {
