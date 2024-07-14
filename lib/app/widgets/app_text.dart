@@ -13,6 +13,7 @@ class FarmerText extends StatelessWidget {
   final TextAlign? textAlign;
   final TextOverflow? textOverflow;
   final TextDecoration? textDecoration;
+  final int? maxLines;
   const FarmerText(
       {required this.text,
       this.style,
@@ -23,26 +24,28 @@ class FarmerText extends StatelessWidget {
       this.fontWeight,
       this.textAlign,
       this.textOverflow,
-      this.textDecoration});
+      this.textDecoration,
+      this.maxLines});
 
   @override
   Widget build(BuildContext context) {
     return Text(
+      maxLines: maxLines ?? 3,
       text,
       textAlign: textAlign,
       style: style ??
           TextStyle(
-              decoration: textDecoration ?? TextDecoration.none,
-              decorationColor: color ?? AppColors.black,
-              fontFamily:
-                  GoogleFonts.raleway(fontWeight: fontWeight ?? FontWeight.w500)
-                      .fontFamily,
-              fontSize: fontSize ?? 13.sp,
-              fontWeight: fontWeight ?? FontWeight.w500,
-              color: color ?? AppColors.white,
-              overflow: textOverflow ?? TextOverflow.visible,
-              height: lineHeight //?? 1.19,
-              ),
+            decoration: textDecoration ?? TextDecoration.none,
+            decorationColor: color ?? AppColors.black,
+            fontFamily: GoogleFonts.montserrat(
+                    fontWeight: fontWeight ?? FontWeight.w500)
+                .fontFamily,
+            fontSize: fontSize ?? 13.sp,
+            fontWeight: fontWeight ?? FontWeight.w500,
+            color: color ?? AppColors.white,
+            overflow: textOverflow ?? TextOverflow.visible,
+            height: lineHeight, //?? 1.19,
+          ),
     );
   }
 }

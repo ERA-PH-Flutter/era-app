@@ -34,7 +34,7 @@ class Listing {
       required this.agentName,
       required this.agents});
 
-  static List<Listing> listings = [
+  static List<Listing> listingsModels = [
     Listing(
         type: 'BGC Luxury Condo',
         image: 'assets/images/e1.JPG',
@@ -48,11 +48,11 @@ class Listing {
         cars: 1,
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-        price: 10000,
+        price: 100000,
         listingBy: 'Era Philippines',
         agentImage: 'assets/images/e2.JPG',
         agentName: 'John Doe',
-        agents: 'Agent/Brokers'),
+        agents: 'Agent/Broker'),
     Listing(
         type: 'House',
         image: 'assets/images/e3.JPG',
@@ -66,7 +66,7 @@ class Listing {
         cars: 1,
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-        price: 100000,
+        price: 200000,
         listingBy: 'Era Philippines',
         agentImage: 'assets/images/e2.JPG',
         agentName: 'John Doe',

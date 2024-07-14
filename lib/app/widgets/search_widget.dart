@@ -27,7 +27,7 @@ class SearchWidget extends StatelessWidget {
                 size: 30.sp,
               )),
           FarmerText(
-            text: 'Search',
+            text: 'SEARCH',
             fontSize: 30.sp,
             fontWeight: FontWeight.w300,
           ),

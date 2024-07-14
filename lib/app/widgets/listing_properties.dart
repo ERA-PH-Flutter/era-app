@@ -1,4 +1,3 @@
- 
 import 'package:eraphilippines/app/models/listing.dart';
 import 'package:eraphilippines/app/widgets/listing_items.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,14 +6,14 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class ListingProperties extends StatelessWidget {
-  final List<Listing> listingProperties;
+  final List<Listing> listingModels;
 
-  const ListingProperties({super.key, required this.listingProperties});
+  const ListingProperties({super.key, required this.listingModels});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 540.h,
+      height: 560.h,
       child: GridView.builder(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.all(20),
@@ -24,9 +23,9 @@ class ListingProperties extends StatelessWidget {
           crossAxisCount: 1,
           mainAxisExtent: 410,
         ),
-        itemCount: listingProperties.length,
+        itemCount: listingModels.length,
         itemBuilder: (context, i) => ListingItems(
-            listingItems: listingProperties[i],
+            listingItems: listingModels[i],
             onTap: () {
               // Get.toNamed('');
               //

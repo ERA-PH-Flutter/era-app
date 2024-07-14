@@ -43,7 +43,7 @@ class AppDivider extends StatelessWidget {
             fontSize: 16.sp,
           ),
           Button(
-            text: 'VIEW MORE PROJECT',
+            text: 'VIEW MORE PROJECTS',
             onTap: () {},
             bgColor: AppColors.kRedColor,
             height: 40.h,

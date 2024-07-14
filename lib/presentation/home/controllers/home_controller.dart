@@ -16,6 +16,10 @@ class HomeController extends GetxController {
   void changeIndex(int index) {
     selectedIndex.value = index;
   }
+  var currentTab = 0.obs;
+  void changeTab(int index) {
+    currentTab.value = index;
+  }
 
   var store = Get.find<LocalStorageService>();
 

@@ -1,27 +1,36 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomImageViewer {
-  CustomImageViewer._();
+class CustomImage extends StatelessWidget {
+  final String url;
+  final double? radius;
+  // final bool isActive;
+  //  required this.isActive;
+  const CustomImage({
+    super.key,
+    required this.url,
+    this.radius,
+  });
 
-  static show(
-      {required BuildContext context,
-      required String url,
-      BoxFit? fit,
-      double? radius}) {
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      // width: 500.w,
-      height: 177.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius ?? 8),
         border: Border.all(
           color: AppColors.white,
-          width: 2,
+          width: 1,
         ),
-        image: DecorationImage(
-          image: AssetImage(url),
-          fit: fit ?? BoxFit.cover,
+        // borderRadius: BorderRadius.circular(isActive ? (radius ?? 30) : 0),
+      ),
+      child: ClipRRect(
+        // borderRadius: BorderRadius.circular(isActive ? (radius ?? 30) : 0),
+        child: Image.asset(
+          url,
+          fit: BoxFit.fill,
+          width: 500.w,
+          height: 500.h,
         ),
       ),
     );

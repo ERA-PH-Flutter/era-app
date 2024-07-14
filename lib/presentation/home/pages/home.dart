@@ -1,4 +1,5 @@
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/listing.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
@@ -9,6 +10,7 @@ import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel_slider.dart';
+import 'package:eraphilippines/app/widgets/company_grid.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/listing_properties.dart';
 import 'package:eraphilippines/app/widgets/listing_widgets.dart';
@@ -34,8 +36,8 @@ class Home extends GetView<HomeController> {
         leading: Image.asset(
           'assets/images/eraph_logo.png',
           fit: BoxFit.cover,
-          height: 50.h,
-          width: 50.w,
+          height: 64.h,
+          width: 64.w,
         ),
         backgroundColor: AppColors.white,
         // leading: Padding(
@@ -53,7 +55,7 @@ class Home extends GetView<HomeController> {
           IconButton(
             icon: Icon(
               CupertinoIcons.bars,
-              color: AppColors.black,
+              color: AppColors.hint,
             ),
             iconSize: 50,
             onPressed: () {
@@ -90,6 +92,28 @@ class Home extends GetView<HomeController> {
                         dotSpacing: 40,
                       ),
                     ),
+                    Positioned(
+                        top: 120,
+                        left: 0,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            CupertinoIcons.arrow_left,
+                            size: 20,
+                          ),
+                          color: AppColors.white,
+                        )),
+                    Positioned(
+                        top: 120,
+                        right: 0,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            CupertinoIcons.arrow_right,
+                            size: 20,
+                          ),
+                          color: AppColors.white,
+                        )),
                   ],
                 ),
                 SizedBox(height: 40.h),
@@ -106,21 +130,21 @@ class Home extends GetView<HomeController> {
                       //property type
                       SizedBox(height: 20.h),
                       AppTextField(
-                        hint: 'Location',
+                        hint: 'Property Type',
                         svgIcon: 'assets/icons/house.png',
                         bgColor: AppColors.white,
                       ),
                       //price range
                       SizedBox(height: 20.h),
                       AppTextField(
-                        hint: 'Location',
+                        hint: 'Price Range',
                         svgIcon: 'assets/icons/money.png',
                         bgColor: AppColors.white,
                       ),
                       //ai search
                       SizedBox(height: 20.h),
                       AppTextField(
-                        hint: 'Location',
+                        hint: 'AI Search',
                         svgIcon: 'assets/icons/send.png',
                         bgColor: AppColors.white,
                       ),
@@ -142,11 +166,13 @@ class Home extends GetView<HomeController> {
                 ),
                 ListingWidget(),
                 TextListing(
+                    margin: EdgeInsets.symmetric(horizontal: 30.0),
                     text: 'PROJECTS',
                     fontSize: 24.sp,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     color: AppColors.blue),
                 TextListing(
+                    margin: EdgeInsets.symmetric(horizontal: 30.0),
                     text: 'Perspective by ERA Research & Market Intelligence',
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
@@ -155,9 +181,10 @@ class Home extends GetView<HomeController> {
                   height: 20.h,
                 ),
                 TextListing(
-                    text: 'FEATURED PROJECTS',
+                    margin: EdgeInsets.symmetric(horizontal: 30.0),
+                    text: 'Featured Projects',
                     fontSize: 24.sp,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     color: AppColors.kRedColor),
                 SizedBox(height: 20.h),
                 // haraya residences
@@ -181,7 +208,7 @@ class Home extends GetView<HomeController> {
                   height: 20.h,
                 ),
                 Button(
-                  text: 'VIEW PROJECT',
+                  text: 'VIEW PROJECTS',
                   onTap: () {},
                   bgColor: AppColors.kRedColor,
                   height: 40.h,
@@ -195,26 +222,34 @@ class Home extends GetView<HomeController> {
                   height: 20.h,
                 ),
                 TextListing(
+                    margin: EdgeInsets.symmetric(horizontal: 30.0),
                     text: 'FEATURED LISTING',
-                    fontSize: 20.sp,
+                    fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
                     color: AppColors.blue),
+                SizedBox(
+                  height: 10.h,
+                ),
                 //Feautured Listing properties
-                ListingProperties(listingProperties: Listing.listings),
+                ListingProperties(listingModels: Listing.listingsModels),
+                SizedBox(
+                  height: 20.h,
+                ),
                 TextListing(
                     text: 'COMPANY NEWS',
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                     color: AppColors.blue),
                 SizedBox(
-                  height: 20.h,
+                  height: 10.h,
                 ),
                 TextListing(
                     text: 'Latest News and Events from ERA PH',
                     fontSize: 12.h,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                     color: AppColors.black),
-                    
+
+                CompanyGrid(companymodels: CompanyModels.companyNewsModels),
               ],
             ),
           ),

@@ -6,17 +6,20 @@ class TextListing extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   final Color color;
+  final EdgeInsetsGeometry? margin;
   const TextListing(
       {super.key,
       required this.text,
       required this.fontSize,
       required this.fontWeight,
-      required this.color});
+      required this.color,
+      this.margin
+      });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 35.0),
+      margin: margin ?? EdgeInsets.symmetric(horizontal: 18.0),
       child: Column(
         children: [
           FarmerText(
