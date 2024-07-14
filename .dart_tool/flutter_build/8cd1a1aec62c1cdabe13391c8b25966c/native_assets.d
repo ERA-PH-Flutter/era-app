@@ -1,0 +1,1 @@
+ C:\\src\\projects\\era-app\\.dart_tool\\flutter_build\\8cd1a1aec62c1cdabe13391c8b25966c\\native_assets.yaml: 

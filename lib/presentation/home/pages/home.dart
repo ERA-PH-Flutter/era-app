@@ -1,15 +1,21 @@
-
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:eraphilippines/app/models/listing.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
+import 'package:eraphilippines/app/widgets/app_divider.dart';
 import 'package:eraphilippines/app/widgets/app_nav_items.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
+import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
+import 'package:eraphilippines/app/widgets/listing_properties.dart';
 import 'package:eraphilippines/app/widgets/listing_widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:eraphilippines/app/widgets/radio_widgets.dart';
+import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,13 +28,8 @@ class Home extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> images = [
-      'assets/images/e1.JPG',
-      'assets/images/e2.JPG',
-      'assets/images/e3.JPG',
-    ];
-
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         leading: Image.asset(
           'assets/images/eraph_logo.png',
@@ -92,145 +93,54 @@ class Home extends GetView<HomeController> {
                   ],
                 ),
                 SizedBox(height: 40.h),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 25.w),
-                  padding: EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: AppColors.hint,
-                      width: 1.0,
-                    ),
-                  ),
-                  child: Container(
-                    padding: EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      color: AppColors.blue,
-                      borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(
-                        color: AppColors.hint,
-                        width: 1.0,
+                BoxWidget(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20.h),
+                      //Location
+                      AppTextField(
+                        hint: 'Location',
+                        svgIcon: 'assets/icons/marker.png',
+                        bgColor: AppColors.white,
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 20.h),
-                        //Location
-                        AppTextField(
-                          hint: 'Location',
-                          svgIcon: 'assets/icons/marker.png',
-                          bgColor: AppColors.white,
-                        ),
-
-                        //property type
-                        SizedBox(height: 20.h),
-
-                        AppTextField(
-                          hint: 'Location',
-                          svgIcon: 'assets/icons/house.png',
-                          bgColor: AppColors.white,
-                        ),
-                        //price range
-                        SizedBox(height: 20.h),
-
-                        AppTextField(
-                          hint: 'Location',
-                          svgIcon: 'assets/icons/money.png',
-                          bgColor: AppColors.white,
-                        ),
-                        //ai search
-                        SizedBox(height: 20.h),
-
-                        AppTextField(
-                          hint: 'Location',
-                          svgIcon: 'assets/icons/send.png',
-                          bgColor: AppColors.white,
-                        ),
-                        SizedBox(height: 20.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Row(
-                              children: [
-                                Transform.scale(
-                                  scale: 1.9,
-                                  child: Radio(
-                                    fillColor:
-                                        WidgetStatePropertyAll(AppColors.hint),
-                                    value: 1,
-                                    groupValue: null,
-                                    onChanged: null,
-                                  ),
-                                ),
-                                Text(
-                                  'SELL',
-                                  style: TextStyle(
-                                      color: AppColors.hint,
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w400),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Transform.scale(
-                                  scale: 1.9,
-                                  child: Radio(
-                                    fillColor:
-                                        WidgetStatePropertyAll(AppColors.hint),
-                                    value: 1,
-                                    groupValue: null,
-                                    onChanged: null,
-                                  ),
-                                ),
-                                Text(
-                                  'RENT',
-                                  style: TextStyle(
-                                      color: AppColors.hint,
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w400),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 5.0, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: AppColors.kRedColor,
-                            borderRadius: BorderRadius.circular(20.0),
+                      //property type
+                      SizedBox(height: 20.h),
+                      AppTextField(
+                        hint: 'Location',
+                        svgIcon: 'assets/icons/house.png',
+                        bgColor: AppColors.white,
+                      ),
+                      //price range
+                      SizedBox(height: 20.h),
+                      AppTextField(
+                        hint: 'Location',
+                        svgIcon: 'assets/icons/money.png',
+                        bgColor: AppColors.white,
+                      ),
+                      //ai search
+                      SizedBox(height: 20.h),
+                      AppTextField(
+                        hint: 'Location',
+                        svgIcon: 'assets/icons/send.png',
+                        bgColor: AppColors.white,
+                      ),
+                      SizedBox(height: 20.h),
+                      //radio widget
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          RadioWidgets(),
+                          RadioWidgets(
+                            text: 'RENT',
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    CupertinoIcons.search,
-                                    color: AppColors.white,
-                                    size: 30.sp,
-                                  )),
-                              FarmerText(
-                                text: 'Search',
-                                fontSize: 30.sp,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                        ],
+                      ),
+                      //search widget
+                      SearchWidget(),
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 30.h,
                 ),
                 ListingWidget(),
-                SizedBox(
-                  height: 20.h,
-                ),
                 TextListing(
                     text: 'PROJECTS',
                     fontSize: 24.sp,
@@ -250,69 +160,70 @@ class Home extends GetView<HomeController> {
                     fontWeight: FontWeight.bold,
                     color: AppColors.kRedColor),
                 SizedBox(height: 20.h),
-                //NOT SURE where folder to put this dynamic carousel slider
-                Container(
-                  padding: EdgeInsets.all(15.0),
-                  decoration: BoxDecoration(color: AppColors.carouselBgColor),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CarouselSlider(
-                          items: images.map((imagePath) {
-                            return Builder(builder: (BuildContext context) {
-                              return CustomImageViewer.show(
-                                  context: context,
-                                  url: imagePath,
-                                  fit: BoxFit.cover,
-                                  radius: 25.0);
-                            });
-                          }).toList(),
-                          options: CarouselOptions(
-                            enlargeCenterPage: true,
-                            autoPlay: true,
-                            enableInfiniteScroll: true,
-                            viewportFraction: 0.8,
-                          )),
-                    ],
-                  ),
-                ),
+                // haraya residences
+                Center(
+                    child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/images/haraya.jpeg",
+                      width: 241.w,
+                      height: 91.h,
+                    ),
+                    Text('by Shang Properties')
+                  ],
+                )),
                 SizedBox(
                   height: 20.h,
                 ),
-                Container(
-                  width: 360.w,
-                  height: 343.h,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/c1.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/images/eraph_logo.png',
-                        fit: BoxFit.cover,
-                        height: 50.h,
-                        width: 50.w,
-                      ),
-                      Text(''),
-                      Button(
-                        text: 'VIEW PROJECT',
-                        onTap: () {},
-                        bgColor: AppColors.white,
-                      ),
-                    ],
-                  ),
+                //NOT SURE where folder to put this dynamic carousel slider
+                CarouselSliderWidget(),
+                SizedBox(
+                  height: 20.h,
                 ),
+                Button(
+                  text: 'VIEW PROJECT',
+                  onTap: () {},
+                  bgColor: AppColors.kRedColor,
+                  height: 40.h,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                AppDivider(),
+                SizedBox(
+                  height: 20.h,
+                ),
+                TextListing(
+                    text: 'FEATURED LISTING',
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.blue),
+                //Feautured Listing properties
+                ListingProperties(listingProperties: Listing.listings),
+                TextListing(
+                    text: 'COMPANY NEWS',
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.blue),
+                SizedBox(
+                  height: 20.h,
+                ),
+                TextListing(
+                    text: 'Latest News and Events from ERA PH',
+                    fontSize: 12.h,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black),
+                    
               ],
             ),
           ),
         ),
       ),
+      //bottom navigation bar
       bottomNavigationBar: Obx(() {
         return CurvedNavigationBar(
-          height: 75.h,
+          height: 70.h,
           color: AppColors.blue,
           backgroundColor: Colors.white.withOpacity(0),
           buttonBackgroundColor: Colors.white.withOpacity(0),
@@ -324,7 +235,10 @@ class Home extends GetView<HomeController> {
                 ? item.selectedIcon
                 : item.defaultIcon;
 
-            return AppNavItems(iconPath: iconPath, label: item.label,isActive: controller.selectedIndex.value == currentIndex);
+            return AppNavItems(
+                iconPath: iconPath,
+                label: item.label,
+                isActive: controller.selectedIndex.value == currentIndex);
           }).toList(),
         );
       }),

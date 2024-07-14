@@ -34,9 +34,9 @@ class FarmerText extends StatelessWidget {
           TextStyle(
               decoration: textDecoration ?? TextDecoration.none,
               decorationColor: color ?? AppColors.black,
-              fontFamily: GoogleFonts.montserrat(
-                      fontWeight: fontWeight ?? FontWeight.w500)
-                  .fontFamily,
+              fontFamily:
+                  GoogleFonts.raleway(fontWeight: fontWeight ?? FontWeight.w500)
+                      .fontFamily,
               fontSize: fontSize ?? 13.sp,
               fontWeight: fontWeight ?? FontWeight.w500,
               color: color ?? AppColors.white,

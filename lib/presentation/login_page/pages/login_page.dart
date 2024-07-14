@@ -18,7 +18,7 @@ class LoginPage extends GetView<LoginPageController> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -27,7 +27,7 @@ class LoginPage extends GetView<LoginPageController> {
                     Image.asset(
                       "assets/images/eraph_logo.png",
                     ),
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 20.h),
                     Column(
                       children: [
                         SizedBox(height: 20.h),
@@ -49,7 +49,7 @@ class LoginPage extends GetView<LoginPageController> {
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide(
                                       color: AppColors.black,
-                                      width: 1.5,
+                                      width: 1,
                                     ),
                                   ),
                                   border: OutlineInputBorder(
@@ -60,40 +60,46 @@ class LoginPage extends GetView<LoginPageController> {
                             ),
                             SizedBox(height: 20.h),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 35),
-                              child: Obx(()=>TextFormField(
-                                controller: controller.password,
-                                obscureText: controller.passwordVisible.value,
-                                style: TextStyle(
-                                    color: AppColors.black, fontSize: 15.sp),
-                                decoration: InputDecoration(
-                                  hintText: 'Password',
-                                  hintStyle: TextStyle(color: AppColors.hint),
-                                  fillColor: AppColors.white,
-                                  filled: true,
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                        controller.passwordVisible.value ? CupertinoIcons.eye_fill : CupertinoIcons.eye_slash_fill
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 35),
+                                child: Obx(
+                                  () => TextFormField(
+                                    controller: controller.password,
+                                    obscureText:
+                                        controller.passwordVisible.value,
+                                    style: TextStyle(
+                                        color: AppColors.black,
+                                        fontSize: 15.sp),
+                                    decoration: InputDecoration(
+                                      hintText: 'Password',
+                                      hintStyle:
+                                          TextStyle(color: AppColors.hint),
+                                      fillColor: AppColors.white,
+                                      filled: true,
+                                      suffixIcon: IconButton(
+                                        icon: Icon(controller
+                                                .passwordVisible.value
+                                            ? CupertinoIcons.eye_fill
+                                            : CupertinoIcons.eye_slash_fill),
+                                        onPressed: () {
+                                          controller.passwordVisible.value =
+                                              !controller.passwordVisible.value;
+                                        },
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                          color: AppColors.black,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
                                     ),
-                                    onPressed: (){
-                                      controller.passwordVisible.value = !controller.passwordVisible.value;
-                                    },
                                   ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(
-                                      color: AppColors.black,
-                                      width: 1.5,
-                                    ),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                              ),)
-                            ),
-                            SizedBox(height: 20.h),
+                                )),
+                            SizedBox(height: 30.h),
                             Column(
                               children: [
                                 Button(
@@ -104,6 +110,8 @@ class LoginPage extends GetView<LoginPageController> {
                                   bgColor: AppColors.kRedColor,
                                   fontSize: 25.sp,
                                   fontWeight: FontWeight.w700,
+                                  width: 502.w,
+                                  height: 44.h,
                                 ),
                                 SizedBox(height: 20.h),
                                 GestureDetector(
@@ -124,6 +132,7 @@ class LoginPage extends GetView<LoginPageController> {
                     ),
                   ],
                 ),
+                SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -135,13 +144,10 @@ class LoginPage extends GetView<LoginPageController> {
                         height: 36,
                       ),
                     )),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FarmerText(
-                        text: 'or',
-                        color: AppColors.black,
-                        fontSize: 18.sp,
-                      ),
+                    FarmerText(
+                      text: 'or',
+                      color: AppColors.black,
+                      fontSize: 18.sp,
                     ),
                     Expanded(
                         child: Container(
@@ -197,6 +203,8 @@ class LoginPage extends GetView<LoginPageController> {
                   bgColor: AppColors.blue,
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w500,
+                  width: 502.w,
+                  height: 44.h,
                 ),
                 SizedBox(height: 30.h),
                 Button(
@@ -205,8 +213,10 @@ class LoginPage extends GetView<LoginPageController> {
                   },
                   text: "CREATE ACCOUNT",
                   bgColor: AppColors.kRedColor,
-                  fontSize: 25.sp,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w500,
+                  width: 502.w,
+                  height: 44.h,
                 ),
               ],
             ),

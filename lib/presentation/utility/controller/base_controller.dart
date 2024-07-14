@@ -10,16 +10,17 @@ import '../../../app/constants/colors.dart';
 import '../../../app/widgets/app_text.dart';
 import '../../../app/widgets/button.dart';
 
-mixin class BaseController{
-  showSuccessDialog(VoidCallback? hitApi,{
-        String title = 'Success',
-        String? description = 'Successfully',
-        cancelable = false,
-        cancelButton = "No",
-        okayButton = "Okay",
-        dismissible = false,
-        whenDone,
-      }) {
+mixin class BaseController {
+  showSuccessDialog(
+    VoidCallback? hitApi, {
+    String title = 'Success',
+    String? description = 'Successfully',
+    cancelable = false,
+    cancelButton = "No",
+    okayButton = "Okay",
+    dismissible = false,
+    whenDone,
+  }) {
     showCupertinoDialog(
       barrierDismissible: dismissible,
       context: Get.context!,
@@ -39,7 +40,9 @@ mixin class BaseController{
                 color: AppColors.primary,
                 fontSize: 25.sp,
               ),
-              SizedBox(height: 10.h,),
+              SizedBox(
+                height: 10.h,
+              ),
               FarmerText(
                 text: description ?? '',
                 fontWeight: FontWeight.w300,
@@ -47,7 +50,9 @@ mixin class BaseController{
                 fontSize: 16.sp,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 15.h,),
+              SizedBox(
+                height: 15.h,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -64,11 +69,13 @@ mixin class BaseController{
                         ),
                       ),
                     ),
-                  SizedBox(height: 10.w,),
+                  SizedBox(
+                    height: 10.w,
+                  ),
                   CupertinoButton(
                     color: AppColors.primary,
-                    padding: EdgeInsets.symmetric(vertical: 5.h,horizontal: 20.w),
-
+                    padding:
+                        EdgeInsets.symmetric(vertical: 5.h, horizontal: 20.w),
                     onPressed: () {
                       if (hitApi != null) {
                         hitApi();
@@ -93,6 +100,7 @@ mixin class BaseController{
       ),
     );
   }
+
   static void showLoading([String? message]) {
     showCupertinoDialog(
       barrierDismissible: false,
@@ -115,9 +123,11 @@ mixin class BaseController{
       ),
     );
   }
+
   static void hideLoading() {
     Get.back();
   }
+
   static void showErroDialog({
     VoidCallback? onTap,
     String title = 'Error',
@@ -142,25 +152,29 @@ mixin class BaseController{
                 fontWeight: FontWeight.w400,
                 color: Colors.red,
               ),
-              SizedBox(height: 10.h,),
+              SizedBox(
+                height: 10.h,
+              ),
               FarmerText(
                 text: description ?? '',
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w400,
                 color: Colors.black,
               ),
-              SizedBox(height: 10.h,),
+              SizedBox(
+                height: 10.h,
+              ),
               Button(
                 height: 48.h,
                 text: "Okay",
-                onTap: (){
+                onTap: () {
                   // if (hitApi != null) {
                   onTap!();
                   // }
                   // if (Get.isDialogOpen!)
                   Get.back();
                 },
-                color: AppColors.primary,
+                bgColor: AppColors.primary,
               ),
             ],
           ),
