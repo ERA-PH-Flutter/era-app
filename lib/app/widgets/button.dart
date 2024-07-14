@@ -1,7 +1,6 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Button extends StatelessWidget {
   final VoidCallback? onTap;
@@ -10,6 +9,8 @@ class Button extends StatelessWidget {
   final FontWeight? fontWeight;
   final double? fontSize;
   final TextStyle? style;
+  final double? height;
+  final Color? color;
 
   const Button(
       {super.key,
@@ -18,7 +19,10 @@ class Button extends StatelessWidget {
       this.bgColor,
       this.fontWeight,
       this.fontSize,
-      this.style});
+      this.style,
+      this.height,
+      this.color
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class Button extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 35 ),
-        height: 50.h,
+        height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: bgColor,
@@ -34,7 +38,7 @@ class Button extends StatelessWidget {
         child: Center(
             child: FarmerText(
           text: text,
-          color: AppColors.white,
+          color: color ?? AppColors.white,
           fontSize: fontSize,
           fontWeight: fontWeight,
         )),

@@ -13,7 +13,7 @@ class Authentication{
         password: password,
       );
     }on FirebaseAuthException catch(e){
-      print(e);
+      return null;
     }
     return auth.currentUser!.uid;
   }
@@ -36,10 +36,10 @@ class Authentication{
     try{
       await GoogleSignIn().signOut();
       await auth.signOut();
+      return "success";
     } on FirebaseAuthException catch(e){
-      print(e);
+      return "Error : $e";
     }
-
   }
   Future<dynamic> signInWithGoogle() async {
     try {
@@ -50,8 +50,9 @@ class Authentication{
         idToken: googleAuth?.idToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
+      return auth.currentUser!.uid;
     } on FirebaseAuthException catch (e) {
-      print(e);
+      return null;
     }
   }
 }

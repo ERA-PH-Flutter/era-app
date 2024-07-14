@@ -13,7 +13,6 @@ class CloudStorage{
             var userJson = jsonDecode(await ref.child('users/$uid').getDownloadURL());
             return User.fromJSON(userJson);
         }catch (e){
-            print(e);
             return User(id: "Unknown");
         }
     }
