@@ -25,7 +25,8 @@ class ListingCard extends StatelessWidget {
             left: 10.0,
             child: FarmerText(
               text: label,
-              fontSize: 15.sp,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
             ),
           )
         ],

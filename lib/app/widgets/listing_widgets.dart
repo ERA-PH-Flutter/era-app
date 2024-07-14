@@ -7,10 +7,10 @@ import 'package:get/get.dart';
 
 class ListingWidget extends StatelessWidget {
   final List<Map<String, String>> listings = [
-    {"image": "assets/images/c1.jpg", "label": "PRE-SELLING"},
-    {"image": "assets/images/c2.jpg", "label": "RESIDENTIAL"},
-    {"image": "assets/images/c1.jpg", "label": "COMMERCIAL"},
-    {"image": "assets/images/c2.jpg", "label": "RENTAL"},
+    {"image": "assets/images/Pre-Selling.jpg", "label": "PRE-SELLING"},
+    {"image": "assets/images/Residential.jpg", "label": "RESIDENTIAL"},
+    {"image": "assets/images/Commercial.jpg", "label": "COMMERCIAL"},
+    {"image": "assets/images/Rental.jpg", "label": "RENTAL"},
     {"image": "assets/images/c1.jpg", "label": "AUCTION"},
   ];
 

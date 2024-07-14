@@ -14,6 +14,11 @@ enum HomeState {
 
 class HomeController extends GetxController {
   var store = Get.find<LocalStorageService>();
+  var selectedIndex = 0.obs;
+
+  void changeIndex(int index) {
+    selectedIndex.value = index;
+  }
 }
  
 

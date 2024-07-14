@@ -17,7 +17,7 @@ class CustomImageViewer {
         borderRadius: BorderRadius.circular(radius ?? 8),
         border: Border.all(
           color: AppColors.white,
-          width: 2,
+          width: 1,
         ),
         image: DecorationImage(
           image: AssetImage(url),

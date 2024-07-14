@@ -41,6 +41,8 @@ class LoginPage extends GetView<LoginPageController> {
                         Column(
                           children: [
                             Container(
+                              width: 502.w,
+                              height: 45.h,
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 35),
                               child: TextFormField(
@@ -77,7 +79,9 @@ class LoginPage extends GetView<LoginPageController> {
                             //           fontSize: 15.sp,
                             //           fontWeight: FontWeight.bold)),
                             // ),
-                            Padding(
+                            Container(
+                              width: 502.w,
+                              height: 45.h,
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 35),
                               child: TextFormField(
@@ -117,6 +121,8 @@ class LoginPage extends GetView<LoginPageController> {
                                   bgColor: AppColors.kRedColor,
                                   fontSize: 25.sp,
                                   fontWeight: FontWeight.w700,
+                                  width: 502.w,
+                                  height: 44.h,
                                 ),
                                 SizedBox(height: 20.h),
                                 GestureDetector(
@@ -206,6 +212,8 @@ class LoginPage extends GetView<LoginPageController> {
                   onTap: () {
                     Get.toNamed("/home");
                   },
+                  width: 502.w,
+                  height: 44.h,
                   //maybe insert logo here "G"
                   text: "Sign in with Google",
                   bgColor: AppColors.blue,
@@ -217,10 +225,12 @@ class LoginPage extends GetView<LoginPageController> {
                   onTap: () {
                     Get.toNamed("/home");
                   },
-                  text: "CREATE ACCOUNT",
+                  width: 502.w,
+                  height: 44.h,
+                  text: "C R E A T E A C C O U N T",
                   bgColor: AppColors.kRedColor,
-                  fontSize: 25.sp,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w500,
                 ),
               ],
             ),

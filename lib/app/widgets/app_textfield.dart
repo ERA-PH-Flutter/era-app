@@ -72,7 +72,7 @@ class AppTextField extends StatelessWidget {
           color: AppColors.hint,
           height: 0.0,
           fontFamily:
-              GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
+              GoogleFonts.raleway(fontWeight: FontWeight.w500).fontFamily,
         ),
         suffix: isSuffix!
             ? GestureDetector(
@@ -81,9 +81,9 @@ class AppTextField extends StatelessWidget {
                   padding: EdgeInsets.only(right: 20.w),
                   child: GestureDetector(
                       onTap: onSuffixTap,
-                      child: SvgPicture.asset(
+                      child: Image.asset(
                         suffixIcons ?? AppSvgAssets.hide,
-                        height: 18.h,
+                        height: 25.h,
                         color:
                             obscureText! ? AppColors.hint : AppColors.primary,
                       )),
@@ -95,9 +95,9 @@ class AppTextField extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(15.w, 0, 7.5.w, 0),
-                    child: SvgPicture.asset(
+                    child: Image.asset(
                       svgIcon ?? AppSvgAssets.person,
-                      height: 18.h,
+                      height: 25.h,
                     ),
                   ),
                   if (countryPicker != null) ...[countryPicker!]

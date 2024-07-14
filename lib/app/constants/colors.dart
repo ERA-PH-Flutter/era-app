@@ -9,4 +9,5 @@ class AppColors {
   static Color kPrimaryColor = const Color(0xFF6F35A5);
   static Color blue = const Color(0xFF0D3279);
   static Color kRedColor = const Color(0xFF8A0B0B);
+  static Color carouselBgColor = const Color(0xFFC5B4A2);
 }

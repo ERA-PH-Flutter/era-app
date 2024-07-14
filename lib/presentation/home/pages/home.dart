@@ -1,18 +1,35 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:architecture/app/models/company_model.dart';
+import 'package:architecture/app/models/company_model.dart';
+import 'package:architecture/app/models/listing.dart';
+import 'package:architecture/app/models/navbaritems.dart';
+import 'package:architecture/app/widgets/app_divider.dart';
+import 'package:architecture/app/widgets/app_nav_items.dart';
 import 'package:architecture/app/widgets/app_text.dart';
 import 'package:architecture/app/widgets/app_text_listing.dart';
 import 'package:architecture/app/widgets/app_textfield.dart';
+import 'package:architecture/app/widgets/button.dart';
+import 'package:architecture/app/widgets/companynews_builder.dart';
 import 'package:architecture/app/widgets/custom_image_viewer.dart';
+import 'package:architecture/app/widgets/image_animation.dart';
+import 'package:architecture/app/widgets/listing_items.dart';
+import 'package:architecture/app/widgets/listing_properties.dart';
+import 'package:architecture/app/widgets/listing_properties.dart';
+
 import 'package:architecture/app/widgets/listing_widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:architecture/app/constants/colors.dart';
 import 'package:architecture/presentation/home/controllers/home_controller.dart';
+
+import '../../../app/models/company_model.dart';
 
 class Home extends GetView<HomeController> {
   const Home({super.key});
@@ -68,18 +85,18 @@ class Home extends GetView<HomeController> {
                       height: 250.h,
                       child: AnotherCarousel(
                         images: const [
-                          AssetImage("assets/images/c1.jpg"),
-                          AssetImage("assets/images/c1.jpg"),
-                          AssetImage("assets/images/c1.jpg"),
+                          AssetImage("assets/images/e1.JPG"),
+                          AssetImage("assets/images/e2.JPG"),
+                          AssetImage("assets/images/e3.JPG"),
                         ],
                         autoplay: true,
                         showIndicator: true,
                         dotColor: Colors.black,
-                        dotSize: 10,
+                        dotSize: 5,
                         dotBgColor: Colors.transparent,
                         borderRadius: false,
                         overlayShadow: false,
-                        indicatorBgPadding: 5,
+                        indicatorBgPadding: 15,
                         dotSpacing: 40,
                       ),
                     ),
@@ -113,32 +130,30 @@ class Home extends GetView<HomeController> {
                         //Location
                         AppTextField(
                           hint: 'Location',
-                          svgIcon: 'assets/icons/eraicon.svg',
+                          svgIcon: 'assets/icons/marker.png',
                           bgColor: AppColors.white,
                         ),
-
                         //property type
                         SizedBox(height: 20.h),
-
                         AppTextField(
-                          hint: 'Location',
-                          svgIcon: 'assets/icons/eraicon.svg',
+                          hint: 'Property Type',
+                          svgIcon: 'assets/icons/house.png',
                           bgColor: AppColors.white,
                         ),
                         //price range
                         SizedBox(height: 20.h),
 
                         AppTextField(
-                          hint: 'Location',
-                          svgIcon: 'assets/icons/eraicon.svg',
+                          hint: 'Price Range',
+                          svgIcon: 'assets/icons/money.png',
                           bgColor: AppColors.white,
                         ),
                         //ai search
                         SizedBox(height: 20.h),
 
                         AppTextField(
-                          hint: 'Location',
-                          svgIcon: 'assets/icons/eraicon.svg',
+                          hint: 'Try AI Search',
+                          svgIcon: 'assets/icons/send.png',
                           bgColor: AppColors.white,
                         ),
                         SizedBox(height: 20.h),
@@ -220,9 +235,7 @@ class Home extends GetView<HomeController> {
                   ),
                 ),
                 ListingWidget(),
-                SizedBox(
-                  height: 20.h,
-                ),
+
                 TextListing(
                     text: 'PROJECTS',
                     fontSize: 24.sp,
@@ -242,10 +255,16 @@ class Home extends GetView<HomeController> {
                     fontWeight: FontWeight.bold,
                     color: AppColors.kRedColor),
                 SizedBox(height: 20.h),
+                Center(
+                  child: Image.asset(
+                    "assets/images/haraya.jpeg",
+                    width: 241.w,
+                    height: 91.h,
+                  ),
+                ),
                 //NOT SURE where folder to put this dynamic carousel slider
                 Container(
-                  padding: EdgeInsets.all(15.0),
-                  decoration: BoxDecoration(color: AppColors.hint),
+                  decoration: BoxDecoration(color: AppColors.carouselBgColor),
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -261,18 +280,82 @@ class Home extends GetView<HomeController> {
                           }).toList(),
                           options: CarouselOptions(
                             enlargeCenterPage: true,
+                            enlargeStrategy: CenterPageEnlargeStrategy.zoom,
                             autoPlay: true,
                             enableInfiniteScroll: true,
-                            viewportFraction: 0.8,
+                            viewportFraction: 0.80,
+                            enlargeFactor: .4,
                           )),
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Button(
+                  text: 'VIEW PROJECT',
+                  onTap: () {},
+                  bgColor: AppColors.kRedColor,
+                  height: 40.h,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                //divider
+                AppDivider(),
+                SizedBox(
+                  height: 20.h,
+                ),
+                TextListing(
+                    text: 'FEATURED LISTING',
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.blue),
+                ListingProperties(listingProperties: Listing.listings),
+                TextListing(
+                    text: 'COMPANY NEWS',
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.blue),
+                SizedBox(
+                  height: 20.h,
+                ),
+                TextListing(
+                    text: 'Latest News and Events from ERA PH',
+                    fontSize: 12.h,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black),
+                CompanynewsBuilder(companymodels: CompanyNewsModel.companynews),
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: Obx(() {
+        return CurvedNavigationBar(
+          height: 70.h,
+          color: AppColors.blue,
+          backgroundColor: Colors.white.withOpacity(0),
+          buttonBackgroundColor: Colors.white.withOpacity(0),
+          index: controller.selectedIndex.value,
+          onTap: controller.changeIndex,
+          items: navBarItems.map((item) {
+            int currentIndex = navBarItems.indexOf(item);
+            String iconPath = controller.selectedIndex.value == currentIndex
+                ? item.selectedIcon
+                : item.defaultIcon;
+
+            return Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: AppNavItems(
+                  iconPath: iconPath,
+                  label: item.label,
+                  isActive: controller.selectedIndex.value == currentIndex),
+            );
+          }).toList(),
+        );
+      }),
     );
   }
 }
