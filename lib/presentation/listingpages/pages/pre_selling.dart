@@ -12,7 +12,7 @@ class PreSelling extends GetView<HomeController> {
       body: const SafeArea(
         child: Column(
           children: [
-            FarmerText(
+            EraText(
               text: 'PRE-SELLING',
               fontSize: 50.0,
               fontWeight: FontWeight.bold,

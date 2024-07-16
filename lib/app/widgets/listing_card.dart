@@ -23,7 +23,7 @@ class ListingCard extends StatelessWidget {
           Positioned(
             bottom: 10.0,
             left: 10.0,
-            child: FarmerText(
+            child: EraText(
               text: label,
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,

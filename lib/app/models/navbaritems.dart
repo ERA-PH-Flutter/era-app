@@ -1,41 +1,47 @@
+import 'package:get/get.dart';
+
 class AppPngAssets {
   final String defaultIcon;
   final String selectedIcon;
   final String label;
   final String selectedLabel;
+  final Function? onTap;
 
   AppPngAssets(
       {required this.defaultIcon,
       required this.selectedIcon,
       required this.label,
-      required this.selectedLabel});
+      required this.selectedLabel,
+      this.onTap});
 }
 
 List<AppPngAssets> navBarItems = [
   AppPngAssets(
       defaultIcon: "assets/icons/home-navi_white.png",
       selectedIcon: "assets/icons/home-navi.png",
-      label: "Home",
-      selectedLabel: "Home"),
+      label: "HOME",
+      selectedLabel: "HOME",
+      onTap: () => Get.toNamed("/home")),
+  AppPngAssets(
+      defaultIcon: "assets/icons/project.png",
+      selectedIcon: "assets/icons/project1.png",
+      label: "PROJECTS",
+      selectedLabel: "PROJECTS",
+      onTap: () => Get.toNamed("/project")),
   AppPngAssets(
       defaultIcon: "assets/icons/search-navi_white.png",
       selectedIcon: "assets/icons/search-navi.png",
-      label: "Search",
-      selectedLabel: "Search"),
+      label: "SEARCH",
+      selectedLabel: "SEARCH",
+      onTap: () => Get.toNamed("/project")),
   AppPngAssets(
-    defaultIcon: "assets/icons/favs-navi_white.png",
-    selectedIcon: "assets/icons/favs-navi.png",
-    label: "Favorites",
-    selectedLabel: "Favorites",
-  ),
+      defaultIcon: "assets/icons/findagents.png",
+      selectedIcon: "assets/icons/findagents1.png",
+      label: "FIND AGENTS",
+      selectedLabel: "FIND AGENTS"),
   AppPngAssets(
-      defaultIcon: "assets/icons/mail-navi_white.png",
-      selectedIcon: "assets/icons/mail-navi.png",
-      label: "Mail",
-      selectedLabel: "Mail"),
-  AppPngAssets(
-      defaultIcon: "assets/icons/training-navi_white.png",
-      selectedIcon: "assets/icons/training-navi.png",
-      label: "Training",
-      selectedLabel: "Training"),
+      defaultIcon: "assets/icons/help.png",
+      selectedIcon: "assets/icons/help1.png",
+      label: "HELP",
+      selectedLabel: "HELP"),
 ];

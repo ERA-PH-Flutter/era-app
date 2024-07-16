@@ -21,15 +21,13 @@ class SearchWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-              onPressed: () {
-
-              },
+              onPressed: () {},
               icon: Icon(
                 CupertinoIcons.search,
                 color: AppColors.white,
                 size: 30.sp,
               )),
-          FarmerText(
+          EraText(
             text: 'SEARCH',
             fontSize: 30.sp,
             fontWeight: FontWeight.w300,

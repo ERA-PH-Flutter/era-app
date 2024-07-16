@@ -70,7 +70,7 @@ class CompanyItems extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: FarmerText(
+                        child: EraText(
                           text: '${companyItems.title}',
                           fontSize: 16.sp,
                           color: AppColors.kRedColor,
@@ -79,7 +79,7 @@ class CompanyItems extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: FarmerText(
+                        child: EraText(
                           text: '${companyItems.description}',
                           fontSize: 16.sp,
                           color: Colors.black,

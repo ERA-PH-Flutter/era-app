@@ -29,7 +29,7 @@ class ListingItems extends StatelessWidget {
             SizedBox(
               height: 15.h,
             ),
-            FarmerText(
+            EraText(
               text: '${listingItems.type}',
               fontSize: 16.sp,
               color: AppColors.kRedColor,
@@ -45,7 +45,7 @@ class ListingItems extends StatelessWidget {
                     width: 47.w,
                     height: 46.h,
                   ),
-                  FarmerText(
+                  EraText(
                     text: '${listingItems.areas} sqm',
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
@@ -57,7 +57,7 @@ class ListingItems extends StatelessWidget {
                     width: 47.w,
                     height: 46.h,
                   ),
-                  FarmerText(
+                  EraText(
                     text: '${listingItems.beds}',
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
@@ -69,7 +69,7 @@ class ListingItems extends StatelessWidget {
                     width: 47.w,
                     height: 46.h,
                   ),
-                  FarmerText(
+                  EraText(
                     text: '${listingItems.baths}',
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
@@ -81,7 +81,7 @@ class ListingItems extends StatelessWidget {
                     width: 47.w,
                     height: 46.h,
                   ),
-                  FarmerText(
+                  EraText(
                     text: '${listingItems.cars}',
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
@@ -90,7 +90,7 @@ class ListingItems extends StatelessWidget {
                 ],
               ),
             ),
-            FarmerText(
+            EraText(
               text: 'Description:',
               fontSize: 16.sp,
               color: AppColors.black,
@@ -109,7 +109,7 @@ class ListingItems extends StatelessWidget {
             SizedBox(
               height: 5.h,
             ),
-            FarmerText(
+            EraText(
               text: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
                   .format(listingItems.price),
               // text: 'PHP ${listingItems.price}',
@@ -117,7 +117,7 @@ class ListingItems extends StatelessWidget {
               fontSize: 23.sp,
               fontWeight: FontWeight.bold,
             ),
-            FarmerText(
+            EraText(
               text: 'Listed By:',
               fontWeight: FontWeight.bold,
               fontSize: 12.sp,
@@ -142,13 +142,13 @@ class ListingItems extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FarmerText(
+                    EraText(
                       text: listingItems.agentName,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                     ),
-                    FarmerText(
+                    EraText(
                       text: listingItems.agents,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,

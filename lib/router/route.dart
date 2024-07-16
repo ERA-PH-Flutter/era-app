@@ -4,6 +4,7 @@ import 'package:eraphilippines/presentation/listingpages/controllers/listing_bin
 import 'package:eraphilippines/presentation/listingpages/pages/auction.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/commercial.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/pre_selling.dart';
+import 'package:eraphilippines/presentation/listingpages/pages/project.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/rental.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/residential.dart';
 import 'package:eraphilippines/presentation/login_page/pages/login_page.dart';
@@ -48,6 +49,10 @@ appRoutes() => [
       GetPage(
           name: RouteString.auction,
           page: () => const Auction(),
+          binding: ListingBinding()),
+      GetPage(
+          name: RouteString.project,
+          page: () => const ProjectPage(),
           binding: ListingBinding()),
     ];
 

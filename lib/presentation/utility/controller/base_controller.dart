@@ -34,7 +34,7 @@ mixin class BaseController {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              FarmerText(
+              EraText(
                 text: title,
                 fontWeight: FontWeight.w500,
                 color: AppColors.primary,
@@ -43,7 +43,7 @@ mixin class BaseController {
               SizedBox(
                 height: 10.h,
               ),
-              FarmerText(
+              EraText(
                 text: description ?? '',
                 fontWeight: FontWeight.w300,
                 color: AppColors.black,
@@ -146,7 +146,7 @@ mixin class BaseController {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              FarmerText(
+              EraText(
                 text: title,
                 fontSize: 22.sp,
                 fontWeight: FontWeight.w400,
@@ -155,7 +155,7 @@ mixin class BaseController {
               SizedBox(
                 height: 10.h,
               ),
-              FarmerText(
+              EraText(
                 text: description ?? '',
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w400,

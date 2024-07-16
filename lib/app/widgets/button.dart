@@ -45,7 +45,7 @@ class Button extends StatelessWidget {
             color: bgColor,
           ),
           child: Center(
-              child: FarmerText(
+              child: EraText(
             text: text,
             color: AppColors.white,
             fontSize: fontSize,

@@ -13,8 +13,7 @@ class TextListing extends StatelessWidget {
       required this.fontSize,
       required this.fontWeight,
       required this.color,
-      this.margin
-      });
+      this.margin});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class TextListing extends StatelessWidget {
       margin: margin ?? EdgeInsets.symmetric(horizontal: 18.0),
       child: Column(
         children: [
-          FarmerText(
+          EraText(
             text: text,
             fontSize: fontSize,
             fontWeight: fontWeight,

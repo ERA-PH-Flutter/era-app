@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants/colors.dart';
 
-class FarmerText extends StatelessWidget {
+class EraText extends StatelessWidget {
   final String text;
   final TextStyle? style;
   final double? fontSize;
@@ -14,18 +14,20 @@ class FarmerText extends StatelessWidget {
   final TextOverflow? textOverflow;
   final TextDecoration? textDecoration;
   final int? maxLines;
-  const FarmerText(
-      {required this.text,
-      this.style,
-      super.key,
-      this.fontSize,
-      this.lineHeight,
-      this.color,
-      this.fontWeight,
-      this.textAlign,
-      this.textOverflow,
-      this.textDecoration,
-      this.maxLines});
+
+  const EraText({
+    required this.text,
+    this.style,
+    super.key,
+    this.fontSize,
+    this.lineHeight,
+    this.color,
+    this.fontWeight,
+    this.textAlign,
+    this.textOverflow,
+    this.textDecoration,
+    this.maxLines,
+  });
 
   @override
   Widget build(BuildContext context) {

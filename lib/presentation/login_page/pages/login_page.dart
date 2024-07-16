@@ -118,7 +118,7 @@ class LoginPage extends GetView<LoginPageController> {
                                   onTap: () {
                                     // Get.toNamed("");
                                   },
-                                  child: FarmerText(
+                                  child: EraText(
                                     text: 'Forgot Password?',
                                     color: AppColors.black,
                                     fontSize: 18.sp,
@@ -144,7 +144,7 @@ class LoginPage extends GetView<LoginPageController> {
                         height: 36,
                       ),
                     )),
-                    FarmerText(
+                    EraText(
                       text: 'or',
                       color: AppColors.black,
                       fontSize: 18.sp,
@@ -177,14 +177,14 @@ class LoginPage extends GetView<LoginPageController> {
                 //     child: Row(
                 //       mainAxisAlignment: MainAxisAlignment.center,
                 //       children: [
-                //         FarmerText(
+                //         EraText(
                 //           text: 'G',
                 //           color: AppColors.white,
                 //           fontSize: 30.sp,
                 //           fontWeight: FontWeight.bold,
                 //         ),
                 //         SizedBox(width: 10.w),
-                //         FarmerText(
+                //         EraText(
                 //           text: 'Sign in with Google',
                 //           color: AppColors.white,
                 //           fontSize: 15.sp,

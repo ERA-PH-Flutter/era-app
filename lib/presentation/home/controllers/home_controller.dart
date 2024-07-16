@@ -1,4 +1,4 @@
-
+import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
@@ -14,8 +14,10 @@ class HomeController extends GetxController {
   var selectedIndex = 0.obs;
 
   void changeIndex(int index) {
+    navBarItems[index].onTap?.call();
     selectedIndex.value = index;
   }
+
   var currentTab = 0.obs;
   void changeTab(int index) {
     currentTab.value = index;
@@ -23,7 +25,7 @@ class HomeController extends GetxController {
 
   var store = Get.find<LocalStorageService>();
 
-  logout(){
+  logout() {
     Authentication().logout();
     Get.offAllNamed(RouteString.loginpage);
   }

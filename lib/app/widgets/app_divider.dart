@@ -36,7 +36,7 @@ class AppDivider extends StatelessWidget {
             height: 152.h,
             width: 157.w,
           ),
-          FarmerText(
+          EraText(
             text: text ??
                 '     CONNECT WORLDS, BUILD\nDREAMS WITH ERA PHILIPPINES:\n  YOUR REAL ESTATE AGENCY\n             PARTNER FOR LIFE',
             color: color ?? AppColors.white,

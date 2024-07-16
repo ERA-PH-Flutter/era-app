@@ -6,22 +6,30 @@ class AppNavItems extends StatelessWidget {
   final String iconPath;
   final String label;
   final bool isActive;
-  const AppNavItems({super.key, required this.iconPath, required this.label,required this.isActive});
+  final Function? onTap;
+  const AppNavItems(
+      {super.key,
+      required this.iconPath,
+      required this.label,
+      required this.isActive,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    if(isActive){
-      return Stack(
-        children: [
-          Image.asset(
-            iconPath,
-            width: 50.w,
-            height: 50.h,
-          ),
-        ],
-
+    if (isActive) {
+      return GestureDetector(
+        onTap: onTap as void Function()?,
+        child: Stack(
+          children: [
+            Image.asset(
+              iconPath,
+              width: 50.w,
+              height: 50.h,
+            ),
+          ],
+        ),
       );
-    }else{
+    } else {
       return Container(
         height: 100.h,
         alignment: Alignment.center,
@@ -34,16 +42,16 @@ class AppNavItems extends StatelessWidget {
               width: 40.w,
               height: 40.h,
             ),
-
             Text(
               label,
               style: TextStyle(fontSize: 12.sp, color: CupertinoColors.white),
             ),
-            SizedBox(height: 5.h,)
+            SizedBox(
+              height: 5.h,
+            )
           ],
         ),
       );
     }
-
   }
 }

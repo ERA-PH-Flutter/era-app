@@ -13,7 +13,7 @@ class ListingProperties extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 560.h,
+      height: 570.h,
       child: GridView.builder(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.all(20),

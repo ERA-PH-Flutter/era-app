@@ -1,7 +1,9 @@
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/listing.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
+import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
 import 'package:eraphilippines/app/widgets/app_nav_items.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -12,6 +14,8 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/company_grid.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
+import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
+import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/app/widgets/listing_properties.dart';
 import 'package:eraphilippines/app/widgets/listing_widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -188,22 +192,15 @@ class Home extends GetView<HomeController> {
                     color: AppColors.kRedColor),
                 SizedBox(height: 20.h),
                 // haraya residences
-                Center(
-                    child: Column(
-                  children: [
-                    Image.asset(
-                      "assets/images/haraya.jpeg",
-                      width: 241.w,
-                      height: 91.h,
-                    ),
-                    Text('by Shang Properties')
-                  ],
-                )),
+                ProjectDivider(),
+
                 SizedBox(
                   height: 20.h,
                 ),
                 //NOT SURE where folder to put this dynamic carousel slider
-                CarouselSliderWidget(),
+                CarouselSliderWidget(
+                  images: CarouselModels.carouselModels,
+                ),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -255,28 +252,30 @@ class Home extends GetView<HomeController> {
           ),
         ),
       ),
+      bottomNavigationBar:
+          CustomNavigationBar(navBarItems: navBarItems, controller: controller),
       //bottom navigation bar
-      bottomNavigationBar: Obx(() {
-        return CurvedNavigationBar(
-          height: 70.h,
-          color: AppColors.blue,
-          backgroundColor: Colors.white.withOpacity(0),
-          buttonBackgroundColor: Colors.white.withOpacity(0),
-          index: controller.selectedIndex.value,
-          onTap: controller.changeIndex,
-          items: navBarItems.map((item) {
-            int currentIndex = navBarItems.indexOf(item);
-            String iconPath = controller.selectedIndex.value == currentIndex
-                ? item.selectedIcon
-                : item.defaultIcon;
+      // bottomNavigationBar: Obx(() {
+      //   return CurvedNavigationBar(
+      //     height: 70.h,
+      //     color: AppColors.blue,
+      //     backgroundColor: Colors.white.withOpacity(0),
+      //     buttonBackgroundColor: Colors.white.withOpacity(0),
+      //     index: controller.selectedIndex.value,
+      //     onTap: controller.changeIndex,
+      //     items: navBarItems.map((item) {
+      //       int currentIndex = navBarItems.indexOf(item);
+      //       String iconPath = controller.selectedIndex.value == currentIndex
+      //           ? item.selectedIcon
+      //           : item.defaultIcon;
 
-            return AppNavItems(
-                iconPath: iconPath,
-                label: item.label,
-                isActive: controller.selectedIndex.value == currentIndex);
-          }).toList(),
-        );
-      }),
+      //       return AppNavItems(
+      //           iconPath: iconPath,
+      //           label: item.label,
+      //           isActive: controller.selectedIndex.value == currentIndex);
+      //     }).toList(),
+      //   );
+      // }),
       // bottomNavigationBar: BottomNavigationBar(
       //   items: const <BottomNavigationBarItem>[
       //     BottomNavigationBarItem(
