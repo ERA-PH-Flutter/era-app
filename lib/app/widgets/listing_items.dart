@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../constants/colors.dart';
@@ -17,7 +18,7 @@ class ListingItems extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -34,56 +35,60 @@ class ListingItems extends StatelessWidget {
               color: AppColors.kRedColor,
               fontWeight: FontWeight.bold,
             ),
-            Row(
-              children: [
-                Image.asset(
-                  listingItems.area,
-                  width: 47.w,
-                  height: 46.h,
-                ),
-                FarmerText(
-                  text: '${listingItems.areas} sqm',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black,
-                ),
-                SizedBox(width: 2.w),
-                Image.asset(
-                  listingItems.bed,
-                  width: 47.w,
-                  height: 46.h,
-                ),
-                FarmerText(
-                  text: '${listingItems.beds}',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black,
-                ),
-                SizedBox(width: 2.w),
-                Image.asset(
-                  listingItems.bath,
-                  width: 47.w,
-                  height: 46.h,
-                ),
-                FarmerText(
-                  text: '${listingItems.baths}',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black,
-                ),
-                SizedBox(width: 2.w),
-                Image.asset(
-                  listingItems.car,
-                  width: 47.w,
-                  height: 46.h,
-                ),
-                FarmerText(
-                  text: '${listingItems.cars}',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black,
-                ),
-              ],
+            Container(
+              child: Row(
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    listingItems.area,
+                    width: 47.w,
+                    height: 46.h,
+                  ),
+                  FarmerText(
+                    text: '${listingItems.areas} sqm',
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black,
+                  ),
+                  SizedBox(width: 2.w),
+                  Image.asset(
+                    listingItems.bed,
+                    width: 47.w,
+                    height: 46.h,
+                  ),
+                  FarmerText(
+                    text: '${listingItems.beds}',
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black,
+                  ),
+                  SizedBox(width: 2.w),
+                  Image.asset(
+                    listingItems.bath,
+                    width: 47.w,
+                    height: 46.h,
+                  ),
+                  FarmerText(
+                    text: '${listingItems.baths}',
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black,
+                  ),
+                  SizedBox(width: 2.w),
+                  Image.asset(
+                    listingItems.car,
+                    width: 47.w,
+                    height: 46.h,
+                  ),
+                  FarmerText(
+                    text: '${listingItems.cars}',
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black,
+                  ),
+                ],
+              ),
             ),
             FarmerText(
               text: 'Description:',
