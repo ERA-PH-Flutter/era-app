@@ -1,13 +1,16 @@
 import 'package:eraphilippines/presentation/base/controllers/base_binding.dart';
+import 'package:eraphilippines/presentation/contactus/controllers/contact_us_binding.dart';
+import 'package:eraphilippines/presentation/contactus/pages/contact_us.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_binding.dart';
 import 'package:eraphilippines/presentation/listingpages/controllers/listing_binding.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/auction.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/commercial.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/pre_selling.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/project.dart';
+import 'package:eraphilippines/presentation/listingpages/pages/projectmain.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/rental.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/residential.dart';
-import 'package:eraphilippines/presentation/login_page/pages/login_page.dart';
+import 'package:eraphilippines/presentation/authentication/pages/login_page.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/route_middleware.dart';
@@ -54,6 +57,14 @@ appRoutes() => [
           name: RouteString.project,
           page: () => const ProjectPage(),
           binding: ListingBinding()),
+      GetPage(
+          name: RouteString.projectmain,
+          page: () => const ProjectMain(),
+          binding: ListingBinding()),
+      GetPage(
+          name: RouteString.contactus,
+          page: () => const ContactUs(),
+          binding: ContactUsBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

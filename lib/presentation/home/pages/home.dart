@@ -13,6 +13,7 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/company_grid.dart';
+import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
@@ -36,38 +37,39 @@ class Home extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        leading: Image.asset(
-          'assets/images/eraph_logo.png',
-          fit: BoxFit.cover,
-          height: 64.h,
-          width: 64.w,
-        ),
-        backgroundColor: AppColors.white,
-        // leading: Padding(
-        //   padding: const EdgeInsets.only(left: 10.0),
-        //   child: IconButton(
-        //     icon: Icon(
-        //       CupertinoIcons.profile_circled,
-        //       color: AppColors.white,
-        //     ),
-        //     iconSize: 45,
-        //     onPressed: () {},
-        //   ),
-        // ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.bars,
-              color: AppColors.hint,
-            ),
-            iconSize: 50,
-            onPressed: () {
-              controller.logout();
-            },
-          )
-        ],
-      ),
+      appBar: CustomAppbar(),
+      // AppBar(
+      // leading: Image.asset(
+      //   'assets/images/eraph_logo.png',
+      //   fit: BoxFit.cover,
+      //   height: 64.h,
+      //   width: 64.w,
+      // ),
+      // backgroundColor: AppColors.white,
+      // leading: Padding(
+      //   padding: const EdgeInsets.only(left: 10.0),
+      //   child: IconButton(
+      //     icon: Icon(
+      //       CupertinoIcons.profile_circled,
+      //       color: AppColors.white,
+      //     ),
+      //     iconSize: 45,
+      //     onPressed: () {},
+      //   ),
+      // ),
+      // actions: [
+      //   IconButton(
+      //     icon: Icon(
+      //       CupertinoIcons.bars,
+      //       color: AppColors.hint,
+      //     ),
+      //     iconSize: 50,
+      //     onPressed: () {
+      //       controller.logout();
+      //     },
+      //   )
+      // ],
+      // ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SafeArea(
@@ -101,9 +103,10 @@ class Home extends GetView<HomeController> {
                         left: 0,
                         child: IconButton(
                           onPressed: () {},
-                          icon: Icon(
-                            CupertinoIcons.arrow_left,
-                            size: 20,
+                          icon: Image.asset(
+                            'assets/icons/next.png',
+                            height: 20.h,
+                            width: 20.w,
                           ),
                           color: AppColors.white,
                         )),
@@ -112,9 +115,10 @@ class Home extends GetView<HomeController> {
                         right: 0,
                         child: IconButton(
                           onPressed: () {},
-                          icon: Icon(
-                            CupertinoIcons.arrow_right,
-                            size: 20,
+                          icon: Image.asset(
+                            'assets/icons/next-r.png',
+                            height: 20.h,
+                            width: 20.w,
                           ),
                           color: AppColors.white,
                         )),
@@ -169,18 +173,16 @@ class Home extends GetView<HomeController> {
                   ),
                 ),
                 ListingWidget(),
-                TextListing(
-                    margin: EdgeInsets.symmetric(horizontal: 30.0),
-                    text: 'PROJECTS',
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blue),
-                TextListing(
-                    margin: EdgeInsets.symmetric(horizontal: 30.0),
-                    text: 'Perspective by ERA Research & Market Intelligence',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black),
+                // TextListing(
+                //     margin: EdgeInsets.symmetric(horizontal: 30.0),
+                //     text: 'PROJECTS',
+                //     fontSize: 24.sp,
+                //     fontWeight: FontWeight.w600,
+                //     color: AppColors.blue),
+                TextListing.projectTitle(
+                    24.sp, FontWeight.w600, AppColors.blue),
+                TextListing.projectSubtitle(
+                    12.sp, FontWeight.w500, AppColors.black),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -192,7 +194,8 @@ class Home extends GetView<HomeController> {
                     color: AppColors.kRedColor),
                 SizedBox(height: 20.h),
                 // haraya residences
-                ProjectDivider(),
+                ProjectDivider(
+                    textImage: ProjectTextImageModels.textImageModels),
 
                 SizedBox(
                   height: 20.h,
@@ -206,7 +209,9 @@ class Home extends GetView<HomeController> {
                 ),
                 Button(
                   text: 'VIEW PROJECTS',
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed("/project");
+                  },
                   bgColor: AppColors.kRedColor,
                   height: 40.h,
                   borderRadius: BorderRadius.circular(30),
@@ -214,7 +219,9 @@ class Home extends GetView<HomeController> {
                 SizedBox(
                   height: 40.h,
                 ),
-                AppDivider(),
+                AppDivider(
+                  button: true,
+                ),
                 SizedBox(
                   height: 20.h,
                 ),

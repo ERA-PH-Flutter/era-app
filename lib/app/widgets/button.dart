@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Button extends StatelessWidget {
   final VoidCallback? onTap;
-  final String text;
+  final String? text;
   final Color? bgColor;
   final FontWeight? fontWeight;
   final double? fontSize;
@@ -19,7 +19,7 @@ class Button extends StatelessWidget {
   const Button({
     super.key,
     this.onTap,
-    required this.text,
+      this.text,
     this.bgColor,
     this.fontWeight,
     this.fontSize,
@@ -46,7 +46,7 @@ class Button extends StatelessWidget {
           ),
           child: Center(
               child: EraText(
-            text: text,
+            text: text ?? '',
             color: AppColors.white,
             fontSize: fontSize,
             fontWeight: fontWeight,

@@ -27,7 +27,7 @@ List<AppPngAssets> navBarItems = [
       selectedIcon: "assets/icons/project1.png",
       label: "PROJECTS",
       selectedLabel: "PROJECTS",
-      onTap: () => Get.toNamed("/project")),
+      onTap: () => Get.toNamed("/project-main")),
   AppPngAssets(
       defaultIcon: "assets/icons/search-navi_white.png",
       selectedIcon: "assets/icons/search-navi.png",
@@ -43,5 +43,6 @@ List<AppPngAssets> navBarItems = [
       defaultIcon: "assets/icons/help.png",
       selectedIcon: "assets/icons/help1.png",
       label: "HELP",
-      selectedLabel: "HELP"),
+      selectedLabel: "HELP",
+      onTap: () => Get.toNamed("/contactus")),
 ];

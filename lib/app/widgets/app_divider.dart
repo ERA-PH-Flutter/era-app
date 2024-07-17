@@ -10,8 +10,10 @@ class AppDivider extends StatelessWidget {
   final String? text;
   final Color? color;
   final double? fontSize;
+  final bool? button;
 
-  const AppDivider({super.key, this.text, this.color, this.fontSize});
+  const AppDivider(
+      {super.key, this.text, this.color, this.fontSize, this.button});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,6 @@ class AppDivider extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -42,22 +43,17 @@ class AppDivider extends StatelessWidget {
             color: color ?? AppColors.white,
             fontSize: 16.sp,
           ),
-          Button(
-            text: 'VIEW MORE PROJECTS',
-            onTap: () {},
-            bgColor: AppColors.kRedColor,
-            height: 40.h,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          //FEATURED LISTINGS
+          if (button == true)
+            Button(
+              text: 'VIEW MORE PROJECTS',
+              onTap: () {},
+              bgColor: AppColors.kRedColor,
+              height: 40.h,
+              borderRadius: BorderRadius.circular(30),
+            ),
         ],
       ),
-      // child: Column(
-      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //   children: [
-
-      //   ],
-      // ),
     );
   }
+
 }

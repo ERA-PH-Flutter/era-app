@@ -14,16 +14,17 @@ enum ImageSet { set1, set2 }
 
 class CarouselSliderWidget extends StatelessWidget {
   final List<CarouselModels> images;
-  const CarouselSliderWidget({super.key, required this.images});
+  final Color? color;
+  const CarouselSliderWidget({super.key, required this.images, this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-      decoration: BoxDecoration(color: AppColors.carouselBgColor),
+      decoration: BoxDecoration(color: color ?? AppColors.carouselBgColor),
       child: Stack(
         children: [
-           CarouselSlider(
+          CarouselSlider(
             items: images.map((images) {
               return Builder(builder: (BuildContext context) {
                 return CustomImage(

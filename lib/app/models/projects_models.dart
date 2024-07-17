@@ -1,7 +1,6 @@
 class ProjectsModels1 {
   final String heroImage;
-  final String imageText;
-  final String text;
+
   final String text1;
   final String text2;
   final String text3;
@@ -33,8 +32,6 @@ class ProjectsModels1 {
   final String text17;
   ProjectsModels1({
     required this.heroImage,
-    required this.imageText,
-    required this.text,
     required this.text1,
     required this.text2,
     required this.text3,
@@ -65,8 +62,6 @@ class ProjectsModels1 {
   static List<ProjectsModels1> projects = [
     ProjectsModels1(
       heroImage: 'assets/images/harayawithText.png',
-      imageText: 'assets/images/haraya.jpeg',
-      text: 'by Shang Properties',
       text1: 'EXPERIENCE HARAYA',
       text2: 'Explore Haraya Residences in\n3D Tour',
       text3:
@@ -75,7 +70,7 @@ class ProjectsModels1 {
       text4: 'A New Era Requires New Thinking',
       image2: 'assets/images/image2.png',
       text5:
-          'It demands a new understanding of the home:\nhow we live, interact, unwind, and be productive.\nBringing together the finest architects,\n designers, and artisans to deliver this unique\n vision, Haraya Residences offers an\n uncompromising new perspective on\ncosmopolitan living.\n\nHaraya Residences is a vertical gated village\nlocated at the heart of Bridgetowne Estate,\nfeaturing a collection of 558 beautifully\nappointed residences in the South Tower and\nmore forthcoming in the North Tower.\n\nTake in the soaring views! You can lounge in the\nlofty Italian-inspired loggias that redefine the\nexperience of home living and rediscover a sense\nof freedom and vibrancy among the lush private\nlandscapes and world-class amenities.',
+          'It demands a new understanding of the home:\nhow we live, interact, unwind, and be productive.\nBringing together the finest architects,\ndesigners, and artisans to deliver this unique\nvision, Haraya Residences offers an\nuncompromising new perspective on\ncosmopolitan living.\n\nHaraya Residences is a vertical gated village\nlocated at the heart of Bridgetowne Estate,\nfeaturing a collection of 558 beautifully\nappointed residences in the South Tower and\nmore forthcoming in the North Tower.\n\nTake in the soaring views! You can lounge in the\nlofty Italian-inspired loggias that redefine the\nexperience of home living and rediscover a sense\nof freedom and vibrancy among the lush private\nlandscapes and world-class amenities.',
       text6: 'A New Perspective on\nCosmopolitan Living',
       image3: 'assets/images/slider_haraya-project.jpg',
       text7:
@@ -86,7 +81,7 @@ class ProjectsModels1 {
       text10:
           'Welcome to The Grounds at Haraya,\n An Amenities Space Like No Other',
       text11:
-          'The amenities at Haraya Residences are the heart\n of the development, where privacy, community,\n and vibrant landscaping come together.\n\nEscape to the private gardens on the podium or\n catch a movie with family and friends at The\n Viewing Room; curl up with a novel at The Library\n or wine and dine guests in our exquisitely\n furnished function rooms.',
+          'The amenities at Haraya Residences are the heart\nof the development, where privacy, community,\nand vibrant landscaping come together.\n\nEscape to the private gardens on the podium or\ncatch a movie with family and friends at The\nViewing Room; curl up with a novel at The Library\nor wine and dine guests in our exquisitely\nfurnished function rooms.',
       image5: 'assets/images/image5.png',
       image6: 'assets/images/image6.png',
       text12: 'Outdoor Amenities',
@@ -104,50 +99,65 @@ class ProjectsModels1 {
   ];
 }
 
+// this is for project main page
 class ProjectsModels2 {
   final String text1;
   final String text2;
-  final String? text3;
-  final String image;
+  final String text3;
+  final String text4;
+  final String text5;
+  final String text6;
 
   ProjectsModels2({
     required this.text1,
     required this.text2,
     required this.text3,
-    required this.image,
+    required this.text4,
+    required this.text5,
+    required this.text6,
   });
 
   static List<ProjectsModels2> projects1 = [
     ProjectsModels2(
-      text1: 'EXPERIENCE s',
-      text2: 'Explore Haraya Residences in\n3D Tour',
-      text3:
-          'Take a virtual tour through each carefully\nrendered unit and experience Haraya\nResidences for yourself.',
-      image: 'assets/images/virtual_image.png',
+      text1: 'A Vertical Gated Village for the\n                   Modern Era',
+      text2:
+          'It demands a new understanding of the home: how we live, interact, unwind, and be productive. Bringing together the finest architects, designers, and artisans to deliver this unique vision, Haraya Residences offers an uncompromising new perspective on cosmopolitan living.\n\nHaraya Residences is a vertical gated village located at the heart of Bridgetowne Estate, featuring a collection of 558 beautifully appointed residences in the South Tower and more forthcoming in the North Tower.',
+      text3: 'Life Finds a Way',
+      text4:
+          'Located in Arca South, the next emerging district South of the Metro. Championing synchronicity, the estate puts you at the core of a prime location attuned with contemporary lifestyles. Bringing the elements that are working well in Makati, Nuvali and BGC in one visionary destination.\n\nA City in Sync. Arca South champions connectivity and synchronicity as it perfectly integrates Ayala Land’s best practices to date in a 74-hectare large scale master-planned mixed-use development – an urban oasis with myriad opportunities for growth with its diverse retail options, residential developments, and leisure hotspots.',
+      text5:
+          '     An exclusive resort-inspired\nresidential property in the verdant\n     neighborhood of Wack Wack',
+      text6:
+          'Shang Residences at Wack Wack is an exclusive resort-inspired residential property in the\n verdant neighborhood of Wack Wack,\n Mandaluyong. Set in beautifully landscaped\n gardens neighboring one of Manila’s iconic\n heritage golf clubs – The Wack Wack Golf & Country Club- enjoy some of the city’s most\n sought-after views: sweeping vistas over two 18\n-hole championship golf courses or towards the\n dramatic Makati skyline.',
     )
   ];
-  // List<ProjectsModels2> projects2 = [
-  //   ProjectsModels2(
-  //     text1: 'A New Era Requires New Thinking',
-  //     image: 'assets/images/virtual_image.png',
-  //     text2: 'Explore Haraya Residences in\n3D Tour',
-  //     text3: null,
-  //   )
-  // ];
 }
 
+class ProjectTextImageModels {
+  final String text;
+  final String imageText;
 
-// class ProjectsModels3 {
-//   final String text1;
-//   final String text2;
-//   final String text3;
-//   final String image;
+  ProjectTextImageModels({
+    required this.text,
+    required this.imageText,
+  });
 
-//   ProjectsModels2({
-//     required this.text1,
-//     required this.text2,
-//     required this.text3,
-//     required this.image,
-//   });
-// }
-
+  static List<ProjectTextImageModels> textImageModels = [
+    ProjectTextImageModels(
+      imageText: 'assets/images/haraya.jpeg',
+      text: 'by Shang Properties',
+    ),
+  ];
+  static List<ProjectTextImageModels> textImageModels2 = [
+    ProjectTextImageModels(
+      imageText: 'assets/images/parkcascades.png',
+      text: 'by Shang Properties',
+    ),
+  ];
+  static List<ProjectTextImageModels> textImageModels3 = [
+    ProjectTextImageModels(
+      imageText: 'assets/images/shang.png',
+      text: 'by Shang Properties',
+    ),
+  ];
+}

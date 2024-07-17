@@ -1,5 +1,7 @@
+import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextListing extends StatelessWidget {
   final String text;
@@ -28,6 +30,32 @@ class TextListing extends StatelessWidget {
             color: color,
           ),
         ],
+      ),
+    );
+  }
+
+  static Widget projectTitle(
+      double? fontSize, FontWeight? fontWeight, Color? color) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 40.0),
+      child: EraText(
+        text: 'PROJECTS',
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
+      ),
+    );
+  }
+
+  static Widget projectSubtitle(
+      double? fontSize, FontWeight? fontWeight, Color? color) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 40.0),
+      child: EraText(
+        text: 'Perspectives by ERA Research & Market Inteleligence',
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
       ),
     );
   }

@@ -6,7 +6,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProjectPage extends StatelessWidget {
@@ -35,7 +35,7 @@ class ProjectPage extends StatelessWidget {
       children: [
         Image.asset(project.heroImage),
         SizedBox(height: 15.h),
-        ProjectDivider(),
+        ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 15.h),
         CarouselSliderWidget(
           images: CarouselModels.carouselModels2,
@@ -58,11 +58,28 @@ class ProjectPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          paddingText(project.text1, 20, FontWeight.bold, AppColors.blue, 15),
           paddingText(
-              project.text2, 18, FontWeight.bold, AppColors.kRedColor, 20),
+            project.text1,
+            20,
+            FontWeight.bold,
+            AppColors.blue,
+            15,
+          ),
+          paddingText(
+            project.text2,
+            18,
+            FontWeight.bold,
+            AppColors.kRedColor,
+            20,
+          ),
           SizedBox(height: 10.h),
-          paddingText(project.text3, 14, FontWeight.w500, AppColors.black, 20),
+          paddingText(
+            project.text3,
+            14,
+            FontWeight.w500,
+            AppColors.black,
+            20,
+          ),
           SizedBox(height: 10.h),
           Image.asset(
             project.image1,
@@ -227,7 +244,7 @@ class ProjectPage extends StatelessWidget {
     );
   }
 
-  Widget paddingText(String text, double fontSize, FontWeight fontWeight,
+  static Widget paddingText(String text, double fontSize, FontWeight fontWeight,
       Color color, double padding) {
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -238,47 +255,8 @@ class ProjectPage extends StatelessWidget {
         fontSize: fontSize.sp,
         fontWeight: fontWeight,
         color: color,
+        maxLines: 50,
       ),
     );
   }
 }
-// Image.asset('assets/images/harayawithText.png'),
-// HarayaDivider(),
-// SizedBox(height: 20.h),
-// CarouselSliderWidget(
-//   images: CarouselModels.carouselModels2,
-// ),
-// SizedBox(height: 20.h),
-// Container(
-//   padding: EdgeInsets.all(8.0),
-//   color: AppColors.hint.withOpacity(0.3),
-//   child: Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       EraText(
-//         text: 'A New Era Requires New Thinking',
-//         fontSize: 20.sp,
-//         fontWeight: FontWeight.bold,
-//         color: AppColors.blue,
-//       ),
-//       EraText(
-//         text: 'Explore Haraya Residences in\n3D Tour',
-//         fontSize: 18.sp,
-//         fontWeight: FontWeight.bold,
-//         color: AppColors.kRedColor,
-//       ),
-//       SizedBox(height: 20.h),
-//       EraText(
-//         text:
-//             'Take a virtual tour through each carefully\nrendered unit and experience Haraya\nResidences for yourself.',
-//         fontSize: 15.sp,
-//         fontWeight: FontWeight.w500,
-//         color: AppColors.black,
-//       ),
-//       Image.asset(
-//         'assets/images/virtual_image.png',
-//         fit: BoxFit.cover,
-//       ),
-//     ],
-//   ),
-// ),
