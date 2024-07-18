@@ -1,3 +1,4 @@
+import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -39,7 +40,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                         icon: Image.asset(
                           "assets/icons/menubar.png",
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          HomeController.logout();
+                        },
                       )),
             ],
           )

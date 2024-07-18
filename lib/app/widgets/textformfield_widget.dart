@@ -6,22 +6,33 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 //not finished
 class TextformfieldWidget extends StatelessWidget {
   final TextStyle? style;
-  final InputDecoration? decoration;
-  final String? hintText;
+  final String hintText;
   final TextStyle? hintstlye;
-
-  const TextformfieldWidget(
-      {super.key, this.style, this.decoration, this.hintText, this.hintstlye});
+  final TextEditingController? controller;
+  final EdgeInsetsGeometry? contentPadding;
+  final int? maxLines;
+  const TextformfieldWidget({
+    super.key,
+    this.style,
+    required this.hintText,
+    this.hintstlye,
+    this.controller,
+    this.contentPadding,
+    this.maxLines,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: AppColors.black, fontSize: 15.sp),
+      maxLines: maxLines ?? 18,
+      controller: controller,
       decoration: InputDecoration(
-        hintText: 'Name',
-        hintStyle: TextStyle(color: AppColors.hint),
+        hintText: hintText,
+        hintStyle:
+            hintstlye ?? TextStyle(color: AppColors.hint, fontSize: 18.sp),
         fillColor: AppColors.white,
         filled: true,
+        contentPadding: contentPadding,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(

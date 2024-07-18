@@ -25,7 +25,7 @@ class HomeController extends GetxController {
 
   var store = Get.find<LocalStorageService>();
 
-  logout() {
+  static logout() {
     Authentication().logout();
     Get.offAllNamed(RouteString.loginpage);
   }

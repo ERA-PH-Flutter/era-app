@@ -6,6 +6,8 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class CompanyItems extends StatelessWidget {
   final CompanyModels companyItems;
@@ -53,52 +55,51 @@ class CompanyItems extends StatelessWidget {
             bottom: 0,
             left: 15.w,
             right: 15.w,
-            top: 210,
-            child: Container(
-              height: 250.h,
-              child: Card(
-                color: AppColors.white,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: EraText(
-                          text: '${companyItems.title}',
-                          fontSize: 16.sp,
-                          color: AppColors.kRedColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+            top: 205,
+            child: Card(
+              color: AppColors.white,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: EraText(
+                        text: '${companyItems.title}',
+                        fontSize: 16.sp,
+                        color: AppColors.kRedColor,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: EraText(
-                          text: '${companyItems.description}',
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                          maxLines: 3,
-                          textOverflow: TextOverflow.ellipsis,
-                        ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: EraText(
+                        text: '${companyItems.description}',
+                        fontSize: 16.sp,
+                        color: Colors.black,
+                        maxLines: 4,
+                        textOverflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Button(
-                        text: 'READ MORE',
-                        onTap: () {},
-                        bgColor: AppColors.kRedColor,
-                        height: 40.h,
-                        borderRadius: BorderRadius.circular(30),
-                      )
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Button(
+                      text: 'READ MORE',
+                      onTap: () {
+                        Get.toNamed("/aboutus");
+                      },
+                      bgColor: AppColors.kRedColor,
+                      height: 40.h,
+                      borderRadius: BorderRadius.circular(30),
+                    )
+                  ],
                 ),
               ),
             ),

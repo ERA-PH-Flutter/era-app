@@ -18,11 +18,12 @@ import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/app/widgets/listing_properties.dart';
-import 'package:eraphilippines/app/widgets/listing_widgets.dart';
+import 'package:eraphilippines/app/widgets/properties_widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:eraphilippines/app/widgets/radio_widgets.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/presentation/companynews/pages/companynews.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,224 +39,205 @@ class Home extends GetView<HomeController> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: CustomAppbar(),
-      // AppBar(
-      // leading: Image.asset(
-      //   'assets/images/eraph_logo.png',
-      //   fit: BoxFit.cover,
-      //   height: 64.h,
-      //   width: 64.w,
-      // ),
-      // backgroundColor: AppColors.white,
-      // leading: Padding(
-      //   padding: const EdgeInsets.only(left: 10.0),
-      //   child: IconButton(
-      //     icon: Icon(
-      //       CupertinoIcons.profile_circled,
-      //       color: AppColors.white,
-      //     ),
-      //     iconSize: 45,
-      //     onPressed: () {},
-      //   ),
-      // ),
-      // actions: [
-      //   IconButton(
-      //     icon: Icon(
-      //       CupertinoIcons.bars,
-      //       color: AppColors.hint,
-      //     ),
-      //     iconSize: 50,
-      //     onPressed: () {
-      //       controller.logout();
-      //     },
-      //   )
-      // ],
-      // ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SafeArea(
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    SizedBox(
-                      height: 269.h,
-                      child: AnotherCarousel(
-                        images: const [
-                          AssetImage("assets/images/e1.JPG"),
-                          AssetImage("assets/images/e2.JPG"),
-                          AssetImage("assets/images/e3.JPG"),
-                        ],
-                        autoplay: true,
-                        showIndicator: true,
-                        dotColor: Colors.black,
-                        dotSize: 5,
-                        dotBgColor: Colors.transparent,
-                        borderRadius: false,
-                        overlayShadow: false,
-                        indicatorBgPadding: 15,
-                        dotSpacing: 40,
-                      ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  SizedBox(
+                    height: 269.h,
+                    child: AnotherCarousel(
+                      images: const [
+                        AssetImage("assets/images/e1.JPG"),
+                        AssetImage("assets/images/e2.JPG"),
+                        AssetImage("assets/images/e3.JPG"),
+                      ],
+                      autoplay: true,
+                      showIndicator: true,
+                      dotColor: Colors.black,
+                      dotSize: 5,
+                      dotBgColor: Colors.transparent,
+                      borderRadius: false,
+                      overlayShadow: false,
+                      indicatorBgPadding: 15,
+                      dotSpacing: 40,
                     ),
-                    Positioned(
-                        top: 120,
-                        left: 0,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Image.asset(
-                            'assets/icons/next.png',
-                            height: 20.h,
-                            width: 20.w,
-                          ),
-                          color: AppColors.white,
-                        )),
-                    Positioned(
-                        top: 120,
-                        right: 0,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Image.asset(
-                            'assets/icons/next-r.png',
-                            height: 20.h,
-                            width: 20.w,
-                          ),
-                          color: AppColors.white,
-                        )),
+                  ),
+                  Positioned(
+                      top: 120,
+                      left: 0,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Image.asset(
+                          'assets/icons/next.png',
+                          height: 20.h,
+                          width: 20.w,
+                        ),
+                        color: AppColors.white,
+                      )),
+                  Positioned(
+                      top: 120,
+                      right: 0,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Image.asset(
+                          'assets/icons/next-r.png',
+                          height: 20.h,
+                          width: 20.w,
+                        ),
+                        color: AppColors.white,
+                      )),
+                ],
+              ),
+              SizedBox(height: 40.h),
+              BoxWidget(
+                child: Column(
+                  children: [
+                    SizedBox(height: 20.h),
+                    //Location
+                    AppTextField(
+                      hint: 'Location',
+                      svgIcon: 'assets/icons/marker.png',
+                      bgColor: AppColors.white,
+                    ),
+                    //property type
+                    SizedBox(height: 20.h),
+                    AppTextField(
+                      hint: 'Property Type',
+                      svgIcon: 'assets/icons/house.png',
+                      bgColor: AppColors.white,
+                    ),
+                    //price range
+                    SizedBox(height: 20.h),
+                    AppTextField(
+                      hint: 'Price Range',
+                      svgIcon: 'assets/icons/money.png',
+                      bgColor: AppColors.white,
+                    ),
+                    //ai search
+                    SizedBox(height: 20.h),
+                    AppTextField(
+                      hint: 'AI Search',
+                      svgIcon: 'assets/icons/send.png',
+                      bgColor: AppColors.white,
+                    ),
+                    SizedBox(height: 20.h),
+                    //radio widget
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        RadioWidgets(),
+                        RadioWidgets(
+                          text: 'RENT',
+                        ),
+                      ],
+                    ),
+                    //search widget
+                    SearchWidget(),
                   ],
                 ),
-                SizedBox(height: 40.h),
-                BoxWidget(
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20.h),
-                      //Location
-                      AppTextField(
-                        hint: 'Location',
-                        svgIcon: 'assets/icons/marker.png',
-                        bgColor: AppColors.white,
-                      ),
-                      //property type
-                      SizedBox(height: 20.h),
-                      AppTextField(
-                        hint: 'Property Type',
-                        svgIcon: 'assets/icons/house.png',
-                        bgColor: AppColors.white,
-                      ),
-                      //price range
-                      SizedBox(height: 20.h),
-                      AppTextField(
-                        hint: 'Price Range',
-                        svgIcon: 'assets/icons/money.png',
-                        bgColor: AppColors.white,
-                      ),
-                      //ai search
-                      SizedBox(height: 20.h),
-                      AppTextField(
-                        hint: 'AI Search',
-                        svgIcon: 'assets/icons/send.png',
-                        bgColor: AppColors.white,
-                      ),
-                      SizedBox(height: 20.h),
-                      //radio widget
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          RadioWidgets(),
-                          RadioWidgets(
-                            text: 'RENT',
-                          ),
-                        ],
-                      ),
-                      //search widget
-                      SearchWidget(),
-                    ],
-                  ),
-                ),
-                ListingWidget(),
-                // TextListing(
-                //     margin: EdgeInsets.symmetric(horizontal: 30.0),
-                //     text: 'PROJECTS',
-                //     fontSize: 24.sp,
-                //     fontWeight: FontWeight.w600,
-                //     color: AppColors.blue),
-                TextListing.projectTitle(
-                    24.sp, FontWeight.w600, AppColors.blue),
-                TextListing.projectSubtitle(
-                    12.sp, FontWeight.w500, AppColors.black),
-                SizedBox(
-                  height: 20.h,
-                ),
-                TextListing(
-                    margin: EdgeInsets.symmetric(horizontal: 30.0),
-                    text: 'Featured Projects',
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.kRedColor),
-                SizedBox(height: 20.h),
-                // haraya residences
-                ProjectDivider(
-                    textImage: ProjectTextImageModels.textImageModels),
+              ),
+              PropertiesWidgets(),
+              // TextListing(
+              //     margin: EdgeInsets.symmetric(horizontal: 30.0),
+              //     text: 'PROJECTS',
+              //     fontSize: 24.sp,
+              //     fontWeight: FontWeight.w600,
+              //     color: AppColors.blue),
+              TextListing.projectTitle(24.sp, FontWeight.w600, AppColors.blue),
+              TextListing.projectSubtitle(
+                  12.sp, FontWeight.w500, AppColors.black),
+              SizedBox(
+                height: 20.h,
+              ),
+              TextListing(
+                  margin: EdgeInsets.symmetric(horizontal: 30.0),
+                  text: 'Featured Projects',
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.kRedColor),
+              SizedBox(height: 20.h),
+              // haraya residences
+              ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
 
-                SizedBox(
-                  height: 20.h,
-                ),
-                //NOT SURE where folder to put this dynamic carousel slider
-                CarouselSliderWidget(
-                  images: CarouselModels.carouselModels,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Button(
-                  text: 'VIEW PROJECTS',
-                  onTap: () {
-                    Get.toNamed("/project");
-                  },
-                  bgColor: AppColors.kRedColor,
-                  height: 40.h,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                SizedBox(
-                  height: 40.h,
-                ),
-                AppDivider(
-                  button: true,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                TextListing(
-                    margin: EdgeInsets.symmetric(horizontal: 30.0),
-                    text: 'FEATURED LISTING',
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blue),
-                SizedBox(
-                  height: 10.h,
-                ),
-                //Feautured Listing properties
-                ListingProperties(listingModels: Listing.listingsModels),
-                SizedBox(
-                  height: 20.h,
-                ),
-                TextListing(
-                    text: 'COMPANY NEWS',
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blue),
-                SizedBox(
-                  height: 10.h,
-                ),
-                TextListing(
-                    text: 'Latest News and Events from ERA PH',
-                    fontSize: 12.h,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black),
-
-                CompanyGrid(companymodels: CompanyModels.companyNewsModels),
-              ],
-            ),
+              SizedBox(
+                height: 20.h,
+              ),
+              //NOT SURE where folder to put this dynamic carousel slider
+              CarouselSliderWidget(
+                images: CarouselModels.carouselModels,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              Button(
+                text: 'VIEW PROJECTS',
+                onTap: () {
+                  Get.toNamed("/project");
+                },
+                bgColor: AppColors.kRedColor,
+                height: 40.h,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              SizedBox(
+                height: 40.h,
+              ),
+              AppDivider(
+                button: true,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              TextListing(
+                  margin: EdgeInsets.symmetric(horizontal: 30.0),
+                  text: 'FEATURED LISTING',
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blue),
+              SizedBox(
+                height: 10.h,
+              ),
+              //Feautured Listing properties
+              ListingProperties(listingModels: Listing.listingsModels),
+              SizedBox(
+                height: 20.h,
+              ),
+              TextListing(
+                  text: 'COMPANY NEWS',
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blue),
+              SizedBox(
+                height: 10.h,
+              ),
+              TextListing(
+                  text: 'Latest News and Events from ERA PH',
+                  fontSize: 12.h,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black),
+              CompanyNews(),
+              SizedBox(
+                height: 20.h,
+              ),
+              Button(
+                text: 'MORE NEWS',
+                fontSize: 25.sp,
+                onTap: () {
+                  Get.toNamed("/companynews");
+                },
+                bgColor: AppColors.blue,
+                height: 50.h,
+                width: 350.w,
+                fontWeight: FontWeight.w500,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+            ],
           ),
         ),
       ),

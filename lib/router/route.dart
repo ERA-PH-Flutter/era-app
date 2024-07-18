@@ -1,13 +1,17 @@
+import 'package:eraphilippines/presentation/authentication/controllers/login_page_binding.dart';
+import 'package:eraphilippines/presentation/authentication/pages/createaccount_page.dart';
 import 'package:eraphilippines/presentation/base/controllers/base_binding.dart';
-import 'package:eraphilippines/presentation/contactus/controllers/contact_us_binding.dart';
-import 'package:eraphilippines/presentation/contactus/pages/contact_us.dart';
+import 'package:eraphilippines/presentation/contacts/controllers/contacts_binding.dart';
+import 'package:eraphilippines/presentation/contacts/pages/aboutus.dart';
+import 'package:eraphilippines/presentation/contacts/pages/contact_us.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_binding.dart';
 import 'package:eraphilippines/presentation/listingpages/controllers/listing_binding.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/auction.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/commercial.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/pre_selling.dart';
-import 'package:eraphilippines/presentation/listingpages/pages/project.dart';
-import 'package:eraphilippines/presentation/listingpages/pages/projectmain.dart';
+import 'package:eraphilippines/presentation/projects/controllers/projects_binding.dart';
+import 'package:eraphilippines/presentation/projects/pages/project.dart';
+import 'package:eraphilippines/presentation/projects/pages/projectmain.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/rental.dart';
 import 'package:eraphilippines/presentation/listingpages/pages/residential.dart';
 import 'package:eraphilippines/presentation/authentication/pages/login_page.dart';
@@ -33,38 +37,46 @@ appRoutes() => [
           name: RouteString.loginpage,
           page: () => const LoginPage(),
           binding: SecondPageBinding()),
-      GetPage(
-          name: RouteString.preSelling,
-          page: () => const PreSelling(),
-          binding: ListingBinding()),
-      GetPage(
-          name: RouteString.residential,
-          page: () => const Residential(),
-          binding: ListingBinding()),
-      GetPage(
-          name: RouteString.commercial,
-          page: () => const Commercial(),
-          binding: ListingBinding()),
-      GetPage(
-          name: RouteString.rental,
-          page: () => const Rental(),
-          binding: ListingBinding()),
-      GetPage(
-          name: RouteString.auction,
-          page: () => const Auction(),
-          binding: ListingBinding()),
+      // GetPage(
+      //     name: RouteString.preSelling,
+      //     page: () => const PreSelling(),
+      //     binding: ListingBinding()),
+      // GetPage(
+      //     name: RouteString.residential,
+      //     page: () => const Residential(),
+      //     binding: ListingBinding()),
+      // GetPage(
+      //     name: RouteString.commercial,
+      //     page: () => const Commercial(),
+      //     binding: ListingBinding()),
+      // GetPage(
+      //     name: RouteString.rental,
+      //     page: () => const Rental(),
+      //     binding: ListingBinding()),
+      // GetPage(
+      //     name: RouteString.auction,
+      //     page: () => const Auction(),
+      //     binding: ListingBinding()),
       GetPage(
           name: RouteString.project,
           page: () => const ProjectPage(),
-          binding: ListingBinding()),
+          binding: ProjectsBinding()),
       GetPage(
           name: RouteString.projectmain,
           page: () => const ProjectMain(),
-          binding: ListingBinding()),
+          binding: ProjectsBinding()),
       GetPage(
           name: RouteString.contactus,
           page: () => const ContactUs(),
           binding: ContactUsBinding()),
+      GetPage(
+          name: RouteString.aboutus,
+          page: () => const AboutUs(),
+          binding: ContactUsBinding()),
+      GetPage(
+          name: RouteString.createaccount,
+          page: () => const CreateAccount(),
+          binding: LoginPageBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

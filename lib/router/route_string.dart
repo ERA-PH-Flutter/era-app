@@ -8,6 +8,7 @@ class RouteString {
   static String auction = "/auction";
   static String project = "/project";
   static String projectmain = "/project-main";
-    static String contactus = "/contactus";
-
+  static String contactus = "/contactus";
+  static String aboutus = "/aboutus";
+  static String createaccount = "/createaccount";
 }

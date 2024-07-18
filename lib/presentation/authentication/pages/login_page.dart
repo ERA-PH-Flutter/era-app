@@ -209,11 +209,11 @@ class LoginPage extends GetView<LoginPageController> {
                 SizedBox(height: 30.h),
                 Button(
                   onTap: () {
-                    Get.toNamed("/home");
+                    Get.toNamed("/createaccount");
                   },
                   text: "CREATE ACCOUNT",
                   bgColor: AppColors.kRedColor,
-                  fontSize: 24.sp,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w500,
                   width: 502.w,
                   height: 44.h,

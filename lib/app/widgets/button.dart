@@ -19,7 +19,7 @@ class Button extends StatelessWidget {
   const Button({
     super.key,
     this.onTap,
-      this.text,
+    this.text,
     this.bgColor,
     this.fontWeight,
     this.fontSize,
@@ -52,6 +52,28 @@ class Button extends StatelessWidget {
             fontWeight: fontWeight,
           )),
         ),
+      ),
+    );
+  }
+
+  static Widget button2(
+      double width, double height, Function() onTap, String text) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: height,
+        width: width, //272.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.kRedColor,
+        ),
+        child: Center(
+            child: EraText(
+          text: text,
+          color: AppColors.white,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w500,
+        )),
       ),
     );
   }
