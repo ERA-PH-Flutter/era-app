@@ -5,15 +5,16 @@ import 'package:eraphilippines/presentation/contacts/controllers/contacts_bindin
 import 'package:eraphilippines/presentation/contacts/pages/aboutus.dart';
 import 'package:eraphilippines/presentation/contacts/pages/contact_us.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_binding.dart';
-import 'package:eraphilippines/presentation/listingpages/controllers/listing_binding.dart';
-import 'package:eraphilippines/presentation/listingpages/pages/auction.dart';
-import 'package:eraphilippines/presentation/listingpages/pages/commercial.dart';
-import 'package:eraphilippines/presentation/listingpages/pages/pre_selling.dart';
+import 'package:eraphilippines/presentation/listingproperties/controllers/listing_binding.dart';
+import 'package:eraphilippines/presentation/listingproperties/pages/auction.dart';
+import 'package:eraphilippines/presentation/listingproperties/pages/commercial.dart';
+import 'package:eraphilippines/presentation/listingproperties/pages/findproperties.dart';
+import 'package:eraphilippines/presentation/listingproperties/pages/pre_selling.dart';
 import 'package:eraphilippines/presentation/projects/controllers/projects_binding.dart';
 import 'package:eraphilippines/presentation/projects/pages/project.dart';
 import 'package:eraphilippines/presentation/projects/pages/projectmain.dart';
-import 'package:eraphilippines/presentation/listingpages/pages/rental.dart';
-import 'package:eraphilippines/presentation/listingpages/pages/residential.dart';
+import 'package:eraphilippines/presentation/listingproperties/pages/rental.dart';
+import 'package:eraphilippines/presentation/listingproperties/pages/residential.dart';
 import 'package:eraphilippines/presentation/authentication/pages/login_page.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -77,6 +78,10 @@ appRoutes() => [
           name: RouteString.createaccount,
           page: () => const CreateAccount(),
           binding: LoginPageBinding()),
+      GetPage(
+          name: RouteString.findproperties,
+          page: () => const FindProperties(),
+          binding: ListingBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

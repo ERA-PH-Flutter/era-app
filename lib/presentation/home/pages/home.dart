@@ -1,30 +1,26 @@
 import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
-import 'package:eraphilippines/app/models/companynews_model.dart';
+
 import 'package:eraphilippines/app/models/listing.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
+import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
-import 'package:eraphilippines/app/widgets/app_nav_items.dart';
-import 'package:eraphilippines/app/widgets/app_text.dart';
+
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel_slider.dart';
-import 'package:eraphilippines/app/widgets/company_grid.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
-import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/app/widgets/listing_properties.dart';
 import 'package:eraphilippines/app/widgets/properties_widgets.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
 import 'package:eraphilippines/app/widgets/radio_widgets.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/companynews/pages/companynews.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -92,55 +88,13 @@ class Home extends GetView<HomeController> {
                       )),
                 ],
               ),
-              SizedBox(height: 40.h),
-              BoxWidget(
-                child: Column(
-                  children: [
-                    SizedBox(height: 20.h),
-                    //Location
-                    AppTextField(
-                      hint: 'Location',
-                      svgIcon: 'assets/icons/marker.png',
-                      bgColor: AppColors.white,
-                    ),
-                    //property type
-                    SizedBox(height: 20.h),
-                    AppTextField(
-                      hint: 'Property Type',
-                      svgIcon: 'assets/icons/house.png',
-                      bgColor: AppColors.white,
-                    ),
-                    //price range
-                    SizedBox(height: 20.h),
-                    AppTextField(
-                      hint: 'Price Range',
-                      svgIcon: 'assets/icons/money.png',
-                      bgColor: AppColors.white,
-                    ),
-                    //ai search
-                    SizedBox(height: 20.h),
-                    AppTextField(
-                      hint: 'AI Search',
-                      svgIcon: 'assets/icons/send.png',
-                      bgColor: AppColors.white,
-                    ),
-                    SizedBox(height: 20.h),
-                    //radio widget
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        RadioWidgets(),
-                        RadioWidgets(
-                          text: 'RENT',
-                        ),
-                      ],
-                    ),
-                    //search widget
-                    SearchWidget(),
-                  ],
-                ),
+              SizedBox(height: 30.h),
+              //boxwiget
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: BoxWidget.boxListing(),
               ),
-              PropertiesWidgets(),
+              PropertiesWidgets(listingsModels: PropertiesListing.listings),
               // TextListing(
               //     margin: EdgeInsets.symmetric(horizontal: 30.0),
               //     text: 'PROJECTS',
@@ -202,9 +156,7 @@ class Home extends GetView<HomeController> {
               ),
               //Feautured Listing properties
               ListingProperties(listingModels: Listing.listingsModels),
-              SizedBox(
-                height: 20.h,
-              ),
+
               TextListing(
                   text: 'COMPANY NEWS',
                   fontSize: 20.sp,

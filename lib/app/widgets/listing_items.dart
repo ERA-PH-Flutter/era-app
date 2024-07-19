@@ -18,7 +18,7 @@ class ListingItems extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -29,138 +29,184 @@ class ListingItems extends StatelessWidget {
             SizedBox(
               height: 15.h,
             ),
-            EraText(
-              text: '${listingItems.type}',
-              fontSize: 16.sp,
-              color: AppColors.kRedColor,
-              fontWeight: FontWeight.bold,
-            ),
-            Container(
-              child: Row(
-                //crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    listingItems.area,
-                    width: 47.w,
-                    height: 46.h,
-                  ),
-                  EraText(
-                    text: '${listingItems.areas} sqm',
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black,
-                  ),
-                  SizedBox(width: 2.w),
-                  Image.asset(
-                    listingItems.bed,
-                    width: 47.w,
-                    height: 46.h,
-                  ),
-                  EraText(
-                    text: '${listingItems.beds}',
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black,
-                  ),
-                  SizedBox(width: 2.w),
-                  Image.asset(
-                    listingItems.bath,
-                    width: 47.w,
-                    height: 46.h,
-                  ),
-                  EraText(
-                    text: '${listingItems.baths}',
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black,
-                  ),
-                  SizedBox(width: 2.w),
-                  Image.asset(
-                    listingItems.car,
-                    width: 47.w,
-                    height: 46.h,
-                  ),
-                  EraText(
-                    text: '${listingItems.cars}',
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black,
-                  ),
-                ],
-              ),
-            ),
-            EraText(
-              text: 'Description:',
-              fontSize: 16.sp,
-              color: AppColors.black,
-              fontWeight: FontWeight.w600,
-            ),
-            Text(
-              listingItems.description,
-              style: TextStyle(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: EraText(
+                text: '${listingItems.type}',
                 fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
-                color: AppColors.black,
+                color: AppColors.kRedColor,
+                fontWeight: FontWeight.bold,
               ),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(
-              height: 5.h,
-            ),
-            EraText(
-              text: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
-                  .format(listingItems.price),
-              // text: 'PHP ${listingItems.price}',
-              color: AppColors.blue,
-              fontSize: 23.sp,
-              fontWeight: FontWeight.bold,
-            ),
-            EraText(
-              text: 'Listed By:',
-              fontWeight: FontWeight.bold,
-              fontSize: 12.sp,
-              color: AppColors.black,
-            ),
-            SizedBox(height: 5.h),
             Row(
+              //crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: AppColors.hint),
-                  child: Image.asset(
-                    listingItems.agentImage,
-                    width: 47.w,
-                    height: 47.h,
-                  ),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    EraText(
-                      text: listingItems.agentName,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.black,
+                    Image.asset(
+                      listingItems.area,
+                      width: 47.w,
+                      height: 46.h,
                     ),
+                    SizedBox(width: 2.w),
                     EraText(
-                      text: listingItems.agents,
-                      fontSize: 12.sp,
+                      text: '${listingItems.areas}',
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColors.black,
                     ),
                   ],
                 ),
+                SizedBox(width: 2.w),
+                Image.asset(
+                  listingItems.bed,
+                  width: 47.w,
+                  height: 46.h,
+                ),
+                EraText(
+                  text: '${listingItems.beds}',
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black,
+                ),
+                SizedBox(width: 2.w),
+                Image.asset(
+                  listingItems.bath,
+                  width: 47.w,
+                  height: 46.h,
+                ),
+                EraText(
+                  text: '${listingItems.baths}',
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black,
+                ),
+                SizedBox(width: 2.w),
+                Image.asset(
+                  listingItems.car,
+                  width: 47.w,
+                  height: 46.h,
+                ),
+                EraText(
+                  text: '${listingItems.cars}',
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black,
+                ),
               ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: EraText(
+                text: 'Description:',
+                fontSize: 16.sp,
+                color: AppColors.black,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                listingItems.description,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black,
+                ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: EraText(
+                text: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
+                    .format(listingItems.price),
+                color: AppColors.blue,
+                fontSize: 23.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: EraText(
+                text: 'Listed By:',
+                fontWeight: FontWeight.bold,
+                fontSize: 12.sp,
+                color: AppColors.black,
+              ),
+            ),
+            SizedBox(height: 5.h),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                children: [
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: AppColors.hint),
+                    child: Image.asset(
+                      listingItems.agentImage,
+                      width: 47.w,
+                      height: 47.h,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      EraText(
+                        text: listingItems.agentName,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.black,
+                      ),
+                      EraText(
+                        text: listingItems.agents,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.black,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget build3() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Image.asset(
+              listingItems.bed,
+              width: 47.w,
+              height: 46.h,
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            EraText(
+              text: '${listingItems.beds}',
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.black,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -9,7 +9,7 @@ class CompanyGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 500.h,
       child: GridView.builder(
         scrollDirection: Axis.horizontal,

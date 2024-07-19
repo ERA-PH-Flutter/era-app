@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/widgets/properties_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,15 +6,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 class PropertiesWidgets extends StatelessWidget {
-  final List<Map<String, String>> listings = [
-    {"image": "assets/images/Pre-Selling.jpg", "label": "PRE-SELLING"},
-    {"image": "assets/images/Residential.jpg", "label": "RESIDENTIAL"},
-    {"image": "assets/images/Commercial.jpg", "label": "COMMERCIAL"},
-    {"image": "assets/images/Rental.jpg", "label": "RENTAL"},
-    {"image": "assets/images/Residential.jpg", "label": "AUCTION"},
-  ];
+  final List<PropertiesListing> listingsModels;
 
-  PropertiesWidgets({super.key});
+  const PropertiesWidgets({super.key, required this.listingsModels});
   void _onTap(BuildContext context, String label) {
     if (label == "PRE-SELLING") {
       Get.toNamed("/pre-selling");
@@ -34,19 +29,19 @@ class PropertiesWidgets extends StatelessWidget {
       child: StaggeredGridView.countBuilder(
         shrinkWrap: true,
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
-        itemCount: listings.length,
+        itemCount: listingsModels.length,
         crossAxisCount: 2,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () => _onTap(context, listings[index]["label"]!),
+            onTap: () => _onTap(context, listingsModels[index].label),
             child: PropertiesCard(
-              image: listings[index]["image"]!,
-              label: listings[index]["label"]!,
+              image: listingsModels[index].image,
+              label: listingsModels[index].label,
             ),
           );
         },
         staggeredTileBuilder: (index) {
-          return listings[index]["label"] == "AUCTION"
+          return listingsModels[index].label == "AUCTION"
               ? StaggeredTile.count(2, 1)
               : StaggeredTile.count(1, 1);
         },

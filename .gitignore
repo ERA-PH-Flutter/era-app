@@ -1565,3 +1565,6 @@ build/shared_preferences_android/.transforms/6bf7e25f17c11f0d1b9ddc3d0b15bcfb/re
 build/shared_preferences_android/.transforms/6bf7e25f17c11f0d1b9ddc3d0b15bcfb/transformed/classes/classes.dex
 build/sqflite/.transforms/283a14c859ed1b72c5eb3b5b33f72d1d/results.bin
 build/sqflite/.transforms/283a14c859ed1b72c5eb3b5b33f72d1d/transformed/classes/classes.dex
+build/app/intermediates/assets/debug/flutter_assets/assets/icons/image.png
+build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/assets/icons/image.png.jar
+build/app/intermediates/flutter/debug/flutter_assets/assets/icons/image.png

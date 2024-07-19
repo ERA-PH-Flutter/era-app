@@ -11,4 +11,5 @@ class RouteString {
   static String contactus = "/contactus";
   static String aboutus = "/aboutus";
   static String createaccount = "/createaccount";
+  static String findproperties = "/findproperties";
 }
