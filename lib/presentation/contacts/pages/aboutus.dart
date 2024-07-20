@@ -20,7 +20,7 @@ class AboutUs extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: EraText(
                     text: 'ABOUT US',
                     fontSize: 25.sp,
@@ -28,7 +28,7 @@ class AboutUs extends StatelessWidget {
                     color: AppColors.blue),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: EraText(
                     text: 'Why join ERA Philippines?',
                     fontSize: 25.sp,
@@ -49,7 +49,7 @@ class AboutUs extends StatelessWidget {
               ),
               SizedBox(height: 20.h),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: EraText(
                   text: 'Want to know more?',
                   fontSize: 20.sp,
@@ -59,7 +59,7 @@ class AboutUs extends StatelessWidget {
               ),
               SizedBox(height: 20.h),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: ContactUs.contacts(),
               )
             ],

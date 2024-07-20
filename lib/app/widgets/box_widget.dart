@@ -12,7 +12,7 @@ class BoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 25.w),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -41,7 +41,7 @@ class BoxWidget extends StatelessWidget {
     return BoxWidget(
       child: Column(
         children: [
-          SizedBox(height: 20.h),
+          SizedBox(height: 10.h),
           //Location
           AppTextField(
             hint: 'Location',

@@ -4,18 +4,16 @@ import 'package:eraphilippines/presentation/base/controllers/base_binding.dart';
 import 'package:eraphilippines/presentation/contacts/controllers/contacts_binding.dart';
 import 'package:eraphilippines/presentation/contacts/pages/aboutus.dart';
 import 'package:eraphilippines/presentation/contacts/pages/contact_us.dart';
+import 'package:eraphilippines/presentation/contacts/pages/help.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_binding.dart';
+import 'package:eraphilippines/presentation/Listingproperties/pages/findproperties.dart';
 import 'package:eraphilippines/presentation/listingproperties/controllers/listing_binding.dart';
-import 'package:eraphilippines/presentation/listingproperties/pages/auction.dart';
-import 'package:eraphilippines/presentation/listingproperties/pages/commercial.dart';
-import 'package:eraphilippines/presentation/listingproperties/pages/findproperties.dart';
-import 'package:eraphilippines/presentation/listingproperties/pages/pre_selling.dart';
 import 'package:eraphilippines/presentation/projects/controllers/projects_binding.dart';
 import 'package:eraphilippines/presentation/projects/pages/project.dart';
 import 'package:eraphilippines/presentation/projects/pages/projectmain.dart';
-import 'package:eraphilippines/presentation/listingproperties/pages/rental.dart';
-import 'package:eraphilippines/presentation/listingproperties/pages/residential.dart';
 import 'package:eraphilippines/presentation/authentication/pages/login_page.dart';
+import 'package:eraphilippines/presentation/searchresult/controllers/searchresult_binding.dart';
+import 'package:eraphilippines/presentation/searchresult/pages/searchresult.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/route_middleware.dart';
@@ -82,6 +80,14 @@ appRoutes() => [
           name: RouteString.findproperties,
           page: () => const FindProperties(),
           binding: ListingBinding()),
+      GetPage(
+          name: RouteString.searchresult,
+          page: () => const SearchResult(),
+          binding: SearchResultBinding()),
+      GetPage(
+          name: RouteString.help,
+          page: () => const Help(),
+          binding: ContactUsBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

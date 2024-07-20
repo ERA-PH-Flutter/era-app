@@ -2,14 +2,12 @@ import 'package:eraphilippines/app/models/listing.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../constants/colors.dart';
 
 class ListingItems extends StatelessWidget {
-  final Listing listingItems;
+  final RealEstateListing listingItems;
   final Function()? onTap;
   const ListingItems({super.key, required this.listingItems, this.onTap});
 

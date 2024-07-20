@@ -1,31 +1,29 @@
 import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
 
-import 'package:eraphilippines/app/models/listing.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
 
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
-import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
-import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/app/widgets/listing_properties.dart';
+import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/app/widgets/properties_widgets.dart';
 
-import 'package:eraphilippines/app/widgets/radio_widgets.dart';
-import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/companynews/pages/companynews.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
+
+import '../../../app/models/listing.dart';
 
 class Home extends GetView<HomeController> {
   const Home({super.key});
@@ -88,7 +86,6 @@ class Home extends GetView<HomeController> {
                       )),
                 ],
               ),
-              SizedBox(height: 30.h),
               //boxwiget
               Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -155,7 +152,8 @@ class Home extends GetView<HomeController> {
                 height: 10.h,
               ),
               //Feautured Listing properties
-              ListingProperties(listingModels: Listing.listingsModels),
+              ListingProperties(
+                  listingModels: RealEstateListing.listingsModels),
 
               TextListing(
                   text: 'COMPANY NEWS',

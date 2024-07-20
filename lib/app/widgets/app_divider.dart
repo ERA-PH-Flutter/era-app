@@ -5,6 +5,8 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class AppDivider extends StatelessWidget {
   final String? text;
@@ -46,7 +48,9 @@ class AppDivider extends StatelessWidget {
           if (button == true)
             Button(
               text: 'VIEW MORE PROJECTS',
-              onTap: () {},
+              onTap: () {
+                Get.toNamed('/project-main');
+              },
               bgColor: AppColors.kRedColor,
               height: 40.h,
               borderRadius: BorderRadius.circular(30),
@@ -55,5 +59,4 @@ class AppDivider extends StatelessWidget {
       ),
     );
   }
-
 }
