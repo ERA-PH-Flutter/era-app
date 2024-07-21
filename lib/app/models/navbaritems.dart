@@ -38,7 +38,8 @@ List<AppPngAssets> navBarItems = [
       defaultIcon: "assets/icons/findagents.png",
       selectedIcon: "assets/icons/findagents1.png",
       label: "FIND AGENTS",
-      selectedLabel: "FIND AGENTS"),
+      selectedLabel: "FIND AGENTS",
+      onTap: () => Get.toNamed("/findagents")),
   AppPngAssets(
       defaultIcon: "assets/icons/help.png",
       selectedIcon: "assets/icons/help1.png",

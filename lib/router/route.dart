@@ -1,6 +1,10 @@
+import 'package:eraphilippines/presentation/agents/controllers/agents_binding.dart';
+import 'package:eraphilippines/presentation/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/authentication/controllers/login_page_binding.dart';
 import 'package:eraphilippines/presentation/authentication/pages/createaccount_page.dart';
 import 'package:eraphilippines/presentation/base/controllers/base_binding.dart';
+import 'package:eraphilippines/presentation/companynews/controllers/companynews_binding.dart';
+import 'package:eraphilippines/presentation/companynews/pages/companynews.dart';
 import 'package:eraphilippines/presentation/contacts/controllers/contacts_binding.dart';
 import 'package:eraphilippines/presentation/contacts/pages/aboutus.dart';
 import 'package:eraphilippines/presentation/contacts/pages/contact_us.dart';
@@ -88,6 +92,14 @@ appRoutes() => [
           name: RouteString.help,
           page: () => const Help(),
           binding: ContactUsBinding()),
+      GetPage(
+          name: RouteString.findagents,
+          page: () => const FindAgents(),
+          binding: AgentsBinding()),
+      GetPage(
+          name: RouteString.companynews,
+          page: () => const CompanyNews(),
+          binding: CompanyNewsBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

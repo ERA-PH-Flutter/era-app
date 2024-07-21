@@ -14,4 +14,8 @@ class RouteString {
   static String findproperties = "/findproperties";
   static String searchresult = "/searchresult";
   static String help = "/help";
+  static String findagents = "/findagents";
+    static String companynews = "/companynews";
+
 }
+

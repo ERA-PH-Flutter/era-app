@@ -1,5 +1,6 @@
 import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
+import 'package:eraphilippines/app/models/companynews_model.dart';
 
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
@@ -10,6 +11,7 @@ import 'package:eraphilippines/app/widgets/app_text_listing.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel_slider.dart';
+import 'package:eraphilippines/app/widgets/company_grid.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/listing_properties.dart';
@@ -168,10 +170,12 @@ class Home extends GetView<HomeController> {
                   fontSize: 12.h,
                   fontWeight: FontWeight.w500,
                   color: AppColors.black),
-              CompanyNews(),
+                  //for home page
+              CompanyGrid(companymodels: CompanyModels.companyNewsModels),
               SizedBox(
                 height: 20.h,
               ),
+              //direct to companynews page. can find it in lib/presentation/companynews/pages/companynews.dart
               Button(
                 text: 'MORE NEWS',
                 fontSize: 25.sp,

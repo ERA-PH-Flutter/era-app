@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/models/listing.dart';
+import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/widgets/listing_items.dart';
 import 'package:flutter/widgets.dart';
 

@@ -17,3 +17,5 @@ class PropertiesListing {
     PropertiesListing(image: "assets/images/Residential.jpg", label: "AUCTION"),
   ];
 }
+
+ 
