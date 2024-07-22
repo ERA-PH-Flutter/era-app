@@ -12,4 +12,10 @@ class RouteString {
   static String aboutus = "/aboutus";
   static String createaccount = "/createaccount";
   static String findproperties = "/findproperties";
+  static String searchresult = "/searchresult";
+  static String help = "/help";
+  static String findagents = "/findagents";
+    static String companynews = "/companynews";
+
 }
+

@@ -1,4 +1,4 @@
-class Listing {
+class RealEstateListing {
   final String image;
   final String type;
   final String description;
@@ -16,7 +16,7 @@ class Listing {
   final String agentName;
   final String agents;
 
-  Listing(
+  RealEstateListing(
       {required this.type,
       required this.image,
       required this.area,
@@ -34,8 +34,8 @@ class Listing {
       required this.agentName,
       required this.agents});
 
-  static List<Listing> listingsModels = [
-    Listing(
+  static List<RealEstateListing> listingsModels = [
+    RealEstateListing(
         type: 'BGC Luxury Condo',
         image: 'assets/images/e1.JPG',
         area: 'assets/icons/plan.png',
@@ -53,7 +53,7 @@ class Listing {
         agentImage: 'assets/images/e2.JPG',
         agentName: 'John Doe',
         agents: 'Agent/Broker'),
-    Listing(
+    RealEstateListing(
         type: 'House',
         image: 'assets/images/e3.JPG',
         area: 'assets/icons/plan.png',

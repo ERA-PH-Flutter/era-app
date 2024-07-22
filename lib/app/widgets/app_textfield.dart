@@ -56,7 +56,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 48.h,
+      height: height ?? 43.h,
       child: CupertinoTextField(
         expands: expands ?? false,
         enabled: isEnabled!,
