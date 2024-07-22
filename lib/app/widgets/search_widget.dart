@@ -21,7 +21,9 @@ class SearchWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+
+              },
               icon: Icon(
                 CupertinoIcons.search,
                 color: AppColors.white,

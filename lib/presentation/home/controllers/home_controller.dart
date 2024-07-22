@@ -1,6 +1,7 @@
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/router/route_string.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../app/services/local_storage.dart';
 
@@ -12,6 +13,11 @@ enum HomeState {
 
 class HomeController extends GetxController {
   var selectedIndex = 0.obs;
+  TextEditingController locationController = TextEditingController();
+  TextEditingController propertyController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController aiSearchController = TextEditingController();
+  var radioVal = true.obs;
 
   void changeIndex(int index) {
     navBarItems[index].onTap?.call();
