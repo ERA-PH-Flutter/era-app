@@ -10,7 +10,9 @@ import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/presentation/contacts/pages/findus.dart';
 import 'package:eraphilippines/presentation/contacts/pages/inquiry.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProjectPage extends StatelessWidget {
@@ -51,6 +53,27 @@ class ProjectPage extends StatelessWidget {
         SizedBox(height: 50.h),
         projecContent3(project),
         projectContent4(project),
+        SizedBox(height: 30.h),
+        projectContent5(project),
+        SizedBox(height: 30.h),
+        paddingText(
+          project.text34,
+          18.sp,
+          FontWeight.w700,
+          AppColors.blue,
+          45,
+        ),
+        SizedBox(height: 10.h),
+        paddingText(
+          project.text35,
+          14.sp,
+          FontWeight.w500,
+          AppColors.black,
+          45,
+        ),
+        SizedBox(height: 10.h),
+        Image.asset(project.text36),
+        SizedBox(height: 15.h),
         Inquiry(),
         SizedBox(height: 40.h),
         FindUs(),
@@ -192,7 +215,7 @@ class ProjectPage extends StatelessWidget {
     );
   }
 
-  Widget projectContent4(ProjectsModels1 project) {
+  Widget projectContent4(project) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 30.w),
       child: Column(
@@ -248,6 +271,136 @@ class ProjectPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  static Widget projectContent5(ProjectsModels1 project) {
+    return Container(
+      //horizontal: 25.w,
+      padding: EdgeInsets.symmetric(vertical: 15.0.h),
+      color: AppColors.hint.withOpacity(0.3),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          paddingText(
+            project.text18,
+            20.sp,
+            FontWeight.bold,
+            AppColors.blue,
+            40.sp,
+          ),
+          paddingText(
+            project.text19,
+            18.sp,
+            FontWeight.bold,
+            AppColors.kRedColor,
+            45.sp,
+          ),
+          SizedBox(height: 20.h),
+          CarouselSliderWidget(
+            images: CarouselModels.carouselModels2,
+          ),
+          SizedBox(height: 15.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                infoTile(project.icons, project.text20),
+                infoTile(project.icons1, project.text21),
+                infoTile(project.icons2, project.text22),
+              ],
+            ),
+          ),
+          SizedBox(height: 10.h),
+          paddingText(
+            project.text23,
+            14.sp,
+            FontWeight.w500,
+            AppColors.black,
+            45.sp,
+          ),
+          SizedBox(height: 20.h),
+          paddingText(
+            project.text24,
+            18.sp,
+            FontWeight.bold,
+            AppColors.kRedColor,
+            45.sp,
+          ),
+          SizedBox(height: 20.h),
+          CarouselSliderWidget(
+            images: CarouselModels.carouselModels2,
+          ),
+          SizedBox(height: 15.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                infoTile(project.icons, project.text25),
+                infoTile(project.icons1, project.text26),
+                infoTile(project.icons2, project.text27),
+              ],
+            ),
+          ),
+          SizedBox(height: 10.h),
+          paddingText(
+            project.text23,
+            14.sp,
+            FontWeight.w500,
+            AppColors.black,
+            45.sp,
+          ),
+          SizedBox(height: 20.h),
+          paddingText(
+            project.text29,
+            18.sp,
+            FontWeight.bold,
+            AppColors.kRedColor,
+            45.sp,
+          ),
+          SizedBox(height: 20.h),
+          CarouselSliderWidget(
+            images: CarouselModels.carouselModels2,
+          ),
+          SizedBox(height: 15.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                infoTile(project.icons, project.text30),
+                infoTile(project.icons1, project.text31),
+                infoTile(project.icons2, project.text32),
+              ],
+            ),
+          ),
+          SizedBox(height: 10.h),
+          paddingText(
+            project.text33,
+            14.sp,
+            FontWeight.w500,
+            AppColors.black,
+            45,
+          ),
+          SizedBox(height: 10.h),
+        ],
+      ),
+    );
+  }
+
+  static Widget infoTile(String icon, String value) {
+    return Row(
+      children: [
+        Image.asset(icon, width: 70.w, height: 70.h),
+        EraText(
+          text: value,
+          fontSize: 18.sp,
+          fontWeight: FontWeight.bold,
+          color: AppColors.black.withOpacity(0.9),
+        ),
+      ],
     );
   }
 

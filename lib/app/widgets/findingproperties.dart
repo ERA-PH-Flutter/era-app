@@ -17,7 +17,7 @@ class FindingProperties extends StatelessWidget {
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        mainAxisExtent: 560,
+        mainAxisExtent: 580,
       ),
       itemCount: listingModels.length,
       itemBuilder: (context, i) => ListingItems(

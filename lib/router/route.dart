@@ -1,4 +1,5 @@
 import 'package:eraphilippines/presentation/agents/controllers/agents_binding.dart';
+import 'package:eraphilippines/presentation/agents/pages/agentprofile.dart';
 import 'package:eraphilippines/presentation/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/authentication/controllers/login_page_binding.dart';
 import 'package:eraphilippines/presentation/authentication/pages/createaccount_page.dart';
@@ -12,6 +13,7 @@ import 'package:eraphilippines/presentation/contacts/pages/help.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_binding.dart';
 import 'package:eraphilippines/presentation/Listingproperties/pages/findproperties.dart';
 import 'package:eraphilippines/presentation/listingproperties/controllers/listing_binding.dart';
+import 'package:eraphilippines/presentation/listingproperties/pages/property_infomation.dart';
 import 'package:eraphilippines/presentation/projects/controllers/projects_binding.dart';
 import 'package:eraphilippines/presentation/projects/pages/project.dart';
 import 'package:eraphilippines/presentation/projects/pages/projectmain.dart';
@@ -100,6 +102,15 @@ appRoutes() => [
           name: RouteString.companynews,
           page: () => const CompanyNews(),
           binding: CompanyNewsBinding()),
+      GetPage(
+          name: RouteString.agentprofile,
+          page: () => const AgentProfile(),
+          binding: AgentsBinding()),
+
+      GetPage(
+          name: RouteString.propertyInfo,
+          page: () => const PropertyInfoPage(),
+          binding: ListingBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

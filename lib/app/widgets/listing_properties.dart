@@ -2,20 +2,20 @@ import 'package:eraphilippines/app/models/listing.dart';
 import 'package:eraphilippines/app/widgets/Listing_items.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class ListingProperties extends StatelessWidget {
   final List<RealEstateListing> listingModels;
-  final Axis? scrollDirection;
 
-  const ListingProperties(
-      {super.key, required this.listingModels, this.scrollDirection});
+  const ListingProperties({super.key, required this.listingModels});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 580.h,
       child: GridView.builder(
-        scrollDirection: scrollDirection ?? Axis.horizontal,
+        scrollDirection: Axis.horizontal,
         padding: EdgeInsets.all(10),
         physics: const ScrollPhysics(),
         shrinkWrap: true,
@@ -27,7 +27,7 @@ class ListingProperties extends StatelessWidget {
         itemBuilder: (context, i) => ListingItems(
             listingItems: listingModels[i],
             onTap: () {
-              // Get.toNamed('');
+              // Get.toNamed('/propertyInfo');
               //
             }),
       ),
