@@ -1,9 +1,8 @@
-import 'package:eraphilippines/app/models/listing.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/Listing_items.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class ListingProperties extends StatelessWidget {
   final List<RealEstateListing> listingModels;
@@ -27,8 +26,7 @@ class ListingProperties extends StatelessWidget {
         itemBuilder: (context, i) => ListingItems(
             listingItems: listingModels[i],
             onTap: () {
-              // Get.toNamed('/propertyInfo');
-              //
+              Get.toNamed('/propertyInfo', arguments: listingModels[i]);
             }),
       ),
     );

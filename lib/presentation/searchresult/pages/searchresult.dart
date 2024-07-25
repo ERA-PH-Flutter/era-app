@@ -1,5 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/models/listing.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';

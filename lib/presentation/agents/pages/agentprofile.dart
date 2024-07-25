@@ -1,7 +1,7 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/agents_models.dart';
-import 'package:eraphilippines/app/models/listing.dart';
-import 'package:eraphilippines/app/widgets/agentlistview.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
+ import 'package:eraphilippines/app/widgets/agentlistview.dart';
 
 import 'package:eraphilippines/app/widgets/agents_items.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';

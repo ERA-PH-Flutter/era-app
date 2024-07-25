@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 
 class AgentsInfo extends StatelessWidget {
   final AgentsModels agentInfo;
-  const AgentsInfo({super.key, required this.agentInfo});
+  final Function()? onTap;
+  const AgentsInfo({super.key, required this.agentInfo, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class AgentsInfo extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 50.h, left: 50.w, right: 50.w),
+          margin: EdgeInsets.only(top: 120.h, left: 50.w, right: 50.w),
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
           decoration: BoxDecoration(
               border:
@@ -77,7 +78,7 @@ class AgentsInfo extends StatelessWidget {
                 text: 'VIEW LISTINGS',
                 fontSize: 13.sp,
                 onTap: () {
-                  Get.toNamed("/agentprofile");
+                  Get.toNamed('/agentInfo', arguments: agentInfo);
                 },
                 bgColor: AppColors.kRedColor,
                 height: 30.h,
@@ -91,14 +92,14 @@ class AgentsInfo extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: -30.h,
-          left: 130.w,
+          top: 30.h,
+          left: 125.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.w),
             child: Image.asset(
               agentInfo.image,
               height: 150.h,
-              width: 150.w,
+              width: 160.w,
               fit: BoxFit.cover,
             ),
           ),

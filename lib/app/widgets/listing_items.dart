@@ -1,4 +1,4 @@
-import 'package:eraphilippines/app/models/listing.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/listingproperties/pages/property_infomation.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +16,9 @@ class ListingItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed('/propertyInfo', arguments: listingItems);
+      },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: Column(

@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
 
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
@@ -23,8 +24,7 @@ import 'package:get/get.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
 
-import '../../../app/models/listing.dart';
-
+ 
 class Home extends GetView<HomeController> {
   const Home({super.key});
 

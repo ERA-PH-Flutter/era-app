@@ -29,8 +29,6 @@ class AgentsModels {
         whatsapp: "1234-123-1234",
         emailIcon: "assets/icons/mail.png",
         email: "name@mail.com"),
-  ];
-  static List<AgentsModels> agentsModels2 = [
     AgentsModels(
         image: "assets/images/agentpfp.png",
         firstName: "Alison",
@@ -40,8 +38,6 @@ class AgentsModels {
         whatsapp: "1234-123-1234",
         emailIcon: "assets/icons/mail.png",
         email: "name@mail.com"),
-  ];
-  static List<AgentsModels> agentsModels3 = [
     AgentsModels(
         image: "assets/images/agentpfp.png",
         firstName: "Mark",

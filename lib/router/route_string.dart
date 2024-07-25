@@ -18,6 +18,8 @@ class RouteString {
     static String companynews = "/companynews";
     static String agentprofile = "/agentprofile";
     static String propertyInfo = "/propertyInfo";
+        static String agentInfo = "/agentInfo";
+
 
 }
 
