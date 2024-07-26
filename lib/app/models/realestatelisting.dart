@@ -15,7 +15,8 @@ class RealEstateListing {
   final int cars;
   final String listingBy;
   final String agentImage;
-  final String agentName;
+  final String agentFirstName;
+  final String agentLastName;
   final String agents;
   final int listingId;
   final DateTime lastUpdated;
@@ -36,6 +37,11 @@ class RealEstateListing {
   final String moneyIcon;
   final String sunriseIcon;
   final String specificType;
+  final String whatsappIcon;
+  final String whatsapp;
+  final String emailIcon;
+
+  final String email;
 
   RealEstateListing(
     this.type,
@@ -52,7 +58,8 @@ class RealEstateListing {
     this.price,
     this.listingBy,
     this.agentImage,
-    this.agentName,
+    this.agentFirstName,
+    this.agentLastName,
     this.agents,
     this.listingId,
     this.lastUpdated,
@@ -73,6 +80,10 @@ class RealEstateListing {
     this.moneyIcon,
     this.sunriseIcon,
     this.specificType,
+    this.whatsappIcon,
+    this.whatsapp,
+    this.emailIcon,
+    this.email,
   );
 
   static List<RealEstateListing> listingsModels = [
@@ -90,8 +101,9 @@ class RealEstateListing {
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
       100000,
       'Era Philippines',
-      'assets/images/e2.JPG',
-      'John Doe',
+      'assets/images/agentpfp.png',
+      'John',
+      'Doe',
       'Agent/Broker',
       24005341,
       DateTime.parse('2024-06-26T08:02:00'),
@@ -130,6 +142,10 @@ class RealEstateListing {
       'assets/icons/money2.png',
       'assets/icons/sunrise.png',
       'Condominium',
+        "assets/icons/whatsapp.png",
+        "1234-123-1234",
+        "assets/icons/mail.png",
+        "name@mail.com"
     ),
     RealEstateListing(
       'Condo in Makati',
@@ -146,7 +162,8 @@ class RealEstateListing {
       200000,
       'Era Philippines',
       'assets/images/e2.JPG',
-      'John Doe',
+      'Allson',
+      'Smith',
       'Agent/Broker',
       24005341,
       DateTime.parse('2024-06-26T08:02:00'),
@@ -185,6 +202,10 @@ class RealEstateListing {
       'assets/icons/money2.png',
       'assets/icons/sunrise.png',
       'Condominium',
+        "assets/icons/whatsapp.png",
+        "1234-123-1234",
+        "assets/icons/mail.png",
+        "name@mail.com"
     ),
     RealEstateListing(
       'Mansion in Laguna',
@@ -201,7 +222,8 @@ class RealEstateListing {
       200000,
       'Era Philippines',
       'assets/images/e2.JPG',
-      'John Doe',
+      'Mark',
+      'Williams',
       'Agent/Broker',
       24005341,
       DateTime.parse('2024-06-26T08:02:00'),
@@ -240,6 +262,10 @@ class RealEstateListing {
       'assets/icons/money2.png',
       'assets/icons/sunrise.png',
       'Condominium',
+        "assets/icons/whatsapp.png",
+        "1234-123-1234",
+        "assets/icons/mail.png",
+        "name@mail.com"
     ),
   ];
 }

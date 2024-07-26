@@ -102,10 +102,10 @@ appRoutes() => [
           name: RouteString.companynews,
           page: () => const CompanyNews(),
           binding: CompanyNewsBinding()),
-      GetPage(
-          name: RouteString.agentprofile,
-          page: () => const AgentProfile(),
-          binding: AgentsBinding()),
+      // GetPage(
+      //     name: RouteString.agentprofile,
+      //     page: () => const AgentProfile(),
+      //     binding: AgentsBinding()),
 
       GetPage(
           name: RouteString.propertyInfo,

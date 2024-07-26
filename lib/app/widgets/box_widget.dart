@@ -40,4 +40,15 @@ class BoxWidget extends StatelessWidget {
       ),
     );
   }
+
+  static Widget BoxWidget2(Color? color, Widget? child) {
+    return Container(
+      decoration: BoxDecoration(
+        color: color ?? AppColors.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.hint.withOpacity(0.7), width: 3),
+      ),
+      child: child,
+    );
+  }
 }

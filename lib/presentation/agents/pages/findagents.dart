@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/agents_models.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/agentlistview.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -68,7 +69,7 @@ class FindAgents extends GetView<HomeController> {
                 fontWeight: FontWeight.w600,
                 color: AppColors.blue,
               ),
-              AgentListView(agentsModels: AgentsModels.agentsModels),
+              AgentListView(agentsModels: RealEstateListing.listingsModels),
             ],
           ),
         ),

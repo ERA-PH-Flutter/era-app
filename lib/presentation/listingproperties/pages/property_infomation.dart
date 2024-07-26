@@ -1,19 +1,26 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/box_widget.dart';
+import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
-import 'package:eraphilippines/app/widgets/mortageCalculator.dart';
+import 'package:eraphilippines/app/widgets/listedBy_widget.dart';
+import 'package:eraphilippines/app/widgets/listing_properties.dart';
+import 'package:eraphilippines/app/widgets/pieChart.dart';
+
 import 'package:eraphilippines/presentation/mortageCalculator.dart/pages/MortageCalculator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class PropertyInformation extends StatelessWidget {
   final RealEstateListing listing;
 
-  const PropertyInformation({required this.listing});
+  const PropertyInformation({
+    required this.listing,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -167,6 +174,142 @@ class PropertyInformation extends StatelessWidget {
             ),
           ),
           SizedBox(height: 40.h),
+          //widget location
+          location(),
+          SizedBox(height: 30.h),
+
+          overviewSum(),
+          SizedBox(height: 30.h),
+
+          // MortageCalculator page, widget
+          EraText(
+            text: 'MORTAGE CALCULATOR',
+            fontSize: 20.sp,
+            color: AppColors.kRedColor,
+            fontWeight: FontWeight.bold,
+          ),
+          SizedBox(height: 15.h),
+          Container(
+            height: 330.h,
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                  color: AppColors.kRedColor.withOpacity(0.7), width: 2),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: EraText(
+                    text: 'Mortgage Payment Breakdown',
+                    fontSize: 18.sp,
+                    color: AppColors.blue,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 40.h),
+                Piechart(),
+              ],
+            ),
+          ),
+          SizedBox(height: 30.h),
+          MortageCalculator(),
+          SizedBox(height: 30.h),
+//widget
+          BoxWidget.BoxWidget2(
+              AppColors.hint.withOpacity(0.3),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    EraText(
+                      text: 'PROPERTY PERFOMANCE',
+                      fontSize: 20.sp,
+                      color: AppColors.kRedColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    Row(
+                      children: [
+                        EraText(
+                          text: 'Views: ',
+                          fontSize: 18.sp,
+                          color: AppColors.black,
+                        ),
+                        SizedBox(width: 100.w),
+                        EraText(
+                          text: '${listing.views}',
+                          fontSize: 18.sp,
+                          color: AppColors.black,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        EraText(
+                          text: 'Leads: ',
+                          fontSize: 18.sp,
+                          color: AppColors.black,
+                        ),
+                        SizedBox(width: 100.w),
+                        EraText(
+                          text: '${listing.leads}',
+                          fontSize: 18.sp,
+                          color: AppColors.black,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )),
+          SizedBox(height: 30.h),
+          ListedBy(
+            text: 'Listed By',
+            image: listing.agentImage,
+            agentFirstName: listing.agentFirstName,
+            agentLastName: listing.agentLastName,
+            agentType: listing.agents,
+            whatsapp: listing.whatsapp,
+            whatsappIcon: listing.whatsappIcon,
+            email: listing.email,
+            emailIcon: listing.emailIcon,
+          ),
+
+          SizedBox(height: 20.h),
+          EraText(
+            text: 'SIMILAR LISTINGS',
+            color: AppColors.kRedColor,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.bold,
+          ),
+          SizedBox(height: 10.h),
+
+          ListingProperties(listingModels: RealEstateListing.listingsModels),
+
+          Button(
+            text: 'MORE LISTINGS',
+            onTap: () {
+              Get.toNamed('/findproperties');
+            },
+            bgColor: AppColors.blue,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.bold,
+            width: 320.w,
+            margin: EdgeInsets.symmetric(horizontal: 0.w),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget location() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           EraText(
             text: 'Location',
             color: AppColors.kRedColor,
@@ -192,52 +335,15 @@ class PropertyInformation extends StatelessWidget {
           Image.asset(
             'assets/images/locationImage.png',
           ),
-          SizedBox(height: 30.h),
-
-          overviewSum(),
-          SizedBox(height: 10.h),
-
-          // MortageCalculator(),
-          EraText(
-            text: 'MORTAGE CALCULATOR',
-            fontSize: 20.sp,
-            color: AppColors.kRedColor,
-            fontWeight: FontWeight.bold,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                  color: AppColors.kRedColor.withOpacity(0.7), width: 2),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                EraText(
-                  text: 'Mortgage Payment Breakdown',
-                  fontSize: 18.sp,
-                  color: AppColors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-                MortageCalculator(
-                    data: MortageData('Interest', 10).getChartData()),
-              ],
-            ),
-          )
         ],
       ),
     );
   }
 
   Widget overviewSum() {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.hint.withOpacity(0.7), width: 3),
-      ),
-      child: Padding(
+    return BoxWidget.BoxWidget2(
+      AppColors.white,
+      Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

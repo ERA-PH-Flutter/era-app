@@ -179,9 +179,10 @@ class FindProperties extends GetView<ListingController> {
                 Button(
                   bgColor: AppColors.kRedColor,
                   text: 'MORE LISTINGS',
-                  width: 280.w,
+                  width: 320.w,
                   fontSize: 23.sp,
-                  height: 40.h,
+                  height: 45.h,
+                  fontWeight: FontWeight.w600,
                 ),
               ],
             ),

@@ -1,11 +1,12 @@
 import 'package:eraphilippines/app/models/agents_models.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/agents_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AgentListView extends StatelessWidget {
-  final List<AgentsModels> agentsModels;
+  final List<RealEstateListing> agentsModels;
   const AgentListView({super.key, required this.agentsModels});
 
   @override

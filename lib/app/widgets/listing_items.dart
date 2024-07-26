@@ -1,5 +1,7 @@
+import 'package:eraphilippines/app/models/agents_models.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/listedBy_widget.dart';
 import 'package:eraphilippines/presentation/listingproperties/pages/property_infomation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,8 +12,13 @@ import '../constants/colors.dart';
 
 class ListingItems extends StatelessWidget {
   final RealEstateListing listingItems;
+
   final Function()? onTap;
-  const ListingItems({super.key, required this.listingItems, this.onTap});
+  const ListingItems({
+    super.key,
+    required this.listingItems,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -132,52 +139,13 @@ class ListingItems extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: EraText(
-                text: 'Listed By:',
-                fontWeight: FontWeight.bold,
-                fontSize: 12.sp,
-                color: AppColors.black,
-              ),
-            ),
-            SizedBox(height: 5.h),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Row(
-                children: [
-                  Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: AppColors.hint),
-                    child: Image.asset(
-                      listingItems.agentImage,
-                      width: 47.w,
-                      height: 47.h,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      EraText(
-                        text: listingItems.agentName,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.black,
-                      ),
-                      EraText(
-                        text: listingItems.agents,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.black,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            //widget listed by
+            ListedBy(
+              text: 'Listed By',
+              image: listingItems.agentImage,
+              agentFirstName: listingItems.agentFirstName,
+              agentLastName: listingItems.agentLastName,
+              agentType: listingItems.agents,
             ),
           ],
         ),
@@ -212,3 +180,58 @@ class ListingItems extends StatelessWidget {
     );
   }
 }
+ // Widget listedBys(String image, String agentName, String agentType) {
+
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Padding(
+  //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+  //         child: EraText(
+  //           text: 'Listed By:',
+  //           fontWeight: FontWeight.bold,
+  //           fontSize: 12.sp,
+  //           color: AppColors.black,
+  //         ),
+  //       ),
+  //       SizedBox(height: 5.h),
+  //       Padding(
+  //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+  //         child: Row(
+  //           children: [
+  //             Container(
+  //               clipBehavior: Clip.antiAlias,
+  //               decoration: BoxDecoration(
+  //                   shape: BoxShape.circle, color: AppColors.hint),
+  //               child: Image.asset(
+  //                 listingItems.agentImage,
+  //                 width: 47.w,
+  //                 height: 47.h,
+  //               ),
+  //             ),
+  //             SizedBox(
+  //               width: 10.w,
+  //             ),
+  //             Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 EraText(
+  //                   text: listingItems.agentName,
+  //                   fontSize: 14.sp,
+  //                   fontWeight: FontWeight.bold,
+  //                   color: AppColors.black,
+  //                 ),
+  //                 EraText(
+  //                   text: listingItems.agents,
+  //                   fontSize: 12.sp,
+  //                   fontWeight: FontWeight.w500,
+  //                   color: AppColors.black,
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }

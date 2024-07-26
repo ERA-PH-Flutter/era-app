@@ -12,7 +12,7 @@ class ListingProperties extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 580.h,
+      height: 540.h,
       child: GridView.builder(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.all(10),

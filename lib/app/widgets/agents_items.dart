@@ -1,13 +1,15 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/agents_models.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/listedBy_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AgentsInfo extends StatelessWidget {
-  final AgentsModels agentInfo;
+  final RealEstateListing agentInfo;
   final Function()? onTap;
   const AgentsInfo({super.key, required this.agentInfo, this.onTap});
 
@@ -26,14 +28,21 @@ class AgentsInfo extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 60.h),
+              //     ListedBy(
+              //   text: 'Listed By',
+              //   image: agentInfo.agentImage,
+              //   agentFirstName: agentInfo.agentFirstName,
+              //   agentLastName: agentInfo.agentLastName,
+              //   agentType: agentInfo.agents,
+              // ),
               EraText(
-                text: '${agentInfo.firstName} ${agentInfo.lastName}',
+                text: '${agentInfo.agentFirstName} ${agentInfo.agentLastName}',
                 fontSize: 23.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.blue,
               ),
               EraText(
-                text: agentInfo.type,
+                text: agentInfo.agents,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w400,
                 color: AppColors.black,
@@ -97,7 +106,7 @@ class AgentsInfo extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.w),
             child: Image.asset(
-              agentInfo.image,
+              agentInfo.agentImage,
               height: 150.h,
               width: 160.w,
               fit: BoxFit.cover,

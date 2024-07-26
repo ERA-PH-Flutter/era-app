@@ -1808,3 +1808,6 @@ build/app/intermediates/flutter/debug/flutter_assets/assets/images/centuryspire.
 build/app/intermediates/assets/debug/flutter_assets/assets/images/listingexample3.png
 build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/assets/images/listingexample3.png.jar
 build/app/intermediates/flutter/debug/flutter_assets/assets/images/listingexample3.png
+build/app/intermediates/assets/debug/flutter_assets/assets/icons/searchIcon.png
+build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/assets/icons/searchIcon.png.jar
+build/app/intermediates/flutter/debug/flutter_assets/assets/icons/searchIcon.png

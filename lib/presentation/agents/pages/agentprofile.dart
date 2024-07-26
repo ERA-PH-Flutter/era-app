@@ -1,18 +1,21 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/agents_models.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
- import 'package:eraphilippines/app/widgets/agentlistview.dart';
+import 'package:eraphilippines/app/widgets/agentlistview.dart';
 
 import 'package:eraphilippines/app/widgets/agents_items.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/findingproperties.dart';
+import 'package:eraphilippines/app/widgets/listedBy_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AgentProfile extends StatelessWidget {
-  const AgentProfile({super.key});
+  final RealEstateListing listing;
+
+  const AgentProfile({super.key, required this.listing});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,16 @@ class AgentProfile extends StatelessWidget {
                 color: AppColors.blue,
               ),
               SizedBox(height: 60.h),
-              AgentListView(agentsModels: AgentsModels.agentsModels),
+              ListedBy.agentListing(
+                listing.agentImage,
+                listing.agentFirstName,
+                listing.agentLastName,
+                listing.agents,
+                listing.whatsapp,
+                listing.whatsappIcon,
+                listing.email,
+                listing.emailIcon,
+              ),
               SizedBox(height: 20.h),
               Center(
                 child: EraText(
