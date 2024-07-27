@@ -11,13 +11,13 @@ class PropertiesWidgets extends StatelessWidget {
   const PropertiesWidgets({super.key, required this.listingsModels});
   void _onTap(BuildContext context, String label) {
     if (label == "PRE-SELLING") {
-      Get.toNamed("/pre-selling");
+      Get.toNamed("/selling-search-result");
     } else if (label == "RESIDENTIAL") {
       Get.toNamed("/project");
     } else if (label == "COMMERCIAL") {
       Get.toNamed("/project-main");
     } else if (label == "RENTAL") {
-      Get.toNamed("/rental");
+      Get.toNamed("/rent-search-result");
     } else if (label == "AUCTION") {
       Get.toNamed("/project-main");
     }

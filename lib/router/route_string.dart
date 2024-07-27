@@ -13,13 +13,12 @@ class RouteString {
   static String createaccount = "/createaccount";
   static String findproperties = "/findproperties";
   static String searchresult = "/searchresult";
+  static String sellingsearchresult = "/selling-search-result";
+  static String rentsearchresult = "/rent-search-result";
   static String help = "/help";
   static String findagents = "/findagents";
-    static String companynews = "/companynews";
-    static String agentprofile = "/agentprofile";
-    static String propertyInfo = "/propertyInfo";
-        static String agentInfo = "/agentInfo";
-
-
+  static String companynews = "/companynews";
+  static String agentprofile = "/agentprofile";
+  static String propertyInfo = "/propertyInfo";
+  static String agentInfo = "/agentInfo";
 }
-

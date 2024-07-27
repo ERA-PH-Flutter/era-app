@@ -1,12 +1,10 @@
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
-import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel_slider.dart';
-import 'package:eraphilippines/app/widgets/custom_appbar.dart';
+import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/presentation/projects/pages/project.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +16,7 @@ class ProjectMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: CustomAppbar(),
+    return BaseScaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SafeArea(
@@ -42,6 +38,7 @@ class ProjectMain extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppDivider(),
+
         SizedBox(height: 20.h),
         TextListing.projectTitle(25.sp, FontWeight.bold, AppColors.blue),
         SizedBox(height: 10.h),
@@ -50,7 +47,7 @@ class ProjectMain extends StatelessWidget {
         ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 20.h),
         // can add carousel new photos just go to lib/app/models/carousel_models.dart
-        CarouselSliderWidget(images: CarouselModels.carouselModels),
+        CarouselSliderWidget(),
         SizedBox(height: 20.h),
         projectContent1(project),
         SizedBox(height: 10.h),
@@ -72,9 +69,7 @@ class ProjectMain extends StatelessWidget {
             width: 430.w,
             text: ' '),
         //temporary carousel
-        CarouselSliderWidget(
-            images: CarouselModels.carouselModels,
-            color: AppColors.carouselBgColor1),
+        CarouselSliderWidget(color: AppColors.carouselBgColor1),
         SizedBox(height: 25.h),
         projectContent2(project),
         SizedBox(height: 10.h),
@@ -92,9 +87,7 @@ class ProjectMain extends StatelessWidget {
           textImage: ProjectTextImageModels.textImageModels3,
         ),
         SizedBox(height: 20.h),
-        CarouselSliderWidget(
-            images: CarouselModels.carouselModels,
-            color: AppColors.carouselBgColor),
+        CarouselSliderWidget(color: AppColors.carouselBgColor),
         SizedBox(height: 30.h),
         projectContent3(project),
         SizedBox(height: 20.h),

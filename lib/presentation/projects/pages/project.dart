@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
@@ -5,6 +6,7 @@ import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
+import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/presentation/contacts/pages/findus.dart';
@@ -20,9 +22,7 @@ class ProjectPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: CustomAppbar(),
+    return BaseScaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SafeArea(
@@ -43,9 +43,7 @@ class ProjectPage extends StatelessWidget {
         SizedBox(height: 15.h),
         ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 15.h),
-        CarouselSliderWidget(
-          images: CarouselModels.carouselModels2,
-        ),
+        CarouselSliderWidget(),
         SizedBox(height: 30.h),
         projectContent1(project),
         SizedBox(height: 30.h),
@@ -274,7 +272,7 @@ class ProjectPage extends StatelessWidget {
     );
   }
 
-  static Widget projectContent5(ProjectsModels1 project) {
+  Widget projectContent5(ProjectsModels1 project) {
     return Container(
       //horizontal: 25.w,
       padding: EdgeInsets.symmetric(vertical: 15.0.h),
@@ -296,10 +294,8 @@ class ProjectPage extends StatelessWidget {
             AppColors.kRedColor,
             45.sp,
           ),
-          SizedBox(height: 20.h),
-          CarouselSliderWidget(
-            images: CarouselModels.carouselModels2,
-          ),
+          SizedBox(height: 15.h),
+          carouselSliderWidget2(),
           SizedBox(height: 15.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.w),
@@ -328,10 +324,8 @@ class ProjectPage extends StatelessWidget {
             AppColors.kRedColor,
             45.sp,
           ),
-          SizedBox(height: 20.h),
-          CarouselSliderWidget(
-            images: CarouselModels.carouselModels2,
-          ),
+          SizedBox(height: 15.h),
+          carouselSliderWidget2(),
           SizedBox(height: 15.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.w),
@@ -360,10 +354,8 @@ class ProjectPage extends StatelessWidget {
             AppColors.kRedColor,
             45.sp,
           ),
-          SizedBox(height: 20.h),
-          CarouselSliderWidget(
-            images: CarouselModels.carouselModels2,
-          ),
+          SizedBox(height: 15.h),
+          carouselSliderWidget2(),
           SizedBox(height: 15.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.w),
@@ -417,6 +409,32 @@ class ProjectPage extends StatelessWidget {
         color: color,
         maxLines: 50,
       ),
+    );
+  }
+
+  Widget carouselSliderWidget2() {
+    return Stack(
+      children: [
+        CarouselSlider(
+          items: CarouselModels.carouselModels1.map((images) {
+            return Builder(builder: (BuildContext context) {
+              return CustomImage(
+                url: images,
+                borderradius: 30,
+              );
+            });
+          }).toList(),
+          options: CarouselOptions(
+            enlargeCenterPage: true,
+            enlargeStrategy: CenterPageEnlargeStrategy.height,
+            autoPlay: true,
+            enlargeFactor: 0.4,
+            // enableInfiniteScroll: true,
+            viewportFraction: 0.7,
+            aspectRatio: 1.9,
+          ),
+        ),
+      ],
     );
   }
 }

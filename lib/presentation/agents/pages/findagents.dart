@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/widgets/agentlistview.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
+import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,7 @@ class FindAgents extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: CustomAppbar(),
+    return BaseScaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
