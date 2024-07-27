@@ -32,7 +32,6 @@ class TextformfieldWidget extends StatelessWidget {
             hintstlye ?? TextStyle(color: AppColors.hint, fontSize: 18.sp),
         fillColor: AppColors.white,
         filled: true,
-        contentPadding: contentPadding,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(

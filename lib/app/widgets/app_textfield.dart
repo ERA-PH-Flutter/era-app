@@ -77,7 +77,9 @@ class AppTextField extends StatelessWidget {
             ? GestureDetector(
                 onTap: onObscure ?? () {},
                 child: Padding(
-                  padding: EdgeInsets.only(right: 20.w),
+                  padding: EdgeInsets.only(
+                    right: 20.w,
+                  ),
                   child: GestureDetector(
                       onTap: onSuffixTap,
                       child: Image.asset(

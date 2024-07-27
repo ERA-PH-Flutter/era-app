@@ -58,14 +58,11 @@
 //     return chartData;
 //   }
 // }
-import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Piechart extends StatelessWidget {
   const Piechart({super.key});

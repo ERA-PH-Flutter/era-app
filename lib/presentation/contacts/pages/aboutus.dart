@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
+import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/contacts/pages/contact_us.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,9 +13,7 @@ class AboutUs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: CustomAppbar(),
+    return BaseScaffold(
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -28,6 +27,7 @@ class AboutUs extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: AppColors.blue),
               ),
+              SizedBox(height: 10.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: EraText(
@@ -63,7 +63,6 @@ class AboutUs extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: ContactUs.contacts(),
               ),
-              
             ],
           ),
         ),

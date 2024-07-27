@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/models/agents_models.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listedBy_widget.dart';
+import 'package:eraphilippines/presentation/listingproperties/controllers/listing_controller.dart';
 import 'package:eraphilippines/presentation/listingproperties/pages/property_infomation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,9 +32,11 @@ class ListingItems extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              listingItems.image,
-              fit: BoxFit.cover,
+            ClipRRect(
+              child: Image.asset(
+                listingItems.image,
+                fit: BoxFit.cover,
+              ),
             ),
             SizedBox(
               height: 15.h,
@@ -54,51 +57,51 @@ class ListingItems extends StatelessWidget {
                   children: [
                     Image.asset(
                       listingItems.area,
-                      width: 47.w,
-                      height: 46.h,
+                      width: 40.w,
+                      height: 40.h,
                     ),
                     SizedBox(width: 2.w),
                     EraText(
-                      text: '${listingItems.areas}',
-                      fontSize: 18.sp,
+                      text: '${listingItems.areas} sqm',
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColors.black,
                     ),
                   ],
                 ),
-                SizedBox(width: 2.w),
+                SizedBox(width: 10.w),
                 Image.asset(
                   listingItems.bed,
-                  width: 47.w,
-                  height: 46.h,
+                  width: 40.w,
+                  height: 40.h,
                 ),
                 EraText(
                   text: '${listingItems.beds}',
-                  fontSize: 18.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.black,
                 ),
-                SizedBox(width: 2.w),
+                SizedBox(width: 10.w),
                 Image.asset(
                   listingItems.bath,
-                  width: 47.w,
-                  height: 46.h,
+                  width: 40.w,
+                  height: 40.h,
                 ),
                 EraText(
                   text: '${listingItems.baths}',
-                  fontSize: 18.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.black,
                 ),
-                SizedBox(width: 2.w),
+                SizedBox(width: 10.w),
                 Image.asset(
                   listingItems.car,
-                  width: 47.w,
-                  height: 46.h,
+                  width: 40.w,
+                  height: 40.h,
                 ),
                 EraText(
                   text: '${listingItems.cars}',
-                  fontSize: 18.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.black,
                 ),

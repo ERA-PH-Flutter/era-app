@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
+import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/listing_properties.dart';
 import 'package:eraphilippines/app/widgets/pieChart.dart';
@@ -19,14 +20,13 @@ class PropertyInformation extends StatelessWidget {
   final RealEstateListing listing;
 
   const PropertyInformation({
+    super.key,
     required this.listing,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: CustomAppbar(),
+    return BaseScaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

@@ -29,7 +29,7 @@ abstract class MenuItems {
     text: 'PROJECTS',
   );
   static const agents = MenuItem(
-    text: 'AGENTS',
+    text: 'FIND AGENTS',
   );
   static const aboutus = MenuItem(
     text: 'ABOUT US',
@@ -77,7 +77,8 @@ abstract class MenuItems {
         Get.toNamed("/project");
         break;
       case MenuItems.agents:
-        //Do something
+        Get.toNamed("/findagents");
+
         break;
       case MenuItems.login:
         Get.toNamed("/loginpage");

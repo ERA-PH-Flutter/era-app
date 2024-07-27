@@ -73,7 +73,7 @@ class FindProperties extends GetView<ListingController> {
                                     scale: 1.9,
                                     child: Radio(
                                         fillColor: WidgetStateProperty.all(
-                                            Colors.white),
+                                            AppColors.white.withOpacity(0.6)),
                                         value: 1,
                                         groupValue: controller.isForSale.value,
                                         onChanged: (value) {
@@ -83,7 +83,7 @@ class FindProperties extends GetView<ListingController> {
                                   ),
                                   EraText(
                                       text: 'SELL',
-                                      color: AppColors.white,
+                                      color: AppColors.white.withOpacity(0.6),
                                       fontSize: 15.0.sp,
                                       fontWeight: FontWeight.w500),
                                 ],
@@ -94,7 +94,7 @@ class FindProperties extends GetView<ListingController> {
                                     scale: 1.9,
                                     child: Radio(
                                         fillColor: WidgetStateProperty.all(
-                                            Colors.white),
+                                            AppColors.white.withOpacity(0.6)),
                                         value: 2,
                                         groupValue: controller.isForSale.value,
                                         onChanged: (value) {
@@ -104,7 +104,7 @@ class FindProperties extends GetView<ListingController> {
                                   ),
                                   EraText(
                                       text: 'RENT',
-                                      color: AppColors.white,
+                                      color: AppColors.white.withOpacity(0.6),
                                       fontSize: 15.0.sp,
                                       fontWeight: FontWeight.w500),
                                 ],

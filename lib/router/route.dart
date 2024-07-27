@@ -1,6 +1,5 @@
 import 'package:eraphilippines/presentation/agents/controllers/agents_binding.dart';
 import 'package:eraphilippines/presentation/agents/pages/agentInfo.dart';
-import 'package:eraphilippines/presentation/agents/pages/agentprofile.dart';
 import 'package:eraphilippines/presentation/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/authentication/controllers/login_page_binding.dart';
 import 'package:eraphilippines/presentation/authentication/pages/createaccount_page.dart';
@@ -21,6 +20,7 @@ import 'package:eraphilippines/presentation/projects/pages/projectmain.dart';
 import 'package:eraphilippines/presentation/authentication/pages/login_page.dart';
 import 'package:eraphilippines/presentation/searchresult/controllers/searchresult_binding.dart';
 import 'package:eraphilippines/presentation/searchresult/pages/searchresult.dart';
+import 'package:eraphilippines/presentation/searchresult/pages/selling_searchresult.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 
@@ -67,9 +67,10 @@ appRoutes() => [
           page: () => const ProjectPage(),
           binding: ProjectsBinding()),
       GetPage(
-          name: RouteString.projectmain,
-          page: () => const ProjectMain(),
-          binding: ProjectsBinding()),
+        name: RouteString.projectmain,
+        page: () => const ProjectMain(),
+        binding: ProjectsBinding(),
+      ),
       GetPage(
           name: RouteString.contactus,
           page: () => const ContactUs(),
@@ -88,6 +89,14 @@ appRoutes() => [
           binding: ListingBinding()),
       GetPage(
           name: RouteString.searchresult,
+          page: () => const SearchResult(),
+          binding: SearchResultBinding()),
+      GetPage(
+          name: RouteString.sellingsearchresult,
+          page: () => const SellingSearchresult(),
+          binding: SearchResultBinding()),
+      GetPage(
+          name: RouteString.rentsearchresult,
           page: () => const SearchResult(),
           binding: SearchResultBinding()),
       GetPage(

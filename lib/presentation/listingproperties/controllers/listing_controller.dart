@@ -15,4 +15,5 @@ class ListingController extends GetxController {
   var selectedPriceRange = ''.obs;
   var isForSale = 0.obs;
   var isForLease = true.obs;
+  var isClicked = false.obs;
 }

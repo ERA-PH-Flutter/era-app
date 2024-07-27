@@ -4,25 +4,26 @@ import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:flutter/widgets.dart';
 
-enum ImageSet { set1, set2 }
-
 class CarouselSliderWidget extends StatelessWidget {
-  final List<CarouselModels> images;
   final Color? color;
-  const CarouselSliderWidget({super.key, required this.images, this.color});
+  const CarouselSliderWidget({super.key, this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+      padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
       decoration: BoxDecoration(color: color ?? AppColors.carouselBgColor),
       child: Stack(
         children: [
           CarouselSlider(
-            items: images.map((images) {
+            items: CarouselModels.carouselModels.map((images) {
               return Builder(builder: (BuildContext context) {
                 return CustomImage(
-                  url: images.image,
+                  url: images,
+                  border: Border.all(
+                    color: AppColors.white,
+                    width: 1,
+                  ),
                 );
               });
             }).toList(),
@@ -40,6 +41,7 @@ class CarouselSliderWidget extends StatelessWidget {
     );
   }
 }
+
       // CarouselSlider(
           //   items: images.map((imagePath) {
           //     return Builder(builder: (BuildContext context) {
