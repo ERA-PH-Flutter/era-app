@@ -6,14 +6,13 @@ import '../models/user.dart';
 class CloudStorage{
     final ref = FirebaseStorage.instance.ref();
     CloudStorage();
-    Future<User> findUser({
+    Future<String> findUserImage({
         uid,
     }) async {
         try{
-            var userJson = jsonDecode(await ref.child('users/$uid').getDownloadURL());
-            return User.fromJSON(userJson);
+            return await ref.child('users/$uid').getDownloadURL();
         }catch (e){
-            return User(id: "Unknown");
+            return "Error: $e";
         }
     }
 }
