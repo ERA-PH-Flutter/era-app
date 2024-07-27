@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel_slider.dart';
@@ -68,7 +69,7 @@ class ProjectMain extends StatelessWidget {
         ProjectDivider(
             textImage: ProjectTextImageModels.textImageModels2,
             height: 150.h,
-            width: 500,
+            width: 430.w,
             text: ' '),
         //temporary carousel
         CarouselSliderWidget(
@@ -87,7 +88,9 @@ class ProjectMain extends StatelessWidget {
             height: 30.h,
             width: 130.w),
         SizedBox(height: 20.h),
-        ProjectDivider(textImage: ProjectTextImageModels.textImageModels3),
+        ProjectDivider(
+          textImage: ProjectTextImageModels.textImageModels3,
+        ),
         SizedBox(height: 20.h),
         CarouselSliderWidget(
             images: CarouselModels.carouselModels,

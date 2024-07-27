@@ -1,5 +1,5 @@
-import 'package:eraphilippines/app/models/listing.dart';
-import 'package:eraphilippines/app/models/propertieslisting.dart';
+import 'package:eraphilippines/app/models/agents_models.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/listing_items.dart';
 import 'package:flutter/widgets.dart';
 
@@ -17,7 +17,7 @@ class FindingProperties extends StatelessWidget {
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        mainAxisExtent: 560,
+        mainAxisExtent: 520,
       ),
       itemCount: listingModels.length,
       itemBuilder: (context, i) => ListingItems(

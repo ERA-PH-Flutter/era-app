@@ -19,17 +19,15 @@ class SearchWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-              onPressed: () {
-
-              },
-              icon: Icon(
-                CupertinoIcons.search,
-                color: AppColors.white,
-                size: 30.sp,
+              onPressed: () {},
+              icon: Image.asset(
+                'assets/icons/searchIcon.png',
+                height: 34.h,
+                width: 33.w,
               )),
           EraText(
             text: 'SEARCH',
-            fontSize: 30.sp,
+            fontSize: 25.sp,
             fontWeight: FontWeight.w300,
           ),
         ],

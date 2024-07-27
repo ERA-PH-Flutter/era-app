@@ -17,7 +17,13 @@ class HomeController extends GetxController {
   TextEditingController propertyController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController aiSearchController = TextEditingController();
-  var radioVal = true.obs;
+  // var radioVal = true.obs;
+
+  var selectedLocation = ''.obs;
+  var selectedPropertyType = ''.obs;
+  var selectedPriceRange = ''.obs;
+  var isForSale = 0.obs;
+  var isForLease = true.obs;
 
   void changeIndex(int index) {
     navBarItems[index].onTap?.call();

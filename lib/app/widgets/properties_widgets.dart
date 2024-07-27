@@ -28,6 +28,7 @@ class PropertiesWidgets extends StatelessWidget {
     return GestureDetector(
       child: StaggeredGridView.countBuilder(
         shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
         itemCount: listingsModels.length,
         crossAxisCount: 2,

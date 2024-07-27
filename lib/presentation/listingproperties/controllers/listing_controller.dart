@@ -9,4 +9,10 @@ enum ListingState {
 
 class ListingController extends GetxController {
   var store = Get.find<LocalStorageService>();
+
+  var selectedLocation = ''.obs;
+  var selectedPropertyType = ''.obs;
+  var selectedPriceRange = ''.obs;
+  var isForSale = 0.obs;
+  var isForLease = true.obs;
 }

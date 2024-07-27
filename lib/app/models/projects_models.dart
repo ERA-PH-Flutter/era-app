@@ -30,6 +30,38 @@ class ProjectsModels1 {
   final String image8;
   final String text16;
   final String text17;
+
+  //discover our spaces
+  final String text18;
+
+  final String text19;
+  final String text20;
+  final String text21;
+  final String text22;
+  final String text23;
+
+  final String text24;
+  final String text25;
+  final String text26;
+  final String text27;
+  final String text28;
+
+  final String text29;
+  final String text30;
+  final String text31;
+  final String text32;
+  final String text33;
+
+  //virtual
+  final String text34;
+  final String text35;
+  final String text36;
+
+  //icons
+  final String icons;
+  final String icons1;
+  final String icons2;
+
   ProjectsModels1({
     required this.heroImage,
     required this.text1,
@@ -57,6 +89,28 @@ class ProjectsModels1 {
     required this.image8,
     required this.text16,
     required this.text17,
+    required this.text18,
+    required this.text19,
+    required this.text20,
+    required this.text21,
+    required this.text22,
+    required this.text23,
+    required this.icons,
+    required this.icons1,
+    required this.icons2,
+    required this.text24,
+    required this.text25,
+    required this.text26,
+    required this.text27,
+    required this.text28,
+    required this.text29,
+    required this.text30,
+    required this.text31,
+    required this.text32,
+    required this.text33,
+    required this.text34,
+    required this.text35,
+    required this.text36,
   });
 
   static List<ProjectsModels1> projects = [
@@ -95,6 +149,32 @@ class ProjectsModels1 {
       text16: 'The Gym',
       text17:
           'The Gym at Haraya Residences features a full suite\nof world-class fitness and wellness equipment in\nover 300 square meters of dedicated space at your doorstep. Whether you are just starting out or training for performance, keeping fit has never been more convenient.',
+      text18: 'Discover Our Spaces',
+      text19: 'The One-Bedrooms',
+      icons: 'assets/icons/floor-area.png',
+      icons1: 'assets/icons/number-bed.png',
+      icons2: 'assets/icons/Loggia.png',
+      text20: '68sqm',
+      text21: '1',
+      text22: '8 sqm',
+      text23:
+          'The One-bedroom Unit A reimagines the traditional one-bedroom layout with additional flexible spaces and a loggia that expands the airy living room.\n\nThe curvilinear glass partition provides privacy and flexibility when needed, and unifies the living room into a home perfect for relaxing and entertaining alike.',
+      text24: 'The Two-Bedrooms',
+      text25: '139 sqm -\n140sqm',
+      text26: '2',
+      text27: '10 sqm',
+      text28:
+          'The One-bedroom Unit A reimagines the traditional one-bedroom layout with additional flexible spaces and a loggia that expands the airy living room.\n\nThe curvilinear glass partition provides privacy and flexibility when needed, and unifies the living room into a home perfect for relaxing and entertaining alike.',
+      text29: 'The Three-Bedrooms',
+      text30: '186 sqm -\n187sqm',
+      text31: '3',
+      text32: '17 sqm',
+      text33:
+          'The Three-bedroom Unit represents the full expression of our unique al fresco design vision, where interior spaces merge seamlessly with the outdoors through loggias—inviting you to step outside and into the heart of your home.\n\nDesigned for families and those seeking the luxury of space, The Three-bedroom Unit is an exquisite balance of private and entertainment areas, offering sweeping views from the residence.',
+      text34: 'Explore Haraya Residences in VR',
+      text35:
+          'Take a virtual tour through each carefully rendered unit and experience Haraya Residences for yourself.',
+      text36: 'assets/images/virtual_image.png',
     ),
   ];
 }
@@ -150,7 +230,7 @@ class ProjectTextImageModels {
   ];
   static List<ProjectTextImageModels> textImageModels2 = [
     ProjectTextImageModels(
-      imageText: 'assets/images/parkcascades.png',
+      imageText: 'assets/images/centuryspire.png',
       text: 'by Shang Properties',
     ),
   ];
@@ -161,3 +241,21 @@ class ProjectTextImageModels {
     ),
   ];
 }
+
+// class ProjectsIcons {
+//   final String icons;
+//   final String icons1;
+//   final String icons2;
+//   ProjectsIcons(
+//       {required this.icons, required this.icons1, required this.icons2});
+
+
+//   static List<ProjectsIcons> iconProjects2 = [
+//     ProjectsIcons(
+//       icons: 'assets/icons/icon1.png',
+//       icons1: 'assets/icons/icon2.png',
+//       icons2: 'assets/icons/icon3.png',
+//     ),
+//   ];
+ 
+// }
