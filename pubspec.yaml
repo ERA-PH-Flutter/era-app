@@ -30,13 +30,14 @@ dependencies:
   firebase_core: ^3.2.0
   firebase_storage: ^12.1.1
   firebase_auth: ^5.1.2
-  firebase_database: ^11.0.3
+  cloud_firestore: ^5.1.0
   google_sign_in: ^6.2.1
   intl: ^0.19.0
   image_picker: ^1.1.2
   dropdown_button2: ^2.3.9
   fl_chart: ^0.68.0
   syncfusion_flutter_charts: ^26.2.4
+  dart_eval: ^0.7.9
 
 dev_dependencies:
   flutter_test:
