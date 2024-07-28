@@ -1,10 +1,8 @@
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/models/agents_models.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/agentlistview.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';

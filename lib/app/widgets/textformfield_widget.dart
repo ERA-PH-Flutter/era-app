@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-//not finished
 class TextformfieldWidget extends StatelessWidget {
   final TextStyle? style;
   final String hintText;

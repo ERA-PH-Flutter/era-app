@@ -1,7 +1,7 @@
-import 'package:eraphilippines/app/models/agents_models.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/listing_items.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 class FindingProperties extends StatelessWidget {
   final List<RealEstateListing> listingModels;
@@ -23,8 +23,7 @@ class FindingProperties extends StatelessWidget {
       itemBuilder: (context, i) => ListingItems(
           listingItems: listingModels[i],
           onTap: () {
-            // Get.toNamed('');
-            //
+            // Get.toNamed("/propertyInfo", arguments: listingModels[i]);
           }),
     );
   }

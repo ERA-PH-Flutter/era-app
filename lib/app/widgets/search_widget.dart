@@ -15,22 +15,23 @@ class SearchWidget extends StatelessWidget {
         color: AppColors.kRedColor,
         borderRadius: BorderRadius.circular(20.0),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconButton(
-              onPressed: () {},
-              icon: Image.asset(
-                'assets/icons/searchIcon.png',
-                height: 34.h,
-                width: 33.w,
-              )),
-          EraText(
-            text: 'SEARCH',
-            fontSize: 25.sp,
-            fontWeight: FontWeight.w300,
-          ),
-        ],
+      child: GestureDetector(
+        onTap: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/icons/searchIcon.png',
+              height: 34.h,
+              width: 33.w,
+            ),
+            EraText(
+              text: 'SEARCH',
+              fontSize: 25.sp,
+              fontWeight: FontWeight.w300,
+            ),
+          ],
+        ),
       ),
     );
   }

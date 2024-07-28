@@ -75,25 +75,7 @@ class PropertyInformation extends StatelessWidget {
             Image.asset(listing.image),
             SizedBox(height: 20.h),
             //widget
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                icons(
-                    listing.moneyIcon,
-                    NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
-                        .format(listing.pricePerSqm)),
-                icons(listing.area, '${listing.areas} sqm'),
-                icons(listing.bed, '${listing.beds}'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                icons(listing.bath, '${listing.baths}'),
-                icons(listing.car, '${listing.cars}'),
-                icons(listing.sunriseIcon, 'SUNRISE'),
-              ],
-            ),
+            iconsText(),
             SizedBox(height: 20.h),
             allDescriptions(),
             SizedBox(height: 30.h),
@@ -402,20 +384,69 @@ class PropertyInformation extends StatelessWidget {
     );
   }
 
-  Widget icons(String icon, String text) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Column(
-        children: [
-          Image.asset(icon, height: 80.h, width: 80.w),
-          EraText(
-            text: text,
-            color: AppColors.black,
-            fontWeight: FontWeight.w700,
-            fontSize: 15.sp,
-          ),
-        ],
-      ),
+  Widget iconsText() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Image.asset(listing.moneyIcon, height: 80.h, width: 80.w),
+                EraText(
+                  text: '${listing.pricePerSqm}',
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.sp,
+                ),
+                Image.asset(listing.bath, height: 80.h, width: 80.w),
+                EraText(
+                  text: '${listing.baths}',
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.sp,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Image.asset(listing.area, height: 80.h, width: 80.w),
+                EraText(
+                  text: '${listing.areas} sqm',
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.sp,
+                ),
+                Image.asset(listing.car, height: 80.h, width: 80.w),
+                EraText(
+                  text: '${listing.cars}',
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.sp,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Image.asset(listing.bed, height: 80.h, width: 80.w),
+                EraText(
+                  text: '${listing.beds}',
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.sp,
+                ),
+                Image.asset(listing.sunriseIcon, height: 80.h, width: 80.w),
+                EraText(
+                  text: 'SUNRISE',
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15.sp,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 

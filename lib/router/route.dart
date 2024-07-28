@@ -1,5 +1,5 @@
 import 'package:eraphilippines/presentation/agents/controllers/agents_binding.dart';
-import 'package:eraphilippines/presentation/agents/pages/agentInfo.dart';
+import 'package:eraphilippines/presentation/agents/pages/agentdashboard.dart';
 import 'package:eraphilippines/presentation/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/authentication/controllers/login_page_binding.dart';
 import 'package:eraphilippines/presentation/authentication/pages/createaccount_page.dart';
@@ -127,7 +127,7 @@ appRoutes() => [
           name: RouteString.agentInfo,
           page: () => Agentinfo(
                 listing: Get.arguments,
-              ),
+               ),
           binding: AgentsBinding()),
     ];
 

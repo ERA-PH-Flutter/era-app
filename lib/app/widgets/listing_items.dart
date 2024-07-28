@@ -1,9 +1,6 @@
-import 'package:eraphilippines/app/models/agents_models.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listedBy_widget.dart';
-import 'package:eraphilippines/presentation/listingproperties/controllers/listing_controller.dart';
-import 'package:eraphilippines/presentation/listingproperties/pages/property_infomation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -36,6 +33,8 @@ class ListingItems extends StatelessWidget {
               child: Image.asset(
                 listingItems.image,
                 fit: BoxFit.cover,
+                width: 400.w,
+                height: 200.h,
               ),
             ),
             SizedBox(

@@ -1,18 +1,11 @@
-import 'package:another_carousel_pro/another_carousel_pro.dart';
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:eraphilippines/app.dart';
-import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/hero_models.dart';
-
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
-import 'package:eraphilippines/app/widgets/anothercarousel_widget.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
@@ -90,35 +83,35 @@ class Home extends GetView<HomeController> {
                         ]),
                       ),
                       Positioned(
-                          top: 120,
-                          left: 0,
-                          child: IconButton(
-                            onPressed: () {
-                              controller.prevImage();
-                              controller.innerController.previousPage();
-                            },
-                            icon: Image.asset(
-                              'assets/icons/next.png',
-                              height: 20.h,
-                              width: 20.w,
-                            ),
-                            color: AppColors.white,
-                          )),
+                        top: 140,
+                        left: 10,
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.prevImage();
+                            controller.innerController.previousPage();
+                          },
+                          child: Image.asset(
+                            'assets/icons/next.png',
+                            height: 20.h,
+                            width: 20.w,
+                          ),
+                        ),
+                      ),
                       Positioned(
-                          top: 120,
-                          right: 0,
-                          child: IconButton(
-                            onPressed: () {
-                              controller.nextImage(images.length);
-                              controller.innerController.nextPage();
-                            },
-                            icon: Image.asset(
-                              'assets/icons/next-r.png',
-                              height: 20.h,
-                              width: 20.w,
-                            ),
-                            color: AppColors.white,
-                          )),
+                        top: 140,
+                        right: 10,
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.nextImage(images.length);
+                            controller.innerController.nextPage();
+                          },
+                          child: Image.asset(
+                            'assets/icons/next-r.png',
+                            height: 20.h,
+                            width: 20.w,
+                          ),
+                        ),
+                      ),
                     ],
                   )),
 

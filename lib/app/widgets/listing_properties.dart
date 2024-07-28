@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/Listing_items.dart';
+import 'package:eraphilippines/presentation/listingproperties/pages/property_infomation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
