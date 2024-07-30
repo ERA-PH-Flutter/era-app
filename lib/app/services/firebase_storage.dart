@@ -15,4 +15,14 @@ class CloudStorage{
             return "Error: $e";
         }
     }
+    Future<String> getFile({
+        folder,name
+    }) async {
+        try{
+            return await ref.child('$folder/$name').getDownloadURL();
+            return await ref.child('$folder/$name').getDownloadURL();
+        }catch (e){
+            return "Error: $e";
+        }
+    }
 }
