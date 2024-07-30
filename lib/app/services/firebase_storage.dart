@@ -20,7 +20,6 @@ class CloudStorage{
     }) async {
         try{
             return await ref.child('$folder/$name').getDownloadURL();
-            return await ref.child('$folder/$name').getDownloadURL();
         }catch (e){
             return "Error: $e";
         }
