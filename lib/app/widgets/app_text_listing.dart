@@ -7,13 +7,16 @@ class TextListing extends StatelessWidget {
   final FontWeight fontWeight;
   final Color color;
   final EdgeInsetsGeometry? margin;
+  final double? lineHeight;
   const TextListing(
       {super.key,
       required this.text,
       required this.fontSize,
       required this.fontWeight,
       required this.color,
-      this.margin});
+      this.margin,
+      this.lineHeight 
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,7 @@ class TextListing extends StatelessWidget {
             fontSize: fontSize,
             fontWeight: fontWeight,
             color: color,
+            lineHeight: lineHeight,
           ),
         ],
       ),

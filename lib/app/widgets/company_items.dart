@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -25,7 +26,7 @@ class CompanyItems extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Image.asset(
+                CachedNetworkImage(imageUrl:
                   companyItems.image,
                   fit: BoxFit.cover,
                   height: 240.h,

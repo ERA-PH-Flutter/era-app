@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -37,8 +38,8 @@ class AboutUs extends StatelessWidget {
                     color: AppColors.kRedColor),
               ),
               SizedBox(height: 5.h),
-              Image.asset(
-                'assets/images/aboutuspic.png',
+              CachedNetworkImage(
+                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/aboutuspic.png?alt=media&token=f0c10d2b-d88a-4f6e-be4f-9fb712158df7',
                 fit: BoxFit.contain,
                 width: 500.w,
               ),

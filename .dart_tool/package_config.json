@@ -44,6 +44,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "auto_size_text",
+      "rootUri": "file:///C:/Users/x0x0/AppData/Local/Pub/Cache/hosted/pub.dev/auto_size_text-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///C:/Users/x0x0/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
@@ -578,6 +584,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "number_paginator",
+      "rootUri": "file:///C:/Users/x0x0/AppData/Local/Pub/Cache/hosted/pub.dev/number_paginator-0.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "octo_image",
       "rootUri": "file:///C:/Users/x0x0/AppData/Local/Pub/Cache/hosted/pub.dev/octo_image-2.0.0",
       "packageUri": "lib/",
@@ -890,7 +902,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-07-28T08:31:25.682734Z",
+  "generated": "2024-07-29T16:52:59.087706Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///C:/src/flutter",

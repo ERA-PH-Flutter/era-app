@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -31,8 +32,8 @@ class CreateAccount extends GetView<LoginPageController> {
                       onPressed: () {
                         controller.getImageGallery();
                       },
-                      label: Image.asset(
-                        'assets/icons/uploadphoto.png',
+                      label: CachedNetworkImage(
+                        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/createaccount%2Fuploadphoto.png?alt=media&token=94338eab-f7d3-4d33-b4ff-4a9f205abb80',
                         fit: BoxFit.fill,
                       ),
                     )

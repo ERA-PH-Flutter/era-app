@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/hero_models.dart';
@@ -90,8 +91,9 @@ class Home extends GetView<HomeController> {
                             controller.prevImage();
                             controller.innerController.previousPage();
                           },
-                          child: Image.asset(
-                            'assets/icons/next.png',
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fhero-images%2Fnext.png?alt=media&token=7b8c99ee-ecef-4221-b4ea-bc35a1db4ec9',
                             height: 20.h,
                             width: 20.w,
                           ),
@@ -105,8 +107,9 @@ class Home extends GetView<HomeController> {
                             controller.nextImage(images.length);
                             controller.innerController.nextPage();
                           },
-                          child: Image.asset(
-                            'assets/icons/next-r.png',
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fhero-images%2Fnext-r.png?alt=media&token=6919aff8-9790-4f3a-826b-764af21404f7',
                             height: 20.h,
                             width: 20.w,
                           ),
@@ -204,12 +207,7 @@ class Home extends GetView<HomeController> {
               ),
 
               PropertiesWidgets(listingsModels: PropertiesListing.listings),
-              // TextListing(
-              //     margin: EdgeInsets.symmetric(horizontal: 30.0),
-              //     text: 'PROJECTS',
-              //     fontSize: 24.sp,
-              //     fontWeight: FontWeight.w600,
-              //     color: AppColors.blue),
+
               TextListing.projectTitle(24.sp, FontWeight.w600, AppColors.blue),
               TextListing.projectSubtitle(
                   12.sp, FontWeight.w500, AppColors.black),
@@ -217,7 +215,7 @@ class Home extends GetView<HomeController> {
                 height: 20.h,
               ),
               TextListing(
-                  margin: EdgeInsets.symmetric(horizontal: 30.0),
+                  margin: EdgeInsets.symmetric(horizontal: 40.0),
                   text: 'Featured Projects',
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w600,
@@ -252,7 +250,7 @@ class Home extends GetView<HomeController> {
                 height: 20.h,
               ),
               TextListing(
-                  margin: EdgeInsets.symmetric(horizontal: 30.0),
+                  margin: EdgeInsets.symmetric(horizontal: 20.0),
                   text: 'FEATURED LISTING',
                   fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
@@ -270,13 +268,15 @@ class Home extends GetView<HomeController> {
                   fontWeight: FontWeight.bold,
                   color: AppColors.blue),
               SizedBox(
-                height: 10.h,
+                height: 15.h,
               ),
               TextListing(
                   text: 'Latest News and Events from ERA PH',
                   fontSize: 12.h,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.black),
+                  color: AppColors.black,
+                  lineHeight: 0.1),
+
               //for home page
               CompanyGrid(companymodels: CompanyModels.companyNewsModels),
               SizedBox(

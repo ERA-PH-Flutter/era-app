@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -24,8 +25,8 @@ class LoginPage extends GetView<LoginPageController> {
               children: [
                 Column(
                   children: [
-                    Image.asset(
-                      "assets/images/eraph_logo.png",
+                    CachedNetworkImage(
+                      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/loginpage%2Feraph_logo.png?alt=media&token=95e88824-10f0-4bc1-b49e-e4f0727d7c07',
                     ),
                     SizedBox(height: 20.h),
                     Column(

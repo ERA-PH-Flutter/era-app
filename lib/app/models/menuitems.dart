@@ -14,6 +14,8 @@ class MenuItem {
 }
 
 abstract class MenuItems {
+
+ 
   static const List<MenuItem> firstItems = [
     findproperties,
     projects,
@@ -40,7 +42,7 @@ abstract class MenuItems {
   // static const login = MenuItem(
   //   text: 'LOGOUT',
   // );
-
+ 
   static Widget buildItem(MenuItem item) {
     return Card(
       color: AppColors.white,

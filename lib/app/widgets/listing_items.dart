@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listedBy_widget.dart';
@@ -30,10 +31,10 @@ class ListingItems extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              child: Image.asset(
-                listingItems.image,
+              child: CachedNetworkImage(
+                imageUrl: listingItems.image,
                 fit: BoxFit.cover,
-                width: 400.w,
+                width: 380.w,
                 height: 200.h,
               ),
             ),
@@ -43,10 +44,11 @@ class ListingItems extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: EraText(
-                text: '${listingItems.type}',
+                text: listingItems.type,
                 fontSize: 16.sp,
                 color: AppColors.kRedColor,
                 fontWeight: FontWeight.bold,
+                lineHeight: 0.4,
               ),
             ),
             Row(
@@ -54,8 +56,8 @@ class ListingItems extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Image.asset(
-                      listingItems.area,
+                    CachedNetworkImage(
+                      imageUrl: listingItems.area,
                       width: 40.w,
                       height: 40.h,
                     ),
@@ -69,8 +71,8 @@ class ListingItems extends StatelessWidget {
                   ],
                 ),
                 SizedBox(width: 10.w),
-                Image.asset(
-                  listingItems.bed,
+                CachedNetworkImage(
+                  imageUrl: listingItems.bed,
                   width: 40.w,
                   height: 40.h,
                 ),
@@ -81,8 +83,8 @@ class ListingItems extends StatelessWidget {
                   color: AppColors.black,
                 ),
                 SizedBox(width: 10.w),
-                Image.asset(
-                  listingItems.bath,
+                CachedNetworkImage(
+                  imageUrl: listingItems.bath,
                   width: 40.w,
                   height: 40.h,
                 ),
@@ -93,8 +95,8 @@ class ListingItems extends StatelessWidget {
                   color: AppColors.black,
                 ),
                 SizedBox(width: 10.w),
-                Image.asset(
-                  listingItems.car,
+                CachedNetworkImage(
+                  imageUrl: listingItems.car,
                   width: 40.w,
                   height: 40.h,
                 ),
@@ -106,6 +108,9 @@ class ListingItems extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(
+              height: 5.h,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: EraText(
@@ -113,8 +118,10 @@ class ListingItems extends StatelessWidget {
                 fontSize: 16.sp,
                 color: AppColors.black,
                 fontWeight: FontWeight.w600,
+                lineHeight: 1,
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
@@ -161,8 +168,8 @@ class ListingItems extends StatelessWidget {
       children: [
         Row(
           children: [
-            Image.asset(
-              listingItems.bed,
+            CachedNetworkImage(
+              imageUrl: listingItems.bed,
               width: 47.w,
               height: 46.h,
             ),
@@ -205,7 +212,7 @@ class ListingItems extends StatelessWidget {
   //               clipBehavior: Clip.antiAlias,
   //               decoration: BoxDecoration(
   //                   shape: BoxShape.circle, color: AppColors.hint),
-  //               child: Image.asset(
+  //               child: CachedNetworkImage(imageUrl:
   //                 listingItems.agentImage,
   //                 width: 47.w,
   //                 height: 47.h,

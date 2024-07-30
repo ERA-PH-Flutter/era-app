@@ -21,7 +21,7 @@ class ListingProperties extends StatelessWidget {
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 1,
-          mainAxisExtent: 420,
+          mainAxisExtent: 410,
         ),
         itemCount: listingModels.length,
         itemBuilder: (context, i) => ListingItems(

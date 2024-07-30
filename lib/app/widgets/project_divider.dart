@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -29,8 +30,8 @@ class ProjectDivider extends StatelessWidget {
               (item) => Center(
                 child: Column(
                   children: [
-                    Image.asset(
-                      item.imageText,
+                    CachedNetworkImage(
+                      imageUrl: item.imageText,
                       width: width ?? 241.w,
                       height: height ?? 91.h,
                     ),
@@ -50,7 +51,7 @@ class ProjectDivider extends StatelessWidget {
   //   return Center(
   //     child: Column(
   //       children: [
-  //         Image.asset(
+  //         CachedNetworkImage(imageUrl:
   //           textImage,
   //           width: 500.w,
   //           height: 500.h,

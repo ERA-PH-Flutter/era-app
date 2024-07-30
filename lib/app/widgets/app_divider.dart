@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -25,7 +26,7 @@ class AppDivider extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(
-            'assets/images/divider_bg.jpeg',
+            'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fdivider_bg.jpeg?alt=media&token=fa4f5974-ba69-4123-bdee-d044f2ec3600',
           ),
           fit: BoxFit.cover,
         ),
@@ -33,8 +34,9 @@ class AppDivider extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(
-            'assets/images/eraph_logo.png',
+          CachedNetworkImage(
+            imageUrl:
+                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Feraph_white-logo.png?alt=media&token=624a65d5-d64e-4272-8055-e47299a32c06',
             fit: BoxFit.cover,
             height: 152.h,
             width: 157.w,

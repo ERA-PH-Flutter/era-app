@@ -224,19 +224,22 @@ class ProjectTextImageModels {
 
   static List<ProjectTextImageModels> textImageModels = [
     ProjectTextImageModels(
-      imageText: 'assets/images/haraya.jpeg',
+      imageText:
+          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/haraya.jpeg?alt=media&token=911c4b82-5739-4aca-bc5e-24d28507e832',
       text: 'by Shang Properties',
     ),
   ];
   static List<ProjectTextImageModels> textImageModels2 = [
     ProjectTextImageModels(
-      imageText: 'assets/images/centuryspire.png',
+      imageText:
+          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fcenturyspire.png?alt=media&token=5170c754-9bf8-40e5-937d-d7b91f41e99e',
       text: 'by Shang Properties',
     ),
   ];
   static List<ProjectTextImageModels> textImageModels3 = [
     ProjectTextImageModels(
-      imageText: 'assets/images/shang.png',
+      imageText:
+          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fshang.png?alt=media&token=8cc24016-10d4-49a0-a59b-e58e1118988a',
       text: 'by Shang Properties',
     ),
   ];

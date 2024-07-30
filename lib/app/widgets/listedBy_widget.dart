@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -50,8 +51,8 @@ class ListedBy extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle, color: AppColors.hint),
-                child: Image.asset(
-                  image,
+                child: CachedNetworkImage(
+                  imageUrl: image,
                   width: 47.w,
                   height: 47.h,
                 ),
@@ -85,8 +86,8 @@ class ListedBy extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 65.w),
             child: Row(
               children: [
-                Image.asset(
-                  whatsappIcon!,
+                CachedNetworkImage(
+                  imageUrl: whatsappIcon!,
                   width: 30.w,
                   height: 30.h,
                 ),
@@ -105,8 +106,8 @@ class ListedBy extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 65.w),
             child: Row(
               children: [
-                Image.asset(
-                  emailIcon!,
+                CachedNetworkImage(
+                  imageUrl: emailIcon!,
                   width: 30.w,
                   height: 30.h,
                 ),
@@ -163,8 +164,8 @@ class ListedBy extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    whatsappIcon!,
+                  CachedNetworkImage(
+                    imageUrl: whatsappIcon!,
                     width: 30.w,
                     height: 30.h,
                   ),
@@ -180,8 +181,8 @@ class ListedBy extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    emailIcon!,
+                  CachedNetworkImage(
+                    imageUrl: emailIcon!,
                     width: 30.w,
                     height: 30.h,
                   ),
@@ -202,8 +203,8 @@ class ListedBy extends StatelessWidget {
           left: 125.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.w),
-            child: Image.asset(
-              image,
+            child: CachedNetworkImage(
+              imageUrl: image,
               height: 150.h,
               width: 160.w,
               fit: BoxFit.cover,

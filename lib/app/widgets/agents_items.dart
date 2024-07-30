@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -49,8 +50,8 @@ class AgentsInfo extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    agentInfo.whatsappIcon,
+                  CachedNetworkImage(
+                    imageUrl: agentInfo.whatsappIcon,
                     width: 30.w,
                     height: 30.h,
                   ),
@@ -66,8 +67,8 @@ class AgentsInfo extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    agentInfo.emailIcon,
+                  CachedNetworkImage(
+                    imageUrl: agentInfo.emailIcon,
                     width: 30.w,
                     height: 30.h,
                   ),
@@ -103,8 +104,8 @@ class AgentsInfo extends StatelessWidget {
           left: 125.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.w),
-            child: Image.asset(
-              agentInfo.agentImage,
+            child: CachedNetworkImage(
+              imageUrl: agentInfo.agentImage,
               height: 150.h,
               width: 160.w,
               fit: BoxFit.cover,

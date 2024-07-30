@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -13,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:number_paginator/number_paginator.dart';
 
 class FindProperties extends GetView<ListingController> {
   const FindProperties({super.key});
@@ -163,12 +167,53 @@ class FindProperties extends GetView<ListingController> {
                   ),
                 ),
                 SizedBox(height: 10.h),
+                // prevButtonBuilder: (context) => TextButton(
+                //   onPressed: _controller.currentPage > 0 ? () => _controller.prev() : null,  // _controller must be passed to NumberPaginator
+                //   child: const Row(
+                //     children: [
+                //       Icon(Icons.chevron_left),
+                //       Text("Previous"),
+                //     ],
+                //   ),
+                // ),
 
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: PageView.builder(
+                //         itemCount: controller.totalPages.value,
+                //         onPageChanged: (index) {
+                //           controller.onPageChanged(index);
+                //         },
+                //         itemBuilder: (context, index) {
+                //           return Center(
+                //             child: Text('Page $index'),
+                //           );
+                //         },
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       width: 100, // Adjust this value as needed
+                //       child: Center(
+                //         child: Obx(() {
+                //           return NumberPaginator(
+                //             numberPages: controller.totalPages.value,
+                //             onPageChange: (page) {
+                //               controller.onPageChanged(page);
+                //             },
+                //             initialPage: controller.currentPage.value,
+                //           );
+                //         }),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 TextListing(
                     text: 'FEATURED LISTINGS',
                     fontSize: 25.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.kRedColor),
+
                 //list all properties here
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -197,8 +242,8 @@ class FindProperties extends GetView<ListingController> {
       onTap: onTap,
       child: Column(
         children: [
-          Image.asset(
-            icon,
+          CachedNetworkImage(
+            imageUrl: icon,
             height: 80.h,
             width: 80.w,
           ),

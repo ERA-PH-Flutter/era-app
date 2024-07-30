@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,8 +22,8 @@ class AppNavItems extends StatelessWidget {
         onTap: onTap as void Function()?,
         child: Stack(
           children: [
-            Image.asset(
-              iconPath,
+            CachedNetworkImage(
+              imageUrl: iconPath,
               width: 50.w,
               height: 50.h,
             ),
@@ -37,8 +38,8 @@ class AppNavItems extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              iconPath,
+            CachedNetworkImage(
+              imageUrl: iconPath,
               width: 40.w,
               height: 40.h,
             ),

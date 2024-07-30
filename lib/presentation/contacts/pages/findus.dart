@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,8 @@ class FindUs extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                'assets/icons/marker2.png',
+              CachedNetworkImage(
+                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Ffindus%2Fmarker2.png?alt=media&token=d7a6f8e2-fe2a-45ac-888e-28ba0b501720',
                 width: 38.w,
                 height: 40.h,
               ),
@@ -46,8 +47,8 @@ class FindUs extends StatelessWidget {
           ),
           Row(
             children: [
-              Image.asset(
-                'assets/icons/mail.png',
+              CachedNetworkImage(
+                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Ffindus%2Fmail.png?alt=media&token=96d2f73f-9664-45a4-886d-42a9021b2e2a',
                 width: 38.w,
                 height: 40.h,
               ),
@@ -67,8 +68,8 @@ class FindUs extends StatelessWidget {
           ),
           Row(
             children: [
-              Image.asset(
-                'assets/icons/whatsapp.png',
+              CachedNetworkImage(
+                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Ffindus%2Fwhatsapp.png?alt=media&token=81f00a3d-9e73-41c3-ab0c-9134dba2c1bc',
                 width: 38.w,
                 height: 40.h,
               ),

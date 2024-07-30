@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/menuitems.dart';
@@ -29,8 +30,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                   Transform.translate(
                       offset: Offset(-14, 1),
                       child: IconButton(
-                        icon: Image.asset(
-                          "assets/images/eraph_logo.png",
+                        icon: CachedNetworkImage(
+                          imageUrl: "https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fapp-bar%2Feraph_logo.png?alt=media&token=134716fb-da8a-4bb3-9ebc-911f68d4b2bc",
                         ),
                         onPressed: () {
                           Get.toNamed('/home');
@@ -39,8 +40,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               action ??
                   DropdownButtonHideUnderline(
                       child: DropdownButton2(
-                    customButton: Image.asset(
-                      'assets/icons/menubar.png',
+                    customButton: CachedNetworkImage(
+                      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fapp-bar%2Fmenubar.png?alt=media&token=893dd49a-a71a-46b6-8a91-888f2c8bcad8',
                       height: 64,
                       width: 64,
                     ),
@@ -118,7 +119,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
          // Transform.translate(
             //     offset: Offset(14, 1),
             //     child: IconButton(
-            //       icon: Image.asset(
+            //       icon: CachedNetworkImage(imageUrl:
             //         "assets/icons/menubar.png",
             //       ),
             //       onPressed: () {
