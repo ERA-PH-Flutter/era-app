@@ -26,6 +26,9 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../app/services/firebase_database.dart';
+import '../../base/controllers/base_controller.dart';
+
 class Home extends GetView<HomeController> {
   const Home({super.key});
 
@@ -203,7 +206,16 @@ class Home extends GetView<HomeController> {
                           ],
                         ),
                       ),
-                      SearchWidget(searchFunction: controller.search),
+                      SearchWidget(searchFunction: ()async{
+                        print("AAAAAAAAAAAAAAA");
+                        var data = await Database().searchListing(
+                            location: controller.locationController.text,
+                            price: controller.priceController,
+                            type: controller.isForSale.value == 1 ? "selling" : "rent",
+                            property: controller.propertyController.text
+                        );
+                        print(data);
+                      }),
                     ],
                   ),
                 ),

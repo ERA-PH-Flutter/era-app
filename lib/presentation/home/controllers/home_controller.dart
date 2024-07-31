@@ -65,16 +65,7 @@ class HomeController extends GetxController{
   }
 
   search()async{
-    BaseController.showLoading();
-    var data = await Database().searchListing(
-      location: locationController.text,
-      price: priceController,
-      type: isForSale.value == 1 ? "sale" : "rent",
-      property: propertyController.text
-    );
 
-    BaseController.hideLoading();
-    print(data);
   }
 
   var currentTab = 0.obs;

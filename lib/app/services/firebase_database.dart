@@ -50,6 +50,7 @@ class Database{
     property,
   })async{
     Query query = FirebaseFirestore.instance.collection('listings');
+    var searchData = [];
     if(location != null || location == ""){
       query.where("location",isEqualTo: location);
     }
@@ -62,7 +63,13 @@ class Database{
     if(property != null || location == ""){
       query.where("property",isEqualTo: property);
     }
-    return await query.get();
+    await query.get().then((snapshot){
+      var a = snapshot.docs;
+      a.forEach((b){
+        searchData.add(b.data());
+      });
+    });
+    return searchData;
   }
 
 }
