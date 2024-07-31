@@ -45,6 +45,7 @@ class Home extends GetView<HomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //carousel
               SizedBox(
                   height: 320.h,
                   child: Stack(
@@ -117,8 +118,6 @@ class Home extends GetView<HomeController> {
                       ),
                     ],
                   )),
-
-              //boxwiget
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: BoxWidget(
@@ -127,6 +126,7 @@ class Home extends GetView<HomeController> {
                       SizedBox(height: 10.h),
                       //Location
                       AppTextField(
+                        controller: controller.locationController,
                         hint: 'Location',
                         svgIcon: 'assets/icons/marker.png',
                         bgColor: AppColors.white,
@@ -134,6 +134,7 @@ class Home extends GetView<HomeController> {
                       //property type
                       SizedBox(height: 20.h),
                       AppTextField(
+                        controller: controller.propertyController,
                         hint: 'Property Type',
                         svgIcon: 'assets/icons/house.png',
                         bgColor: AppColors.white,
@@ -141,6 +142,7 @@ class Home extends GetView<HomeController> {
                       //price range
                       SizedBox(height: 20.h),
                       AppTextField(
+                        controller: controller.priceController,
                         hint: 'Price Range',
                         svgIcon: 'assets/icons/money.png',
                         bgColor: AppColors.white,
@@ -148,6 +150,7 @@ class Home extends GetView<HomeController> {
                       //ai search
                       SizedBox(height: 20.h),
                       AppTextField(
+                        controller: controller.aiSearchController,
                         hint: 'AI Search',
                         svgIcon: 'assets/icons/send.png',
                         bgColor: AppColors.white,
@@ -200,14 +203,12 @@ class Home extends GetView<HomeController> {
                           ],
                         ),
                       ),
-                      SearchWidget(),
+                      SearchWidget(searchFunction: controller.search),
                     ],
                   ),
                 ),
               ),
-
               PropertiesWidgets(listingsModels: PropertiesListing.listings),
-
               TextListing.projectTitle(24.sp, FontWeight.w600, AppColors.blue),
               TextListing.projectSubtitle(
                   12.sp, FontWeight.w500, AppColors.black),

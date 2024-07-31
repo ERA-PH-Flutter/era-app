@@ -50,7 +50,9 @@ class Help extends GetView<ContactusController> {
                       bgColor: AppColors.white,
                     ),
                     SizedBox(height: 10.h),
-                    SearchWidget(),
+                    SearchWidget(searchFunction: (){
+
+                    }),
                   ],
                 ),
               ),

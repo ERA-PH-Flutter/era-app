@@ -43,4 +43,26 @@ class Database{
       return "Error: $error";
     }
   }
+  searchListing({
+    location,
+    type,
+    price,
+    property,
+  })async{
+    Query query = FirebaseFirestore.instance.collection('listings');
+    if(location != null || location == ""){
+      query.where("location",isEqualTo: location);
+    }
+    if(type != null || location == ""){
+      query.where("type",isEqualTo: type);
+    }
+    if(price != null || location == ""){
+      query.where("price",isLessThanOrEqualTo: price);
+    }
+    if(property != null || location == ""){
+      query.where("property",isEqualTo: property);
+    }
+    return await query.get();
+  }
+
 }

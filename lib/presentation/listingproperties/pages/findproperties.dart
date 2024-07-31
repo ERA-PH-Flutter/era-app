@@ -115,7 +115,9 @@ class FindProperties extends GetView<ListingController> {
                             ],
                           ),
                         ),
-                        SearchWidget(),
+                        SearchWidget(searchFunction: (){
+
+                        }),
                       ],
                     ),
                   ),

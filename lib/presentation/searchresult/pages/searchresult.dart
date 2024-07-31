@@ -34,7 +34,9 @@ class SearchResult extends StatelessWidget {
                       svgIcon: 'assets/icons/send.png',
                       bgColor: AppColors.white,
                     ),
-                    SearchWidget(),
+                    SearchWidget(searchFunction: (){
+
+                    }),
                   ],
                 ),
               ),

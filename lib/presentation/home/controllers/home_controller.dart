@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
+import 'package:eraphilippines/presentation/utility/controller/base_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../../../app/services/firebase_database.dart';
 import '../../../app/services/local_storage.dart';
 
 enum HomeState {
@@ -12,7 +14,7 @@ enum HomeState {
   error,
 }
 
-class HomeController extends GetxController {
+class HomeController extends GetxController{
   var selectedIndex = 0.obs;
   var carouselIndex = 0.obs;
   var selectedLocation = ''.obs;
@@ -60,6 +62,19 @@ class HomeController extends GetxController {
         Get.toNamed('/help');
         break;
     }
+  }
+
+  search()async{
+    BaseController.showLoading();
+    var data = await Database().searchListing(
+      location: locationController.text,
+      price: priceController,
+      type: isForSale.value == 1 ? "sale" : "rent",
+      property: propertyController.text
+    );
+
+    BaseController.hideLoading();
+    print(data);
   }
 
   var currentTab = 0.obs;
