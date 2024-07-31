@@ -26,11 +26,18 @@ class CompanyItems extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CachedNetworkImage(imageUrl:
-                  companyItems.image,
+                CachedNetworkImage(
+                  imageUrl: companyItems.image,
                   fit: BoxFit.cover,
                   height: 240.h,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
+                // Image.asset(
+                //   companyItems.image,
+                //   fit: BoxFit.cover,
+                //   height: 240.h,
+                // ),
                 Spacer(),
               ],
             ),

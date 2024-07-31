@@ -31,8 +31,8 @@ class ListingItems extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              child: CachedNetworkImage(
-                imageUrl: listingItems.image,
+              child: Image.asset(
+                listingItems.image,
                 fit: BoxFit.cover,
                 width: 380.w,
                 height: 200.h,
@@ -56,8 +56,8 @@ class ListingItems extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    CachedNetworkImage(
-                      imageUrl: listingItems.area,
+                    Image.asset(
+                      listingItems.area,
                       width: 40.w,
                       height: 40.h,
                     ),
@@ -71,8 +71,8 @@ class ListingItems extends StatelessWidget {
                   ],
                 ),
                 SizedBox(width: 10.w),
-                CachedNetworkImage(
-                  imageUrl: listingItems.bed,
+                Image.asset(
+                  listingItems.bed,
                   width: 40.w,
                   height: 40.h,
                 ),
@@ -83,8 +83,8 @@ class ListingItems extends StatelessWidget {
                   color: AppColors.black,
                 ),
                 SizedBox(width: 10.w),
-                CachedNetworkImage(
-                  imageUrl: listingItems.bath,
+                Image.asset(
+                  listingItems.bath,
                   width: 40.w,
                   height: 40.h,
                 ),
@@ -95,8 +95,8 @@ class ListingItems extends StatelessWidget {
                   color: AppColors.black,
                 ),
                 SizedBox(width: 10.w),
-                CachedNetworkImage(
-                  imageUrl: listingItems.car,
+                Image.asset(
+                  listingItems.car,
                   width: 40.w,
                   height: 40.h,
                 ),
@@ -168,8 +168,8 @@ class ListingItems extends StatelessWidget {
       children: [
         Row(
           children: [
-            CachedNetworkImage(
-              imageUrl: listingItems.bed,
+            Image.asset(
+              listingItems.bed,
               width: 47.w,
               height: 46.h,
             ),
@@ -212,7 +212,7 @@ class ListingItems extends StatelessWidget {
   //               clipBehavior: Clip.antiAlias,
   //               decoration: BoxDecoration(
   //                   shape: BoxShape.circle, color: AppColors.hint),
-  //               child: CachedNetworkImage(imageUrl:
+  //               child:  Image.asset(
   //                 listingItems.agentImage,
   //                 width: 47.w,
   //                 height: 47.h,

@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 class CreateAccount extends GetView<LoginPageController> {
   const CreateAccount({super.key});
-
+//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/createaccount%2Fuploadphoto.png?alt=media&token=94338eab-f7d3-4d33-b4ff-4a9f205abb80
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +32,8 @@ class CreateAccount extends GetView<LoginPageController> {
                       onPressed: () {
                         controller.getImageGallery();
                       },
-                      label: CachedNetworkImage(
-                        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/createaccount%2Fuploadphoto.png?alt=media&token=94338eab-f7d3-4d33-b4ff-4a9f205abb80',
+                      label: Image.asset(
+                        'assets/icons/uploadphoto.png',
                         fit: BoxFit.fill,
                       ),
                     )

@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
- 
+
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
- 
+
 import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
- 
+
 import 'package:eraphilippines/presentation/companynews/pages/companynews.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +56,11 @@ class Agentinfo extends StatelessWidget {
     );
   }
 
+//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Feramerch1.png?alt=media&token=07bcf1a1-9e8a-470d-9721-59687d0130af
+// https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Feramerch2.png?alt=media&token=848caa4a-49b2-4e37-9c92-af79a20356f6
+// https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Feramerch3.png?alt=media&token=060ac304-8202-46bf-89ef-6a6adc8f999b
+// https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Feramerch4.png?alt=media&token=f0cc3172-30a6-493f-9436-072772f5b36d
+// https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2FclickForMore.png?alt=media&token=3a8da7ac-8e75-41c1-803e-cf5bcd1d9814
   Widget eraMerch() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,15 +76,15 @@ class Agentinfo extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              latestNewIcon("https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Feramerch1.png?alt=media&token=07bcf1a1-9e8a-470d-9721-59687d0130af", () {}),
+              latestNewIcon('assets/icons/eramerch1.png', () {}),
               SizedBox(width: 10.w),
-              latestNewIcon("https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Feramerch2.png?alt=media&token=848caa4a-49b2-4e37-9c92-af79a20356f6", () {}),
+              latestNewIcon('assets/icons/eramerch2.png', () {}),
               SizedBox(width: 10.w),
-              latestNewIcon("https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Feramerch3.png?alt=media&token=060ac304-8202-46bf-89ef-6a6adc8f999b", () {}),
+              latestNewIcon('assets/icons/eramerch3.png', () {}),
               SizedBox(width: 10.w),
-              latestNewIcon("https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Feramerch4.png?alt=media&token=f0cc3172-30a6-493f-9436-072772f5b36d", () {}),
+              latestNewIcon('assets/icons/eramerch4.png', () {}),
               SizedBox(width: 10.w),
-              latestNewIcon('https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2FclickForMore.png?alt=media&token=3a8da7ac-8e75-41c1-803e-cf5bcd1d9814', () {}),
+              latestNewIcon('assets/icons/clickForMore.png', () {}),
             ],
           ),
         ),
@@ -87,6 +92,11 @@ class Agentinfo extends StatelessWidget {
     );
   }
 
+// "https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fcompanynews1.jpg?alt=media&token=fa96fd08-46b2-4e03-b03f-d378ca943aee"
+// "https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fcompanynews1.jpg?alt=media&token=fa96fd08-46b2-4e03-b03f-d378ca943aee"
+// "https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fcompanynews1.jpg?alt=media&token=fa96fd08-46b2-4e03-b03f-d378ca943aee"
+// "https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fcompanynews1.jpg?alt=media&token=fa96fd08-46b2-4e03-b03f-d378ca943aee"
+// 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2FclickForMore.png?alt=media&token=3a8da7ac-8e75-41c1-803e-cf5bcd1d9814'
   Widget latestNews() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,19 +112,19 @@ class Agentinfo extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              latestNewIcon("https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fcompanynews1.jpg?alt=media&token=fa96fd08-46b2-4e03-b03f-d378ca943aee", () {
+              latestNewIcon('assets/images/companynews1.jpg', () {
                 Get.to(() => CompanyNews());
               }),
               SizedBox(width: 10.w),
-              latestNewIcon("https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fcompanynews1.jpg?alt=media&token=fa96fd08-46b2-4e03-b03f-d378ca943aee", () {
+              latestNewIcon('assets/images/companynews1.jpg', () {
                 Get.to(() => CompanyNews());
               }),
               SizedBox(width: 10.w),
-              latestNewIcon("https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fcompanynews1.jpg?alt=media&token=fa96fd08-46b2-4e03-b03f-d378ca943aee", () {}),
+              latestNewIcon('assets/images/companynews1.jpg', () {}),
               SizedBox(width: 10.w),
-              latestNewIcon("https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fcompanynews1.jpg?alt=media&token=fa96fd08-46b2-4e03-b03f-d378ca943aee", () {}),
+              latestNewIcon('assets/images/companynews1.jpg', () {}),
               SizedBox(width: 10.w),
-              latestNewIcon('https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2FclickForMore.png?alt=media&token=3a8da7ac-8e75-41c1-803e-cf5bcd1d9814', () {}),
+              latestNewIcon('assets/icons/clickForMore.png', () {}),
             ],
           ),
         ),
@@ -141,7 +151,7 @@ class Agentinfo extends StatelessWidget {
               iconAgents(listing.agentImage, () {}),
               iconAgents(listing.agentImage, () {}),
               iconAgents(listing.agentImage, () {}),
-              iconAgents('https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2FclickForMore.png?alt=media&token=3a8da7ac-8e75-41c1-803e-cf5bcd1d9814', () {}),
+              iconAgents('assets/icons/clickForMore.png', () {}),
             ],
           ),
         ),
@@ -149,6 +159,10 @@ class Agentinfo extends StatelessWidget {
     );
   }
 
+// https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fvideotrainings.png?alt=media&token=67a19f54-30ea-4335-9505-3e71a0342070
+// https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Flearningmaterials.png?alt=media&token=5fca7180-0f81-45e4-9bbd-ab2f961f496b
+// https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fupcoming.png?alt=media&token=60053da0-309e-4fb5-87e9-3dc7bbcf339d'
+// https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2FclickForMore.png?alt=media&token=3a8da7ac-8e75-41c1-803e-cf5bcd1d9814'
   Widget myTrainings() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,10 +178,10 @@ class Agentinfo extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              trainingIcon('https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fvideotrainings.png?alt=media&token=67a19f54-30ea-4335-9505-3e71a0342070', () {}),
-              trainingIcon('https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Flearningmaterials.png?alt=media&token=5fca7180-0f81-45e4-9bbd-ab2f961f496b', () {}),
-              trainingIcon('https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Fupcoming.png?alt=media&token=60053da0-309e-4fb5-87e9-3dc7bbcf339d', () {}),
-              trainingIcon('https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2FclickForMore.png?alt=media&token=3a8da7ac-8e75-41c1-803e-cf5bcd1d9814', () {})
+              trainingIcon('assets/icons/videotrainings.png', () {}),
+              trainingIcon('assets/icons/learningmaterials.png', () {}),
+              trainingIcon('assets/icons/upcoming.png', () {}),
+              trainingIcon('assets/icons/clickForMore.png', () {})
             ],
           ),
         ),
@@ -175,6 +189,7 @@ class Agentinfo extends StatelessWidget {
     );
   }
 
+//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Faddicon.png?alt=media&token=deeb56a5-2756-4f6d-9fbd-5936fd59d1b2
   Widget myListings() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,8 +205,8 @@ class Agentinfo extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              CachedNetworkImage(
-                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/agentdashboard%2Faddicon.png?alt=media&token=deeb56a5-2756-4f6d-9fbd-5936fd59d1b2',
+              Image.asset(
+                'assets/icons/addicon.png',
                 height: 110.h,
                 width: 110.w,
               ),
@@ -205,8 +220,8 @@ class Agentinfo extends StatelessWidget {
   Widget agentInfo() {
     return Row(
       children: [
-        CachedNetworkImage(
-          imageUrl: listing.agentImage,
+        Image.asset(
+          listing.agentImage,
           width: 100.w,
           height: 110.h,
         ),
@@ -231,8 +246,8 @@ class Agentinfo extends StatelessWidget {
   Widget trainingIcon(String assetPath, Function()? onTap) {
     return GestureDetector(
       onTap: onTap,
-      child: CachedNetworkImage(
-        imageUrl: assetPath,
+      child: Image.asset(
+        assetPath,
         height: 110.h,
         width: 110.w,
       ),
@@ -256,7 +271,7 @@ class Agentinfo extends StatelessWidget {
   Widget agentContact(String iconPath, String text) {
     return Row(
       children: [
-        CachedNetworkImage(imageUrl: iconPath, width: 35.w, height: 28.h),
+        Image.asset(iconPath, width: 35.w, height: 28.h),
         EraText(
           text: text,
           color: AppColors.black,
@@ -271,8 +286,8 @@ class Agentinfo extends StatelessWidget {
 Widget iconAgents(String assetPath, Function()? onTap) {
   return GestureDetector(
     onTap: onTap,
-    child: CachedNetworkImage(
-      imageUrl: assetPath,
+    child: Image.asset(
+      assetPath,
       height: 100.h,
       width: 100.w,
     ),
@@ -296,7 +311,7 @@ Widget latestNewIcon(String assetPath, Function()? onTap) {
 
     // child: ClipRRect(
     //   borderRadius: BorderRadius.circular(30),
-    //   child: CachedNetworkImage(imageUrl:
+    //   child:  Image.asset(
     //     assetPath,
     //     height: 100.h,
     //     width: 100.w,

@@ -21,6 +21,13 @@ class ListingController extends GetxController {
   var isForSale = 0.obs;
   var isForLease = true.obs;
   var isClicked = false.obs;
+  var currentPage = 0.obs;
+
+  final int totalPages = 10;
+
+  void onPageSelected(int index) {
+    currentPage.value = index;
+  }
 
 
 

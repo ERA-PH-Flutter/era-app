@@ -30,8 +30,8 @@ class ProjectDivider extends StatelessWidget {
               (item) => Center(
                 child: Column(
                   children: [
-                    CachedNetworkImage(
-                      imageUrl: item.imageText,
+                    Image.asset(
+                      item.imageText,
                       width: width ?? 241.w,
                       height: height ?? 91.h,
                     ),
@@ -51,7 +51,7 @@ class ProjectDivider extends StatelessWidget {
   //   return Center(
   //     child: Column(
   //       children: [
-  //         CachedNetworkImage(imageUrl:
+  //          Image.asset(
   //           textImage,
   //           width: 500.w,
   //           height: 500.h,

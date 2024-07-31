@@ -22,8 +22,8 @@ class AppNavItems extends StatelessWidget {
         onTap: onTap as void Function()?,
         child: Stack(
           children: [
-            CachedNetworkImage(
-              imageUrl: iconPath,
+            Image.asset(
+              iconPath,
               width: 50.w,
               height: 50.h,
             ),
@@ -38,8 +38,8 @@ class AppNavItems extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CachedNetworkImage(
-              imageUrl: iconPath,
+            Image.asset(
+              iconPath,
               width: 40.w,
               height: 40.h,
             ),

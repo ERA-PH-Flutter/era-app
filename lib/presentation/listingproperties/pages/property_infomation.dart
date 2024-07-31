@@ -67,14 +67,13 @@ class PropertyInformation extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   //convert to usd
-                  CachedNetworkImage(
-                      imageUrl: listing.convertusd, height: 50.h, width: 50.w),
+                  Image.asset(listing.convertusd, height: 50.h, width: 50.w),
                 ],
               ),
             ),
             SizedBox(height: 20.h),
             //temporary
-            CachedNetworkImage(imageUrl: listing.image),
+            Image.asset(listing.image),
             SizedBox(height: 20.h),
             //widget
             iconsText(),
@@ -316,8 +315,8 @@ class PropertyInformation extends StatelessWidget {
           ),
           //temporary i dont know how to implemnt the location
           SizedBox(height: 10.h),
-          CachedNetworkImage(
-            imageUrl: 'assets/images/locationImage.png',
+          Image.asset(
+            'assets/images/locationImage.png',
           ),
         ],
       ),
@@ -394,16 +393,14 @@ class PropertyInformation extends StatelessWidget {
           children: [
             Column(
               children: [
-                CachedNetworkImage(
-                    imageUrl: listing.moneyIcon, height: 80.h, width: 80.w),
+                Image.asset(listing.moneyIcon, height: 80.h, width: 80.w),
                 EraText(
                   text: '${listing.pricePerSqm}',
                   color: AppColors.black,
                   fontWeight: FontWeight.w700,
                   fontSize: 15.sp,
                 ),
-                CachedNetworkImage(
-                    imageUrl: listing.bath, height: 80.h, width: 80.w),
+                Image.asset(listing.bath, height: 80.h, width: 80.w),
                 EraText(
                   text: '${listing.baths}',
                   color: AppColors.black,
@@ -414,16 +411,14 @@ class PropertyInformation extends StatelessWidget {
             ),
             Column(
               children: [
-                CachedNetworkImage(
-                    imageUrl: listing.area, height: 80.h, width: 80.w),
+                Image.asset(listing.area, height: 80.h, width: 80.w),
                 EraText(
                   text: '${listing.areas} sqm',
                   color: AppColors.black,
                   fontWeight: FontWeight.w700,
                   fontSize: 15.sp,
                 ),
-                CachedNetworkImage(
-                    imageUrl: listing.car, height: 80.h, width: 80.w),
+                Image.asset(listing.car, height: 80.h, width: 80.w),
                 EraText(
                   text: '${listing.cars}',
                   color: AppColors.black,
@@ -434,16 +429,14 @@ class PropertyInformation extends StatelessWidget {
             ),
             Column(
               children: [
-                CachedNetworkImage(
-                    imageUrl: listing.bed, height: 80.h, width: 80.w),
+                Image.asset(listing.bed, height: 80.h, width: 80.w),
                 EraText(
                   text: '${listing.beds}',
                   color: AppColors.black,
                   fontWeight: FontWeight.w700,
                   fontSize: 15.sp,
                 ),
-                CachedNetworkImage(
-                    imageUrl: listing.sunriseIcon, height: 80.h, width: 80.w),
+                Image.asset(listing.sunriseIcon, height: 80.h, width: 80.w),
                 EraText(
                   text: 'SUNRISE',
                   color: AppColors.black,

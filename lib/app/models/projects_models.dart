@@ -225,26 +225,29 @@ class ProjectTextImageModels {
   static List<ProjectTextImageModels> textImageModels = [
     ProjectTextImageModels(
       imageText:
-          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/haraya.jpeg?alt=media&token=911c4b82-5739-4aca-bc5e-24d28507e832',
+          'assets/images/haraya.jpeg',
       text: 'by Shang Properties',
     ),
   ];
   static List<ProjectTextImageModels> textImageModels2 = [
     ProjectTextImageModels(
       imageText:
-          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fcenturyspire.png?alt=media&token=5170c754-9bf8-40e5-937d-d7b91f41e99e',
+          'assets/images/centuryspire.png',
       text: 'by Shang Properties',
     ),
   ];
   static List<ProjectTextImageModels> textImageModels3 = [
     ProjectTextImageModels(
       imageText:
-          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fshang.png?alt=media&token=8cc24016-10d4-49a0-a59b-e58e1118988a',
+          'assets/images/shang.png',
       text: 'by Shang Properties',
     ),
   ];
 }
 
+//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/haraya.jpeg?alt=media&token=911c4b82-5739-4aca-bc5e-24d28507e832
+//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fcenturyspire.png?alt=media&token=5170c754-9bf8-40e5-937d-d7b91f41e99e
+//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fshang.png?alt=media&token=8cc24016-10d4-49a0-a59b-e58e1118988a
 // class ProjectsIcons {
 //   final String icons;
 //   final String icons1;

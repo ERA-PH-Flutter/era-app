@@ -51,8 +51,8 @@ class ListedBy extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle, color: AppColors.hint),
-                child: CachedNetworkImage(
-                  imageUrl: image,
+                child: Image.asset(
+                  image,
                   width: 47.w,
                   height: 47.h,
                 ),
@@ -86,8 +86,8 @@ class ListedBy extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 65.w),
             child: Row(
               children: [
-                CachedNetworkImage(
-                  imageUrl: whatsappIcon!,
+                Image.asset(
+                  whatsappIcon!,
                   width: 30.w,
                   height: 30.h,
                 ),
@@ -106,8 +106,8 @@ class ListedBy extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 65.w),
             child: Row(
               children: [
-                CachedNetworkImage(
-                  imageUrl: emailIcon!,
+                Image.asset(
+                  emailIcon!,
                   width: 30.w,
                   height: 30.h,
                 ),
@@ -164,8 +164,8 @@ class ListedBy extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: whatsappIcon!,
+                  Image.asset(
+                    whatsappIcon!,
                     width: 30.w,
                     height: 30.h,
                   ),
@@ -181,8 +181,8 @@ class ListedBy extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: emailIcon!,
+                  Image.asset(
+                    emailIcon!,
                     width: 30.w,
                     height: 30.h,
                   ),
@@ -203,8 +203,8 @@ class ListedBy extends StatelessWidget {
           left: 125.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.w),
-            child: CachedNetworkImage(
-              imageUrl: image,
+            child: Image.asset(
+              image,
               height: 150.h,
               width: 160.w,
               fit: BoxFit.cover,

@@ -15,6 +15,8 @@ class AppDivider extends StatelessWidget {
   final double? fontSize;
   final bool? button;
 
+//    'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fdivider_bg.jpeg?alt=media&token=fa4f5974-ba69-4123-bdee-d044f2ec3600'
+//'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Feraph_white-logo.png?alt=media&token=624a65d5-d64e-4272-8055-e47299a32c06
   const AppDivider(
       {super.key, this.text, this.color, this.fontSize, this.button});
 
@@ -26,7 +28,7 @@ class AppDivider extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(
-            'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fdivider_bg.jpeg?alt=media&token=fa4f5974-ba69-4123-bdee-d044f2ec3600',
+            'assets/images/divider_bg.jpeg',
           ),
           fit: BoxFit.cover,
         ),
@@ -34,9 +36,8 @@ class AppDivider extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          CachedNetworkImage(
-            imageUrl:
-                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Feraph_white-logo.png?alt=media&token=624a65d5-d64e-4272-8055-e47299a32c06',
+          Image.asset(
+            'assets/images/eraph_white-logo.png',
             fit: BoxFit.cover,
             height: 152.h,
             width: 157.w,

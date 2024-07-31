@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});
-
+//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/aboutuspic.png?alt=media&token=f0c10d2b-d88a-4f6e-be4f-9fb712158df7
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -38,8 +38,8 @@ class AboutUs extends StatelessWidget {
                     color: AppColors.kRedColor),
               ),
               SizedBox(height: 5.h),
-              CachedNetworkImage(
-                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/aboutuspic.png?alt=media&token=f0c10d2b-d88a-4f6e-be4f-9fb712158df7',
+              Image.asset(
+                'assets/images/aboutuspic.png',
                 fit: BoxFit.contain,
                 width: 500.w,
               ),

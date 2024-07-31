@@ -1,6 +1,5 @@
 import 'dart:ffi';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -9,6 +8,7 @@ import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
+import 'package:eraphilippines/app/widgets/custom_pagination.dart';
 import 'package:eraphilippines/app/widgets/findingproperties.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/listingproperties/controllers/listing_controller.dart';
@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:number_paginator/number_paginator.dart';
 
 class FindProperties extends GetView<ListingController> {
   const FindProperties({super.key});
@@ -213,7 +212,12 @@ class FindProperties extends GetView<ListingController> {
                     fontSize: 25.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.kRedColor),
-
+                SizedBox(height: 10.h),
+                //not done with the pagination design i think i might change it..
+                CustomPaginator(
+                    totalPages: controller.totalPages,
+                    currentPage: controller.currentPage,
+                    onPageSelected: controller.onPageSelected),
                 //list all properties here
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -228,6 +232,9 @@ class FindProperties extends GetView<ListingController> {
                   fontSize: 23.sp,
                   height: 45.h,
                   fontWeight: FontWeight.w600,
+                  onTap: () {
+                    // Get.toNamed('/home');
+                  },
                 ),
               ],
             ),
@@ -242,8 +249,8 @@ class FindProperties extends GetView<ListingController> {
       onTap: onTap,
       child: Column(
         children: [
-          CachedNetworkImage(
-            imageUrl: icon,
+          Image.asset(
+            icon,
             height: 80.h,
             width: 80.w,
           ),

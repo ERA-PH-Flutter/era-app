@@ -10,7 +10,7 @@ import '../controllers/login_page_controller.dart';
 
 class LoginPage extends GetView<LoginPageController> {
   const LoginPage({super.key});
-
+//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/loginpage%2Feraph_logo.png?alt=media&token=95e88824-10f0-4bc1-b49e-e4f0727d7c07
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +25,8 @@ class LoginPage extends GetView<LoginPageController> {
               children: [
                 Column(
                   children: [
-                    CachedNetworkImage(
-                      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/loginpage%2Feraph_logo.png?alt=media&token=95e88824-10f0-4bc1-b49e-e4f0727d7c07',
+                    Image.asset(
+                      'assets/images/eraph_logo.png',
                     ),
                     SizedBox(height: 20.h),
                     Column(

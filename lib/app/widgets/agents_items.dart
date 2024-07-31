@@ -50,8 +50,8 @@ class AgentsInfo extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: agentInfo.whatsappIcon,
+                  Image.asset(
+                    agentInfo.whatsappIcon,
                     width: 30.w,
                     height: 30.h,
                   ),
@@ -67,8 +67,8 @@ class AgentsInfo extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: agentInfo.emailIcon,
+                  Image.asset(
+                    agentInfo.emailIcon,
                     width: 30.w,
                     height: 30.h,
                   ),
@@ -104,8 +104,8 @@ class AgentsInfo extends StatelessWidget {
           left: 125.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.w),
-            child: CachedNetworkImage(
-              imageUrl: agentInfo.agentImage,
+            child: Image.asset(
+              agentInfo.agentImage,
               height: 150.h,
               width: 160.w,
               fit: BoxFit.cover,

@@ -40,7 +40,7 @@ class ProjectPage extends StatelessWidget {
   Widget projectContainer(ProjectsModels1 project) {
     return Column(
       children: [
-        CachedNetworkImage(imageUrl: project.heroImage),
+        Image.asset(project.heroImage),
         SizedBox(height: 15.h),
         ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 15.h),
@@ -71,7 +71,7 @@ class ProjectPage extends StatelessWidget {
           45,
         ),
         SizedBox(height: 10.h),
-        CachedNetworkImage(imageUrl: project.text36),
+        Image.asset(project.text36),
         SizedBox(height: 15.h),
         Inquiry(),
         SizedBox(height: 40.h),
@@ -110,8 +110,8 @@ class ProjectPage extends StatelessWidget {
             20,
           ),
           SizedBox(height: 10.h),
-          CachedNetworkImage(
-            imageUrl: project.image1,
+          Image.asset(
+            project.image1,
             fit: BoxFit.cover,
           ),
         ],
@@ -132,8 +132,8 @@ class ProjectPage extends StatelessWidget {
             color: AppColors.kRedColor,
           ),
           SizedBox(height: 20.h),
-          CachedNetworkImage(
-            imageUrl: project.image2,
+          Image.asset(
+            project.image2,
             fit: BoxFit.cover,
           ),
           SizedBox(height: 20.h),
@@ -152,8 +152,8 @@ class ProjectPage extends StatelessWidget {
             color: AppColors.kRedColor,
           ),
           SizedBox(height: 10.h),
-          CachedNetworkImage(
-            imageUrl: project.image3,
+          Image.asset(
+            project.image3,
             fit: BoxFit.cover,
           ),
           SizedBox(height: 20.h),
@@ -188,7 +188,7 @@ class ProjectPage extends StatelessWidget {
             color: AppColors.black,
           ),
           SizedBox(height: 20.h),
-          CachedNetworkImage(imageUrl: project.image4),
+          Image.asset(project.image4),
           SizedBox(height: 20.h),
           EraText(
             text: project.text10,
@@ -205,9 +205,9 @@ class ProjectPage extends StatelessWidget {
             maxLines: 50,
           ),
           SizedBox(height: 20.h),
-          CachedNetworkImage(imageUrl: project.image5),
+          Image.asset(project.image5),
           SizedBox(height: 30.h),
-          CachedNetworkImage(imageUrl: project.image6),
+          Image.asset(project.image6),
           SizedBox(height: 20.h),
         ],
       ),
@@ -235,7 +235,7 @@ class ProjectPage extends StatelessWidget {
             maxLines: 50,
           ),
           SizedBox(height: 20.h),
-          CachedNetworkImage(imageUrl: project.image7),
+          Image.asset(project.image7),
           SizedBox(height: 10.h),
           EraText(
             text: project.text14,
@@ -252,7 +252,7 @@ class ProjectPage extends StatelessWidget {
             maxLines: 50,
           ),
           SizedBox(height: 20.h),
-          CachedNetworkImage(imageUrl: project.image8),
+          Image.asset(project.image8),
           SizedBox(height: 10.h),
           EraText(
             text: project.text16,
@@ -386,7 +386,7 @@ class ProjectPage extends StatelessWidget {
   static Widget infoTile(String icon, String value) {
     return Row(
       children: [
-        CachedNetworkImage(imageUrl: icon, width: 70.w, height: 70.h),
+        Image.asset(icon, width: 70.w, height: 70.h),
         EraText(
           text: value,
           fontSize: 18.sp,

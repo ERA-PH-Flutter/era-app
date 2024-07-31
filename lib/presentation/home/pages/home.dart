@@ -83,6 +83,8 @@ class Home extends GetView<HomeController> {
                               )),
                         ]),
                       ),
+                      //https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fhero-images%2Fnext.png?alt=media&token=7b8c99ee-ecef-4221-b4ea-bc35a1db4ec9
+                      //https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fhero-images%2Fnext-r.png?alt=media&token=6919aff8-9790-4f3a-826b-764af21404f7
                       Positioned(
                         top: 140,
                         left: 10,
@@ -91,9 +93,8 @@ class Home extends GetView<HomeController> {
                             controller.prevImage();
                             controller.innerController.previousPage();
                           },
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fhero-images%2Fnext.png?alt=media&token=7b8c99ee-ecef-4221-b4ea-bc35a1db4ec9',
+                          child: Image.asset(
+                            'assets/icons/next.png',
                             height: 20.h,
                             width: 20.w,
                           ),
@@ -107,9 +108,8 @@ class Home extends GetView<HomeController> {
                             controller.nextImage(images.length);
                             controller.innerController.nextPage();
                           },
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fhero-images%2Fnext-r.png?alt=media&token=6919aff8-9790-4f3a-826b-764af21404f7',
+                          child: Image.asset(
+                            'assets/icons/next-r.png',
                             height: 20.h,
                             width: 20.w,
                           ),

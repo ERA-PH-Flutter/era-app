@@ -16,7 +16,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final Widget? action;
   final double height;
-
+//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fapp-bar%2Feraph_logo.png?alt=media&token=134716fb-da8a-4bb3-9ebc-911f68d4b2bc
+//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fapp-bar%2Fmenubar.png?alt=media&token=893dd49a-a71a-46b6-8a91-888f2c8bcad8
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,8 +31,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                   Transform.translate(
                       offset: Offset(-14, 1),
                       child: IconButton(
-                        icon: CachedNetworkImage(
-                          imageUrl: "https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fapp-bar%2Feraph_logo.png?alt=media&token=134716fb-da8a-4bb3-9ebc-911f68d4b2bc",
+                        icon: Image.asset(
+                          'assets/images/eraph_logo.png',
                         ),
                         onPressed: () {
                           Get.toNamed('/home');
@@ -40,8 +41,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               action ??
                   DropdownButtonHideUnderline(
                       child: DropdownButton2(
-                    customButton: CachedNetworkImage(
-                      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fapp-bar%2Fmenubar.png?alt=media&token=893dd49a-a71a-46b6-8a91-888f2c8bcad8',
+                    customButton: Image.asset(
+                      'assets/icons/menubar.png',
                       height: 64,
                       width: 64,
                     ),
@@ -119,7 +120,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
          // Transform.translate(
             //     offset: Offset(14, 1),
             //     child: IconButton(
-            //       icon: CachedNetworkImage(imageUrl:
+            //       icon:  Image.asset(
             //         "assets/icons/menubar.png",
             //       ),
             //       onPressed: () {
