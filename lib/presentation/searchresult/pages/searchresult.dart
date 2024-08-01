@@ -25,19 +25,21 @@ class SearchResult extends GetView<SearchResultController> {
         scrollDirection: Axis.vertical,
         child: Padding(
           padding: EdgeInsets.all(20.w),
-          child: Obx(()=>
-            switch(controller.searchResultState.value){
-              SearchResultState.loading => Center(child: CircularProgressIndicator(),),
-              SearchResultState.loaded => _loaded(),
-              SearchResultState.empty => _empty(),
-              SearchResultState.searching => _searching(),
-              SearchResultState.error => _error(),
-            }
-          )
+          child: Obx(() => switch (controller.searchResultState.value) {
+                SearchResultState.loading => Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                SearchResultState.loaded => _loaded(),
+                SearchResultState.empty => _empty(),
+                SearchResultState.searching => _searching(),
+                SearchResultState.error => _error(),
+              }
+            ),
         ),
       ),
     );
   }
+
   _searching(){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,73 +53,72 @@ class SearchResult extends GetView<SearchResultController> {
                 svgIcon: 'assets/icons/send.png',
                 bgColor: AppColors.white,
               ),
-              SearchWidget(searchFunction: (){
-
-              }),
+              SearchWidget(searchFunction: () {}),
             ],
           ),
         ),
       ],
     );
   }
-  _loaded(){
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BoxWidget(
-            child: Column(
-              children: [
-                SizedBox(height: 10.h),
-                AppTextField(
-                  hint: 'AI Search',
-                  svgIcon: 'assets/icons/send.png',
-                  bgColor: AppColors.white,
-                ),
-                SearchWidget(searchFunction: (){
 
-                }),
-              ],
-            ),
+  _loaded() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BoxWidget(
+          child: Column(
+            children: [
+              SizedBox(height: 10.h),
+              AppTextField(
+                hint: 'AI Search',
+                svgIcon: 'assets/icons/send.png',
+                bgColor: AppColors.white,
+              ),
+              SearchWidget(searchFunction: () {}),
+            ],
           ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: EraText(
-              text: 'SEARCH RESULTS FOR',
-              fontSize: 23.sp,
-              color: AppColors.blue,
-              fontWeight: FontWeight.w600,
-            ),
+        ),
+        SizedBox(height: 10.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: EraText(
+            text: 'SEARCH RESULTS FOR',
+            fontSize: 23.sp,
+            color: AppColors.blue,
+            fontWeight: FontWeight.w600,
           ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: EraText(
-              text: '“Lorem ipsum dolor sit amet”',
-              fontSize: 22.sp,
-              color: AppColors.black,
-              fontWeight: FontWeight.w500,
-            ),
+        ),
+        SizedBox(height: 10.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: EraText(
+            text: '“Lorem ipsum dolor sit amet”',
+            fontSize: 22.sp,
+            color: AppColors.black,
+            fontWeight: FontWeight.w500,
           ),
-          ListView.builder(
-            itemCount: controller.data.length,
-            itemBuilder: (context,index){
-              //todo missy
-            },
-          )
-        ],
-      ),
+        ),
+        SizedBox(height: 10.h),
+        FindingProperties(
+          listingModels: RealEstateListing.listingsModels,
+        ),
+
+        // ListView.builder(
+        //   itemCount: controller.data.length,
+        //   itemBuilder: (context, index) {
+        //     //todo missy
+        //this is error if u want to call list view builder here we need to have a parameter for the list of data
+        //   },
+        // )
+      ],
     );
   }
-  _error(){
-    return Container(
 
-    );
+  _error() {
+    return Container();
   }
-  _empty(){
-    return Container(
 
-    );
+  _empty() {
+    return Container();
   }
 }

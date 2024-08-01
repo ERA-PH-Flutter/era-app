@@ -13,6 +13,7 @@ import 'package:eraphilippines/app/widgets/pieChart.dart';
 
 import 'package:eraphilippines/presentation/mortageCalculator.dart/pages/MortageCalculator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -323,6 +324,29 @@ class PropertyInformation extends StatelessWidget {
     );
   }
 
+  Widget iconsText() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            iconsWidgets(listing.moneyIcon, '${listing.pricePerSqm}'),
+            iconsWidgets(listing.area, '${listing.areas} sqm'),
+            iconsWidgets(listing.bed, '${listing.beds}'),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            iconsWidgets(listing.bath, '${listing.baths}'),
+            iconsWidgets(listing.car, '${listing.cars}'),
+            iconsWidgets(listing.sunriseIcon, 'SUNRISE'),
+          ],
+        ),
+      ],
+    );
+  }
+
   Widget overviewSum() {
     return BoxWidget.BoxWidget2(
       AppColors.white,
@@ -361,6 +385,24 @@ class PropertyInformation extends StatelessWidget {
     );
   }
 
+  Widget iconsWidgets(String image, String text) {
+    return Column(
+      children: [
+        Image.asset(
+          image,
+          height: 80.h,
+          width: 80.w,
+        ),
+        EraText(
+          text: text,
+          color: AppColors.black,
+          fontWeight: FontWeight.w700,
+          fontSize: 15.sp,
+        ),
+      ],
+    );
+  }
+
   Widget shorterSummary(String text, text2) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5.h),
@@ -382,72 +424,6 @@ class PropertyInformation extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget iconsText() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              children: [
-                Image.asset(listing.moneyIcon, height: 80.h, width: 80.w),
-                EraText(
-                  text: '${listing.pricePerSqm}',
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15.sp,
-                ),
-                Image.asset(listing.bath, height: 80.h, width: 80.w),
-                EraText(
-                  text: '${listing.baths}',
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15.sp,
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Image.asset(listing.area, height: 80.h, width: 80.w),
-                EraText(
-                  text: '${listing.areas} sqm',
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15.sp,
-                ),
-                Image.asset(listing.car, height: 80.h, width: 80.w),
-                EraText(
-                  text: '${listing.cars}',
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15.sp,
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Image.asset(listing.bed, height: 80.h, width: 80.w),
-                EraText(
-                  text: '${listing.beds}',
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15.sp,
-                ),
-                Image.asset(listing.sunriseIcon, height: 80.h, width: 80.w),
-                EraText(
-                  text: 'SUNRISE',
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15.sp,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
     );
   }
 
