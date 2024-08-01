@@ -19,6 +19,8 @@ import 'package:eraphilippines/app/widgets/listing_properties.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/app/widgets/properties_widgets.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/presentation/searchresult/controllers/searchresult_binding.dart';
+import 'package:eraphilippines/presentation/searchresult/pages/searchresult.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -207,14 +209,13 @@ class Home extends GetView<HomeController> {
                         ),
                       ),
                       SearchWidget(searchFunction: ()async{
-                        print("AAAAAAAAAAAAAAA");
                         var data = await Database().searchListing(
                             location: controller.locationController.text,
                             price: controller.priceController,
                             type: controller.isForSale.value == 1 ? "selling" : "rent",
                             property: controller.propertyController.text
                         );
-                        print(data);
+                        Get.off(SearchResult(),binding: SearchResultBinding(),arguments: data);
                       }),
                     ],
                   ),
