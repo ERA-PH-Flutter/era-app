@@ -1,6 +1,7 @@
+import 'package:eraphilippines/app/models/user.dart';
 import 'package:intl/intl.dart';
 
-class RealEstateListing {
+class RealEstateListing{
   final String image;
   final String type;
   final String description;

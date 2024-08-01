@@ -17,6 +17,7 @@ class SplashController extends GetxController {
   void onInit() async {
     super.onInit();
     await Future.delayed(const Duration(seconds: 5));
+
     if (Authentication().auth.currentUser == null) {
       Get.toNamed(RouteString.loginpage);
     } else {

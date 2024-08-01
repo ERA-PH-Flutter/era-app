@@ -1,9 +1,14 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/authentication/controllers/login_page_binding.dart';
+import 'package:eraphilippines/presentation/authentication/pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MenuItem {
   const MenuItem({
@@ -16,28 +21,28 @@ class MenuItem {
 abstract class MenuItems {
 
  
-  static const List<MenuItem> firstItems = [
+  static List<MenuItem> firstItems = [
     findproperties,
     projects,
     agents,
     aboutus
   ];
-  static const List<MenuItem> secondItems = [login];
+  static List secondItems = [login.obs];
 
-  static const findproperties = MenuItem(
+  static var findproperties = MenuItem(
     text: 'FIND PROPERTIES',
   );
-  static const projects = MenuItem(
+  static var projects = MenuItem(
     text: 'PROJECTS',
   );
-  static const agents = MenuItem(
+  static var agents = MenuItem(
     text: 'FIND AGENTS',
   );
-  static const aboutus = MenuItem(
+  static var aboutus = MenuItem(
     text: 'ABOUT US',
   );
-  static const login = MenuItem(
-    text: 'LOGIN',
+  static var login = MenuItem(
+    text: FirebaseAuth.instance.currentUser == null ? "LOGIN" : "LOGOUT",
   );
   // static const login = MenuItem(
   //   text: 'LOGOUT',
@@ -70,28 +75,22 @@ abstract class MenuItems {
   }
 
   static void onChanged(BuildContext context, MenuItem item) {
-    switch (item) {
-      case MenuItems.findproperties:
-        Get.toNamed("/findproperties");
-        break;
-
-      case MenuItems.projects:
-        Get.toNamed("/project");
-        break;
-      case MenuItems.agents:
-        Get.toNamed("/findagents");
-
-        break;
-      case MenuItems.login:
+    if(item == MenuItems.findproperties){
+      Get.toNamed("/findproperties");
+    }else if(item == MenuItems.projects){
+      Get.toNamed("/project");
+    }else if(item == MenuItems.agents){
+      Get.toNamed("/findagents");
+    }else if(item == MenuItems.login){
+      if(FirebaseAuth.instance.currentUser == null){
         Get.toNamed("/loginpage");
+      }else{
+        Authentication().logout();
+        Get.to(LoginPage(),binding: LoginPageBinding());
+      }
 
-        break;
-      // case MenuItems.logout:
-      // Get.toNamed("/loginpage");
-      // break;
-      case MenuItems.aboutus:
-        Get.toNamed("/aboutus");
-        break;
+    }else if(item == MenuItems.aboutus){
+      Get.toNamed("/aboutus");
     }
   }
 }

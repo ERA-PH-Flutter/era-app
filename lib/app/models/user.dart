@@ -3,6 +3,7 @@ class User{
   String? firstname;
   String? lastname;
   String? role;
+
   User({
     required this.id,
     this.firstname,

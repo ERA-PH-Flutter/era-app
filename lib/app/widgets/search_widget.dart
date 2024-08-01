@@ -1,15 +1,12 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/home/controllers/home_binding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SearchWidget extends StatelessWidget {
-  void Function()? searchFunction;
-  SearchWidget({super.key,required this.searchFunction});
-//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2FsearchIcon.png?alt=media&token=398319e2-5b95-48a2-9b4b-f453042dc1b4
-  @override
-  Widget build(BuildContext context) {
+class SearchWidget{
+  static build(searchFunction){
     return GestureDetector(
       onTap: searchFunction,
       child: Container(

@@ -25,21 +25,19 @@ class SellingSearchresult extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BoxWidget(
-                child: Column(
-                  children: [
-                    SizedBox(height: 10.h),
-                    AppTextField(
-                      hint: 'AI Search',
-                      svgIcon: 'assets/icons/send.png',
-                      bgColor: AppColors.white,
-                    ),
-                    SearchWidget(searchFunction: (){
+              BoxWidget.build(child: Column(
+                children: [
+                  SizedBox(height: 10.h),
+                  AppTextField(
+                    hint: 'AI Search',
+                    svgIcon: 'assets/icons/send.png',
+                    bgColor: AppColors.white,
+                  ),
+                  SearchWidget.build((){
 
-                    }),
-                  ],
-                ),
-              ),
+                  }),
+                ],
+              )),
               SizedBox(height: 30.h),
               EraText(
                 text: 'SELLING SEARCH RESULTS',

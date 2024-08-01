@@ -41,21 +41,19 @@ class Help extends GetView<ContactusController> {
                 ),
               ),
               SizedBox(height: 10.h),
-              BoxWidget(
-                child: Column(
-                  children: [
-                    AppTextField(
-                      hint: 'AI Search',
-                      svgIcon: 'assets/icons/send.png',
-                      bgColor: AppColors.white,
-                    ),
-                    SizedBox(height: 10.h),
-                    SearchWidget(searchFunction: (){
+              BoxWidget.build(child: Column(
+                children: [
+                  AppTextField(
+                    hint: 'AI Search',
+                    svgIcon: 'assets/icons/send.png',
+                    bgColor: AppColors.white,
+                  ),
+                  SizedBox(height: 10.h),
+                  SearchWidget.build((){
 
-                    }),
-                  ],
-                ),
-              ),
+                  }),
+                ],
+              )),
               SizedBox(height: 20.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),

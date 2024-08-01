@@ -1,20 +1,14 @@
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/app_textfield.dart';
-import 'package:eraphilippines/app/widgets/search_widget.dart';
-import 'package:eraphilippines/presentation/home/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
-class BoxWidget extends StatelessWidget {
-  final Widget? child;
+class BoxWidget{
 
-  const BoxWidget({super.key, this.child});
 
-  @override
-  Widget build(BuildContext context) {
+  static Widget build({
+    child
+  }){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20.w),
       padding: EdgeInsets.all(8.0),
@@ -52,3 +46,4 @@ class BoxWidget extends StatelessWidget {
     );
   }
 }
+

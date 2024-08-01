@@ -125,7 +125,7 @@ class Home extends GetView<HomeController> {
                   )),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: BoxWidget(
+                child: BoxWidget.build(
                   child: Column(
                     children: [
                       SizedBox(height: 10.h),
@@ -162,7 +162,7 @@ class Home extends GetView<HomeController> {
                       ),
                       SizedBox(height: 20.h),
                       Obx(
-                        () => Row(
+                            () => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Row(
@@ -190,6 +190,7 @@ class Home extends GetView<HomeController> {
                                 Transform.scale(
                                   scale: 1.9,
                                   child: Radio(
+
                                       fillColor: WidgetStateProperty.all(
                                           AppColors.white.withOpacity(0.6)),
                                       value: 2,
@@ -208,14 +209,13 @@ class Home extends GetView<HomeController> {
                           ],
                         ),
                       ),
-                      SearchWidget(searchFunction: ()async{
+                      SearchWidget.build(()async{
                         var data = await Database().searchListing(
                             location: controller.locationController.text,
                             price: controller.priceController,
                             type: controller.isForSale.value == 1 ? "selling" : "rent",
                             property: controller.propertyController.text
                         );
-                        //print(data);
                         Get.to(SearchResult(),binding: SearchResultBinding(),arguments: [data,"sample search"]);
                       }),
                     ],

@@ -28,12 +28,12 @@ import '../presentation/home/pages/home.dart';
 
 appRoutes() => [
       /*
-  GetPage(
-    name: RoutePageString.auth,
-    page: () => const AuthPage(),
-    middlewares: [MyMiddelware()],
-  ),
-  */
+      GetPage(
+        name: RoutePageString.auth,
+        page: () => const AuthPage(),
+        middlewares: [MyMiddelware()],
+      ),
+      */
       GetPage(
           name: RouteString.home,
           page: () => const Home(),
@@ -42,26 +42,6 @@ appRoutes() => [
           name: RouteString.loginpage,
           page: () => const LoginPage(),
           binding: SecondPageBinding()),
-      // GetPage(
-      //     name: RouteString.preSelling,
-      //     page: () => const PreSelling(),
-      //     binding: ListingBinding()),
-      // GetPage(
-      //     name: RouteString.residential,
-      //     page: () => const Residential(),
-      //     binding: ListingBinding()),
-      // GetPage(
-      //     name: RouteString.commercial,
-      //     page: () => const Commercial(),
-      //     binding: ListingBinding()),
-      // GetPage(
-      //     name: RouteString.rental,
-      //     page: () => const Rental(),
-      //     binding: ListingBinding()),
-      // GetPage(
-      //     name: RouteString.auction,
-      //     page: () => const Auction(),
-      //     binding: ListingBinding()),
       GetPage(
           name: RouteString.project,
           page: () => const ProjectPage(),

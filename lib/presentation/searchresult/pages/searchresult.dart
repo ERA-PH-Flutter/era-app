@@ -14,6 +14,9 @@ import 'package:eraphilippines/presentation/searchresult/controllers/searchresul
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+import '../../../app/widgets/listedBy_widget.dart';
 
 class SearchResult extends GetView<SearchResultController> {
   const SearchResult({super.key});
@@ -44,40 +47,39 @@ class SearchResult extends GetView<SearchResultController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BoxWidget(
-          child: Column(
-            children: [
-              SizedBox(height: 10.h),
-              AppTextField(
-                hint: 'AI Search',
-                svgIcon: 'assets/icons/send.png',
-                bgColor: AppColors.white,
-              ),
-              SearchWidget(searchFunction: () {}),
-            ],
-          ),
-        ),
+        BoxWidget.build(child: Column(
+          children: [
+            SizedBox(height: 10.h),
+            AppTextField(
+              hint: 'AI Search',
+              svgIcon: 'assets/icons/send.png',
+              bgColor: AppColors.white,
+            ),
+            SearchWidget.build((){
+
+            }),
+          ],
+        ),),
       ],
     );
   }
-
   _loaded() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BoxWidget(
-          child: Column(
-            children: [
-              SizedBox(height: 10.h),
-              AppTextField(
-                hint: 'AI Search',
-                svgIcon: 'assets/icons/send.png',
-                bgColor: AppColors.white,
-              ),
-              SearchWidget(searchFunction: () {}),
-            ],
-          ),
-        ),
+        BoxWidget.build(child: Column(
+          children: [
+            SizedBox(height: 10.h),
+            AppTextField(
+              hint: 'AI Search',
+              svgIcon: 'assets/icons/send.png',
+              bgColor: AppColors.white,
+            ),
+            SearchWidget.build((){
+
+            }),
+          ],
+        ),),
         SizedBox(height: 10.h),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -99,25 +101,161 @@ class SearchResult extends GetView<SearchResultController> {
           ),
         ),
         SizedBox(height: 10.h),
-        FindingProperties(
-          listingModels: RealEstateListing.listingsModels,
-        ),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: controller.data.length,
+          itemBuilder: (context, index) {
+             return GestureDetector(
+               onTap: () {
+                 //Get.toNamed('/propertyInfo', arguments: listingItems);
+               },
+               child: Container(
+                 padding: EdgeInsets.symmetric(horizontal: 10.w),
+                 child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     ClipRRect(
+                       child: Image.asset(
+                         "assets/images/image2.png",
+                         fit: BoxFit.cover,
+                         width: 380.w,
+                         height: 200.h,
+                       ),
+                     ),
+                     SizedBox(
+                       height: 15.h,
+                     ),
+                     Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                       child: EraText(
+                         text: controller.data[index]["type"],
+                         fontSize: 16.sp,
+                         color: AppColors.kRedColor,
+                         fontWeight: FontWeight.bold,
+                         lineHeight: 0.4,
+                       ),
+                     ),
+                     Row(
+                       //crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Row(
+                           children: [
+                             Image.asset(
+                               "assets/icons/floor-area.png",
+                               width: 40.w,
+                               height: 40.h,
+                             ),
+                             SizedBox(width: 2.w),
+                             EraText(
+                               text: '${controller.data[index]["size"]} sqm',
+                               fontSize: 15.sp,
+                               fontWeight: FontWeight.w500,
+                               color: AppColors.black,
+                             ),
+                           ],
+                         ),
+                         SizedBox(width: 10.w),
+                         Image.asset(
+                           "assets/icons/bed.png",
+                           width: 40.w,
+                           height: 40.h,
+                         ),
+                         EraText(
+                           text: '${ controller.data[index]["rooms"]}',
+                           fontSize: 15.sp,
+                           fontWeight: FontWeight.w500,
+                           color: AppColors.black,
+                         ),
+                         SizedBox(width: 10.w),
+                         Image.asset(
+                           "assets/icons/tub.png",
+                           width: 40.w,
+                           height: 40.h,
+                         ),
+                         EraText(
+                           text: '${controller.data[index]["baths"]}',
+                           fontSize: 15.sp,
+                           fontWeight: FontWeight.w500,
+                           color: AppColors.black,
+                         ),
+                         SizedBox(width: 10.w),
+                         Image.asset(
+                           "assets/icons/car.png",
+                           width: 40.w,
+                           height: 40.h,
+                         ),
+                         EraText(
+                           text: '${ controller.data[index]["garage"]}',
+                           fontSize: 15.sp,
+                           fontWeight: FontWeight.w500,
+                           color: AppColors.black,
+                         ),
+                       ],
+                     ),
+                     SizedBox(
+                       height: 5.h,
+                     ),
+                     Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                       child: EraText(
+                         text: 'Description:',
+                         fontSize: 16.sp,
+                         color: AppColors.black,
+                         fontWeight: FontWeight.w600,
+                         lineHeight: 1,
+                       ),
+                     ),
 
-        // ListView.builder(
-        //   itemCount: controller.data.length,
-        //   itemBuilder: (context, index) {
-        //     //todo missy
-        //this is error if u want to call list view builder here we need to have a parameter for the list of data
-        //   },
-        // )
+                     Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                       child: Text(
+                         controller.data[index]["description"] ?? "Nothing added.",
+                         style: TextStyle(
+                           fontSize: 16.sp,
+                           fontWeight: FontWeight.w500,
+                           color: AppColors.black,
+                         ),
+                         maxLines: 3,
+                         overflow: TextOverflow.ellipsis,
+                       ),
+                     ),
+                     SizedBox(
+                       height: 5.h,
+                     ),
+                     Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                       child: EraText(
+                         text: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
+                             .format(controller.data[index]["price"],),
+                         color: AppColors.blue,
+                         fontSize: 23.sp,
+                         fontWeight: FontWeight.bold,
+                       ),
+                     ),
+                     //widget listed by
+                     /*
+                     ListedBy(
+                       text: 'Listed By',
+                       image: ,
+                       agentFirstName: listingItems.agentFirstName,
+                       agentLastName: listingItems.agentLastName,
+                       agentType: listingItems.agents,
+                     ),
+                     */
+                   ],
+                 ),
+               ),
+             );
+             //todo missy
+             //this is error if u want to call list view builder here we need to have a parameter for the list of data
+           },
+        )
       ],
     );
   }
-
   _error() {
     return Container();
   }
-
   _empty() {
     return Container();
   }
