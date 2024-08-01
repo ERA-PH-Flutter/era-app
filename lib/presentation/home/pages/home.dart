@@ -215,7 +215,8 @@ class Home extends GetView<HomeController> {
                             type: controller.isForSale.value == 1 ? "selling" : "rent",
                             property: controller.propertyController.text
                         );
-                        Get.off(SearchResult(),binding: SearchResultBinding(),arguments: data);
+                        //print(data);
+                        Get.to(SearchResult(),binding: SearchResultBinding(),arguments: [data,"sample search"]);
                       }),
                     ],
                   ),

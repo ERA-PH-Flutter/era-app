@@ -27,10 +27,11 @@ class SearchResultController extends GetxController{
         searchResultState.value = SearchResultState.loaded;
       }
     }catch(e){
+      print(e);
       searchResultState.value = SearchResultState.error;
     }
 
-
+    print(searchResultState.value);
     super.onInit();
   }
 }

@@ -28,9 +28,9 @@ class SearchResult extends GetView<SearchResultController> {
           child: Obx(()=>
             switch(controller.searchResultState.value){
               SearchResultState.loading => Center(child: CircularProgressIndicator(),),
-              SearchResultState.loaded => _loaded,
-              SearchResultState.empty => _empty,
-              SearchResultState.searching => _searching,
+              SearchResultState.loaded => _loaded(),
+              SearchResultState.empty => _empty(),
+              SearchResultState.searching => _searching(),
               SearchResultState.error => _error(),
             }
           )
@@ -103,7 +103,7 @@ class SearchResult extends GetView<SearchResultController> {
           ListView.builder(
             itemCount: controller.data.length,
             itemBuilder: (context,index){
-
+              //todo missy
             },
           )
         ],
@@ -120,5 +120,4 @@ class SearchResult extends GetView<SearchResultController> {
 
     );
   }
-
 }
