@@ -10,22 +10,27 @@ class TextformfieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final EdgeInsetsGeometry? contentPadding;
   final int? maxLines;
-  const TextformfieldWidget({
-    super.key,
-    this.style,
-    required this.hintText,
-    this.hintstlye,
-    this.controller,
-    this.contentPadding,
-    this.maxLines,
-  });
+  final Widget? suffixIcon;
+  final bool? obscureText;
+  const TextformfieldWidget(
+      {super.key,
+      this.style,
+      required this.hintText,
+      this.hintstlye,
+      this.controller,
+      this.contentPadding,
+      this.maxLines,
+      this.suffixIcon,
+      this.obscureText});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       maxLines: maxLines ?? 18,
       controller: controller,
+      obscureText: obscureText ?? false,
       decoration: InputDecoration(
+        suffixIcon: suffixIcon,
         hintText: hintText,
         hintStyle:
             hintstlye ?? TextStyle(color: AppColors.hint, fontSize: 18.sp),

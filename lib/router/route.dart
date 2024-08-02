@@ -1,7 +1,9 @@
+import 'package:eraphilippines/presentation/addlistings/controllers/addlistings_binding.dart';
+import 'package:eraphilippines/presentation/addlistings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agents/controllers/agents_binding.dart';
 import 'package:eraphilippines/presentation/agents/pages/agentdashboard.dart';
 import 'package:eraphilippines/presentation/agents/pages/findagents.dart';
-import 'package:eraphilippines/presentation/authentication/controllers/login_page_binding.dart';
+import 'package:eraphilippines/presentation/authentication/controllers/authentication_binding.dart';
 import 'package:eraphilippines/presentation/authentication/pages/createaccount_page.dart';
 import 'package:eraphilippines/presentation/base/controllers/base_binding.dart';
 import 'package:eraphilippines/presentation/companynews/controllers/companynews_binding.dart';
@@ -34,6 +36,10 @@ appRoutes() => [
         middlewares: [MyMiddelware()],
       ),
       */
+      GetPage(
+          name: RouteString.addListings,
+          page: () => const AddListings(),
+          binding: AddListingsBinding()),
       GetPage(
           name: RouteString.home,
           page: () => const Home(),
@@ -107,7 +113,7 @@ appRoutes() => [
           name: RouteString.agentInfo,
           page: () => Agentinfo(
                 listing: Get.arguments,
-               ),
+              ),
           binding: AgentsBinding()),
     ];
 

@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../controllers/login_page_controller.dart';
+import '../controllers/authentication_controller.dart';
 
 class LoginPage extends GetView<LoginPageController> {
   const LoginPage({super.key});
@@ -38,7 +38,7 @@ class LoginPage extends GetView<LoginPageController> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 35),
                               child: TextFormField(
-                                controller: controller.email,
+                                controller: controller.email ,
                                 style: TextStyle(
                                     color: AppColors.black, fontSize: 15.sp),
                                 decoration: InputDecoration(

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 
 import 'package:eraphilippines/app/models/realestatelisting.dart';
@@ -234,8 +235,8 @@ class Agentinfo extends StatelessWidget {
                   AppColors.blue, 18.sp, FontWeight.bold, 1.2),
               agentText(
                   listing.agents, AppColors.black, 12.sp, FontWeight.w400, 0.9),
-              agentContact(listing.whatsappIcon, listing.whatsapp),
-              agentContact(listing.emailIcon, listing.email),
+              agentContact(AppEraAssets.whatsappIcon, listing.whatsapp),
+              agentContact(AppEraAssets.whatsappIcon, listing.email),
             ],
           ),
         ),

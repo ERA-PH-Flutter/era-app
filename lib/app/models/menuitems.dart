@@ -1,7 +1,7 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/presentation/authentication/controllers/login_page_binding.dart';
+import 'package:eraphilippines/presentation/authentication/controllers/authentication_binding.dart';
 import 'package:eraphilippines/presentation/authentication/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 
 import 'package:eraphilippines/app/models/realestatelisting.dart';
@@ -68,7 +69,8 @@ class PropertyInformation extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   //convert to usd
-                  Image.asset(listing.convertusd, height: 50.h, width: 50.w),
+                  Image.asset(AppEraAssets.convertusd,
+                      height: 50.h, width: 50.w),
                 ],
               ),
             ),
@@ -256,9 +258,9 @@ class PropertyInformation extends StatelessWidget {
             agentLastName: listing.agentLastName,
             agentType: listing.agents,
             whatsapp: listing.whatsapp,
-            whatsappIcon: listing.whatsappIcon,
+            whatsappIcon: AppEraAssets.whatsappIcon,
             email: listing.email,
-            emailIcon: listing.emailIcon,
+            emailIcon: AppEraAssets.emailIcon,
           ),
 
           SizedBox(height: 20.h),
@@ -330,17 +332,17 @@ class PropertyInformation extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            iconsWidgets(listing.moneyIcon, '${listing.pricePerSqm}'),
-            iconsWidgets(listing.area, '${listing.areas} sqm'),
-            iconsWidgets(listing.bed, '${listing.beds}'),
+            iconsWidgets(AppEraAssets.money, '${listing.pricePerSqm}'),
+            iconsWidgets(AppEraAssets.area, '${listing.areas} sqm'),
+            iconsWidgets(AppEraAssets.bed, '${listing.beds}'),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            iconsWidgets(listing.bath, '${listing.baths}'),
-            iconsWidgets(listing.car, '${listing.cars}'),
-            iconsWidgets(listing.sunriseIcon, 'SUNRISE'),
+            iconsWidgets(AppEraAssets.tub, '${listing.baths}'),
+            iconsWidgets(AppEraAssets.car, '${listing.cars}'),
+            iconsWidgets(AppEraAssets.sunrise, 'SUNRISE'),
           ],
         ),
       ],

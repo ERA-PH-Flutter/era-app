@@ -83,7 +83,7 @@ class AppTextField extends StatelessWidget {
                   child: GestureDetector(
                       onTap: onSuffixTap,
                       child: Image.asset(
-                        suffixIcons ?? AppSvgAssets.hide,
+                        suffixIcons ?? AppEraAssets.hide,
                         height: 30.h,
                         color:
                             obscureText! ? AppColors.hint : AppColors.primary,
@@ -97,7 +97,7 @@ class AppTextField extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.fromLTRB(15.w, 0, 7.5.w, 0),
                     child: Image.asset(
-                      svgIcon ?? AppSvgAssets.person,
+                      svgIcon ?? AppEraAssets.person,
                       height: 30.h,
                     ),
                   ),

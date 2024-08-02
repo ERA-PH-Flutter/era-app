@@ -1,15 +1,11 @@
 import 'package:eraphilippines/app/models/user.dart';
 import 'package:intl/intl.dart';
 
-class RealEstateListing{
+class RealEstateListing {
   final String image;
   final String type;
   final String description;
   final double price;
-  final String bed;
-  final String bath;
-  final String area;
-  final String car;
   final int beds;
   final int baths;
   final int areas;
@@ -34,23 +30,13 @@ class RealEstateListing{
   final String subCatergory;
   final int views;
   final int leads;
-  final String convertusd;
-  final String moneyIcon;
-  final String sunriseIcon;
   final String specificType;
-  final String whatsappIcon;
   final String whatsapp;
-  final String emailIcon;
-
   final String email;
 
   RealEstateListing(
     this.type,
     this.image,
-    this.area,
-    this.bath,
-    this.bed,
-    this.car,
     this.areas,
     this.baths,
     this.beds,
@@ -77,13 +63,8 @@ class RealEstateListing{
     this.subCatergory,
     this.views,
     this.leads,
-    this.convertusd,
-    this.moneyIcon,
-    this.sunriseIcon,
     this.specificType,
-    this.whatsappIcon,
     this.whatsapp,
-    this.emailIcon,
     this.email,
   );
 
@@ -91,10 +72,6 @@ class RealEstateListing{
     RealEstateListing(
         'BGC Luxury Condo',
         'assets/images/carouselsliderpic5.jpg',
-        'assets/icons/plan.png',
-        'assets/icons/tub.png',
-        'assets/icons/bed.png',
-        'assets/icons/car.png',
         900,
         2,
         3,
@@ -139,21 +116,12 @@ class RealEstateListing{
         'Penthouse',
         100,
         30,
-        'assets/icons/convertusd.png',
-        'assets/icons/money2.png',
-        'assets/icons/sunrise.png',
         'Condominium',
-        "assets/icons/whatsapp.png",
         "1234-123-1234",
-        "assets/icons/mail.png",
         "name@mail.com"),
     RealEstateListing(
         'Condo in Makati',
         'assets/images/listingexample3.png',
-        'assets/icons/plan.png',
-        'assets/icons/tub.png',
-        'assets/icons/bed.png',
-        'assets/icons/car.png',
         800,
         2,
         3,
@@ -198,21 +166,12 @@ class RealEstateListing{
         'Penthouse',
         100,
         30,
-        'assets/icons/convertusd.png',
-        'assets/icons/money2.png',
-        'assets/icons/sunrise.png',
         'Condominium',
-        "assets/icons/whatsapp.png",
         "1234-123-1234",
-        "assets/icons/mail.png",
         "name@mail.com"),
     RealEstateListing(
         'Mansion in Laguna',
         'assets/images/listingexample3.png',
-        'assets/icons/plan.png',
-        'assets/icons/tub.png',
-        'assets/icons/bed.png',
-        'assets/icons/car.png',
         800,
         2,
         3,
@@ -257,13 +216,8 @@ class RealEstateListing{
         'Penthouse',
         100,
         30,
-        'assets/icons/convertusd.png',
-        'assets/icons/money2.png',
-        'assets/icons/sunrise.png',
         'Condominium',
-        "assets/icons/whatsapp.png",
         "1234-123-1234",
-        "assets/icons/mail.png",
         "name@mail.com"),
   ];
 }

@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listedBy_widget.dart';
@@ -56,7 +57,7 @@ class ListingItems extends StatelessWidget {
                 Row(
                   children: [
                     Image.asset(
-                      listingItems.area,
+                      AppEraAssets.area,
                       width: 40.w,
                       height: 40.h,
                     ),
@@ -71,7 +72,7 @@ class ListingItems extends StatelessWidget {
                 ),
                 SizedBox(width: 10.w),
                 Image.asset(
-                  listingItems.bed,
+                  AppEraAssets.bed,
                   width: 40.w,
                   height: 40.h,
                 ),
@@ -83,7 +84,7 @@ class ListingItems extends StatelessWidget {
                 ),
                 SizedBox(width: 10.w),
                 Image.asset(
-                  listingItems.bath,
+                  AppEraAssets.tub,
                   width: 40.w,
                   height: 40.h,
                 ),
@@ -95,7 +96,7 @@ class ListingItems extends StatelessWidget {
                 ),
                 SizedBox(width: 10.w),
                 Image.asset(
-                  listingItems.car,
+                  AppEraAssets.car,
                   width: 40.w,
                   height: 40.h,
                 ),
@@ -148,13 +149,13 @@ class ListingItems extends StatelessWidget {
               ),
             ),
             //widget listed by
-            ListedBy(
-              text: 'Listed By',
-              image: listingItems.agentImage,
-              agentFirstName: listingItems.agentFirstName,
-              agentLastName: listingItems.agentLastName,
-              agentType: listingItems.agents,
-            ),
+            // ListedBy(
+            //   text: 'Listed By',
+            //   image: listingItems.agentImage,
+            //   agentFirstName: listingItems.agentFirstName,
+            //   agentLastName: listingItems.agentLastName,
+            //   agentType: listingItems.agents,
+            // ),
           ],
         ),
       ),
@@ -168,7 +169,7 @@ class ListingItems extends StatelessWidget {
         Row(
           children: [
             Image.asset(
-              listingItems.bed,
+              AppEraAssets.bed,
               width: 47.w,
               height: 46.h,
             ),

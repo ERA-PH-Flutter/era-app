@@ -21,4 +21,5 @@ class RouteString {
   static String agentprofile = "/agentprofile";
   static String propertyInfo = "/propertyInfo";
   static String agentInfo = "/agentInfo";
+  static String addListings = "/addListings";
 }
