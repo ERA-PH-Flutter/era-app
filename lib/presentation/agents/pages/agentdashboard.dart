@@ -148,10 +148,10 @@ class Agentinfo extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              iconAgents(listing.agentImage, () {}),
-              iconAgents(listing.agentImage, () {}),
-              iconAgents(listing.agentImage, () {}),
-              iconAgents(listing.agentImage, () {}),
+              iconAgents(listing.agentImage!, () {}),
+              iconAgents(listing.agentImage!, () {}),
+              iconAgents(listing.agentImage!, () {}),
+              iconAgents(listing.agentImage!, () {}),
               iconAgents('assets/icons/clickForMore.png', () {}),
             ],
           ),
@@ -222,7 +222,7 @@ class Agentinfo extends StatelessWidget {
     return Row(
       children: [
         Image.asset(
-          listing.agentImage,
+          listing.agentImage!,
           width: 100.w,
           height: 110.h,
         ),
@@ -231,12 +231,12 @@ class Agentinfo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              agentText(listing.agentFirstName + ' ' + listing.agentLastName,
+              agentText(listing.agentFirstName! + ' ' + listing.agentLastName!,
                   AppColors.blue, 18.sp, FontWeight.bold, 1.2),
               agentText(
-                  listing.agents, AppColors.black, 12.sp, FontWeight.w400, 0.9),
-              agentContact(AppEraAssets.whatsappIcon, listing.whatsapp),
-              agentContact(AppEraAssets.whatsappIcon, listing.email),
+                  listing.agents!, AppColors.black, 12.sp, FontWeight.w400, 0.9),
+              agentContact(AppEraAssets.whatsappIcon, listing.whatsapp!),
+              agentContact(AppEraAssets.whatsappIcon, listing.email!),
             ],
           ),
         ),

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -42,7 +44,7 @@ class AgentsInfo extends StatelessWidget {
                 color: AppColors.blue,
               ),
               EraText(
-                text: agentInfo.agents,
+                text: agentInfo.agents!,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w400,
                 color: AppColors.black,
@@ -58,7 +60,7 @@ class AgentsInfo extends StatelessWidget {
                   ),
                   SizedBox(width: 8.w),
                   EraText(
-                    text: agentInfo.whatsapp,
+                    text: agentInfo.whatsapp!,
                     fontSize: 23.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black,
@@ -75,7 +77,7 @@ class AgentsInfo extends StatelessWidget {
                   ),
                   SizedBox(width: 8.w),
                   EraText(
-                    text: agentInfo.email,
+                    text: agentInfo.email!,
                     fontSize: 23.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black,
@@ -106,7 +108,7 @@ class AgentsInfo extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.w),
             child: Image.asset(
-              agentInfo.agentImage,
+              agentInfo.agentImage!,
               height: 150.h,
               width: 160.w,
               fit: BoxFit.cover,

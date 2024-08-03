@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/widgets/company_items.dart';
 import 'package:flutter/widgets.dart';

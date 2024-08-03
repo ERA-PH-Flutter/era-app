@@ -1,40 +1,44 @@
 import 'package:eraphilippines/app/models/user.dart';
 import 'package:intl/intl.dart';
 
+
+
 class RealEstateListing {
-  final String image;
-  final String type;
-  final String description;
-  final double price;
-  final int beds;
-  final int baths;
-  final int areas;
-  final int cars;
-  final String listingBy;
-  final String agentImage;
-  final String agentFirstName;
-  final String agentLastName;
-  final String agents;
-  final int listingId;
-  final DateTime lastUpdated;
-  final int addedDaysago;
-  final List<String> features;
-  final List<String> roomsAndInterior;
-  final List<String> locationAndSchools;
-  final String address;
-  final int propertyId;
-  final int pricePerSqm;
-  final String offerType;
-  final String view;
-  final String location;
-  final String subCatergory;
-  final int views;
-  final int leads;
-  final String specificType;
-  final String whatsapp;
-  final String email;
+  final String? image;
+  final String? type;
+  final String? description;
+  final double? price;
+  final int? beds;
+  final int? baths;
+  final int? areas;
+  final int? cars;
+  final String? listingBy;
+  final String? agentImage;
+  final String? agentFirstName;
+  final String? agentLastName;
+  final String? agents;
+  final int? listingId;
+  final DateTime? lastUpdated;
+  final int? addedDaysago;
+  final List<String>? features;
+  final List<String>? roomsAndInterior;
+  final List<String>? locationAndSchools;
+  final String? address;
+  final int? propertyId;
+  final int? pricePerSqm;
+  final String? offerType;
+  final String? view;
+  final String? location;
+  final String? subCatergory;
+  final int? views;
+  final int? leads;
+  final String? specificType;
+  final String? whatsapp;
+  final String? email;
+
 
   RealEstateListing(
+  {
     this.type,
     this.image,
     this.areas,
@@ -66,10 +70,13 @@ class RealEstateListing {
     this.specificType,
     this.whatsapp,
     this.email,
+  }
   );
 
   static List<RealEstateListing> listingsModels = [
-    RealEstateListing(
+    /*
+
+     RealEstateListing(
         'BGC Luxury Condo',
         'assets/images/carouselsliderpic5.jpg',
         900,
@@ -219,5 +226,6 @@ class RealEstateListing {
         'Condominium',
         "1234-123-1234",
         "name@mail.com"),
+    */
   ];
 }

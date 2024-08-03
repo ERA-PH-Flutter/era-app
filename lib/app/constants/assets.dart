@@ -1,4 +1,5 @@
 class AppEraAssets {
+
   static String hide = "";
   static String person = "";
   static String money = "assets/icons/money2.png";
@@ -12,5 +13,5 @@ class AppEraAssets {
   static String convertusd = "assets/icons/money.png";
 
   static String emailIcon = "assets/icons/mail.png";
-  static String whatsappIcon = "assets/icons/whatsapp.png";
+  static String whatsappIcon = "whatsapp.png";
 }

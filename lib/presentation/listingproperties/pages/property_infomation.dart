@@ -50,7 +50,7 @@ class PropertyInformation extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: EraText(
-                text: listing.type,
+                text: listing.type!,
                 color: AppColors.kRedColor,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w700,
@@ -76,7 +76,7 @@ class PropertyInformation extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             //temporary
-            Image.asset(listing.image),
+            Image.asset(listing.image!),
             SizedBox(height: 20.h),
             //widget
             iconsText(),
@@ -102,7 +102,7 @@ class PropertyInformation extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           EraText(
-            text: listing.description,
+            text: listing.description!,
             color: AppColors.black,
             fontSize: 14.sp,
             maxLines: 50,
@@ -121,7 +121,7 @@ class PropertyInformation extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: EraText(
-              text: listing.features.join('\n'),
+              text: listing.features!.join('\n'),
               color: AppColors.black,
               fontSize: 14.sp,
               maxLines: 50,
@@ -137,7 +137,7 @@ class PropertyInformation extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: EraText(
-              text: listing.roomsAndInterior.join('\n'),
+              text: listing.roomsAndInterior!.join('\n'),
               color: AppColors.black,
               fontSize: 14.sp,
               maxLines: 50,
@@ -153,7 +153,7 @@ class PropertyInformation extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: EraText(
-              text: listing.locationAndSchools.join('\n'),
+              text: listing.locationAndSchools!.join('\n'),
               color: AppColors.black,
               fontSize: 14.sp,
               maxLines: 50,
@@ -253,10 +253,10 @@ class PropertyInformation extends StatelessWidget {
           SizedBox(height: 30.h),
           ListedBy(
             text: 'Listed By',
-            image: listing.agentImage,
-            agentFirstName: listing.agentFirstName,
-            agentLastName: listing.agentLastName,
-            agentType: listing.agents,
+            image: listing.agentImage!,
+            agentFirstName: listing.agentFirstName!,
+            agentLastName: listing.agentLastName!,
+            agentType: listing.agents!,
             whatsapp: listing.whatsapp,
             whatsappIcon: AppEraAssets.whatsappIcon,
             email: listing.email,
@@ -311,7 +311,7 @@ class PropertyInformation extends StatelessWidget {
           ),
           SizedBox(height: 20.h),
           EraText(
-            text: listing.address,
+            text: listing.address!,
             color: AppColors.black,
             fontWeight: FontWeight.w500,
             fontSize: 14.sp,

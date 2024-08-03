@@ -1,3 +1,8 @@
+// ignore_for_file: unused_import
+
+import 'package:eraphilippines/app/services/firebase_database.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
+
 class User {
   String id;
   String? firstname;
@@ -14,6 +19,11 @@ class User {
     this.email,
     this.whatsApp,
   });
+
+  static getById(id)async{
+    return await Database().getUserData(id);
+
+  }
 
   factory User.fromJSON(Map<String, dynamic> json) {
     return User(
