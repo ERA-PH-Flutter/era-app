@@ -10,29 +10,31 @@ class User {
   String? role;
   String? email;
   String? whatsApp;
+  String? image;
 
-  User({
-    required this.id,
-    this.firstname,
-    this.lastname,
-    this.role,
-    this.email,
-    this.whatsApp,
-  });
+  User(
+      {required this.id,
+      this.firstname,
+      this.lastname,
+      this.role,
+      this.email,
+      this.whatsApp,
+      this.image});
 
-  static getById(id)async{
+  static getById(id) async {
     return await Database().getUserData(id);
-
   }
 
   factory User.fromJSON(Map<String, dynamic> json) {
     return User(
-        id: json['id'],
-        firstname: json['firstname'],
-        lastname: json['lastname'],
-        role: json['role'],
-        email: json['email'],
-        whatsApp: json['whatsApp']);
+      id: json['id'],
+      firstname: json['firstname'],
+      lastname: json['lastname'],
+      role: json['role'],
+      email: json['email'],
+      whatsApp: json['whatsApp'],
+      image: json['image'],
+    );
   }
 
   toJSON() {
@@ -42,7 +44,8 @@ class User {
       "lastname": lastname,
       "role": role,
       "email": email,
-      "whatsApp": whatsApp
+      "whatsApp": whatsApp,
+      "image": image,
     };
   }
 }

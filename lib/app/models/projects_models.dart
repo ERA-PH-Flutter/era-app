@@ -244,24 +244,3 @@ class ProjectTextImageModels {
     ),
   ];
 }
-
-//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/haraya.jpeg?alt=media&token=911c4b82-5739-4aca-bc5e-24d28507e832
-//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fcenturyspire.png?alt=media&token=5170c754-9bf8-40e5-937d-d7b91f41e99e
-//https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fshang.png?alt=media&token=8cc24016-10d4-49a0-a59b-e58e1118988a
-// class ProjectsIcons {
-//   final String icons;
-//   final String icons1;
-//   final String icons2;
-//   ProjectsIcons(
-//       {required this.icons, required this.icons1, required this.icons2});
-
-
-//   static List<ProjectsIcons> iconProjects2 = [
-//     ProjectsIcons(
-//       icons: 'assets/icons/icon1.png',
-//       icons1: 'assets/icons/icon2.png',
-//       icons2: 'assets/icons/icon3.png',
-//     ),
-//   ];
- 
-// }

@@ -1,11 +1,9 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
-import 'package:eraphilippines/presentation/utility/controller/base_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import '../../../app/services/firebase_database.dart';
 import '../../../app/services/local_storage.dart';
 
 enum HomeState {

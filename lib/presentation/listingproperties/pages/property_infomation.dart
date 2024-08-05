@@ -13,6 +13,7 @@ import 'package:eraphilippines/app/widgets/listing_properties.dart';
 import 'package:eraphilippines/app/widgets/pieChart.dart';
 
 import 'package:eraphilippines/presentation/mortageCalculator.dart/pages/MortageCalculator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,7 +51,7 @@ class PropertyInformation extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: EraText(
-                text: listing.type!,
+                text: listing.type,
                 color: AppColors.kRedColor,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w700,
@@ -75,8 +76,7 @@ class PropertyInformation extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20.h),
-            //temporary
-            Image.asset(listing.image!),
+            Image.asset(listing.image),
             SizedBox(height: 20.h),
             //widget
             iconsText(),
@@ -102,7 +102,7 @@ class PropertyInformation extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           EraText(
-            text: listing.description!,
+            text: listing.description,
             color: AppColors.black,
             fontSize: 14.sp,
             maxLines: 50,
@@ -111,54 +111,17 @@ class PropertyInformation extends StatelessWidget {
           eratexts('Listing ID# ', '${listing.listingId}'),
           eratexts('Last Updated: ', '${listing.lastUpdated}'),
           eratexts('Added: ', '${listing.addedDaysago} days Ago'),
+
           SizedBox(height: 20.h),
-          EraText(
-            text: 'Features / Amenities',
-            color: AppColors.black,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
-            child: EraText(
-              text: listing.features!.join('\n'),
-              color: AppColors.black,
-              fontSize: 14.sp,
-              maxLines: 50,
-            ),
-          ),
+
+          featuresWidgets('Features / Amenities', listing.features.join('\n')),
           SizedBox(height: 20.h),
-          EraText(
-            text: 'Rooms & Interior',
-            color: AppColors.black,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
-            child: EraText(
-              text: listing.roomsAndInterior!.join('\n'),
-              color: AppColors.black,
-              fontSize: 14.sp,
-              maxLines: 50,
-            ),
-          ),
+          featuresWidgets(
+              'Rooms & Interior', listing.roomsAndInterior.join('\n')),
           SizedBox(height: 20.h),
-          EraText(
-            text: 'Location & School',
-            color: AppColors.black,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
-            child: EraText(
-              text: listing.locationAndSchools!.join('\n'),
-              color: AppColors.black,
-              fontSize: 14.sp,
-              maxLines: 50,
-            ),
-          ),
+          featuresWidgets(
+              'Location & School', listing.locationAndSchools.join('\n')),
+
           SizedBox(height: 40.h),
           //widget location
           location(),
@@ -251,17 +214,17 @@ class PropertyInformation extends StatelessWidget {
                 ),
               )),
           SizedBox(height: 30.h),
-          ListedBy(
-            text: 'Listed By',
-            image: listing.agentImage!,
-            agentFirstName: listing.agentFirstName!,
-            agentLastName: listing.agentLastName!,
-            agentType: listing.agents!,
-            whatsapp: listing.whatsapp,
-            whatsappIcon: AppEraAssets.whatsappIcon,
-            email: listing.email,
-            emailIcon: AppEraAssets.emailIcon,
-          ),
+          // ListedBy(
+          //   text: 'Listed By',
+          //   image: listing.agentImage!,
+          //   agentFirstName: listing.agentFirstName!,
+          //   agentLastName: listing.agentLastName!,
+          //   agentType: listing.agents!,
+          //   whatsapp: listing.whatsapp,
+          //   whatsappIcon: AppEraAssets.whatsappIcon,
+          //   email: listing.email,
+          //   emailIcon: AppEraAssets.emailIcon,
+          // ),
 
           SizedBox(height: 20.h),
           EraText(
@@ -311,7 +274,7 @@ class PropertyInformation extends StatelessWidget {
           ),
           SizedBox(height: 20.h),
           EraText(
-            text: listing.address!,
+            text: listing.address,
             color: AppColors.black,
             fontWeight: FontWeight.w500,
             fontSize: 14.sp,
@@ -332,7 +295,7 @@ class PropertyInformation extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            iconsWidgets(AppEraAssets.money, '${listing.pricePerSqm}'),
+            iconsWidgets(AppEraAssets.money2, '${listing.pricePerSqm}'),
             iconsWidgets(AppEraAssets.area, '${listing.areas} sqm'),
             iconsWidgets(AppEraAssets.bed, '${listing.beds}'),
           ],
@@ -380,10 +343,33 @@ class PropertyInformation extends StatelessWidget {
             shorterSummary('View', listing.view),
             shorterSummary('Location', listing.location),
             shorterSummary('Type', listing.specificType),
-            shorterSummary('Sub Catergory', listing.subCatergory),
+            shorterSummary('Sub Category', listing.subCategory),
           ],
         ),
       ),
+    );
+  }
+
+  Widget featuresWidgets(String title, String text) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: title,
+          color: AppColors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 20.sp,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: EraText(
+            text: text,
+            color: AppColors.black,
+            fontSize: 15.sp,
+            maxLines: 50,
+          ),
+        ),
+      ],
     );
   }
 

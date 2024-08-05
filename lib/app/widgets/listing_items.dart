@@ -32,7 +32,7 @@ class ListingItems extends StatelessWidget {
           children: [
             ClipRRect(
               child: Image.asset(
-                listingItems.image!,
+                listingItems.image,
                 fit: BoxFit.cover,
                 width: 380.w,
                 height: 200.h,
@@ -44,7 +44,7 @@ class ListingItems extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: EraText(
-                text: listingItems.type!,
+                text: listingItems.type,
                 fontSize: 16.sp,
                 color: AppColors.kRedColor,
                 fontWeight: FontWeight.bold,
@@ -125,7 +125,7 @@ class ListingItems extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
-                listingItems.description!,
+                listingItems.description,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
@@ -148,14 +148,18 @@ class ListingItems extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            //widget listed by
-            // ListedBy(
-            //   text: 'Listed By',
-            //   image: listingItems.agentImage,
-            //   agentFirstName: listingItems.agentFirstName,
-            //   agentLastName: listingItems.agentLastName,
-            //   agentType: listingItems.agents,
-            // ),
+            // widget listed by
+            ListedBy(
+              text: 'Listed By',
+              image: '${listingItems.user.image}',
+              agentFirstName: '${listingItems.user.firstname}',
+              agentLastName: '${listingItems.user.lastname}',
+              agentType: '${listingItems.user.role}',
+              // whatsappIcon: AppEraAssets.whatsappIcon,
+              // whatsapp: '${listingItems.user.whatsApp}',
+              // emailIcon: AppEraAssets.emailIcon,
+              // email: '${listingItems.user.email}',
+            ),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
@@ -76,6 +77,7 @@ class ProjectPage extends StatelessWidget {
         Inquiry(),
         SizedBox(height: 40.h),
         FindUs(),
+        SizedBox(height: 20.h),
       ],
     );
   }
@@ -410,6 +412,28 @@ class ProjectPage extends StatelessWidget {
         color: color,
         maxLines: 50,
       ),
+    );
+  }
+
+  Widget shortText(String title, String text) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: title,
+          fontSize: 18.sp,
+          fontWeight: FontWeight.bold,
+          color: AppColors.black,
+        ),
+        SizedBox(height: 10.h),
+        EraText(
+          text: text,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
+          maxLines: 50,
+        ),
+      ],
     );
   }
 

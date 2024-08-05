@@ -1,8 +1,9 @@
-import 'package:eraphilippines/presentation/addlistings/controllers/addlistings_binding.dart';
-import 'package:eraphilippines/presentation/addlistings/pages/addlistings.dart';
+import 'package:eraphilippines/presentation/add-edit_listings/controllers/addlistings_bindings.dart';
+import 'package:eraphilippines/presentation/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agents/controllers/agents_binding.dart';
-import 'package:eraphilippines/presentation/agents/pages/agentdashboard.dart';
-import 'package:eraphilippines/presentation/agents/pages/findagents.dart';
+import 'package:eraphilippines/presentation/agents/pages/agentsDashBoard.dart';
+import 'package:eraphilippines/presentation/agents/pages/agentsMyListing.dart';
+import 'package:eraphilippines/presentation/agents/pages/findAgents.dart';
 import 'package:eraphilippines/presentation/authentication/controllers/authentication_binding.dart';
 import 'package:eraphilippines/presentation/authentication/pages/createaccount_page.dart';
 import 'package:eraphilippines/presentation/base/controllers/base_binding.dart';
@@ -98,22 +99,27 @@ appRoutes() => [
           page: () => const CompanyNews(),
           binding: CompanyNewsBinding()),
       // GetPage(
-      //     name: RouteString.agentprofile,
-      //     page: () => const AgentProfile(),
+      //     name: RouteString. ,
+      //     page: () => Agentinfo(
+      //            listing: Get.arguments,
+      //         ),
       //     binding: AgentsBinding()),
-
       GetPage(
           name: RouteString.propertyInfo,
           page: () => PropertyInformation(
                 listing: Get.arguments,
               ),
           binding: ListingBinding()),
-
       GetPage(
-          name: RouteString.agentInfo,
-          page: () => Agentinfo(
+          name: RouteString.agentDashBoard,
+          page: () => AgentDashBoard(
                 listing: Get.arguments,
               ),
+          binding: AgentsBinding()),
+      GetPage(
+          name: RouteString.agentMyListing,
+          page: () => AgentMyListing(
+               ),
           binding: AgentsBinding()),
     ];
 

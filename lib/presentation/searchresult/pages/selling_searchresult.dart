@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -30,7 +31,7 @@ class SellingSearchresult extends StatelessWidget {
                   SizedBox(height: 10.h),
                   AppTextField(
                     hint: 'AI Search',
-                    svgIcon: 'assets/icons/send.png',
+                    svgIcon: AppEraAssets.send,
                     bgColor: AppColors.white,
                   ),
                   SearchWidget.build((){

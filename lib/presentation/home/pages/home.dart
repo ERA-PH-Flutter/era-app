@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/hero_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
@@ -90,9 +91,7 @@ class Home extends GetView<HomeController> {
                               )),
                         ]),
                       ),
-                      //https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fhero-images%2Fnext.png?alt=media&token=7b8c99ee-ecef-4221-b4ea-bc35a1db4ec9
-                      //https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/icons%2Fhero-images%2Fnext-r.png?alt=media&token=6919aff8-9790-4f3a-826b-764af21404f7
-                      Positioned(
+                       Positioned(
                         top: 140,
                         left: 10,
                         child: GestureDetector(
@@ -101,7 +100,7 @@ class Home extends GetView<HomeController> {
                             controller.innerController.previousPage();
                           },
                           child: Image.asset(
-                            'assets/icons/next.png',
+                           AppEraAssets.next,
                             height: 20.h,
                             width: 20.w,
                           ),
@@ -116,7 +115,7 @@ class Home extends GetView<HomeController> {
                             controller.innerController.nextPage();
                           },
                           child: Image.asset(
-                            'assets/icons/next-r.png',
+                            AppEraAssets.prev,
                             height: 20.h,
                             width: 20.w,
                           ),
@@ -134,7 +133,7 @@ class Home extends GetView<HomeController> {
                       AppTextField(
                         controller: controller.locationController,
                         hint: 'Location',
-                        svgIcon: 'assets/icons/marker.png',
+                        svgIcon:  AppEraAssets.marker,
                         bgColor: AppColors.white,
                       ),
                       //property type
@@ -142,7 +141,7 @@ class Home extends GetView<HomeController> {
                       AppTextField(
                         controller: controller.propertyController,
                         hint: 'Property Type',
-                        svgIcon: 'assets/icons/house.png',
+                        svgIcon:  AppEraAssets.house,
                         bgColor: AppColors.white,
                       ),
                       //price range
@@ -150,7 +149,7 @@ class Home extends GetView<HomeController> {
                       AppTextField(
                         controller: controller.priceController,
                         hint: 'Price Range',
-                        svgIcon: 'assets/icons/money.png',
+                        svgIcon:  AppEraAssets.money,
                         bgColor: AppColors.white,
                       ),
                       //ai search
@@ -158,7 +157,7 @@ class Home extends GetView<HomeController> {
                       AppTextField(
                         controller: controller.aiSearchController,
                         hint: 'AI Search',
-                        svgIcon: 'assets/icons/send.png',
+                        svgIcon:  AppEraAssets.send,
                         bgColor: AppColors.white,
                       ),
                       SizedBox(height: 20.h),
@@ -222,7 +221,7 @@ class Home extends GetView<HomeController> {
                         }else{
                           data = await AI(query: controller.aiSearchController.text).search();
                         }
-                        Get.to(SearchResult(),binding: SearchResultBinding(),arguments: [data,"sample search"]);
+                        Get.to(() => SearchResult(),binding: SearchResultBinding(),arguments: [data,"sample search"]);
                       }),
                     ],
                   ),
@@ -310,7 +309,7 @@ class Home extends GetView<HomeController> {
                 onTap: () {
                   Get.toNamed("/companynews");
                 },
-                bgColor: AppColors.blue,
+                bgColor: AppColors.blue,  
                 height: 50.h,
                 width: 350.w,
                 fontWeight: FontWeight.w500,

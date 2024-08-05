@@ -36,7 +36,7 @@ class AppDivider extends StatelessWidget {
         ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
             'assets/images/eraph_white-logo.png',
@@ -44,11 +44,13 @@ class AppDivider extends StatelessWidget {
             height: 152.h,
             width: 157.w,
           ),
+          SizedBox(height: 20.h),
           EraText(
             text: text ??
                 '     CONNECT WORLDS, BUILD\nDREAMS WITH ERA PHILIPPINES:\n  YOUR REAL ESTATE AGENCY\n             PARTNER FOR LIFE',
             color: color ?? AppColors.white,
-            fontSize: 16.sp,
+            fontSize: 20.sp,
+            maxLines: 20,
           ),
           if (button == true)
             Button(

@@ -53,7 +53,7 @@ class SearchResult extends GetView<SearchResultController> {
               SizedBox(height: 10.h),
               AppTextField(
                 hint: 'AI Search',
-                svgIcon: 'assets/icons/send.png',
+                svgIcon: AppEraAssets.send,
                 bgColor: AppColors.white,
               ),
               SearchWidget.build(() {}),
@@ -74,7 +74,7 @@ class SearchResult extends GetView<SearchResultController> {
               SizedBox(height: 10.h),
               AppTextField(
                 hint: 'AI Search',
-                svgIcon: 'assets/icons/send.png',
+                svgIcon: AppEraAssets.send,
                 bgColor: AppColors.white,
               ),
               SearchWidget.build(() {}),
@@ -142,7 +142,7 @@ class SearchResult extends GetView<SearchResultController> {
                         Row(
                           children: [
                             Image.asset(
-                              "assets/icons/floor-area.png",
+                              AppEraAssets.area,
                               width: 40.w,
                               height: 40.h,
                             ),
@@ -169,7 +169,7 @@ class SearchResult extends GetView<SearchResultController> {
                         ),
                         SizedBox(width: 10.w),
                         Image.asset(
-                          "assets/icons/tub.png",
+                          AppEraAssets.tub,
                           width: 40.w,
                           height: 40.h,
                         ),
@@ -181,7 +181,7 @@ class SearchResult extends GetView<SearchResultController> {
                         ),
                         SizedBox(width: 10.w),
                         Image.asset(
-                          "assets/icons/car.png",
+                          AppEraAssets.car,
                           width: 40.w,
                           height: 40.h,
                         ),

@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -27,17 +28,15 @@ class RentSearchresult extends StatelessWidget {
             children: [
               BoxWidget.build(
                   child: Column(
-                    children: [
-                      SizedBox(height: 10.h),
-                      AppTextField(
-                        hint: 'AI Search',
-                        svgIcon: 'assets/icons/send.png',
-                        bgColor: AppColors.white,
-                      ),
-                      SearchWidget.build((){
-
-                      }),
-                    ],
+                children: [
+                  SizedBox(height: 10.h),
+                  AppTextField(
+                    hint: 'AI Search',
+                    svgIcon: AppEraAssets.send,
+                    bgColor: AppColors.white,
+                  ),
+                  SearchWidget.build(() {}),
+                ],
               )),
               SizedBox(height: 30.h),
               EraText(

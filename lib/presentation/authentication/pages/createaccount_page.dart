@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -34,7 +35,7 @@ class CreateAccount extends GetView<LoginPageController> {
                         controller.getImageGallery();
                       },
                       label: Image.asset(
-                        'assets/icons/uploadphoto.png',
+                        AppEraAssets.uploadphoto,
                         fit: BoxFit.fill,
                       ),
                     )

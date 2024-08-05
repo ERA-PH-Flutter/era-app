@@ -1,6 +1,8 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/authentication/controllers/authentication_binding.dart';
 import 'package:eraphilippines/presentation/authentication/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,13 +20,12 @@ class MenuItem {
 }
 
 abstract class MenuItems {
-
- 
   static List<MenuItem> firstItems = [
     findproperties,
     projects,
     agents,
-    aboutus
+    aboutus,
+    myprofile
   ];
   static List secondItems = [login.obs];
 
@@ -43,10 +44,14 @@ abstract class MenuItems {
   static var login = MenuItem(
     text: FirebaseAuth.instance.currentUser == null ? "LOGIN" : "LOGOUT",
   );
+
+  static var myprofile = MenuItem(
+    text: 'MY PROFILE',
+  );
   // static const login = MenuItem(
   //   text: 'LOGOUT',
   // );
- 
+
   static Widget buildItem(MenuItem item) {
     return Card(
       color: AppColors.white,
@@ -74,21 +79,22 @@ abstract class MenuItems {
   }
 
   static void onChanged(BuildContext context, MenuItem item) {
-    if(item == MenuItems.findproperties){
+    if (item == MenuItems.findproperties) {
       Get.toNamed("/findproperties");
-    }else if(item == MenuItems.projects){
+    } else if (item == MenuItems.projects) {
       Get.toNamed("/project");
-    }else if(item == MenuItems.agents){
+    } else if (item == MenuItems.agents) {
       Get.toNamed("/findagents");
-    }else if(item == MenuItems.login){
-      if(FirebaseAuth.instance.currentUser == null){
+    } else if (item == MenuItems.myprofile) {
+      Get.toNamed("/agentDashBoard", arguments: RealEstateListing);
+    } else if (item == MenuItems.login) {
+      if (FirebaseAuth.instance.currentUser == null) {
         Get.toNamed("/loginpage");
-      }else{
+      } else {
         Authentication().logout();
-        Get.to(LoginPage(),binding: LoginPageBinding());
+        Get.to(LoginPage(), binding: LoginPageBinding());
       }
-
-    }else if(item == MenuItems.aboutus){
+    } else if (item == MenuItems.aboutus) {
       Get.toNamed("/aboutus");
     }
   }

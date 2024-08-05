@@ -16,7 +16,7 @@ class Inquiry extends StatelessWidget {
         children: [
           EraText(
             text: 'INQUIRE NOW FOR DETAILS ON\n   AVAILABILITY AND PRICING',
-            fontSize: 23,
+            fontSize: 22,
             color: AppColors.kRedColor,
             fontWeight: FontWeight.bold,
           ),
