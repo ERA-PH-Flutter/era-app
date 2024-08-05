@@ -14,7 +14,7 @@ enum AddListingsState {
 
 class AddListingsController extends GetxController {
   var store = Get.find<LocalStorageService>();
-  Rx<File> image = File('').obs;
+  RxList images = [].obs;
   final picker = ImagePicker();
   var passwordVisible = false.obs;
   var confirmPasswordVisible = false.obs;
@@ -37,9 +37,11 @@ class AddListingsController extends GetxController {
 
   Future getImageGallery() async {
     try {
-      final imagePick = await picker.pickImage(source: ImageSource.gallery);
-      if (imagePick != null) {
-        image.value = File(imagePick.path);
+      final imagePick = await picker.pickMultiImage();
+      if (imagePick.isNotEmpty) {
+        for (var image in imagePick) {
+          images.add(File(image.path));
+        }
       }
     } on PlatformException catch (e) {
       return e;

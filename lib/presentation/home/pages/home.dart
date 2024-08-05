@@ -28,6 +28,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../app/services/ai_search.dart';
 import '../../../app/services/firebase_database.dart';
 import '../../base/controllers/base_controller.dart';
 
@@ -210,12 +211,17 @@ class Home extends GetView<HomeController> {
                         ),
                       ),
                       SearchWidget.build(()async{
-                        var data = await Database().searchListing(
-                            location: controller.locationController.text,
-                            price: controller.priceController,
-                            type: controller.isForSale.value == 1 ? "selling" : "rent",
-                            property: controller.propertyController.text
-                        );
+                        var data;
+                        if(controller.aiSearchController.text == ""){
+                          data = await Database().searchListing(
+                              location: controller.locationController.text,
+                              price: controller.priceController,
+                              type: controller.isForSale.value == 1 ? "selling" : "rent",
+                              property: controller.propertyController.text
+                          );
+                        }else{
+                          data = await AI(query: controller.aiSearchController.text).search();
+                        }
                         Get.to(SearchResult(),binding: SearchResultBinding(),arguments: [data,"sample search"]);
                       }),
                     ],

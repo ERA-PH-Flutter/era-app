@@ -1,14 +1,12 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/addlistings/controllers/addlistings_controller.dart';
-import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:eraphilippines/presentation/utility/controller/base_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -43,6 +41,21 @@ class AddListings extends GetView<AddListingsController> {
                   'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
               SizedBox(height: 20.h),
               textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                ),
+                onPressed: () {
+                  controller.getImageGallery();
+                },
+                label: Image.asset(
+                  'assets/icons/uploadphoto.png',
+                  fit: BoxFit.fill,
+                ),
+              ),
+
+              /*
               Obx(() => controller.image.value.path == ''
                   ? ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
@@ -61,6 +74,8 @@ class AddListings extends GetView<AddListingsController> {
                       controller.image.value,
                       fit: BoxFit.cover,
                     )),
+              */
+              //todo missy can you make that a listview builder or gridview i change single image pick to multiple
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.w),
                 child: EraText(
@@ -149,7 +164,25 @@ class AddListings extends GetView<AddListingsController> {
               maxLines: 1),
         ),
         SizedBox(height: 20.h),
-        Button.button2(390.w, 50.h, () {}, 'CREATE LISTING'),
+        Button.button2(390.w, 50.h, ()async{
+          BaseController.showLoading();
+          await Database().addListing(
+            name: controller.propertyNameController.text,
+            price: controller.propertyCostController.text,
+            photos: controller.images,
+            ppsqm: controller.pricePerSqmController.text,
+            floorArea: controller.floorAreaController.text,
+            beds: controller.bedsController.text,
+            baths: controller.bathsController.text,
+            area: controller.areaController.text,
+            status: controller.offerTypeController.text,
+            view: controller.viewController.text,
+            location: controller.locationController.text,
+            type: controller.propertyTypeController.text,
+            subCategory: controller.propertySubCategoryController.text
+          );
+          BaseController.hideLoading();
+        }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
       ],
     );

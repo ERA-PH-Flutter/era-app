@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Database{
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -48,7 +50,8 @@ class Database{
     type,
     price,
     property,
-  })async{
+  })async
+  {
     Query query = FirebaseFirestore.instance.collection('listings');
     var searchData = [];
     if(location != null || location == ""){
@@ -71,5 +74,63 @@ class Database{
     });
     return searchData;
   }
-
+  addListing({
+    name,
+    price,
+    photos,
+    ppsqm,
+    floorArea,
+    beds,
+    baths,
+    area,
+    status,
+    view,
+    location,
+    type,
+    subCategory,
+  })async{
+    /*
+    landmarks
+    leads
+    garage
+    by
+    owner
+    amenities
+    description,
+    rooms,
+    balcony,
+    views,
+    date_created,
+    */
+    var images = [];
+    for(int i = 0;i<photos.length;i++){
+      images.add(await CloudStorage().uploadImage(image: photos[i]));
+    }
+    await db.collection("listings").add({
+      "name" : name,
+      "price" : price,
+      "photos" : images,
+      "ppsqm" : ppsqm,
+      "floor_area" : floorArea,
+      "beds" : beds,
+      "baths" : baths,
+      "area" : area,
+      "status" : status,
+      "view" : view,
+      "location" : location,
+      "type" : type,
+      "sub_category" : subCategory,
+      "landmarks" : "",
+      "leads" : 0,
+      "garage" : 0,
+      "by" : FirebaseAuth.instance.currentUser!.uid,
+      "owner" : "admin", //todo change to owner field
+      "amenities" : "",
+      "description" : "",
+      "rooms" : 0,
+      "views" : 0,
+      "date_created" : DateTime.now(),
+    });
+    //todo add this listing to user
+  }
 }
