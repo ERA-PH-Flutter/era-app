@@ -3,7 +3,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
-import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -34,14 +34,15 @@ class Help extends GetView<ContactusController> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: EraText(
-                  text: 'Account Name,\nWhat do you want yo know?',
+                  text: 'Account Name,\nWhat do you want to know?',
                   fontSize: 25.sp,
                   color: AppColors.kRedColor,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               SizedBox(height: 10.h),
-              BoxWidget.build(child: Column(
+              BoxWidget.build(
+                  child: Column(
                 children: [
                   AppTextField(
                     hint: 'AI Search',
@@ -49,9 +50,7 @@ class Help extends GetView<ContactusController> {
                     bgColor: AppColors.white,
                   ),
                   SizedBox(height: 10.h),
-                  SearchWidget.build((){
-
-                  }),
+                  SearchWidget.build(() {}),
                 ],
               )),
               SizedBox(height: 20.h),

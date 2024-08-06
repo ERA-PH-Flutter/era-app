@@ -135,7 +135,7 @@ class RealEstateListing {
       listingBy: 'Era Philippines',
       user: User(
         id: '1',
-        firstname: 'John',
+        firstname: 'Maria',
         lastname: 'Doe',
         role: 'AGENT/BROKER',
         email: 'name@mail.com',
@@ -179,7 +179,7 @@ class RealEstateListing {
     ),
   ];
 
-  createMiniListing(){
+  createMiniListing() {
     return GestureDetector(
       onTap: () {
         //Get.toNamed('/propertyInfo', arguments: listingItems);
@@ -284,8 +284,7 @@ class RealEstateListing {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
-                description ??
-                    "Nothing added.",
+                description ?? "Nothing added.",
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
@@ -301,8 +300,7 @@ class RealEstateListing {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: EraText(
-                text: NumberFormat.currency(
-                    locale: 'en_PH', symbol: 'PHP ')
+                text: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
                     .format(
                   price == "" ? 0 : price,
                 ),
@@ -334,10 +332,10 @@ class RealEstateListing {
       image: json['image'] ?? "",
       areas: json['size'] ?? 0,
       baths: int.parse(json['baths'] ?? 0),
-      beds: int.parse(json['beds']??0),
-      cars:  0, //todo
+      beds: int.parse(json['beds'] ?? 0),
+      cars: 0, //todo
       description: json['description'] ?? "Nothing added!",
-      price:  double.parse(json['price'] ?? 0), //todo
+      price: double.parse(json['price'] ?? 0), //todo
       listingBy: "", //todo
       user: User.empty(),
       listingId: json['listingId'] ?? 0,

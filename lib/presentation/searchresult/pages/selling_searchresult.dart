@@ -4,15 +4,12 @@ import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
-import 'package:eraphilippines/app/widgets/custom_appbar.dart';
-import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
-import 'package:eraphilippines/app/widgets/findingproperties.dart';
-import 'package:eraphilippines/app/widgets/search_widget.dart';
-import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
-import 'package:flutter/material.dart';
+ import 'package:eraphilippines/app/widgets/listings/gridViewV_Listing.dart';
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+ import 'package:eraphilippines/app/widgets/search_widget.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
+ 
 class SellingSearchresult extends StatelessWidget {
   const SellingSearchresult({super.key});
 

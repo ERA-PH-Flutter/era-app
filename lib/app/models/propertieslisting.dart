@@ -1,29 +1,29 @@
-class PropertiesListing {
+class PropertiesModels {
   String image;
   String label;
-  PropertiesListing({
+  PropertiesModels({
     required this.image,
     required this.label,
   });
 
-  static List<PropertiesListing> listings = [
-    PropertiesListing(
+  static List<PropertiesModels> listings = [
+    PropertiesModels(
         image:
             'assets/images/Pre-Selling.jpg',
         label: "RESIDENTIAL"),
-    PropertiesListing(
+    PropertiesModels(
         image:
             'assets/images/Residential.jpg',
         label: "RESIDENTIAL"),
-    PropertiesListing(
+    PropertiesModels(
         image:
             'assets/images/Commercial.jpg',
         label: "COMMERCIAL"),
-    PropertiesListing(
+    PropertiesModels(
         image:
             'assets/images/Rental.jpg',
         label: "RENTAL"),
-    PropertiesListing(
+    PropertiesModels(
         image:
             'assets/images/Residential.jpg',
         label: "AUCTION"),

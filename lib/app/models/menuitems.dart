@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:eraphilippines/presentation/utility/controller/base_controller.dart';
 
 class MenuItem {
   const MenuItem({
@@ -25,7 +26,7 @@ abstract class MenuItems {
     projects,
     agents,
     aboutus,
-    myprofile
+    mydashboard,
   ];
   static List secondItems = [login.obs];
 
@@ -45,8 +46,8 @@ abstract class MenuItems {
     text: FirebaseAuth.instance.currentUser == null ? "LOGIN" : "LOGOUT",
   );
 
-  static var myprofile = MenuItem(
-    text: 'MY PROFILE',
+  static var mydashboard = MenuItem(
+    text: 'MY DASHBOARD',
   );
   // static const login = MenuItem(
   //   text: 'LOGOUT',
@@ -85,8 +86,14 @@ abstract class MenuItems {
       Get.toNamed("/project");
     } else if (item == MenuItems.agents) {
       Get.toNamed("/findagents");
-    } else if (item == MenuItems.myprofile) {
-      Get.toNamed("/agentDashBoard", arguments: RealEstateListing);
+    } else if (item == MenuItems.mydashboard) {
+      if (RealEstateListing.listingsModels.isNotEmpty) {
+        Get.toNamed("/agentDashBoard",
+            arguments: RealEstateListing.listingsModels.first);
+      } else {
+        BaseController().showSuccessDialog(
+            title: "Error!", description: "No Profile found");
+      }
     } else if (item == MenuItems.login) {
       if (FirebaseAuth.instance.currentUser == null) {
         Get.toNamed("/loginpage");

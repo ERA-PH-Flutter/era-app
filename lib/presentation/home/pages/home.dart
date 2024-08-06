@@ -12,13 +12,13 @@ import 'package:eraphilippines/app/widgets/app_text_listing.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/carousel_slider.dart';
-import 'package:eraphilippines/app/widgets/company_grid.dart';
+import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
+import 'package:eraphilippines/app/widgets/company/company_grid.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
-import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
-import 'package:eraphilippines/app/widgets/listing_properties.dart';
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:eraphilippines/app/widgets/listings/gridView_Listing.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
-import 'package:eraphilippines/app/widgets/properties_widgets.dart';
+import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/searchresult/controllers/searchresult_binding.dart';
 import 'package:eraphilippines/presentation/searchresult/pages/searchresult.dart';
@@ -227,7 +227,7 @@ class Home extends GetView<HomeController> {
                   ),
                 ),
               ),
-              PropertiesWidgets(listingsModels: PropertiesListing.listings),
+              PropertiesWidgets(listingsModels: PropertiesModels.listings),
               TextListing.projectTitle(24.sp, FontWeight.w600, AppColors.blue),
               TextListing.projectSubtitle(
                   12.sp, FontWeight.w500, AppColors.black),

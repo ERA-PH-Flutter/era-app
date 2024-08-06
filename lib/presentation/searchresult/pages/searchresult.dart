@@ -1,24 +1,19 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
-import 'package:eraphilippines/app/widgets/Listing_items.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
-import 'package:eraphilippines/app/widgets/custom_appbar.dart';
-import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
-import 'package:eraphilippines/app/widgets/findingproperties.dart';
+
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
-import 'package:eraphilippines/presentation/base/controllers/base_controller.dart';
-import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
+
 import 'package:eraphilippines/presentation/searchresult/controllers/searchresult_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../../app/services/ai_search.dart';
-import '../../../app/widgets/listedBy_widget.dart';
 
 class SearchResult extends GetView<SearchResultController> {
   const SearchResult({super.key});
@@ -43,9 +38,12 @@ class SearchResult extends GetView<SearchResultController> {
                       svgIcon: AppEraAssets.send,
                       bgColor: AppColors.white,
                     ),
-                    SearchWidget.build(()async{
-                      controller. searchResultState.value = SearchResultState.loading;
-                      controller.loadData(await AI(query: controller.aiSearchController.text).search());
+                    SearchWidget.build(() async {
+                      controller.searchResultState.value =
+                          SearchResultState.loading;
+                      controller.loadData(
+                          await AI(query: controller.aiSearchController.text)
+                              .search());
                     }),
                   ],
                 ),
@@ -99,7 +97,8 @@ class SearchResult extends GetView<SearchResultController> {
           shrinkWrap: true,
           itemCount: controller.data.length,
           itemBuilder: (context, index) {
-            RealEstateListing listing = RealEstateListing.fromJSON(controller.data[index]);
+            RealEstateListing listing =
+                RealEstateListing.fromJSON(controller.data[index]);
             return listing.createMiniListing();
             //todo missy
           },
@@ -109,7 +108,10 @@ class SearchResult extends GetView<SearchResultController> {
   }
 
   _error() {
-    return EraText(text: "ERROR",color: Colors.black,);
+    return EraText(
+      text: "ERROR",
+      color: Colors.black,
+    );
   }
 
   _empty() {
@@ -117,13 +119,12 @@ class SearchResult extends GetView<SearchResultController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: (Get.height)/2,
+          height: (Get.height) / 2,
           child: Center(
             child: EraText(
               text: "No results found!",
               color: Colors.black,
               fontSize: 15.sp,
-
             ),
           ),
         )

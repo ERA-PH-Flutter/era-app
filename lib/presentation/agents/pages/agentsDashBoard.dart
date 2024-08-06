@@ -1,13 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 
 import 'package:eraphilippines/app/models/realestatelisting.dart';
-import 'package:eraphilippines/app/widgets/agentInfo-widget.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-
-import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
-import 'package:eraphilippines/presentation/agents/pages/agentsMyListing.dart';
+import 'package:eraphilippines/app/widgets/listings/agentInfo-widget.dart';
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 
 import 'package:eraphilippines/presentation/companynews/pages/companynews.dart';
 import 'package:flutter/cupertino.dart';
@@ -201,7 +198,9 @@ class AgentDashBoard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('/addListings');
+                  Get.toNamed(
+                    '/addListings',
+                  );
                 },
                 child: Image.asset(
                   AppEraAssets.addIcon,
@@ -211,7 +210,7 @@ class AgentDashBoard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('/agentMyListing');
+                  Get.toNamed('/agentMyListing', arguments: listing);
                 },
                 child: Image.asset(
                   AppEraAssets.clickFM,

@@ -77,4 +77,26 @@ class Button extends StatelessWidget {
       ),
     );
   }
+
+    static Widget button3(
+      double width, double height, Function() onTap, String text, Color color) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: height,
+        width: width, //272.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: color,
+        ),
+        child: Center(
+            child: EraText(
+          text: text,
+          color: AppColors.white,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w500,
+        )),
+      ),
+    );
+  }
 }

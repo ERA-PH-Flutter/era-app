@@ -22,4 +22,5 @@ class RouteString {
   static String agentDashBoard = "/agentDashBoard";
   static String addListings = "/addListings";
   static String agentMyListing = "/agentMyListing";
+  static String editListings = "/editListings";
 }

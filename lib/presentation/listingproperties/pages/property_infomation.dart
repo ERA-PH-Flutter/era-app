@@ -1,15 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:eraphilippines/app/constants/assets.dart';
+ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/custom_appbar.dart';
-import 'package:eraphilippines/app/widgets/customenavigationbar.dart';
-import 'package:eraphilippines/app/widgets/listedBy_widget.dart';
-import 'package:eraphilippines/app/widgets/listing_properties.dart';
+ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+ import 'package:eraphilippines/app/widgets/listings/gridView_Listing.dart';
 import 'package:eraphilippines/app/widgets/pieChart.dart';
 
 import 'package:eraphilippines/presentation/mortageCalculator.dart/pages/MortageCalculator.dart';

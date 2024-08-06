@@ -1,5 +1,6 @@
 import 'package:eraphilippines/presentation/add-edit_listings/controllers/addlistings_bindings.dart';
 import 'package:eraphilippines/presentation/add-edit_listings/pages/addlistings.dart';
+import 'package:eraphilippines/presentation/add-edit_listings/pages/edit_listing.dart';
 import 'package:eraphilippines/presentation/agents/controllers/agents_binding.dart';
 import 'package:eraphilippines/presentation/agents/pages/agentsDashBoard.dart';
 import 'package:eraphilippines/presentation/agents/pages/agentsMyListing.dart';
@@ -118,9 +119,12 @@ appRoutes() => [
           binding: AgentsBinding()),
       GetPage(
           name: RouteString.agentMyListing,
-          page: () => AgentMyListing(
-               ),
+          page: () => AgentMyListing(),
           binding: AgentsBinding()),
+      GetPage(
+          name: RouteString.editListings,
+          page: () => EditListing(),
+          binding: AddListingsBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

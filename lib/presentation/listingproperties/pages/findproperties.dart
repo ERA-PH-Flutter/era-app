@@ -10,7 +10,8 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/custom_pagination.dart';
-import 'package:eraphilippines/app/widgets/findingproperties.dart';
+import 'package:eraphilippines/app/widgets/listings/gridViewV_Listing.dart';
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/listingproperties/controllers/listing_controller.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,7 @@ class FindProperties extends GetView<ListingController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: CustomAppbar(),
+    return BaseScaffold(
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
