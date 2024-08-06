@@ -20,4 +20,5 @@ initServices()async{
   );
   await Get.putAsync(() => LocalStorageService().init());
   Gemini.init(apiKey: AppStrings.geminiKey);
+  //todo load settings
 }

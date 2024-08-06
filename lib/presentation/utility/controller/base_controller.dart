@@ -12,14 +12,14 @@ import '../../../app/widgets/button.dart';
 
 mixin class BaseController {
   showSuccessDialog(
-    VoidCallback? hitApi, {
+  {
+    VoidCallback? hitApi,
     String title = 'Success',
     String? description = 'Successfully',
     cancelable = false,
     cancelButton = "No",
     okayButton = "Okay",
     dismissible = false,
-    whenDone,
   }) {
     showCupertinoDialog(
       barrierDismissible: dismissible,
@@ -45,7 +45,7 @@ mixin class BaseController {
               ),
               EraText(
                 text: description ?? '',
-                fontWeight: FontWeight.w300,
+                fontWeight: FontWeight.w400,
                 color: AppColors.black,
                 fontSize: 16.sp,
                 textAlign: TextAlign.center,
@@ -76,12 +76,8 @@ mixin class BaseController {
                     color: AppColors.primary,
                     padding:
                         EdgeInsets.symmetric(vertical: 5.h, horizontal: 20.w),
-                    onPressed: () {
-                      if (hitApi != null) {
-                        hitApi();
-                      } else {
-                        Get.back();
-                      }
+                    onPressed: hitApi ?? (){
+                      Get.back();
                       // if (Get.isDialogOpen!)
                     },
                     child: Text(

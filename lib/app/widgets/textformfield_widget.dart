@@ -12,6 +12,7 @@ class TextformfieldWidget extends StatelessWidget {
   final int? maxLines;
   final Widget? suffixIcon;
   final bool? obscureText;
+  final TextInputType? keyboardType;
   const TextformfieldWidget(
       {super.key,
       this.style,
@@ -21,11 +22,14 @@ class TextformfieldWidget extends StatelessWidget {
       this.contentPadding,
       this.maxLines,
       this.suffixIcon,
-      this.obscureText});
+      this.obscureText,
+      this.keyboardType
+      });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType ?? TextInputType.text,
       maxLines: maxLines ?? 18,
       controller: controller,
       obscureText: obscureText ?? false,

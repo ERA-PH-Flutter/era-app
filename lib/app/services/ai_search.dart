@@ -36,7 +36,6 @@ class AI{
     var except = ["garage","baths","view","landmarks","name","owner","price","rooms","size","id","balcony","amenities"];
     var additionalFilters = [];
     for (final filter in filters) {
-
       if(filter.contains("<=")){
         var parts = filter.split("<=");
         final field = parts[0].toLowerCase();

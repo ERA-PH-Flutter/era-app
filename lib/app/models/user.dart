@@ -37,6 +37,18 @@ class User {
     );
   }
 
+  factory User.empty(){
+    return User(
+      id: "11",
+      firstname: "",
+      lastname: "",
+      role: "user",
+      email: "test@g.co",
+      whatsApp: "0000-000-0900",
+      image: ""
+    );
+  }
+
   toJSON() {
     return {
       "id": id,

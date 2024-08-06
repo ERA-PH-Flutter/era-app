@@ -1,4 +1,13 @@
+import 'dart:convert';
+
 import 'package:eraphilippines/app/models/user.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+
+import '../constants/assets.dart';
+import '../constants/colors.dart';
+import '../widgets/app_text.dart';
 
 class RealEstateListing {
   final String image;
@@ -169,34 +178,184 @@ class RealEstateListing {
       specificType: 'Condominium',
     ),
   ];
+
+  createMiniListing(){
+    return GestureDetector(
+      onTap: () {
+        //Get.toNamed('/propertyInfo', arguments: listingItems);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              child: Image.asset(
+                "assets/images/image2.png",
+                fit: BoxFit.cover,
+                width: 380.w,
+                height: 200.h,
+              ),
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: EraText(
+                text: type,
+                fontSize: 16.sp,
+                color: AppColors.kRedColor,
+                fontWeight: FontWeight.bold,
+                lineHeight: 0.4,
+              ),
+            ),
+            Row(
+              //crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Image.asset(
+                      AppEraAssets.area,
+                      width: 40.w,
+                      height: 40.h,
+                    ),
+                    SizedBox(width: 2.w),
+                    EraText(
+                      text: '$areas sqm',
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.black,
+                    ),
+                  ],
+                ),
+                SizedBox(width: 10.w),
+                Image.asset(
+                  AppEraAssets.area,
+                  width: 40.w,
+                  height: 40.h,
+                ),
+                EraText(
+                  text: '$beds',
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black,
+                ),
+                SizedBox(width: 10.w),
+                Image.asset(
+                  AppEraAssets.tub,
+                  width: 40.w,
+                  height: 40.h,
+                ),
+                EraText(
+                  text: '$baths',
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black,
+                ),
+                SizedBox(width: 10.w),
+                Image.asset(
+                  AppEraAssets.car,
+                  width: 40.w,
+                  height: 40.h,
+                ),
+                EraText(
+                  text: '$cars',
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: EraText(
+                text: 'Description:',
+                fontSize: 16.sp,
+                color: AppColors.black,
+                fontWeight: FontWeight.w600,
+                lineHeight: 1,
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                description ??
+                    "Nothing added.",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black,
+                ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: EraText(
+                text: NumberFormat.currency(
+                    locale: 'en_PH', symbol: 'PHP ')
+                    .format(
+                  price == "" ? 0 : price,
+                ),
+                color: AppColors.blue,
+                fontSize: 23.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            //widget listed by
+            /*
+                     ListedBy(
+                       text: 'Listed By',
+                       image: ,
+                       agentFirstName: listingItems.agentFirstName,
+                       agentLastName: listingItems.agentLastName,
+                       agentType: listingItems.agents,
+                     ),
+                     */
+          ],
+        ),
+      ),
+    );
+  }
+
   factory RealEstateListing.fromJSON(Map<String, dynamic> json) {
+    print(json['price']);
     return RealEstateListing(
       type: json['type'],
-      image: json['image'],
-      areas: json['areas'],
-      baths: json['baths'],
-      beds: json['beds'],
-      cars: json['cars'],
-      description: json['description'],
-      price: json['price'],
-      listingBy: json['listingBy'],
-      user: User.fromJSON(json['user']),
-      listingId: json['listingId'],
-      lastUpdated: DateTime.parse(json['lastUpdated']),
-      addedDaysago: json['addedDaysago'],
-      features: List<String>.from(json['features']),
-      roomsAndInterior: List<String>.from(json['roomsAndInterior']),
-      locationAndSchools: List<String>.from(json['locationAndSchools']),
-      address: json['address'],
-      propertyId: json['propertyId'],
-      pricePerSqm: json['pricePerSqm'],
-      offerType: json['offerType'],
-      view: json['view'],
-      location: json['location'],
-      subCategory: json['subCategory'],
-      views: json['views'],
-      leads: json['leads'],
-      specificType: json['specificType'],
+      image: json['image'] ?? "",
+      areas: json['size'] ?? 0,
+      baths: int.parse(json['baths'] ?? 0),
+      beds: int.parse(json['beds']??0),
+      cars:  0, //todo
+      description: json['description'] ?? "Nothing added!",
+      price:  double.parse(json['price'] ?? 0), //todo
+      listingBy: "", //todo
+      user: User.empty(),
+      listingId: json['listingId'] ?? 0,
+      lastUpdated: DateTime.parse(json['date_created'].toDate().toString()),
+      addedDaysago: json['addedDaysago'] ?? 0,
+      features: List<String>.from(json['features'] ?? []),
+      roomsAndInterior: List<String>.from(json['roomsAndInterior'] ?? []),
+      locationAndSchools: List<String>.from(json['locationAndSchools'] ?? []),
+      address: json['address'] ?? "",
+      propertyId: json['propertyId'] ?? 0,
+      pricePerSqm: json['pricePerSqm'] ?? 0,
+      offerType: json['offerType'] ?? "",
+      view: json['view'] ?? "",
+      location: json['location'] ?? "",
+      subCategory: json['subCategory'] ?? "",
+      views: json['views'] ?? 0,
+      leads: json['leads'] ?? 0,
+      specificType: json['specificType'] ?? "",
     );
   }
 

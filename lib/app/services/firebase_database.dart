@@ -108,7 +108,7 @@ class Database{
     }
     await db.collection("listings").add({
       "name" : name,
-      "price" : price,
+      "price" : int.parse(price), //eto example price pero string sinesend 
       "photos" : images,
       "ppsqm" : ppsqm,
       "floor_area" : floorArea,

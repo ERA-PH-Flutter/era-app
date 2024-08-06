@@ -82,18 +82,22 @@ class AddListings extends GetView<AddListingsController> {
                       ),
                     ),
                     onPressed: () {
-                      controller.removeMode();
+                      if(controller.images.isNotEmpty){
+                        controller.removeMode();
+                      }else{
+                        BaseController().showSuccessDialog(title: "Error!",description: "You have selected 0 image!");
+                      }
                     },
                     icon: Icon(
                       CupertinoIcons.photo_fill_on_rectangle_fill,
                       color: AppColors.black,
                     ),
-                    label: EraText(
-                      text: 'Remove',
+                    label: Obx(()=>EraText(
+                      text: controller.removeImage.value && controller.images.isNotEmpty ? 'Cancel' : 'Remove',
                       color: AppColors.black,
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w500,
-                    ),
+                    ),)
                   ),
                 ],
               ),
@@ -130,8 +134,9 @@ class AddListings extends GetView<AddListingsController> {
                                 ),
                               ),
                             ),
-                            if (controller.removeImage.value)
-                              Positioned(
+                            Obx(()=>Visibility(
+                              visible: controller.removeImage.value,
+                              child: Positioned(
                                 top: 5,
                                 right: 5,
                                 child: GestureDetector(
@@ -144,6 +149,7 @@ class AddListings extends GetView<AddListingsController> {
                                   ),
                                 ),
                               ),
+                            ),)
                           ],
                         );
                       });
@@ -172,6 +178,7 @@ class AddListings extends GetView<AddListingsController> {
         buildWidget(
           'Price per sqm',
           TextformfieldWidget(
+              keyboardType: TextInputType.number,
               controller: controller.pricePerSqmController,
               hintText: 'Php 100,000',
               maxLines: 1),
@@ -179,6 +186,7 @@ class AddListings extends GetView<AddListingsController> {
         buildWidget(
           'Floor Area',
           TextformfieldWidget(
+              keyboardType: TextInputType.number,
               controller: controller.floorAreaController,
               hintText: '151 sqm',
               maxLines: 1),
