@@ -44,45 +44,71 @@ class AddListings extends GetView<AddListingsController> {
                   'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
               SizedBox(height: 10.h),
               // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
-
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    side: BorderSide(
-                        color: AppColors.hint.withOpacity(0.1), width: 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      side: BorderSide(
+                          color: AppColors.hint.withOpacity(0.1), width: 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      controller.getImageGallery();
+                    },
+                    icon: Icon(
+                      CupertinoIcons.photo_fill_on_rectangle_fill,
+                      color: AppColors.black,
+                    ),
+                    label: EraText(
+                      text: 'Select Photos',
+                      color: AppColors.black,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  onPressed: () {
-                    controller.getImageGallery();
-                  },
-                  icon: Icon(
-                    CupertinoIcons.photo_fill_on_rectangle_fill,
-                    color: AppColors.black,
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      side: BorderSide(
+                          color: AppColors.hint.withOpacity(0.1), width: 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      controller.removeMode();
+                    },
+                    icon: Icon(
+                      CupertinoIcons.photo_fill_on_rectangle_fill,
+                      color: AppColors.black,
+                    ),
+                    label: EraText(
+                      text: 'Remove',
+                      color: AppColors.black,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  label: EraText(
-                    text: 'Select Photos',
-                    color: AppColors.black,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                ],
               ),
+
               SizedBox(height: 10.h),
-              if (controller.images.isEmpty)
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Image.asset(
-                    AppEraAssets.uploadphoto,
-                  ),
-                )
-              else
-                Obx(
-                  () => GridView.builder(
+              Obx(() {
+                if (controller.images.isEmpty) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Image.asset(
+                      AppEraAssets.uploadphoto,
+                    ),
+                  );
+                } else {
+                  return GridView.builder(
                       shrinkWrap: true,
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       physics: NeverScrollableScrollPhysics(),
@@ -93,17 +119,37 @@ class AddListings extends GetView<AddListingsController> {
                       ),
                       itemCount: controller.images.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: FileImage(controller.images[index]),
-                              fit: BoxFit.cover,
+                        return Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: FileImage(controller.images[index]),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
-                          ),
+                            if (controller.removeImage.value)
+                              Positioned(
+                                top: 5,
+                                right: 5,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    controller.removeAt(index);
+                                  },
+                                  child: Icon(
+                                    CupertinoIcons.xmark_circle_fill,
+                                    color: Colors.black.withOpacity(0.7),
+                                  ),
+                                ),
+                              ),
+                          ],
                         );
-                      }),
-                ),
+                      });
+                }
+              }),
+
               SizedBox(height: 5.h),
 
               Padding(

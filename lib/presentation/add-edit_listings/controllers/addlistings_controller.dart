@@ -16,10 +16,7 @@ class AddListingsController extends GetxController {
   var store = Get.find<LocalStorageService>();
   RxList images = [].obs;
   final picker = ImagePicker();
-  var passwordVisible = false.obs;
-  var confirmPasswordVisible = false.obs;
-  var email = TextEditingController();
-  var password = TextEditingController();
+  final removeImage = false.obs;
 
   TextEditingController propertyNameController = TextEditingController();
   TextEditingController propertyCostController = TextEditingController();
@@ -47,7 +44,19 @@ class AddListingsController extends GetxController {
     }
   }
 
-  // clearImage() {
-  //   images.clear();
-  // }
+  removeAt(int index) {
+    images.removeAt(index);
+
+    if (images.isEmpty) {
+      print("itsfine");
+    }
+  }
+
+  removeMode() {
+    removeImage.value = !removeImage.value;
+  }
+
+  clearImage() {
+    images.clear();
+  }
 }
