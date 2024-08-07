@@ -11,4 +11,5 @@ class AppColors {
   static Color kRedColor = const Color(0xFF8A0B0B);
   static Color carouselBgColor = const Color(0xFFC5B4A1);
   static Color carouselBgColor1 = const Color(0xFF79BA5E);
+  static Color maroon = const Color(0xFF920337);
 }

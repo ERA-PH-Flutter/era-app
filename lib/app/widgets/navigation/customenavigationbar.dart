@@ -30,6 +30,8 @@ class BaseScaffold extends StatelessWidget {
           color: AppColors.blue,
           backgroundColor: Colors.white.withOpacity(0),
           buttonBackgroundColor: Colors.white.withOpacity(0),
+
+          // buttonBackgroundColor: AppColors.maroon,
           index: controller.selectedIndex.value,
           onTap: (index) {
             controller.changeIndex(index);

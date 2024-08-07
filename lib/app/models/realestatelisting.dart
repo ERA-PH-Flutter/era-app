@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:eraphilippines/app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../constants/assets.dart';
@@ -182,7 +183,7 @@ class RealEstateListing {
   createMiniListing() {
     return GestureDetector(
       onTap: () {
-        //Get.toNamed('/propertyInfo', arguments: listingItems);
+        //Get.toNamed('/propertyInfo', arguments: listingsModels);
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -231,7 +232,7 @@ class RealEstateListing {
                 ),
                 SizedBox(width: 10.w),
                 Image.asset(
-                  AppEraAssets.area,
+                  AppEraAssets.bed,
                   width: 40.w,
                   height: 40.h,
                 ),
@@ -284,7 +285,7 @@ class RealEstateListing {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
-                description ?? "Nothing added.",
+                description,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
@@ -331,12 +332,12 @@ class RealEstateListing {
       type: json['type'],
       image: json['image'] ?? "",
       areas: json['size'] ?? 0,
-      baths: int.parse(json['baths'] ?? 0),
-      beds: int.parse(json['beds'] ?? 0),
-      cars: 0, //todo
+      baths: json['baths'] ?? 0,
+      beds: json['beds'] ?? 0,
+      cars: json['cars'] ?? 0,
       description: json['description'] ?? "Nothing added!",
-      price: double.parse(json['price'] ?? 0), //todo
-      listingBy: "", //todo
+      price: (json['price'] ?? 0).toDouble(),
+      listingBy: json['listingBy'] ?? "",
       user: User.empty(),
       listingId: json['listingId'] ?? 0,
       lastUpdated: DateTime.parse(json['date_created'].toDate().toString()),

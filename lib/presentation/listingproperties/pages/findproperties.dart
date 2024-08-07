@@ -28,7 +28,7 @@ class FindProperties extends GetView<ListingController> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -48,7 +48,7 @@ class FindProperties extends GetView<ListingController> {
                         SizedBox(height: 20.h),
                         AppTextField(
                           hint: 'Property Type',
-                          svgIcon: AppEraAssets.home,
+                          svgIcon: AppEraAssets.house,
                           bgColor: AppColors.white,
                         ),
                         //price range
@@ -129,7 +129,7 @@ class FindProperties extends GetView<ListingController> {
                 ),
                 SizedBox(height: 10.h),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 35.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(

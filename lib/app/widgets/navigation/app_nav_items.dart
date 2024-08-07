@@ -49,9 +49,6 @@ class AppNavItems extends StatelessWidget {
               label,
               style: TextStyle(fontSize: 12.sp, color: CupertinoColors.white),
             ),
-            SizedBox(
-              height: 5.h,
-            )
           ],
         ),
       );
