@@ -22,11 +22,29 @@ class HomeController extends GetxController{
   var isForLease = true.obs;
   var innerController = CarouselController();
   var carouselC = PageController();
+  var homeState = HomeState.loading.obs;
+  final List<String> images = [
+    "assets/images/e1.JPG",
+    "assets/images/carouselsliderpic3.jpg",
+    "assets/images/carouselsliderpic4.jpg",
+    "assets/images/carouselsliderpic5.jpg",
+  ];
 
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController aiSearchController = TextEditingController();
+
+  @override
+  void onInit()async{
+    await Future.delayed(Duration(seconds: 3));
+    try{
+      homeState.value = HomeState.loaded;
+    }catch(e){
+      homeState.value = HomeState.error;
+    }
+    super.onInit();
+  }
 
   void nextImage(int totalImg) {
     if (carouselIndex.value < totalImg - 1) {

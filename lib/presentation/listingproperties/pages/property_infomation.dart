@@ -17,14 +17,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class PropertyInformation extends StatelessWidget {
+ /**
+  * ! change to getview
+  */
+ class PropertyInformation extends StatelessWidget {
   final RealEstateListing listing;
 
   const PropertyInformation({
     super.key,
     required this.listing,
   });
-
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -73,7 +75,83 @@ class PropertyInformation extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20.h),
-            Image.asset(listing.image),
+            Container(
+              height: 350.h,
+              child: Stack(
+                children: [
+                  Positioned(
+                    child: Container(
+                        height:320.h,
+                        child: Image.asset(listing.image)),
+                  ),
+                  Positioned(
+                    bottom: 0.h,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: Get.width,
+                      height: 70.h,
+                      child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            width:Get.width / 6,
+                            color: Colors.red,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            width: Get.width / 6,
+                            color: Colors.red,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            width: Get.width / 6,
+                            color: Colors.red,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            width: Get.width / 6,
+                            color: Colors.red,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            width: Get.width / 6,
+                            color: Colors.red,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            width: Get.width / 6,
+                            color: Colors.red,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            width: Get.width / 6,
+                            color: Colors.red,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            width: Get.width / 6,
+                            color: Colors.red,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            width: Get.width / 6,
+                            color: Colors.red,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            width: Get.width / 6,
+                            color: Colors.red,
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
             SizedBox(height: 20.h),
             //widget
             iconsText(),

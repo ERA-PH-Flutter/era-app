@@ -32,8 +32,8 @@ class CustomImage extends StatelessWidget {
           imageUrl: url,
           fit: BoxFit.cover,
           width: 500.w,
-          placeholder: (context, url) => CircularProgressIndicator(),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
         ),
       ),
     );
