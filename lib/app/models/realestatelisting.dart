@@ -124,7 +124,7 @@ class RealEstateListing {
       specificType: 'Condominium',
     ),
     RealEstateListing(
-      type: 'BGC Luxury Condo',
+      type: 'Condo',
       image: 'assets/images/carouselsliderpic5.jpg',
       areas: 900,
       baths: 2,

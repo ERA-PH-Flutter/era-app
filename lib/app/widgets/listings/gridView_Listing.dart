@@ -38,6 +38,8 @@ class ListingProperties extends StatelessWidget {
             agentLastName: '${listingModels[i].user.lastname}',
             role: '${listingModels[i].user.role}',
             onTap: () {
+              //error when tapped in property info but in homepage it is working
+              print('tapped');
               Get.toNamed('/propertyInfo', arguments: listingModels[i]);
             }),
       ),

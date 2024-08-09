@@ -1,9 +1,10 @@
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
+import 'package:eraphilippines/presentation/listingproperties/controllers/listing_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PreSelling extends GetView<HomeController> {
+class PreSelling extends GetView<ListingController> {
   const PreSelling({super.key});
 
   @override

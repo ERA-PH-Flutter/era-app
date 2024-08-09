@@ -43,18 +43,18 @@ class Home extends GetView<HomeController> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SafeArea(
-          child: Obx(()=>switch(controller.homeState.value){
-            HomeState.loading => _loading(),
-            HomeState.loaded => _loaded(),
-            HomeState.error => _error(),
-          }),
+          child: Obx(() => switch (controller.homeState.value) {
+                HomeState.loading => _loading(),
+                HomeState.loaded => _loaded(),
+                HomeState.error => _error(),
+              }),
         ),
       ),
     );
   }
 
-  _loaded(){
-    return  Column(
+  _loaded() {
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //carousel
@@ -76,7 +76,7 @@ class Home extends GetView<HomeController> {
                         viewportFraction: 1,
                         aspectRatio: 1.2,
                         onPageChanged: (index, reason) =>
-                        controller.carouselIndex.value = index,
+                            controller.carouselIndex.value = index,
                       )),
                 ),
                 Positioned(
@@ -86,18 +86,18 @@ class Home extends GetView<HomeController> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                      Obx(() => AnimatedSmoothIndicator(
-                        activeIndex: controller.carouselIndex.value,
-                        count: controller.images.length,
-                        effect: JumpingDotEffect(
-                          spacing: 25,
-                          dotWidth: 8,
-                          dotHeight: 8,
-                          activeDotColor: AppColors.black,
-                          dotColor: AppColors.hint,
-                        ),
-                      )),
-                    ]),
+                          Obx(() => AnimatedSmoothIndicator(
+                                activeIndex: controller.carouselIndex.value,
+                                count: controller.images.length,
+                                effect: JumpingDotEffect(
+                                  spacing: 25,
+                                  dotWidth: 8,
+                                  dotHeight: 8,
+                                  activeDotColor: AppColors.black,
+                                  dotColor: AppColors.hint,
+                                ),
+                              )),
+                        ]),
                   ),
                 ),
                 Positioned(
@@ -139,7 +139,7 @@ class Home extends GetView<HomeController> {
               ],
             )),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           child: BoxWidget.build(
             child: Column(
               children: [
@@ -148,7 +148,7 @@ class Home extends GetView<HomeController> {
                 AppTextField(
                   controller: controller.locationController,
                   hint: 'Location',
-                  svgIcon:  AppEraAssets.marker,
+                  svgIcon: AppEraAssets.marker,
                   bgColor: AppColors.white,
                 ),
                 //property type
@@ -156,7 +156,7 @@ class Home extends GetView<HomeController> {
                 AppTextField(
                   controller: controller.propertyController,
                   hint: 'Property Type',
-                  svgIcon:  AppEraAssets.house,
+                  svgIcon: AppEraAssets.house,
                   bgColor: AppColors.white,
                 ),
                 //price range
@@ -164,7 +164,7 @@ class Home extends GetView<HomeController> {
                 AppTextField(
                   controller: controller.priceController,
                   hint: 'Price Range',
-                  svgIcon:  AppEraAssets.money,
+                  svgIcon: AppEraAssets.money,
                   bgColor: AppColors.white,
                 ),
                 //ai search
@@ -172,12 +172,12 @@ class Home extends GetView<HomeController> {
                 AppTextField(
                   controller: controller.aiSearchController,
                   hint: 'AI Search',
-                  svgIcon:  AppEraAssets.send,
+                  svgIcon: AppEraAssets.send,
                   bgColor: AppColors.white,
                 ),
                 SizedBox(height: 20.h),
                 Obx(
-                      () => Row(
+                  () => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Row(
@@ -205,7 +205,6 @@ class Home extends GetView<HomeController> {
                           Transform.scale(
                             scale: 1.9,
                             child: Radio(
-
                                 fillColor: WidgetStateProperty.all(
                                     AppColors.white.withOpacity(0.6)),
                                 value: 2,
@@ -224,19 +223,23 @@ class Home extends GetView<HomeController> {
                     ],
                   ),
                 ),
-                SearchWidget.build(()async{
+                SearchWidget.build(() async {
                   var data;
-                  if(controller.aiSearchController.text == ""){
+                  if (controller.aiSearchController.text == "") {
                     data = await Database().searchListing(
                         location: controller.locationController.text,
                         price: controller.priceController,
-                        type: controller.isForSale.value == 1 ? "selling" : "rent",
-                        property: controller.propertyController.text
-                    );
-                  }else{
-                    data = await AI(query: controller.aiSearchController.text).search();
+                        type: controller.isForSale.value == 1
+                            ? "selling"
+                            : "rent",
+                        property: controller.propertyController.text);
+                  } else {
+                    data = await AI(query: controller.aiSearchController.text)
+                        .search();
                   }
-                  Get.to(() => SearchResult(),binding: SearchResultBinding(),arguments: [data,"sample search"]);
+                  Get.to(() => SearchResult(),
+                      binding: SearchResultBinding(),
+                      arguments: [data, "sample search"]);
                 }),
               ],
             ),
@@ -244,8 +247,7 @@ class Home extends GetView<HomeController> {
         ),
         PropertiesWidgets(listingsModels: PropertiesModels.listings),
         TextListing.projectTitle(24.sp, FontWeight.w600, AppColors.blue),
-        TextListing.projectSubtitle(
-            12.sp, FontWeight.w500, AppColors.black),
+        TextListing.projectSubtitle(12.sp, FontWeight.w500, AppColors.black),
         SizedBox(
           height: 20.h,
         ),
@@ -294,8 +296,7 @@ class Home extends GetView<HomeController> {
           height: 10.h,
         ),
         //Feautured Listing properties
-        ListingProperties(
-            listingModels: RealEstateListing.listingsModels),
+        ListingProperties(listingModels: RealEstateListing.listingsModels),
 
         TextListing(
             text: 'COMPANY NEWS',
@@ -336,12 +337,14 @@ class Home extends GetView<HomeController> {
       ],
     );
   }
-  _loading(){
+
+  _loading() {
     return Center(
       child: CircularProgressIndicator(),
     );
   }
-  _error(){
+
+  _error() {
     return Container();
   }
 }

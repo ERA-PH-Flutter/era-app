@@ -52,6 +52,7 @@ class AppDivider extends StatelessWidget {
             fontSize: 20.sp,
             maxLines: 20,
           ),
+          SizedBox(height: 20.h),
           if (button == true)
             Button(
               text: 'VIEW MORE PROJECTS',

@@ -1,13 +1,16 @@
- import 'package:eraphilippines/app/constants/assets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
- import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
- import 'package:eraphilippines/app/widgets/listings/gridView_Listing.dart';
+import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:eraphilippines/app/widgets/listings/gridView_Listing.dart';
 import 'package:eraphilippines/app/widgets/pieChart.dart';
+import 'package:eraphilippines/presentation/listingproperties/controllers/listing_controller.dart';
 
 import 'package:eraphilippines/presentation/mortageCalculator.dart/pages/MortageCalculator.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,10 +20,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
- /**
-  * ! change to getview
-  */
- class PropertyInformation extends StatelessWidget {
+class PropertyInformation extends GetView<ListingController> {
   final RealEstateListing listing;
 
   const PropertyInformation({
@@ -75,83 +75,116 @@ import 'package:intl/intl.dart';
               ),
             ),
             SizedBox(height: 20.h),
-            Container(
-              height: 350.h,
-              child: Stack(
-                children: [
-                  Positioned(
-                    child: Container(
-                        height:320.h,
-                        child: Image.asset(listing.image)),
-                  ),
-                  Positioned(
-                    bottom: 0.h,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: Get.width,
-                      height: 70.h,
-                      child: ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            width:Get.width / 6,
-                            color: Colors.red,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            width: Get.width / 6,
-                            color: Colors.red,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            width: Get.width / 6,
-                            color: Colors.red,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            width: Get.width / 6,
-                            color: Colors.red,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            width: Get.width / 6,
-                            color: Colors.red,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            width: Get.width / 6,
-                            color: Colors.red,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            width: Get.width / 6,
-                            color: Colors.red,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            width: Get.width / 6,
-                            color: Colors.red,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            width: Get.width / 6,
-                            color: Colors.red,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            width: Get.width / 6,
-                            color: Colors.red,
-                          ),
 
-                        ],
+            // i dont know why URI is not working here
+            Obx(() {
+              return Container(
+                height: 350.h,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      child: Container(
+                        height: 320.h,
+                        child: CachedNetworkImage(
+                          imageUrl: controller.currentImage.value,
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                          placeholder: (context, url) =>
+                              Center(child: CircularProgressIndicator()),
+                        ),
                       ),
                     ),
-                  )
-                ],
-              ),
-            ),
+                    Positioned(
+                      bottom: 0.h,
+                      child: Container(
+                        width: Get.width,
+                        height: 70.h,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.images.length,
+                          itemBuilder: (context, index) {
+                            final image = controller.images[index];
+                            final isSelected =
+                                controller.currentImage.value == image;
+
+                            return GestureDetector(
+                              onTap: () {
+                                controller.onSelectedImage(image);
+                              },
+                              child: Container(
+                                decoration: isSelected
+                                    ? BoxDecoration(
+                                        border: Border.all(
+                                          color: AppColors.hint,
+                                          width: 5,
+                                        ),
+                                      )
+                                    : null,
+                                margin: EdgeInsets.symmetric(horizontal: 7.w),
+                                child: CachedNetworkImage(
+                                  imageUrl: controller.images[index],
+                                  fit: BoxFit.cover,
+                                  width: Get.width / 6,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+
+            // Container(
+            //   height: 350.h,
+            //   child: Stack(
+            //     children: [
+            //       Positioned(
+            //         child: Container(
+            //           height: 320.h,
+            //           child: CachedNetworkImage(
+            //             imageUrl: controller.images[0],
+            //             fit: BoxFit.cover,
+            //             errorWidget: (context, url, error) => Icon(Icons.error),
+            //           ),
+            //         ),
+            //       ),
+            //       Positioned(
+            //         bottom: 0.h,
+            //         child: Container(
+            //           width: Get.width,
+            //           height: 70.h,
+            //           child: ListView.builder(
+            //             shrinkWrap: true,
+            //             scrollDirection: Axis.horizontal,
+            //             itemCount: controller.images.length,
+            //             itemBuilder: (context, index) {
+            //               return GestureDetector(
+            //                 onTap: () {
+            //                   controller
+            //                       .onSelectedImage(controller.images[index]);
+            //                 },
+            //                 child: Container(
+            //                   margin: EdgeInsets.symmetric(horizontal: 7.w),
+            //                   child: CachedNetworkImage(
+            //                     imageUrl: controller.images[index],
+            //                     fit: BoxFit.cover,
+            //                     width: Get.width / 6,
+            //                   ),
+            //                 ),
+            //               );
+            //             },
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
             SizedBox(height: 20.h),
             //widget
             iconsText(),
@@ -289,17 +322,17 @@ import 'package:intl/intl.dart';
                 ),
               )),
           SizedBox(height: 30.h),
-          // ListedBy(
-          //   text: 'Listed By',
-          //   image: listing.agentImage!,
-          //   agentFirstName: listing.agentFirstName!,
-          //   agentLastName: listing.agentLastName!,
-          //   agentType: listing.agents!,
-          //   whatsapp: listing.whatsapp,
-          //   whatsappIcon: AppEraAssets.whatsappIcon,
-          //   email: listing.email,
-          //   emailIcon: AppEraAssets.emailIcon,
-          // ),
+          ListedBy(
+            text: 'Listed By',
+            image: listing.user.image!,
+            agentFirstName: listing.user.firstname!,
+            agentLastName: listing.user.lastname!,
+            agentType: listing.user.role!,
+            whatsapp: listing.user.whatsApp,
+            whatsappIcon: AppEraAssets.whatsappIcon,
+            email: listing.user.email,
+            emailIcon: AppEraAssets.emailIcon,
+          ),
 
           SizedBox(height: 20.h),
           EraText(
@@ -311,7 +344,6 @@ import 'package:intl/intl.dart';
           SizedBox(height: 10.h),
 
           ListingProperties(listingModels: RealEstateListing.listingsModels),
-
           Button(
             text: 'MORE LISTINGS',
             onTap: () {

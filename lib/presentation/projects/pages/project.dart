@@ -14,12 +14,14 @@ import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/presentation/contacts/pages/findus.dart';
 import 'package:eraphilippines/presentation/contacts/pages/inquiry.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
+import 'package:eraphilippines/presentation/projects/controllers/projects_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class ProjectPage extends StatelessWidget {
+class ProjectPage extends GetView<ProjectsController> {
   const ProjectPage({super.key});
 
   @override

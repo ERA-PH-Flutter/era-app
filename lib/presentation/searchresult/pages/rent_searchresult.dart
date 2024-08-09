@@ -7,10 +7,12 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
  import 'package:eraphilippines/app/widgets/listings/gridViewV_Listing.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
    import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/presentation/searchresult/controllers/searchresult_controller.dart';
  import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
  
-class RentSearchresult extends StatelessWidget {
+class RentSearchresult extends  GetView<SearchResultController>  {
   const RentSearchresult({super.key});
 
   @override

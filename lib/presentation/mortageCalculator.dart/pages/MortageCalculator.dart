@@ -4,11 +4,12 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/pieChart.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
+import 'package:eraphilippines/presentation/mortageCalculator.dart/controllers/MortageCalculator_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class MortageCalculator extends GetView<HomeController> {
+class MortageCalculator extends GetView<MortageCalculatorController> {
   const MortageCalculator({super.key});
 
   @override
