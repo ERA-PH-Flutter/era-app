@@ -6,12 +6,13 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
+import 'package:eraphilippines/presentation/projects/controllers/projects_controller.dart';
 import 'package:eraphilippines/presentation/projects/pages/project.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class ProjectMain extends StatelessWidget {
+class ProjectMain extends GetView<ProjectsController> {
   const ProjectMain({super.key});
 
   @override

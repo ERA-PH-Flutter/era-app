@@ -121,6 +121,7 @@ class Help extends GetView<ContactusController> {
               SizedBox(height: 15.h),
               expansionTile(
                   'Fees & Commission Guide', 'Access and Manage Your Account'),
+              SizedBox(height: 30.h),
             ],
           ),
         ),

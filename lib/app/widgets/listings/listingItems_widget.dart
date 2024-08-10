@@ -1,16 +1,17 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/custom_corner_image.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:intl/intl.dart';
 
 import '../../constants/colors.dart';
 
+// ignore: must_be_immutable
 class ListingItemss extends StatelessWidget {
   final String image;
   final String type;
@@ -29,7 +30,7 @@ class ListingItemss extends StatelessWidget {
   final Widget? buttonDelete;
 
   final Function()? onTap;
-  const ListingItemss({
+  ListingItemss({
     super.key,
     this.onTap,
     required this.image,
@@ -48,6 +49,10 @@ class ListingItemss extends StatelessWidget {
     this.buttonEdit,
     this.buttonDelete,
   });
+  var selected = false.obs;
+  void toggleSelected() {
+    selected.value = !selected.value;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +63,26 @@ class ListingItemss extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              child: Image.asset(
-                image,
-                fit: BoxFit.cover,
-                width: 380.w,
-                height: 200.h,
-              ),
-            ),
+            GestureDetector(onTap: () {
+              toggleSelected();
+            }, child: Obx(
+              () {
+                return ClipPath(
+                  clipper: selected.value ? CustomCornerClipPath() : null,
+                  child: AnimatedContainer(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeIn,
+                      height: selected.value ? 170.h : 200.h,
+                      width: selected.value ? 340.w : 380.h,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(image),
+                          fit: BoxFit.cover,
+                        ),
+                      )),
+                );
+              },
+            )),
             SizedBox(
               height: 15.h,
             ),
