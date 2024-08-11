@@ -9,6 +9,29 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../presentation/agent/home/controllers/home_controller.dart';
 
+var selectedIndex = 0.obs;
+void changeIndex(int index) {
+    navBarItems[index].onTap?.call();
+    selectedIndex.value = index;
+    switch (index) {
+      case 0:
+        Get.toNamed('/home');
+        break;
+      case 1:
+        Get.toNamed('/project-main');
+        break;
+      case 2:
+        Get.toNamed('/searchresult');
+        break;
+      case 3:
+        Get.toNamed('/findagents');
+        break;
+      case 4:
+        Get.toNamed('/help');
+        break;
+    }
+  }
+
 class BaseScaffold extends StatelessWidget {
   final Widget body;
 
@@ -19,8 +42,7 @@ class BaseScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.put(HomeController());
-
+ 
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: CustomAppbar(),
@@ -33,28 +55,29 @@ class BaseScaffold extends StatelessWidget {
           buttonBackgroundColor: Colors.white.withOpacity(0),
 
           // buttonBackgroundColor: AppColors.maroon,
-          index: controller.selectedIndex.value,
+          index: selectedIndex.value,
           onTap: (index) {
-            controller.changeIndex(index);
+            changeIndex(index);
             navBarItems[index].onTap?.call();
           },
           items: navBarItems.map((item) {
             int currentIndex = navBarItems.indexOf(item);
-            String iconPath = controller.selectedIndex.value == currentIndex
+            String iconPath = selectedIndex.value == currentIndex
                 ? item.selectedIcon
                 : item.defaultIcon;
 
             return AppNavItems(
                 onTap: () {
-                  controller.changeIndex(currentIndex);
+                  changeIndex(currentIndex);
                   item.onTap?.call();
                 },
                 iconPath: iconPath,
                 label: item.label,
-                isActive: controller.selectedIndex.value == currentIndex);
+                isActive: selectedIndex.value == currentIndex);
           }).toList(),
         );
       }),
     );
   }
+  
 }

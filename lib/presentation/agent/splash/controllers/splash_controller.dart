@@ -20,7 +20,7 @@ class SplashController extends GetxController {
     if (Authentication().auth.currentUser == null) {
       Get.toNamed(RouteString.loginpage);
     } else {
-      Get.toNamed(RouteString.home);
+      Get.toNamed(RouteString.landingPage);
     }
   }
 }

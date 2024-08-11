@@ -1,3 +1,7 @@
+import 'package:eraphilippines/presentation/admin/admin-home/controllers/admin_home_binding.dart';
+import 'package:eraphilippines/presentation/admin/admin-home/pages/admin_home.dart';
+import 'package:eraphilippines/presentation/admin/landingpage/admin-home/controllers/landingpage_binding.dart';
+import 'package:eraphilippines/presentation/admin/landingpage/admin-home/pages/landingpage.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 import '../presentation/agent/a/controllers/base_binding.dart';
@@ -111,6 +115,16 @@ appRoutes() => [
           name: RouteString.editListings,
           page: () => EditListing(),
           binding: AddListingsBinding()),
+
+//admin
+      GetPage(
+          name: RouteString.landingPage,
+          page: () => LandingPage(),
+          binding: LandingpageBinding()),
+      GetPage(
+          name: RouteString.adminHome,
+          page: () => AdminHome(),
+          binding: AdminHomeBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

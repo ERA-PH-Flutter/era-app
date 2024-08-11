@@ -23,4 +23,8 @@ class RouteString {
   static String addListings = "/addListings";
   static String agentMyListing = "/agentMyListing";
   static String editListings = "/editListings";
+
+  //admin
+  static String landingPage = "/landingPage";
+  static String adminHome = "/admin-home";
 }
