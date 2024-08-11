@@ -1,9 +1,10 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
-import 'package:eraphilippines/presentation/agents/pages/agentsDashBoard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../presentation/agent/agents/pages/agentsDashBoard.dart';
 
 class AgentsAllListings extends StatelessWidget {
   final RealEstateListing agentInfo;

@@ -1,43 +1,35 @@
-import 'package:eraphilippines/presentation/add-edit_listings/controllers/addlistings_bindings.dart';
-import 'package:eraphilippines/presentation/add-edit_listings/pages/addlistings.dart';
-import 'package:eraphilippines/presentation/add-edit_listings/pages/edit_listing.dart';
-import 'package:eraphilippines/presentation/agents/controllers/agents_binding.dart';
-import 'package:eraphilippines/presentation/agents/pages/agentsDashBoard.dart';
-import 'package:eraphilippines/presentation/agents/pages/agentsMyListing.dart';
-import 'package:eraphilippines/presentation/agents/pages/findAgents.dart';
-import 'package:eraphilippines/presentation/authentication/controllers/authentication_binding.dart';
-import 'package:eraphilippines/presentation/authentication/pages/createaccount_page.dart';
-import 'package:eraphilippines/presentation/base/controllers/base_binding.dart';
-import 'package:eraphilippines/presentation/companynews/controllers/companynews_binding.dart';
-import 'package:eraphilippines/presentation/companynews/pages/companynews.dart';
-import 'package:eraphilippines/presentation/contacts/controllers/contacts_binding.dart';
-import 'package:eraphilippines/presentation/contacts/pages/aboutus.dart';
-import 'package:eraphilippines/presentation/contacts/pages/contact_us.dart';
-import 'package:eraphilippines/presentation/contacts/pages/help.dart';
-import 'package:eraphilippines/presentation/home/controllers/home_binding.dart';
-import 'package:eraphilippines/presentation/Listingproperties/pages/findproperties.dart';
-import 'package:eraphilippines/presentation/listingproperties/controllers/listing_binding.dart';
-import 'package:eraphilippines/presentation/listingproperties/pages/property_infomation.dart';
-import 'package:eraphilippines/presentation/projects/controllers/projects_binding.dart';
-import 'package:eraphilippines/presentation/projects/pages/project.dart';
-import 'package:eraphilippines/presentation/projects/pages/projectmain.dart';
-import 'package:eraphilippines/presentation/authentication/pages/login_page.dart';
-import 'package:eraphilippines/presentation/searchresult/controllers/searchresult_binding.dart';
-import 'package:eraphilippines/presentation/searchresult/pages/searchresult.dart';
-import 'package:eraphilippines/presentation/searchresult/pages/selling_searchresult.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
-
-import '../presentation/home/pages/home.dart';
+import '../presentation/agent/a/controllers/base_binding.dart';
+import '../presentation/agent/add-edit_listings/controllers/addlistings_bindings.dart';
+import '../presentation/agent/add-edit_listings/pages/addlistings.dart';
+import '../presentation/agent/add-edit_listings/pages/edit_listing.dart';
+import '../presentation/agent/agents/controllers/agents_binding.dart';
+import '../presentation/agent/agents/pages/agentsDashBoard.dart';
+import '../presentation/agent/agents/pages/agentsMyListing.dart';
+import '../presentation/agent/agents/pages/findagents.dart';
+import '../presentation/agent/authentication/controllers/authentication_binding.dart';
+import '../presentation/agent/authentication/pages/createaccount_page.dart';
+import '../presentation/agent/authentication/pages/login_page.dart';
+import '../presentation/agent/companynews/controllers/companynews_binding.dart';
+import '../presentation/agent/companynews/pages/companynews.dart';
+import '../presentation/agent/contacts/controllers/contacts_binding.dart';
+import '../presentation/agent/contacts/pages/aboutus.dart';
+import '../presentation/agent/contacts/pages/contact_us.dart';
+import '../presentation/agent/contacts/pages/help.dart';
+import '../presentation/agent/home/controllers/home_binding.dart';
+import '../presentation/agent/home/pages/home.dart';
+import '../presentation/agent/listingproperties/controllers/listing_binding.dart';
+import '../presentation/agent/listingproperties/pages/findproperties.dart';
+import '../presentation/agent/listingproperties/pages/property_infomation.dart';
+import '../presentation/agent/projects/controllers/projects_binding.dart';
+import '../presentation/agent/projects/pages/project.dart';
+import '../presentation/agent/projects/pages/projectmain.dart';
+import '../presentation/agent/searchresult/controllers/searchresult_binding.dart';
+import '../presentation/agent/searchresult/pages/searchresult.dart';
+import '../presentation/agent/searchresult/pages/selling_searchresult.dart';
 
 appRoutes() => [
-      /*
-      GetPage(
-        name: RoutePageString.auth,
-        page: () => const AuthPage(),
-        middlewares: [MyMiddelware()],
-      ),
-      */
       GetPage(
           name: RouteString.addListings,
           page: () => const AddListings(),
@@ -99,12 +91,6 @@ appRoutes() => [
           name: RouteString.companynews,
           page: () => const CompanyNews(),
           binding: CompanyNewsBinding()),
-      // GetPage(
-      //     name: RouteString. ,
-      //     page: () => Agentinfo(
-      //            listing: Get.arguments,
-      //         ),
-      //     binding: AgentsBinding()),
       GetPage(
           name: RouteString.propertyInfo,
           page: () => PropertyInformation(

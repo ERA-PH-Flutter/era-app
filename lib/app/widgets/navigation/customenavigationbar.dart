@@ -5,8 +5,9 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/widgets/navigation/app_nav_items.dart';
-import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../presentation/agent/home/controllers/home_controller.dart';
 
 class BaseScaffold extends StatelessWidget {
   final Widget body;

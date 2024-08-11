@@ -31,7 +31,7 @@ class Piechart extends StatelessWidget {
     ];
     List<String> titles = ['PRINCIPAL', 'INTEREST', 'TAX &\n        INSURANCE'];
     return List<PieChartSectionData>.generate(3, (i) {
-      final radius = 100.0;
+      const radius = 100.0;
       final fontSize = 15.sp;
       double value = 0;
       if (i == 0) {

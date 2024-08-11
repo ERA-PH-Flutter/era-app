@@ -1,6 +1,5 @@
 // ignore_for_file: unused_import
 
-import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -9,7 +8,6 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class AppDivider extends StatelessWidget {
   final String? text;

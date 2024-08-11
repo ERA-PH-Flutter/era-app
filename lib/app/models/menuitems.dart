@@ -2,15 +2,13 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/presentation/add-edit_listings/pages/addlistings.dart';
-import 'package:eraphilippines/presentation/authentication/controllers/authentication_binding.dart';
-import 'package:eraphilippines/presentation/authentication/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:eraphilippines/presentation/utility/controller/base_controller.dart';
+import '../../presentation/agent/utility/controller/base_controller.dart';
+import '../../presentation/agent/authentication/controllers/authentication_binding.dart';
+import '../../presentation/agent/authentication/pages/login_page.dart';
 
 class MenuItem {
   const MenuItem({

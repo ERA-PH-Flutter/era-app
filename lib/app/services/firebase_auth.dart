@@ -13,6 +13,7 @@ class Authentication{
         password: password,
       );
     }on FirebaseAuthException catch(e){
+      print(e);
       return null;
     }
     return auth.currentUser!.uid;
@@ -52,6 +53,7 @@ class Authentication{
       await FirebaseAuth.instance.signInWithCredential(credential);
       return auth.currentUser!.uid;
     } on FirebaseAuthException catch (e) {
+      print(e);
       return null;
     }
   }

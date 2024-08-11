@@ -1,5 +1,4 @@
 import 'package:eraphilippines/app/constants/assets.dart';
-import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_corner_image.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';

@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -8,7 +7,6 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class CompanyItems extends StatelessWidget {
   final CompanyModels companyItems;
@@ -79,7 +77,7 @@ class CompanyItems extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: EraText(
-                        text: '${companyItems.title}',
+                        text: companyItems.title,
                         fontSize: 16.sp,
                         color: AppColors.kRedColor,
                         fontWeight: FontWeight.bold,
@@ -88,7 +86,7 @@ class CompanyItems extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
                       child: EraText(
-                        text: '${companyItems.description}',
+                        text: companyItems.description,
                         fontSize: 16.sp,
                         color: Colors.black,
                         maxLines: 4,

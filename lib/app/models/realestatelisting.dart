@@ -1,9 +1,7 @@
-import 'dart:convert';
 
 import 'package:eraphilippines/app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../constants/assets.dart';
@@ -303,7 +301,7 @@ class RealEstateListing {
               child: EraText(
                 text: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
                     .format(
-                  price == "" ? 0 : price,
+                  price.toString() == "" ? 0 : price,
                 ),
                 color: AppColors.blue,
                 fontSize: 23.sp,

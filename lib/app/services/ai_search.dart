@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/models/ai_filters.dart';
-import 'package:eraphilippines/presentation/utility/controller/base_controller.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get/get.dart';
 
@@ -115,12 +115,12 @@ class AI{
     var ab = [];
     await query.get().then((QuerySnapshot snapshot){
       var a = snapshot.docs;
-      a.forEach((b){
+      for (var b in a) {
        ab.add(b.data());
-      });
-      additionalFilters.forEach((af){
+      }
+      for (var af in additionalFilters) {
         ab.assignAll(af.operate(ab));
-      });
+      }
     });
     return ab;
   }

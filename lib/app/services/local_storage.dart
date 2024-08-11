@@ -6,9 +6,7 @@ enum _Key {
 }
 
 class LocalStorageService extends GetxService {
-  SharedPreferences? _sharedPreferences;
   Future<LocalStorageService> init() async {
-    _sharedPreferences = await SharedPreferences.getInstance();
     return this;
   }
   /*
