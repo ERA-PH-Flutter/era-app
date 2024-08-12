@@ -12,6 +12,5 @@ class LandingPageController extends GetxController {
     landingState.value = LandingState.loaded;
     super.onInit();
   }
-
-  var selected = false.obs;
+   
 }

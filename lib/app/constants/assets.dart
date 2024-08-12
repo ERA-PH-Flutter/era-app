@@ -74,11 +74,14 @@ class AppEraAssets {
   //admin icons
 
   static String dashboard = "${l}elements_Dash Home.png";
-  static String agentDash = "${l}elements_Dash Home.png";
-  static String listingDash = "${l}elements_Dash Home.png";
-  static String settingDash = "${l}elements_Dash Home.png";
-  static String messagingDash = "${l}elements_Dash Home.png";
+  static String agentDash = "${l}elements_Dash Agents.png";
+  static String listingDash = "${l}elements_Dash Listing.png";
+  static String settingDash = "${l}elements_Dash Setting.png";
+  static String messagingDash = "${l}elements_Dash Messaging.png";
 
-  static String profileAdmin = "${l}person1.png";
-  static String mailAdmin = "${l}mail-navi.png";
+  static String profileAdmin = "${l}dah_user.png";
+  static String mailAdmin = "${l}dah_messages.png";
+  static String helpAdmin = "${l}dah_help-126.png";
+  static String notifAdmin = "${l}dah_notif.png";
+  static String eraPhLogo = "${l}eraph_white-logo.png";
 }

@@ -10,16 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+//todo: nikko, i want you to check my code if it is correct, so later on you wont have a hard time to fix it.
+
 List<Widget> _screens = [
   HomeAnalytics(),
   CustomerReviews(),
-
-  // AllAgents(),
-  // AddAgent(),
-  // AllListings(),
-  // AddListing(),
-  // Settings(),
-  // Messaging(),
 ];
 
 var _selectedIndex = 0.obs;
@@ -35,15 +30,15 @@ class LandingPage extends GetView<LandingPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        height: 160.h,
+        height: 130.h,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: 75.w,
+              width: 45.w,
               color: AppColors.blue,
               child: Image.asset(
-                AppEraAssets.emailIcon,
+                AppEraAssets.eraPhLogo,
               ),
             ),
             Flexible(
@@ -54,11 +49,11 @@ class LandingPage extends GetView<LandingPageController> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Image.asset(
-                        AppEraAssets.emailIcon,
+                        AppEraAssets.notifAdmin,
                         height: 50.h,
                       ),
                       Image.asset(
-                        AppEraAssets.help1,
+                        AppEraAssets.helpAdmin,
                         height: 50.h,
                       ),
                       Image.asset(
@@ -69,23 +64,20 @@ class LandingPage extends GetView<LandingPageController> {
                         AppEraAssets.profileAdmin,
                         height: 80.h,
                       ),
-                      SizedBox(
-                        width: 5.w,
-                      ),
                       Padding(
                         padding: EdgeInsets.only(right: 8.w),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             EraText(
                               text: 'FirstName LastName',
                               color: AppColors.white,
-                              fontSize: 5.sp,
+                              fontSize: 3.sp,
                             ),
                             EraText(
                               text: 'Status',
                               color: AppColors.white,
-                              fontSize: 5.sp,
+                              fontSize: 3.sp,
                             ),
                           ],
                         ),
@@ -94,15 +86,16 @@ class LandingPage extends GetView<LandingPageController> {
                   ),
                   Spacer(),
                   Container(
-                    height: 60.h,
+                    height: 50.h,
                     width: Get.width,
-                    color: AppColors.hint,
+                    color: Colors.grey[350],
                     child: Padding(
                       padding: EdgeInsets.only(left: 5.w, bottom: 10.h),
                       child: EraText(
                         text: ' Dashboard',
                         color: AppColors.black,
                         fontSize: 8.sp,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
@@ -139,12 +132,11 @@ class LandingPage extends GetView<LandingPageController> {
 
   _loaded() {
     //
-
     return Row(
       children: [
         Container(
-          width: 75.w,
-          color: Colors.grey[200],
+          width: 45.w,
+          color: AppColors.hint.withOpacity(0.3),
           child: _buildSidebarMenu(),
         ),
         Expanded(child: _screens[_selectedIndex.value]),
@@ -163,108 +155,83 @@ class LandingPage extends GetView<LandingPageController> {
     return ListView(
       children: [
         _buildExpansionTile(
+          text: "DASHBOARD",
           image: AppEraAssets.dashboard,
-          text: "dashboard",
-          icon: Icons.dashboard,
           children: [
-            _buildMenuItem('Home Analytics', () {
-              // Navigate to home
-              Get.toNamed('/home-analytics');
-            }),
-            _buildMenuItem('Reviews Customer', () {
-              // Navigate to analytics
-              Get.toNamed('/analytics');
-            }),
+            _buildMenuItem('Home Analytics', 0),
+            _buildMenuItem('Reviews Customer', 1),
           ],
         ),
         _buildExpansionTile(
-          image: AppEraAssets.dashboard,
-          text: "dashboard",
-          icon: Icons.people,
+          text: "AGENTS",
+          image: AppEraAssets.agentDash,
           children: [
-            _buildMenuItem('All Agents', () {
-              // Navigate to all agents
-              Get.toNamed('/agents/all');
-            }),
-            _buildMenuItem('Add Agent', () {
-              // Navigate to add agent
-              Get.toNamed('/agents/add');
-            }),
+            _buildMenuItem('Home Analytics', 2),
+            _buildMenuItem('Reviews Customer', 3),
           ],
         ),
         _buildExpansionTile(
-          image: AppEraAssets.dashboard,
-          text: "dashboard",
-          icon: Icons.home,
+          text: "LISTINGS",
+          image: AppEraAssets.agentDash,
           children: [
-            _buildMenuItem('All Listings', () {
-              // Navigate to all listings
-              Get.toNamed("/addlistings-admin");
-            }),
-            _buildMenuItem('Add Listing', () {
-              // Navigate to add listing
-              Get.toNamed('/listings/add');
-            }),
+            _buildMenuItem('ADD PROJECT', 4),
+            _buildMenuItem('EDIT PROJECT', 5),
           ],
         ),
-        _buildMenuItem('Settings', () {
-          // Navigate to settings
-          Get.toNamed('/settings');
-        }),
-        _buildMenuItem('Messaging', () {
-          // Navigate to messaging
-          Get.toNamed('/messaging');
-        }),
       ],
     );
   }
 
-  Widget _buildMenuItem(String title, VoidCallback onTap) {
-    return Obx(
-      () => Ink(
-        color: controller.selected.value ? AppColors.blue : null,
+  Widget _buildMenuItem(String title, int pageIndex) {
+    return Obx(() {
+      bool isSelected = _selectedIndex.value == pageIndex;
+      return Ink(
         child: ListTile(
-          title: Column(
-            children: [
-              Center(
-                  child: EraText(
-                text: title,
-                lineHeight: 0.2.h,
-                fontSize: 5.sp,
-                color: AppColors.black,
-              )),
-            ],
+          title: Center(
+            child: EraText(
+              text: title,
+              lineHeight: 0.2.h,
+              fontSize: 3.sp,
+              color: isSelected ? AppColors.kRedColor : AppColors.black,
+            ),
           ),
-          onTap: onTap,
+          onTap: () {
+            _onItemTapped(pageIndex);
+          },
         ),
+      );
+    });
+  }
+
+  Widget _buildExpansionTile({
+    required String text,
+    required String image,
+    required List<Widget> children,
+  }) {
+    return ExpansionTile(
+      leading: const SizedBox(),
+      title: Column(
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          Image.asset(
+            image,
+            height: 65.h,
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          EraText(
+            text: text,
+            fontSize: 2.5.sp,
+            color: AppColors.blue,
+            fontWeight: FontWeight.w700,
+          )
+        ],
       ),
+      trailing: const SizedBox(),
+      children: children,
     );
   }
-}
-
-Widget _buildExpansionTile({
-  required String image,
-  required String text,
-  required IconData icon,
-  required List<Widget> children,
-}) {
-  return ExpansionTile(
-    leading: const SizedBox(),
-    title: Column(
-      children: [
-        Image.asset(
-          image,
-          height: 100.h,
-          width: 100.w,
-        ),
-        EraText(
-          text: text,
-          fontSize: 7.sp,
-          color: AppColors.black,
-        )
-      ],
-    ),
-    trailing: const SizedBox(),
-    children: children,
-  );
 }

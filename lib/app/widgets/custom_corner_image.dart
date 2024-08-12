@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
+//todo: nikko small adjustments of the shape 
 
 class CustomCornerClipPath extends CustomClipper<Path> {
   final double cornerR;
   const CustomCornerClipPath({this.cornerR = 18.0});
 
 // just need adjustments for the desired shape
+ 
   @override
   Path getClip(Size size) => Path()
     ..lineTo(size.width, 0)
