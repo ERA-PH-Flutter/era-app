@@ -1,77 +1,32 @@
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
+import 'package:eraphilippines/presentation/admin/dashboard/customer_reviews/pages/customer_reviews.dart';
+import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/pages/home_analytics.dart';
+
 import 'package:eraphilippines/presentation/admin/landingpage/admin-home/controllers/landingpage_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-// final List<Widget> _screens = [
-//   //dashboard screen home analytics
+List<Widget> _screens = [
+  HomeAnalytics(),
+  CustomerReviews(),
 
-//   Container(
-//     color: AppColors.hint,
-//     child: AdminHome(),
-//   ),
-//   // agents
-//   Container(
-//     child: Column(
-//       children: [
-//         Text('Agents'),
-//         ElevatedButton(
-//           onPressed: () {
-//             Get.toNamed('/loginpage');
-//           },
-//           child: Text('Login'),
-//         ),
-//       ],
-//     ),
-//   ),
+  // AllAgents(),
+  // AddAgent(),
+  // AllListings(),
+  // AddListing(),
+  // Settings(),
+  // Messaging(),
+];
 
-//   //listings
-//   Container(
-//     child: Column(
-//       children: [
-//         Text('Listings'),
-//         ElevatedButton(
-//           onPressed: () {
-//             Get.toNamed('/loginpage');
-//           },
-//           child: Text('Login'),
-//         ),
-//       ],
-//     ),
-//   ),
+var _selectedIndex = 0.obs;
 
-//   //settings
-//   Container(
-//     child: Column(
-//       children: [
-//         Text('Settings'),
-//         ElevatedButton(
-//           onPressed: () {
-//             Get.toNamed('/loginpage');
-//           },
-//           child: Text('Login'),
-//         ),
-//       ],
-//     ),
-//   ),
-
-//   //messaging
-//   Container(
-//     child: Column(
-//       children: [
-//         Text('Settings'),
-//         ElevatedButton(
-//           onPressed: () {
-//             Get.toNamed('/loginpage');
-//           },
-//           child: Text('Login'),
-//         ),
-//       ],
-//     ),
-//   ),
-// ];
-
-// RxInt _selectedIndex = 0.obs;
+void _onItemTapped(int index) {
+  _selectedIndex.value = index;
+}
 
 class LandingPage extends GetView<LandingPageController> {
   const LandingPage({super.key});
@@ -79,6 +34,84 @@ class LandingPage extends GetView<LandingPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        height: 160.h,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: 75.w,
+              color: AppColors.blue,
+              child: Image.asset(
+                AppEraAssets.emailIcon,
+              ),
+            ),
+            Flexible(
+              child: Column(
+                children: [
+                  Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image.asset(
+                        AppEraAssets.emailIcon,
+                        height: 50.h,
+                      ),
+                      Image.asset(
+                        AppEraAssets.help1,
+                        height: 50.h,
+                      ),
+                      Image.asset(
+                        AppEraAssets.mailAdmin,
+                        height: 60.h,
+                      ),
+                      Image.asset(
+                        AppEraAssets.profileAdmin,
+                        height: 80.h,
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 8.w),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            EraText(
+                              text: 'FirstName LastName',
+                              color: AppColors.white,
+                              fontSize: 5.sp,
+                            ),
+                            EraText(
+                              text: 'Status',
+                              color: AppColors.white,
+                              fontSize: 5.sp,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  Container(
+                    height: 60.h,
+                    width: Get.width,
+                    color: AppColors.hint,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 5.w, bottom: 10.h),
+                      child: EraText(
+                        text: ' Dashboard',
+                        color: AppColors.black,
+                        fontSize: 8.sp,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
       body: WillPopScope(
         onWillPop: () {
           Get.back();
@@ -93,39 +126,6 @@ class LandingPage extends GetView<LandingPageController> {
               }),
         ),
       ),
-      // bottomNavigationBar: Obx(() {
-      //   return BottomNavigationBar(
-      //     items: const [
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.home),
-      //         label: 'Home',
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.people),
-      //         label: 'Agents',
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.home),
-      //         label: 'Listings',
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.settings),
-      //         label: 'Settings',
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.message),
-      //         label: 'Messaging',
-      //       ),
-      //     ],
-      //     currentIndex: _selectedIndex.value,
-      //     unselectedItemColor: AppColors.hint,
-      //     selectedItemColor: AppColors.kRedColor,
-      //     onTap: (index) {
-      //       _selectedIndex.value = index;
-      //       controller.update();
-      //     },
-      //   );
-      // }),
     );
   }
 
@@ -138,14 +138,16 @@ class LandingPage extends GetView<LandingPageController> {
   }
 
   _loaded() {
+    //
+
     return Row(
       children: [
         Container(
-          width: 250,
+          width: 75.w,
           color: Colors.grey[200],
           child: _buildSidebarMenu(),
         ),
-        // Expanded(child: _screens[_selectedIndex.value]),
+        Expanded(child: _screens[_selectedIndex.value]),
       ],
     );
   }
@@ -156,56 +158,60 @@ class LandingPage extends GetView<LandingPageController> {
   _empty() {
     //todo add empty screen
   }
+
   Widget _buildSidebarMenu() {
     return ListView(
       children: [
         _buildExpansionTile(
-          title: 'Dashboard',
+          image: AppEraAssets.dashboard,
+          text: "dashboard",
           icon: Icons.dashboard,
           children: [
-            _buildMenuItem('Home', Icons.home, () {
+            _buildMenuItem('Home Analytics', () {
               // Navigate to home
-              Get.toNamed('/home');
+              Get.toNamed('/home-analytics');
             }),
-            _buildMenuItem('Analytics', Icons.analytics, () {
+            _buildMenuItem('Reviews Customer', () {
               // Navigate to analytics
               Get.toNamed('/analytics');
             }),
           ],
         ),
         _buildExpansionTile(
-          title: 'Agents',
+          image: AppEraAssets.dashboard,
+          text: "dashboard",
           icon: Icons.people,
           children: [
-            _buildMenuItem('All Agents', Icons.list, () {
+            _buildMenuItem('All Agents', () {
               // Navigate to all agents
               Get.toNamed('/agents/all');
             }),
-            _buildMenuItem('Add Agent', Icons.person_add, () {
+            _buildMenuItem('Add Agent', () {
               // Navigate to add agent
               Get.toNamed('/agents/add');
             }),
           ],
         ),
         _buildExpansionTile(
-          title: 'Listings',
+          image: AppEraAssets.dashboard,
+          text: "dashboard",
           icon: Icons.home,
           children: [
-            _buildMenuItem('All Listings', Icons.list, () {
+            _buildMenuItem('All Listings', () {
               // Navigate to all listings
-              Get.toNamed('/listings/all');
+              Get.toNamed("/addlistings-admin");
             }),
-            _buildMenuItem('Add Listing', Icons.add_home, () {
+            _buildMenuItem('Add Listing', () {
               // Navigate to add listing
               Get.toNamed('/listings/add');
             }),
           ],
         ),
-        _buildMenuItem('Settings', Icons.settings, () {
+        _buildMenuItem('Settings', () {
           // Navigate to settings
           Get.toNamed('/settings');
         }),
-        _buildMenuItem('Messaging', Icons.message, () {
+        _buildMenuItem('Messaging', () {
           // Navigate to messaging
           Get.toNamed('/messaging');
         }),
@@ -213,23 +219,51 @@ class LandingPage extends GetView<LandingPageController> {
     );
   }
 
-  Widget _buildMenuItem(String title, IconData icon, VoidCallback onTap) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
-      onTap: onTap,
+  Widget _buildMenuItem(String title, VoidCallback onTap) {
+    return Obx(
+      () => Ink(
+        color: controller.selected.value ? AppColors.blue : null,
+        child: ListTile(
+          title: Column(
+            children: [
+              Center(
+                  child: EraText(
+                text: title,
+                lineHeight: 0.2.h,
+                fontSize: 5.sp,
+                color: AppColors.black,
+              )),
+            ],
+          ),
+          onTap: onTap,
+        ),
+      ),
     );
   }
 }
 
 Widget _buildExpansionTile({
-  required String title,
+  required String image,
+  required String text,
   required IconData icon,
   required List<Widget> children,
 }) {
   return ExpansionTile(
-    leading: Icon(icon),
-    title: Text(title),
+    leading: const SizedBox(),
+    title: Column(
+      children: [
+        Image.asset(
+          image,
+          height: 100.h,
+          width: 100.w,
+        ),
+        EraText(
+          text: text,
+          fontSize: 7.sp,
+          color: AppColors.black,
+        )
+      ],
+    ),
     trailing: const SizedBox(),
     children: children,
   );

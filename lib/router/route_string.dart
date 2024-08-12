@@ -18,7 +18,7 @@ class RouteString {
   static String help = "/help";
   static String findagents = "/findagents";
   static String companynews = "/companynews";
-   static String propertyInfo = "/propertyInfo";
+  static String propertyInfo = "/propertyInfo";
   static String agentDashBoard = "/agentDashBoard";
   static String addListings = "/addListings";
   static String agentMyListing = "/agentMyListing";
@@ -26,5 +26,7 @@ class RouteString {
 
   //admin
   static String landingPage = "/landingPage";
-  static String adminHome = "/admin-home";
+  static String homeAnalytics = "/home-analytics";
+
+  static String addlistingsAdmin = "/addlistings-admin";
 }

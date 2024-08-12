@@ -1,11 +1,11 @@
+import 'package:eraphilippines/presentation/admin/listings/add_edit_listings.dart/controllers/add_edit_listings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controllers/admin_home_controller.dart';
 //todo add text
 
-class AdminHome extends GetView<AdminHomeController> {
-  const AdminHome({super.key});
+class AddListingsAdmin extends GetView<AddEditListingsController> {
+  const AddListingsAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {

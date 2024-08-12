@@ -70,4 +70,15 @@ class AppEraAssets {
   static String videoT = "${l}videotrainings.png";
   static String learningM = "${l}learningmaterials.png";
   static String upcoming = "${l}upcoming.png";
+
+  //admin icons
+
+  static String dashboard = "${l}elements_Dash Home.png";
+  static String agentDash = "${l}elements_Dash Home.png";
+  static String listingDash = "${l}elements_Dash Home.png";
+  static String settingDash = "${l}elements_Dash Home.png";
+  static String messagingDash = "${l}elements_Dash Home.png";
+
+  static String profileAdmin = "${l}person1.png";
+  static String mailAdmin = "${l}mail-navi.png";
 }
