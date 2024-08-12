@@ -1,6 +1,4 @@
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/presentation/admin/admin-home/controllers/admin_home_controller.dart';
-import 'package:eraphilippines/presentation/admin/admin-home/pages/admin_home.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/admin-home/controllers/landingpage_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -7,7 +7,6 @@ import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/widgets/navigation/app_nav_items.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../presentation/agent/home/controllers/home_controller.dart';
 
 var selectedIndex = 0.obs;
 void changeIndex(int index) {

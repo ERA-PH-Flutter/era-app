@@ -1,9 +1,7 @@
-
-import 'package:eraphilippines/app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-
+import '../../repository/user.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../widgets/app_text.dart';
@@ -367,7 +365,7 @@ class RealEstateListing {
       "description": description,
       "price": price,
       "listingBy": listingBy,
-      "user": user.toJSON(),
+      "user": user.toMap(),
       "listingId": listingId,
       "lastUpdated": lastUpdated.toIso8601String(),
       "addedDaysago": addedDaysago,

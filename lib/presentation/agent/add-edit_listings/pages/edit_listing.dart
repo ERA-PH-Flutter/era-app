@@ -1,6 +1,6 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/services/firebase_database.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../repository/listing.dart';
 import '../controllers/addlistings_controller.dart';
 import 'addlistings.dart';
      
@@ -257,20 +258,21 @@ class EditListing extends GetView<AddListingsController> {
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           BaseController.showLoading();
-          await Database().addListing(
+          await Listing(
               name: controller.propertyNameController.text,
-              price: controller.propertyCostController.text,
+              price: controller.propertyCostController.text.toDouble(),
               photos: controller.images,
-              ppsqm: controller.pricePerSqmController.text,
-              floorArea: controller.floorAreaController.text,
-              beds: controller.bedsController.text,
-              baths: controller.bathsController.text,
-              area: controller.areaController.text,
+              ppsqm: controller.pricePerSqmController.text.toDouble(),
+              floorArea: controller.floorAreaController.text.toDouble(),
+              beds: controller.bedsController.text.toInt(),
+              baths: controller.bathsController.text.toInt(),
+              area: controller.areaController.text.toInt(),
               status: controller.offerTypeController.text,
               view: controller.viewController.text,
               location: controller.locationController.text,
               type: controller.propertyTypeController.text,
-              subCategory: controller.propertySubCategoryController.text);
+              subCategory: controller.propertySubCategoryController.text
+          ).addListing();
           BaseController.hideLoading();
         }, 'UPDATE LISTING'),
         SizedBox(height: 20.h),
