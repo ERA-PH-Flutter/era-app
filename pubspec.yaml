@@ -21,7 +21,7 @@ dependencies:
   another_carousel_pro: ^1.0.2
   rename: ^3.0.2
   flutter_launcher_icons: ^0.13.1
-  flutter_splash_screen: ^3.0.0
+  flutter_native_splash: ^2.4.1
   cached_network_image: ^3.3.1
   carousel_slider: ^4.2.1
   curved_navigation_bar: ^1.0.6
@@ -57,6 +57,8 @@ flutter_launcher_icons:
     image_path: "assets/images/eraph_logo.png"
     background_color: "#hexcode"
 
+flutter_native_splash:
+  background_image: "assets/images/eraph_logo.png"
 
 
 flutter:

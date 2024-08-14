@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/widgets/app_text.dart';
 import '../controllers/splash_controller.dart';
 
 class Splash extends GetView<SplashController>{
@@ -27,7 +28,9 @@ class Splash extends GetView<SplashController>{
   }
   _loading(){
     return const Center(
-      child: CircularProgressIndicator(),
+      child: EraText(
+        text: "ADS GOES HERE"
+      ),
     );
   }
   _error(){
