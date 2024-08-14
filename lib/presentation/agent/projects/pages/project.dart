@@ -1,4 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
+
+import 'package:carousel_slider_plus/carousel_options.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
@@ -452,7 +454,7 @@ class ProjectPage extends GetView<ProjectsController> {
             enlargeStrategy: CenterPageEnlargeStrategy.height,
             autoPlay: true,
             enlargeFactor: 0.4,
-            // enableInfiniteScroll: true,
+            // enableInfiniteScroll: true,103099Seb
             viewportFraction: 0.7,
             aspectRatio: 1.9,
           ),

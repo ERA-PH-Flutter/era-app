@@ -1,8 +1,9 @@
-import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/services/local_storage.dart';
@@ -21,7 +22,7 @@ class HomeController extends GetxController{
   var selectedPriceRange = ''.obs;
   var isForSale = 0.obs;
   var isForLease = true.obs;
-  var innerController = CarouselController();
+  var innerController = CarouselSliderController();
   var carouselC = PageController();
   var homeState = HomeState.loading.obs;
   final List<String> images = [
