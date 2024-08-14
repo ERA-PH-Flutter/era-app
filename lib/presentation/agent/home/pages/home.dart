@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/hero_models.dart';
@@ -61,7 +61,7 @@ class Home extends GetView<HomeController> {
               children: [
                 Positioned.fill(
                   child: CarouselSlider(
-                      carouselController: controller.innerController,
+                      controller: controller.innerController,
                       items: HeroImage.heroImages.map((imagePath) {
                         return CustomImage(
                           url: imagePath,
