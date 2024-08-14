@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+ import 'package:get/get.dart';
 import '../../../../../app/services/local_storage.dart';
 
 enum LandingState { loading, loaded, error, empty }
@@ -12,5 +11,10 @@ class LandingPageController extends GetxController {
     landingState.value = LandingState.loaded;
     super.onInit();
   }
-   
+   var selectedIndex = 0.obs;
+
+void onItemTapped(int index) {
+  selectedIndex.value = index;
+}
+
 }

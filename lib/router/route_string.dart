@@ -29,4 +29,6 @@ class RouteString {
   static String homeAnalytics = "/home-analytics";
 
   static String addlistingsAdmin = "/addlistings-admin";
+
+  static String agentAdmin = "/agent-admin";  
 }

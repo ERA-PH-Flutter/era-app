@@ -1,6 +1,7 @@
 import 'package:eraphilippines/presentation/agent/splash/controllers/splash_binding.dart';
 import 'package:eraphilippines/presentation/agent/splash/pages/splash.dart';
 import 'package:eraphilippines/router/route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,8 +14,19 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+    Size designSize;
+
+     if (kIsWeb) {
+      designSize = const Size(1920, 1080);  
+    } else if (shortestSide < 600) {
+      designSize = const Size(430, 932);  
+    } else {
+      designSize = const Size(768, 1024); 
+    }
+
     return ScreenUtilInit(
-      designSize: const Size(430, 932),
+      designSize: designSize,
       minTextAdapt: true,
       splitScreenMode: true,
       child: GetMaterialApp(

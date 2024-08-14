@@ -2,7 +2,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/menuitems.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -36,16 +38,22 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                           Get.toNamed('/home');
                         },
                       )),
-              action ??
-                  DropdownButtonHideUnderline(child: DropdownButton2(
+              Row(
+                children: [
+                  action ??
+                      Icon(CupertinoIcons.mail,
+                          color: AppColors.hint, size: 45),
+                  SizedBox(width: 10.w),
+                  DropdownButtonHideUnderline(
+                      child: DropdownButton2(
                     customButton: Image.asset(
                       AppEraAssets.menubar,
-                      height: 64,
-                      width: 64,
+                      height: 65,
+                      width: 65,
                     ),
                     items: [
                       ...MenuItems.firstItems.map(
-                            (item) => DropdownMenuItem<MenuItem>(
+                        (item) => DropdownMenuItem<MenuItem>(
                           value: item,
                           child: MenuItems.buildItem(item),
                         ),
@@ -57,14 +65,14 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                             color: Colors.grey,
                           )),
                       ...MenuItems.secondItems.map(
-                            (item) => DropdownMenuItem(
+                        (item) => DropdownMenuItem(
                           value: item.value,
                           child: MenuItems.buildItem(item.value),
                         ),
                       ),
                     ],
                     onChanged: (value) {
-                      MenuItems.onChanged(context, value! as MenuItem );
+                      MenuItems.onChanged(context, value! as MenuItem);
                     },
                     buttonStyleData: ButtonStyleData(
                       height: 50,
@@ -94,6 +102,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                       // padding: const EdgeInsets.only(left: 30, right: 30),
                     ),
                   )),
+                ],
+              ),
             ],
           ),
           Positioned(

@@ -4,6 +4,6 @@ import 'package:get/get.dart';
 class HomeAnalyticsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => HomeAnalyticsController());
+    Get.lazyPut(() => HomeAController());
   }
 }

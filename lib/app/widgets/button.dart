@@ -57,7 +57,11 @@ class Button extends StatelessWidget {
   }
 
   static Widget button2(
-      double width, double height, Function() onTap, String text) {
+    double width,
+    double height,
+    Function() onTap,
+    String text,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -78,7 +82,7 @@ class Button extends StatelessWidget {
     );
   }
 
-    static Widget button3(
+  static Widget button3(
       double width, double height, Function() onTap, String text, Color color) {
     return GestureDetector(
       onTap: onTap,

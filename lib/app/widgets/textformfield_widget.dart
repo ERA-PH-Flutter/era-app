@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextformfieldWidget extends StatelessWidget {
   final TextStyle? style;
-  final String hintText;
+  final String? hintText;
   final TextStyle? hintstlye;
   final TextEditingController? controller;
   final EdgeInsetsGeometry? contentPadding;
@@ -12,18 +12,24 @@ class TextformfieldWidget extends StatelessWidget {
   final Widget? suffixIcon;
   final bool? obscureText;
   final TextInputType? keyboardType;
+  final double? fontSize;
+  final Color? color;
+ 
+
   const TextformfieldWidget(
       {super.key,
       this.style,
-      required this.hintText,
+      this.hintText,
       this.hintstlye,
       this.controller,
       this.contentPadding,
       this.maxLines,
       this.suffixIcon,
       this.obscureText,
-      this.keyboardType
-      });
+      this.keyboardType,
+      this.fontSize,
+      this.color,
+       });
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +41,18 @@ class TextformfieldWidget extends StatelessWidget {
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
         hintText: hintText,
-        hintStyle:
-            hintstlye ?? TextStyle(color: AppColors.hint, fontSize: 18.sp),
+        hintStyle: hintstlye ??
+            TextStyle(color: AppColors.hint, fontSize: fontSize ?? 18.sp),
         fillColor: AppColors.white,
         filled: true,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: AppColors.black,
-            width: 1.5,
-          ),
-        ),
+        enabledBorder:  
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: color ?? AppColors.black,
+                width: 1.5,
+              ),
+            ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),

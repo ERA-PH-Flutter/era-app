@@ -20,11 +20,36 @@ class LoginPageController extends GetxController {
   var text = "".obs;
   var passwordVisible = false.obs;
   var confirmPasswordVisible = false.obs;
+  var selectedGender = RxnString();
+  var selectedEducation = RxnString();
+  var selectedStatus = RxnString();
+  var selectedSpeciality = RxnString();
+
+  List<String> genderType = ['Female', 'Male'];
+  List<String> educationType = ['High School', 'College', 'Masters', 'PhD'];
+  List<String> statusType = [
+    'License Broker',
+    'Accredited Salesperson',
+    'No license',
+  ];
+  List<String> specialityType = ['Rental', 'Primary', 'Resale', 'Others'];
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController whatsAppController = TextEditingController();
+
+  //create account
+  TextEditingController fullName = TextEditingController();
+  TextEditingController age = TextEditingController();
+  TextEditingController gender = TextEditingController();
+  TextEditingController contactNo = TextEditingController();
+  TextEditingController emailAd = TextEditingController();
+  TextEditingController status = TextEditingController();
+  TextEditingController recruiter = TextEditingController();
+  TextEditingController educationL = TextEditingController();
+  TextEditingController experience = TextEditingController();
+  TextEditingController specialization = TextEditingController();
 
   login() async {
     var login = await Authentication()
