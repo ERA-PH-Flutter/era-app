@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../app/services/local_storage.dart';
 
@@ -11,4 +12,5 @@ class LandingPageController extends GetxController {
     landingState.value = LandingState.loaded;
     super.onInit();
   }
+   
 }

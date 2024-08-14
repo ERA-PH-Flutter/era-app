@@ -1,13 +1,9 @@
+import 'package:eraphilippines/app/services/local_storage.dart';
 import 'package:get/get.dart';
-import '../../../../app/services/local_storage.dart';
 
-enum AHomeState{
-  loading,
-  loaded,
-  error,
-  empty
-}
-class AdminHomeController extends GetxController{
+enum AHomeState { loading, loaded, error, empty }
+
+class HomeAnalyticsController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var ahomeState = AHomeState.loading.obs;
   @override

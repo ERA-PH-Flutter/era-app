@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+//todo: nikko i want you to check why when i click tap the property info it is not working when im in property info page but in homepage it is working.
 class ListingProperties extends StatelessWidget {
   final List<RealEstateListing> listingModels;
 

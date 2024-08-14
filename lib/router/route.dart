@@ -1,7 +1,9 @@
-import 'package:eraphilippines/presentation/admin/admin-home/controllers/admin_home_binding.dart';
-import 'package:eraphilippines/presentation/admin/admin-home/pages/admin_home.dart';
+import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/controllers/home_analytics_binding.dart';
+import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/pages/home_analytics.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/admin-home/controllers/landingpage_binding.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/admin-home/pages/landingpage.dart';
+import 'package:eraphilippines/presentation/admin/listings/add_edit_listings.dart/controllers/add_edit_listings_binding.dart';
+import 'package:eraphilippines/presentation/admin/listings/add_edit_listings.dart/pages/add_listings.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 import '../presentation/agent/a/controllers/base_binding.dart';
@@ -122,9 +124,14 @@ appRoutes() => [
           page: () => LandingPage(),
           binding: LandingpageBinding()),
       GetPage(
-          name: RouteString.adminHome,
-          page: () => AdminHome(),
-          binding: AdminHomeBinding()),
+          name: RouteString.homeAnalytics,
+          page: () => HomeAnalytics(),
+          binding: HomeAnalyticsBinding()),
+
+      GetPage(
+          name: RouteString.addlistingsAdmin,
+          page: () => AddListingsAdmin(),
+          binding: AddEditListingsBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}
