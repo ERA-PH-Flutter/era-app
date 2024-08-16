@@ -75,18 +75,18 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                       MenuItems.onChanged(context, value! as MenuItem);
                     },
                     buttonStyleData: ButtonStyleData(
-                      height: 50,
+                      height: 50.h,
                       elevation: 2,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
-                        color: AppColors.black.withOpacity(0.7),
+                        color: Colors.transparent,
                       ),
                     ),
                     dropdownStyleData: DropdownStyleData(
-                      width: 210,
+                      width: 250.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
-                        color: AppColors.white.withOpacity(0.7),
+                        color: Colors.white.withOpacity(0.8),
                       ),
                     ),
                     menuItemStyleData: MenuItemStyleData(

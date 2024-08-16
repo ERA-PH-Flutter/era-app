@@ -24,6 +24,7 @@ class LoginPageController extends GetxController {
   var selectedEducation = RxnString();
   var selectedStatus = RxnString();
   var selectedSpeciality = RxnString();
+  var selectedTransaction = RxnString();
 
   List<String> genderType = ['Female', 'Male'];
   List<String> educationType = ['High School', 'College', 'Masters', 'PhD'];
@@ -33,6 +34,7 @@ class LoginPageController extends GetxController {
     'No license',
   ];
   List<String> specialityType = ['Rental', 'Primary', 'Resale', 'Others'];
+  List<String> transaction = ['1-5 years', '6-10 years', 'More than 10 years'];
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();

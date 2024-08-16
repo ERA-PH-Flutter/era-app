@@ -5,10 +5,13 @@ import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/listings/gridViewV_Listing.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/listings/gridView_Listing.dart';
 import 'package:eraphilippines/app/widgets/pieChart.dart';
+import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,10 +22,12 @@ import '../controllers/listing_controller.dart';
 class PropertyInformation extends GetView<ListingController> {
   final RealEstateListing listing;
 
-  const PropertyInformation({
+  PropertyInformation({
     super.key,
     required this.listing,
   });
+  final FavController favoritesController = Get.put(FavController());
+
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -74,22 +79,23 @@ class PropertyInformation extends GetView<ListingController> {
 
             // i dont know why URI is not working here
             Obx(() {
+              bool isFav = favoritesController.isFavorite(listing);
+
               return SizedBox(
                 height: 350.h,
                 child: Stack(
                   children: [
                     Positioned(
                       child: SizedBox(
-                        height: 320.h,
-                        child: CachedNetworkImage(
-                          imageUrl: controller.currentImage.value,
-                          fit: BoxFit.cover,
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                          placeholder: (context, url) =>
-                              Center(child: CircularProgressIndicator()),
-                        ),
-                      ),
+                          height: 320.h,
+                          child: CachedNetworkImage(
+                            imageUrl: controller.currentImage.value,
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                            placeholder: (context, url) =>
+                                Center(child: CircularProgressIndicator()),
+                          )),
                     ),
                     Positioned(
                       bottom: 0.h,
@@ -130,56 +136,37 @@ class PropertyInformation extends GetView<ListingController> {
                         ),
                       ),
                     ),
+                    Positioned(
+                      right: 10.w,
+                      top: 10.h,
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: GestureDetector(
+                          onTap: () {
+                            if (isFav) {
+                              favoritesController.removeFromFavorites(listing);
+                            } else {
+                              favoritesController.addToFavorites(listing);
+                            }
+                          },
+                          child: isFav
+                              ? Icon(
+                                  CupertinoIcons.heart_fill,
+                                  color: AppColors.kRedColor,
+                                  size: 30.sp,
+                                )
+                              : Icon(
+                                  CupertinoIcons.heart,
+                                  color: AppColors.hint,
+                                  size: 30.sp,
+                                ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
-
-            // Container(
-            //   height: 350.h,
-            //   child: Stack(
-            //     children: [
-            //       Positioned(
-            //         child: Container(
-            //           height: 320.h,
-            //           child: CachedNetworkImage(
-            //             imageUrl: controller.images[0],
-            //             fit: BoxFit.cover,
-            //             errorWidget: (context, url, error) => Icon(Icons.error),
-            //           ),
-            //         ),
-            //       ),
-            //       Positioned(
-            //         bottom: 0.h,
-            //         child: Container(
-            //           width: Get.width,
-            //           height: 70.h,
-            //           child: ListView.builder(
-            //             shrinkWrap: true,
-            //             scrollDirection: Axis.horizontal,
-            //             itemCount: controller.images.length,
-            //             itemBuilder: (context, index) {
-            //               return GestureDetector(
-            //                 onTap: () {
-            //                   controller
-            //                       .onSelectedImage(controller.images[index]);
-            //                 },
-            //                 child: Container(
-            //                   margin: EdgeInsets.symmetric(horizontal: 7.w),
-            //                   child: CachedNetworkImage(
-            //                     imageUrl: controller.images[index],
-            //                     fit: BoxFit.cover,
-            //                     width: Get.width / 6,
-            //                   ),
-            //                 ),
-            //               );
-            //             },
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
 
             SizedBox(height: 20.h),
             //widget
@@ -234,42 +221,6 @@ class PropertyInformation extends GetView<ListingController> {
           overviewSum(),
           SizedBox(height: 30.h),
 
-          // MortageCalculator page, widget
-          EraText(
-            text: 'MORTAGE CALCULATOR',
-            fontSize: 20.sp,
-            color: AppColors.kRedColor,
-            fontWeight: FontWeight.bold,
-          ),
-          SizedBox(height: 15.h),
-          Container(
-            height: 330.h,
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                  color: AppColors.kRedColor.withOpacity(0.7), width: 2),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: EraText(
-                    text: 'Mortgage Payment Breakdown',
-                    fontSize: 18.sp,
-                    color: AppColors.blue,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 40.h),
-                Piechart(),
-              ],
-            ),
-          ),
-          SizedBox(height: 30.h),
-          MortageCalculator(),
-          SizedBox(height: 30.h),
 //widget
           BoxWidget.BoxWidget2(
               AppColors.hint.withOpacity(0.3),

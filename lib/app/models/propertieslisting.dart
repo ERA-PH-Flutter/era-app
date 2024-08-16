@@ -8,25 +8,13 @@ class PropertiesModels {
 
   static List<PropertiesModels> listings = [
     PropertiesModels(
-        image:
-            'assets/images/Pre-Selling.jpg',
-        label: "RESIDENTIAL"),
+        image: 'assets/images/Pre-Selling.jpg', label: "PRE-SELLING"),
     PropertiesModels(
-        image:
-            'assets/images/Residential.jpg',
-        label: "RESIDENTIAL"),
+        image: 'assets/images/Residential.jpg', label: "RESIDENTIAL"),
     PropertiesModels(
-        image:
-            'assets/images/Commercial.jpg',
-        label: "COMMERCIAL"),
-    PropertiesModels(
-        image:
-            'assets/images/Rental.jpg',
-        label: "RENTAL"),
-    PropertiesModels(
-        image:
-            'assets/images/Residential.jpg',
-        label: "AUCTION"),
+        image: 'assets/images/Commercial.jpg', label: "COMMERCIAL"),
+    PropertiesModels(image: 'assets/images/Rental.jpg', label: "RENTAL"),
+    PropertiesModels(image: 'assets/images/Residential.jpg', label: "AUCTION"),
   ];
 
 //  CloudStorage().getfile(folder: 'realEstate-differentTypesOfProperties',listing.label.toLowerCase() + '.jpg');

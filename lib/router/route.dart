@@ -6,6 +6,10 @@ import 'package:eraphilippines/presentation/admin/landingpage/controllers/landin
 import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.dart';
 import 'package:eraphilippines/presentation/admin/listingsss/controllers/add_edit_listings_binding.dart';
 import 'package:eraphilippines/presentation/admin/listingsss/pages/add_listings.dart';
+import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_binding.dart';
+import 'package:eraphilippines/presentation/agent/favorites/pages/Fav.dart';
+import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
+import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/pages/MortageCalculator.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 import '../presentation/agent/a/controllers/base_binding.dart';
@@ -119,6 +123,12 @@ appRoutes() => [
           name: RouteString.editListings,
           page: () => EditListing(),
           binding: AddListingsBinding()),
+      GetPage(
+          name: RouteString.mortageCalculator,
+          page: () => MortageCalculator(),
+          binding: MortageCalculatorBinding()),
+
+      GetPage(name: RouteString.fav, page: () => Fav(), binding: FavBinding()),
 
 //admin
       GetPage(

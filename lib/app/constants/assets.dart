@@ -70,6 +70,8 @@ class AppEraAssets {
   static String videoT = "${l}videotrainings.png";
   static String learningM = "${l}learningmaterials.png";
   static String upcoming = "${l}upcoming.png";
+  static String manageListings = "${l}manage_listings.jpeg";
+  static String fav = "${l}mange_favorites.jpeg";
 
   //admin icons
 

@@ -19,25 +19,20 @@ class CreateAccount extends GetView<LoginPageController> {
               child: Stack(
             children: [
               SharedWidgets.backgroundColumn(),
-              SharedWidgets.paddingText('Create Your\nAccount'),
+              SharedWidgets.paddingText('CREATE AN ACCOUNT', FontWeight.bold),
               Positioned(
-                top: 220.h,
+                top: 200.h,
                 left: 0,
                 right: 0,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25.h),
                   child: Column(
                     children: [
-                      SharedWidgets.textFormfield(
-                          'Full Name', TextInputType.text, 'Full Name',
-                            controller.fullName
-                          ),
+                      SharedWidgets.textFormfield('Full Name',
+                          TextInputType.text, 'Full Name', controller.fullName),
                       SizedBox(height: 30.h),
                       SharedWidgets.textFormfield(
-                          'Age', TextInputType.number, 'Age',
-                                                      controller.age
-
-                          ),
+                          'Age', TextInputType.number, 'Age', controller.age),
                       SizedBox(height: 30.h),
                       SharedWidgets.dropDown(
                           controller.selectedGender,
@@ -46,15 +41,18 @@ class CreateAccount extends GetView<LoginPageController> {
                           'Gender',
                           'Gender'),
                       SizedBox(height: 30.h),
-                      SharedWidgets.textFormfield('0000-000-0000',
-                          TextInputType.number, 'Contact Number',
-                            controller.contactNo,
-                          ),
+                      SharedWidgets.textFormfield(
+                        '0000-000-0000',
+                        TextInputType.number,
+                        'Contact Number',
+                        controller.contactNo,
+                      ),
                       SizedBox(height: 30.h),
-                      SharedWidgets.textFormfield('example@mail.com',
-                          TextInputType.text, 'Email Address',
-                            controller.emailAd
-                          ),
+                      SharedWidgets.textFormfield(
+                          'example@mail.com',
+                          TextInputType.text,
+                          'Email Address',
+                          controller.emailAd),
                       SizedBox(height: 30.h),
                     ],
                   ),

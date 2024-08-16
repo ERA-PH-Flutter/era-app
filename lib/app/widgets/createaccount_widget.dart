@@ -7,8 +7,8 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 
 class SharedWidgets {
-  static Widget textFormfield(
-      String hintText, TextInputType? textInputType, String name, TextEditingController controller) {
+  static Widget textFormfield(String hintText, TextInputType? textInputType,
+      String name, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,13 +36,12 @@ class SharedWidgets {
     );
   }
 
-  static Widget paddingText(String name) {
+  static Widget paddingText(String name, FontWeight fontWeight) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25.w),
+        padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 30.h),
         child: Row(
           children: [
-            SizedBox(height: 10.h),
-            textBuild(name, 30.sp, FontWeight.w600, AppColors.white),
+            textBuild(name, 25.sp, fontWeight, AppColors.white),
             Spacer(),
             GestureDetector(
                 onTap: () {
@@ -114,7 +113,7 @@ class SharedWidgets {
     return Column(
       children: [
         Container(
-          height: Get.height / 7.h,
+          height: Get.height / 7,
           decoration: BoxDecoration(
             color: AppColors.kRedColor,
           ),

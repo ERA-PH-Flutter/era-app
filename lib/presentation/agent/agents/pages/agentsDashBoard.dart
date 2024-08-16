@@ -1,9 +1,13 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/company/company_grid.dart';
 import 'package:eraphilippines/app/widgets/listings/agentInfo-widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:eraphilippines/presentation/agent/favorites/pages/Fav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -30,11 +34,14 @@ class AgentDashBoard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                EraText(
-                  text: 'MY PROFILE',
-                  color: AppColors.blue,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: EraText(
+                    text: 'MY DASHBOARD',
+                    color: AppColors.blue,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 AgentInfoWidget.agentInformation(
                     '${listing.user.image}',
@@ -44,7 +51,18 @@ class AgentDashBoard extends StatelessWidget {
                     '${listing.user.email}',
                     '${listing.user.role}'),
                 SizedBox(height: 25.h),
+                Button(
+                  width: Get.width,
+                  text: 'MORTGAGE CALCULATOR',
+                  bgColor: AppColors.kRedColor,
+                  onTap: () {
+                    Get.toNamed("/mortageCalculator");
+                  },
+                ),
+                SizedBox(height: 25.h),
                 myListings(),
+                SizedBox(height: 25.h),
+                favorites(),
                 SizedBox(height: 25.h),
                 myTrainings(),
                 SizedBox(height: 25.h),
@@ -58,6 +76,38 @@ class AgentDashBoard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget favorites() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'FAVORITES',
+          color: AppColors.kRedColor,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: 10.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed("/fav");
+                },
+                child: Image.asset(
+                  AppEraAssets.fav,
+                  height: 110.h,
+                  width: 110.w,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -96,32 +146,25 @@ class AgentDashBoard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        EraText(
-          text: 'LATEST NEWS',
-          color: AppColors.kRedColor,
-          fontSize: 20.sp,
-          fontWeight: FontWeight.w600,
+        CompanyGrid(companymodels: CompanyModels.companyNewsModels),
+        SizedBox(
+          height: 20.h,
         ),
-        SizedBox(height: 10.h),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              latestNewIcon('assets/images/companynews1.jpg', () {
-                Get.to(() => CompanyNews());
-              }),
-              SizedBox(width: 10.w),
-              latestNewIcon('assets/images/companynews1.jpg', () {
-                Get.to(() => CompanyNews());
-              }),
-              SizedBox(width: 10.w),
-              latestNewIcon('assets/images/companynews1.jpg', () {}),
-              SizedBox(width: 10.w),
-              latestNewIcon('assets/images/companynews1.jpg', () {}),
-              SizedBox(width: 10.w),
-              latestNewIcon(AppEraAssets.clickFM, () {}),
-            ],
-          ),
+        //direct to companynews page. can find it in lib/presentation/companynews/pages/companynews.dart
+        Button(
+          text: 'MORE NEWS',
+          fontSize: 25.sp,
+          onTap: () {
+            Get.toNamed("/companynews");
+          },
+          bgColor: AppColors.blue,
+          height: 50.h,
+          width: 350.w,
+          fontWeight: FontWeight.w500,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        SizedBox(
+          height: 10.h,
         ),
       ],
     );
@@ -212,7 +255,7 @@ class AgentDashBoard extends StatelessWidget {
                   Get.toNamed('/agentMyListing', arguments: listing);
                 },
                 child: Image.asset(
-                  AppEraAssets.clickFM,
+                  AppEraAssets.manageListings,
                   height: 110.h,
                   width: 110.w,
                 ),

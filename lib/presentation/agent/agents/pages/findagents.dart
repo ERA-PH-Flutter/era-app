@@ -37,6 +37,19 @@ class FindAgents extends GetView<HomeController> {
               ),
               SizedBox(height: 10.h),
               EraText(
+                text: 'SEARCH VIA AGENT ID',
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.blue,
+              ),
+              SizedBox(height: 10.h),
+              TextformfieldWidget(
+                hintText: 'Enter Agent ID',
+                maxLines: 1,
+                hintstlye: TextStyle(color: AppColors.hint, fontSize: 20.sp),
+              ),
+              SizedBox(height: 10.h),
+              EraText(
                 text: 'LOOKING FOR ONE?',
                 fontSize: 22.sp,
                 fontWeight: FontWeight.w600,
@@ -61,7 +74,7 @@ class FindAgents extends GetView<HomeController> {
               ),
               SizedBox(height: 25.h),
               EraText(
-                text: 'OUR TOP AGENTS',
+                text: 'FEATURED AGENTS',
                 fontSize: 22.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.blue,

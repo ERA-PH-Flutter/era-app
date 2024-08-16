@@ -238,21 +238,25 @@ class AddListings extends GetView<AddListingsController> {
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           BaseController.showLoading();
-          await Listing(
-              name: controller.propertyNameController.text,
-              price: controller.propertyCostController.text.toDouble(),
-              photos: controller.images,
-              ppsqm: controller.pricePerSqmController.text.toDouble(),
-              floorArea: controller.floorAreaController.text.toDouble(),
-              beds: controller.bedsController.text.toInt(),
-              baths: controller.bathsController.text.toInt(),
-              area: controller.areaController.text.toInt(),
-              status: controller.offerTypeController.text,
-              view: controller.viewController.text,
-              location: controller.locationController.text,
-              type: controller.propertyTypeController.text,
-              subCategory: controller.propertySubCategoryController.text
-          ).addListing();
+       try{
+         await Listing(
+             name: controller.propertyNameController.text,
+             price: controller.propertyCostController.text.toDouble(),
+             photos: controller.images,
+             ppsqm: controller.pricePerSqmController.text.toDouble(),
+             floorArea: controller.floorAreaController.text.toDouble(),
+             beds: controller.bedsController.text.toInt(),
+             baths: controller.bathsController.text.toInt(),
+             area: controller.areaController.text.toInt(),
+             status: controller.offerTypeController.text,
+             view: controller.viewController.text,
+             location: controller.locationController.text,
+             type: controller.propertyTypeController.text,
+             subCategory: controller.propertySubCategoryController.text
+         ).addListing();
+       }catch(e){
+         print('error');
+       }
           BaseController.hideLoading();
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),

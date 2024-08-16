@@ -9,9 +9,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../constants/colors.dart';
-
-// ignore: must_be_immutable
-class ListingItemss extends StatelessWidget {
+  
+ class ListingItemss extends StatelessWidget {
   final String image;
   final String type;
   final int areas;

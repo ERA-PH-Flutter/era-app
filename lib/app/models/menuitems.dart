@@ -10,6 +10,7 @@ import '../../presentation/agent/utility/controller/base_controller.dart';
 import '../../presentation/agent/authentication/controllers/authentication_binding.dart';
 import '../../presentation/agent/authentication/pages/login_page.dart';
 
+// TO DO: NIKKO -  
 class MenuItem {
   const MenuItem({
     required this.text,
@@ -25,6 +26,7 @@ abstract class MenuItems {
     agents,
     aboutus,
     mydashboard,
+    mortCalcu,
   ];
   static List secondItems = [login.obs];
 
@@ -43,20 +45,25 @@ abstract class MenuItems {
   static var login = MenuItem(
     text: FirebaseAuth.instance.currentUser == null ? "LOGIN" : "LOGOUT",
   );
-
+  //will only show when log in
   static var mydashboard = MenuItem(
     text: 'MY DASHBOARD',
   );
-  // static const login = MenuItem(
-  //   text: 'LOGOUT',
-  // );
+  //will only show when its not log in
+   static var sellProperty = MenuItem(
+    text: 'SELL PROPERTY',
+  );
+  static var mortCalcu = MenuItem(
+    text: 'MORTGAGE CALCULATOR',
+  );
+ 
 
   static Widget buildItem(MenuItem item) {
     return Card(
       color: AppColors.white,
       elevation: 4,
       child: SizedBox(
-        width: 180.w,
+        // width: Get.width,
         height: 45.h,
         child: Row(
           children: [
@@ -65,7 +72,7 @@ abstract class MenuItems {
                 child: EraText(
                   text: item.text,
                   color: AppColors.black,
-                  fontSize: 15.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -92,6 +99,8 @@ abstract class MenuItems {
         BaseController().showSuccessDialog(
             title: "Error!", description: "No Profile found");
       }
+    } else if (item == MenuItems.mortCalcu) {
+      Get.toNamed("/mortageCalculator");
     } else if (item == MenuItems.login) {
       if (FirebaseAuth.instance.currentUser == null) {
         Get.toNamed("/loginpage");
