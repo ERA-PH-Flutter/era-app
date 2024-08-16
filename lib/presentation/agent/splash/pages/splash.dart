@@ -35,14 +35,17 @@ class Splash extends GetView<SplashController> {
         children: [
           Image.asset(
             'assets/images/eraph_logo.png',
+            height: Get.width / 1.5,
           ),
-          EraText(
-            text: '     CONNECT WORLDS, BUILD\nDREAMS WITH ERA PHILIPPINES',
+          SizedBox(height: 35.h,),
+          Obx(()=>EraText(
+            text: controller.strings[controller.currentIndex].substring(0, controller.currentCharIndex.value),
             color: AppColors.black,
+            textAlign: TextAlign.center,
             fontSize: 23.sp,
             maxLines: 20,
             fontWeight: FontWeight.w500,
-          ),
+          ))
         ],
       ),
     );

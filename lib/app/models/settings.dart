@@ -35,13 +35,13 @@ class Settings{
       featuredNews: json['featured_news'] ?? [],
       fileSizeLimit: json['file_size'] ?? 10,
       isMaintenance: json['maintenance'] ?? false,
-      splashAd: json['splash_ad'],
-      preSellingPicture: json['preSelling_picture'],
-      residentialPicture: json['residential_picture'],
-      auctionPicture: json['auction_picture'],
-      commercialPicture: json['commercial_picture'],
-      rentalPicture: json['rental_picture'],
-      banners: json["banners"]
+      splashAd: json['splash_ad'] ?? "",
+      preSellingPicture: json['preSelling_picture'] ?? "",
+      residentialPicture: json['residential_picture'] ?? "",
+      auctionPicture: json['auction_picture'] ?? "",
+      commercialPicture: json['commercial_picture'] ?? "",
+      rentalPicture: json['rental_picture'] ?? "",
+      banners: json["banners"] ?? []
     );
   }
 

@@ -42,9 +42,8 @@ abstract class MenuItems {
   static var aboutus = MenuItem(
     text: 'ABOUT US',
   );
-  static var login = MenuItem(
-    text: FirebaseAuth.instance.currentUser == null ? "LOGIN" : "LOGOUT",
-  );
+
+  static var login;
   //will only show when log in
   static var mydashboard = MenuItem(
     text: 'MY DASHBOARD',
@@ -59,6 +58,11 @@ abstract class MenuItems {
  
 
   static Widget buildItem(MenuItem item) {
+   login = FirebaseAuth.instance.currentUser == null ? MenuItem(
+     text: "LOGIN",
+    ): MenuItem(
+     text: "LOGOUT",
+    );
     return Card(
       color: AppColors.white,
       elevation: 4,

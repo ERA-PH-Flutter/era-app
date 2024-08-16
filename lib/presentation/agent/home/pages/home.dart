@@ -26,6 +26,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
+import '../../../global.dart';
 import '../../searchresult/controllers/searchresult_binding.dart';
 import '../../searchresult/pages/searchresult.dart';
 import '../controllers/home_controller.dart';
@@ -54,7 +55,7 @@ class Home extends GetView<HomeController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //carousel
+        /// Carousel
         SizedBox(
             height: 320.h,
             child: Stack(
@@ -62,11 +63,11 @@ class Home extends GetView<HomeController> {
                 Positioned.fill(
                   child: CarouselSlider(
                       controller: controller.innerController,
-                      items: HeroImage.heroImages.map((imagePath) {
+                      items:  settings!.banners != null ? settings!.banners!.map((imagePath) {
                         return CustomImage(
                           url: imagePath,
                         );
-                      }).toList(),
+                      }).toList() : [],
                       options: CarouselOptions(
                         autoPlayInterval: Duration(seconds: 2),
                         autoPlay: true,
@@ -135,6 +136,7 @@ class Home extends GetView<HomeController> {
                 ),
               ],
             )),
+        /// Search Engine Box
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           child: BoxWidget.build(
@@ -242,95 +244,106 @@ class Home extends GetView<HomeController> {
             ),
           ),
         ),
-        PropertiesWidgets(listingsModels: PropertiesModels.listings),
-        TextListing.projectTitle(24.sp, FontWeight.w600, AppColors.blue),
-        TextListing.projectSubtitle(12.sp, FontWeight.w500, AppColors.black),
-        SizedBox(
-          height: 20.h,
+        /// Listings
+        PropertiesWidgets(
+          listingsModels: PropertiesModels.listings
         ),
-        TextListing(
-            margin: EdgeInsets.symmetric(horizontal: 40.0),
-            text: 'Featured Projects',
-            fontSize: 24.sp,
-            fontWeight: FontWeight.w600,
-            color: AppColors.kRedColor),
-        SizedBox(height: 20.h),
-        // haraya residences
-        ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
-
-        SizedBox(
-          height: 20.h,
+        /// Projects
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextListing.projectTitle(24.sp, FontWeight.w600, AppColors.blue),
+            TextListing.projectSubtitle(12.sp, FontWeight.w500, AppColors.black),
+            SizedBox(height: 20.h,),
+            TextListing(
+                margin: EdgeInsets.symmetric(horizontal: 40.0),
+                text: 'Featured Projects',
+                fontSize: 24.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.kRedColor),
+            SizedBox(height: 20.h),
+            ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
+            SizedBox(
+              height: 20.h,
+            ),
+            CarouselSliderWidget(),
+            SizedBox(
+              height: 20.h,
+            ),
+            Button(
+              text: 'VIEW PROJECTS',
+              onTap: () {
+                Get.toNamed("/project");
+              },
+              bgColor: AppColors.kRedColor,
+              height: 40.h,
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ],
         ),
-        CarouselSliderWidget(),
-        SizedBox(
-          height: 20.h,
-        ),
-        Button(
-          text: 'VIEW PROJECTS',
-          onTap: () {
-            Get.toNamed("/project");
-          },
-          bgColor: AppColors.kRedColor,
-          height: 40.h,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        SizedBox(
-          height: 40.h,
-        ),
+        SizedBox(height: 40.h),
+        ///
         AppDivider(
           button: true,
         ),
         SizedBox(
           height: 20.h,
         ),
-        TextListing(
-            margin: EdgeInsets.symmetric(horizontal: 20.0),
-            text: 'FEATURED LISTING',
-            fontSize: 24.sp,
-            fontWeight: FontWeight.bold,
-            color: AppColors.blue),
-        SizedBox(
-          height: 10.h,
+        /// Featured Listings
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextListing(
+                margin: EdgeInsets.symmetric(horizontal: 20.0),
+                text: 'FEATURED LISTING',
+                fontSize: 24.sp,
+                fontWeight: FontWeight.bold,
+                color: AppColors.blue),
+            SizedBox(
+              height: 10.h,
+            ),
+            ListingProperties(listingModels: RealEstateListing.listingsModels),
+          ],
         ),
-        //Feautured Listing properties
-        ListingProperties(listingModels: RealEstateListing.listingsModels),
-
-        TextListing(
-            text: 'COMPANY NEWS',
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-            color: AppColors.blue),
-        SizedBox(
-          height: 15.h,
-        ),
-        TextListing(
-            text: 'Latest News and Events from ERA PH',
-            fontSize: 12.h,
-            fontWeight: FontWeight.w500,
-            color: AppColors.black,
-            lineHeight: 0.1),
-
-        //for home page
-        CompanyGrid(companymodels: CompanyModels.companyNewsModels),
-        SizedBox(
-          height: 20.h,
-        ),
-        //direct to companynews page. can find it in lib/presentation/companynews/pages/companynews.dart
-        Button(
-          text: 'MORE NEWS',
-          fontSize: 25.sp,
-          onTap: () {
-            Get.toNamed("/companynews");
-          },
-          bgColor: AppColors.blue,
-          height: 50.h,
-          width: 350.w,
-          fontWeight: FontWeight.w500,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        SizedBox(
-          height: 10.h,
-        ),
+        /// All About News
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextListing(
+                text: 'COMPANY NEWS',
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold,
+                color: AppColors.blue),
+            SizedBox(
+              height: 15.h,
+            ),
+            TextListing(
+                text: 'Latest News and Events from ERA PH',
+                fontSize: 12.h,
+                fontWeight: FontWeight.w500,
+                color: AppColors.black,
+                lineHeight: 0.1),
+            CompanyGrid(companymodels: CompanyModels.companyNewsModels),
+            SizedBox(
+              height: 20.h,
+            ),
+            Button(
+              text: 'MORE NEWS',
+              fontSize: 25.sp,
+              onTap: () {
+                Get.toNamed("/companynews");
+              },
+              bgColor: AppColors.blue,
+              height: 50.h,
+              width: 350.w,
+              fontWeight: FontWeight.w500,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+          ],
+        )
       ],
     );
   }
@@ -340,122 +353,7 @@ class Home extends GetView<HomeController> {
       child: CircularProgressIndicator(),
     );
   }
-
   _error() {
     return Container();
   }
 }
- 
-  // bottomNavigationBar:
-      //     CustomNavigationBar(navBarItems: navBarItems, controller: controller),
- //bottom navigation bar
-      // bottomNavigationBar: Obx(() {
-      //   return CurvedNavigationBar(
-      //     height: 70.h,
-      //     color: AppColors.blue,
-      //     backgroundColor: Colors.white.withOpacity(0),
-      //     buttonBackgroundColor: Colors.white.withOpacity(0),
-      //     index: controller.selectedIndex.value,
-      //     onTap: controller.changeIndex,
-      //     items: navBarItems.map((item) {
-      //       int currentIndex = navBarItems.indexOf(item);
-      //       String iconPath = controller.selectedIndex.value == currentIndex
-      //           ? item.selectedIcon
-      //           : item.defaultIcon;
-
-      //       return AppNavItems(
-      //           iconPath: iconPath,
-      //           label: item.label,
-      //           isActive: controller.selectedIndex.value == currentIndex);
-      //     }).toList(),
-      //   );
-      // }),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: 'Home',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.business),
-      //       label: 'Business',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.school),
-      //       label: 'School',
-      //     ),
-      //   ],
-      //   // currentIndex: _selectedIndex,
-      //   selectedItemColor: Colors.amber[800],
-      //   // onTap: _onItemTapped,
-      // ),
-// import 'package:eraphilippines/app/constants/colors.dart';
-// import 'package:eraphilippines/presentation/home/controllers/home_controller.dart';
-// import 'package:eraphilippines/presentation/login_page/controllers/login_page_controller.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:get/get.dart';
-
-// class Home extends GetView<HomeController> {
-//   const Home({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(
-//           "Silakan Login",
-//           style: TextStyle(
-//             color: AppColors.white,
-//             fontSize: 20.sp,
-//           ),
-//         ),
-//         backgroundColor: AppColors.kRedColor,
-//         leading: Padding(
-//           padding: const EdgeInsets.only(left: 10.0),
-//           child: IconButton(
-//             icon: Icon(
-//               CupertinoIcons.profile_circled,
-//               color: AppColors.white,
-//             ),
-//             iconSize: 45,
-//             onPressed: () {},
-//           ),
-//         ),
-//         actions: [
-//           IconButton(
-//             icon: Icon(
-//               CupertinoIcons.qrcode,
-//               color: AppColors.white,
-//             ),
-//             onPressed: () {},
-//           )
-//         ],
-//       ),
-//       body: SafeArea(
-//         child: Padding(
-//           padding: const EdgeInsets.all(10.0),
-//           child: Column(
-//             children: [
-//               Stack(
-//                 children: [
-//                   SizedBox(
-//                       width: double.infinity,
-//                       height: 300.h,
-//                       child: PageView.builder(
-//                           controller: controller.pagesController,
-//                           itemCount: imagePaths.length,
-//                           itemBuilder: (context, index) {
-//                             return controller.pages[index];
-//                           })),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

@@ -28,11 +28,11 @@ class User {
   factory User.fromJSON(Map<String, dynamic> json) {
     return User(
       id: json['id'],
-      firstname: json['firstname'],
-      lastname: json['lastname'],
+      firstname: json['first_name'],
+      lastname: json['last_name'],
       role: json['role'],
       email: json['email'],
-      whatsApp: json['whatsApp'],
+      whatsApp: json['whats_app'],
       image: json['image'],
       deviceId: json['device_id'],
       lastLogin: json['last_login'],
@@ -65,11 +65,11 @@ class User {
   Map<String,dynamic> toMap() {
     return {
       "id": id,
-      "firstname": firstname,
-      "lastname": lastname,
+      "first_name": firstname,
+      "last_name": lastname,
       "role": role,
       "email": email,
-      "whatsApp": whatsApp,
+      "whats_app": whatsApp,
       "image": image,
       'status' : status,
       'last_login' : lastLogin,

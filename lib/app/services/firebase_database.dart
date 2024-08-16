@@ -70,7 +70,9 @@ class Database{
     }
   }
   // SETTINGS
-
+  getSettings()async{
+    return (await db.collection('settings').doc('main').get()).data();
+  }
   // FAQ
 
   //CRUD NEWS

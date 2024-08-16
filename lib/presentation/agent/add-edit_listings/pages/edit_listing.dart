@@ -272,7 +272,7 @@ class EditListing extends GetView<AddListingsController> {
               location: controller.locationController.text,
               type: controller.propertyTypeController.text,
               subCategory: controller.propertySubCategoryController.text
-          ).addListing();
+          ).updateListing();
           BaseController.hideLoading();
         }, 'UPDATE LISTING'),
         SizedBox(height: 20.h),

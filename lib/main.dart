@@ -8,7 +8,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main()async{
-
   await initServices();
   runApp(const App());
 }
@@ -20,5 +19,4 @@ initServices()async{
   );
   await Get.putAsync(() => LocalStorageService().init());
   Gemini.init(apiKey: AppStrings.geminiKey);
-  //todo load settings
 }
