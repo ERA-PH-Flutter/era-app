@@ -3,10 +3,18 @@ class AppStrings{
 }
 extension NumberParsing on String {
   int toInt() {
-    return int.parse(this);
+    try{
+      return int.parse(this);
+    }catch(e){
+      return 0;
+    }
   }
   double toDouble(){
-    return double.parse(this);
+    try{
+      return double.parse(this);
+    }catch(e){
+      return 0;
+    }
   }
   bool isEmpty(){
     return this == "" ? true : false;

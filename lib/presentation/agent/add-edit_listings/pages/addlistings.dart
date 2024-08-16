@@ -254,8 +254,8 @@ class AddListings extends GetView<AddListingsController> {
              type: controller.propertyTypeController.text,
              subCategory: controller.propertySubCategoryController.text
          ).addListing();
-       }catch(e){
-         print('error');
+       }catch(e,ex){
+         print(ex);
        }
           BaseController.hideLoading();
         }, 'CREATE LISTING'),
