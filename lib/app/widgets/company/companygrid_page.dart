@@ -19,7 +19,7 @@ class CompanyGridPage extends StatelessWidget {
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        mainAxisExtent: 500, //410
+        mainAxisExtent: 520, //410
       ),
       itemCount: companymodels.length,
       itemBuilder: (context, i) => CompanyItems(companyItems: companymodels[i]),

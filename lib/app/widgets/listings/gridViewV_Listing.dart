@@ -1,6 +1,6 @@
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
- import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class FindingProperties extends StatelessWidget {
@@ -29,6 +29,7 @@ class FindingProperties extends StatelessWidget {
           cars: listingModels[i].cars,
           description: listingModels[i].description,
           price: listingModels[i].price,
+          showListedby: true,
           listedBy: 'Listed By',
           agentImage: '${listingModels[i].user.image}',
           agentFirstName: ' ${listingModels[i].user.firstname}',
@@ -36,7 +37,9 @@ class FindingProperties extends StatelessWidget {
           role: '${listingModels[i].user.role}',
           onTap: () {
             Get.toNamed('/propertyInfo', arguments: listingModels[i]);
-          }),
+          },
+          isSold: false,   
+          ),
     );
   }
 }

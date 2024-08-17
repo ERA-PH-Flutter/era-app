@@ -113,7 +113,7 @@ class SharedWidgets {
     return Column(
       children: [
         Container(
-          height: Get.height / 7,
+          height: Get.height / 7.h,
           decoration: BoxDecoration(
             color: AppColors.kRedColor,
           ),

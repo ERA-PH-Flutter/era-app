@@ -19,6 +19,14 @@ class ListingController extends GetxController {
   var isClicked = false.obs;
   var currentPage = 0.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    if (images.isNotEmpty) {
+      currentImage.value = images[0];
+    }
+  }
+
   final int totalPages = 10;
 
   void onPageSelected(int index) {
@@ -26,10 +34,6 @@ class ListingController extends GetxController {
   }
 
   var currentImage = ''.obs;
-
-  ImageSwitcher() {
-    currentImage.value = images[0];
-  }
 
   void onSelectedImage(String newImage) {
     currentImage.value = newImage;

@@ -174,6 +174,61 @@ class RealEstateListing {
       leads: 30,
       specificType: 'Condominium',
     ),
+    RealEstateListing(
+      type: 'Makati Luxury Condo',
+      image: 'assets/images/carouselsliderpic5.jpg',
+      areas: 900,
+      baths: 2,
+      beds: 3,
+      cars: 1,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      price: 100000,
+      listingBy: 'Era Philippines',
+      user: User(
+        id: '1',
+        firstname: 'Nicole',
+        lastname: 'Duero',
+        role: 'AGENT/BROKER',
+        email: 'name@mail.com',
+        whatsApp: '1234-123-1234',
+        image: 'assets/images/agentpfp.png',
+      ),
+      listingId: 24005341,
+      lastUpdated: DateTime.parse('2024-06-26T08:02:00'),
+      addedDaysago: 116,
+      features: [
+        'Fitness Center',
+        '24 – Hour Security',
+        'Landscaped Garden',
+        'Swimming pool',
+        'Basement Parking',
+        'Gym',
+        'Lounge',
+        'Jogging path',
+        'Parking lot'
+      ],
+      roomsAndInterior: [
+        'Lorem ipsum dolor',
+        'Sit amet consectetur',
+        'Adipiscing elit, sed do'
+      ],
+      locationAndSchools: [
+        'Lorem ipsum dolor',
+        'Sit amet consectetur',
+        'Adipiscing elit, sed do'
+      ],
+      address: '65 Calle Industria 1100,\nCubao Quezon City 6350718',
+      propertyId: 12345,
+      pricePerSqm: 15000,
+      offerType: 'Sale',
+      view: 'Riverside',
+      location: 'Bonifacio Global\nCity, Taguig',
+      subCategory: 'Penthouse',
+      views: 100,
+      leads: 30,
+      specificType: 'Condominium',
+    ),
   ];
 
   createMiniListing() {
@@ -277,7 +332,6 @@ class RealEstateListing {
                 lineHeight: 1,
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
@@ -306,16 +360,6 @@ class RealEstateListing {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            //widget listed by
-            /*
-                     ListedBy(
-                       text: 'Listed By',
-                       image: ,
-                       agentFirstName: listingItems.agentFirstName,
-                       agentLastName: listingItems.agentLastName,
-                       agentType: listingItems.agents,
-                     ),
-                     */
           ],
         ),
       ),

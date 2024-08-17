@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/companynews_model.dart';
@@ -15,7 +14,7 @@ class CompanyItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(8.0),
       child: Stack(
         children: [
           Card(
@@ -31,11 +30,6 @@ class CompanyItems extends StatelessWidget {
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
-                // Image.asset(
-                //   companyItems.image,
-                //   fit: BoxFit.cover,
-                //   height: 240.h,
-                // ),
                 Spacer(),
               ],
             ),

@@ -22,6 +22,15 @@ class LoginPage extends GetView<LoginPageController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed("/home");
+                  },
+                  child: Icon(
+                    CupertinoIcons.forward,
+                    color: AppColors.black,
+                  ),
+                ),
                 Column(
                   children: [
                     Image.asset(
@@ -37,7 +46,7 @@ class LoginPage extends GetView<LoginPageController> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 35),
                               child: TextFormField(
-                                controller: controller.email ,
+                                controller: controller.email,
                                 style: TextStyle(
                                     color: AppColors.black, fontSize: 15.sp),
                                 decoration: InputDecoration(

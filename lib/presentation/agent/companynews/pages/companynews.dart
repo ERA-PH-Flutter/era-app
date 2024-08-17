@@ -23,14 +23,14 @@ class CompanyNews extends GetView<CompanyNewsController> {
             padding: EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  child: EraText(
-                    text: 'LATEST NEWS AND EVENTS FROM ERA PHILIPPINES',
-                    color: AppColors.blue,
-                    fontSize: 25.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
+                EraText(
+                  text: 'LATEST NEWS AND EVENTS FROM ERA PHILIPPINES',
+                  color: AppColors.blue,
+                  fontSize: 23.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+                SizedBox(
+                  height: 20.h,
                 ),
                 CompanyGridPage(
                   companymodels: CompanyModels.companyNewsModels,

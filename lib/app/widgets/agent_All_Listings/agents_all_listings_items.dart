@@ -22,7 +22,7 @@ class AgentsAllListings extends StatelessWidget {
           height: 110.h,
         ),
         Padding(
-          padding: EdgeInsets.only(top: 5.w, left: 15.w),
+          padding: EdgeInsets.only(top: 5.w, left: 5.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

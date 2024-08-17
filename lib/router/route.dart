@@ -6,10 +6,14 @@ import 'package:eraphilippines/presentation/admin/landingpage/controllers/landin
 import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.dart';
 import 'package:eraphilippines/presentation/admin/listingsss/controllers/add_edit_listings_binding.dart';
 import 'package:eraphilippines/presentation/admin/listingsss/pages/add_listings.dart';
+import 'package:eraphilippines/presentation/agent/archivedlisting/controllers/archived_binding.dart';
+import 'package:eraphilippines/presentation/agent/archivedlisting/pages/archived.dart';
 import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_binding.dart';
 import 'package:eraphilippines/presentation/agent/favorites/pages/Fav.dart';
 import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
 import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/pages/MortageCalculator.dart';
+import 'package:eraphilippines/presentation/agent/soldproperties/controllers/sold_properties_binding.dart';
+import 'package:eraphilippines/presentation/agent/soldproperties/pages/sold_properties.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 import '../presentation/agent/a/controllers/base_binding.dart';
@@ -128,7 +132,21 @@ appRoutes() => [
           page: () => MortageCalculator(),
           binding: MortageCalculatorBinding()),
 
-      GetPage(name: RouteString.fav, page: () => Fav(), binding: FavBinding()),
+      GetPage(
+        name: RouteString.fav,
+        page: () => Fav(),
+        binding: FavBinding(),
+      ),
+      GetPage(
+          name: RouteString.archived,
+          page: () => Archived(),
+          binding: ArchivedBinding()),
+      GetPage(
+        name: RouteString.soldP,
+        page: () => SoldProperties(),
+        binding: SoldBinding(),
+      ),
+     
 
 //admin
       GetPage(

@@ -80,23 +80,30 @@ class PropertyInformation extends GetView<ListingController> {
             // i dont know why URI is not working here
             Obx(() {
               bool isFav = favoritesController.isFavorite(listing);
+              CachedNetworkImage.evictFromCache(controller.currentImage.value);
 
               return SizedBox(
                 height: 350.h,
                 child: Stack(
                   children: [
                     Positioned(
-                      child: SizedBox(
-                          height: 320.h,
-                          child: CachedNetworkImage(
-                            imageUrl: controller.currentImage.value,
-                            fit: BoxFit.cover,
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                            placeholder: (context, url) =>
-                                Center(child: CircularProgressIndicator()),
-                          )),
-                    ),
+                        child: SizedBox(
+                      height: 320.h,
+                      child: CachedNetworkImage(
+                        imageUrl: controller.currentImage.value,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.error, color: Colors.red),
+                            Text('Failed to load image'),
+                            Text(error.toString()),
+                          ],
+                        ),
+                        placeholder: (context, url) =>
+                            Center(child: CircularProgressIndicator()),
+                      ),
+                    )),
                     Positioned(
                       bottom: 0.h,
                       child: SizedBox(

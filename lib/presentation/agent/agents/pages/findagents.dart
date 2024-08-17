@@ -5,12 +5,13 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../home/controllers/home_controller.dart';
 
-class FindAgents extends GetView<HomeController> {
+class FindAgents extends GetView<AgentsController> {
   const FindAgents({super.key});
 
   @override

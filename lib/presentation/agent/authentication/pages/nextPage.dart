@@ -86,15 +86,6 @@ class Nextpage extends GetView<LoginPageController> {
                           controller.transaction,
                           (value) =>
                               controller.selectedTransaction.value = value!,
-                          'Total Number of Transaction in the Past 5 years',
-                          ' ',
-                        ),
-                        SizedBox(height: 30.h),
-                        SharedWidgets.dropDown(
-                          controller.selectedTransaction,
-                          controller.transaction,
-                          (value) =>
-                              controller.selectedTransaction.value = value!,
                           'Total Number of Transaction in the Past years',
                           ' ',
                         ),

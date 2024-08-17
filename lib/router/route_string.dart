@@ -25,6 +25,8 @@ class RouteString {
   static String editListings = "/editListings";
   static String mortageCalculator = "/mortageCalculator";
   static String fav = "/fav";
+  static String archived = "/archived";
+  static String soldP = "/soldP";
 
   //admin
   static String landingPage = "/landingPage";
@@ -32,5 +34,5 @@ class RouteString {
 
   static String addlistingsAdmin = "/addlistings-admin";
 
-  static String agentAdmin = "/agent-admin";  
+  static String agentAdmin = "/agent-admin";
 }

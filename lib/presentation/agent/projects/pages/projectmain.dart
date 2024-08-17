@@ -52,7 +52,7 @@ class ProjectMain extends GetView<ProjectsController> {
         CarouselSliderWidget(),
         SizedBox(height: 20.h),
         projectContent1(project),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         // //buttons
         Button(
             text: 'VIEW MORE',
@@ -61,10 +61,10 @@ class ProjectMain extends GetView<ProjectsController> {
             },
             bgColor: AppColors.blue,
             borderRadius: BorderRadius.circular(30),
-            height: 30.h,
-            width: 130.w),
+            height: 40.h,
+            width: Get.width),
         // i suggest to add text already on the picture, because the picture im using has white background so when im gonna put the text it will have a gap
-        SizedBox(height: 20.h),
+        SizedBox(height: 30.h),
         ProjectDivider(
             textImage: ProjectTextImageModels.textImageModels2,
             height: 150.h,
@@ -74,7 +74,7 @@ class ProjectMain extends GetView<ProjectsController> {
         CarouselSliderWidget(color: AppColors.carouselBgColor1),
         SizedBox(height: 25.h),
         projectContent2(project),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         Button(
             text: 'VIEW MORE',
             onTap: () {
@@ -82,9 +82,9 @@ class ProjectMain extends GetView<ProjectsController> {
             },
             bgColor: AppColors.blue,
             borderRadius: BorderRadius.circular(30),
-            height: 30.h,
-            width: 130.w),
-        SizedBox(height: 20.h),
+            height: 40.h,
+            width: Get.width),
+        SizedBox(height: 30.h),
         ProjectDivider(
           textImage: ProjectTextImageModels.textImageModels3,
         ),
@@ -100,9 +100,9 @@ class ProjectMain extends GetView<ProjectsController> {
             },
             bgColor: AppColors.blue,
             borderRadius: BorderRadius.circular(30),
-            height: 30.h,
-            width: 130.w),
-        SizedBox(height: 20.h),
+            height: 40.h,
+            width: Get.width),
+        SizedBox(height: 30.h),
       ],
     );
   }

@@ -34,7 +34,7 @@ class LoginPageController extends GetxController {
     'No license',
   ];
   List<String> specialityType = ['Rental', 'Primary', 'Resale', 'Others'];
-  List<String> transaction = ['1-5 years', '6-10 years', 'More than 10 years'];
+  List<String> transaction = ['1-5', '6-10', 'More than 10'];
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();

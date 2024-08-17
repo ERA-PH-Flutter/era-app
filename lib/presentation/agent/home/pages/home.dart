@@ -63,11 +63,13 @@ class Home extends GetView<HomeController> {
                 Positioned.fill(
                   child: CarouselSlider(
                       controller: controller.innerController,
-                      items:  settings!.banners != null ? settings!.banners!.map((imagePath) {
-                        return CustomImage(
-                          url: imagePath,
-                        );
-                      }).toList() : [],
+                      items: settings!.banners != null
+                          ? settings!.banners!.map((imagePath) {
+                              return CustomImage(
+                                url: imagePath,
+                              );
+                            }).toList()
+                          : [],
                       options: CarouselOptions(
                         autoPlayInterval: Duration(seconds: 2),
                         autoPlay: true,
@@ -136,6 +138,7 @@ class Home extends GetView<HomeController> {
                 ),
               ],
             )),
+
         /// Search Engine Box
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -244,17 +247,20 @@ class Home extends GetView<HomeController> {
             ),
           ),
         ),
+
         /// Listings
-        PropertiesWidgets(
-          listingsModels: PropertiesModels.listings
-        ),
+        PropertiesWidgets(listingsModels: PropertiesModels.listings),
+
         /// Projects
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextListing.projectTitle(24.sp, FontWeight.w600, AppColors.blue),
-            TextListing.projectSubtitle(12.sp, FontWeight.w500, AppColors.black),
-            SizedBox(height: 20.h,),
+            TextListing.projectSubtitle(
+                12.sp, FontWeight.w500, AppColors.black),
+            SizedBox(
+              height: 20.h,
+            ),
             TextListing(
                 margin: EdgeInsets.symmetric(horizontal: 40.0),
                 text: 'Featured Projects',
@@ -282,6 +288,7 @@ class Home extends GetView<HomeController> {
           ],
         ),
         SizedBox(height: 40.h),
+
         ///
         AppDivider(
           button: true,
@@ -289,6 +296,7 @@ class Home extends GetView<HomeController> {
         SizedBox(
           height: 20.h,
         ),
+
         /// Featured Listings
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,13 +313,14 @@ class Home extends GetView<HomeController> {
             ListingProperties(listingModels: RealEstateListing.listingsModels),
           ],
         ),
+
         /// All About News
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextListing(
                 text: 'COMPANY NEWS',
-                fontSize: 20.sp,
+                fontSize: 22.sp,
                 fontWeight: FontWeight.bold,
                 color: AppColors.blue),
             SizedBox(
@@ -319,10 +328,13 @@ class Home extends GetView<HomeController> {
             ),
             TextListing(
                 text: 'Latest News and Events from ERA PH',
-                fontSize: 12.h,
+                fontSize: 15.h,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black,
                 lineHeight: 0.1),
+            SizedBox(
+              height: 20.h,
+            ),
             CompanyGrid(companymodels: CompanyModels.companyNewsModels),
             SizedBox(
               height: 20.h,
@@ -334,13 +346,13 @@ class Home extends GetView<HomeController> {
                 Get.toNamed("/companynews");
               },
               bgColor: AppColors.blue,
-              height: 50.h,
-              width: 350.w,
+              height: 45.h,
+              width: Get.width - 100.w,
               fontWeight: FontWeight.w500,
               borderRadius: BorderRadius.circular(10),
             ),
             SizedBox(
-              height: 10.h,
+              height: 30.h,
             ),
           ],
         )
@@ -353,6 +365,7 @@ class Home extends GetView<HomeController> {
       child: CircularProgressIndicator(),
     );
   }
+
   _error() {
     return Container();
   }

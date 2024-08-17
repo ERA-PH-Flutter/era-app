@@ -25,24 +25,27 @@ class ListingProperties extends StatelessWidget {
         ),
         itemCount: listingModels.length,
         itemBuilder: (context, i) => ListingItemss(
-            image: listingModels[i].image,
-            type: listingModels[i].type,
-            areas: listingModels[i].areas,
-            beds: listingModels[i].beds,
-            baths: listingModels[i].baths,
-            cars: listingModels[i].cars,
-            description: listingModels[i].description,
-            price: listingModels[i].price,
-            listedBy: 'Listed By',
-            agentImage: '${listingModels[i].user.image}',
-            agentFirstName: '${listingModels[i].user.firstname}',
-            agentLastName: '${listingModels[i].user.lastname}',
-            role: '${listingModels[i].user.role}',
-            onTap: () {
-              //error when tapped in property info but in homepage it is working
-              print('tapped');
-              Get.toNamed('/propertyInfo', arguments: listingModels[i]);
-            }),
+          image: listingModels[i].image,
+          type: listingModels[i].type,
+          areas: listingModels[i].areas,
+          beds: listingModels[i].beds,
+          baths: listingModels[i].baths,
+          cars: listingModels[i].cars,
+          description: listingModels[i].description,
+          price: listingModels[i].price,
+          showListedby: true,
+          listedBy: 'Listed By',
+          agentImage: '${listingModels[i].user.image}',
+          agentFirstName: '${listingModels[i].user.firstname}',
+          agentLastName: '${listingModels[i].user.lastname}',
+          role: '${listingModels[i].user.role}',
+          onTap: () {
+            //error when tapped in property info but in homepage it is working
+            print('tapped');
+            Get.toNamed('/propertyInfo', arguments: listingModels[i]);
+          },
+          isSold: false,
+        ),
       ),
     );
   }
