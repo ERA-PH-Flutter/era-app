@@ -2,15 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class News{
   FirebaseFirestore db = FirebaseFirestore.instance;
-  String id;
-
+  String? id;
+  String? image;
+  String? title;
+  String? description;
   News({
-    required this.id,
+    this.id,
+    this.image,
+    this.description,
+    this.title
   });
 
   factory News.fromJSON(Map<String, dynamic> json){
     return News(
-      id: json['id']
+      id: json['id'],
+      image: json['image'],
+      description: json['description'],
+      title: json['title'],
     );
   }
   getNews()async{
@@ -30,6 +38,9 @@ class News{
   Map<String,dynamic> toMap(){
     return {
       'id' : id,
+      'title' : title,
+      'image' : image,
+      'description' : description
     };
   }
 }

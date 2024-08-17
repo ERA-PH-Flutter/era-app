@@ -15,20 +15,21 @@ class AI{
     required this.query
   });
   search()async{
-    String prompt = "write an mysql string text using this text search $query here are the available properties for mysql (location, type (apartment, condo, house, subdivision) this is not required, status (pre selling, sold, selling, new, rent) this is not required, size, rooms, baths, balcony, Amenities (gym or landmarks nearby), Garage View ( sunset, sunrise, mountain, beach, city etc.), price) dont use LIKE but use equals instead also it is okay to be null if its not specified in the prompt if its null nevermind it make it simple, give me mysql do not use new lines in generating answer don't add any other text, no new lines, example: SELECT * FROM properties WHERE location = 'makati'";
-    BaseController.showLoading();
+    String prompt = "write an mysql string text using this text search ${query.toLowerCase()} here are the available properties for mysql (location, type (apartment, condo, house, subdivision) this is not required, status (pre selling, sold, selling, new, rent) this is not required, size, rooms, baths, balcony, Amenities (gym or landmarks nearby), Garage View ( sunset, sunrise, mountain, beach, city etc.), price) dont use LIKE but use equals instead also it is okay to be null if its not specified in the prompt if its null nevermind it make it simple, give me mysql do not use new lines in generating answer don't add any other text, no new lines, example: SELECT * FROM properties WHERE location = 'makati'";
+    BaseController().showLoading();
     var toReturn;
     await gemini.text(prompt)
       .then((value)async{
-        toReturn = await process(value?.output);
+        toReturn = await process(value?.output!);
         print(value?.output);
       }).catchError((e) => print(e));
-    BaseController.hideLoading();
+    BaseController().hideLoading();
     return toReturn;
   }
   process(results)async{
     results = results.replaceAll('`', "");
     results = results.split("WHERE")[1].replaceAll("'","").replaceAll(" ","").split("AND");
+    print(results);
     return await getProperties(results);
   }
   getProperties(List<String> filters) async {

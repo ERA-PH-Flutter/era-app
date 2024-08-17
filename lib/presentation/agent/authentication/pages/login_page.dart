@@ -74,15 +74,13 @@ class LoginPage extends GetView<LoginPageController> {
                                 child: Obx(
                                   () => TextFormField(
                                     controller: controller.password,
-                                    obscureText:
-                                        controller.passwordVisible.value,
+                                    obscureText: !controller.passwordVisible.value,
                                     style: TextStyle(
                                         color: AppColors.black,
                                         fontSize: 15.sp),
                                     decoration: InputDecoration(
                                       hintText: 'Password',
-                                      hintStyle:
-                                          TextStyle(color: AppColors.hint),
+                                      hintStyle: TextStyle(color: AppColors.hint),
                                       fillColor: AppColors.white,
                                       filled: true,
                                       suffixIcon: IconButton(

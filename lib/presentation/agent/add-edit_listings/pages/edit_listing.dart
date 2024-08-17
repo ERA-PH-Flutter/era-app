@@ -257,7 +257,7 @@ class EditListing extends GetView<AddListingsController> {
         ),
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
-          BaseController.showLoading();
+          BaseController().showLoading();
           await Listing(
               name: controller.propertyNameController.text,
               price: controller.propertyCostController.text.toDouble(),
@@ -273,7 +273,7 @@ class EditListing extends GetView<AddListingsController> {
               type: controller.propertyTypeController.text,
               subCategory: controller.propertySubCategoryController.text
           ).updateListing();
-          BaseController.hideLoading();
+          BaseController().hideLoading();
         }, 'UPDATE LISTING'),
         SizedBox(height: 20.h),
       ],

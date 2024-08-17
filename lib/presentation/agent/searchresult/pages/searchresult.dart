@@ -18,44 +18,41 @@ class SearchResult extends GetView<SearchResultController> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: EdgeInsets.all(20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BoxWidget.build(
-                child: Column(
-                  children: [
-                    SizedBox(height: 10.h),
-                    AppTextField(
-                      controller: controller.aiSearchController,
-                      hint: 'AI Search',
-                      svgIcon: AppEraAssets.send,
-                      bgColor: AppColors.white,
-                    ),
-                    SearchWidget.build(() async {
-                      controller.searchResultState.value =
-                          SearchResultState.loading;
-                      controller.loadData(
-                          await AI(query: controller.aiSearchController.text)
-                              .search());
-                    }),
-                  ],
-                ),
-              ),
-              Obx(() => switch (controller.searchResultState.value) {
-                    SearchResultState.loading => Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    SearchResultState.loaded => _loaded(),
-                    SearchResultState.empty => _empty(),
-                    SearchResultState.searching => _searching(),
-                    SearchResultState.error => _error(),
+      body: Padding(
+        padding: EdgeInsets.all(20.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BoxWidget.build(
+              child: Column(
+                children: [
+                  SizedBox(height: 10.h),
+                  AppTextField(
+                    controller: controller.aiSearchController,
+                    hint: 'AI Search',
+                    svgIcon: AppEraAssets.send,
+                    bgColor: AppColors.white,
+                  ),
+                  SearchWidget.build(() async {
+                    controller.searchResultState.value =
+                        SearchResultState.loading;
+                    controller.loadData(
+                        await AI(query: controller.aiSearchController.text)
+                            .search());
                   }),
-            ],
-          ),
+                ],
+              ),
+            ),
+            Obx(() => switch (controller.searchResultState.value) {
+                  SearchResultState.loading => Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  SearchResultState.loaded => _loaded(),
+                  SearchResultState.empty => _empty(),
+                  SearchResultState.searching => _searching(),
+                  SearchResultState.error => _error(),
+                }),
+          ],
         ),
       ),
     );
@@ -83,22 +80,25 @@ class SearchResult extends GetView<SearchResultController> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: EraText(
-            text: '“Lorem ipsum dolor sit amet”',
+            text: '“${controller.searchQuery}”',
             fontSize: 22.sp,
             color: AppColors.black,
             fontWeight: FontWeight.w500,
           ),
         ),
         SizedBox(height: 10.h),
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: controller.data.length,
-          itemBuilder: (context, index) {
-            RealEstateListing listing =
-                RealEstateListing.fromJSON(controller.data[index]);
-            return listing.createMiniListing();
-            //todo missy
-          },
+        Container(
+          height: (Get.height - 62.w ) / 2,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: controller.data.length,
+            itemBuilder: (context, index) {
+              RealEstateListing listing =
+                  RealEstateListing.fromJSON(controller.data[index]);
+              return listing.createMiniListing();
+              //todo missy
+            },
+          ),
         )
       ],
     );

@@ -16,7 +16,7 @@ class RealEstateListing {
   final int areas;
   final int cars;
   final String listingBy;
-  final User user;
+  final EraUser user;
   final int listingId;
   final DateTime lastUpdated;
   final int addedDaysago;
@@ -75,7 +75,7 @@ class RealEstateListing {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       price: 100000,
       listingBy: 'Era Philippines',
-      user: User(
+      user: EraUser(
         id: '1',
         firstname: 'John',
         lastname: 'Doe',
@@ -130,7 +130,7 @@ class RealEstateListing {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       price: 100000,
       listingBy: 'Era Philippines',
-      user: User(
+      user: EraUser(
         id: '1',
         firstname: 'Maria',
         lastname: 'Doe',
@@ -185,7 +185,7 @@ class RealEstateListing {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       price: 100000,
       listingBy: 'Era Philippines',
-      user: User(
+      user: EraUser(
         id: '1',
         firstname: 'Nicole',
         lastname: 'Duero',
@@ -378,7 +378,7 @@ class RealEstateListing {
       description: json['description'] ?? "Nothing added!",
       price: (json['price'] ?? 0).toDouble(),
       listingBy: json['listingBy'] ?? "",
-      user: User.empty(),
+      user: EraUser.empty(),
       listingId: json['listingId'] ?? 0,
       lastUpdated: DateTime.parse(json['date_created'].toDate().toString()),
       addedDaysago: json['addedDaysago'] ?? 0,

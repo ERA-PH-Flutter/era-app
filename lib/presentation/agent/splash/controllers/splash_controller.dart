@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:eraphilippines/router/route_string.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/models/settings.dart';
@@ -19,7 +21,7 @@ class SplashController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var splashState = SplashState.loading.obs;
   final List<String> strings = [
-    'CONNECT WORLDS, BUILD\nDREAMS WITH ERA PHILIPPINES',
+    'CONNECT WORLDS,\nBUILD DREAMS WITH\nERA PHILIPPINES',
   ];
   int currentIndex = 0;
   var currentCharIndex = 0.obs;
@@ -42,6 +44,10 @@ class SplashController extends GetxController {
     _typeWrittingAnimation();
     await isReady.future;
     await Future.delayed(const Duration(seconds: 1));
+    if(FirebaseAuth.instance.currentUser != null){
+      user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
+    }
+
     //todo show era ads
     Get.toNamed(RouteString.home);
   }

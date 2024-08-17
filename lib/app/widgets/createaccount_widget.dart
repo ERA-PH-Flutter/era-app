@@ -75,9 +75,8 @@ class SharedWidgets {
         SizedBox(height: 5.h),
         Obx(
           () => DropdownButtonFormField<String>(
+            alignment: Alignment.centerLeft,
             decoration: InputDecoration(
-              hintText: hintText,
-              hintStyle: TextStyle(color: AppColors.hint, fontSize: 18.sp),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: AppColors.hint),
@@ -92,6 +91,17 @@ class SharedWidgets {
             value: selectedGender.value,
             style: TextStyle(color: Colors.white),
             iconEnabledColor: Colors.black,
+            isExpanded: true,
+            isDense: true,
+            hint: Align(
+              alignment: Alignment.centerLeft,
+              child: EraText(
+                text: hintText,
+                textAlign: TextAlign.center,
+                color: Colors.grey,
+                fontSize: 20.sp,
+              ),
+            ),
             items: genderType.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,

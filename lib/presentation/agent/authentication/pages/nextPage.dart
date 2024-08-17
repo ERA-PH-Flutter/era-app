@@ -41,11 +41,10 @@ class Nextpage extends GetView<LoginPageController> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.h),
+                  padding: EdgeInsets.only(right: 25.h,left: 25.h,top: 35.h,bottom: 25.h),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        SizedBox(height: 50.h),
                         SharedWidgets.dropDown(
                           controller.selectedStatus,
                           controller.statusType,
@@ -53,13 +52,13 @@ class Nextpage extends GetView<LoginPageController> {
                           'What is your Status',
                           'What is your Status',
                         ),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 20.h),
                         SharedWidgets.textFormfield(
                             'N/A if not applicable',
                             TextInputType.text,
                             'Who is your Recruiter',
                             controller.recruiter),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 20.h),
                         SharedWidgets.dropDown(
                           controller.selectedEducation,
                           controller.educationType,
@@ -68,28 +67,28 @@ class Nextpage extends GetView<LoginPageController> {
                           'Highest Education Level',
                           'Highest Education Level',
                         ),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 20.h),
                         SharedWidgets.textFormfield('', TextInputType.number,
                             'Years of Experience', controller.experience),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 20.h),
                         SharedWidgets.dropDown(
                           controller.selectedTransaction,
                           controller.transaction,
                           (value) =>
                               controller.selectedTransaction.value = value!,
-                          'Total Number of Transaction in 5 years',
+                          'Total Number of Transaction',
                           ' ',
                         ),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 20.h),
                         SharedWidgets.dropDown(
                           controller.selectedTransaction,
                           controller.transaction,
                           (value) =>
-                              controller.selectedTransaction.value = value!,
-                          'Total Number of Transaction in the Past years',
+                              controller.selectedTransaction5years.value = value!,
+                          'Total Number of Transaction in the Past 5 years',
                           ' ',
                         ),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 20.h),
                         SharedWidgets.dropDown(
                           controller.selectedSpeciality,
                           controller.specialityType,
@@ -98,19 +97,21 @@ class Nextpage extends GetView<LoginPageController> {
                           'Specialization',
                           'Specialization',
                         ),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 20.h),
                         Button(
-                          margin: EdgeInsets.symmetric(horizontal: 25.w),
+                          margin: EdgeInsets.zero,
                           width: Get.width,
                           height: 50.h,
                           bgColor: AppColors.kRedColor,
-                          text: 'CONTINUE',
+                          text: 'CREATE',
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
                           onTap: () {
-                            Get.to(() => Nextpage());
+                            controller.signUp();
                           },
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 20.h),
                       ],
                     ),
                   ),

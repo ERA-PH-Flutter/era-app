@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/menuitems.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -51,67 +52,55 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               Row(
                 children: [
                   action ??
-                      (FirebaseAuth.instance.currentUser != null
-                          ? StreamBuilder(
-                              stream: FirebaseFirestore.instance
-                                  .collection('messages')
-                                  .where("to", whereIn: [
-                                "all",
-                                FirebaseAuth.instance.currentUser!.uid
-                              ]).snapshots(),
-                              builder: (context, snapshot) {
-                                int count = 0;
-                                if (snapshot.hasData) {
-                                  count = snapshot.data!.docs.length;
-                                }
-                                return Container(
-                                  width: 80.w,
-                                  child: Stack(
-                                    children: [
-                                      Positioned.fill(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            //todo goto inbox
-                                          },
-                                          child: Icon(CupertinoIcons.mail,
-                                              color: AppColors.hint,
-                                              size: 50.sp),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: 12.5,
-                                        right: 0,
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(20.r),
-                                              border: Border.all(
-                                                  color: Colors.white,
-                                                  width: 3.w)),
-                                          width: 32.5.w,
-                                          height: 32.5.w,
-                                          child: EraText(
-                                            text: count.toString(),
-                                            fontSize: 12.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      )
-                                    ],
+                     (user != null ? StreamBuilder(
+                        stream: FirebaseFirestore.instance.collection('messages').where("to",whereIn: ["all",user!.id]).snapshots(),
+                        builder: (context,snapshot){
+                          int count = 0;
+                          if(snapshot.hasData){
+                            count = snapshot.data!.docs.length;
+                          }
+                          return Container(
+                            width: 80.w,
+                            child: Stack(
+                              children: [
+                                Positioned.fill(
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      //todo goto inbox
+                                    },
+                                    child: Icon(CupertinoIcons.mail,
+                                        color: AppColors.hint, size: 60.sp),
                                   ),
-                                );
-                              },
-                            )
-                          : Container()),
+                                ),
+                                Positioned(
+                                  top: 12.5,
+                                  right: 0,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(20.r),
+                                        border: Border.all(color: Colors.white,width: 3.w)
+                                    ),
+                                    width: 32.5.w,
+                                    height: 32.5.w,
+                                    child: EraText(
+                                      text: count.toString(),
+                                      fontSize: 12.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ) : Container()),
                   SizedBox(width: 10.w),
                   GestureDetector(
-                    onTap: () {
-                      controller.isShowing
-                          ? controller.hide()
-                          : controller.show();
+                    onTap: (){
+                      controller.isShowing ? controller.hide() : controller.show();
                     },
                     child: OverlayPortal(
                       controller: controller,
@@ -123,53 +112,45 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                             children: [
                               Container(
                                 width: 240.w,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 12.w, vertical: 10.h),
+                                padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 10.h),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(13.r),
                                   color: Colors.white.withOpacity(0.9),
                                 ),
                                 child: Column(
                                   children: [
-                                    _buildMenuCard('FIND PROPERTIES', () {
+                                    _buildMenuCard('FIND PROPERTIES', (){
                                       Get.toNamed("/findproperties");
                                     }),
-                                    _buildMenuCard('PROJECTS', () {
+                                    _buildMenuCard('PROJECTS', (){
                                       Get.toNamed("/project");
                                     }),
-                                    _buildMenuCard('FIND AGENTS', () {
+                                    _buildMenuCard('FIND AGENTS', (){
                                       Get.toNamed("/findagents");
                                     }),
-                                    _buildMenuCard('ABOUT US', () {
+                                    _buildMenuCard('ABOUT US', (){
                                       Get.toNamed("/aboutus");
                                     }),
-                                    FirebaseAuth.instance.currentUser != null
-                                        ? _buildMenuCard('MY DASHBOARD', () {
-                                            Get.toNamed("/agentDashBoard",
-                                                arguments: RealEstateListing
-                                                    .listingsModels.first);
-                                          })
-                                        : Container(),
-                                    _buildMenuCard('SELL PROPERTY', () {}),
-                                    _buildMenuCard('MORTGAGE CALCULATOR', () {
+                                    user != null ?  _buildMenuCard('MY DASHBOARD', (){
+                                      Get.toNamed("/agentDashBoard",
+                                          arguments: RealEstateListing.listingsModels.first);
+                                    }) : Container(),
+                                    _buildMenuCard('SELL PROPERTY', (){
+
+                                    }),
+                                    _buildMenuCard('MORTGAGE CALCULATOR', (){
                                       Get.toNamed("/mortageCalculator");
                                     }),
                                     Divider(
                                       thickness: 1,
                                       color: Colors.grey,
                                     ),
-                                    _buildMenuCard(
-                                        FirebaseAuth.instance.currentUser ==
-                                                null
-                                            ? "LOGIN"
-                                            : "LOGOUT", () {
-                                      if (FirebaseAuth.instance.currentUser ==
-                                          null) {
+                                    _buildMenuCard(user == null ? "LOGIN" : "LOGOUT", (){
+                                      if (user == null) {
                                         Get.toNamed("/loginpage");
                                       } else {
                                         Authentication().logout();
-                                        Get.to(LoginPage(),
-                                            binding: LoginPageBinding());
+                                        Get.to(LoginPage(), binding: LoginPageBinding());
                                       }
                                     }),
                                   ],
@@ -265,8 +246,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
-
-  _buildMenuCard(text, callback) {
+  _buildMenuCard(text,callback){
     return GestureDetector(
       onTap: callback,
       child: Card(
@@ -294,7 +274,6 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
-
   @override
   Size get preferredSize => Size.fromHeight(height);
 }

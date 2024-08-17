@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../presentation/global.dart';
+
 class Listing{
   FirebaseFirestore db = FirebaseFirestore.instance;
   String? id;
@@ -85,7 +87,7 @@ class Listing{
       "type" : type,
       "sub_category" : subCategory,
       "leads" : leads,
-      "by" : FirebaseAuth.instance.currentUser!.uid,
+      "by" : user!.id,
       "owner" : "admin", //todo change to owner field
       "description" : "",
       "views" : 0,
@@ -123,7 +125,7 @@ class Listing{
       "landmarks" : "",
       "leads" : 0,
       "garage" : 0,
-      "by" : FirebaseAuth.instance.currentUser!.uid,
+      "by" : user!.id,
       "owner" : "admin", //todo change to owner field
       "amenities" : "",
       "description" : "",

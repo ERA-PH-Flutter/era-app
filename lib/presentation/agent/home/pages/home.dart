@@ -241,7 +241,7 @@ class Home extends GetView<HomeController> {
                   }
                   Get.to(() => SearchResult(),
                       binding: SearchResultBinding(),
-                      arguments: [data, "sample search"]);
+                      arguments: [data, controller.aiSearchController.text]);
                 }),
               ],
             ),

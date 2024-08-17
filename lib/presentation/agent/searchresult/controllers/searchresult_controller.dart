@@ -15,7 +15,7 @@ class SearchResultController extends GetxController {
   var searchResultState = SearchResultState.loading.obs;
   var aiSearchController = TextEditingController();
   var data = [].obs;
-  var search;
+  var searchQuery = ''.obs;
 
   @override
   void onInit() {
@@ -25,16 +25,16 @@ class SearchResultController extends GetxController {
         searchResultState.value = SearchResultState.searching;
       } else {
         loadData( Get.arguments[0]);
+        searchQuery.value = Get.arguments[1];
       }
-    } catch (e) {
+    } catch (e,ex) {
+      print(ex);
       searchResultState.value = SearchResultState.error;
     }
     print(searchResultState.value);
   }
   loadData(loadedData){
     data.value = loadedData;
-    search = loadedData;
-    print(search);
     if (data.isEmpty) {
       searchResultState.value = SearchResultState.empty;
     } else {

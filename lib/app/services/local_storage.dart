@@ -2,12 +2,23 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum _Key {
-  user,
+  userID,
 }
 
 class LocalStorageService extends GetxService {
+  var _sharedPreferences;
   Future<LocalStorageService> init() async {
+    _sharedPreferences = await SharedPreferences.getInstance();
     return this;
+  }
+  set userID(value){
+    if(value != null){
+      _sharedPreferences?.setString(_Key.userID.toString(),value);
+    }
+  }
+
+  String get userID{
+    return _sharedPreferences?.getString(_Key.userID.toString());
   }
   /*
   set surveyResult(value){

@@ -22,16 +22,10 @@ class Authentication{
     email,
     password,
   }) async {
-    try {
-      await auth.createUserWithEmailAndPassword( // instantiated earlier on: final _firebaseAuth = FirebaseAuth.instance;
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException {
-      //todo handle error and exception
-    } catch (e) {
-      //todo handle error and exception
-    }
+    await auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
   logout()async{
     try{

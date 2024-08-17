@@ -7,7 +7,7 @@ import '../../../../app/constants/colors.dart';
 import '../../../../app/widgets/app_text.dart';
 import '../../../../app/widgets/button.dart';
 
-mixin class BaseController {
+mixin class BaseController{
   showSuccessDialog(
   {
     VoidCallback? hitApi,
@@ -94,7 +94,7 @@ mixin class BaseController {
     );
   }
 
-  static void showLoading([String? message]) {
+  void showLoading([String? message]) {
     showCupertinoDialog(
       barrierDismissible: false,
       context: Get.context!,
@@ -117,11 +117,11 @@ mixin class BaseController {
     );
   }
 
-  static void hideLoading() {
+  void hideLoading() {
     Get.back();
   }
 
-  static void showErroDialog({
+  void showErroDialog({
     VoidCallback? onTap,
     String title = 'Error',
     String? description = 'Something went wrong',

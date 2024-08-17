@@ -237,7 +237,7 @@ class AddListings extends GetView<AddListingsController> {
         ),
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
-          BaseController.showLoading();
+          BaseController().showLoading();
        try{
          await Listing(
              name: controller.propertyNameController.text,
@@ -257,7 +257,7 @@ class AddListings extends GetView<AddListingsController> {
        }catch(e,ex){
          print(ex);
        }
-          BaseController.hideLoading();
+          BaseController().hideLoading();
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
       ],
