@@ -102,7 +102,7 @@ class AgentDashBoard extends GetView<AgentsController> {
                     );
                   },
                   child: Image.asset(
-                    AppEraAssets.fav,
+                    AppEraAssets.sold,
                     height: 110.h,
                     width: 110.w,
                   ),
@@ -137,7 +137,7 @@ class AgentDashBoard extends GetView<AgentsController> {
                     Get.toNamed("/archived", arguments: listing);
                   },
                   child: Image.asset(
-                    AppEraAssets.fav,
+                    AppEraAssets.archived,
                     height: 110.h,
                     width: 110.w,
                   ),

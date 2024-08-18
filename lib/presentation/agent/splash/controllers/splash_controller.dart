@@ -21,7 +21,7 @@ class SplashController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var splashState = SplashState.loading.obs;
   final List<String> strings = [
-    'CONNECT WORLDS,\nBUILD DREAMS WITH\nERA PHILIPPINES',
+    'CONNECT WORLDS,\nBUILD DREAMS.',
   ];
   int currentIndex = 0;
   var currentCharIndex = 0.obs;
@@ -30,13 +30,14 @@ class SplashController extends GetxController {
     if (currentCharIndex < strings[currentIndex].length) {
       currentCharIndex++;
     } else {
-      currentIndex = ( currentIndex + 1) % strings.length;
+      currentIndex = (currentIndex + 1) % strings.length;
       isReady.complete(true);
     }
     Future.delayed(const Duration(milliseconds: 60), () {
-      !isReady.isCompleted ?  _typeWrittingAnimation() : null;
+      !isReady.isCompleted ? _typeWrittingAnimation() : null;
     });
   }
+
   @override
   void onInit() async {
     super.onInit();
@@ -44,11 +45,11 @@ class SplashController extends GetxController {
     _typeWrittingAnimation();
     await isReady.future;
     await Future.delayed(const Duration(seconds: 1));
-    if(FirebaseAuth.instance.currentUser != null){
+    if (FirebaseAuth.instance.currentUser != null) {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
 
     //todo show era ads
-    Get.toNamed(RouteString.home);
+    Get.toNamed(RouteString.landingPage);
   }
 }

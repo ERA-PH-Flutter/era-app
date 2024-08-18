@@ -4,6 +4,8 @@ class AppEraAssets {
   static String hide = "";
   static String person = "";
 
+  static String bg = "${l}bgSplash.png";
+
   static String next = "${l}next.png";
   static String prev = "${l}next-r.png";
   static String marker = "${l}marker.png";
@@ -71,9 +73,13 @@ class AppEraAssets {
   static String learningM = "${l}learningmaterials.png";
   static String upcoming = "${l}upcoming.png";
   static String manageListings = "${l}manage_listings.jpeg";
-  static String fav = "${l}mange_favorites.jpeg";
+  static String fav = "${l}manage_favorites.jpeg";
+  static String archived = "${l}manage_archive.jpeg";
+  static String sold = "${l}manage_sold.jpeg";
 
   //admin icons
+
+  static String uploadAdmin = "${l}Upload_admin.png";
 
   static String dashboard = "${l}elements_Dash Home.png";
   static String agentDash = "${l}elements_Dash Agents.png";

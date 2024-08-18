@@ -14,13 +14,14 @@ class CompanyGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Get.height - 400.h,
+      height: Get.height - 500.h,
       child: GridView.builder(
         physics: ScrollPhysics(),
         scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 1,
-          mainAxisExtent: 450, //410
+          mainAxisExtent: 400.w, //410
         ),
         itemCount: companymodels.length,
         itemBuilder: (context, i) =>

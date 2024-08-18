@@ -13,7 +13,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var shortestSide = MediaQuery.of(context).size.shortestSide;
-    Size designSize = kIsWeb ? Size(1920, 1080) : shortestSide < 600 ?  Size(430, 932) : Size(768, 1024);
+    Size designSize = kIsWeb
+        ? Size(1920, 1080)
+        : shortestSide < 600
+            ? Size(430, 932)
+            : Size(768, 1024);
     return ScreenUtilInit(
       designSize: designSize,
       minTextAdapt: true,

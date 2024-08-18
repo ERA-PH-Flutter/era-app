@@ -60,11 +60,6 @@ class AgentMyListing extends GetView<AgentsController> {
                         ),
                         icon: Row(
                           children: [
-                            Icon(
-                              CupertinoIcons.sort_down,
-                              size: 24.sp,
-                              color: AppColors.white,
-                            ),
                             EraText(
                               text: 'Sort by',
                               color: AppColors.white,

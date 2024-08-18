@@ -87,11 +87,6 @@ class Fav extends GetView<FavController> {
                         ),
                         icon: Row(
                           children: [
-                            Icon(
-                              CupertinoIcons.sort_down,
-                              size: 24.sp,
-                              color: AppColors.white,
-                            ),
                             EraText(
                               text: 'Sort by',
                               color: AppColors.white,

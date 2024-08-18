@@ -164,8 +164,8 @@ appRoutes() => [
           binding: AddEditListingsBinding()),
 
       GetPage(
-          name: RouteString.agentAdmin,
-          page: () => AgentAdmin(),
+          name: RouteString.addAgent,
+          page: () => AddAgent(),
           binding: AgentAdminBindings()),
     ];
 

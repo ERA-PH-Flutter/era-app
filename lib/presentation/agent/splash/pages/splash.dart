@@ -30,23 +30,38 @@ class Splash extends GetView<SplashController> {
   _loaded() {}
   _loading() {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/eraph_logo.png',
-            height: Get.width / 1.4,
+      child: Container(
+        width: Get.width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/icons/bgSplash.png'),
+            fit: BoxFit.cover,
           ),
-          SizedBox(height: 35.h,),
-          Obx(()=>EraText(
-            text: controller.strings[controller.currentIndex].substring(0, controller.currentCharIndex.value),
-            color: AppColors.black,
-            textAlign: TextAlign.center,
-            fontSize: 30.sp,
-            maxLines: 20,
-            fontWeight: FontWeight.w600,
-          ))
-        ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 120.h),
+            Image.asset(
+              'assets/images/eraph_logo.png',
+              height: Get.width / 1.4,
+            ),
+            SizedBox(height: 35.h),
+            Obx(
+              () => EraText(
+                text: controller.strings[controller.currentIndex]
+                    .substring(0, controller.currentCharIndex.value),
+                color: AppColors.kRedColor,
+                textAlign: TextAlign.center,
+                fontSize: 25.sp,
+                maxLines: 20,
+                fontWeight: FontWeight.bold,
+                lineHeight: 1.2,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

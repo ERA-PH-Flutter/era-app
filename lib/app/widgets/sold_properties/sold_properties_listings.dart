@@ -1,6 +1,7 @@
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SoldPropertiesListings extends StatelessWidget {
@@ -15,10 +16,10 @@ class SoldPropertiesListings extends StatelessWidget {
       padding: EdgeInsets.all(10),
       physics: const ScrollPhysics(),
       shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        mainAxisExtent: 530,
-        mainAxisSpacing: 20,
+        mainAxisExtent: 530.h,
+        mainAxisSpacing: 20.h,
       ),
       itemCount: listingModels.length,
       itemBuilder: (context, i) => ListingItemss(

@@ -6,31 +6,33 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../app/services/local_storage.dart';
 
-
 enum AgentAdminState {
   loading,
   loaded,
   error,
 }
 
-  class AgentAdminController extends GetxController with BaseController{
+class AgentAdminController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
   RxList images = [].obs;
   final picker = ImagePicker();
   final removeImage = false.obs;
 
-  TextEditingController propertyNameController = TextEditingController();
-  TextEditingController propertyCostController = TextEditingController();
-  TextEditingController pricePerSqmController = TextEditingController();
-  TextEditingController floorAreaController = TextEditingController();
-  TextEditingController bedsController = TextEditingController();
-  TextEditingController bathsController = TextEditingController();
-  TextEditingController areaController = TextEditingController();
-  TextEditingController offerTypeController = TextEditingController();
-  TextEditingController viewController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
-  TextEditingController propertyTypeController = TextEditingController();
-  TextEditingController propertySubCategoryController = TextEditingController();
+  TextEditingController fNameA = TextEditingController();
+  TextEditingController lNameA = TextEditingController();
+  TextEditingController emailAdressA = TextEditingController();
+
+  TextEditingController dateBirthA = TextEditingController();
+  TextEditingController sexA = TextEditingController();
+  TextEditingController locationA = TextEditingController();
+  TextEditingController licenseNA = TextEditingController();
+  TextEditingController phoneNA = TextEditingController();
+  TextEditingController passwordA = TextEditingController();
+
+  TextEditingController confirmPA = TextEditingController();
+  TextEditingController positionA = TextEditingController();
+
+  TextEditingController descriptionA = TextEditingController();
 
   Future getImageGallery() async {
     try {

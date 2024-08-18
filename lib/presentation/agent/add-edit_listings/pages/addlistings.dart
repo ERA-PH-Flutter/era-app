@@ -72,40 +72,6 @@ class AddListings extends GetView<AddListingsController> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                // ElevatedButton.icon(
-                //     style: ElevatedButton.styleFrom(
-                //       backgroundColor: AppColors.blue,
-                //       shadowColor: Colors.transparent,
-                //       side: BorderSide(
-                //           color: AppColors.hint.withOpacity(0.1), width: 1),
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(10),
-                //       ),
-                //     ),
-                //     onPressed: () {
-                //       if (controller.images.isNotEmpty) {
-                //         controller.removeMode();
-                //       } else {
-                //         BaseController().showSuccessDialog(
-                //             title: "Error!",
-                //             description: "You have selected 0 image!");
-                //       }
-                //     },
-                //     icon: Icon(
-                //       CupertinoIcons.photo_fill_on_rectangle_fill,
-                //       color: AppColors.white,
-                //     ),
-                //     label: Obx(
-                //       () => EraText(
-                //         text: controller.removeImage.value &&
-                //                 controller.images.isNotEmpty
-                //             ? 'Cancel'
-                //             : 'Remove',
-                //         color: AppColors.white,
-                //         fontSize: 20.sp,
-                //         fontWeight: FontWeight.w500,
-                //       ),
-                //     )),
               ],
             ),
           ),
@@ -238,25 +204,25 @@ class AddListings extends GetView<AddListingsController> {
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           BaseController().showLoading();
-       try{
-         await Listing(
-             name: controller.propertyNameController.text,
-             price: controller.propertyCostController.text.toDouble(),
-             photos: controller.images,
-             ppsqm: controller.pricePerSqmController.text.toDouble(),
-             floorArea: controller.floorAreaController.text.toDouble(),
-             beds: controller.bedsController.text.toInt(),
-             baths: controller.bathsController.text.toInt(),
-             area: controller.areaController.text.toInt(),
-             status: controller.offerTypeController.text,
-             view: controller.viewController.text,
-             location: controller.locationController.text,
-             type: controller.propertyTypeController.text,
-             subCategory: controller.propertySubCategoryController.text
-         ).addListing();
-       }catch(e,ex){
-         print(ex);
-       }
+          try {
+            await Listing(
+                    name: controller.propertyNameController.text,
+                    price: controller.propertyCostController.text.toDouble(),
+                    photos: controller.images,
+                    ppsqm: controller.pricePerSqmController.text.toDouble(),
+                    floorArea: controller.floorAreaController.text.toDouble(),
+                    beds: controller.bedsController.text.toInt(),
+                    baths: controller.bathsController.text.toInt(),
+                    area: controller.areaController.text.toInt(),
+                    status: controller.offerTypeController.text,
+                    view: controller.viewController.text,
+                    location: controller.locationController.text,
+                    type: controller.propertyTypeController.text,
+                    subCategory: controller.propertySubCategoryController.text)
+                .addListing();
+          } catch (e, ex) {
+            print(ex);
+          }
           BaseController().hideLoading();
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
