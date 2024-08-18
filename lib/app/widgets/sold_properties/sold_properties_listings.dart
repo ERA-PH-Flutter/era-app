@@ -18,7 +18,7 @@ class SoldPropertiesListings extends StatelessWidget {
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        mainAxisExtent: 530.h,
+        mainAxisExtent: 500.h,
         mainAxisSpacing: 20.h,
       ),
       itemCount: listingModels.length,

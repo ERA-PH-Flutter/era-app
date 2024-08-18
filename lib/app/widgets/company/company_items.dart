@@ -13,99 +13,93 @@ class CompanyItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: [
-          Card(
-            elevation: 0,
-            color: AppColors.white,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CachedNetworkImage(
-                  imageUrl: companyItems.image,
-                  fit: BoxFit.cover,
-                  height: 240.h,
-                  placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
-                Spacer(),
+    return Stack(
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          width: 420.w,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              CachedNetworkImage(
+                imageUrl: companyItems.image,
+                fit: BoxFit.cover,
+                height: 250.h,
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+              Spacer(),
+            ],
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          top: 270.h,
+          child: Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.white.withOpacity(0.8),
+                    spreadRadius: 60.w,
+                    blurRadius: 8.w,
+                    offset: Offset(0, 8.h))
               ],
             ),
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            top: 275,
-            child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.white.withOpacity(0.8),
-                      spreadRadius: 60,
-                      blurRadius: 8,
-                      offset: Offset(0, 8))
-                ],
-              ),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 30.w,
+          right: 40.w,
+          top: 210.h,
+          child: Card(
+            color: AppColors.white,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.r),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 15.w,
-            right: 15.w,
-            top: 205,
-            child: Card(
-              color: AppColors.white,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: EraText(
-                        text: companyItems.title,
-                        fontSize: 16.sp,
-                        color: AppColors.kRedColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: EraText(
-                        text: companyItems.description,
-                        fontSize: 16.sp,
-                        color: Colors.black,
-                        maxLines: 4,
-                        textOverflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Button(
-                      text: 'READ MORE',
-                      onTap: () {
-                        Get.toNamed("/aboutus");
-                      },
-                      bgColor: AppColors.kRedColor,
-                      height: 40.h,
-                      borderRadius: BorderRadius.circular(30),
-                    )
-                  ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.w),
+                  child: EraText(
+                    text: companyItems.title,
+                    fontSize: 16.sp,
+                    color: AppColors.kRedColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w),
+                  child: EraText(
+                    text: companyItems.description,
+                    fontSize: 16.sp,
+                    color: Colors.black,
+                    maxLines: 4,
+                    textOverflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Button(
+                  text: 'READ MORE',
+                  onTap: () {
+                    Get.toNamed("/aboutus");
+                  },
+                  bgColor: AppColors.kRedColor,
+                  height: 40.h,
+                  borderRadius: BorderRadius.circular(30.r),
+                )
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

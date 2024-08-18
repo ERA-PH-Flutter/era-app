@@ -50,6 +50,6 @@ class SplashController extends GetxController {
     }
 
     //todo show era ads
-    Get.toNamed(RouteString.landingPage);
+    Get.toNamed(RouteString.home);
   }
 }

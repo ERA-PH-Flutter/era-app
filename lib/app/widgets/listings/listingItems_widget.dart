@@ -203,6 +203,7 @@ class ListingItemss extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        SizedBox(height: 5.h),
                         if (showListedby)
                           ListedBy(
                             text: listedBy ?? '',
