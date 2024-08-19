@@ -10,10 +10,19 @@ enum AgentAdminState {
   loading,
   loaded,
   error,
+  empty,
 }
 
 class AgentAdminController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
+
+  var agentState = AgentAdminState.loading.obs;
+  @override
+  void onInit() {
+    agentState.value = AgentAdminState.loaded;
+    super.onInit();
+  }
+
   RxList images = [].obs;
   final picker = ImagePicker();
   final removeImage = false.obs;
