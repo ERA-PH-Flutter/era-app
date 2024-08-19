@@ -60,13 +60,11 @@ class Home extends GetView<HomeController> {
                 Positioned.fill(
                   child: CarouselSlider(
                       controller: controller.innerController,
-                      items: settings!.banners != null
-                          ? settings!.banners!.map((imagePath) {
+                      items: controller.images.map((imagePath) {
                               return CustomImage(
                                 url: imagePath,
                               );
-                            }).toList()
-                          : [],
+                            }).toList(),
                       options: CarouselOptions(
                         autoPlayInterval: Duration(seconds: 2),
                         autoPlay: true,

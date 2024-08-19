@@ -35,10 +35,7 @@ class HomeController extends GetxController{
   List<Listing> listings = [];
   var listingImages = [];
   final List<String> images = [
-    "assets/images/e1.JPG",
-    "assets/images/carouselsliderpic3.jpg",
-    "assets/images/carouselsliderpic4.jpg",
-    "assets/images/carouselsliderpic5.jpg",
+
   ];
 
   TextEditingController locationController = TextEditingController();
@@ -49,6 +46,12 @@ class HomeController extends GetxController{
   @override
   void onInit()async{
     try{
+      if(settings!.banners != null){
+        for(int i =0;i<settings!.banners!.length;i++){
+          images.add(settings!.banners![i]);
+        }
+      }
+      print(images);
       await getNews();
       await getImages();
       await getListings();

@@ -105,9 +105,6 @@ class Assets {
   static const String imagesCenturyspire = 'assets/images/centuryspire.png';
   static const String imagesCommercial = 'assets/images/Commercial.jpg';
   static const String imagesDividerBg = 'assets/images/divider_bg.jpeg';
-  static const String imagesE1 = 'assets/images/e1.JPG';
-  static const String imagesE4 = 'assets/images/e4.JPG';
-  static const String imagesE5 = 'assets/images/e5.JPG';
   static const String imagesEraicon = 'assets/images/eraicon.png';
   static const String imagesEraphLogo = 'assets/images/eraph_logo.png';
   static const String imagesEraphWhiteLogo = 'assets/images/eraph_white-logo.png';
