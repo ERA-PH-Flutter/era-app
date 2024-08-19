@@ -4,28 +4,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ListedBy extends StatelessWidget {
-  final String text;
-  final String image;
-  final String agentFirstName;
-  final String agentLastName;
-  final String agentType;
+  final String? text;
+  final String? image;
+  final String? agentFirstName;
+  final String? agentLastName;
+  final String? agentType;
   final String? whatsapp;
   final String? whatsappIcon;
   final String? email;
   final String? emailIcon;
+  final double? width;
+  final double? height;
+  final double? fontSize;
 
-  const ListedBy({
-    super.key,
-    required this.text,
-    required this.image,
-    required this.agentFirstName,
-    required this.agentType,
-    required this.agentLastName,
-    this.whatsapp,
-    this.whatsappIcon,
-    this.email,
-    this.emailIcon,
-  });
+  const ListedBy(
+      {super.key,
+      this.text,
+      this.image,
+      this.agentFirstName,
+      this.agentType,
+      this.agentLastName,
+      this.whatsapp,
+      this.whatsappIcon,
+      this.email,
+      this.emailIcon,
+      this.width,
+      this.height,
+      this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,7 @@ class ListedBy extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: EraText(
-            text: text,
+            text: text!,
             fontWeight: FontWeight.bold,
             fontSize: 15.sp,
             color: AppColors.black,
@@ -51,9 +56,9 @@ class ListedBy extends StatelessWidget {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle, color: AppColors.hint),
                 child: Image.asset(
-                  image,
-                  width: 47.w,
-                  height: 47.h,
+                  image!,
+                  width: width ?? 47.w,
+                  height: height ?? 47.h,
                 ),
               ),
               SizedBox(
@@ -69,8 +74,8 @@ class ListedBy extends StatelessWidget {
                     color: AppColors.black,
                   ),
                   EraText(
-                    text: agentType,
-                    fontSize: 12.sp,
+                    text: agentType!,
+                    fontSize: fontSize ?? 12.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black,
                   ),

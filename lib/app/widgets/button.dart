@@ -37,7 +37,7 @@ class Button extends StatelessWidget {
       onTap: onTap,
       child: Center(
         child: Container(
-          margin: margin ?? EdgeInsets.symmetric(horizontal: 35),
+          margin: margin ?? EdgeInsets.symmetric(horizontal: 25),
           height: height ?? 50.h,
           width: width ?? 184.w,
           decoration: BoxDecoration(

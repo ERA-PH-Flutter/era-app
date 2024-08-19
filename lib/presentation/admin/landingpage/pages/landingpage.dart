@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
+import 'package:eraphilippines/presentation/admin/Listings/pages/add-property_admin.dart';
 import 'package:eraphilippines/presentation/admin/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/admin/agents/pages/roster.dart';
@@ -16,6 +17,9 @@ class LandingPage extends GetView<LandingPageController> {
 
   final List<Widget> _screens = const [
     Roster(),
+
+    AddPropertyAdmin(),
+
     AddAgent(), // add agents
     // roster
     AddAgent(), // agent profile
@@ -28,7 +32,7 @@ class LandingPage extends GetView<LandingPageController> {
     return Scaffold(
         backgroundColor: AppColors.white,
         appBar: CustomAppBar(
-          height: 130.h,
+          height: 150.h,
           child: _buildAppBarContent(),
         ),
         body: WillPopScope(
@@ -137,7 +141,7 @@ class LandingPage extends GetView<LandingPageController> {
       ];
 
   Widget _buildDashboardTitle() => Container(
-        height: 30.h,
+        height: 45.h,
         width: Get.width,
         color: Colors.grey[350],
         child: Padding(
@@ -145,7 +149,7 @@ class LandingPage extends GetView<LandingPageController> {
           child: EraText(
             text: ' Dashboard',
             color: AppColors.black,
-            fontSize: 18.sp,
+            fontSize: 28.sp,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -206,15 +210,17 @@ class LandingPage extends GetView<LandingPageController> {
     required List<Widget> children,
   }) {
     return ExpansionTile(
-      leading: const SizedBox(),
+      leading: SizedBox(),
       title: Column(
         children: [
           SizedBox(height: 20.h),
           Image.asset(image, height: 80.h),
           SizedBox(height: 5.h),
           EraText(
+              textOverflow: TextOverflow.ellipsis,
               text: text,
               fontSize: 12.sp,
+              maxLines: 1,
               color: AppColors.blue,
               fontWeight: FontWeight.w700),
         ],
