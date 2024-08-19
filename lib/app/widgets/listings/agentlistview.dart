@@ -1,7 +1,6 @@
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/listings/agents_items.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AgentListView extends StatelessWidget {
   final List<RealEstateListing> agentsModels;
@@ -17,7 +16,8 @@ class AgentListView extends StatelessWidget {
         return AgentsItems(
           agentInfo: agentsModels[index],
           onTap: () {
-            Get.toNamed('/agentDashBoard', arguments: agentsModels[index]);
+            //todo redirect to agent with his listings
+            //Get.toNamed('/agentDashBoard', arguments: agentsModels[index]);
           },
         );
       },

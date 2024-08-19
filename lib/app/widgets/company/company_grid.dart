@@ -1,10 +1,8 @@
-import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/company/company_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class CompanyGrid extends StatelessWidget {
   final List companymodels;

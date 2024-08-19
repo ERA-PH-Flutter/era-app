@@ -1,7 +1,6 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/listings/gridViewV_Listing.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/sold_properties/sold_properties_listings.dart';
 import 'package:eraphilippines/presentation/agent/soldproperties/controllers/sold_properties_controller.dart';

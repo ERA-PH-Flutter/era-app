@@ -12,7 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
-import '../controllers/searchresult_binding.dart';
 import '../controllers/searchresult_controller.dart';
 
 class SearchResult extends GetView<SearchResultController> {

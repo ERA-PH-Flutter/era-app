@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../presentation/global.dart';
 

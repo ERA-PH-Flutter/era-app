@@ -1,5 +1,4 @@
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

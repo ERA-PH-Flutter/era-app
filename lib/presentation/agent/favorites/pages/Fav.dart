@@ -2,14 +2,11 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/fav/fav_listing.dart';
-import 'package:eraphilippines/app/widgets/listings/gridViewV_Listing.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
-import 'package:eraphilippines/presentation/agent/listingproperties/pages/property_infomation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../controllers/fav_controller.dart';
 //todo add text

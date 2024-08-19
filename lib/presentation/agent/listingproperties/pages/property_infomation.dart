@@ -5,18 +5,14 @@ import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/listings/gridViewV_Listing.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
-import 'package:eraphilippines/app/widgets/listings/gridView_Listing.dart';
-import 'package:eraphilippines/app/widgets/pieChart.dart';
 import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../mortageCalculator.dart/pages/MortageCalculator.dart';
 import '../controllers/listing_controller.dart';
 
 class PropertyInformation extends GetView<ListingController> {

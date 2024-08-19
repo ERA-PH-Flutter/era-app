@@ -104,9 +104,6 @@ class Assets {
   static const String imagesCarouselsliderpic5 = 'assets/images/carouselsliderpic5.jpg';
   static const String imagesCenturyspire = 'assets/images/centuryspire.png';
   static const String imagesCommercial = 'assets/images/Commercial.jpg';
-  static const String imagesCompanynews1 = 'assets/images/companynews1.jpg';
-  static const String imagesCompanynews2 = 'assets/images/companynews2.JPG';
-  static const String imagesCompanynews3 = 'assets/images/companynews3.jpg';
   static const String imagesDividerBg = 'assets/images/divider_bg.jpeg';
   static const String imagesE1 = 'assets/images/e1.JPG';
   static const String imagesE4 = 'assets/images/e4.JPG';

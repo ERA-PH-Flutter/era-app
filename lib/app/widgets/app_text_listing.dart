@@ -1,6 +1,5 @@
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextListing extends StatelessWidget {
   final String text;

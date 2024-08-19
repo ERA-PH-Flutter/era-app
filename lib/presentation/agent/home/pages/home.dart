@@ -1,10 +1,6 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
-import 'package:eraphilippines/app/models/companynews_model.dart';
-import 'package:eraphilippines/app/models/hero_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
-import 'package:eraphilippines/app/models/propertieslisting.dart';
-import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';

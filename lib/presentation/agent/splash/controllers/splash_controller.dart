@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:eraphilippines/router/route_string.dart';

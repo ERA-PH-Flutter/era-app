@@ -28,10 +28,5 @@ class CompanyModels {
   ];
 }
 
-
-//       "assets/images/companynews1.jpg",
-//  "assets/images/companynews2.JPG",
-//    "assets/images/companynews3.jpg",
-// 
 // https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/company-news%2Fcompanynews2.JPG?alt=media&token=e711f19a-2b0c-4624-a217-391fcd95ec5f
 // https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/company-news%2Fcompanynews3.jpg?alt=media&token=59839176-ca49-45da-bd42-e2bb662d5f5c
