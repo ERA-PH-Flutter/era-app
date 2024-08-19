@@ -1,12 +1,18 @@
 import 'package:carousel_slider_plus/carousel_controller.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/models/propertieslisting.dart';
+import '../../../../app/models/settings.dart';
 import '../../../../app/services/local_storage.dart';
+import '../../../../repository/listing.dart';
+import '../../../../repository/news.dart';
 
 enum HomeState {
   loading,
@@ -25,6 +31,9 @@ class HomeController extends GetxController{
   var innerController = CarouselSliderController();
   var carouselC = PageController();
   var homeState = HomeState.loading.obs;
+  var news = [];
+  List<Listing> listings = [];
+  var listingImages = [];
   final List<String> images = [
     "assets/images/e1.JPG",
     "assets/images/carouselsliderpic3.jpg",
@@ -39,14 +48,43 @@ class HomeController extends GetxController{
 
   @override
   void onInit()async{
-    await Future.delayed(Duration(seconds: 3));
     try{
+      await getNews();
+      await getImages();
+      await getListings();
       homeState.value = HomeState.loaded;
     }catch(e){
+      print(e);
       homeState.value = HomeState.error;
     }
     super.onInit();
   }
+
+  getNews()async{
+    if(settings!.featuredNews!.isNotEmpty) {
+      for(int i = 0;i<settings!.featuredNews!.length;i++){
+        settings!.featuredNews![i] != '' ? news.add(await News(id: settings!.featuredNews![i]).getNews()) : null;
+      }
+    }
+  }
+
+  getListings()async{
+    if(settings!.featuredListings!.isNotEmpty) {
+      for(int i = 0;i<settings!.featuredListings!.length;i++){
+        settings!.featuredListings![i] != '' ? listings.add(await Listing().getListing(settings!.featuredListings![i])) : null;
+      }
+    }
+  }
+
+  getImages()async{
+    listingImages.add(PropertiesModels(image: settings!.preSellingPicture.toString().notEmpty(AppStrings.noImageWhite),label: 'PRE-SELLING'));
+    listingImages.add(PropertiesModels(image: settings!.residentialPicture.toString().notEmpty(AppStrings.noImageWhite),label: 'RESIDENTIAL'));
+    listingImages.add(PropertiesModels(image: settings!.commercialPicture.toString().notEmpty(AppStrings.noImageWhite),label: 'COMMERCIAL'));
+    listingImages.add(PropertiesModels(image: settings!.rentalPicture.toString().notEmpty(AppStrings.noImageWhite),label: 'RENTAL'));
+    listingImages.add(PropertiesModels(image: settings!.auctionPicture.toString().notEmpty(AppStrings.noImageWhite),label: 'AUCTION'));
+  }
+
+
 
   void nextImage(int totalImg) {
     if (carouselIndex.value < totalImg - 1) {

@@ -114,7 +114,7 @@ class AgentsItems extends StatelessWidget {
                     )
                   : Column(
                       children: [
-                        SizedBox(height: 55.h),
+                        SizedBox(height: 50.h),
                         EraText(
                           text:
                               '${agentInfo.user.firstname} ${agentInfo.user.lastname}',
@@ -164,21 +164,22 @@ class AgentsItems extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 15.h),
+                        SizedBox(height: 20.h),
                         Button(
                           text: 'VIEW LISTINGS',
-                          fontSize: 13.sp,
+                          fontSize: 15.sp,
                           onTap: () {
                             Get.toNamed('/agentDashBoard',
                                 arguments: agentInfo);
                           },
                           bgColor: AppColors.kRedColor,
-                          height: 30.h,
+                          height: 38.h,
                           width: 200.w,
                           fontWeight: FontWeight.w400,
                           margin: EdgeInsets.symmetric(horizontal: 35),
                           borderRadius: BorderRadius.circular(20),
                         ),
+                        SizedBox(height: 20.h),
                       ],
                     ),
             ),

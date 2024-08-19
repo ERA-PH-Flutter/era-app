@@ -67,7 +67,7 @@ class AppTextField extends StatelessWidget {
         obscureText: obscureText!,
         textInputAction: textInputAction ?? TextInputAction.done,
         placeholderStyle: TextStyle(
-          fontSize: 25.sp,
+          fontSize: 20.sp,
           color: AppColors.hint,
           height: 0.0,
           fontFamily:
@@ -115,7 +115,7 @@ class AppTextField extends StatelessWidget {
         padding:
             padding ?? EdgeInsets.symmetric(horizontal: 10.h, vertical: 5.w),
         style:
-            GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 17.sp),
+            GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 20.sp),
       ),
     );
   }

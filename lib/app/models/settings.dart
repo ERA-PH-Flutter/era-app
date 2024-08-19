@@ -36,7 +36,7 @@ class Settings{
       fileSizeLimit: json['file_size'] ?? 10,
       isMaintenance: json['maintenance'] ?? false,
       splashAd: json['splash_ad'] ?? "",
-      preSellingPicture: json['preSelling_picture'] ?? "",
+      preSellingPicture: json['pre_selling_picture'] ?? "",
       residentialPicture: json['residential_picture'] ?? "",
       auctionPicture: json['auction_picture'] ?? "",
       commercialPicture: json['commercial_picture'] ?? "",

@@ -237,7 +237,7 @@ class RealEstateListing {
         //Get.toNamed('/propertyInfo', arguments: listingsModels);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w),
+        padding: EdgeInsets.symmetric(horizontal: 21.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

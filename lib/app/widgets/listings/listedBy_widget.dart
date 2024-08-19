@@ -1,10 +1,11 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ListedBy extends StatelessWidget {
-  final String text;
+  final String? text; /// remove this
   final String image;
   final String agentFirstName;
   final String agentLastName;
@@ -16,7 +17,7 @@ class ListedBy extends StatelessWidget {
 
   const ListedBy({
     super.key,
-    required this.text,
+    this.text,
     required this.image,
     required this.agentFirstName,
     required this.agentType,
@@ -32,45 +33,42 @@ class ListedBy extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: EraText(
-            text: text,
-            fontWeight: FontWeight.bold,
-            fontSize: 15.sp,
-            color: AppColors.black,
-          ),
+        EraText(
+          text: text ?? 'Listed By',
+          fontWeight: FontWeight.bold,
+          fontSize: EraTheme.paragraph,
+          color: AppColors.black,
         ),
-        SizedBox(height: 5.h),
+        SizedBox(height: 10.h),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w),
           child: Row(
             children: [
               Container(
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle, color: AppColors.hint),
-                child: Image.asset(
+                child: Image.network(
                   image,
-                  width: 47.w,
-                  height: 47.h,
+                  width: 55.w,
+                  height: 55.w,
                 ),
               ),
               SizedBox(
-                width: 10.w,
+                width: 20.w,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   EraText(
                     text: '$agentFirstName $agentLastName',
-                    fontSize: 18.sp,
+                    fontSize: EraTheme.paragraph,
                     fontWeight: FontWeight.bold,
                     color: AppColors.black,
                   ),
                   EraText(
                     text: agentType,
-                    fontSize: 12.sp,
+                    fontSize: EraTheme.paragraph - 4.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black,
                   ),

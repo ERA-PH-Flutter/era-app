@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
@@ -17,13 +18,13 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
     return BaseScaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 16.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               EraText(
                 text: 'MORTGAGE CALCULATOR',
-                fontSize: 25.sp,
+                fontSize: EraTheme.header,
                 color: AppColors.kRedColor,
                 fontWeight: FontWeight.bold,
               ),
@@ -53,7 +54,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                   ],
                 ),
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 40.h),
               EraText(
                 text: 'Property Amount',
                 fontSize: 20.sp,
@@ -103,17 +104,16 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 hintText: 'eg: 20000.00',
                 maxLines: 1,
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 20),
               Button(
-                margin: EdgeInsets.symmetric(horizontal: 0),
-                width: 350.w,
+                width: Get.width,
                 bgColor: AppColors.kRedColor,
                 text: 'CALCULATE',
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w500,
                 onTap: () {},
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 30.h),
             ],
           ),
         ),

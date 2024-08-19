@@ -24,6 +24,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../../../app/constants/theme.dart';
 import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../global.dart';
@@ -57,7 +58,7 @@ class Home extends GetView<HomeController> {
       children: [
         /// Carousel
         SizedBox(
-            height: 320.h,
+            height: 320.h,//height: (Get.height - 100.h) / 2,
             child: Stack(
               children: [
                 Positioned.fill(
@@ -138,10 +139,10 @@ class Home extends GetView<HomeController> {
                 ),
               ],
             )),
-
+        SizedBox(height: 10.h,),
         /// Search Engine Box
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth * 2.5,vertical: 26.h),
           child: BoxWidget.build(
             child: Column(
               children: [
@@ -225,6 +226,7 @@ class Home extends GetView<HomeController> {
                     ],
                   ),
                 ),
+                SizedBox(height: 20.h),
                 SearchWidget.build(() async {
                   var data;
                   if (controller.aiSearchController.text == "") {
@@ -243,119 +245,124 @@ class Home extends GetView<HomeController> {
                       binding: SearchResultBinding(),
                       arguments: [data, controller.aiSearchController.text]);
                 }),
+                SizedBox(height: 10.h),
               ],
             ),
           ),
         ),
-
+        SizedBox(height: 10.h,),
         /// Listings
-        PropertiesWidgets(listingsModels: PropertiesModels.listings),
-
+        PropertiesWidgets(listingsModels:controller.listingImages),
+        SizedBox(height: 10.h,),
         /// Projects
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextListing.projectTitle(24.sp, FontWeight.w600, AppColors.blue),
-            TextListing.projectSubtitle(
-                12.sp, FontWeight.w500, AppColors.black),
-            SizedBox(
-              height: 20.h,
-            ),
-            TextListing(
-                margin: EdgeInsets.symmetric(horizontal: 40.0),
-                text: 'Featured Projects',
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.kRedColor),
-            SizedBox(height: 20.h),
-            ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
-            SizedBox(
-              height: 20.h,
-            ),
-            CarouselSliderWidget(),
-            SizedBox(
-              height: 20.h,
-            ),
-            Button(
-              text: 'VIEW PROJECTS',
-              onTap: () {
-                Get.toNamed("/project");
-              },
-              bgColor: AppColors.kRedColor,
-              height: 40.h,
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ],
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 15.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextListing.projectTitle(EraTheme.header, FontWeight.w600, AppColors.blue),
+              TextListing.projectSubtitle(
+                  EraTheme.subHeader, FontWeight.w500, AppColors.black),
+              SizedBox(
+                height: 20.h,
+              ),
+              TextListing(
+                  text: 'Featured Projects'.toUpperCase(),
+                  fontSize: EraTheme.header - 4.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.kRedColor),
+              SizedBox(height: 20.h),
+              ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
+              SizedBox(
+                height: 20.h,
+              ),
+              CarouselSliderWidget(),
+              SizedBox(
+                height: 40.h,
+              ),
+              Button(
+                text: 'VIEW PROJECTS',
+                onTap: () {
+                  Get.toNamed("/project");
+                },
+                bgColor: AppColors.kRedColor,
+                height: EraTheme.buttonHeightSmall,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              SizedBox(height: 40.h),
+            ],
+          ),
         ),
-        SizedBox(height: 40.h),
-
+        SizedBox(height: 10.h,),
         ///
         AppDivider(
           button: true,
         ),
+        SizedBox(height: 10.h,),
         SizedBox(
           height: 20.h,
         ),
-
+        SizedBox(height: 10.h,),
         /// Featured Listings
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextListing(
-                margin: EdgeInsets.symmetric(horizontal: 20.0),
-                text: 'FEATURED LISTING',
-                fontSize: 24.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.blue),
-            SizedBox(
-              height: 10.h,
-            ),
-            ListingProperties(listingModels: RealEstateListing.listingsModels),
-          ],
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextListing(
+                  margin: EdgeInsets.symmetric(horizontal: 20.0),
+                  text: 'FEATURED LISTING',
+                  fontSize: EraTheme.header,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blue),
+              SizedBox(
+                height: 25.h,
+              ),
+              ListingProperties(listingModels: controller.listings),
+            ],
+          ),
         ),
-
+        SizedBox(height: 10.h,),
         /// All About News
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextListing(
-                text: 'COMPANY NEWS',
-                fontSize: 22.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.blue),
-            SizedBox(
-              height: 15.h,
-            ),
-            TextListing(
-                text: 'Latest News and Events from ERA PH',
-                fontSize: 15.h,
+        Padding(
+          padding:EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextListing(
+                  text: 'COMPANY NEWS',
+                  fontSize: EraTheme.header,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blue
+              ),
+              TextListing(
+                  text: 'Latest News and Events from ERA PH',
+                  fontSize: EraTheme.subHeader,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              CompanyGrid(companymodels: controller.news),
+              Button(
+                text: 'MORE NEWS',
+                fontSize: 25.sp,
+                onTap: () {
+                  Get.toNamed("/companynews");
+                },
+                bgColor: AppColors.blue,
+                height: 45.h,
+                width: Get.width - 100.w,
                 fontWeight: FontWeight.w500,
-                color: AppColors.black,
-                lineHeight: 0.1),
-            SizedBox(
-              height: 20.h,
-            ),
-            CompanyGrid(companymodels: CompanyModels.companyNewsModels),
-            SizedBox(
-              height: 20.h,
-            ),
-            Button(
-              text: 'MORE NEWS',
-              fontSize: 25.sp,
-              onTap: () {
-                Get.toNamed("/companynews");
-              },
-              bgColor: AppColors.blue,
-              height: 45.h,
-              width: Get.width - 100.w,
-              fontWeight: FontWeight.w500,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            SizedBox(
-              height: 30.h,
-            ),
-          ],
-        )
+                borderRadius: BorderRadius.circular(10),
+              ),
+              SizedBox(
+                height: 50.h,
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -27,51 +28,54 @@ class AgentDashBoard extends GetView<AgentsController> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: EraText(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal:EraTheme.paddingWidth,vertical: 10.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EraText(
                   text: 'MY DASHBOARD',
                   color: AppColors.blue,
-                  fontSize: 20.sp,
+                  fontSize: EraTheme.header,
                   fontWeight: FontWeight.w600,
                 ),
-              ),
-              AgentInfoWidget.agentInformation(
-                  '${listing.user.image}',
-                  '${listing.user.firstname}',
-                  '${listing.user.lastname}',
-                  '${listing.user.whatsApp}',
-                  '${listing.user.email}',
-                  '${listing.user.role}'),
-              SizedBox(height: 25.h),
-              Button(
-                width: Get.width,
-                text: 'MORTGAGE CALCULATOR',
-                bgColor: AppColors.kRedColor,
-                onTap: () {
-                  Get.toNamed("/mortageCalculator");
-                },
-              ),
-              SizedBox(height: 25.h),
-              myListings(),
-              SizedBox(height: 25.h),
-              favorites(),
-              SizedBox(height: 25.h),
-              archivedListing(),
-              SizedBox(height: 25.h),
-              soldProperties(),
-              SizedBox(height: 25.h),
-              myTrainings(),
-              SizedBox(height: 25.h),
-              findAgentsandOffices(),
-              SizedBox(height: 25.h),
-              latestNews(),
-              SizedBox(height: 25.h),
-              // eraMerch(),
-            ],
+                SizedBox(height: 10.h),
+                AgentInfoWidget.agentInformation(
+                    '${listing.user.image}',
+                    '${listing.user.firstname}',
+                    '${listing.user.lastname}',
+                    '${listing.user.whatsApp}',
+                    '${listing.user.email}',
+                    '${listing.user.role}'),
+                SizedBox(height: 25.h),
+                Button(
+                  fontSize: EraTheme.paragraph - 2.sp,
+                  width: Get.width - 100.w,
+                  height: 43.h,
+                  text: 'MORTGAGE CALCULATOR',
+                  bgColor: AppColors.kRedColor,
+                  onTap: () {
+                    Get.toNamed("/mortageCalculator");
+                  },
+                ),
+                SizedBox(height: 25.h),
+                myListings(),
+                SizedBox(height: 25.h),
+                favorites(),
+                SizedBox(height: 25.h),
+                archivedListing(),
+                SizedBox(height: 25.h),
+                soldProperties(),
+                SizedBox(height: 25.h),
+                myTrainings(),
+                SizedBox(height: 25.h),
+                findAgentsandOffices(),
+                SizedBox(height: 25.h),
+                latestNews(),
+                SizedBox(height: 25.h),
+                // eraMerch(),
+              ],
+            ),
           ),
         ),
       ),
@@ -79,109 +83,100 @@ class AgentDashBoard extends GetView<AgentsController> {
   }
 
   Widget soldProperties() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'SOLD PROPERTIES',
-            color: AppColors.kRedColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-          ),
-          SizedBox(height: 10.h),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed(
-                      "/soldP",
-                    );
-                  },
-                  child: Image.asset(
-                    AppEraAssets.sold,
-                    height: 110.h,
-                    width: 110.w,
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'SOLD PROPERTIES',
+          color: AppColors.kRedColor,
+          fontSize: EraTheme.header - 5.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: 10.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(
+                    "/soldP",
+                  );
+                },
+                child: Image.asset(
+                  AppEraAssets.sold,
+                  height: 110.h,
+                  width: 110.w,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget archivedListing() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'ARCHIVED LISTINGS',
-            color: AppColors.kRedColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-          ),
-          SizedBox(height: 10.h),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed("/archived", arguments: listing);
-                  },
-                  child: Image.asset(
-                    AppEraAssets.archived,
-                    height: 110.h,
-                    width: 110.w,
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'ARCHIVED LISTINGS',
+          color: AppColors.kRedColor,
+          fontSize: EraTheme.header - 5.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: 10.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed("/archived", arguments: listing);
+                },
+                child: Image.asset(
+                  AppEraAssets.archived,
+                  height: 110.h,
+                  width: 110.w,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget favorites() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'FAVORITES',
-            color: AppColors.kRedColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-          ),
-          SizedBox(height: 10.h),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed("/fav");
-                  },
-                  child: Image.asset(
-                    AppEraAssets.fav,
-                    height: 110.h,
-                    width: 110.w,
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'FAVORITES',
+          color: AppColors.kRedColor,
+          fontSize: EraTheme.header - 5.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: 10.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed("/fav");
+                },
+                child: Image.asset(
+                  AppEraAssets.fav,
+                  height: 110.h,
+                  width: 110.w,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -192,7 +187,7 @@ class AgentDashBoard extends GetView<AgentsController> {
         EraText(
           text: 'ERA MERCH',
           color: AppColors.kRedColor,
-          fontSize: 20.sp,
+          fontSize: EraTheme.header - 5.sp,
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
@@ -220,13 +215,13 @@ class AgentDashBoard extends GetView<AgentsController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: EraText(
-              text: 'LATEST NEWS',
-              color: AppColors.kRedColor,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600),
+        EraText(
+            text: 'LATEST NEWS',
+            color: AppColors.kRedColor,
+            fontSize: EraTheme.header - 5.sp,
+            fontWeight: FontWeight.w600),
+        SizedBox(
+          height: 10.h,
         ),
         CompanyGrid(companymodels: CompanyModels.companyNewsModels),
         SizedBox(
@@ -253,110 +248,101 @@ class AgentDashBoard extends GetView<AgentsController> {
   }
 
   Widget findAgentsandOffices() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'FIND AGENTS AND OFFICES',
-            color: AppColors.kRedColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'FIND AGENTS AND OFFICES',
+          color: AppColors.kRedColor,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: 10.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              iconAgents('${listing.user.image}', () {},
+                  '${listing.user.firstname} ${listing.user.lastname}'),
+              iconAgents('${listing.user.image}', () {},
+                  '${listing.user.firstname} ${listing.user.lastname}'),
+              iconAgents(AppEraAssets.clickFM, () {
+                Get.toNamed("/findagents");
+              }, 'Find Agents'),
+            ],
           ),
-          SizedBox(height: 10.h),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                iconAgents('${listing.user.image}', () {},
-                    '${listing.user.firstname} ${listing.user.lastname}'),
-                iconAgents('${listing.user.image}', () {},
-                    '${listing.user.firstname} ${listing.user.lastname}'),
-                iconAgents(AppEraAssets.clickFM, () {
-                  Get.toNamed("/findagents");
-                }, 'Find Agents'),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget myTrainings() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'MY TRAININGS',
-            color: AppColors.kRedColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'MY TRAININGS',
+          color: AppColors.kRedColor,
+          fontSize: EraTheme.header - 5.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: 10.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              trainingIcon(AppEraAssets.videoT, () {}),
+              trainingIcon(AppEraAssets.learningM, () {}),
+              trainingIcon(AppEraAssets.upcoming, () {}),
+              trainingIcon(AppEraAssets.clickFM, () {})
+            ],
           ),
-          SizedBox(height: 10.h),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                trainingIcon(AppEraAssets.videoT, () {}),
-                trainingIcon(AppEraAssets.learningM, () {}),
-                trainingIcon(AppEraAssets.upcoming, () {}),
-                trainingIcon(AppEraAssets.clickFM, () {})
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget myListings() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'MY LISTINGS',
-            color: AppColors.kRedColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-          ),
-          SizedBox(height: 10.h),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed(
-                      '/addListings',
-                    );
-                  },
-                  child: Image.asset(
-                    AppEraAssets.addIcon,
-                    height: 110.h,
-                    width: 110.w,
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'MY LISTINGS',
+          color: AppColors.kRedColor,
+          fontSize: EraTheme.header - 5.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: 10.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(
+                    '/addListings',
+                  );
+                },
+                child: Image.asset(
+                  AppEraAssets.addIcon,
+                  height: 110.h,
+                  width: 110.w,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/agentMyListing', arguments: listing);
-                  },
-                  child: Image.asset(
-                    AppEraAssets.manageListings,
-                    height: 110.h,
-                    width: 110.w,
-                  ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('/agentMyListing', arguments: listing);
+                },
+                child: Image.asset(
+                  AppEraAssets.manageListings,
+                  height: 110.h,
+                  width: 110.w,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -373,15 +359,12 @@ class AgentDashBoard extends GetView<AgentsController> {
 
   static Widget agentText(String text, Color color, double fontSize,
       FontWeight fontWeight, double lineHeight) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 7.w),
-      child: EraText(
-        text: text,
-        color: color,
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        lineHeight: lineHeight,
-      ),
+    return EraText(
+      text: text,
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      lineHeight: lineHeight,
     );
   }
 

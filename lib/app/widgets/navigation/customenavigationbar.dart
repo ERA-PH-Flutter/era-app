@@ -45,36 +45,34 @@ class BaseScaffold extends StatelessWidget {
       backgroundColor: AppColors.white,
       appBar: CustomAppbar(),
       body: body,
-      bottomNavigationBar: Obx(() {
-        return CurvedNavigationBar(
-          height: 70.h,
-          color: AppColors.blue,
-          backgroundColor: Colors.white.withOpacity(0),
-          buttonBackgroundColor: Colors.white.withOpacity(0),
+      bottomNavigationBar: CurvedNavigationBar(
+        height: 70.h < 75 ? 70.h : 75,
+        color: AppColors.blue,
+        backgroundColor: Colors.white.withOpacity(0),
+        buttonBackgroundColor: Colors.white.withOpacity(0),
 
-          // buttonBackgroundColor: AppColors.maroon,
-          index: selectedIndex.value,
-          onTap: (index) {
-            changeIndex(index);
-            navBarItems[index].onTap?.call();
-          },
-          items: navBarItems.map((item) {
-            int currentIndex = navBarItems.indexOf(item);
-            String iconPath = selectedIndex.value == currentIndex
-                ? item.selectedIcon
-                : item.defaultIcon;
+        // buttonBackgroundColor: AppColors.maroon,
+        index: selectedIndex.value,
+        onTap: (index) {
+          changeIndex(index);
+          navBarItems[index].onTap?.call();
+        },
+        items: navBarItems.map((item) {
+          int currentIndex = navBarItems.indexOf(item);
+          String iconPath = selectedIndex.value == currentIndex
+              ? item.selectedIcon
+              : item.defaultIcon;
 
-            return AppNavItems(
-                onTap: () {
-                  changeIndex(currentIndex);
-                  item.onTap?.call();
-                },
-                iconPath: iconPath,
-                label: item.label,
-                isActive: selectedIndex.value == currentIndex);
-          }).toList(),
-        );
-      }),
+          return AppNavItems(
+              onTap: () {
+                changeIndex(currentIndex);
+                item.onTap?.call();
+              },
+              iconPath: iconPath,
+              label: item.label,
+              isActive: selectedIndex.value == currentIndex);
+        }).toList(),
+      )
     );
   }
   

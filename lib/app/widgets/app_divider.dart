@@ -39,7 +39,7 @@ class AppDivider extends StatelessWidget {
           Image.asset(
             'assets/images/eraph_white-logo.png',
             fit: BoxFit.cover,
-            height: 152.h,
+            //height: 152.h,
             width: 157.w,
           ),
           SizedBox(height: 20.h),
@@ -47,19 +47,26 @@ class AppDivider extends StatelessWidget {
             text: text ??
                 '     CONNECT WORLDS, BUILD\nDREAMS WITH ERA PHILIPPINES:\n  YOUR REAL ESTATE AGENCY\n             PARTNER FOR LIFE',
             color: color ?? AppColors.white,
-            fontSize: 20.sp,
+            fontSize: 21.sp,
             maxLines: 20,
           ),
-          SizedBox(height: 20.h),
+
           if (button == true)
-            Button(
-              text: 'VIEW MORE PROJECTS',
-              onTap: () {
-                Get.toNamed('/project-main');
-              },
-              bgColor: AppColors.kRedColor,
-              height: 40.h,
-              borderRadius: BorderRadius.circular(30),
+            Column(
+              children: [
+                SizedBox(height: 25.h),
+                Button(
+                  text: 'VIEW MORE PROJECTS',
+                  onTap: () {
+                    Get.toNamed('/project-main');
+                  },
+                  bgColor: AppColors.kRedColor,
+                  width: 240.w,
+                  height: 40.h,
+                  borderRadius: BorderRadius.circular(99),
+                ),
+                SizedBox(height: 25.h),
+              ],
             ),
         ],
       ),

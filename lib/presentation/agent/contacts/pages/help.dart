@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
@@ -19,7 +20,7 @@ class Help extends GetView<ContactusController> {
     return BaseScaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(15.w),
+          padding: EdgeInsets.all(EraTheme.paddingWidth),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -30,14 +31,11 @@ class Help extends GetView<ContactusController> {
                 fontWeight: FontWeight.w600,
               ),
               SizedBox(height: 10.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                child: EraText(
-                  text: 'Account Name,\nWhat do you want to know?',
-                  fontSize: 25.sp,
-                  color: AppColors.kRedColor,
-                  fontWeight: FontWeight.w600,
-                ),
+              EraText(
+                text: 'Account Name,\nWhat do you want to know?',
+                fontSize: 25.sp,
+                color: AppColors.kRedColor,
+                fontWeight: FontWeight.w600,
               ),
               SizedBox(height: 10.h),
               BoxWidget.build(
@@ -53,14 +51,11 @@ class Help extends GetView<ContactusController> {
                 ],
               )),
               SizedBox(height: 20.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: EraText(
-                  text: 'Why ERA Philippines?',
-                  fontSize: 25.sp,
-                  color: AppColors.kRedColor,
-                  fontWeight: FontWeight.w600,
-                ),
+              EraText(
+                text: 'Why ERA Philippines?',
+                fontSize: 25.sp,
+                color: AppColors.kRedColor,
+                fontWeight: FontWeight.w600,
               ),
               SizedBox(height: 20.h),
               expansionTile('Guide for Getting Started',
@@ -69,14 +64,11 @@ class Help extends GetView<ContactusController> {
               expansionTile('Access and Manage Your Account',
                   'Access and Manage Your Account'),
               SizedBox(height: 20.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: EraText(
-                  text: 'More Topics',
-                  fontSize: 25.sp,
-                  color: AppColors.kRedColor,
-                  fontWeight: FontWeight.w600,
-                ),
+              EraText(
+                text: 'More Topics',
+                fontSize: 25.sp,
+                color: AppColors.kRedColor,
+                fontWeight: FontWeight.w600,
               ),
               SizedBox(height: 20.h),
               expansionTile(
@@ -91,14 +83,11 @@ class Help extends GetView<ContactusController> {
               expansionTile('Agent or Broker, What’s the Difference',
                   'Access and Manage Your Account'),
               SizedBox(height: 20.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: EraText(
-                  text: 'Explore More',
-                  fontSize: 25.sp,
-                  color: AppColors.kRedColor,
-                  fontWeight: FontWeight.w600,
-                ),
+              EraText(
+                text: 'Explore More',
+                fontSize: 25.sp,
+                color: AppColors.kRedColor,
+                fontWeight: FontWeight.w600,
               ),
               SizedBox(height: 20.h),
               expansionTile('Projects', 'Access and Manage Your Account'),

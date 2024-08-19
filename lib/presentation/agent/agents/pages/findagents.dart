@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/listings/agentlistview.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -26,49 +27,49 @@ class FindAgents extends GetView<AgentsController> {
             children: [
               EraText(
                 text: 'HAVE AN AGENT ALREADY?',
-                fontSize: 22.sp,
+                fontSize: EraTheme.subHeader,
                 fontWeight: FontWeight.w600,
                 color: AppColors.blue,
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 5.h),
               TextformfieldWidget(
                 hintText: 'Type Name Here',
                 maxLines: 1,
-                hintstlye: TextStyle(color: AppColors.hint, fontSize: 20.sp),
+                hintstlye: TextStyle(color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
               ),
               SizedBox(height: 10.h),
               EraText(
                 text: 'SEARCH VIA AGENT ID',
-                fontSize: 22.sp,
+                fontSize: EraTheme.subHeader,
                 fontWeight: FontWeight.w600,
                 color: AppColors.blue,
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 5.h),
               TextformfieldWidget(
                 hintText: 'Enter Agent ID',
                 maxLines: 1,
-                hintstlye: TextStyle(color: AppColors.hint, fontSize: 20.sp),
+                hintstlye: TextStyle(color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
               ),
               SizedBox(height: 10.h),
               EraText(
                 text: 'LOOKING FOR ONE?',
-                fontSize: 22.sp,
+                fontSize: EraTheme.subHeader,
                 fontWeight: FontWeight.w600,
                 color: AppColors.blue,
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 5.h),
               TextformfieldWidget(
                 hintText: 'Type Your Location',
                 maxLines: 1,
-                hintstlye: TextStyle(color: AppColors.hint, fontSize: 20.sp),
+                hintstlye: TextStyle(color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 20.h),
               Button(
                 text: 'SEARCH',
                 fontSize: 25.sp,
                 onTap: () {},
                 bgColor: AppColors.kRedColor,
-                height: 45.h,
+                height: 48.h,
                 width: 500.w,
                 fontWeight: FontWeight.w600,
                 margin: EdgeInsets.symmetric(horizontal: 0),

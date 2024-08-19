@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 class PropertiesWidgets extends StatelessWidget {
-  final List<PropertiesModels> listingsModels;
+  final List listingsModels;
 
   const PropertiesWidgets({super.key, required this.listingsModels});
   void _onTap(BuildContext context, String label) {
@@ -29,9 +30,11 @@ class PropertiesWidgets extends StatelessWidget {
       child: StaggeredGridView.countBuilder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
+        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
         itemCount: listingsModels.length,
         crossAxisCount: 2,
+        mainAxisSpacing: 15.w,
+        crossAxisSpacing: 15.w,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => _onTap(context, listingsModels[index].label),

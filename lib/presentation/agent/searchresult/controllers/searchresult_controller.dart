@@ -17,6 +17,12 @@ class SearchResultController extends GetxController {
   var data = [].obs;
   var searchQuery = ''.obs;
 
+  TextEditingController locationController = TextEditingController();
+  TextEditingController propertyController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  var isForSale = 0.obs;
+  var isForLease = true.obs;
+
   @override
   void onInit() {
     super.onInit();

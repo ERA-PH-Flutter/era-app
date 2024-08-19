@@ -22,7 +22,7 @@ class CustomPaginator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Padding(
-        padding: EdgeInsets.only(left: 200.w, right: 20.w),
+        padding: EdgeInsets.only(left: 200.w, right: 21.w),
         child: NumberPaginator(
           numberPages: totalPages,
           onPageChange: (index) {

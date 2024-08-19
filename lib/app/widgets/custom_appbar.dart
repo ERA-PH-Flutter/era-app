@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/menuitems.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -27,6 +28,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final Widget? action;
   final double height;
+  var doLogout = false.obs;
   var controller = OverlayPortalController();
 
   @override
@@ -60,7 +62,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                             count = snapshot.data!.docs.length;
                           }
                           return Container(
-                            width: 80.w,
+                            width: 55.w,
+                            height: 48.w,
                             child: Stack(
                               children: [
                                 Positioned.fill(
@@ -69,11 +72,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       //todo goto inbox
                                     },
                                     child: Icon(CupertinoIcons.mail,
-                                        color: AppColors.hint, size: 60.sp),
+                                        color: AppColors.hint, size: 30.sp),
                                   ),
                                 ),
                                 Positioned(
-                                  top: 12.5,
+                                  top: 0,
                                   right: 0,
                                   child: Container(
                                     alignment: Alignment.center,
@@ -82,11 +85,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                         borderRadius: BorderRadius.circular(20.r),
                                         border: Border.all(color: Colors.white,width: 3.w)
                                     ),
-                                    width: 32.5.w,
-                                    height: 32.5.w,
+                                    width: 25.w,
+                                    height: 25.w,
                                     child: EraText(
                                       text: count.toString(),
-                                      fontSize: 12.sp,
+                                      fontSize: 10.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -145,14 +148,20 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       thickness: 1,
                                       color: Colors.grey,
                                     ),
-                                    _buildMenuCard(user == null ? "LOGIN" : "LOGOUT", (){
-                                      if (user == null) {
-                                        Get.toNamed("/loginpage");
-                                      } else {
-                                        Authentication().logout();
-                                        Get.to(LoginPage(), binding: LoginPageBinding());
-                                      }
-                                    }),
+                                    Obx((){
+                                      doLogout.value;
+                                      return _buildMenuCard(user == null ? "LOGIN" : "LOGOUT", ()async{
+                                        if (user == null) {
+                                          Get.toNamed("/loginpage");
+                                        } else {
+                                          BaseController().showLoading();
+                                          doLogout.value = true;
+                                          user = null;
+                                          await Authentication().logout();
+                                          Get.to(LoginPage(), binding: LoginPageBinding());
+                                        }
+                                      });
+                                    })
                                   ],
                                 ),
                               ),

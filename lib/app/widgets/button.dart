@@ -37,7 +37,7 @@ class Button extends StatelessWidget {
       onTap: onTap,
       child: Center(
         child: Container(
-          margin: margin ?? EdgeInsets.symmetric(horizontal: 35),
+          margin: margin ?? EdgeInsets.zero,
           height: height ?? 50.h,
           width: width ?? 184.w,
           decoration: BoxDecoration(
@@ -48,7 +48,7 @@ class Button extends StatelessWidget {
               child: EraText(
             text: text ?? '',
             color: AppColors.white,
-            fontSize: fontSize,
+            fontSize: fontSize ?? 15.sp,
             fontWeight: fontWeight,
           )),
         ),

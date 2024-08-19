@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class Inquiry extends StatelessWidget {
   const Inquiry({super.key});
@@ -11,18 +12,17 @@ class Inquiry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(21.w),
       child: Column(
         children: [
           EraText(
-            text: 'INQUIRE NOW FOR DETAILS ON\n   AVAILABILITY AND PRICING',
-            fontSize: 22,
+            text: 'INQUIRE NOW FOR DETAILS ON AVAILABILITY AND PRICING',
+            fontSize: 25.sp,
             color: AppColors.kRedColor,
             fontWeight: FontWeight.bold,
           ),
           SizedBox(height: 20),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -81,7 +81,7 @@ class Inquiry extends StatelessWidget {
                   maxLines: 10,
                 ),
                 SizedBox(height: 20.h),
-                Button.button2(350.w, 40.h, () {
+                Button.button2(Get.width, 48.h, () {
                   // test print('Send');
                 }, 'Send'),
               ],

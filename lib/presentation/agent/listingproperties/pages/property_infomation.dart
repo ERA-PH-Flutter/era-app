@@ -297,7 +297,7 @@ class PropertyInformation extends GetView<ListingController> {
           ),
           SizedBox(height: 10.h),
 
-          ListingProperties(listingModels: RealEstateListing.listingsModels),
+          //ListingProperties(listingModels: RealEstateListing.listingsModels),
           Button(
             text: 'MORE LISTINGS',
             onTap: () {

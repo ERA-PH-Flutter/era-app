@@ -63,7 +63,7 @@ class EraUser {
         image: ""
     );
   }
-  getById(targetId) async {
+  Future<EraUser> getById(targetId) async {
     return EraUser.fromJSON((await db.collection('users').doc(targetId).get()).data() ?? {});
   }
   add()async{
@@ -81,11 +81,11 @@ class EraUser {
       "id": id,
       "first_name": firstname,
       "last_name": lastname,
-      "role": role,
+      "role": role ?? 'agent',
       "email": email,
       "whats_app": whatsApp,
       "image": image,
-      'status' : status,
+      'status' : status ?? 'disabled',
       'last_login' : lastLogin,
       'device_id' : deviceId,
       'era_id' : eraId ?? '',

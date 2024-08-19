@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -91,8 +93,8 @@ class ListingItemss extends StatelessWidget {
                                 width: selected.value ? 340.w : 380.w,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: AssetImage(image),
-                                    fit: BoxFit.cover,
+                                    image: CachedNetworkImageProvider(image),
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
                               ),
@@ -249,155 +251,141 @@ class ListingItemss extends StatelessWidget {
               opacity: isSold ? 0.7 : 1.0,
               child: Stack(
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: toggleSelected,
-                          child: Obx(() {
-                            return ClipPath(
-                              clipper: selected.value
-                                  ? CustomCornerClipPath()
-                                  : null,
-                              child: AnimatedContainer(
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.easeIn,
-                                height: selected.value ? 170.h : 200.h,
-                                width: selected.value ? 340.w : 380.w,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(image),
-                                    fit: BoxFit.cover,
-                                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: toggleSelected,
+                        child: Obx(() {
+                          return ClipPath(
+                            clipper: selected.value
+                                ? CustomCornerClipPath()
+                                : null,
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeIn,
+                              height: selected.value ? 165.h : 195.h,
+                              width: selected.value ? 340.w : 380.w,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: CachedNetworkImageProvider(image),
+                                  fit: BoxFit.contain,
                                 ),
                               ),
-                            );
-                          }),
-                        ),
-                        SizedBox(height: 15.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: EraText(
-                            text: type,
-                            fontSize: 16.sp,
-                            color: AppColors.kRedColor,
-                            fontWeight: FontWeight.bold,
-                            lineHeight: 0.4,
+                            ),
+                          );
+                        }),
+                      ),
+                      SizedBox(height: 15.h),
+                      EraText(
+                        text: type,
+                        fontSize: EraTheme.paragraph + 2.sp,
+                        color: AppColors.kRedColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      SizedBox(width: 10.w),
+                      Row(
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                AppEraAssets.area,
+                                width: 55.w,
+                                height: 55.w,
+                              ),
+                              SizedBox(width: 2.w),
+                              EraText(
+                                text: '$areas sqm',
+                                fontSize: EraTheme.paragraph,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.black,
+                              ),
+                            ],
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  AppEraAssets.area,
-                                  width: 40.w,
-                                  height: 40.h,
-                                ),
-                                SizedBox(width: 2.w),
-                                EraText(
-                                  text: '$areas sqm',
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.black,
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: 10.w),
-                            Image.asset(
-                              AppEraAssets.bed,
-                              width: 40.w,
-                              height: 40.h,
-                            ),
-                            EraText(
-                              text: '$beds',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
-                            ),
-                            SizedBox(width: 10.w),
-                            Image.asset(
-                              AppEraAssets.tub,
-                              width: 40.w,
-                              height: 40.h,
-                            ),
-                            EraText(
-                              text: '$baths',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
-                            ),
-                            SizedBox(width: 10.w),
-                            Image.asset(
-                              AppEraAssets.car,
-                              width: 40.w,
-                              height: 40.h,
-                            ),
-                            EraText(
-                              text: '$cars',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: EraText(
-                            text: 'Description:',
-                            fontSize: 16.sp,
+                          SizedBox(width: 10.w),
+                          Image.asset(
+                            AppEraAssets.bed,
+                            width: 55.w,
+                            height: 55.w,
+                          ),
+                          EraText(
+                            text: '$beds',
+                            fontSize: EraTheme.paragraph,
+                            fontWeight: FontWeight.w500,
                             color: AppColors.black,
-                            fontWeight: FontWeight.w600,
-                            lineHeight: 1,
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            description,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
-                            ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
+                          SizedBox(width: 10.w),
+                          Image.asset(
+                            AppEraAssets.tub,
+                            width: 55.w,
+                            height: 55.w,
                           ),
-                        ),
-                        SizedBox(height: 5.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: EraText(
-                            text: NumberFormat.currency(
-                              locale: 'en_PH',
-                              symbol: 'PHP ',
-                            ).format(price),
-                            color: AppColors.blue,
-                            fontSize: 23.sp,
-                            fontWeight: FontWeight.bold,
+                          EraText(
+                            text: '$baths',
+                            fontSize: EraTheme.paragraph,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.black,
                           ),
-                        ),
-                        if (showListedby)
-                          ListedBy(
-                            text: listedBy ?? '',
-                            image: agentImage ?? "",
-                            agentFirstName: agentFirstName ?? '',
-                            agentLastName: agentLastName ?? '',
-                            agentType: role ?? '',
+                          SizedBox(width: 10.w),
+                          Image.asset(
+                            AppEraAssets.car,
+                            width: 55.w,
+                            height: 55.w,
                           ),
-                        SizedBox(height: 20.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            if (buttonEdit != null) buttonEdit!,
-                            if (buttonDelete != null) buttonDelete!,
-                          ],
+                          EraText(
+                            text: '$cars',
+                            fontSize: EraTheme.paragraph,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.black,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5.h),
+                      EraText(
+                        text: 'Description:',
+                        fontSize: EraTheme.paragraph + 2.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w600,
+                        lineHeight: 1,
+                      ),
+                      Text(
+                        description,
+                        style: TextStyle(
+                          fontSize: EraTheme.paragraph,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.black,
                         ),
-                      ],
-                    ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 5.h),
+                      EraText(
+                        text: NumberFormat.currency(
+                          locale: 'en_PH',
+                          symbol: 'PHP ',
+                        ).format(price),
+                        color: AppColors.blue,
+                        fontSize: EraTheme.paragraph + 5.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      SizedBox(height: 5.h),
+                      if (showListedby)
+                        ListedBy(
+                          text: listedBy,
+                          image: agentImage ?? "",
+                          agentFirstName: agentFirstName ?? '',
+                          agentLastName: agentLastName ?? '',
+                          agentType: role ?? '',
+                        ),
+                      SizedBox(height: 20.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          if (buttonEdit != null) buttonEdit!,
+                          if (buttonDelete != null) buttonDelete!,
+                        ],
+                      ),
+                    ],
                   ),
                   if (isSold)
                     Positioned(

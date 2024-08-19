@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../app/services/ai_search.dart';
+import '../../../../app/services/firebase_database.dart';
+import '../controllers/searchresult_binding.dart';
 import '../controllers/searchresult_controller.dart';
 
 class SearchResult extends GetView<SearchResultController> {
@@ -18,41 +21,130 @@ class SearchResult extends GetView<SearchResultController> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      body: Padding(
-        padding: EdgeInsets.all(20.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BoxWidget.build(
-              child: Column(
-                children: [
-                  SizedBox(height: 10.h),
-                  AppTextField(
-                    controller: controller.aiSearchController,
-                    hint: 'AI Search',
-                    svgIcon: AppEraAssets.send,
-                    bgColor: AppColors.white,
-                  ),
-                  SearchWidget.build(() async {
-                    controller.searchResultState.value =
-                        SearchResultState.loading;
-                    controller.loadData(
-                        await AI(query: controller.aiSearchController.text)
-                            .search());
-                  }),
-                ],
-              ),
-            ),
-            Obx(() => switch (controller.searchResultState.value) {
-                  SearchResultState.loading => Center(
-                      child: CircularProgressIndicator(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(EraTheme.paddingWidth),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+        
+              BoxWidget.build(
+                child: Column(
+                  children: [
+                    SizedBox(height: 10.h),
+                    //Location
+                    AppTextField(
+                      controller: controller.locationController,
+                      hint: 'Location',
+                      svgIcon: AppEraAssets.marker,
+                      bgColor: AppColors.white,
                     ),
-                  SearchResultState.loaded => _loaded(),
-                  SearchResultState.empty => _empty(),
-                  SearchResultState.searching => _searching(),
-                  SearchResultState.error => _error(),
-                }),
-          ],
+                    //property type
+                    SizedBox(height: 20.h),
+                    AppTextField(
+                      controller: controller.propertyController,
+                      hint: 'Property Type',
+                      svgIcon: AppEraAssets.house,
+                      bgColor: AppColors.white,
+                    ),
+                    //price range
+                    SizedBox(height: 20.h),
+                    AppTextField(
+                      controller: controller.priceController,
+                      hint: 'Price Range',
+                      svgIcon: AppEraAssets.money,
+                      bgColor: AppColors.white,
+                    ),
+                    //ai search
+                    SizedBox(height: 20.h),
+                    AppTextField(
+                      controller: controller.aiSearchController,
+                      hint: 'AI Search',
+                      svgIcon: AppEraAssets.send,
+                      bgColor: AppColors.white,
+                    ),
+                    SizedBox(height: 20.h),
+                    Obx(
+                          () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            children: [
+                              Transform.scale(
+                                scale: 1.9,
+                                child: Radio(
+                                    fillColor: WidgetStateProperty.all(
+                                        AppColors.white.withOpacity(0.6)),
+                                    value: 1,
+                                    groupValue: controller.isForSale.value,
+                                    onChanged: (value) {
+                                      controller.isForSale.value = value ?? 0;
+                                    }),
+                              ),
+                              EraText(
+                                  text: 'SELL',
+                                  color: AppColors.white.withOpacity(0.6),
+                                  fontSize: 15.0.sp,
+                                  fontWeight: FontWeight.w500),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Transform.scale(
+                                scale: 1.9,
+                                child: Radio(
+                                    fillColor: WidgetStateProperty.all(
+                                        AppColors.white.withOpacity(0.6)),
+                                    value: 2,
+                                    groupValue: controller.isForSale.value,
+                                    onChanged: (value) {
+                                      controller.isForSale.value = value ?? 0;
+                                    }),
+                              ),
+                              EraText(
+                                  text: 'RENT',
+                                  color: AppColors.white.withOpacity(0.6),
+                                  fontSize: 15.0.sp,
+                                  fontWeight: FontWeight.w500),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    SearchWidget.build(() async {
+                      controller.searchResultState.value = SearchResultState.loading;
+                      var data;
+                      if (controller.aiSearchController.text == "") {
+                        data = await Database().searchListing(
+                            location: controller.locationController.text,
+                            price: controller.priceController,
+                            type: controller.isForSale.value == 1
+                                ? "selling"
+                                : "rent",
+                            property: controller.propertyController.text);
+                      } else {
+                        data = await AI(query: controller.aiSearchController.text)
+                            .search();
+                      }
+                      controller.data.value = data ?? [];
+                      controller.searchResultState.value = SearchResultState.loaded;
+                    }),
+                    SizedBox(height: 10.h),
+                  ],
+                ),
+              ),
+              Obx(() => switch (controller.searchResultState.value) {
+                    SearchResultState.loading => Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    SearchResultState.loaded => _loaded(),
+                    SearchResultState.empty => _empty(),
+                    SearchResultState.searching => _searching(),
+                    SearchResultState.error => _error(),
+                  }),
+            ],
+          ),
         ),
       ),
     );
@@ -67,24 +159,18 @@ class SearchResult extends GetView<SearchResultController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 10.h),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: EraText(
-            text: 'SEARCH RESULTS FOR',
-            fontSize: 23.sp,
-            color: AppColors.blue,
-            fontWeight: FontWeight.w600,
-          ),
+        EraText(
+          text: 'SEARCH RESULTS FOR',
+          fontSize: 23.sp,
+          color: AppColors.blue,
+          fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: EraText(
-            text: '“${controller.searchQuery}”',
-            fontSize: 22.sp,
-            color: AppColors.black,
-            fontWeight: FontWeight.w500,
-          ),
+        EraText(
+          text: '“${controller.searchQuery}”',
+          fontSize: 22.sp,
+          color: AppColors.black,
+          fontWeight: FontWeight.w500,
         ),
         SizedBox(height: 10.h),
         Container(

@@ -69,7 +69,7 @@ class LoginPageController extends GetxController with BaseController{
       Get.offAllNamed(RouteString.home);
     } else {
       showSuccessDialog(hitApi: (){
-
+        Get.back();
       },title: "Failed",description: "Incorrect credentials, please double check!");
     }
   }
@@ -78,7 +78,7 @@ class LoginPageController extends GetxController with BaseController{
     var googleLogin = await Authentication().signInWithGoogle();
     if(googleLogin != null){
       //todo check if user is reg
-      user = EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
+      user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
       Get.offAllNamed(RouteString.home);
     }else{
       showSuccessDialog(hitApi: (){

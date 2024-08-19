@@ -34,7 +34,7 @@ class GridviewAlllistings extends StatelessWidget {
               baths: listingModels[i].baths,
               cars: listingModels[i].cars,
               description: listingModels[i].description,
-              price: listingModels[i].price,
+              price: listingModels[i].price ?? 0,
               showListedby: false,
               buttonEdit: Button.button3(150.w, 40.h, () {
                 Get.toNamed('/editListings');

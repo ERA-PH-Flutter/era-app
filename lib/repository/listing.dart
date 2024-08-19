@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -24,8 +25,10 @@ class Listing{
   String? owner;
   int? leads;
   int? views;
-  String? dateCreated;
+  DateTime? dateCreated;
   String? description;
+  int? cars;
+  bool? isSold;
   Listing({
     this.id,
     this.name,
@@ -47,28 +50,33 @@ class Listing{
     this.leads,
     this.owner,
     this.views,
+    this.cars,
+    this.isSold,
   });
   factory Listing.fromJSON(Map<String,dynamic>json){
+    print(json);
     return Listing(
       id: json["id"],
       name: json["name"] ?? "",
-      price: json['price'],
+      price: json['price'].toString().toDouble(),
       type: json["type"] ?? "",
       baths: json["baths"] ?? 0,
       photos: json["photos"] ?? [],
-      floorArea: json["floor_area"] ?? 0,
+      floorArea: json["floor_area"].toString().toDouble(),
       location: json["location"],
       status: json["status"],
       area: json["area"],
       beds: json["beds"],
-      ppsqm: json["ppsqm"],
+      ppsqm: json["ppsqm"].toString().toDouble(),
       subCategory: json["sub_category"],
       by: json["by"],
       owner: json["owner"],
-      leads: json["view"],
+      leads: json["leads"],
       views: json["views"],
-      dateCreated: json["date_created"],
+      dateCreated: json["date_created"].toDate(),
       description: json["description"],
+      cars: json["cars"],
+      isSold: json["isSold"]
     );
   }
   Map<String,dynamic> toMap(){
@@ -92,6 +100,8 @@ class Listing{
       "description" : "",
       "views" : 0,
       "date_created" : DateTime.now(),
+      "cars" : cars ?? 0,
+      "isSold" : isSold ?? false
     };
   }
   getListing(id)async{
@@ -100,7 +110,6 @@ class Listing{
   addListing()async{
     /*
     landmarks
-    garage
     amenities
     balcony,
     */
