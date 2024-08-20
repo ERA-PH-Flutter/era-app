@@ -100,7 +100,7 @@ class AgentDashBoard extends GetView<AgentsController> {
               GestureDetector(
                 onTap: () {
                   Get.toNamed(
-                    "/soldP",
+                    "/soldP", arguments: listing,
                   );
                 },
                 child: Image.asset(

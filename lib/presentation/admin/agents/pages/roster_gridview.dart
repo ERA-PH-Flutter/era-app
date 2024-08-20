@@ -4,11 +4,9 @@ import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
-import 'package:eraphilippines/presentation/admin/agents/pages/roster_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class RosterGridview extends StatelessWidget {
   final List<RealEstateListing> listingModels;
@@ -19,7 +17,11 @@ class RosterGridview extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.all(60),
+      padding: EdgeInsets.only(
+        top: 50.h,
+        left: 80.w,
+        right: 80.w,
+      ),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisExtent: 430.h,
@@ -37,14 +39,11 @@ class RosterGridview extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListedBy(
-              height: 70.h,
-              width: 70.w,
               text: '',
               image: "${listingModels[i].user.image}",
               agentFirstName: "${listingModels[i].user.firstname}",
               agentLastName: "${listingModels[i].user.lastname}",
               agentType: "${listingModels[i].user.role}",
-              fontSize: 14.sp,
             ),
             Padding(
               padding: EdgeInsets.only(left: 20.w, top: 20.h),
@@ -66,7 +65,6 @@ class RosterGridview extends StatelessWidget {
                 maxLines: 3,
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(left: 15.w, top: 10.h),
               child: Row(
@@ -125,53 +123,9 @@ class RosterGridview extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            // Flexible(
-            //   child: ListedBy(
-            //     whatsappIcon: AppEraAssets.whatsappIcon,
-            //     whatsapp: "${listingModels[i].user.whatsApp}",
-            //     emailIcon: AppEraAssets.emailIcon,
-            //     email: "${listingModels[i].user.email}",
-            //   ),
-            // )
           ],
         ),
       ),
     );
   }
 }
-
-
-// class RosterCard {
-//   static builderProfiles(final List<RealEstateListing> listings) {
-//     SizedBox(
-//       height: 300.h,
-//       child: GridView.builder(
-//           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//             crossAxisCount: 1,
-//             crossAxisSpacing: 10.w,
-//             mainAxisSpacing: 10.h,
-//             mainAxisExtent: 300.h,
-//           ),
-//           itemCount: listings.length,
-//           itemBuilder: (context, i) => RosterWidgets.rosterCard(
-//                 '${listings[i].user.firstname}',
-//                 '${listings[i].user.lastname}',
-//                 '${listings[i].user.image}',
-//                 '${listings[i].user.role}',
-//               )),
-//     );
-//   }
-// }
-// Card(
-//             color: AppColors.white,
-//             child: Column(
-//               children: [
-//                 ListedBy(
-//                   text: 'Listed By',
-//                   image: "${agents[i].user.image}",
-//                   agentFirstName: "${agents[i].user.firstname}",
-//                   agentLastName: "${agents[i].user.lastname}",
-//                   agentType: "${agents[i].user.role}",
-//                 ),
-//               ],
-//             )),
