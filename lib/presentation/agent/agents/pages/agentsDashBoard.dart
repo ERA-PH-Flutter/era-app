@@ -29,7 +29,8 @@ class AgentDashBoard extends GetView<AgentsController> {
         scrollDirection: Axis.vertical,
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal:EraTheme.paddingWidth,vertical: 10.h),
+            padding: EdgeInsets.symmetric(
+                horizontal: EraTheme.paddingWidth, vertical: 10.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -100,7 +101,8 @@ class AgentDashBoard extends GetView<AgentsController> {
               GestureDetector(
                 onTap: () {
                   Get.toNamed(
-                    "/soldP", arguments: listing,
+                    "/soldP",
+                    arguments: listing,
                   );
                 },
                 child: Image.asset(

@@ -1,4 +1,6 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
@@ -6,7 +8,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/project.dart';
+import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -42,14 +44,25 @@ class ProjectMain extends GetView<ProjectsController> {
         AppDivider(),
 
         SizedBox(height: 20.h),
-        TextListing.projectTitle(25.sp, FontWeight.bold, AppColors.blue),
-        SizedBox(height: 10.h),
-        TextListing.projectSubtitle(18.sp, FontWeight.bold, AppColors.black),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.header - 8.w),
+          child: TextListing.projectTitle(
+              EraTheme.header, FontWeight.w600, AppColors.blue),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.header - 8.w),
+          child: TextListing.projectSubtitle(
+              EraTheme.subHeader, FontWeight.w500, AppColors.black),
+        ),
+
         SizedBox(height: 20.h),
         ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 20.h),
         // can add carousel new photos just go to lib/app/models/carousel_models.dart
-        CarouselSliderWidget(),
+        CarouselSliderWidget(
+  images: CarouselModels.carouselModels 
+
+        ),
         SizedBox(height: 20.h),
         projectContent1(project),
         SizedBox(height: 20.h),
@@ -57,13 +70,12 @@ class ProjectMain extends GetView<ProjectsController> {
         Button(
             text: 'VIEW MORE',
             onTap: () {
-              Get.toNamed('/project');
+              Get.toNamed("/haraya");
             },
             bgColor: AppColors.blue,
             borderRadius: BorderRadius.circular(30),
             height: 40.h,
-            width: Get.width),
-        // i suggest to add text already on the picture, because the picture im using has white background so when im gonna put the text it will have a gap
+            width: 240.w),
         SizedBox(height: 30.h),
         ProjectDivider(
             textImage: ProjectTextImageModels.textImageModels2,
@@ -71,37 +83,42 @@ class ProjectMain extends GetView<ProjectsController> {
             width: 430.w,
             text: ' '),
         //temporary carousel
-        CarouselSliderWidget(color: AppColors.carouselBgColor1),
+        CarouselSliderWidget(
+            images: CarouselModels.carouselModels ,
+          color: AppColors.carouselBgColor1),
         SizedBox(height: 25.h),
         projectContent2(project),
         SizedBox(height: 20.h),
         Button(
             text: 'VIEW MORE',
             onTap: () {
-              Get.toNamed('/project');
+              Get.toNamed("/laya");
             },
             bgColor: AppColors.blue,
             borderRadius: BorderRadius.circular(30),
             height: 40.h,
-            width: Get.width),
+            width: 240.w),
         SizedBox(height: 30.h),
         ProjectDivider(
           textImage: ProjectTextImageModels.textImageModels3,
         ),
         SizedBox(height: 20.h),
-        CarouselSliderWidget(color: AppColors.carouselBgColor),
+        CarouselSliderWidget(
+            images: CarouselModels.carouselModels ,
+          color: AppColors.carouselBgColor),
         SizedBox(height: 30.h),
         projectContent3(project),
         SizedBox(height: 20.h),
         Button(
-            text: 'VIEW MORE',
-            onTap: () {
-              Get.toNamed('/project');
-            },
-            bgColor: AppColors.blue,
-            borderRadius: BorderRadius.circular(30),
-            height: 40.h,
-            width: Get.width),
+          text: 'VIEW MORE',
+          onTap: () {
+            Get.toNamed('/haraya');
+          },
+          bgColor: AppColors.blue,
+          borderRadius: BorderRadius.circular(30),
+          height: 40.h,
+          width: 240.w,
+        ),
         SizedBox(height: 30.h),
       ],
     );
@@ -113,7 +130,7 @@ class ProjectMain extends GetView<ProjectsController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ProjectPage.paddingText(
+          HarayaProject.paddingTextTitle(
             project.text1,
             20,
             FontWeight.bold,
@@ -121,7 +138,7 @@ class ProjectMain extends GetView<ProjectsController> {
             0,
           ),
           SizedBox(height: 20.h),
-          ProjectPage.paddingText(
+          HarayaProject.paddingText(
             project.text2,
             14,
             FontWeight.w500,
@@ -139,7 +156,7 @@ class ProjectMain extends GetView<ProjectsController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ProjectPage.paddingText(
+          HarayaProject.paddingText(
             project.text3,
             20,
             FontWeight.bold,
@@ -147,7 +164,7 @@ class ProjectMain extends GetView<ProjectsController> {
             0,
           ),
           SizedBox(height: 20.h),
-          ProjectPage.paddingText(
+          HarayaProject.paddingText(
             project.text4,
             14,
             FontWeight.w500,
@@ -165,7 +182,7 @@ class ProjectMain extends GetView<ProjectsController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ProjectPage.paddingText(
+          HarayaProject.paddingTextTitle(
             project.text5,
             20,
             FontWeight.bold,
@@ -173,7 +190,7 @@ class ProjectMain extends GetView<ProjectsController> {
             0,
           ),
           SizedBox(height: 20.h),
-          ProjectPage.paddingText(
+          HarayaProject.paddingText(
             project.text6,
             14,
             FontWeight.w500,

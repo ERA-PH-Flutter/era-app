@@ -256,10 +256,10 @@ class ListingItemss extends StatelessWidget {
                       GestureDetector(
                         onTap: toggleSelected,
                         child: Obx(() {
+                          print(image);
                           return ClipPath(
-                            clipper: selected.value
-                                ? CustomCornerClipPath()
-                                : null,
+                            clipper:
+                                selected.value ? CustomCornerClipPath() : null,
                             child: AnimatedContainer(
                               duration: Duration(milliseconds: 300),
                               curve: Curves.easeIn,

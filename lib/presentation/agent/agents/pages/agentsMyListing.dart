@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/widgets/agent_All_Listings/gridView_AllListin
 import 'package:eraphilippines/app/widgets/agent_All_Listings/listview_agent_allListings.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:eraphilippines/app/widgets/sold_properties/custom_sort.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,9 @@ class AgentMyListing extends GetView<AgentsController> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 5.h,
+                ),  
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -45,64 +49,42 @@ class AgentMyListing extends GetView<AgentsController> {
                     ),
 
                     //TO DO: nikko not final this is for sorting
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40.h),
-                      child: PopupMenuButton<String>(
-                        color: AppColors.white,
-                        style: ButtonStyle(
-                          backgroundColor:
-                              WidgetStateProperty.all(AppColors.blue),
-                          shape: WidgetStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
+                    CustomSortPopup(
+                      title: 'Sort by',
+                      onSelected: (String result) {
+                        print(result);
+                      },
+                      menuItems: const [
+                        PopupMenuItem<String>(
+                          value: 'Category',
+                          child: Text('Category',
+                              style: TextStyle(color: Colors.black)),
                         ),
-                        icon: Row(
-                          children: [
-                            EraText(
-                              text: 'Sort by',
-                              color: AppColors.white,
-                              fontSize: 15.sp,
-                            ),
-                          ],
+                        PopupMenuItem<String>(
+                          value: 'date_modified',
+                          child: Text('Date',
+                              style: TextStyle(color: Colors.black)),
                         ),
-                        onSelected: (String result) {
-                          print(result);
-                        },
-                        itemBuilder: (BuildContext context) =>
-                            <PopupMenuEntry<String>>[
-                          PopupMenuItem<String>(
-                            value: 'Category',
-                            child: EraText(
-                                text: 'Category', color: AppColors.black),
-                          ),
-                          PopupMenuItem<String>(
-                            value: 'date_modified',
-                            child:
-                                EraText(text: 'Date', color: AppColors.black),
-                          ),
-                          PopupMenuItem<String>(
-                            value: 'Location',
-                            child: EraText(
-                                text: 'Location', color: AppColors.black),
-                          ),
-                          PopupMenuItem<String>(
-                            value: 'Amount',
-                            child:
-                                EraText(text: 'Amount', color: AppColors.black),
-                          ),
-                          const PopupMenuDivider(),
-                          const PopupMenuItem<String>(
-                            value: 'ascending',
-                            child: Text('Ascending'),
-                          ),
-                          const PopupMenuItem<String>(
-                            value: 'descending',
-                            child: Text('Descending'),
-                          ),
-                        ],
-                      ),
+                        PopupMenuItem<String>(
+                          value: 'Location',
+                          child: Text('Location',
+                              style: TextStyle(color: Colors.black)),
+                        ),
+                        PopupMenuItem<String>(
+                          value: 'Amount',
+                          child: Text('Amount',
+                              style: TextStyle(color: Colors.black)),
+                        ),
+                        PopupMenuDivider(),
+                        PopupMenuItem<String>(
+                          value: 'ascending',
+                          child: Text('Ascending'),
+                        ),
+                        PopupMenuItem<String>(
+                          value: 'descending',
+                          child: Text('Descending'),
+                        ),
+                      ],
                     ),
                   ],
                 ),

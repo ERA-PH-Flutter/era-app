@@ -18,7 +18,7 @@ class SoldPropertiesListings extends StatelessWidget {
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        mainAxisExtent: 500.h,
+        mainAxisExtent: 510.h,
         mainAxisSpacing: 20.h,
       ),
       itemCount: listingModels.length,
@@ -34,7 +34,7 @@ class SoldPropertiesListings extends StatelessWidget {
         showListedby: true,
         listedBy: 'Listed By',
         agentImage: '${listingModels[i].user.image}',
-        agentFirstName: ' ${listingModels[i].user.firstname}',
+        agentFirstName: '${listingModels[i].user.firstname}',
         agentLastName: '${listingModels[i].user.lastname}',
         role: '${listingModels[i].user.role}',
         onTap: () {

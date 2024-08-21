@@ -96,11 +96,12 @@ class AgentsItems extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 15.h),
+                        //????
                         Button(
-                          text: 'VIEW LISTINGS',
+                          text: 'VIEW LISTING',
                           fontSize: 13.sp,
                           onTap: () {
-                            Get.toNamed('/agentDashBoard',
+                            Get.toNamed('/agentMyListing',
                                 arguments: agentInfo);
                           },
                           bgColor: AppColors.kRedColor,
@@ -169,7 +170,7 @@ class AgentsItems extends StatelessWidget {
                           text: 'VIEW LISTINGS',
                           fontSize: 15.sp,
                           onTap: () {
-                            Get.toNamed('/agentDashBoard',
+                            Get.toNamed('/agentMyListing',
                                 arguments: agentInfo);
                           },
                           bgColor: AppColors.kRedColor,

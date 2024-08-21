@@ -13,29 +13,31 @@ class CompanyGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return companymodels.isNotEmpty ? SizedBox(
-      height: 440.h,
-      child: GridView.builder(
-        physics: ScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          mainAxisExtent: 430.w, //410
-        ),
-        itemCount: companymodels.length,
-        itemBuilder: (context, i) =>
-            CompanyItems(companyItems: companymodels[i]),
-      ),
-    ) : SizedBox(
-      height: 120.h,
-      child: Center(
-        child: EraText(
-          text: 'No featured news!',
-          color: Colors.black,
-          fontSize: 18.sp,
-        ),
-      ),
-    );
+    return companymodels.isNotEmpty
+        ? SizedBox(
+            height: 440.h,
+            child: GridView.builder(
+              physics: ScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                mainAxisExtent: 430.w, //410
+              ),
+              itemCount: companymodels.length,
+              itemBuilder: (context, i) =>
+                  CompanyItems(companyItems: companymodels[i]),
+            ),
+          )
+        : SizedBox(
+            height: 120.h,
+            child: Center(
+              child: EraText(
+                text: 'No featured news!',
+                color: Colors.black,
+                fontSize: 18.sp,
+              ),
+            ),
+          );
   }
 }

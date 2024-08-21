@@ -1,11 +1,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+var selectedIndex = 0.obs;
+
+void nextImage(int totalImg) {
+  if (selectedIndex.value < totalImg - 1) {
+    selectedIndex.value++;
+  }
+}
+
+void prevImage() {
+  if (selectedIndex.value > 0) {
+    selectedIndex.value--;
+  }
+}
 
 class CompanyItems extends StatelessWidget {
   final companyItems;
@@ -57,7 +73,8 @@ class CompanyItems extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.r),
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthSmall,vertical: 10.h),
+              padding: EdgeInsets.symmetric(
+                  horizontal: EraTheme.paddingWidthSmall, vertical: 10.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -91,6 +108,44 @@ class CompanyItems extends StatelessWidget {
                     height: 20.h,
                   ),
                 ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          left: 10.w,
+          top: 0.h,
+          bottom: 180.h,
+          child: Container(
+            height: 320.h,
+            alignment: Alignment.center,
+            child: GestureDetector(
+              onTap: () {
+                //to do nikko
+              },
+              child: Image.asset(
+                AppEraAssets.next,
+                height: 20.h,
+                width: 20.w,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          right: 10.w,
+          top: 0.h,
+          bottom: 180.h,
+          child: Container(
+            height: 320.h,
+            alignment: Alignment.center,
+            child: GestureDetector(
+              onTap: () {
+                //to do nikko
+              },
+              child: Image.asset(
+                AppEraAssets.prev,
+                height: 20.h,
+                width: 20.w,
               ),
             ),
           ),

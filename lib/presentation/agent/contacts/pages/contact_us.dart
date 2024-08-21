@@ -3,13 +3,14 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/agent/contacts/controllers/contacts_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../home/controllers/home_controller.dart';
 
-class ContactUs extends GetView<HomeController> {
+class ContactUs extends GetView<ContactusController> {
   const ContactUs({super.key});
 
   @override

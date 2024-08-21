@@ -6,8 +6,13 @@ class RouteString {
   static String residential = "/residential";
   static String commercial = "/commercial";
   static String auction = "/auction";
-  static String project = "/project";
+
+  //projects
+  static String haraya = "/haraya";
+  static String laya = "/laya";
+
   static String projectmain = "/project-main";
+
   static String contactus = "/contactus";
   static String aboutus = "/aboutus";
   static String createaccount = "/createaccount";
@@ -27,6 +32,7 @@ class RouteString {
   static String fav = "/fav";
   static String archived = "/archived";
   static String soldP = "/soldP";
+  static String sellProperty = "/sellProperty";
 
   //admin
   static String landingPage = "/landingPage";

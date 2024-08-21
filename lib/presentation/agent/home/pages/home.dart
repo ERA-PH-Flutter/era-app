@@ -1,5 +1,6 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
+import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -54,17 +55,17 @@ class Home extends GetView<HomeController> {
       children: [
         /// Carousel
         SizedBox(
-            height: 320.h,//height: (Get.height - 100.h) / 2,
+            height: 320.h, //height: (Get.height - 100.h) / 2,
             child: Stack(
               children: [
                 Positioned.fill(
                   child: CarouselSlider(
                       controller: controller.innerController,
                       items: controller.images.map((imagePath) {
-                              return CustomImage(
-                                url: imagePath,
-                              );
-                            }).toList(),
+                        return CustomImage(
+                          url: imagePath,
+                        );
+                      }).toList(),
                       options: CarouselOptions(
                         autoPlayInterval: Duration(seconds: 2),
                         autoPlay: true,
@@ -133,10 +134,14 @@ class Home extends GetView<HomeController> {
                 ),
               ],
             )),
-        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 10.h,
+        ),
+
         /// Search Engine Box
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth * 2.5,vertical: 26.h),
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidth * 2.5, vertical: 26.h),
           child: BoxWidget.build(
             child: Column(
               children: [
@@ -244,17 +249,25 @@ class Home extends GetView<HomeController> {
             ),
           ),
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 10.h,
+        ),
+
         /// Listings
-        PropertiesWidgets(listingsModels:controller.listingImages),
-        SizedBox(height: 10.h,),
+        PropertiesWidgets(listingsModels: controller.listingImages),
+        SizedBox(
+          height: 10.h,
+        ),
+
         /// Projects
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 15.h),
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidth, vertical: 15.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextListing.projectTitle(EraTheme.header, FontWeight.w600, AppColors.blue),
+              TextListing.projectTitle(
+                  EraTheme.header, FontWeight.w600, AppColors.blue),
               TextListing.projectSubtitle(
                   EraTheme.subHeader, FontWeight.w500, AppColors.black),
               SizedBox(
@@ -270,14 +283,17 @@ class Home extends GetView<HomeController> {
               SizedBox(
                 height: 20.h,
               ),
-              CarouselSliderWidget(),
+              CarouselSliderWidget(
+  images: CarouselModels.carouselModels 
+
+              ),
               SizedBox(
                 height: 40.h,
               ),
               Button(
                 text: 'VIEW PROJECTS',
                 onTap: () {
-                  Get.toNamed("/project");
+                  Get.toNamed("/haraya");
                 },
                 bgColor: AppColors.kRedColor,
                 height: EraTheme.buttonHeightSmall,
@@ -287,16 +303,24 @@ class Home extends GetView<HomeController> {
             ],
           ),
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 10.h,
+        ),
+
         ///
         AppDivider(
           button: true,
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 10.h,
+        ),
         SizedBox(
           height: 20.h,
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 10.h,
+        ),
+
         /// Featured Listings
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
@@ -304,10 +328,10 @@ class Home extends GetView<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextListing(
-                  margin: EdgeInsets.symmetric(horizontal: 20.0),
+                  margin: EdgeInsets.symmetric(horizontal: 0.h),
                   text: 'FEATURED LISTING',
                   fontSize: EraTheme.header,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   color: AppColors.blue),
               SizedBox(
                 height: 25.h,
@@ -316,24 +340,26 @@ class Home extends GetView<HomeController> {
             ],
           ),
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 10.h,
+        ),
+
         /// All About News
         Padding(
-          padding:EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextListing(
                   text: 'COMPANY NEWS',
                   fontSize: EraTheme.header,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.blue
-              ),
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blue),
               TextListing(
-                  text: 'Latest News and Events from ERA PH',
-                  fontSize: EraTheme.subHeader,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black,
+                text: 'Latest News and Events from ERA Philippines',
+                fontSize: EraTheme.subHeader,
+                fontWeight: FontWeight.w500,
+                color: AppColors.black,
               ),
               SizedBox(
                 height: 20.h,
