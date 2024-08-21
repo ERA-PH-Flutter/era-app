@@ -1,5 +1,6 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
+import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -282,14 +283,17 @@ class Home extends GetView<HomeController> {
               SizedBox(
                 height: 20.h,
               ),
-              CarouselSliderWidget(),
+              CarouselSliderWidget(
+  images: CarouselModels.carouselModels 
+
+              ),
               SizedBox(
                 height: 40.h,
               ),
               Button(
                 text: 'VIEW PROJECTS',
                 onTap: () {
-                  Get.toNamed("/project");
+                  Get.toNamed("/haraya");
                 },
                 bgColor: AppColors.kRedColor,
                 height: EraTheme.buttonHeightSmall,

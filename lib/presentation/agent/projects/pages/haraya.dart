@@ -18,8 +18,8 @@ import '../../contacts/pages/findus.dart';
 import '../../contacts/pages/inquiry.dart';
 import '../controllers/projects_controller.dart';
 
-class ProjectPage extends GetView<ProjectsController> {
-  const ProjectPage({super.key});
+class HarayaProject extends GetView<ProjectsController> {
+  const HarayaProject({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +40,11 @@ class ProjectPage extends GetView<ProjectsController> {
   Widget projectContainer(ProjectsModels1 project) {
     return Column(
       children: [
-        Image.asset(project.heroImage),
+        Image.asset(project.heroImage ?? ""),
         SizedBox(height: 15.h),
         ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 15.h),
-        CarouselSliderWidget(),
+        CarouselSliderWidget(images: CarouselModels.carouselModels),
         SizedBox(height: 30.h),
         projectContent1(project),
         SizedBox(height: 30.h),
@@ -56,7 +56,7 @@ class ProjectPage extends GetView<ProjectsController> {
         projectContent5(project),
         SizedBox(height: 30.h),
         paddingText(
-          project.text34,
+          project.text34 ?? "",
           18.sp,
           FontWeight.w700,
           AppColors.blue,
@@ -64,14 +64,14 @@ class ProjectPage extends GetView<ProjectsController> {
         ),
         SizedBox(height: 10.h),
         paddingText(
-          project.text35,
+          project.text35 ?? "",
           14.sp,
           FontWeight.w500,
           AppColors.black,
           45,
         ),
         SizedBox(height: 10.h),
-        Image.asset(project.text36),
+        Image.asset(project.text36 ?? ""),
         SizedBox(height: 15.h),
         Inquiry(),
         SizedBox(height: 40.h),
@@ -89,14 +89,14 @@ class ProjectPage extends GetView<ProjectsController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           paddingText(
-            project.text1,
+            project.text1 ?? "",
             20,
             FontWeight.bold,
             AppColors.blue,
             15,
           ),
           paddingText(
-            project.text2,
+            project.text2 ?? "",
             18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
@@ -104,7 +104,7 @@ class ProjectPage extends GetView<ProjectsController> {
           ),
           SizedBox(height: 10.h),
           paddingText(
-            project.text3,
+            project.text3 ?? "",
             14,
             FontWeight.w500,
             AppColors.black,
@@ -112,7 +112,7 @@ class ProjectPage extends GetView<ProjectsController> {
           ),
           SizedBox(height: 10.h),
           Image.asset(
-            project.image1,
+            project.image1 ?? "",
             fit: BoxFit.cover,
           ),
         ],
@@ -127,19 +127,19 @@ class ProjectPage extends GetView<ProjectsController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           EraText(
-            text: project.text4,
+            text: project.text4 ?? "",
             fontSize: 20.sp,
             fontWeight: FontWeight.bold,
             color: AppColors.kRedColor,
           ),
           SizedBox(height: 20.h),
           Image.asset(
-            project.image2,
+            project.image2 ?? "",
             fit: BoxFit.cover,
           ),
           SizedBox(height: 20.h),
           EraText(
-            text: project.text5,
+            text: project.text5 ?? "",
             fontSize: 14.sp,
             fontWeight: FontWeight.w500,
             color: AppColors.black,
@@ -147,19 +147,19 @@ class ProjectPage extends GetView<ProjectsController> {
           ),
           SizedBox(height: 20.h),
           EraText(
-            text: project.text6,
+            text: project.text6 ?? "",
             fontSize: 20.sp,
             fontWeight: FontWeight.bold,
             color: AppColors.kRedColor,
           ),
           SizedBox(height: 10.h),
           Image.asset(
-            project.image3,
+            project.image3 ?? "",
             fit: BoxFit.cover,
           ),
           SizedBox(height: 20.h),
           EraText(
-            text: project.text7,
+            text: project.text7 ?? "",
             fontSize: 14.sp,
             fontWeight: FontWeight.w500,
             color: AppColors.black,
@@ -176,39 +176,39 @@ class ProjectPage extends GetView<ProjectsController> {
       child: Column(
         children: [
           EraText(
-            text: project.text8,
+            text: project.text8 ?? "",
             fontSize: 20.sp,
             fontWeight: FontWeight.bold,
             color: AppColors.kRedColor,
           ),
           SizedBox(height: 10.h),
           EraText(
-            text: project.text9,
+            text: project.text9 ?? "",
             fontSize: 14.sp,
             fontWeight: FontWeight.w500,
             color: AppColors.black,
           ),
           SizedBox(height: 20.h),
-          Image.asset(project.image4),
+          Image.asset(project.image4 ?? ""),
           SizedBox(height: 20.h),
           EraText(
-            text: project.text10,
+            text: project.text10 ?? "",
             fontSize: 19.sp,
             fontWeight: FontWeight.bold,
             color: AppColors.kRedColor,
           ),
           SizedBox(height: 10.h),
           EraText(
-            text: project.text11,
+            text: project.text11 ?? "",
             fontSize: 14.sp,
             fontWeight: FontWeight.w500,
             color: AppColors.black,
             maxLines: 50,
           ),
           SizedBox(height: 20.h),
-          Image.asset(project.image5),
+          Image.asset(project.image5 ?? ""),
           SizedBox(height: 30.h),
-          Image.asset(project.image6),
+          Image.asset(project.image6 ?? ""),
           SizedBox(height: 20.h),
         ],
       ),
@@ -283,14 +283,14 @@ class ProjectPage extends GetView<ProjectsController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           paddingText(
-            project.text18,
+            project.text18 ?? "",
             20.sp,
             FontWeight.bold,
             AppColors.blue,
             40.sp,
           ),
           paddingText(
-            project.text19,
+            project.text19 ?? "",
             18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
@@ -304,15 +304,15 @@ class ProjectPage extends GetView<ProjectsController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                infoTile(project.icons, project.text20),
-                infoTile(project.icons1, project.text21),
-                infoTile(project.icons2, project.text22),
+                infoTile(project.icons ?? "", project.text20 ?? ""),
+                infoTile(project.icons1 ?? "", project.text21 ?? ""),
+                infoTile(project.icons2 ?? "", project.text22 ?? ""),
               ],
             ),
           ),
           SizedBox(height: 10.h),
           paddingText(
-            project.text23,
+            project.text23 ?? "",
             14.sp,
             FontWeight.w500,
             AppColors.black,
@@ -320,7 +320,7 @@ class ProjectPage extends GetView<ProjectsController> {
           ),
           SizedBox(height: 20.h),
           paddingText(
-            project.text24,
+            project.text24 ?? "",
             18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
@@ -334,15 +334,15 @@ class ProjectPage extends GetView<ProjectsController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                infoTile(project.icons, project.text25),
-                infoTile(project.icons1, project.text26),
-                infoTile(project.icons2, project.text27),
+                infoTile(project.icons ?? "", project.text25 ?? ""),
+                infoTile(project.icons1 ?? "", project.text26 ?? ""),
+                infoTile(project.icons2 ?? "", project.text27 ?? ""),
               ],
             ),
           ),
           SizedBox(height: 10.h),
           paddingText(
-            project.text23,
+            project.text23 ?? "",
             14.sp,
             FontWeight.w500,
             AppColors.black,
@@ -350,7 +350,7 @@ class ProjectPage extends GetView<ProjectsController> {
           ),
           SizedBox(height: 20.h),
           paddingText(
-            project.text29,
+            project.text29 ?? "",
             18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
@@ -364,15 +364,15 @@ class ProjectPage extends GetView<ProjectsController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                infoTile(project.icons, project.text30),
-                infoTile(project.icons1, project.text31),
-                infoTile(project.icons2, project.text32),
+                infoTile(project.icons ?? "", project.text30 ?? ""),
+                infoTile(project.icons1 ?? "", project.text31 ?? ""),
+                infoTile(project.icons2 ?? "", project.text32 ?? ""),
               ],
             ),
           ),
           SizedBox(height: 10.h),
           paddingText(
-            project.text33,
+            project.text33 ?? "",
             14.sp,
             FontWeight.w500,
             AppColors.black,
@@ -458,7 +458,7 @@ class ProjectPage extends GetView<ProjectsController> {
     return Stack(
       children: [
         CarouselSlider(
-          items: CarouselModels.carouselModels1.map((images) {
+          items: CarouselModels.layaCarouselImages.map((images) {
             return Builder(builder: (BuildContext context) {
               return CustomImage(
                 url: images,

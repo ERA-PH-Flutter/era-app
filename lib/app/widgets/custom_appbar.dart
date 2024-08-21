@@ -51,58 +51,59 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   action ??
                       (user != null
-                          ? StreamBuilder(
-                              stream: FirebaseFirestore.instance
-                                  .collection('messages')
-                                  .where("to",
-                                      whereIn: ["all", user!.id]).snapshots(),
-                              builder: (context, snapshot) {
-                                int count = 0;
-                                if (snapshot.hasData) {
-                                  count = snapshot.data!.docs.length;
-                                }
-                                return Container(
-                                  width: 55.w,
-                                  height: 48.w,
-                                  child: Stack(
-                                    children: [
-                                      Positioned.fill(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            //todo goto inbox
-                                          },
-                                          child: Icon(CupertinoIcons.mail,
-                                              color: AppColors.hint,
-                                              size: 30.sp),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: 0,
-                                        right: 0,
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(20.r),
-                                              border: Border.all(
-                                                  color: Colors.white,
-                                                  width: 3.w)),
-                                          width: 25.w,
-                                          height: 25.w,
-                                          child: EraText(
-                                            text: count.toString(),
-                                            fontSize: 10.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              },
-                            )
+                          ? Container()
+                          // ? StreamBuilder(
+                          //     stream: FirebaseFirestore.instance
+                          //         .collection('messages')
+                          //         .where("to",
+                          //             whereIn: ["all", user!.id]).snapshots(),
+                          //     builder: (context, snapshot) {
+                          //       int count = 0;
+                          //       if (snapshot.hasData) {
+                          //         count = snapshot.data!.docs.length;
+                          //       }
+                          //       return Container(
+                          //         width: 55.w,
+                          //         height: 48.w,
+                          //         child: Stack(
+                          //           children: [
+                          //             Positioned.fill(
+                          //               child: GestureDetector(
+                          //                 onTap: () {
+                          //                   //todo goto inbox
+                          //                 },
+                          //                 child: Icon(CupertinoIcons.mail,
+                          //                     color: AppColors.hint,
+                          //                     size: 30.sp),
+                          //               ),
+                          //             ),
+                          //             Positioned(
+                          //               top: 0,
+                          //               right: 0,
+                          //               child: Container(
+                          //                 alignment: Alignment.center,
+                          //                 decoration: BoxDecoration(
+                          //                     color: Colors.red,
+                          //                     borderRadius:
+                          //                         BorderRadius.circular(20.r),
+                          //                     border: Border.all(
+                          //                         color: Colors.white,
+                          //                         width: 3.w)),
+                          //                 width: 25.w,
+                          //                 height: 25.w,
+                          //                 child: EraText(
+                          //                   text: count.toString(),
+                          //                   fontSize: 10.sp,
+                          //                   color: Colors.white,
+                          //                   fontWeight: FontWeight.w600,
+                          //                 ),
+                          //               ),
+                          //             )
+                          //           ],
+                          //         ),
+                          //       );
+                          //     },
+                          //   )
                           : Container()),
                   SizedBox(width: 10.w),
                   GestureDetector(

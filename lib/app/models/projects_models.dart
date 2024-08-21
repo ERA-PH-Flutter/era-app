@@ -1,116 +1,116 @@
 class ProjectsModels1 {
-  final String heroImage;
+  final String? heroImage;
 
-  final String text1;
-  final String text2;
-  final String text3;
-  final String image1;
-  final String text4;
-  final String image2;
-  final String text5;
-  final String text6;
-  final String image3;
-  final String text7;
-  final String text8;
-  final String text9;
-  final String image4;
+  final String? text1;
+  final String? text2;
+  final String? text3;
+  final String? image1;
+  final String? text4;
+  final String? image2;
+  final String? text5;
+  final String? text6;
+  final String? image3;
+  final String? text7;
+  final String? text8;
+  final String? text9;
+  final String? image4;
   //ground haraya
-  final String text10;
-  final String text11;
-  final String image5;
+  final String? text10;
+  final String? text11;
+  final String? image5;
   //outdoor amenities
-  final String image6;
-  final String text12;
-  final String text13;
+  final String? image6;
+  final String? text12;
+  final String? text13;
   //indoor amenities
-  final String image7;
-  final String text14;
-  final String text15;
+  final String? image7;
+  final String? text14;
+  final String? text15;
   //the gym
-  final String image8;
-  final String text16;
-  final String text17;
+  final String? image8;
+  final String? text16;
+  final String? text17;
 
   //discover our spaces
-  final String text18;
+  final String? text18;
 
-  final String text19;
-  final String text20;
-  final String text21;
-  final String text22;
-  final String text23;
+  final String? text19;
+  final String? text20;
+  final String? text21;
+  final String? text22;
+  final String? text23;
 
-  final String text24;
-  final String text25;
-  final String text26;
-  final String text27;
-  final String text28;
+  final String? text24;
+  final String? text25;
+  final String? text26;
+  final String? text27;
+  final String? text28;
 
-  final String text29;
-  final String text30;
-  final String text31;
-  final String text32;
-  final String text33;
+  final String? text29;
+  final String? text30;
+  final String? text31;
+  final String? text32;
+  final String? text33;
 
   //virtual
-  final String text34;
-  final String text35;
-  final String text36;
+  final String? text34;
+  final String? text35;
+  final String? text36;
 
   //icons
-  final String icons;
-  final String icons1;
-  final String icons2;
+  final String? icons;
+  final String? icons1;
+  final String? icons2;
 
   ProjectsModels1({
-    required this.heroImage,
-    required this.text1,
-    required this.text2,
-    required this.text3,
-    required this.image1,
-    required this.text4,
-    required this.image2,
-    required this.text5,
-    required this.text6,
-    required this.image3,
-    required this.text7,
-    required this.text8,
-    required this.text9,
-    required this.image4,
-    required this.text10,
-    required this.text11,
-    required this.image5,
-    required this.image6,
-    required this.text12,
-    required this.text13,
-    required this.image7,
-    required this.text14,
-    required this.text15,
-    required this.image8,
-    required this.text16,
-    required this.text17,
-    required this.text18,
-    required this.text19,
-    required this.text20,
-    required this.text21,
-    required this.text22,
-    required this.text23,
-    required this.icons,
-    required this.icons1,
-    required this.icons2,
-    required this.text24,
-    required this.text25,
-    required this.text26,
-    required this.text27,
-    required this.text28,
-    required this.text29,
-    required this.text30,
-    required this.text31,
-    required this.text32,
-    required this.text33,
-    required this.text34,
-    required this.text35,
-    required this.text36,
+    this.heroImage,
+    this.text1,
+    this.text2,
+    this.text3,
+    this.image1,
+    this.text4,
+    this.image2,
+    this.text5,
+    this.text6,
+    this.image3,
+    this.text7,
+    this.text8,
+    this.text9,
+    this.image4,
+    this.text10,
+    this.text11,
+    this.image5,
+    this.image6,
+    this.text12,
+    this.text13,
+    this.image7,
+    this.text14,
+    this.text15,
+    this.image8,
+    this.text16,
+    this.text17,
+    this.text18,
+    this.text19,
+    this.text20,
+    this.text21,
+    this.text22,
+    this.text23,
+    this.icons,
+    this.icons1,
+    this.icons2,
+    this.text24,
+    this.text25,
+    this.text26,
+    this.text27,
+    this.text28,
+    this.text29,
+    this.text30,
+    this.text31,
+    this.text32,
+    this.text33,
+    this.text34,
+    this.text35,
+    this.text36,
   });
 
   static List<ProjectsModels1> projects = [
@@ -177,6 +177,20 @@ class ProjectsModels1 {
       text36: 'assets/images/virtual_image.png',
     ),
   ];
+
+  static List<ProjectsModels1> layaprojects = [
+    ProjectsModels1(
+      heroImage: 'assets/images/laya_banner_photo.jpg',
+      image1: 'assets/images/laya_image1.jpg',
+      text1:
+          'Laya is a meaningful step toward freedom. Laya is an aspirational, convenient, and secure home designed with substance and longevity. The functional and technical design of the residential tower have been carefully considered to maximize space and comfort.',
+      text2:
+          'MORE THAN A HOME FOR CREATORS AND CONNECTORS AT THE HEART OF METRO MANILA',
+      text3:
+          'With 1,283 studio, one-, two-, and three-bedroom units in thoughtfully-designed layout configurations, Laya is both a home and a community for the creative and the connected. Offering over 2,934 square meters of amenities and event spaces, Laya is more than a place to call home: it is a place to create, a place to entertain, a place to connect, build, and grow. Welcome to Laya, a new concept by Shang Properties.',
+      image2: 'assets/images/laya_image2.jpg',
+    )
+  ];
 }
 
 // this is for project main page
@@ -214,11 +228,11 @@ class ProjectsModels2 {
 }
 
 class ProjectTextImageModels {
-  final String text;
+  final String? text;
   final String imageText;
 
   ProjectTextImageModels({
-    required this.text,
+    this.text,
     required this.imageText,
   });
 
@@ -230,8 +244,7 @@ class ProjectTextImageModels {
   ];
   static List<ProjectTextImageModels> textImageModels2 = [
     ProjectTextImageModels(
-      imageText: 'assets/images/centuryspire.png',
-      text: 'by Shang Properties',
+      imageText: 'assets/images/laya_logo.jpg',
     ),
   ];
   static List<ProjectTextImageModels> textImageModels3 = [
@@ -240,4 +253,15 @@ class ProjectTextImageModels {
       text: 'by Shang Properties',
     ),
   ];
+}
+
+class LayaProjectModels {
+  String bannerImage;
+
+  String text1;
+
+  LayaProjectModels({
+    required this.bannerImage,
+    required this.text1,
+  });
 }

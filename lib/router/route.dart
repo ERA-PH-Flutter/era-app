@@ -12,6 +12,8 @@ import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_bind
 import 'package:eraphilippines/presentation/agent/favorites/pages/Fav.dart';
 import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
 import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/pages/MortageCalculator.dart';
+import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
+import 'package:eraphilippines/presentation/agent/projects/pages/laya.dart';
 import 'package:eraphilippines/presentation/agent/sellproperty/controllers/sellproperty_binding.dart';
 import 'package:eraphilippines/presentation/agent/sellproperty/pages/sellproperty.dart';
 import 'package:eraphilippines/presentation/agent/soldproperties/controllers/sold_properties_binding.dart';
@@ -41,7 +43,6 @@ import '../presentation/agent/listingproperties/controllers/listing_binding.dart
 import '../presentation/agent/listingproperties/pages/findproperties.dart';
 import '../presentation/agent/listingproperties/pages/property_infomation.dart';
 import '../presentation/agent/projects/controllers/projects_binding.dart';
-import '../presentation/agent/projects/pages/project.dart';
 import '../presentation/agent/projects/pages/projectmain.dart';
 import '../presentation/agent/searchresult/controllers/searchresult_binding.dart';
 import '../presentation/agent/searchresult/pages/searchresult.dart';
@@ -60,10 +61,18 @@ appRoutes() => [
           name: RouteString.loginpage,
           page: () => const LoginPage(),
           binding: SecondPageBinding()),
+
+      //projects
       GetPage(
-          name: RouteString.project,
-          page: () => const ProjectPage(),
+          name: RouteString.haraya,
+          page: () => const HarayaProject(),
           binding: ProjectsBinding()),
+
+      GetPage(
+          name: RouteString.laya,
+          page: () => const LayaProject(),
+          binding: ProjectsBinding()),
+
       GetPage(
         name: RouteString.projectmain,
         page: () => const ProjectMain(),
