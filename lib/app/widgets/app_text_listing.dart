@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/widgets.dart';
 
@@ -15,8 +16,7 @@ class TextListing extends StatelessWidget {
       required this.fontWeight,
       required this.color,
       this.margin,
-      this.lineHeight 
-      });
+      this.lineHeight});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +36,7 @@ class TextListing extends StatelessWidget {
     );
   }
 
+//adjust
   static Widget projectTitle(
       double? fontSize, FontWeight? fontWeight, Color? color) {
     return EraText(

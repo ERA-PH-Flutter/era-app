@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
@@ -42,9 +43,17 @@ class ProjectMain extends GetView<ProjectsController> {
         AppDivider(),
 
         SizedBox(height: 20.h),
-        TextListing.projectTitle(25.sp, FontWeight.bold, AppColors.blue),
-        SizedBox(height: 10.h),
-        TextListing.projectSubtitle(18.sp, FontWeight.bold, AppColors.black),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.header - 8.w),
+          child: TextListing.projectTitle(
+              EraTheme.header, FontWeight.w600, AppColors.blue),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.header - 8.w),
+          child: TextListing.projectSubtitle(
+              EraTheme.subHeader, FontWeight.w500, AppColors.black),
+        ),
+
         SizedBox(height: 20.h),
         ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 20.h),
@@ -62,7 +71,7 @@ class ProjectMain extends GetView<ProjectsController> {
             bgColor: AppColors.blue,
             borderRadius: BorderRadius.circular(30),
             height: 40.h,
-            width: Get.width),
+            width: 240.w),
         // i suggest to add text already on the picture, because the picture im using has white background so when im gonna put the text it will have a gap
         SizedBox(height: 30.h),
         ProjectDivider(
@@ -83,7 +92,7 @@ class ProjectMain extends GetView<ProjectsController> {
             bgColor: AppColors.blue,
             borderRadius: BorderRadius.circular(30),
             height: 40.h,
-            width: Get.width),
+            width: 240.w),
         SizedBox(height: 30.h),
         ProjectDivider(
           textImage: ProjectTextImageModels.textImageModels3,
@@ -94,14 +103,15 @@ class ProjectMain extends GetView<ProjectsController> {
         projectContent3(project),
         SizedBox(height: 20.h),
         Button(
-            text: 'VIEW MORE',
-            onTap: () {
-              Get.toNamed('/project');
-            },
-            bgColor: AppColors.blue,
-            borderRadius: BorderRadius.circular(30),
-            height: 40.h,
-            width: Get.width),
+          text: 'VIEW MORE',
+          onTap: () {
+            Get.toNamed('/project');
+          },
+          bgColor: AppColors.blue,
+          borderRadius: BorderRadius.circular(30),
+          height: 40.h,
+          width: 240.w,
+        ),
         SizedBox(height: 30.h),
       ],
     );
@@ -113,7 +123,7 @@ class ProjectMain extends GetView<ProjectsController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ProjectPage.paddingText(
+          ProjectPage.paddingTextTitle(
             project.text1,
             20,
             FontWeight.bold,
@@ -165,7 +175,7 @@ class ProjectMain extends GetView<ProjectsController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ProjectPage.paddingText(
+          ProjectPage.paddingTextTitle(
             project.text5,
             20,
             FontWeight.bold,

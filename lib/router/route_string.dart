@@ -27,6 +27,7 @@ class RouteString {
   static String fav = "/fav";
   static String archived = "/archived";
   static String soldP = "/soldP";
+  static String sellProperty = "/sellProperty";
 
   //admin
   static String landingPage = "/landingPage";

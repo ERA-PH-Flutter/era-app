@@ -12,6 +12,8 @@ import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_bind
 import 'package:eraphilippines/presentation/agent/favorites/pages/Fav.dart';
 import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
 import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/pages/MortageCalculator.dart';
+import 'package:eraphilippines/presentation/agent/sellproperty/controllers/sellproperty_binding.dart';
+import 'package:eraphilippines/presentation/agent/sellproperty/pages/sellproperty.dart';
 import 'package:eraphilippines/presentation/agent/soldproperties/controllers/sold_properties_binding.dart';
 import 'package:eraphilippines/presentation/agent/soldproperties/pages/sold_properties.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -146,8 +148,11 @@ appRoutes() => [
         page: () => SoldProperties(),
         binding: SoldBinding(),
       ),
-     
-
+      GetPage(
+        name: RouteString.sellProperty,
+        page: () => SellProperty(),
+        binding: SellPropertyBinding(),
+      ),
 //admin
       GetPage(
           name: RouteString.landingPage,

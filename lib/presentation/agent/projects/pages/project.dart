@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider_plus/carousel_options.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -98,7 +97,7 @@ class ProjectPage extends GetView<ProjectsController> {
           ),
           paddingText(
             project.text2,
-            18,
+            18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
             20,
@@ -399,6 +398,23 @@ class ProjectPage extends GetView<ProjectsController> {
     );
   }
 
+  static Widget paddingTextTitle(String text, double fontSize,
+      FontWeight fontWeight, Color color, double padding) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: padding.w,
+      ),
+      child: EraText(
+        text: text,
+        fontSize: fontSize.sp,
+        fontWeight: fontWeight,
+        color: color,
+        maxLines: 50,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
   static Widget paddingText(String text, double fontSize, FontWeight fontWeight,
       Color color, double padding) {
     return Padding(
@@ -411,6 +427,7 @@ class ProjectPage extends GetView<ProjectsController> {
         fontWeight: fontWeight,
         color: color,
         maxLines: 50,
+        textAlign: TextAlign.justify,
       ),
     );
   }

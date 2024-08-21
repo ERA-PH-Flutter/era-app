@@ -20,7 +20,7 @@ enum HomeState {
   error,
 }
 
-class HomeController extends GetxController{
+class HomeController extends GetxController {
   var selectedIndex = 0.obs;
   var carouselIndex = 0.obs;
   var selectedLocation = ''.obs;
@@ -34,9 +34,7 @@ class HomeController extends GetxController{
   var news = [];
   List<Listing> listings = [];
   var listingImages = [];
-  final List<String> images = [
-
-  ];
+  final List<String> images = [];
 
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();
@@ -44,10 +42,10 @@ class HomeController extends GetxController{
   TextEditingController aiSearchController = TextEditingController();
 
   @override
-  void onInit()async{
-    try{
-      if(settings!.banners != null){
-        for(int i =0;i<settings!.banners!.length;i++){
+  void onInit() async {
+    try {
+      if (settings!.banners != null) {
+        for (int i = 0; i < settings!.banners!.length; i++) {
           images.add(settings!.banners![i]);
         }
       }
@@ -56,38 +54,61 @@ class HomeController extends GetxController{
       await getImages();
       await getListings();
       homeState.value = HomeState.loaded;
-    }catch(e){
+    } catch (e) {
       print(e);
       homeState.value = HomeState.error;
     }
     super.onInit();
   }
 
-  getNews()async{
-    if(settings!.featuredNews!.isNotEmpty) {
-      for(int i = 0;i<settings!.featuredNews!.length;i++){
-        settings!.featuredNews![i] != '' ? news.add(await News(id: settings!.featuredNews![i]).getNews()) : null;
+  getNews() async {
+    if (settings!.featuredNews!.isNotEmpty) {
+      for (int i = 0; i < settings!.featuredNews!.length; i++) {
+        settings!.featuredNews![i] != ''
+            ? news.add(await News(id: settings!.featuredNews![i]).getNews())
+            : null;
       }
     }
   }
 
-  getListings()async{
-    if(settings!.featuredListings!.isNotEmpty) {
-      for(int i = 0;i<settings!.featuredListings!.length;i++){
-        settings!.featuredListings![i] != '' ? listings.add(await Listing().getListing(settings!.featuredListings![i])) : null;
+  getListings() async {
+    if (settings!.featuredListings!.isNotEmpty) {
+      for (int i = 0; i < settings!.featuredListings!.length; i++) {
+        settings!.featuredListings![i] != ''
+            ? listings
+                .add(await Listing().getListing(settings!.featuredListings![i]))
+            : null;
       }
     }
   }
 
-  getImages()async{
-    listingImages.add(PropertiesModels(image: settings!.preSellingPicture.toString().notEmpty(AppStrings.noImageWhite),label: 'PRE-SELLING'));
-    listingImages.add(PropertiesModels(image: settings!.residentialPicture.toString().notEmpty(AppStrings.noImageWhite),label: 'RESIDENTIAL'));
-    listingImages.add(PropertiesModels(image: settings!.commercialPicture.toString().notEmpty(AppStrings.noImageWhite),label: 'COMMERCIAL'));
-    listingImages.add(PropertiesModels(image: settings!.rentalPicture.toString().notEmpty(AppStrings.noImageWhite),label: 'RENTAL'));
-    listingImages.add(PropertiesModels(image: settings!.auctionPicture.toString().notEmpty(AppStrings.noImageWhite),label: 'AUCTION'));
+  getImages() async {
+    listingImages.add(PropertiesModels(
+        image: settings!.preSellingPicture
+            .toString()
+            .notEmpty(AppStrings.noImageWhite),
+        label: 'PRE-SELLING'));
+    listingImages.add(PropertiesModels(
+        image: settings!.residentialPicture
+            .toString()
+            .notEmpty(AppStrings.noImageWhite),
+        label: 'RESIDENTIAL'));
+    listingImages.add(PropertiesModels(
+        image: settings!.commercialPicture
+            .toString()
+            .notEmpty(AppStrings.noImageWhite),
+        label: 'COMMERCIAL'));
+    listingImages.add(PropertiesModels(
+        image: settings!.rentalPicture
+            .toString()
+            .notEmpty(AppStrings.noImageWhite),
+        label: 'RENTAL'));
+    listingImages.add(PropertiesModels(
+        image: settings!.auctionPicture
+            .toString()
+            .notEmpty(AppStrings.noImageWhite),
+        label: 'AUCTION'));
   }
-
-
 
   void nextImage(int totalImg) {
     if (carouselIndex.value < totalImg - 1) {
@@ -123,9 +144,7 @@ class HomeController extends GetxController{
     }
   }
 
-  search()async{
-
-  }
+  search() async {}
 
   var currentTab = 0.obs;
   void changeTab(int index) {
@@ -139,34 +158,30 @@ class HomeController extends GetxController{
     Get.offAllNamed(RouteString.loginpage);
   }
 }
- 
 
+// final PageController _pagesController = PageController(initialPage: 0);
 
+// Timer? _timer;
 
+// late List<Widget?> _pages;
+// List<Widget?> get pages => _pages;
+// PageController get pagesController => _pagesController;
 
- // final PageController _pagesController = PageController(initialPage: 0);
+// void startTime() {
+//   _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+//     int nextPage = (_pagesController.page!.toInt() + 1) % imagePaths.length;
+//     _pagesController.animateToPage(nextPage,
+//         duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+//   });
+// }
 
-  // Timer? _timer;
-
-  // late List<Widget?> _pages;
-  // List<Widget?> get pages => _pages;
-  // PageController get pagesController => _pagesController;
-
-  // void startTime() {
-  //   _timer = Timer.periodic(Duration(seconds: 3), (timer) {
-  //     int nextPage = (_pagesController.page!.toInt() + 1) % imagePaths.length;
-  //     _pagesController.animateToPage(nextPage,
-  //         duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
-  //   });
-  // }
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   _pages = List.generate(
-  //       imagePaths.length,
-  //       (index) => ImagePlaceholder(
-  //             imagePath: imagePaths[index],
-  //           ));
-  //   startTime();
-  // }
+// @override
+// void onInit() {
+//   super.onInit();
+//   _pages = List.generate(
+//       imagePaths.length,
+//       (index) => ImagePlaceholder(
+//             imagePath: imagePaths[index],
+//           ));
+//   startTime();
+// }
