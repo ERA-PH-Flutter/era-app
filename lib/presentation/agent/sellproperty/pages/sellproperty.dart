@@ -25,7 +25,7 @@ class SellProperty extends GetView<SellPropertyController> {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 16.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -44,8 +44,8 @@ class SellProperty extends GetView<SellPropertyController> {
                 controller.selectedProperty,
                 controller.propertyTypes,
                 (value) => controller.selectedProperty.value = value!,
-                'What is your Status',
-                'What is your Status',
+                'Property Type',
+                'Property Type',
               ),
               SizedBox(height: 20.h),
               SharedWidgets.textFormfield(
@@ -71,7 +71,8 @@ class SellProperty extends GetView<SellPropertyController> {
                   onTap: () {},
                   bgColor: AppColors.kRedColor,
                   borderRadius: BorderRadius.circular(30),
-                  height: 40.h,
+                  height: 43.h,
+                  fontSize: 18.sp,
                   width: Get.width),
               SizedBox(height: 30.h),
             ],

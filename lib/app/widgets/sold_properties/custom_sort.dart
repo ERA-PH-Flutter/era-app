@@ -17,36 +17,33 @@ class CustomSortPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-      child: PopupMenuButton<String>(
-        style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(AppColors.blue),
-          shape: WidgetStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
+    return PopupMenuButton<String>(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(AppColors.blue),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
           ),
         ),
-        color: AppColors.white,
-        icon: Row(
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: AppColors.white,
-                fontSize: 15.sp,
-              ),
-            ),
-            Icon(
-              Icons.arrow_drop_down,
-              color: AppColors.white,
-            ),
-          ],
-        ),
-        onSelected: onSelected,
-        itemBuilder: (BuildContext context) => menuItems,
       ),
+      color: AppColors.white,
+      icon: Row(
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: AppColors.white,
+              fontSize: 15.sp,
+            ),
+          ),
+          Icon(
+            Icons.arrow_drop_down,
+            color: AppColors.white,
+          ),
+        ],
+      ),
+      onSelected: onSelected,
+      itemBuilder: (BuildContext context) => menuItems,
     );
   }
 }

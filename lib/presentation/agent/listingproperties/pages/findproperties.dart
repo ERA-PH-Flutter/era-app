@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -12,6 +13,8 @@ import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../searchresult/controllers/searchresult_binding.dart';
+import '../../searchresult/pages/searchresult.dart';
 import '../controllers/listing_controller.dart';
 
 class FindProperties extends GetView<ListingController> {
@@ -126,38 +129,81 @@ class FindProperties extends GetView<ListingController> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      quickSearchIcon(AppEraAssets.condo, () {
-                        Get.toNamed('/project');
+                      quickSearchIcon(AppEraAssets.condo, ()async{
+                        var listings = (await FirebaseFirestore.instance.collection('listings').where('type',isEqualTo: 'condominium').get()).docs;
+                        var data = listings.map((listing){
+                          return listing.data();
+                        }).toList();
+                        print(data.length);
+                        Get.to(() => SearchResult(),
+                            binding: SearchResultBinding(),
+                            arguments: [data,'All Condominium']);
                       }),
                       SizedBox(width: 15.w),
-                      quickSearchIcon(AppEraAssets.condotel, () {
-                        Get.toNamed('/home');
+                      quickSearchIcon(AppEraAssets.condotel, () async {
+                        var listings = (await FirebaseFirestore.instance.collection('listings').where('type',isEqualTo: 'condotel').get()).docs;
+                        var data = listings.map((listing){
+                        return listing.data();
+                        }).toList();
+                        Get.to(() => SearchResult(),
+                        binding: SearchResultBinding(),
+                        arguments: [data,'All Condotel']);
                       }),
                       SizedBox(width: 15.w),
-                      quickSearchIcon(AppEraAssets.commercial, () {
-                        Get.toNamed('/home');
+                      quickSearchIcon(AppEraAssets.commercial, () async {
+                        var listings = (await FirebaseFirestore.instance.collection('listings').where('type',isEqualTo: 'commercial').get()).docs;
+                        var data = listings.map((listing){
+                        return listing.data();
+                        }).toList();
+                        Get.to(() => SearchResult(),
+                        binding: SearchResultBinding(),
+                        arguments: [data,'All Commercial']);
                       }),
                       SizedBox(width: 15.w),
-                      quickSearchIcon(AppEraAssets.apartment, () {
-                        Get.toNamed('/home');
+                      quickSearchIcon(AppEraAssets.apartment, () async {
+                        var listings = (await FirebaseFirestore.instance.collection('listings').where('type',isEqualTo: 'apartment').get()).docs;
+                        var data = listings.map((listing){
+                        return listing.data();
+                        }).toList();
+                        Get.to(() => SearchResult(),
+                        binding: SearchResultBinding(),
+                        arguments: [data,'All Apartments']);
                       }),
                       SizedBox(width: 15.w),
-                      quickSearchIcon(AppEraAssets.house1, () {
-                        Get.toNamed('/home');
+                      quickSearchIcon(AppEraAssets.house1, () async {
+                        var listings = (await FirebaseFirestore.instance.collection('listings').where('type',isEqualTo: 'house').get()).docs;
+                        var data = listings.map((listing){
+                        return listing.data();
+                        }).toList();
+                        Get.to(() => SearchResult(),
+                        binding: SearchResultBinding(),
+                        arguments: [data,'All Houses']);
                       }),
                       SizedBox(width: 15.w),
-                      quickSearchIcon(AppEraAssets.land, () {
-                        Get.toNamed('/home');
+                      quickSearchIcon(AppEraAssets.land, () async {
+                        var listings = (await FirebaseFirestore.instance.collection('listings').where('type',isEqualTo: 'land').get()).docs;
+                        var data = listings.map((listing){
+                        return listing.data();
+                        }).toList();
+                        Get.to(() => SearchResult(),
+                        binding: SearchResultBinding(),
+                        arguments: [data,'All Lands']);
                       }),
                       SizedBox(width: 15.w),
-                      quickSearchIcon(AppEraAssets.waterfront, () {
-                        Get.toNamed('/home');
+                      quickSearchIcon(AppEraAssets.waterfront, () async {
+                        var listings = (await FirebaseFirestore.instance.collection('listings').where('type',isEqualTo: 'water front').get()).docs;
+                        var data = listings.map((listing){
+                        return listing.data();
+                        }).toList();
+                        Get.to(() => SearchResult(),
+                        binding: SearchResultBinding(),
+                        arguments: [data,'All Water Fronts']);
                       }),
                     ],
                   ),
                 ),
                 SizedBox(height: 10.h),
-
+                /*
                 TextListing(
                     text: 'FEATURED LISTINGS',
                     fontSize: 25.sp,
@@ -165,11 +211,13 @@ class FindProperties extends GetView<ListingController> {
                     color: AppColors.kRedColor),
                 SizedBox(height: 10.h),
                 //not done with the pagination design i think i might change it..
+
                 CustomPaginator(
                     totalPages: controller.totalPages,
                     currentPage: controller.currentPage,
                     onPageSelected: controller.onPageSelected),
                 SizedBox(height: 10.h),
+
                 //list all properties here
                 Button(
                   bgColor: AppColors.kRedColor,
@@ -182,6 +230,7 @@ class FindProperties extends GetView<ListingController> {
                     // Get.toNamed('/home');
                   },
                 ),
+                */
                 SizedBox(height: 10.h),
               ],
             ),

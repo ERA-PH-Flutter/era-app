@@ -1,9 +1,30 @@
 import 'package:get/get.dart';
 
+import '../../../../repository/listing.dart';
+import '../../../global.dart';
+
+enum ArchiveState {loading,loaded,empty,error}
+
 class ArchivedController extends GetxController {
   var selectedItems = <int>[].obs;
   var selectionModeActive = false.obs;
-
+  var archiveListings = [].obs;
+  var archiveState = ArchiveState.loading.obs;
+  @override
+  void onInit()async{
+    if(user!.favorites!.isNotEmpty){
+      for(int i = 0;i<user!.archives!.length;i++){
+        archiveListings.add( await Listing().getListing(user!.archives![i]));
+      }
+    }
+    print(archiveListings);
+    if(archiveListings.isEmpty){
+      archiveState.value = ArchiveState.empty;
+    }else{
+      archiveState.value = ArchiveState.loaded;
+    }
+    super.onInit();
+  }
   void toggleSelection(int index) {
     if (selectedItems.contains(index)) {
       selectedItems.remove(index);

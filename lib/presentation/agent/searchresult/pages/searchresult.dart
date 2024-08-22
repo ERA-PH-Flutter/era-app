@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -9,12 +11,13 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
-import 'package:eraphilippines/app/widgets/sold_properties/custom_sort.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
+import '../../../../repository/listing.dart';
 import '../controllers/searchresult_controller.dart';
 
 class SearchResult extends GetView<SearchResultController> {
@@ -206,6 +209,7 @@ class SearchResult extends GetView<SearchResultController> {
                             await AI(query: controller.aiSearchController.text)
                                 .search();
                       }
+                      controller.searchQuery.value = controller.aiSearchController.text;
                       controller.data.value = data ?? [];
                       controller.searchResultState.value =
                           SearchResultState.loaded;
@@ -260,9 +264,139 @@ class SearchResult extends GetView<SearchResultController> {
             shrinkWrap: true,
             itemCount: controller.data.length,
             itemBuilder: (context, index) {
-              RealEstateListing listing =
-                  RealEstateListing.fromJSON(controller.data[index]);
-              return listing.createMiniListing();
+              Listing listing = Listing.fromJSON(controller.data[index]);
+              return GestureDetector(
+                onTap: () {
+                  //Get.toNamed('/propertyInfo', arguments: listingsModels);
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 21.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        child: CachedNetworkImage(
+                          imageUrl: listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite,
+                          fit: BoxFit.cover,
+                          width: 380.w,
+                          height: 200.h,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: EraText(
+                          text: listing.type!,
+                          fontSize: 16.sp,
+                          color: AppColors.kRedColor,
+                          fontWeight: FontWeight.bold,
+                          lineHeight: 0.4,
+                        ),
+                      ),
+                      Row(
+                        //crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                AppEraAssets.area,
+                                width: 40.w,
+                                height: 40.h,
+                              ),
+                              SizedBox(width: 2.w),
+                              EraText(
+                                text: '${listing.area} sqm',
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.black,
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: 10.w),
+                          Image.asset(
+                            AppEraAssets.bed,
+                            width: 40.w,
+                            height: 40.h,
+                          ),
+                          EraText(
+                            text: '${listing.beds}',
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.black,
+                          ),
+                          SizedBox(width: 10.w),
+                          Image.asset(
+                            AppEraAssets.tub,
+                            width: 40.w,
+                            height: 40.h,
+                          ),
+                          EraText(
+                            text: '${listing.baths}',
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.black,
+                          ),
+                          SizedBox(width: 10.w),
+                          Image.asset(
+                            AppEraAssets.car,
+                            width: 40.w,
+                            height: 40.h,
+                          ),
+                          EraText(
+                            text: '${listing.cars}',
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.black,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: EraText(
+                          text: 'Description:',
+                          fontSize: 16.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w600,
+                          lineHeight: 1,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          listing.description!,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.black,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: EraText(
+                          text: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
+                              .format(
+                            listing.price.toString() == "" ? 0 :listing.price,
+                          ),
+                          color: AppColors.blue,
+                          fontSize: 23.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
               //todo missy
             },
           ),
@@ -283,12 +417,12 @@ class SearchResult extends GetView<SearchResultController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: (Get.height) / 2,
+          height: 200.h,
           child: Center(
             child: EraText(
               text: "No results found!",
               color: Colors.black,
-              fontSize: 15.sp,
+              fontSize: 20.sp,
             ),
           ),
         )

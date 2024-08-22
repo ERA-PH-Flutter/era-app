@@ -61,6 +61,7 @@ class LoginPageController extends GetxController with BaseController{
   TextEditingController specialization = TextEditingController();
 
   login() async {
+    showLoading();
     var login = await Authentication().login(email: email.text.trim(), password: password.text.trim());
     if (login != null) {
       var id = FirebaseAuth.instance.currentUser!.uid;
@@ -69,6 +70,7 @@ class LoginPageController extends GetxController with BaseController{
       Get.offAllNamed(RouteString.home);
     } else {
       showSuccessDialog(hitApi: (){
+        Get.back();
         Get.back();
       },title: "Failed",description: "Incorrect credentials, please double check!");
     }

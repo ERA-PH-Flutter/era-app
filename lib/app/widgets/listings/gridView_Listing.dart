@@ -32,6 +32,7 @@ class ListingProperties extends StatelessWidget {
             builder: (context,AsyncSnapshot<EraUser> snapshot){
               if(snapshot.hasData){
                 return ListingItemss(
+                  fromSold: false,
                   image: (listingModels[i].photos!.isEmpty ?  AppStrings.noImageWhite : listingModels[i].photos!.first != "" ?  listingModels[i].photos!.first :AppStrings.noImageWhite ),
                   type: listingModels[i].type ?? 'pre-selling',
                   areas: listingModels[i].area ?? 0,

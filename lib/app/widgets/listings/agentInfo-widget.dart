@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,10 +12,10 @@ class AgentInfoWidget {
       String lastName, String whatsApp, String email, String role) {
     return Row(
       children: [
-        Image.asset(
-          images,
+        CachedNetworkImage(
           width: 100.w,
           height: 110.h,
+          imageUrl: images,
         ),
         Padding(
           padding: EdgeInsets.only(top: 5.w, left: 15.w),

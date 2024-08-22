@@ -33,7 +33,7 @@ class AppNavItems extends StatelessWidget {
       );
     } else {
       return Container(
-        height: 100.h,
+        height: 70.h < 75 ? 70.h : 75,
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
@@ -21,7 +23,7 @@ class FindAgents extends GetView<AgentsController> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: EdgeInsets.all(12.w),
+          padding: EdgeInsets.symmetric(horizontal:EraTheme.paddingWidth,vertical: 16.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,6 +35,7 @@ class FindAgents extends GetView<AgentsController> {
               ),
               SizedBox(height: 5.h),
               TextformfieldWidget(
+                controller: controller.agentName,
                 hintText: 'Type Name Here',
                 maxLines: 1,
                 hintstlye: TextStyle(color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
@@ -46,6 +49,7 @@ class FindAgents extends GetView<AgentsController> {
               ),
               SizedBox(height: 5.h),
               TextformfieldWidget(
+                controller: controller.agentId,
                 hintText: 'Enter Agent ID',
                 maxLines: 1,
                 hintstlye: TextStyle(color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
@@ -59,6 +63,7 @@ class FindAgents extends GetView<AgentsController> {
               ),
               SizedBox(height: 5.h),
               TextformfieldWidget(
+                controller: controller.agentLocation,
                 hintText: 'Type Your Location',
                 maxLines: 1,
                 hintstlye: TextStyle(color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
@@ -67,7 +72,9 @@ class FindAgents extends GetView<AgentsController> {
               Button(
                 text: 'SEARCH',
                 fontSize: 25.sp,
-                onTap: () {},
+                onTap: () {
+                  controller.search();
+                },
                 bgColor: AppColors.kRedColor,
                 height: 48.h,
                 width: 500.w,
@@ -75,17 +82,67 @@ class FindAgents extends GetView<AgentsController> {
                 margin: EdgeInsets.symmetric(horizontal: 0),
               ),
               SizedBox(height: 25.h),
-              EraText(
-                text: 'FEATURED AGENTS',
-                fontSize: 22.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.blue,
-              ),
-              AgentListView(agentsModels: RealEstateListing.listingsModels),
+              Obx(()=>switch(controller.agentState.value){
+                AgentsState.loading => _loading(),
+                AgentsState.loaded => _loaded(),
+                AgentsState.error => _error(),
+                AgentsState.empty => _empty(),
+                AgentsState.blank => _blank(),
+              })
             ],
           ),
         ),
       ),
+    );
+  }
+  _blank(){
+    return Container();
+  }
+  _loading() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+  _error() {
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(height: 100.h,),
+          EraText(
+            fontSize: EraTheme.paragraph,
+            text: "Something went Wrong!",
+            color: Colors.black,
+          ),
+        ],
+      ),
+    );
+  }
+  _empty(){
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(height: 100.h,),
+          EraText(
+            fontSize: EraTheme.paragraph,
+            text: "No User Found!",
+            color: Colors.black,
+          ),
+        ],
+      ),
+    );
+  }
+
+  _loaded(){
+    return Column(
+      children: [
+        Obx(()=>EraText(
+          text: controller.resultText.value,
+          fontSize: 22.sp,
+          fontWeight: FontWeight.w600,
+          color: AppColors.blue,
+        )),
+        Obx(()=> AgentListView(agentsModels: controller.results.value),)
+      ]
     );
   }
 }

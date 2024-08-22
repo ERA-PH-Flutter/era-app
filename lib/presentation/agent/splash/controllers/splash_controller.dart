@@ -41,6 +41,9 @@ class SplashController extends GetxController {
   void onInit() async {
     super.onInit();
     settings = Settings.fromJSON(await Database().getSettings());
+    if(user != null){
+      user = await EraUser().getById(user!.id);
+    }
     _typeWrittingAnimation();
     await isReady.future;
     await Future.delayed(const Duration(seconds: 1));

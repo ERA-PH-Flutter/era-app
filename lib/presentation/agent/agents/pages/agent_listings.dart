@@ -7,7 +7,6 @@ import 'package:eraphilippines/app/widgets/agent_All_Listings/listview_agent_all
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/sold_properties/custom_sort.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,12 +14,11 @@ import '../../../../app/constants/assets.dart';
 import '../controllers/agent_listings_controller.dart';
 import 'agentsDashBoard.dart';
 
-class AgentsMyListing extends GetView<AgentListingsController> {
-  const AgentsMyListing({super.key});
+class AgentListings extends GetView<AgentListingsController> {
+  const AgentListings({super.key});
 
   @override
   Widget build(BuildContext context) {
-    print(controller.user);
     return BaseScaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -50,7 +48,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               EraText(
-                text: "MY LISTINGS",
+                text: "LISTINGS",
                 fontSize: EraTheme.header,
                 color: AppColors.blue,
                 fontWeight: FontWeight.w600,
@@ -95,7 +93,6 @@ class AgentsMyListing extends GetView<AgentListingsController> {
               ),
             ],
           ),
-          /*
           Row(
             children: [
               Image.network(
@@ -125,7 +122,6 @@ class AgentsMyListing extends GetView<AgentListingsController> {
               ),
             ],
           ),
-          */
           SizedBox(
             height: 10.h,
           ),

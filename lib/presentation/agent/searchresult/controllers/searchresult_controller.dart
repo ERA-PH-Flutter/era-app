@@ -26,6 +26,9 @@ class SearchResultController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    data.clear();
+    print(Get.arguments[0].runtimeType);
+    searchResultState.value = SearchResultState.loading;
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {
         searchResultState.value = SearchResultState.searching;
@@ -33,12 +36,19 @@ class SearchResultController extends GetxController {
         loadData( Get.arguments[0]);
         searchQuery.value = Get.arguments[1];
       }
+
     } catch (e,ex) {
-      print(ex);
       searchResultState.value = SearchResultState.error;
     }
-    print(searchResultState.value);
+    print(Get.arguments[0]);
   }
+
+  @override
+  void onClose() {
+    Get.delete<SearchResultController>();
+    super.onClose();
+  }
+
   loadData(loadedData){
     data.value = loadedData;
     if (data.isEmpty) {

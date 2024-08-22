@@ -21,6 +21,7 @@ class FindingProperties extends StatelessWidget {
       ),
       itemCount: listingModels.length,
       itemBuilder: (context, i) => ListingItemss(
+          fromSold: false,
           image: listingModels[i].image,
           type: listingModels[i].type,
           areas: listingModels[i].areas,

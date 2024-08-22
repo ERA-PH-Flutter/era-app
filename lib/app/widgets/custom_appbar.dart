@@ -58,7 +58,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                               builder: (context, snapshot) {
                                 int count = 0;
                                 if (snapshot.hasData) {
-                                  count = snapshot.data!.docs.length;
+                                  if(snapshot.data != null){
+                                    count = snapshot.data!.docs.length;
+                                  }else{
+                                    count = 0;
+                                  }
                                 }
                                 return Container(
                                   width: 55.w,
@@ -142,9 +146,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                     }),
                                     user != null
                                         ? _buildMenuCard('MY DASHBOARD', () {
-                                            Get.toNamed("/agentDashBoard",
-                                                arguments: RealEstateListing
-                                                    .listingsModels.first);
+                                            Get.toNamed("/agentDashBoard");
                                           })
                                         : Container(),
                                     _buildMenuCard('SELL PROPERTY', () {
@@ -281,12 +283,16 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Expanded(
                 child: Center(
-                  child: EraText(
-                    textAlign: TextAlign.center,
-                    text: text,
-                    color: AppColors.black,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
+                  child: SizedBox(
+                    width: 200.w,
+                    child: EraText(
+                      textOverflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      text: text,
+                      color: AppColors.black,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),

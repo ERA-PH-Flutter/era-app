@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ArchivedListings extends StatelessWidget {
-  final List<RealEstateListing> listingModels;
+  final List listingModels;
 
   const ArchivedListings({super.key, required this.listingModels});
 
@@ -86,9 +86,7 @@ class ArchivedListings extends StatelessWidget {
               onLongPress: (index) {
                 print('Listing at index $index selected for reactivation');
               },
-              agentImage: '${listingModels[i].user.image}',
-              agentFirstName: '${listingModels[i].user.firstname}',
-              agentLastName: '${listingModels[i].user.lastname}',
+              agent: listingModels[i].by,
               type: listingModels[i].type,
               onTap: () {
                 Get.toNamed('/propertyInfo', arguments: listingModels[i]);
