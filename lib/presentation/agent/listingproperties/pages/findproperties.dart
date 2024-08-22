@@ -134,7 +134,6 @@ class FindProperties extends GetView<ListingController> {
                         var data = listings.map((listing){
                           return listing.data();
                         }).toList();
-                        print(data.length);
                         Get.to(() => SearchResult(),
                             binding: SearchResultBinding(),
                             arguments: [data,'All Condominium']);

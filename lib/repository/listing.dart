@@ -72,7 +72,7 @@ class Listing{
       owner: json["owner"],
       leads: json["leads"],
       views: json["views"],
-      dateCreated: json["date_created"].toDate(),
+      dateCreated: (json["date_created"] == null ? DateTime.now() : json["date_created"].toDate()),
       description: json["description"],
       cars: json["cars"],
       isSold: json["is_sold"],

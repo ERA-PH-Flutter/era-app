@@ -283,30 +283,30 @@ class HarayaProject extends GetView<ProjectsController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           paddingText(
-            project.text18 ?? "",
+            project.text18!,
             20.sp,
             FontWeight.bold,
             AppColors.blue,
             40.sp,
           ),
           paddingText(
-            project.text19 ?? "",
+            project.text19!,
             18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
             45.sp,
           ),
           SizedBox(height: 15.h),
-          carouselSliderWidget2(),
+          carouselSliderWidget2(CarouselModels.carouselModels),
           SizedBox(height: 15.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                infoTile(project.icons ?? "", project.text20 ?? ""),
-                infoTile(project.icons1 ?? "", project.text21 ?? ""),
-                infoTile(project.icons2 ?? "", project.text22 ?? ""),
+                infoTile(project.icons!, project.text20!),
+                infoTile(project.icons1!, project.text21!),
+                infoTile(project.icons2!, project.text22!),
               ],
             ),
           ),
@@ -327,7 +327,7 @@ class HarayaProject extends GetView<ProjectsController> {
             45.sp,
           ),
           SizedBox(height: 15.h),
-          carouselSliderWidget2(),
+          carouselSliderWidget2(CarouselModels.carouselModels),
           SizedBox(height: 15.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.w),
@@ -357,7 +357,7 @@ class HarayaProject extends GetView<ProjectsController> {
             45.sp,
           ),
           SizedBox(height: 15.h),
-          carouselSliderWidget2(),
+          carouselSliderWidget2(CarouselModels.carouselModels),
           SizedBox(height: 15.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.w),
@@ -454,11 +454,11 @@ class HarayaProject extends GetView<ProjectsController> {
     );
   }
 
-  Widget carouselSliderWidget2() {
+  static Widget carouselSliderWidget2(List<String> images) {
     return Stack(
       children: [
         CarouselSlider(
-          items: CarouselModels.layaCarouselImages.map((images) {
+          items: images.map((images) {
             return Builder(builder: (BuildContext context) {
               return CustomImage(
                 url: images,

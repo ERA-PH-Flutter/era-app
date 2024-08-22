@@ -46,7 +46,7 @@ class FavItems extends StatelessWidget {
               child: Row(
                 children: [
                   CachedNetworkImage(
-                    imageUrl: '${listing.photos?.first ?? AppStrings.noUserImageWhite}',
+                    imageUrl: '${listing.photos != null ? (listing.photos!.isNotEmpty ?  listing.photos!.first : AppStrings.noUserImageWhite ) : AppStrings.noUserImageWhite}',
                     width: 110.w,
                     height: 90.h,
                     fit: BoxFit.cover,

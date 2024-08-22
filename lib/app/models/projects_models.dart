@@ -1,3 +1,5 @@
+import 'package:eraphilippines/app/models/hero_models.dart';
+
 class ProjectsModels1 {
   final String? heroImage;
 
@@ -189,6 +191,50 @@ class ProjectsModels1 {
       text3:
           'With 1,283 studio, one-, two-, and three-bedroom units in thoughtfully-designed layout configurations, Laya is both a home and a community for the creative and the connected. Offering over 2,934 square meters of amenities and event spaces, Laya is more than a place to call home: it is a place to create, a place to entertain, a place to connect, build, and grow. Welcome to Laya, a new concept by Shang Properties.',
       image2: 'assets/images/laya_image2.jpg',
+      text4: 'Studio',
+      text5:
+          'A simple layout that is anything but simple: with ample storage, a streamlined living and dining space, and contemporary bathroom/kitchen fixtures, The Studio is everything you need to begin your next chapter.',
+      text6: '34SQM',
+      text7: '1 Bedroom',
+      text8:
+          'Featuring one master ensuite bedroom, an open kitchen, plenty of balcony space, a large living and dining area, and contemporary bathroom / kitchen fixtures, The One-Bedroom is designed for maximum flexibility in a beautifully-appointed',
+      text9: '50SQM',
+      text10: '5SQM Balcony',
+
+      //location
+      text11: 'LOCATION',
+      text12: 'Christian Route, cor St. Peter St, Pasig,\n 1600 Metro Manila',
+      image3: 'assets/images/laya_location.jpeg',
+      text13: '2 Bedroom',
+      text14:
+          'The Two-Bedroom features one master ensuite bedroom and one secondary bedroom, double balconies, a helper\'s quarters, and contemporary bathroom / kitchen fixtures. Perfect for growing families and those looking for more space at home.',
+      text15: '70SQM',
+      text16: '10SQM Balcony',
+    ),
+  ];
+
+  static List<ProjectsModels1> aureliaProjects = [
+    ProjectsModels1(
+      heroImage: 'assets/images/aurelia_banner_photo.jpg',
+      image1: 'assets/images/aurelia_image1.jpg',
+      text1: 'Newport Boulevard',
+      text2: 'Pasay, Philippines',
+      text3:
+          'One of the most coveted addresses in the Philippines. A location defined by the extraordinary cosmopolitan skyline views and the lush greens of Manila Golf Club, Manila Polo Club, and Forbes Park. An unparalleled collaboration of architects, designers, and artisans who represent the pinnacle of their respective fields. A meticulously-curated vision inspired by sprezzatura - an effortless and understated sense of classic Italian elegance. A limited collection of 285 bespoke residences at the heart of Bonifacio Global City, the fastest-growing central business district in the Philippines.',
+      image2: 'assets/images/aurelia_image2.jpg',
+      text4: 'THE ART OF ELEGANCE',
+      text5:
+          'From the first architectural sketches, to the careful exploration of fabrics and finishes, through to the final delivery of our overarching vision, a consistent thread flows through everything: the passionate search for elegance. It is the thrill of the search that unites the extraordinary team of designers and artisans behind Aurelia Residences. Elegance is a mood, an attitude, a way of life. And while the idea of elegance - and elegant living - is universal, like art itself it is both ephemeral and timeless. With regard to elegance, however, one thing is certain - just like a work of art: you will know it when you see it.',
+      text6: 'Amenities',
+      text7: '3 Bedroom Deluxe',
+      text8: '3 Bedroom Premier',
+      text9: '3 Bedroom Signature',
+
+      //location
+      text10: 'LOCATION',
+      text11:
+          'McKinley Parkway corner 5th Avenue and 21st Drive, Bonifacio Global City, Taguig, Philippines',
+      image3: 'assets/images/aurelia_location.jpeg',
     )
   ];
 }
@@ -249,7 +295,7 @@ class ProjectTextImageModels {
   ];
   static List<ProjectTextImageModels> textImageModels3 = [
     ProjectTextImageModels(
-      imageText: 'assets/images/shang.png',
+      imageText: 'assets/images/aurelia_logo.jpg',
       text: 'by Shang Properties',
     ),
   ];

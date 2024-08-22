@@ -10,6 +10,7 @@ class RouteString {
   //projects
   static String haraya = "/haraya";
   static String laya = "/laya";
+  static String aurelia = "/aurelia";
 
   static String projectmain = "/project-main";
 

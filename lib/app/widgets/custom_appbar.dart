@@ -50,7 +50,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               Row(
                 children: [
                   action ??
-                      (user != null ? StreamBuilder(
+                      (user != null
+                          ? StreamBuilder(
                               stream: FirebaseFirestore.instance
                                   .collection('messages')
                                   .where("to",
@@ -136,7 +137,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       Get.toNamed("/findproperties");
                                     }),
                                     _buildMenuCard('PROJECTS', () {
-                                      Get.toNamed("/project");
+                                      Get.toNamed("/project-main");
                                     }),
                                     _buildMenuCard('FIND AGENTS', () {
                                       Get.toNamed("/findagents");

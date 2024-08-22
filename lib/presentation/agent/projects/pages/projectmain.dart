@@ -58,11 +58,7 @@ class ProjectMain extends GetView<ProjectsController> {
         SizedBox(height: 20.h),
         ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 20.h),
-        // can add carousel new photos just go to lib/app/models/carousel_models.dart
-        CarouselSliderWidget(
-  images: CarouselModels.carouselModels 
-
-        ),
+        CarouselSliderWidget(images: CarouselModels.carouselModels),
         SizedBox(height: 20.h),
         projectContent1(project),
         SizedBox(height: 20.h),
@@ -84,35 +80,38 @@ class ProjectMain extends GetView<ProjectsController> {
             text: ' '),
         //temporary carousel
         CarouselSliderWidget(
-            images: CarouselModels.carouselModels ,
-          color: AppColors.carouselBgColor1),
-        SizedBox(height: 25.h),
+            images: CarouselModels.layaCarouselImages,
+            color: AppColors.carouselBgColor),
+        SizedBox(height: 20.h),
         projectContent2(project),
         SizedBox(height: 20.h),
         Button(
-            text: 'VIEW MORE',
-            onTap: () {
-              Get.toNamed("/laya");
-            },
-            bgColor: AppColors.blue,
-            borderRadius: BorderRadius.circular(30),
-            height: 40.h,
-            width: 240.w),
+          text: 'VIEW MORE',
+          onTap: () {
+            Get.toNamed("/laya");
+          },
+          bgColor: AppColors.blue,
+          borderRadius: BorderRadius.circular(30),
+          height: 40.h,
+          width: 240.w,
+        ),
         SizedBox(height: 30.h),
         ProjectDivider(
           textImage: ProjectTextImageModels.textImageModels3,
+          height: 200.h,
+          width: Get.width,
         ),
         SizedBox(height: 20.h),
         CarouselSliderWidget(
-            images: CarouselModels.carouselModels ,
-          color: AppColors.carouselBgColor),
+            images: CarouselModels.aureliaCarouselImages,
+            color: AppColors.carouselBgColor),
         SizedBox(height: 30.h),
         projectContent3(project),
         SizedBox(height: 20.h),
         Button(
           text: 'VIEW MORE',
           onTap: () {
-            Get.toNamed('/haraya');
+            Get.toNamed('/aurelia');
           },
           bgColor: AppColors.blue,
           borderRadius: BorderRadius.circular(30),
