@@ -12,6 +12,7 @@ import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_bind
 import 'package:eraphilippines/presentation/agent/favorites/pages/Fav.dart';
 import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
 import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/pages/MortageCalculator.dart';
+import 'package:eraphilippines/presentation/agent/projects/pages/aurelia.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/laya.dart';
 import 'package:eraphilippines/presentation/agent/sellproperty/controllers/sellproperty_binding.dart';
@@ -71,6 +72,11 @@ appRoutes() => [
       GetPage(
           name: RouteString.laya,
           page: () => const LayaProject(),
+          binding: ProjectsBinding()),
+
+      GetPage(
+          name: RouteString.aurelia,
+          page: () => const AureliaProject(),
           binding: ProjectsBinding()),
 
       GetPage(

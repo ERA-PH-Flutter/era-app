@@ -27,6 +27,9 @@ dependencies:
   curved_navigation_bar: ^1.0.6
   flutter_gemini: ^2.0.4  
   smooth_page_indicator: ^1.2.0+3
+  webview_flutter: ^4.8.0
+  webview_flutter_android: ^3.16.7
+ 
 
   #firebase
   firebase_core: ^3.2.0
@@ -42,6 +45,7 @@ dependencies:
   dart_eval: ^0.7.9
   number_paginator: ^0.4.1
   easy_sidemenu: ^0.6.0
+  file_picker: ^8.0.7
 
 dev_dependencies:
   flutter_test:

@@ -44,8 +44,8 @@ class SellProperty extends GetView<SellPropertyController> {
                 controller.selectedProperty,
                 controller.propertyTypes,
                 (value) => controller.selectedProperty.value = value!,
-                'What is your Status',
-                'What is your Status',
+                'Property Type',
+                'Property Type',
               ),
               SizedBox(height: 20.h),
               SharedWidgets.textFormfield(

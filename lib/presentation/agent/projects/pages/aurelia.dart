@@ -6,6 +6,7 @@ import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
+import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
@@ -20,8 +21,8 @@ import '../../contacts/pages/findus.dart';
 import '../../contacts/pages/inquiry.dart';
 import '../controllers/projects_controller.dart';
 
-class LayaProject extends GetView<ProjectsController> {
-  const LayaProject({super.key});
+class AureliaProject extends GetView<ProjectsController> {
+  const AureliaProject({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +31,8 @@ class LayaProject extends GetView<ProjectsController> {
         scrollDirection: Axis.vertical,
         child: SafeArea(
           child: Column(
-            children: ProjectsModels1.layaprojects.map((layaprojects) {
-              return projectContainer(layaprojects);
+            children: ProjectsModels1.aureliaProjects.map((aureliaProjects) {
+              return projectContainer(aureliaProjects);
             }).toList(),
           ),
         ),
@@ -39,91 +40,39 @@ class LayaProject extends GetView<ProjectsController> {
     );
   }
 
-  Widget projectContainer(ProjectsModels1 layaprojects) {
+  Widget projectContainer(ProjectsModels1 aureliaProjects) {
     return Column(
       children: [
         Image.asset(
-          layaprojects.heroImage ?? "",
+          aureliaProjects.heroImage!,
           fit: BoxFit.cover,
           height: 250.h,
           width: Get.width,
         ),
         SizedBox(height: 30.h),
         ProjectDivider(
-          textImage: ProjectTextImageModels.textImageModels2,
+          textImage: ProjectTextImageModels.textImageModels3,
           height: 150.h,
           width: 430.w,
         ),
         SizedBox(height: 30.h),
         CarouselSliderWidget(
-            images: CarouselModels.layaCarouselImages,
+            images: CarouselModels.aureliaCarouselImages,
             color: AppColors.carouselBgColor),
         SizedBox(height: 30.h),
-        //virtual
-        SizedBox(
-          height: 200.h,
-          child: GestureDetector(
-            child: WebViewWidget(
-              controller: controller.webviews[0],
-            ),
-          ),
-        ),
 
-        SizedBox(width: 20),
-
-        SizedBox(height: 30.h),
-
-        projectContent1(layaprojects),
+        projectContent1(aureliaProjects),
         SizedBox(height: 30.h),
 //location
-        locationLaya(layaprojects),
-        SizedBox(height: 40.h),
-
-        HarayaProject.paddingTextTitle(
-          'Outdoor Amenities',
-          18.sp,
-          FontWeight.bold,
-          AppColors.kRedColor,
-          20,
-        ),
-        SizedBox(height: 20.h),
-        CarouselSliderWidget(
-          images: CarouselModels.layaOutdoorImages,
-          color: AppColors.carouselBgColor,
-        ),
-        // carouselSliderWidget2(
-        //   CarouselModels.layaOutdoorImages,
-        // ),
-        SizedBox(height: 40.h),
-
-        HarayaProject.paddingTextTitle(
-          'Indoor Amenities',
-          18.sp,
-          FontWeight.bold,
-          AppColors.kRedColor,
-          20,
-        ),
-        SizedBox(height: 20.h),
-
-        CarouselSliderWidget(
-          images: CarouselModels.layaIndoorImages,
-          color: AppColors.carouselBgColor,
-        ),
+        locationLaya(aureliaProjects),
         SizedBox(height: 40.h),
 
         discoverOurSpaces(
-          layaprojects,
+          aureliaProjects,
         ),
-        SizedBox(
-          height: 200.h,
-          child: GestureDetector(
-            child: WebViewWidget(
-              controller: controller.webviews[1],
-            ),
-          ),
-        ),
-
-        SizedBox(height: 30.h),
+        SizedBox(height: 10.h),
+        // Image.asset(project.text36 ?? ""),
+        SizedBox(height: 15.h),
         Inquiry(),
         SizedBox(height: 40.h),
         FindUs(),
@@ -132,27 +81,26 @@ class LayaProject extends GetView<ProjectsController> {
     );
   }
 
-  Widget projectContent1(ProjectsModels1 layaprojects) {
+  Widget projectContent1(ProjectsModels1 aureliaProjects) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 15.0.h),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(
-            layaprojects.image1!,
+            aureliaProjects.image1!,
             width: Get.width,
-          ),
-          SizedBox(height: 20.h),
-          HarayaProject.paddingText(
-            layaprojects.text1!,
-            14.sp,
-            FontWeight.w500,
-            AppColors.black,
-            20,
           ),
           SizedBox(height: 30.h),
           HarayaProject.paddingTextTitle(
-            layaprojects.text2!,
+            aureliaProjects.text1!,
+            18.sp,
+            FontWeight.bold,
+            AppColors.kRedColor,
+            20,
+          ),
+          HarayaProject.paddingTextTitle(
+            aureliaProjects.text2!,
             18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
@@ -160,27 +108,43 @@ class LayaProject extends GetView<ProjectsController> {
           ),
           SizedBox(height: 20.h),
           HarayaProject.paddingText(
-            layaprojects.text3!,
+            aureliaProjects.text3!,
             14.sp,
             FontWeight.w500,
             AppColors.black,
             20,
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 30.h),
           Image.asset(
-            layaprojects.image2!,
+            aureliaProjects.image2!,
             width: Get.width,
+          ),
+          SizedBox(height: 30.h),
+          HarayaProject.paddingTextTitle(
+            aureliaProjects.text4!,
+            18.sp,
+            FontWeight.bold,
+            AppColors.kRedColor,
+            20,
+          ),
+          SizedBox(height: 20.h),
+          HarayaProject.paddingText(
+            aureliaProjects.text5!,
+            14.sp,
+            FontWeight.w500,
+            AppColors.black,
+            20,
           ),
         ],
       ),
     );
   }
 
-  Widget locationLaya(ProjectsModels1 layaprojects) {
+  Widget locationLaya(ProjectsModels1 aureliaProjects) {
     return Column(
       children: [
         HarayaProject.paddingText(
-          layaprojects.text11!,
+          aureliaProjects.text10!,
           20.sp,
           FontWeight.bold,
           AppColors.kRedColor,
@@ -188,19 +152,19 @@ class LayaProject extends GetView<ProjectsController> {
         ),
         SizedBox(height: 10.h),
         EraText(
-          text: layaprojects.text12!,
+          text: aureliaProjects.text11!,
           fontSize: 14.sp,
           fontWeight: FontWeight.w500,
           color: AppColors.black,
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 20.h),
-        Image.asset(layaprojects.image3!),
+        Image.asset(aureliaProjects.image3!),
       ],
     );
   }
 
-  Widget discoverOurSpaces(ProjectsModels1 layaprojects) {
+  Widget discoverOurSpaces(ProjectsModels1 aureliaProjects) {
     return Container(
       width: Get.width,
       padding: EdgeInsets.symmetric(vertical: 15.0.h),
@@ -215,87 +179,55 @@ class LayaProject extends GetView<ProjectsController> {
             AppColors.blue,
             20,
           ),
-          SizedBox(height: 10.h),
-
+          SizedBox(height: 20.h),
           HarayaProject.paddingText(
-            layaprojects.text4!,
+            aureliaProjects.text6!,
             18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
             45.sp,
           ),
-          SizedBox(height: 20.h),
-          HarayaProject.carouselSliderWidget2(
-            CarouselModels.studioImages,
-          ),
           SizedBox(height: 15.h),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            HarayaProject.infoTile(AppEraAssets.floorArea, layaprojects.text6!),
-          ]),
-          SizedBox(height: 20.h),
-          HarayaProject.paddingText(
-            layaprojects.text5!,
-            14.sp,
-            FontWeight.w500,
-            AppColors.black,
-            45.sp,
+          HarayaProject.carouselSliderWidget2(
+            CarouselModels.amenities,
           ),
           SizedBox(height: 20.h),
-          //one bedroom
           HarayaProject.paddingText(
-            layaprojects.text7!,
+            aureliaProjects.text7!,
             18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
             45.sp,
           ),
-          SizedBox(height: 20.h),
-          HarayaProject.carouselSliderWidget2(
-            CarouselModels.bedRooms,
-          ),
           SizedBox(height: 15.h),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            HarayaProject.infoTile(AppEraAssets.floorArea, layaprojects.text9!),
-            HarayaProject.infoTile(
-                AppEraAssets.loggiaSize, layaprojects.text10!),
-          ]),
-          SizedBox(height: 20.h),
-          HarayaProject.paddingText(
-            layaprojects.text8!,
-            14.sp,
-            FontWeight.w500,
-            AppColors.black,
-            45.sp,
+          HarayaProject.carouselSliderWidget2(
+            CarouselModels.brDeluxe,
           ),
           SizedBox(height: 20.h),
-
           HarayaProject.paddingText(
-            layaprojects.text13!,
+            aureliaProjects.text8!,
             18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
             45.sp,
           ),
-          SizedBox(height: 20.h),
-          HarayaProject.carouselSliderWidget2(
-            CarouselModels.twoBedRooms,
-          ),
           SizedBox(height: 15.h),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            HarayaProject.infoTile(
-                AppEraAssets.floorArea, layaprojects.text15!),
-            HarayaProject.infoTile(
-                AppEraAssets.loggiaSize, layaprojects.text16!),
-          ]),
+          HarayaProject.carouselSliderWidget2(
+            CarouselModels.brPremier,
+          ),
           SizedBox(height: 20.h),
           HarayaProject.paddingText(
-            layaprojects.text14!,
-            14.sp,
-            FontWeight.w500,
-            AppColors.black,
+            aureliaProjects.text9!,
+            18.sp,
+            FontWeight.bold,
+            AppColors.kRedColor,
             45.sp,
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 15.h),
+          HarayaProject.carouselSliderWidget2(
+            CarouselModels.brSignature,
+          ),
+          SizedBox(height: 15.h),
         ],
       ),
     );
