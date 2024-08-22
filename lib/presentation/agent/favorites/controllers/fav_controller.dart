@@ -1,19 +1,33 @@
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:get/get.dart';
 import '../../../../app/services/local_storage.dart';
+import '../../../../repository/listing.dart';
+import '../../../global.dart';
 
 enum FavState { loading, loaded, error, empty }
 
 class FavController extends GetxController {
-  var favoritesList = <RealEstateListing>[].obs;
+  var favoritesList = [].obs;
 
   var store = Get.find<LocalStorageService>();
   var favState = FavState.loading.obs;
+  var listing = [];
 
   List<String> sorting = ['Category', 'Date Added', 'Price', 'Location'];
   @override
-  void onInit() {
-    favState.value = FavState.loaded;
+  void onInit()async{
+    //
+
+    if(user!.favorites!.isNotEmpty){
+      for(int i = 0;i<user!.favorites!.length;i++){
+        favoritesList.add( await Listing().getListing(user!.favorites![i]));
+      }
+    }
+    if(favoritesList.isEmpty){
+      favState.value = FavState.empty;
+    }else{
+      favState.value = FavState.loaded;
+    }
     super.onInit();
   }
 

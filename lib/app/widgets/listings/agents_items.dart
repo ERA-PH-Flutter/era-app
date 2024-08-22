@@ -1,14 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
+import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AgentsItems extends StatelessWidget {
-  final RealEstateListing agentInfo;
+  final agentInfo;
   final Function()? onTap;
   AgentsItems({super.key, required this.agentInfo, this.onTap});
   var selected = false.obs;
@@ -48,14 +52,14 @@ class AgentsItems extends StatelessWidget {
                         SizedBox(height: 55.h),
                         EraText(
                           text:
-                              '${agentInfo.user.firstname} ${agentInfo.user.lastname}',
+                              '${agentInfo.firstname} ${agentInfo.lastname}',
                           fontSize: 25.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blue,
                           lineHeight: 1.0,
                         ),
                         EraText(
-                          text: '${agentInfo.user.role}',
+                          text: '${agentInfo.role}',
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.black,
@@ -71,7 +75,7 @@ class AgentsItems extends StatelessWidget {
                             ),
                             SizedBox(width: 8.w),
                             EraText(
-                              text: '${agentInfo.user.whatsApp}',
+                              text: '${agentInfo.whatsApp}',
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
                               color: AppColors.black,
@@ -88,7 +92,8 @@ class AgentsItems extends StatelessWidget {
                             ),
                             SizedBox(width: 8.w),
                             EraText(
-                              text: '${agentInfo.user.email}',
+                              textOverflow: TextOverflow.ellipsis,
+                              text: '${agentInfo.email}',
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
                               color: AppColors.black,
@@ -101,8 +106,7 @@ class AgentsItems extends StatelessWidget {
                           text: 'VIEW LISTING',
                           fontSize: 13.sp,
                           onTap: () {
-                            Get.toNamed('/agentMyListing',
-                                arguments: agentInfo);
+                            Get.to(AgentListings(),binding: AgentListingsBinding(), arguments: [agentInfo.id]);
                           },
                           bgColor: AppColors.kRedColor,
                           height: 30.h,
@@ -118,14 +122,14 @@ class AgentsItems extends StatelessWidget {
                         SizedBox(height: 50.h),
                         EraText(
                           text:
-                              '${agentInfo.user.firstname} ${agentInfo.user.lastname}',
-                          fontSize: 25.sp,
+                              '${agentInfo.firstname} ${agentInfo.lastname}',
+                          fontSize: 22.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blue,
-                          lineHeight: 1.0,
+
                         ),
                         EraText(
-                          text: '${agentInfo.user.role}',
+                          text: '${agentInfo.role ?? 'Agent'}',
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                           color: AppColors.black,
@@ -139,10 +143,10 @@ class AgentsItems extends StatelessWidget {
                               width: 30.w,
                               height: 30.h,
                             ),
-                            SizedBox(width: 8.w),
+                            SizedBox(width: 5.w),
                             EraText(
-                              text: '${agentInfo.user.whatsApp}',
-                              fontSize: 20.sp,
+                              text: '${agentInfo.whatsApp}',
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
                               color: AppColors.black,
                             ),
@@ -156,22 +160,23 @@ class AgentsItems extends StatelessWidget {
                               width: 30.w,
                               height: 30.h,
                             ),
-                            SizedBox(width: 8.w),
+                            SizedBox(width: 5.w),
                             EraText(
-                              text: '${agentInfo.user.email}',
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
+                              textOverflow: TextOverflow.ellipsis,
+                              text: '${agentInfo.email}',
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
                               color: AppColors.black,
                             ),
                           ],
                         ),
-                        SizedBox(height: 20.h),
+                        SizedBox(height: 10.h),
                         Button(
                           text: 'VIEW LISTINGS',
                           fontSize: 15.sp,
                           onTap: () {
-                            Get.toNamed('/agentMyListing',
-                                arguments: agentInfo);
+                            Get.to(AgentListings(),
+                                arguments: [agentInfo.id],binding: AgentListingsBinding());
                           },
                           bgColor: AppColors.kRedColor,
                           height: 38.h,
@@ -180,7 +185,7 @@ class AgentsItems extends StatelessWidget {
                           margin: EdgeInsets.symmetric(horizontal: 35),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        SizedBox(height: 20.h),
+                        SizedBox(height: 10.h),
                       ],
                     ),
             ),
@@ -201,8 +206,8 @@ class AgentsItems extends StatelessWidget {
                         width: 50.w,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(
-                              '${agentInfo.user.image}',
+                            image: CachedNetworkImageProvider(
+                              '${agentInfo.image ?? AppStrings.noUserImageWhite}',
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -224,8 +229,8 @@ class AgentsItems extends StatelessWidget {
                         width: 50.w,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(
-                              '${agentInfo.user.image}',
+                            image: CachedNetworkImageProvider(
+                              '${agentInfo.image ?? AppStrings.noUserImageWhite}',
                             ),
                             fit: BoxFit.cover,
                           ),

@@ -1,5 +1,10 @@
+import 'dart:math';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
@@ -8,18 +13,24 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/company/company_grid.dart';
 import 'package:eraphilippines/app/widgets/listings/agentInfo-widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
+import 'package:eraphilippines/presentation/agent/soldproperties/controllers/sold_properties_binding.dart';
+import 'package:eraphilippines/presentation/agent/soldproperties/pages/sold_properties.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class AgentDashBoard extends GetView<AgentsController> {
-  final RealEstateListing listing;
+import '../../../../repository/user.dart';
+import '../../../global.dart';
+import '../controllers/agent_dashboard_controller.dart';
+
+class AgentDashBoard extends GetView<AgentDashboardController> {
   const AgentDashBoard({
     super.key,
-    required this.listing,
   });
 
   @override
@@ -28,61 +39,71 @@ class AgentDashBoard extends GetView<AgentsController> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: EraTheme.paddingWidth, vertical: 10.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                EraText(
-                  text: 'MY DASHBOARD',
-                  color: AppColors.blue,
-                  fontSize: EraTheme.header,
-                  fontWeight: FontWeight.w600,
+          child: Obx((){
+            if(controller.agentDashboardState.value == AgentDashboardState.loading){
+              return _loading();
+            }else{
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: EraTheme.paddingWidth, vertical: 10.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    EraText(
+                      text: 'MY DASHBOARD',
+                      color: AppColors.blue,
+                      fontSize: EraTheme.header,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    SizedBox(height: 10.h),
+                    AgentInfoWidget.agentInformation(
+                        user!.image ?? AppStrings.noUserImageWhite,
+                        '${user!.firstname}',
+                        '${user!.lastname}',
+                        '${user!.whatsApp}',
+                        '${user!.email}',
+                        '${user!.role}'),
+                    SizedBox(height: 25.h),
+                    Button(
+                      fontSize: EraTheme.paragraph - 2.sp,
+                      width: Get.width - 100.w,
+                      height: 43.h,
+                      text: 'MORTGAGE CALCULATOR',
+                      bgColor: AppColors.kRedColor,
+                      onTap: () {
+                        Get.toNamed("/mortageCalculator");
+                      },
+                    ),
+                    SizedBox(height: 25.h),
+                    myListings(),
+                    SizedBox(height: 25.h),
+                    favorites(),
+                    SizedBox(height: 25.h),
+                    archivedListing(),
+                    SizedBox(height: 25.h),
+                    soldProperties(),
+                    SizedBox(height: 25.h),
+                    myTrainings(),
+                    SizedBox(height: 25.h),
+                    findAgentsandOffices(),
+                    SizedBox(height: 25.h),
+                    latestNews(),
+                    SizedBox(height: 25.h),
+                    // eraMerch(),
+                  ],
                 ),
-                SizedBox(height: 10.h),
-                AgentInfoWidget.agentInformation(
-                    '${listing.user.image}',
-                    '${listing.user.firstname}',
-                    '${listing.user.lastname}',
-                    '${listing.user.whatsApp}',
-                    '${listing.user.email}',
-                    '${listing.user.role}'),
-                SizedBox(height: 25.h),
-                Button(
-                  fontSize: EraTheme.paragraph - 2.sp,
-                  width: Get.width - 100.w,
-                  height: 43.h,
-                  text: 'MORTGAGE CALCULATOR',
-                  bgColor: AppColors.kRedColor,
-                  onTap: () {
-                    Get.toNamed("/mortageCalculator");
-                  },
-                ),
-                SizedBox(height: 25.h),
-                myListings(),
-                SizedBox(height: 25.h),
-                favorites(),
-                SizedBox(height: 25.h),
-                archivedListing(),
-                SizedBox(height: 25.h),
-                soldProperties(),
-                SizedBox(height: 25.h),
-                myTrainings(),
-                SizedBox(height: 25.h),
-                findAgentsandOffices(),
-                SizedBox(height: 25.h),
-                latestNews(),
-                SizedBox(height: 25.h),
-                // eraMerch(),
-              ],
-            ),
-          ),
+              );
+            }
+          }),
         ),
       ),
     );
   }
-
+  _loading(){
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
   Widget soldProperties() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,8 +122,8 @@ class AgentDashBoard extends GetView<AgentsController> {
               GestureDetector(
                 onTap: () {
                   Get.toNamed(
-                    "/soldP",
-                    arguments: listing,
+                    '/soldP',
+                    arguments: user!.id,
                   );
                 },
                 child: Image.asset(
@@ -135,7 +156,7 @@ class AgentDashBoard extends GetView<AgentsController> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.toNamed("/archived", arguments: listing);
+                  Get.toNamed("/archived", arguments: controller.listings);
                 },
                 child: Image.asset(
                   AppEraAssets.archived,
@@ -225,7 +246,7 @@ class AgentDashBoard extends GetView<AgentsController> {
         SizedBox(
           height: 10.h,
         ),
-        CompanyGrid(companymodels: CompanyModels.companyNewsModels),
+        CompanyGrid(companymodels: controller.news),
         SizedBox(
           height: 20.h,
         ),
@@ -262,16 +283,21 @@ class AgentDashBoard extends GetView<AgentsController> {
         SizedBox(height: 10.h),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              iconAgents('${listing.user.image}', () {},
-                  '${listing.user.firstname} ${listing.user.lastname}'),
-              iconAgents('${listing.user.image}', () {},
-                  '${listing.user.firstname} ${listing.user.lastname}'),
-              iconAgents(AppEraAssets.clickFM, () {
-                Get.toNamed("/findagents");
-              }, 'Find Agents'),
-            ],
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('users').snapshots(),
+            builder: (context,snapshot){
+              List<Widget> children = [];
+              for(int i = 0;i<min(5, snapshot.data!.docs.length);i++){
+                var random = Random().nextInt(snapshot.data!.docs.length);
+                var user = EraUser.fromJSON(snapshot.data!.docs[random].data());
+                children.add(iconAgents(user.image ?? AppStrings.noUserImageWhite, (){
+                  Get.to(AgentListings(),arguments: [user.id],binding: AgentListingsBinding());
+                }, "${user.firstname} ${user.lastname}"));
+              }
+              return Row(
+                children: children,
+              );
+            },
           ),
         ),
       ],
@@ -333,7 +359,7 @@ class AgentDashBoard extends GetView<AgentsController> {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('/agentMyListing', arguments: listing);
+                  Get.toNamed('/agentMyListing', arguments: [user!.id]);
                 },
                 child: Image.asset(
                   AppEraAssets.manageListings,
@@ -390,8 +416,8 @@ Widget iconAgents(String assetPath, Function()? onTap, String name) {
     onTap: onTap,
     child: Column(
       children: [
-        Image.asset(
-          assetPath,
+        CachedNetworkImage(
+          imageUrl: assetPath,
           height: 110.h,
           width: 110.w,
         ),

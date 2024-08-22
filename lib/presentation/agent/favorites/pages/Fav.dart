@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/constants/theme.dart';
 import '../controllers/fav_controller.dart';
 //todo add text
 
@@ -41,16 +42,13 @@ class Fav extends GetView<FavController> {
       ),
     );
   }
-
   _loaded() {
-    final RealEstateListing? listing = Get.arguments;
-
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         children: [
           Obx(() {
-            if (controller.favoritesList.isEmpty && listing == null) {
+            if (controller.favoritesList.isEmpty && controller.listing == null) {
               return Center(child: Text('No favorites yet.'));
             }
             return Column(
@@ -144,11 +142,32 @@ class Fav extends GetView<FavController> {
       ),
     );
   }
-
   _error() {
-    //todo add error screen
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(height: 100.h,),
+          EraText(
+            fontSize: EraTheme.paragraph,
+            text: "Something went Wrong!",
+            color: Colors.black,
+          ),
+        ],
+      ),
+    );
   }
-  _empty() {
-    //todo add empty screen
+  _empty(){
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(height: 50.h,),
+          EraText(
+            fontSize: EraTheme.paragraph,
+            text: "No Listings Found!",
+            color: Colors.black,
+          ),
+        ],
+      ),
+    );
   }
 }

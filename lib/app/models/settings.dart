@@ -4,6 +4,7 @@ class Settings{
   List? featuredProjects;
   List? banners;
   List? featuredNews;
+  List? featuredAgents;
   int fileSizeLimit;
   bool isMaintenance;
   String? splashAd;
@@ -25,7 +26,8 @@ class Settings{
     this.auctionPicture,
     this.commercialPicture,
     this.rentalPicture,
-    this.banners
+    this.banners,
+    this.featuredAgents
   });
   factory Settings.fromJSON(Map<String,dynamic> json){
     return Settings(
@@ -41,7 +43,8 @@ class Settings{
       auctionPicture: json['auction_picture'] ?? "",
       commercialPicture: json['commercial_picture'] ?? "",
       rentalPicture: json['rental_picture'] ?? "",
-      banners: json["banners"] ?? []
+      banners: json["banners"] ?? [],
+      featuredAgents: json["featured_agents"] ?? []
     );
   }
 

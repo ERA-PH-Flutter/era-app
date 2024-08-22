@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -242,8 +244,8 @@ class RealEstateListing {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              child: Image.asset(
-                "assets/images/image2.png",
+              child: CachedNetworkImage(
+                imageUrl: image,
                 fit: BoxFit.cover,
                 width: 380.w,
                 height: 200.h,

@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_controller.dart';
 
 class FavListing extends StatelessWidget {
-  final List<RealEstateListing> listingModels;
+  final List listingModels;
 
   FavListing({super.key, required this.listingModels});
 

@@ -1,19 +1,24 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_controller.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 
+import '../../../repository/listing.dart';
+
 class FavItems extends StatelessWidget {
-  final RealEstateListing listing;
+  final Listing listing;
   final int index;
   final Function() onTap;
   final Function(int index) onLongPress;
-
-  const FavItems({
+  EraUser? agent;
+  FavItems({
     super.key,
     required this.listing,
     required this.index,
@@ -40,32 +45,43 @@ class FavItems extends StatelessWidget {
               elevation: 7,
               child: Row(
                 children: [
-                  Image.asset(
-                    '${listing.user.image}',
+                  CachedNetworkImage(
+                    imageUrl: '${listing.photos?.first ?? AppStrings.noUserImageWhite}',
                     width: 110.w,
                     height: 90.h,
+                    fit: BoxFit.cover,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10.h, left: 10.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        EraText(
-                          text:
-                              '${listing.user.firstname} ${listing.user.lastname}',
-                          color: AppColors.blue,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        EraText(
-                          text: listing.type,
-                          color: AppColors.black,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ],
-                    ),
-                  ),
+                  FutureBuilder(
+                    future: EraUser().getById(listing.by),
+                    builder: (context,AsyncSnapshot<EraUser> snapshot){
+                      if(snapshot.hasData){
+                        return Padding(
+                          padding: EdgeInsets.only(top: 10.h, left: 10.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              EraText(
+                                text: '${snapshot.data?.firstname ?? "Admin"} ${snapshot.data?.lastname ?? ""}',
+                                color: AppColors.blue,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              EraText(
+                                text: listing.type!,
+                                color: AppColors.black,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ],
+                          ),
+                        );
+                      }else{
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  )
                 ],
               ),
             );

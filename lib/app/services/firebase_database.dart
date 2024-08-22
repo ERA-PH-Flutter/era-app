@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/repository/listing.dart';
+import 'package:eraphilippines/repository/user.dart';
 
 class Database{
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -12,13 +14,10 @@ class Database{
     }
   }
   //LISTING
-  searchListingsByName(String name)async{
-    try{
-      //todo convert to user equivalent
-      return await db.collection("listings").where("name",isEqualTo: name).get();
-    }catch(error){
-      return "Error: $error";
-    }
+  Future<List<Listing>> searchListingsByUserId(String id)async{
+    return (await db.collection("listings").where('by',isEqualTo: id).get()).docs.map((data){
+      return Listing.fromJSON(data.data());
+    }).toList();
   }
   searchListing({
     location,
@@ -59,6 +58,14 @@ class Database{
   // USER
   getAllUser()async{
     return await db.collection('users').get();
+  }
+  searchUser({
+    searchParam = "full_name",
+    searchQuery
+  })async{
+    return (await db.collection('users').where(searchParam,isGreaterThanOrEqualTo: searchQuery).where(searchParam,isLessThanOrEqualTo: searchQuery + '\uf8ff').get()).docs.map((user){
+      return EraUser.fromJSON(user.data());
+    }).toList();
   }
   // PROJECTS
   getAllProjects()async{

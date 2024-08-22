@@ -75,7 +75,7 @@ class Listing{
       dateCreated: json["date_created"].toDate(),
       description: json["description"],
       cars: json["cars"],
-      isSold: json["isSold"]
+      isSold: json["is_sold"],
     );
   }
   Map<String,dynamic> toMap(){
@@ -100,7 +100,7 @@ class Listing{
       "views" : 0,
       "date_created" : DateTime.now(),
       "cars" : cars ?? 0,
-      "isSold" : isSold ?? false
+      "is_sold" : isSold ?? false,
     };
   }
   getListing(id)async{

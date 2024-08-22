@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +16,7 @@ import '../../widgets/custom_corner_image.dart';
 import '../../widgets/listings/listedBy_widget.dart';
 
 class ListingItemss extends StatelessWidget {
-  final String image;
+  final String? image;
   final String type;
   final int areas;
   final int beds;
@@ -26,17 +29,19 @@ class ListingItemss extends StatelessWidget {
   final String? agentFirstName;
   final String? agentLastName;
   final String? role;
+  final String? agent;
   final Widget? buttonEdit;
   final Widget? buttonDelete;
-
+  final String? id;
   final Function()? onTap;
   final bool showListedby;
   final bool isSold; // New parameter to indicate if the listing is sold
+  bool fromSold = false;
 
   ListingItemss({
     super.key,
     this.onTap,
-    required this.image,
+    this.image,
     required this.type,
     required this.areas,
     required this.beds,
@@ -52,7 +57,10 @@ class ListingItemss extends StatelessWidget {
     this.buttonEdit,
     this.buttonDelete,
     required this.showListedby,
-    this.isSold = false, // Default is false if not provided
+    this.id,
+    required this.isSold,
+    this.agent,
+    required this.fromSold
   });
 
   var selected = false.obs;
@@ -63,7 +71,7 @@ class ListingItemss extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isSold
+    return fromSold
         ? Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -73,156 +81,175 @@ class ListingItemss extends StatelessWidget {
               onTap: onTap,
               child: Stack(
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: toggleSelected,
-                          child: Obx(() {
-                            return ClipPath(
-                              clipper: selected.value
-                                  ? CustomCornerClipPath()
-                                  : null,
-                              child: AnimatedContainer(
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.easeIn,
-                                height: selected.value ? 170.h : 200.h,
-                                width: selected.value ? 340.w : 380.w,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: CachedNetworkImageProvider(image),
-                                    fit: BoxFit.contain,
-                                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: toggleSelected,
+                        child: Obx(() {
+                          return ClipPath(
+                            clipper: selected.value
+                                ? CustomCornerClipPath()
+                                : null,
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeIn,
+                              height: selected.value ? 170.h : 200.h,
+                              width: Get.width,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: CachedNetworkImageProvider(image ?? AppStrings.noUserImageWhite),
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                            );
-                          }),
-                        ),
-                        SizedBox(height: 15.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: EraText(
-                            text: type,
-                            fontSize: 16.sp,
-                            color: AppColors.kRedColor,
-                            fontWeight: FontWeight.bold,
-                            lineHeight: 0.4,
-                          ),
-                        ),
-                        Row(
+                            ),
+                          );
+                        }),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 5.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            SizedBox(height: 15.h),
+                            EraText(
+                              text: type,
+                              fontSize: 20.sp,
+                              color: AppColors.kRedColor,
+                              fontWeight: FontWeight.bold,
+                              lineHeight: 0.4,
+                            ),
+                            SizedBox(height: 5.h),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Image.asset(
-                                  AppEraAssets.area,
-                                  width: 40.w,
-                                  height: 40.h,
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      AppEraAssets.area,
+                                      width: 50.w,
+                                      height: 50.w,
+                                    ),
+                                    SizedBox(width: 2.w),
+                                    EraText(
+                                      text: '$areas sqm',
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.black,
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(width: 2.w),
+                                Image.asset(
+                                  AppEraAssets.bed,
+                                  width: 50.w,
+                                  height: 50.w,
+                                ),
                                 EraText(
-                                  text: '$areas sqm',
-                                  fontSize: 15.sp,
+                                  text: '$beds',
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.black,
+                                ),
+                                Image.asset(
+                                  AppEraAssets.tub,
+                                  width: 50.w,
+                                  height: 50.w,
+                                ),
+                                EraText(
+                                  text: '$baths',
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.black,
+                                ),
+                                Image.asset(
+                                  AppEraAssets.car,
+                                  width: 50.w,
+                                  height: 50.w,
+                                ),
+                                EraText(
+                                  text: '$cars',
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.black,
                                 ),
                               ],
                             ),
-                            SizedBox(width: 10.w),
-                            Image.asset(
-                              AppEraAssets.bed,
-                              width: 40.w,
-                              height: 40.h,
+                            SizedBox(height: 5.h),
+                            Container(
+                              constraints: BoxConstraints(
+                                maxHeight: 100.h
+                              ),
+                              child: EraText(
+                                text: 'Description:',
+                                fontSize: 18.sp,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w600,
+                                lineHeight: 1,
+                              ),
                             ),
+                            Text(
+                              description,
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.black,
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 5.h),
                             EraText(
-                              text: '$beds',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
+                              text: NumberFormat.currency(
+                                locale: 'en_PH',
+                                symbol: 'PHP ',
+                              ).format(price),
+                              color: AppColors.blue,
+                              fontSize: 25.sp,
+                              fontWeight: FontWeight.bold,
                             ),
-                            SizedBox(width: 10.w),
-                            Image.asset(
-                              AppEraAssets.tub,
-                              width: 40.w,
-                              height: 40.h,
-                            ),
-                            EraText(
-                              text: '$baths',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
-                            ),
-                            SizedBox(width: 10.w),
-                            Image.asset(
-                              AppEraAssets.car,
-                              width: 40.w,
-                              height: 40.h,
-                            ),
-                            EraText(
-                              text: '$cars',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
+                            SizedBox(height: 5.h),
+                            if (showListedby)
+                              FutureBuilder(
+                                future: EraUser().getById(agent),
+                                builder: (context,AsyncSnapshot<EraUser> snapshot){
+
+                                  if(snapshot.hasData){
+                                    print(snapshot.data!.firstname);
+                                    return ListedBy(
+                                      text: listedBy ?? '',
+                                      image: snapshot.data!.image ?? AppStrings.noUserImageWhite,
+                                      agentFirstName: snapshot.data?.firstname ?? '',
+                                      agentLastName: snapshot.data?.lastname ?? '',
+                                      agentType: role ?? 'Agent',
+                                    );
+                                  }else{
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                }
+                              ),
+                            SizedBox(height: 20.h),
+                            Builder(
+                                builder: (context) {
+                                  if(id == user!.id){
+                                    return Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        if (buttonEdit != null) buttonEdit!,
+                                        if (buttonDelete != null) buttonDelete!,
+                                      ],
+                                    );
+                                  }else{
+                                    return Container();
+                                  }
+
+                                }
                             ),
                           ],
                         ),
-                        SizedBox(height: 5.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: EraText(
-                            text: 'Description:',
-                            fontSize: 16.sp,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w600,
-                            lineHeight: 1,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            description,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
-                            ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        SizedBox(height: 5.h),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: EraText(
-                            text: NumberFormat.currency(
-                              locale: 'en_PH',
-                              symbol: 'PHP ',
-                            ).format(price),
-                            color: AppColors.blue,
-                            fontSize: 23.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 5.h),
-                        if (showListedby)
-                          ListedBy(
-                            text: listedBy ?? '',
-                            image: agentImage ?? "",
-                            agentFirstName: agentFirstName ?? '',
-                            agentLastName: agentLastName ?? '',
-                            agentType: role ?? '',
-                          ),
-                        SizedBox(height: 20.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            if (buttonEdit != null) buttonEdit!,
-                            if (buttonDelete != null) buttonDelete!,
-                          ],
-                        ),
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                   if (isSold)
                     Positioned(
@@ -256,7 +283,6 @@ class ListingItemss extends StatelessWidget {
                       GestureDetector(
                         onTap: toggleSelected,
                         child: Obx(() {
-                          print(image);
                           return ClipPath(
                             clipper:
                                 selected.value ? CustomCornerClipPath() : null,
@@ -267,7 +293,7 @@ class ListingItemss extends StatelessWidget {
                               width: selected.value ? 340.w : 380.w,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: CachedNetworkImageProvider(image),
+                                  image: CachedNetworkImageProvider(image!),
                                   fit: BoxFit.contain,
                                 ),
                               ),
@@ -377,12 +403,20 @@ class ListingItemss extends StatelessWidget {
                           agentType: role ?? '',
                         ),
                       SizedBox(height: 20.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          if (buttonEdit != null) buttonEdit!,
-                          if (buttonDelete != null) buttonDelete!,
-                        ],
+                      Builder(
+                          builder: (context) {
+                            if(user?.id == id){
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  if (buttonEdit != null) buttonEdit!,
+                                  if (buttonDelete != null) buttonDelete!,
+                                ],
+                              );
+                            }else{
+                              return Container();
+                            }
+                          }
                       ),
                     ],
                   ),

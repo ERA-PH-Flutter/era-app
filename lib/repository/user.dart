@@ -17,6 +17,7 @@ class EraUser {
   int? age;
   String? gender;
   List? favorites;
+  List? archives;
   EraUser({
     this.id,
     this.firstname,
@@ -32,6 +33,7 @@ class EraUser {
     this.age,
     this.gender,
     this.favorites,
+    this.archives
   });
 
   factory EraUser.fromJSON(Map<String, dynamic> json) {
@@ -49,7 +51,8 @@ class EraUser {
       eraId: json['era_id'],
       age: json['age'],
       gender : json['gender'],
-      favorites: json['favorites']
+      favorites: json['favorites'],
+      archives: json['archives']
     );
   }
   factory EraUser.empty(){
@@ -91,7 +94,8 @@ class EraUser {
       'era_id' : eraId ?? '',
       'age' : age ?? 0,
       'gender' : gender ?? 'male',
-      'favorites' : favorites ?? []
+      'favorites' : favorites ?? [],
+      'archives' : archives ?? []
     };
   }
 }

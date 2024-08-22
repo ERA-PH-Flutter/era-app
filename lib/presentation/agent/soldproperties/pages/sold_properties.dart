@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
@@ -42,32 +43,43 @@ class SoldProperties extends GetView<SoldPropertiesController> {
   _loaded() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.w,
-            ),
-            child: EraText(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 11.h,),
+            EraText(
               text: 'SOLD PROPERTIES',
               fontSize: 30.sp,
               color: AppColors.blue,
               fontWeight: FontWeight.w600,
             ),
-          ),
-          SoldPropertiesListings(
-            listingModels: RealEstateListing.listingsModels,
-          ),
-        ],
+            SizedBox(height: 5.h,),
+            SoldPropertiesListings(
+              listingModels: controller.soldListings.value,
+            ),
+          ],
+        ),
       ),
     );
   }
 
   _error() {
-    //todo add error screen
+    return Center(
+      child: EraText(
+        text: "Something went Wrong!",
+        color: Colors.black,
+      ),
+    );
   }
   _empty() {
-    //todo add empty screen
+    return Center(
+      child: EraText(
+        text: "Nothing is sold in your List!",
+        color: Colors.black,
+        fontSize: EraTheme.paragraph,
+      ),
+    );
   }
 }
