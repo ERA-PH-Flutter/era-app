@@ -1,7 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EraTheme{
-
+class EraTheme {
   static double paragraph = 18.sp;
   static double header = 27.sp;
   static double subHeader = 20.sp;
@@ -17,4 +16,5 @@ class EraTheme{
   static double paddingWidthMedium = 21.w;
   static double paddingWidthSmall = 16.w;
 
+  static double paddingWidthAdmin = 75.w;
 }

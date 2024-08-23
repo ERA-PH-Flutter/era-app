@@ -179,11 +179,6 @@ appRoutes() => [
           binding: HomeAnalyticsBinding()),
 
       GetPage(
-          name: RouteString.addlistingsAdmin,
-          page: () => AddListingsAdmin(),
-          binding: AddEditListingsBinding()),
-
-      GetPage(
           name: RouteString.addAgent,
           page: () => AddAgent(),
           binding: AgentAdminBindings()),

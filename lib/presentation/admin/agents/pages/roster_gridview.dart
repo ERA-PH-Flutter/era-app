@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -18,9 +19,9 @@ class RosterGridview extends StatelessWidget {
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.only(
-        top: 50.h,
-        left: 80.w,
-        right: 80.w,
+        top: 90.h,
+        left: 10.w,
+        right: 10.w,
       ),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -117,7 +118,7 @@ class RosterGridview extends StatelessWidget {
               child: Button(
                 width: 150.w,
                 height: 35.h,
-                fontSize: 15.sp,
+                fontSize: EraTheme.buttonFontSizeSmall,
                 text: 'MESSAGE',
                 bgColor: AppColors.blue,
                 borderRadius: BorderRadius.circular(30),
