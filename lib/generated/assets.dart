@@ -95,11 +95,6 @@ class Assets {
   static const String iconsWhatsapp = 'assets/icons/whatsapp.png';
   static const String imagesAboutuspic = 'assets/images/aboutuspic.png';
   static const String imagesAgentpfp = 'assets/images/agentpfp.png';
-  static const String imagesAureliaBannerPhoto = 'assets/images/aurelia_banner_photo.jpg';
-  static const String imagesAureliaImage1 = 'assets/images/aurelia_image1.jpg';
-  static const String imagesAureliaImage2 = 'assets/images/aurelia_image2.jpg';
-  static const String imagesAureliaLocation = 'assets/images/aurelia_location.jpeg';
-  static const String imagesAureliaLogo = 'assets/images/aurelia_logo.jpg';
   static const String imagesC3 = 'assets/images/c3.JPG';
   static const String imagesCarouselslider1 = 'assets/images/carouselslider1.png';
   static const String imagesCarouselsliderpic3 = 'assets/images/carouselsliderpic3.jpg';
@@ -122,7 +117,6 @@ class Assets {
   static const String imagesLayaBannerPhoto = 'assets/images/laya_banner_photo.jpg';
   static const String imagesLayaImage1 = 'assets/images/laya_image1.jpg';
   static const String imagesLayaImage2 = 'assets/images/laya_image2.jpg';
-  static const String imagesLayaLocation = 'assets/images/laya_location.jpeg';
   static const String imagesLayaLogo = 'assets/images/laya_logo.jpg';
   static const String imagesListingexample3 = 'assets/images/listingexample3.png';
   static const String imagesLocationImage = 'assets/images/locationImage.png';
