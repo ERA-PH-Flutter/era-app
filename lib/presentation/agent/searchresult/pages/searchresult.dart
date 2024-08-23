@@ -35,52 +35,10 @@ class SearchResult extends GetView<SearchResultController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  // SizedBox(width: 10.w),
-                  // CustomSortPopup(
-                  //   title: 'Sort by',
-                  //   onSelected: (String result) {
-                  //     print(result);
-                  //   },
-                  //   menuItems: const [
-                  //     PopupMenuItem<String>(
-                  //       value: 'Category',
-                  //       child: Text('Category',
-                  //           style: TextStyle(color: Colors.black)),
-                  //     ),
-                  //     PopupMenuItem<String>(
-                  //       value: 'date_modified',
-                  //       child:
-                  //           Text('Date', style: TextStyle(color: Colors.black)),
-                  //     ),
-                  //     PopupMenuItem<String>(
-                  //       value: 'Location',
-                  //       child: Text('Location',
-                  //           style: TextStyle(color: Colors.black)),
-                  //     ),
-                  //     PopupMenuItem<String>(
-                  //       value: 'Amount',
-                  //       child: Text('Amount',
-                  //           style: TextStyle(color: Colors.black)),
-                  //     ),
-                  //     PopupMenuDivider(),
-                  //     PopupMenuItem<String>(
-                  //       value: 'ascending',
-                  //       child: Text('Ascending'),
-                  //     ),
-                  //     PopupMenuItem<String>(
-                  //       value: 'descending',
-                  //       child: Text('Descending'),
-                  //     ),
-                  //   ],
-                  // ),
-                ],
-              ),
-              SizedBox(height: 10.h),
+                SizedBox(height: 10.h),
               BoxWidget.build(
                 child: Column(
+                  
                   children: [
                     SizedBox(height: 10.h),
                     //Location
@@ -209,7 +167,8 @@ class SearchResult extends GetView<SearchResultController> {
                             await AI(query: controller.aiSearchController.text)
                                 .search();
                       }
-                      controller.searchQuery.value = controller.aiSearchController.text;
+                      controller.searchQuery.value =
+                          controller.aiSearchController.text;
                       controller.data.value = data ?? [];
                       controller.searchResultState.value =
                           SearchResultState.loaded;
@@ -276,7 +235,11 @@ class SearchResult extends GetView<SearchResultController> {
                     children: [
                       ClipRRect(
                         child: CachedNetworkImage(
-                          imageUrl: listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite,
+                          imageUrl: listing.photos != null
+                              ? (listing.photos!.isNotEmpty
+                                  ? listing.photos!.first
+                                  : AppStrings.noUserImageWhite)
+                              : AppStrings.noUserImageWhite,
                           fit: BoxFit.cover,
                           width: 380.w,
                           height: 200.h,
@@ -384,9 +347,10 @@ class SearchResult extends GetView<SearchResultController> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: EraText(
-                          text: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
+                          text: NumberFormat.currency(
+                                  locale: 'en_PH', symbol: 'PHP ')
                               .format(
-                            listing.price.toString() == "" ? 0 :listing.price,
+                            listing.price.toString() == "" ? 0 : listing.price,
                           ),
                           color: AppColors.blue,
                           fontSize: 23.sp,

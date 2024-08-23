@@ -2,6 +2,7 @@ import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,14 +24,15 @@ class FilterController extends GetxController {
   TextEditingController bedsController = TextEditingController();
 
   // Property Types
-  var propertyTypes = {
-    'House': false,
-    'Apartment': false,
-    'Condominium': false,
-    'Townhouse': false,
-    'Land': false,
-    'Commercial': false,
-  }.obs;
+  var propertyType = [
+    'House',
+    'Apartment',
+    'Condominium',
+    'Townhouse',
+    'Land',
+    'Commercial',
+  ];
+  var selectedPropertyType = RxnString();
 
   // Amenities
   var wifi = false.obs;
@@ -63,7 +65,14 @@ class FilterController extends GetxController {
     bedrooms.value = 1;
     bathrooms.value = 1;
     beds.value = 1;
-    propertyTypes.updateAll((key, value) => false);
+    propertyType = [
+      'House',
+      'Apartment',
+      'Condominium',
+      'Townhouse',
+      'Land',
+      'Commercial',
+    ];
     wifi.value = false;
     kitchen.value = false;
     washer.value = false;
@@ -190,52 +199,6 @@ class RoomsAndBedsFilter extends StatelessWidget {
   }
 }
 
-// Main Reusable Filter Screen
-class FilterScreen extends StatelessWidget {
-  final FilterController controller = Get.put(FilterController());
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Obx(() {
-          return Visibility(
-            visible: controller.filtersVisible.value,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  // // Rooms and Beds
-                  // SizedBox(height: 16),
-
-                  // // Property Type
-
-                  // // Amenities
-
-                  // // Location
-                  // SizedBox(height: 16),
-
-                  // // Apply Button
-                  // SizedBox(height: 32),
-                  // Center(
-                  //   child: ElevatedButton(
-                  //     onPressed: () {
-                  //       // Apply filter action
-                  //     },
-                  //     child: Text('Apply Filters'),
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
-          );
-        }),
-      ],
-    );
-  }
-}
-
 // Reusable Property Type Widget
 class PropertyTypeFilter extends StatelessWidget {
   final FilterController controller;
@@ -245,15 +208,14 @@ class PropertyTypeFilter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: controller.propertyTypes.keys.map((type) {
-        return Obx(() => CheckboxListTile(
-              title: Text(type),
-              value: controller.propertyTypes[type],
-              onChanged: (value) {
-                controller.propertyTypes[type] = value!;
-              },
-            ));
-      }).toList(),
+      children: [
+        SharedWidgets.dropDown(
+            controller.selectedPropertyType,
+            controller.propertyType,
+            (value) => controller.selectedPropertyType.value = value!,
+            'Property Type',
+            'Property Type'),
+      ],
     );
   }
 }
