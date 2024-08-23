@@ -13,7 +13,6 @@ class SharedWidgets {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         EraText(text: name, fontSize: 18.sp, color: AppColors.black),
-        SizedBox(height: 5.h),
         TextFormField(
           controller: controller,
           decoration: InputDecoration(
@@ -123,21 +122,20 @@ class SharedWidgets {
     return Column(
       children: [
         Container(
-          height: Get.height / 7.h,
           decoration: BoxDecoration(
             color: AppColors.kRedColor,
           ),
         ),
-        Container(
-          height: Get.height - Get.height / 6.h,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(50),
-              topRight: Radius.circular(50),
-            ),
-          ),
-        ),
+        // Container(
+        //   height: Get.height - Get.height / 6.h,
+        //   decoration: BoxDecoration(
+        //     color: AppColors.white,
+        //     borderRadius: BorderRadius.only(
+        //       topLeft: Radius.circular(50),
+        //       topRight: Radius.circular(50),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
