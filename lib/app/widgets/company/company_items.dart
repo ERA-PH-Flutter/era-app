@@ -25,7 +25,13 @@ void prevImage() {
 
 class CompanyItems extends StatelessWidget {
   final companyItems;
-  const CompanyItems({super.key, required this.companyItems});
+  final bool showListedby;
+
+  const CompanyItems({
+    super.key,
+    required this.companyItems,
+    required this.showListedby,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -112,44 +118,46 @@ class CompanyItems extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          left: 10.w,
-          top: 0.h,
-          bottom: 180.h,
-          child: Container(
-            height: 320.h,
-            alignment: Alignment.center,
-            child: GestureDetector(
-              onTap: () {
-                //to do nikko
-              },
-              child: Image.asset(
-                AppEraAssets.next,
-                height: 20.h,
-                width: 20.w,
+        if (showListedby == true)
+          Positioned(
+            left: 10.w,
+            top: 0.h,
+            bottom: 180.h,
+            child: Container(
+              height: 320.h,
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: () {
+                  //to do nikko
+                },
+                child: Image.asset(
+                  AppEraAssets.next,
+                  height: 20.h,
+                  width: 20.w,
+                ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          right: 10.w,
-          top: 0.h,
-          bottom: 180.h,
-          child: Container(
-            height: 320.h,
-            alignment: Alignment.center,
-            child: GestureDetector(
-              onTap: () {
-                //to do nikko
-              },
-              child: Image.asset(
-                AppEraAssets.prev,
-                height: 20.h,
-                width: 20.w,
+        if (showListedby == true)
+          Positioned(
+            right: 10.w,
+            top: 0.h,
+            bottom: 180.h,
+            child: Container(
+              height: 320.h,
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: () {
+                  //to do nikko
+                },
+                child: Image.asset(
+                  AppEraAssets.prev,
+                  height: 20.h,
+                  width: 20.w,
+                ),
               ),
             ),
           ),
-        ),
       ],
     );
   }

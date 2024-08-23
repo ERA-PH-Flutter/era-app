@@ -26,7 +26,9 @@ class CompanyGrid extends StatelessWidget {
               ),
               itemCount: companymodels.length,
               itemBuilder: (context, i) =>
-                  CompanyItems(companyItems: companymodels[i]),
+                  CompanyItems(companyItems: companymodels[i],
+                  showListedby: true,
+                  ),
             ),
           )
         : SizedBox(

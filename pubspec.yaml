@@ -42,7 +42,6 @@ dependencies:
   dart_eval: ^0.7.9
   number_paginator: ^0.4.1
   easy_sidemenu: ^0.6.0
-  webview_flutter: ^4.8.0
 
 dev_dependencies:
   flutter_test:

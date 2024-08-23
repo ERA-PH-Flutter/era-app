@@ -66,7 +66,7 @@ class SharedWidgets {
     );
   }
 
-  static Widget dropDown(RxnString selectedGender, List<String> genderType,
+  static Widget dropDown(RxnString selectedItem, List<String> Types,
       Function(String?) onChanged, String name, String hintText) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +88,7 @@ class SharedWidgets {
             ),
             dropdownColor: AppColors.white,
             focusColor: AppColors.hint,
-            value: selectedGender.value,
+            value: selectedItem.value,
             style: TextStyle(color: Colors.white),
             iconEnabledColor: Colors.black,
             isExpanded: true,
@@ -102,7 +102,7 @@ class SharedWidgets {
                 fontSize: 20.sp,
               ),
             ),
-            items: genderType.map<DropdownMenuItem<String>>((String value) {
+            items: Types.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: EraText(

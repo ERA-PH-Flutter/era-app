@@ -40,7 +40,7 @@ class HarayaProject extends GetView<ProjectsController> {
   Widget projectContainer(ProjectsModels1 project) {
     return Column(
       children: [
-        Image.asset(project.heroImage ?? ""),
+        Image.asset(project.heroImage!),
         SizedBox(height: 15.h),
         ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 15.h),
@@ -89,14 +89,14 @@ class HarayaProject extends GetView<ProjectsController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           paddingText(
-            project.text1 ?? "",
+            project.text1!,
             20,
             FontWeight.bold,
             AppColors.blue,
             15,
           ),
           paddingText(
-            project.text2 ?? "",
+            project.text2!,
             18.sp,
             FontWeight.bold,
             AppColors.kRedColor,
@@ -104,7 +104,7 @@ class HarayaProject extends GetView<ProjectsController> {
           ),
           SizedBox(height: 10.h),
           paddingText(
-            project.text3 ?? "",
+            project.text3!,
             14,
             FontWeight.w500,
             AppColors.black,
@@ -112,7 +112,7 @@ class HarayaProject extends GetView<ProjectsController> {
           ),
           SizedBox(height: 10.h),
           Image.asset(
-            project.image1 ?? "",
+            project.image1!,
             fit: BoxFit.cover,
           ),
         ],
@@ -427,7 +427,6 @@ class HarayaProject extends GetView<ProjectsController> {
         fontWeight: fontWeight,
         color: color,
         maxLines: 50,
-        textAlign: TextAlign.justify,
       ),
     );
   }
