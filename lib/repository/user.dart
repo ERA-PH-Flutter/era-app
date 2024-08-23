@@ -98,6 +98,10 @@ class EraUser {
       'archives' : archives ?? []
     };
   }
+  addFavorites(id){
+    favorites!.contains(id) ? favorites!.remove(id) : favorites?.add(id);
+    update();
+  }
 }
 
 class EraUserInfo{

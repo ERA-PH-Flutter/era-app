@@ -141,7 +141,7 @@ class Home extends GetView<HomeController> {
         /// Search Engine Box
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: EraTheme.paddingWidth * 2.5, vertical: 26.h),
+              horizontal: EraTheme.paddingWidth, vertical: 26.h),
           child: BoxWidget.build(
             child: Column(
               children: [

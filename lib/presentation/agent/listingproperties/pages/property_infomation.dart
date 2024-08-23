@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
@@ -13,11 +17,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../../../repository/listing.dart';
+import '../../../global.dart';
 import '../controllers/listing_controller.dart';
 
 class PropertyInformation extends GetView<ListingController> {
-  final RealEstateListing listing;
-
+  final Listing listing;
+  var init = true;
   PropertyInformation({
     super.key,
     required this.listing,
@@ -26,6 +32,12 @@ class PropertyInformation extends GetView<ListingController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.images.clear();
+    listing.photos?.forEach((photo){
+      if(photo != ""){
+        controller.images.add(photo);
+      }
+    });
     return BaseScaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -33,11 +45,11 @@ class PropertyInformation extends GetView<ListingController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              padding: EdgeInsets.symmetric(horizontal: 25.0,vertical: 11.h),
               child: EraText(
-                text: 'Property Information',
+                text: 'Property Information'.toUpperCase(),
                 color: AppColors.blue,
-                fontSize: 23.sp,
+                fontSize: EraTheme.header - 2.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -47,7 +59,7 @@ class PropertyInformation extends GetView<ListingController> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: EraText(
-                text: listing.type,
+                text: listing.type!,
                 color: AppColors.kRedColor,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w700,
@@ -75,8 +87,8 @@ class PropertyInformation extends GetView<ListingController> {
 
             // i dont know why URI is not working here
             Obx(() {
-              bool isFav = favoritesController.isFavorite(listing);
-              CachedNetworkImage.evictFromCache(controller.currentImage.value);
+              bool isFav = false;
+              //CachedNetworkImage.evictFromCache(controller.currentImage.value);
 
               return SizedBox(
                 height: 350.h,
@@ -84,9 +96,10 @@ class PropertyInformation extends GetView<ListingController> {
                   children: [
                     Positioned(
                         child: SizedBox(
+                          width: Get.width,
                       height: 320.h,
                       child: CachedNetworkImage(
-                        imageUrl: controller.currentImage.value,
+                        imageUrl: controller.currentImage.value == '' ? (controller.images.isNotEmpty ? controller.images.first : AppStrings.noUserImageWhite) :  controller.currentImage.value ,
                         fit: BoxFit.cover,
                         errorWidget: (context, url, error) => Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -139,33 +152,33 @@ class PropertyInformation extends GetView<ListingController> {
                         ),
                       ),
                     ),
-                    Positioned(
-                      right: 10.w,
-                      top: 10.h,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: GestureDetector(
-                          onTap: () {
-                            if (isFav) {
-                              favoritesController.removeFromFavorites(listing);
-                            } else {
-                              favoritesController.addToFavorites(listing);
-                            }
-                          },
-                          child: isFav
-                              ? Icon(
-                                  CupertinoIcons.heart_fill,
-                                  color: AppColors.kRedColor,
-                                  size: 30.sp,
-                                )
-                              : Icon(
-                                  CupertinoIcons.heart,
-                                  color: AppColors.hint,
-                                  size: 30.sp,
-                                ),
+                    Obx((){
+                      controller.isFav.value;
+                      return Positioned(
+                        right: 10.w,
+                        top: 10.h,
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.isFav.value = !controller.isFav.value;
+                              user!.addFavorites(listing.id);
+                            },
+                            child: user!.favorites!.contains(listing.id)
+                                ? Icon(
+                              CupertinoIcons.heart_fill,
+                              color: AppColors.kRedColor,
+                              size: 50.sp,
+                            )
+                                : Icon(
+                              CupertinoIcons.heart,
+                              color: AppColors.hint,
+                              size: 50.sp,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    })
                   ],
                 ),
               );
@@ -196,25 +209,25 @@ class PropertyInformation extends GetView<ListingController> {
             fontWeight: FontWeight.bold,
           ),
           EraText(
-            text: listing.description,
+            text: listing.description ?? "",
             color: AppColors.black,
             fontSize: 14.sp,
             maxLines: 50,
           ),
           SizedBox(height: 20.h),
-          eratexts('Listing ID# ', '${listing.listingId}'),
-          eratexts('Last Updated: ', '${listing.lastUpdated}'),
-          eratexts('Added: ', '${listing.addedDaysago} days Ago'),
+          eratexts('Listing ID# ', '${listing.id}'),
+          eratexts('Last Updated: ', 'ADD LAST UPDATED IN FIRESTORE'),
+          eratexts('Added: ', ' days Ago'),
 
           SizedBox(height: 20.h),
 
-          featuresWidgets('Features / Amenities', listing.features.join('\n')),
+          //featuresWidgets('Features / Amenities', listing.join('\n')),
           SizedBox(height: 20.h),
-          featuresWidgets(
-              'Rooms & Interior', listing.roomsAndInterior.join('\n')),
+          //featuresWidgets(
+              //'Rooms & Interior', listing.roomsAndInterior.join('\n')),
           SizedBox(height: 20.h),
-          featuresWidgets(
-              'Location & School', listing.locationAndSchools.join('\n')),
+          //featuresWidgets(
+             // 'Location & School', listing.locationAndSchools.join('\n')),
 
           SizedBox(height: 40.h),
           //widget location
@@ -272,6 +285,7 @@ class PropertyInformation extends GetView<ListingController> {
                 ),
               )),
           SizedBox(height: 30.h),
+          /*
           ListedBy(
             text: 'Listed By',
             image: listing.user.image!,
@@ -283,6 +297,7 @@ class PropertyInformation extends GetView<ListingController> {
             email: listing.user.email,
             emailIcon: AppEraAssets.emailIcon,
           ),
+          */
 
           SizedBox(height: 20.h),
           EraText(
@@ -331,7 +346,7 @@ class PropertyInformation extends GetView<ListingController> {
           ),
           SizedBox(height: 20.h),
           EraText(
-            text: listing.address,
+            text: listing.location ?? "***********************************************************",
             color: AppColors.black,
             fontWeight: FontWeight.w500,
             fontSize: 14.sp,
@@ -352,8 +367,8 @@ class PropertyInformation extends GetView<ListingController> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            iconsWidgets(AppEraAssets.money2, '${listing.pricePerSqm}'),
-            iconsWidgets(AppEraAssets.area, '${listing.areas} sqm'),
+            iconsWidgets(AppEraAssets.money2, '${listing.ppsqm}'),
+            iconsWidgets(AppEraAssets.area, '${listing.area} sqm'),
             iconsWidgets(AppEraAssets.bed, '${listing.beds}'),
           ],
         ),
@@ -384,7 +399,7 @@ class PropertyInformation extends GetView<ListingController> {
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 5.h),
-            shorterSummary('Property ID', '${listing.propertyId}'),
+            shorterSummary('Property ID', '${listing.id}'),
             shorterSummary(
                 'Price',
                 NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
@@ -392,14 +407,14 @@ class PropertyInformation extends GetView<ListingController> {
             shorterSummary(
                 'Price per sqm',
                 NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
-                    .format(listing.pricePerSqm)),
+                    .format(listing.ppsqm)),
             shorterSummary('Beds', '${listing.beds}'),
             shorterSummary('Baths', '${listing.baths}'),
-            shorterSummary('Area', '${listing.areas}'),
-            shorterSummary('Offer Type', listing.offerType),
-            shorterSummary('View', listing.view),
-            shorterSummary('Location', listing.location),
-            shorterSummary('Type', listing.specificType),
+            shorterSummary('Area', '${listing.area}'),
+            //shorterSummary('Offer Type', listing.type),
+            shorterSummary('View', listing.view ?? 0),
+            shorterSummary('Location', listing.location ?? ""),
+            shorterSummary('Type', listing.type),
             shorterSummary('Sub Category', listing.subCategory),
           ],
         ),
@@ -462,7 +477,7 @@ class PropertyInformation extends GetView<ListingController> {
           ),
           Expanded(
             child: EraText(
-              text: text2,
+              text: text2.toString(),
               color: AppColors.black,
               fontSize: 18.sp,
             ),
