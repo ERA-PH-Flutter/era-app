@@ -18,7 +18,7 @@ enum LoginPageState {
   error,
 }
 
-class LoginPageController extends GetxController with BaseController{
+class LoginPageController extends GetxController with BaseController {
   Rx<File> image = File('').obs;
   final picker = ImagePicker();
   var store = Get.find<LocalStorageService>();
@@ -48,6 +48,7 @@ class LoginPageController extends GetxController with BaseController{
   TextEditingController whatsAppController = TextEditingController();
 
   //create account
+  TextEditingController passwordC = TextEditingController();
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController age = TextEditingController();
@@ -62,32 +63,34 @@ class LoginPageController extends GetxController with BaseController{
 
   login() async {
     showLoading();
-    var login = await Authentication().login(email: email.text.trim(), password: password.text.trim());
+    var login = await Authentication()
+        .login(email: email.text.trim(), password: password.text.trim());
     if (login != null) {
       var id = FirebaseAuth.instance.currentUser!.uid;
       user = await EraUser().getById(id);
       Get.find<LocalStorageService>().userID = id;
       Get.offAllNamed(RouteString.home);
     } else {
-      showSuccessDialog(hitApi: (){
-        Get.back();
-        Get.back();
-      },title: "Failed",description: "Incorrect credentials, please double check!");
+      showSuccessDialog(
+          hitApi: () {
+            Get.back();
+            Get.back();
+          },
+          title: "Failed",
+          description: "Incorrect credentials, please double check!");
     }
   }
 
   googleLogin() async {
     var googleLogin = await Authentication().signInWithGoogle();
-    if(googleLogin != null){
+    if (googleLogin != null) {
       //todo check if user is reg
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
       Get.offAllNamed(RouteString.home);
-    }else{
-      showSuccessDialog(hitApi: (){
-
-      },title: "Failed",description: "Something went wrong");
+    } else {
+      showSuccessDialog(
+          hitApi: () {}, title: "Failed", description: "Something went wrong");
     }
-
   }
 
   Future getImageGallery() async {
@@ -101,52 +104,46 @@ class LoginPageController extends GetxController with BaseController{
     }
   }
 
-  Future signUp()async{
+  Future signUp() async {
     showLoading();
     print(email.text);
-    await Authentication().signup(
-        email: emailAd.text,
-        password: 'eraaccount'
-    );
-    var id = await Authentication().login(
-        email: emailAd.text,
-        password: 'eraaccount'
-    );
+    await Authentication().signup(email: emailAd.text, password: 'eraaccount');
+    var id = await Authentication()
+        .login(email: emailAd.text, password: 'eraaccount');
     var user = EraUser(
       id: id,
       firstname: firstName.text,
       lastname: lastName.text,
-      age : age.text.toInt(),
+      age: age.text.toInt(),
       gender: selectedGender.value,
       whatsApp: contactNo.text,
       email: emailAd.text,
     );
     var userInfo = EraUserInfo(
-      id: id,
-      status: selectedStatus.value,
-      recruiter: recruiter.text,
-      education: selectedEducation.value,
-      experience: experience.text.toInt(),
-      transaction: selectedTransaction.value,
-      pastTransaction: selectedTransaction.value,
-      specialization: selectedSpeciality.value
-    );
+        id: id,
+        status: selectedStatus.value,
+        recruiter: recruiter.text,
+        education: selectedEducation.value,
+        experience: experience.text.toInt(),
+        transaction: selectedTransaction.value,
+        pastTransaction: selectedTransaction.value,
+        specialization: selectedSpeciality.value);
     await Authentication().logout();
-    try{
-      if(id != null){
+    try {
+      if (id != null) {
         await user.add();
         await userInfo.add();
         showSuccessDialog(
             title: "Create account Success!",
-            description: "Account creation was successful please wait for admin approval!",
-            hitApi: (){
+            description:
+                "Account creation was successful please wait for admin approval!",
+            hitApi: () {
               Get.offAllNamed(RouteString.loginpage);
-            }
-        );
-      }else{
+            });
+      } else {
         //throw Error();
       }
-    }catch(error,ex){
+    } catch (error, ex) {
       print(ex);
     }
   }
