@@ -1,8 +1,10 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
@@ -37,7 +39,7 @@ class AddListings extends GetView<AddListingsController> {
           ),
           buildWidget(
             'Property Cost',
-            TextformfieldWidget(hintText: 'Php 100,000,000', maxLines: 1),
+            TextformfieldWidget(hintText: '100,000,000', maxLines: 1),
           ),
           textBuild(
               'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
@@ -134,17 +136,17 @@ class AddListings extends GetView<AddListingsController> {
           TextformfieldWidget(
               keyboardType: TextInputType.number,
               controller: controller.pricePerSqmController,
-              hintText: 'Php 100,000',
+              hintText: '100',
               maxLines: 1),
         ),
-        buildWidget(
-          'Floor Area',
-          TextformfieldWidget(
-              keyboardType: TextInputType.number,
-              controller: controller.floorAreaController,
-              hintText: '151 sqm',
-              maxLines: 1),
-        ),
+        // buildWidget(
+        //   'Floor Area',
+        //   TextformfieldWidget(
+        //       keyboardType: TextInputType.number,
+        //       controller: controller.floorAreaController,
+        //       hintText: '151',
+        //       maxLines: 1),
+        // ),
         buildWidget(
           'Beds',
           TextformfieldWidget(
@@ -163,23 +165,21 @@ class AddListings extends GetView<AddListingsController> {
           'Area',
           TextformfieldWidget(
               controller: controller.areaController,
-              hintText: '150 sqm',
+              hintText: '150',
               maxLines: 1),
         ),
-        buildWidget(
-          'Offer Type',
-          TextformfieldWidget(
-              controller: controller.offerTypeController,
-              hintText: 'Sale',
-              maxLines: 1),
-        ),
-        buildWidget(
-          'View',
-          TextformfieldWidget(
-              controller: controller.viewController,
-              hintText: 'Sunrise',
-              maxLines: 1),
-        ),
+        dropDownAddlistings(
+            controller.selectedOfferT,
+            controller.offerT,
+            (value) => controller.selectedOfferT.value = value!,
+            'Offer Type',
+            'Offer Type'),
+       dropDownAddlistings(
+            controller.selectedOfferT,
+            controller.offerT,
+            (value) => controller.selectedOfferT.value = value!,
+            'Offer Type',
+            'Offer Type'),
         buildWidget(
           'Location',
           TextformfieldWidget(
@@ -187,30 +187,29 @@ class AddListings extends GetView<AddListingsController> {
               hintText: 'Bonifacio Global City, Taguig',
               maxLines: 1),
         ),
-        buildWidget(
-          'Property Type',
-          TextformfieldWidget(
-              controller: controller.propertyTypeController,
-              hintText: 'Condominium',
-              maxLines: 1),
-        ),
-        buildWidget(
-          'Subcatergory',
-          TextformfieldWidget(
-              controller: controller.propertySubCategoryController,
-              hintText: 'Penthouse',
-              maxLines: 1),
-        ),
+        dropDownAddlistings(
+            controller.selectedPropertyT,
+            controller.propertyT,
+            (value) => controller.selectedPropertyT.value = value!,
+            'Property Type',
+            'Property Type'),
+
+        dropDownAddlistings(
+            controller.selectedPropertySubCategory,
+            controller.subCategory,
+            (value) => controller.selectedPropertySubCategory.value = value!,
+            'Sub Category',
+            'Sub Category'),
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           BaseController().showLoading();
           try {
             await Listing(
                     name: controller.propertyNameController.text,
-                    price: controller.propertyCostController.text.toDouble(),
+                    price: controller.propertyCostController.text.toInt(),
                     photos: controller.images,
                     ppsqm: controller.pricePerSqmController.text.toDouble(),
-                    floorArea: controller.floorAreaController.text.toDouble(),
+                    // floorArea: controller.floorAreaController.text.toDouble(),
                     beds: controller.bedsController.text.toInt(),
                     baths: controller.bathsController.text.toInt(),
                     area: controller.areaController.text.toInt(),
@@ -232,7 +231,7 @@ class AddListings extends GetView<AddListingsController> {
 
   static Widget buildWidget(String text, TextformfieldWidget textFormField) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -263,5 +262,67 @@ class AddListings extends GetView<AddListingsController> {
             ),
           ],
         ));
+  }
+
+ static Widget dropDownAddlistings(RxnString selectedItem, List<String> Types,
+      Function(String?) onChanged, String name, String hintText) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          EraText(text: name, fontSize: 18.sp, color: AppColors.black),
+          SizedBox(height: 5.h),
+          Obx(
+            () => DropdownButtonFormField<String>(
+              alignment: Alignment.centerLeft,
+              decoration: InputDecoration(
+                hintText: hintText,
+                fillColor: AppColors.white,
+                filled: true,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: AppColors.black,
+                    width: 1.5,
+                  ),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              dropdownColor: AppColors.white,
+              focusColor: AppColors.hint,
+              value: selectedItem.value,
+              style: TextStyle(color: Colors.white),
+              iconEnabledColor: Colors.black,
+              isExpanded: true,
+              isDense: true,
+              hint: Align(
+                alignment: Alignment.centerLeft,
+                child: EraText(
+                  text: hintText,
+                  textAlign: TextAlign.center,
+                  color: Colors.grey,
+                  fontSize: 20.sp,
+                ),
+              ),
+              items: Types.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: EraText(
+                    text: value,
+                    color: AppColors.black,
+                    fontSize: 20.sp,
+                  ),
+                );
+              }).toList(),
+              onChanged: onChanged,
+            ),
+          ),
+          SizedBox(height: 20.h),
+        ],
+      ),
+    );
   }
 }

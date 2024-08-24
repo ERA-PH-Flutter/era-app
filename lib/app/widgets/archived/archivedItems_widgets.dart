@@ -3,32 +3,26 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/agent/archivedlisting/controllers/archived_controller.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../repository/user.dart';
 
 class ArchivedItems extends StatelessWidget {
-  final String? agentImage;
-  final String? agentFirstName;
-  final String? agentLastName;
-  final String? agent;
-  final String type;
+  final Listing listing;
   final int index;
   final Function() onTap;
   final Function(int index) onLongPress;
 
   const ArchivedItems({
     super.key,
-    this.agent,
-    this.agentImage,
-    this.agentFirstName,
-    this.agentLastName,
-    required this.type,
     required this.index,
     required this.onTap,
     required this.onLongPress,
+    required this.listing,
   });
 
   @override
@@ -55,9 +49,11 @@ class ArchivedItems extends StatelessWidget {
             child: Row(
               children: [
                 CachedNetworkImage(
-                  imageUrl: agentImage ?? AppStrings.noUserImageWhite,
+                  imageUrl:
+                      '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
                   width: 100.w,
-                  height: 100.h,
+                  height: Get.height,
+                  fit: BoxFit.cover,
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 10.h, left: 15.w),
@@ -65,16 +61,17 @@ class ArchivedItems extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       FutureBuilder(
-                        future: EraUser().getById(agent),
-                        builder: (context,AsyncSnapshot<EraUser> snapshot){
-                          if(snapshot.hasData){
+                        future: EraUser().getById(listing.by),
+                        builder: (context, AsyncSnapshot<EraUser> snapshot) {
+                          if (snapshot.hasData) {
                             return EraText(
-                              text: '${snapshot.data?.firstname} ${snapshot.data?.lastname}',
+                              text:
+                                  '${snapshot.data?.firstname} ${snapshot.data?.lastname}',
                               color: AppColors.blue,
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold,
                             );
-                          }else{
+                          } else {
                             return Center(
                               child: CircularProgressIndicator(),
                             );
@@ -82,9 +79,33 @@ class ArchivedItems extends StatelessWidget {
                         },
                       ),
                       EraText(
-                        text: type,
+                        text: listing.type!,
                         color: AppColors.black,
-                        fontSize: 18.sp,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.bold,
+                        maxLines: 3,
+                        textOverflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 5.h),
+                      Container(
+                        width: 200.w,
+                        child: EraText(
+                          text: listing.description ?? "No Description",
+                          color: AppColors.black,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          maxLines: 3,
+                          textOverflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(height: 5.h),
+                      EraText(
+                        text: NumberFormat.currency(
+                          locale: 'en_PH',
+                          symbol: 'PHP ',
+                        ).format(listing.price),
+                        color: AppColors.blue,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ],

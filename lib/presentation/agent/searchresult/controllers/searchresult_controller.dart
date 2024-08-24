@@ -23,6 +23,12 @@ class SearchResultController extends GetxController {
   var isForSale = 0.obs;
   var isForLease = true.obs;
 
+  var showFullSearch= false.obs;
+  var showQuickSearch= false.obs;
+
+  var focusNode = FocusNode();  
+
+
   @override
   void onInit() {
     super.onInit();
@@ -32,13 +38,12 @@ class SearchResultController extends GetxController {
       if (Get.arguments == null || Get.arguments.isEmpty) {
         searchResultState.value = SearchResultState.searching;
       } else {
-        loadData( Get.arguments[0]);
+        loadData(Get.arguments[0]);
         searchQuery.value = Get.arguments[1];
       }
-    } catch (e,ex) {
+    } catch (e, ex) {
       searchResultState.value = SearchResultState.error;
     }
-
   }
 
   @override
@@ -47,7 +52,7 @@ class SearchResultController extends GetxController {
     super.onClose();
   }
 
-  loadData(loadedData){
+  loadData(loadedData) {
     data.value = loadedData;
     if (data.isEmpty) {
       searchResultState.value = SearchResultState.empty;
@@ -56,6 +61,3 @@ class SearchResultController extends GetxController {
     }
   }
 }
-
- 
- 

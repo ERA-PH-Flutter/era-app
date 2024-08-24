@@ -239,7 +239,7 @@ class FindProperties extends GetView<ListingController> {
     );
   }
 
-  Widget quickSearchIcon(String icon, Function()? onTap) {
+  static Widget quickSearchIcon(String icon, Function()? onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Column(

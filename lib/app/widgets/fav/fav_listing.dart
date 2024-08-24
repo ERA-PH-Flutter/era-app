@@ -63,7 +63,7 @@ class FavListing extends StatelessWidget {
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 1,
-                mainAxisExtent: 120,
+                mainAxisExtent: 150,
               ),
               itemCount: listingModels.length,
               itemBuilder: (context, i) => FavItems(

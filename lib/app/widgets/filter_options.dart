@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -303,81 +305,79 @@ class AmenitiesFilter extends StatelessWidget {
 void openFilterDialog() {
   final FilterController controller = Get.put(FilterController());
   Get.dialog(
-    Dialog(
-      backgroundColor: AppColors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.0),
-      ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Padding(
-            padding: EdgeInsets.all(20.sp),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(CupertinoIcons.clear),
-                      onPressed: () {
-                        Get.back();
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 50.sp,
+    BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+      child: Dialog(
+        insetPadding: REdgeInsets.fromLTRB(10, 10, 10, 10),
+        shadowColor: AppColors.black,
+        backgroundColor: AppColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+              padding: EdgeInsets.all(10.sp),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(CupertinoIcons.clear),
+                        onPressed: () {
+                          Get.back();
+                        },
                       ),
-                      child: EraText(
-                        text: 'Filters',
-                        fontSize: 30.sp,
-                        color: AppColors.blue,
-                        fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: EdgeInsets.only(left: 95.w),
+                        child: EraText(
+                          text: 'Filters',
+                          fontSize: 30.sp,
+                          color: AppColors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10.h),
-                //  Price Range Filter
-                EraText(
-                  text: 'Price Range',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.black,
-                ),
-                SizedBox(height: 10.h),
-                PriceRangeFilter(controller: controller),
-                EraText(
-                  text: 'Rooms and Beds',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.black,
-                ),
-                SizedBox(height: 10.h),
-
-                RoomsAndBedsFilter(controller: controller),
-                SizedBox(height: 10.h),
-
-                EraText(
-                  text: 'Property Type',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.black,
-                ),
-                SizedBox(height: 10.h),
-
-                PropertyTypeFilter(controller: controller),
-                SizedBox(height: 10.h),
-                EraText(
-                  text: 'Amenities',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.black,
-                ),
-                SizedBox(height: 10.h),
-
-                AmenitiesFilter(controller: controller),
-                SizedBox(height: 10),
-              ],
-            )),
+                    ],
+                  ),
+                  SizedBox(height: 10.h),
+                  EraText(
+                    text: 'Price Range',
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.black,
+                  ),
+                  SizedBox(height: 10.h),
+                  PriceRangeFilter(controller: controller),
+                  EraText(
+                    text: 'Rooms and Beds',
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.black,
+                  ),
+                  SizedBox(height: 10.h),
+                  RoomsAndBedsFilter(controller: controller),
+                  SizedBox(height: 10.h),
+                  EraText(
+                    text: 'Property Type',
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.black,
+                  ),
+                  SizedBox(height: 10.h),
+                  PropertyTypeFilter(controller: controller),
+                  SizedBox(height: 10.h),
+                  EraText(
+                    text: 'Amenities',
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.black,
+                  ),
+                  SizedBox(height: 10.h),
+                  AmenitiesFilter(controller: controller),
+                  SizedBox(height: 10),
+                ],
+              )),
+        ),
       ),
     ),
   );

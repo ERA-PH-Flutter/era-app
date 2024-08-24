@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 import '../../../../repository/listing.dart';
 import '../controllers/addlistings_controller.dart';
 import 'addlistings.dart';
-     
+
 class EditListing extends GetView<AddListingsController> {
   const EditListing({super.key});
 
@@ -191,14 +191,14 @@ class EditListing extends GetView<AddListingsController> {
               hintText: 'Php 100,000',
               maxLines: 1),
         ),
-        AddListings.buildWidget(
-          'Floor Area',
-          TextformfieldWidget(
-              keyboardType: TextInputType.number,
-              controller: controller.floorAreaController,
-              hintText: '151 sqm',
-              maxLines: 1),
-        ),
+        // AddListings.buildWidget(
+        //   'Floor Area',
+        //   TextformfieldWidget(
+        //       keyboardType: TextInputType.number,
+        //       controller: controller.floorAreaController,
+        //       hintText: '151 sqm',
+        //       maxLines: 1),
+        // ),
         AddListings.buildWidget(
           'Beds',
           TextformfieldWidget(
@@ -220,13 +220,13 @@ class EditListing extends GetView<AddListingsController> {
               hintText: '150 sqm',
               maxLines: 1),
         ),
-        AddListings.buildWidget(
-          'Offer Type',
-          TextformfieldWidget(
-              controller: controller.offerTypeController,
-              hintText: 'Sale',
-              maxLines: 1),
-        ),
+        AddListings.dropDownAddlistings(
+            controller.selectedOfferT,
+            controller.offerT,
+            (value) => controller.selectedOfferT.value = value!,
+            'Offer Type',
+            'Offer Type'),
+
         AddListings.buildWidget(
           'View',
           TextformfieldWidget(
@@ -241,38 +241,41 @@ class EditListing extends GetView<AddListingsController> {
               hintText: 'Bonifacio Global City, Taguig',
               maxLines: 1),
         ),
-        AddListings.buildWidget(
-          'Property Type',
-          TextformfieldWidget(
-              controller: controller.propertyTypeController,
-              hintText: 'Condominium',
-              maxLines: 1),
-        ),
-        AddListings.buildWidget(
-          'Subcatergory',
-          TextformfieldWidget(
-              controller: controller.propertySubCategoryController,
-              hintText: 'Penthouse',
-              maxLines: 1),
-        ),
+        AddListings.dropDownAddlistings(
+            controller.selectedPropertyT,
+            controller.propertyT,
+            (value) => controller.selectedPropertyT.value = value!,
+            'Property Type',
+            'Property Type'),
+
+        AddListings.dropDownAddlistings(
+            controller.selectedPropertySubCategory,
+            controller.subCategory,
+            (value) => controller.selectedPropertySubCategory.value = value!,
+            'Sub Category',
+            'Sub Category'),
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           BaseController().showLoading();
           await Listing(
-              name: controller.propertyNameController.text,
-              price: controller.propertyCostController.text.toDouble(),
-              photos: controller.images,
-              ppsqm: controller.pricePerSqmController.text.toDouble(),
-              floorArea: controller.floorAreaController.text.toDouble(),
-              beds: controller.bedsController.text.toInt(),
-              baths: controller.bathsController.text.toInt(),
-              area: controller.areaController.text.toInt(),
-              status: controller.offerTypeController.text,
-              view: controller.viewController.text,
-              location: controller.locationController.text,
-              type: controller.propertyTypeController.text,
-              subCategory: controller.propertySubCategoryController.text
-          ).updateListing();
+                  name: controller.propertyNameController.text,
+                  price: controller.propertyCostController.text.toInt(),
+                  photos: controller.images,
+                  ppsqm: controller.pricePerSqmController.text.toDouble(),
+                  // floorArea: controller.floorAreaController.text.toDouble(),
+                  beds: controller.bedsController.text.toInt(),
+                  baths: controller.bathsController.text.toInt(),
+                  area: controller.areaController.text.toInt(),
+                  // all the dropdown is not working
+                  status: controller.selectedOfferT.value.toString(),
+                  view: controller.viewController.text,
+                  location: controller.locationController.text,
+                  //not working
+                  type: controller.selectedPropertyT.value,
+                  //not working
+                  subCategory:
+                      controller.selectedPropertySubCategory.value.toString())
+              .updateListing();
           BaseController().hideLoading();
         }, 'UPDATE LISTING'),
         SizedBox(height: 20.h),

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
+import 'package:intl/intl.dart';
 
 import '../../../repository/listing.dart';
 
@@ -17,6 +18,7 @@ class FavItems extends StatelessWidget {
   final int index;
   final Function() onTap;
   final Function(int index) onLongPress;
+
   EraUser? agent;
   FavItems({
     super.key,
@@ -46,22 +48,24 @@ class FavItems extends StatelessWidget {
               child: Row(
                 children: [
                   CachedNetworkImage(
-                    imageUrl: '${listing.photos != null ? (listing.photos!.isNotEmpty ?  listing.photos!.first : AppStrings.noUserImageWhite ) : AppStrings.noUserImageWhite}',
+                    imageUrl:
+                        '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
                     width: 110.w,
-                    height: 90.h,
+                    height: Get.height,
                     fit: BoxFit.cover,
                   ),
                   FutureBuilder(
                     future: EraUser().getById(listing.by),
-                    builder: (context,AsyncSnapshot<EraUser> snapshot){
-                      if(snapshot.hasData){
+                    builder: (context, AsyncSnapshot<EraUser> snapshot) {
+                      if (snapshot.hasData) {
                         return Padding(
                           padding: EdgeInsets.only(top: 10.h, left: 10.w),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               EraText(
-                                text: '${snapshot.data?.firstname ?? "Admin"} ${snapshot.data?.lastname ?? ""}',
+                                text:
+                                    '${snapshot.data?.firstname ?? "Admin"} ${snapshot.data?.lastname ?? ""}',
                                 color: AppColors.blue,
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
@@ -69,13 +73,37 @@ class FavItems extends StatelessWidget {
                               EraText(
                                 text: listing.type!,
                                 color: AppColors.black,
-                                fontSize: 18.sp,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.bold,
+                                maxLines: 3,
+                                textOverflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(height: 5.h),
+                              Container(
+                                width: 200.w,
+                                child: EraText(
+                                  text: listing.description ?? "No Description",
+                                  color: AppColors.black,
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  maxLines: 3,
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              SizedBox(height: 5.h),
+                              EraText(
+                                text: NumberFormat.currency(
+                                  locale: 'en_PH',
+                                  symbol: 'PHP ',
+                                ).format(listing.price),
+                                color: AppColors.blue,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ],
                           ),
                         );
-                      }else{
+                      } else {
                         return Center(
                           child: CircularProgressIndicator(),
                         );

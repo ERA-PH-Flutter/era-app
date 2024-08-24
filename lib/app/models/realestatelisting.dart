@@ -12,7 +12,7 @@ class RealEstateListing {
   final String image;
   final String type;
   final String description;
-  final double price;
+  final int price;
   final int beds;
   final int baths;
   final int areas;
@@ -68,7 +68,8 @@ class RealEstateListing {
   static List<RealEstateListing> listingsModels = [
     RealEstateListing(
       type: 'BGC Luxury Condo',
-      image: 'assets/images/carouselsliderpic5.jpg',
+      image:
+          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/listings%2F1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg?alt=media&token=873c7d4d-aa49-40fb-9e1b-c6715926b3e2',
       areas: 900,
       baths: 2,
       beds: 3,
@@ -123,7 +124,8 @@ class RealEstateListing {
     ),
     RealEstateListing(
       type: 'Condo',
-      image: 'assets/images/carouselsliderpic5.jpg',
+      image:
+          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/listings%2F1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg?alt=media&token=873c7d4d-aa49-40fb-9e1b-c6715926b3e2',
       areas: 900,
       baths: 2,
       beds: 3,
@@ -178,7 +180,8 @@ class RealEstateListing {
     ),
     RealEstateListing(
       type: 'Makati Luxury Condo',
-      image: 'assets/images/carouselsliderpic5.jpg',
+      image:
+          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/listings%2F1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg?alt=media&token=873c7d4d-aa49-40fb-9e1b-c6715926b3e2',
       areas: 900,
       baths: 2,
       beds: 3,
@@ -378,7 +381,7 @@ class RealEstateListing {
       beds: json['beds'] ?? 0,
       cars: json['cars'] ?? 0,
       description: json['description'] ?? "Nothing added!",
-      price: (json['price'] ?? 0).toDouble(),
+      price: json['price'] ?? 0,
       listingBy: json['listingBy'] ?? "",
       user: EraUser.empty(),
       listingId: json['listingId'] ?? 0,

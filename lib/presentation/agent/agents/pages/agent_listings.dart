@@ -24,18 +24,19 @@ class AgentListings extends GetView<AgentListingsController> {
         child: Column(
           children: [
             // Filter and sort row for the specific listing
-            Obx(()=>switch(controller.agentListingsState.value){
-              AgentListingsState.loading => _loading(),
-              AgentListingsState.loaded => _loaded(),
-              //AgentListingsState.empty => _loading(),
-              AgentListingsState.error => _error(),
-            })
+            Obx(() => switch (controller.agentListingsState.value) {
+                  AgentListingsState.loading => _loading(),
+                  AgentListingsState.loaded => _loaded(),
+                  //AgentListingsState.empty => _loading(),
+                  AgentListingsState.error => _error(),
+                })
           ],
         ),
       ),
     );
   }
-  _loaded(){
+
+  _loaded() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
       child: Column(
@@ -62,23 +63,22 @@ class AgentListings extends GetView<AgentListingsController> {
                 menuItems: const [
                   PopupMenuItem<String>(
                     value: 'Category',
-                    child: Text('Category',
-                        style: TextStyle(color: Colors.black)),
+                    child:
+                        Text('Category', style: TextStyle(color: Colors.black)),
                   ),
                   PopupMenuItem<String>(
                     value: 'date_modified',
-                    child: Text('Date',
-                        style: TextStyle(color: Colors.black)),
+                    child: Text('Date', style: TextStyle(color: Colors.black)),
                   ),
                   PopupMenuItem<String>(
                     value: 'Location',
-                    child: Text('Location',
-                        style: TextStyle(color: Colors.black)),
+                    child:
+                        Text('Location', style: TextStyle(color: Colors.black)),
                   ),
                   PopupMenuItem<String>(
                     value: 'Amount',
-                    child: Text('Amount',
-                        style: TextStyle(color: Colors.black)),
+                    child:
+                        Text('Amount', style: TextStyle(color: Colors.black)),
                   ),
                   PopupMenuDivider(),
                   PopupMenuItem<String>(
@@ -111,10 +111,14 @@ class AgentListings extends GetView<AgentListingsController> {
                         18.sp,
                         FontWeight.bold,
                         1.2),
-                    AgentDashBoard.agentText('${controller.user.role ?? 'Agent'}',
-                        AppColors.black, 12.sp, FontWeight.w400, 0.9),
-                    AgentDashBoard.agentContact(
-                        AppEraAssets.whatsappIcon, '${controller.user.whatsApp}'),
+                    AgentDashBoard.agentText(
+                        '${controller.user.role ?? 'Agent'}',
+                        AppColors.black,
+                        12.sp,
+                        FontWeight.w400,
+                        0.9),
+                    AgentDashBoard.agentContact(AppEraAssets.whatsappIcon,
+                        '${controller.user.whatsApp}'),
                     AgentDashBoard.agentContact(
                         AppEraAssets.emailIcon, '${controller.user.email}'),
                   ],
@@ -125,16 +129,18 @@ class AgentListings extends GetView<AgentListingsController> {
           SizedBox(
             height: 10.h,
           ),
-          GridviewAlllistings(listingModels:controller.listings),
+          GridviewAlllistings(listingModels: controller.listings),
         ],
       ),
     );
   }
+
   _loading() {
     return Center(
       child: CircularProgressIndicator(),
     );
   }
+
   _error() {
     return Center(
       child: EraText(

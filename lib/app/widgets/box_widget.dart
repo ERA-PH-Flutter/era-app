@@ -1,11 +1,10 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BoxWidget{
-  static Widget build({
-    child
-  }){
+class BoxWidget {
+  static Widget build({child}) {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -21,8 +20,8 @@ class BoxWidget{
           color: AppColors.blue,
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
-            color: AppColors.hint,
-            width: 1.0,
+            color: AppColors.white,
+            width: 5.w,
           ),
         ),
         child: child,
@@ -41,4 +40,3 @@ class BoxWidget{
     );
   }
 }
-

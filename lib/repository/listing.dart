@@ -4,11 +4,11 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 
 import '../presentation/global.dart';
 
-class Listing{
+class Listing {
   FirebaseFirestore db = FirebaseFirestore.instance;
   String? id;
   String? name;
-  double? price;
+  int? price;
   List? photos;
   double? ppsqm;
   double? floorArea;
@@ -52,12 +52,12 @@ class Listing{
     this.cars,
     this.isSold,
   });
-  factory Listing.fromJSON(Map<String,dynamic>json){
+  factory Listing.fromJSON(Map<String, dynamic> json) {
     print(json);
     return Listing(
       id: json["id"],
       name: json["name"] ?? "",
-      price: json['price'].toString().toDouble(),
+      price: json['price'] ?? 0,
       type: json["type"] ?? "",
       baths: json["baths"] ?? 0,
       photos: json["photos"] ?? [],
@@ -72,85 +72,92 @@ class Listing{
       owner: json["owner"],
       leads: json["leads"],
       views: json["views"],
-      dateCreated: (json["date_created"] == null ? DateTime.now() : json["date_created"].toDate()),
+      dateCreated: (json["date_created"] == null
+          ? DateTime.now()
+          : json["date_created"].toDate()),
       description: json["description"],
       cars: json["cars"],
       isSold: json["is_sold"],
     );
   }
-  Map<String,dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      "name" : name,
-      "price" : price,
-      "photos" : photos,
-      "ppsqm" : ppsqm,
-      "floor_area" : floorArea,
-      "beds" : beds,
-      "baths" : baths,
-      "area" : area,
-      "status" : status,
-      "view" : view,
-      "location" : location,
-      "type" : type,
-      "sub_category" : subCategory,
-      "leads" : leads,
-      "by" : user!.id,
-      "owner" : "admin", //todo change to owner field
-      "description" : "",
-      "views" : 0,
-      "date_created" : DateTime.now(),
-      "cars" : cars ?? 0,
-      "is_sold" : isSold ?? false,
+      "name": name,
+      "price": price,
+      "photos": photos,
+      "ppsqm": ppsqm,
+      "floor_area": floorArea,
+      "beds": beds,
+      "baths": baths,
+      "area": area,
+      "status": status,
+      "view": view,
+      "location": location,
+      "type": type,
+      "sub_category": subCategory,
+      "leads": leads,
+      "by": user!.id,
+      "owner": "admin", //todo change to owner field
+      "description": "",
+      "views": 0,
+      "date_created": DateTime.now(),
+      "cars": cars ?? 0,
+      "is_sold": isSold ?? false,
     };
   }
-  getListing(id)async{
-    return Listing.fromJSON((await db.collection('listings').doc(id).get()).data() ?? {});
+
+  getListing(id) async {
+    return Listing.fromJSON(
+        (await db.collection('listings').doc(id).get()).data() ?? {});
   }
-  addListing()async{
+
+  addListing() async {
     /*
     landmarks
     amenities
     balcony,
     */
     var images = [];
-    for(int i = 0;i<photos!.length;i++){
+    for (int i = 0; i < photos!.length; i++) {
       images.add(await CloudStorage().uploadImage(image: photos![i]));
     }
     await db.collection("listings").add({
-      "name" : name,
-      "price" : price,
-      "photos" : images,
-      "ppsqm" : ppsqm,
-      "floor_area" : floorArea,
-      "beds" : beds,
-      "baths" : baths,
-      "area" : area,
-      "status" : status,
-      "view" : view,
-      "location" : location,
-      "type" : type,
-      "sub_category" : subCategory,
-      "landmarks" : "",
-      "leads" : 0,
-      "garage" : 0,
-      "by" : user!.id,
-      "owner" : "admin", //todo change to owner field
-      "amenities" : "",
-      "description" : "",
-      "rooms" : 0,
-      "views" : 0,
-      "date_created" : DateTime.now(),
+      "name": name,
+      "price": price,
+      "photos": images,
+      "ppsqm": ppsqm,
+      "floor_area": floorArea,
+      "beds": beds,
+      "baths": baths,
+      "area": area,
+      "status": status,
+      "view": view,
+      "location": location,
+      "type": type,
+      "sub_category": subCategory,
+      "landmarks": "",
+      "leads": 0,
+      "garage": 0,
+      "by": user!.id,
+      "owner": "admin", //todo change to owner field
+      "amenities": "",
+      "description": "",
+      "rooms": 0,
+      "views": 0,
+      "date_created": DateTime.now(),
     });
     //todo add this listing to user
   }
-  updateListing()async{
+
+  updateListing() async {
     var images = [];
-    for(int i = 0;i<photos!.length;i++){
+    for (int i = 0; i < photos!.length; i++) {
       images.add(await CloudStorage().uploadImage(image: photos![i]));
     }
     await db.collection("listings").doc(id).update(toMap());
   }
-  deleteListings()async{
+
+  deleteListings() async {
     await db.collection("listings").doc(id).delete();
   }
 

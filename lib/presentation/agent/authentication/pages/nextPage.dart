@@ -31,7 +31,7 @@ class Nextpage extends GetView<LoginPageController> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 40.h),
+                margin: EdgeInsets.only(top: 50.h),
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   borderRadius: const BorderRadius.only(
@@ -40,7 +40,8 @@ class Nextpage extends GetView<LoginPageController> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(25.h),
+                  padding: EdgeInsets.only(
+                      right: 25.w, left: 25.w, top: 25.h, bottom: 25.h),
                   child: Column(
                     children: [
                       SizedBox(height: 20.h),
@@ -53,10 +54,10 @@ class Nextpage extends GetView<LoginPageController> {
                       ),
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
-                          'N/A if not applicable',
-                          TextInputType.text,
-                          'Who is your Recruiter',
-                          controller.recruiter),
+                          name: 'N/A if not applicable',
+                          textInputType: TextInputType.text,
+                          hintText: 'Who is your Recruiter',
+                          controller: controller.recruiter),
                       SizedBox(height: 20.h),
                       SharedWidgets.dropDown(
                         controller.selectedEducation,
@@ -66,8 +67,11 @@ class Nextpage extends GetView<LoginPageController> {
                         'Highest Education Level',
                       ),
                       SizedBox(height: 20.h),
-                      SharedWidgets.textFormfield('', TextInputType.number,
-                          'Years of Experience', controller.experience),
+                      SharedWidgets.textFormfield(
+                          name: '',
+                          textInputType: TextInputType.number,
+                          hintText: 'Years of Experience',
+                          controller: controller.experience),
                       SizedBox(height: 20.h),
                       SharedWidgets.dropDown(
                         controller.selectedTransaction,

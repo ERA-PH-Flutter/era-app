@@ -78,7 +78,7 @@ class ArchivedListings extends StatelessWidget {
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 1,
-                mainAxisExtent: 120.h,
+                mainAxisExtent: 150.h,
                 mainAxisSpacing: 10.h),
             itemCount: listingModels.length,
             itemBuilder: (context, i) => ArchivedItems(
@@ -86,8 +86,10 @@ class ArchivedListings extends StatelessWidget {
               onLongPress: (index) {
                 print('Listing at index $index selected for reactivation');
               },
-              agent: listingModels[i].by,
-              type: listingModels[i].type,
+              listing: listingModels[i],
+
+              // agent: listingModels[i].by,
+              //    type: listingModels[i].type,
               onTap: () {
                 Get.toNamed('/propertyInfo', arguments: listingModels[i]);
               },

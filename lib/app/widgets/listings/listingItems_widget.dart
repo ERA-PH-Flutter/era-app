@@ -23,7 +23,7 @@ class ListingItemss extends StatelessWidget {
   final int baths;
   final int cars;
   final String description;
-  final double price;
+  final int price;
   final String? listedBy;
   final String? agentImage;
   final String? agentFirstName;
@@ -38,30 +38,29 @@ class ListingItemss extends StatelessWidget {
   final bool isSold; // New parameter to indicate if the listing is sold
   bool fromSold = false;
 
-  ListingItemss({
-    super.key,
-    this.onTap,
-    this.image,
-    required this.type,
-    required this.areas,
-    required this.beds,
-    required this.baths,
-    required this.cars,
-    required this.description,
-    required this.price,
-    this.listedBy,
-    this.agentImage,
-    this.agentFirstName,
-    this.agentLastName,
-    this.role,
-    this.buttonEdit,
-    this.buttonDelete,
-    required this.showListedby,
-    this.id,
-    required this.isSold,
-    this.agent,
-    required this.fromSold
-  });
+  ListingItemss(
+      {super.key,
+      this.onTap,
+      this.image,
+      required this.type,
+      required this.areas,
+      required this.beds,
+      required this.baths,
+      required this.cars,
+      required this.description,
+      required this.price,
+      this.listedBy,
+      this.agentImage,
+      this.agentFirstName,
+      this.agentLastName,
+      this.role,
+      this.buttonEdit,
+      this.buttonDelete,
+      required this.showListedby,
+      this.id,
+      required this.isSold,
+      this.agent,
+      required this.fromSold});
 
   var selected = false.obs;
 
@@ -88,9 +87,8 @@ class ListingItemss extends StatelessWidget {
                         onTap: toggleSelected,
                         child: Obx(() {
                           return ClipPath(
-                            clipper: selected.value
-                                ? CustomCornerClipPath()
-                                : null,
+                            clipper:
+                                selected.value ? CustomCornerClipPath() : null,
                             child: AnimatedContainer(
                               duration: Duration(milliseconds: 300),
                               curve: Curves.easeIn,
@@ -98,7 +96,8 @@ class ListingItemss extends StatelessWidget {
                               width: Get.width,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: CachedNetworkImageProvider(image ?? AppStrings.noUserImageWhite),
+                                  image: CachedNetworkImageProvider(
+                                      image ?? AppStrings.noUserImageWhite),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -107,7 +106,8 @@ class ListingItemss extends StatelessWidget {
                         }),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 5.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: EraTheme.paddingWidth, vertical: 5.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -176,9 +176,7 @@ class ListingItemss extends StatelessWidget {
                             ),
                             SizedBox(height: 5.h),
                             Container(
-                              constraints: BoxConstraints(
-                                maxHeight: 100.h
-                              ),
+                              constraints: BoxConstraints(maxHeight: 100.h),
                               child: EraText(
                                 text: 'Description:',
                                 fontSize: 18.sp,
@@ -187,15 +185,13 @@ class ListingItemss extends StatelessWidget {
                                 lineHeight: 1,
                               ),
                             ),
-                            Text(
-                              description,
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.black,
-                              ),
+                            EraText(
+                              text: description,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.black,
                               maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
+                              textOverflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(height: 5.h),
                             EraText(
@@ -210,42 +206,42 @@ class ListingItemss extends StatelessWidget {
                             SizedBox(height: 5.h),
                             if (showListedby)
                               FutureBuilder(
-                                future: EraUser().getById(agent),
-                                builder: (context,AsyncSnapshot<EraUser> snapshot){
-
-                                  if(snapshot.hasData){
-                                    print(snapshot.data!.firstname);
-                                    return ListedBy(
-                                      text: listedBy ?? '',
-                                      image: snapshot.data!.image ?? AppStrings.noUserImageWhite,
-                                      agentFirstName: snapshot.data?.firstname ?? '',
-                                      agentLastName: snapshot.data?.lastname ?? '',
-                                      agentType: role ?? 'Agent',
-                                    );
-                                  }else{
-                                    return Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
-                                }
-                              ),
+                                  future: EraUser().getById(agent),
+                                  builder: (context,
+                                      AsyncSnapshot<EraUser> snapshot) {
+                                    if (snapshot.hasData) {
+                                      print(snapshot.data!.firstname);
+                                      return ListedBy(
+                                        text: listedBy ?? '',
+                                        image: snapshot.data!.image ??
+                                            AppStrings.noUserImageWhite,
+                                        agentFirstName:
+                                            snapshot.data?.firstname ?? '',
+                                        agentLastName:
+                                            snapshot.data?.lastname ?? '',
+                                        agentType: role ?? 'Agent',
+                                      );
+                                    } else {
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                  }),
                             SizedBox(height: 20.h),
-                            Builder(
-                                builder: (context) {
-                                  if(id == user!.id){
-                                    return Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        if (buttonEdit != null) buttonEdit!,
-                                        if (buttonDelete != null) buttonDelete!,
-                                      ],
-                                    );
-                                  }else{
-                                    return Container();
-                                  }
-
-                                }
-                            ),
+                            Builder(builder: (context) {
+                              if (id == user!.id) {
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    if (buttonEdit != null) buttonEdit!,
+                                    if (buttonDelete != null) buttonDelete!,
+                                  ],
+                                );
+                              } else {
+                                return Container();
+                              }
+                            }),
                           ],
                         ),
                       )
@@ -254,7 +250,6 @@ class ListingItemss extends StatelessWidget {
                   if (isSold)
                     Positioned(
                       top: 10.h,
-                      left: 10.w,
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: 8.w, vertical: 4.h),
@@ -294,7 +289,7 @@ class ListingItemss extends StatelessWidget {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(image!),
-                                  fit: BoxFit.contain,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -403,27 +398,24 @@ class ListingItemss extends StatelessWidget {
                           agentType: role ?? '',
                         ),
                       SizedBox(height: 20.h),
-                      Builder(
-                          builder: (context) {
-                            if(user?.id == id){
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  if (buttonEdit != null) buttonEdit!,
-                                  if (buttonDelete != null) buttonDelete!,
-                                ],
-                              );
-                            }else{
-                              return Container();
-                            }
-                          }
-                      ),
+                      Builder(builder: (context) {
+                        if (user?.id == id) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              if (buttonEdit != null) buttonEdit!,
+                              if (buttonDelete != null) buttonDelete!,
+                            ],
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
                     ],
                   ),
                   if (isSold)
                     Positioned(
                       top: 10.h,
-                      left: 10.w,
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: 8.w, vertical: 4.h),
