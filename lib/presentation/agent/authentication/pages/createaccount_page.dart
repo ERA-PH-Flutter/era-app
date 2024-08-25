@@ -23,7 +23,8 @@ class CreateAccount extends GetView<LoginPageController> {
               SharedWidgets.backgroundColumn(),
               SharedWidgets.paddingText('CREATE AN ACCOUNT', FontWeight.bold),
               Container(
-                margin: EdgeInsets.only(top: 40.h),
+                height: Get.height - 150.h,
+                margin: EdgeInsets.only(top: 50.h),
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   borderRadius: const BorderRadius.only(
@@ -43,18 +44,18 @@ class CreateAccount extends GetView<LoginPageController> {
                         children: [
                           Flexible(
                             child: SharedWidgets.textFormfield(
-                                'First Name',
-                                TextInputType.text,
-                                'First Name',
-                                controller.firstName),
+                               name:  'First Name',
+                              textInputType:   TextInputType.text,
+                              hintText:   'First Name',
+                              controller:   controller.firstName),
                           ),
                           SizedBox(width: 10.w),
                           Flexible(
                             child: SharedWidgets.textFormfield(
-                                'Last Name',
-                                TextInputType.text,
-                                'Last Name',
-                                controller.lastName),
+                              name:   'Last Name',
+                              textInputType:    TextInputType.text,
+                                hintText:  'Last Name',
+                                 controller:   controller.lastName),
                           ),
                         ],
                       ),
@@ -98,8 +99,12 @@ class CreateAccount extends GetView<LoginPageController> {
                       ),
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
-                          'Age', TextInputType.number, 'Age', controller.age),
-                      SizedBox(height: 30.h),
+                         name:  'Age', textInputType:  TextInputType.number, 
+                         
+                         hintText: 'Age', controller: controller.age,
+                          
+                          ),
+                      SizedBox(height: 20.h),
                       SharedWidgets.dropDown(
                           controller.selectedGender,
                           controller.genderType,
@@ -108,16 +113,16 @@ class CreateAccount extends GetView<LoginPageController> {
                           'Gender'),
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
-                          '0000-000-0000',
-                          TextInputType.number,
-                          'Contact Number',
-                          controller.contactNo),
+                        name:   '0000-000-0000',
+                       textInputType:    TextInputType.number,
+                        hintText:   'Contact Number',
+                       controller:    controller.contactNo),
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
-                          'example@mail.com',
-                          TextInputType.text,
-                          'Email Address',
-                          controller.emailAd),
+                        name:   'example@mail.com',
+                       textInputType:    TextInputType.text,
+                      hintText:     'Email Address',
+                         controller:  controller.emailAd),
                       SizedBox(height: 20.h),
                       Button(
                         margin: EdgeInsets.zero,

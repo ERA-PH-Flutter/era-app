@@ -18,44 +18,42 @@ class EraUser {
   String? gender;
   List? favorites;
   List? archives;
-  EraUser({
-    this.id,
-    this.firstname,
-    this.lastname,
-    this.role,
-    this.email,
-    this.whatsApp,
-    this.image,
-    this.deviceId,
-    this.lastLogin,
-    this.status,
-    this.eraId,
-    this.age,
-    this.gender,
-    this.favorites,
-    this.archives
-  });
+  EraUser(
+      {this.id,
+      this.firstname,
+      this.lastname,
+      this.role,
+      this.email,
+      this.whatsApp,
+      this.image,
+      this.deviceId,
+      this.lastLogin,
+      this.status,
+      this.eraId,
+      this.age,
+      this.gender,
+      this.favorites,
+      this.archives});
 
   factory EraUser.fromJSON(Map<String, dynamic> json) {
     return EraUser(
-      id: json['id'],
-      firstname: json['first_name'],
-      lastname: json['last_name'],
-      role: json['role'],
-      email: json['email'],
-      whatsApp: json['whats_app'],
-      image: json['image'],
-      deviceId: json['device_id'],
-      lastLogin: json['last_login'],
-      status: json['status'],
-      eraId: json['era_id'],
-      age: json['age'],
-      gender : json['gender'],
-      favorites: json['favorites'],
-      archives: json['archives']
-    );
+        id: json['id'],
+        firstname: json['first_name'],
+        lastname: json['last_name'],
+        role: json['role'],
+        email: json['email'],
+        whatsApp: json['whats_app'],
+        image: json['image'],
+        deviceId: json['device_id'],
+        lastLogin: json['last_login'],
+        status: json['status'],
+        eraId: json['era_id'],
+        age: json['age'],
+        gender: json['gender'],
+        favorites: json['favorites'],
+        archives: json['archives']);
   }
-  factory EraUser.empty(){
+  factory EraUser.empty() {
     return EraUser(
         id: "11",
         firstname: "",
@@ -63,23 +61,29 @@ class EraUser {
         role: "user",
         email: "test@g.co",
         whatsApp: "0000-000-0900",
-        image: ""
-    );
+        image: "");
   }
   Future<EraUser> getById(targetId) async {
-    return EraUser.fromJSON((await db.collection('users').doc(targetId).get()).data() ?? {});
+    return EraUser.fromJSON(
+        (await db.collection('users').doc(targetId).get()).data() ?? {});
   }
-  add()async{
-    id != null ? await db.collection('users').doc(id).set(toMap()) : await db.collection('users').add(toMap());
+
+  add() async {
+    id != null
+        ? await db.collection('users').doc(id).set(toMap())
+        : await db.collection('users').add(toMap());
   }
-  update()async{
+
+  update() async {
     await db.collection('users').doc(id).update(toMap());
   }
-  delete()async{
+
+  delete() async {
     await db.collection('users').doc(id).delete();
     //delete info too
   }
-  Map<String,dynamic> toMap() {
+
+  Map<String, dynamic> toMap() {
     return {
       "id": id,
       "first_name": firstname,
@@ -88,23 +92,25 @@ class EraUser {
       "email": email,
       "whats_app": whatsApp,
       "image": image,
-      'status' : status ?? 'disabled',
-      'last_login' : lastLogin,
-      'device_id' : deviceId,
-      'era_id' : eraId ?? '',
-      'age' : age ?? 0,
-      'gender' : gender ?? 'male',
-      'favorites' : favorites ?? [],
-      'archives' : archives ?? []
+      'status': status ?? 'disabled',
+      'last_login': lastLogin,
+      'device_id': deviceId,
+      'era_id': eraId ?? '',
+      'age': age ?? 0,
+      'gender': gender ?? 'male',
+      'favorites': favorites ?? [],
+      'archives': archives ?? [],
+      'full_name': "$firstname $lastname"
     };
   }
-  addFavorites(id){
+
+  addFavorites(id) {
     favorites!.contains(id) ? favorites!.remove(id) : favorites?.add(id);
     update();
   }
 }
 
-class EraUserInfo{
+class EraUserInfo {
   FirebaseFirestore db = FirebaseFirestore.instance;
   String? id;
   String? education;
@@ -114,17 +120,16 @@ class EraUserInfo{
   String? specialization;
   String? status;
   String? transaction;
-  EraUserInfo({
-    this.education,
-    this.id,
-    this.experience,
-    this.pastTransaction,
-    this.recruiter,
-    this.specialization,
-    this.status,
-    this.transaction
-  });
-  factory EraUserInfo.fromJson(json){
+  EraUserInfo(
+      {this.education,
+      this.id,
+      this.experience,
+      this.pastTransaction,
+      this.recruiter,
+      this.specialization,
+      this.status,
+      this.transaction});
+  factory EraUserInfo.fromJson(json) {
     return EraUserInfo(
       id: json['id'] ?? user!.id,
       education: json['education'],
@@ -136,28 +141,34 @@ class EraUserInfo{
       transaction: json['transaction'],
     );
   }
-  Map<String,dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      'id' : id ?? (user != null ? user!.id : ''),
-      'education' : education ?? '',
-      'experience' : experience ?? 0,
-      'past_transaction' : pastTransaction ?? 0,
-      'recruiter' : recruiter ?? 'admin',
-      'specialization' : specialization ?? 'Rental',
-      'status' : status ?? 'No Licence',
-      'transaction' : transaction ?? 0,
+      'id': id ?? (user != null ? user!.id : ''),
+      'education': education ?? '',
+      'experience': experience ?? 0,
+      'past_transaction': pastTransaction ?? 0,
+      'recruiter': recruiter ?? 'admin',
+      'specialization': specialization ?? 'Rental',
+      'status': status ?? 'No Licence',
+      'transaction': transaction ?? 0,
     };
   }
-  getInfo()async{
+
+  getInfo() async {
     return (await db.collection('user_info').doc(id ?? user!.id).get()).data();
   }
-  add()async{
-    id != null ? await db.collection('user_info').doc(id).set(toMap()) : await db.collection('user_info').add(toMap());
+
+  add() async {
+    id != null
+        ? await db.collection('user_info').doc(id).set(toMap())
+        : await db.collection('user_info').add(toMap());
   }
-  update()async{
+
+  update() async {
     await db.collection('user_info').doc(id ?? user!.id).update(toMap());
   }
-  delete()async{
+
+  delete() async {
     await db.collection('user_info').doc(id ?? user!.id).delete();
   }
 }

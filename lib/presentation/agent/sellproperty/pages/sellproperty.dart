@@ -1,4 +1,3 @@
-import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -6,7 +5,6 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,20 +23,30 @@ class SellProperty extends GetView<SellPropertyController> {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 16.h),
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidth, vertical: 16.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               title(),
               SizedBox(height: 20.h),
               SharedWidgets.textFormfield(
-                  'Name', TextInputType.text, 'Name', controller.name),
+                  name: 'Name',
+                  textInputType: TextInputType.text,
+                  hintText: 'Name',
+                  controller: controller.name),
               SizedBox(height: 20.h),
-              SharedWidgets.textFormfield('Phone Number', TextInputType.number,
-                  'Phone Number', controller.phoneNum),
+              SharedWidgets.textFormfield(
+                  name: 'Phone Number',
+                  textInputType: TextInputType.number,
+                  hintText: 'Phone Number',
+                  controller: controller.phoneNum),
               SizedBox(height: 20.h),
-              SharedWidgets.textFormfield('Email Address', TextInputType.text,
-                  'Email Address', controller.name),
+              SharedWidgets.textFormfield(
+                  name: 'Email Address',
+                  textInputType: TextInputType.text,
+                  hintText: 'Email Address',
+                  controller: controller.name),
               SizedBox(height: 20.h),
               SharedWidgets.dropDown(
                 controller.selectedProperty,
@@ -49,13 +57,16 @@ class SellProperty extends GetView<SellPropertyController> {
               ),
               SizedBox(height: 20.h),
               SharedWidgets.textFormfield(
-                  'Property Location',
-                  TextInputType.text,
-                  'Property Location',
-                  controller.propertyLocation),
+                  name: 'Property Location',
+                  textInputType: TextInputType.text,
+                  hintText: 'Property Location',
+                  controller: controller.propertyLocation),
               SizedBox(height: 20.h),
               SharedWidgets.textFormfield(
-                  'Price', TextInputType.number, 'Price', controller.price),
+                  name: 'Price',
+                  textInputType: TextInputType.number,
+                  hintText: 'Price',
+                  controller: controller.price),
               SizedBox(height: 20.h),
               EraText(
                   text: 'Description', fontSize: 18.sp, color: AppColors.black),
@@ -85,8 +96,8 @@ class SellProperty extends GetView<SellPropertyController> {
   Widget title() {
     return EraText(
       text: 'Share your property details',
-      color: AppColors.blue,
-      fontSize: EraTheme.header - 1.sp,
+      color: AppColors.kRedColor,
+      fontSize: EraTheme.header,
       fontWeight: FontWeight.bold,
     );
   }

@@ -1,11 +1,12 @@
-import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
-import 'package:eraphilippines/presentation/admin/Listings/pages/add-property_admin.dart';
+import 'package:eraphilippines/presentation/admin/Listings/pages/add_listing_admin.dart';
+import 'package:eraphilippines/presentation/admin/Listings/pages/edit_listing_admin.dart';
 import 'package:eraphilippines/presentation/admin/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
+import 'package:eraphilippines/presentation/admin/agents/pages/agent_profile_admin.dart';
 import 'package:eraphilippines/presentation/admin/agents/pages/roster.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,13 @@ class LandingPage extends GetView<LandingPageController> {
   const LandingPage({super.key});
 
   final List<Widget> _screens = const [
+    AgentProfileAdmin(),
+    AddAgent(),
     Roster(),
-
+    AddAgent(),
     AddPropertyAdmin(),
-
-    AddAgent(), // add agents
-    // roster
-    AddAgent(), // agent profile
+    EditPropertyAdmin(),
+    AddAgent(),
   ];
 
   @override

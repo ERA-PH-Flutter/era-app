@@ -28,6 +28,8 @@ class AppTextField extends StatelessWidget {
   final TextAlignVertical? alignVertical;
   final bool? expands;
   final void Function(String)? onChange;
+  final void Function()? onPressed;
+  final FocusNode? onFocused;
   const AppTextField({
     super.key,
     this.controller,
@@ -51,6 +53,8 @@ class AppTextField extends StatelessWidget {
     this.alignVertical,
     this.expands,
     this.onChange,
+    this.onPressed,
+    this.onFocused,
   });
 
   @override
@@ -58,6 +62,8 @@ class AppTextField extends StatelessWidget {
     return SizedBox(
       height: height ?? 43.h,
       child: CupertinoTextField(
+        focusNode: onFocused,
+        onTap: onPressed,
         expands: expands ?? false,
         enabled: isEnabled!,
         onChanged: onChange ?? (string) {},
@@ -114,8 +120,8 @@ class AppTextField extends StatelessWidget {
         controller: controller,
         padding:
             padding ?? EdgeInsets.symmetric(horizontal: 10.h, vertical: 5.w),
-        style:
-            GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 20.sp),
+        style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.w400, fontSize: 20.sp),
       ),
     );
   }

@@ -10,17 +10,19 @@ class FindingProperties extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      scrollDirection: Axis.vertical,
-      padding: EdgeInsets.all(10),
-      physics: const ScrollPhysics(),
-      shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 1,
-        mainAxisExtent: 510,
-      ),
-      itemCount: listingModels.length,
-      itemBuilder: (context, i) => ListingItemss(
+    return Container(
+      height: Get.height,
+      child: GridView.builder(
+        scrollDirection: Axis.vertical,
+        padding: EdgeInsets.all(10),
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1,
+          mainAxisExtent: 510,
+        ),
+        itemCount: listingModels.length,
+        itemBuilder: (context, i) => ListingItemss(
           fromSold: false,
           image: listingModels[i].image,
           type: listingModels[i].type,
@@ -30,6 +32,7 @@ class FindingProperties extends StatelessWidget {
           cars: listingModels[i].cars,
           description: listingModels[i].description,
           price: listingModels[i].price,
+         
           showListedby: true,
           listedBy: 'Listed By',
           agentImage: '${listingModels[i].user.image}',
@@ -39,8 +42,9 @@ class FindingProperties extends StatelessWidget {
           onTap: () {
             Get.toNamed('/propertyInfo', arguments: listingModels[i]);
           },
-          isSold: false,   
-          ),
+          isSold: false,
+        ),
+      ),
     );
   }
 }

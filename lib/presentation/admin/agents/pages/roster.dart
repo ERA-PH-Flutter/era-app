@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -16,46 +17,45 @@ class Roster extends GetView<AgentAdminController> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 20.h),
-          Padding(
-            padding: EdgeInsets.only(left: 70.w),
-            child: EraText(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 20.h,
+            ),
+            EraText(
               text: 'AGENT CARD VIEW',
               color: AppColors.black,
-              fontSize: 18.sp,
+              fontSize: EraTheme.header,
               fontWeight: FontWeight.w500,
             ),
-          ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.only(left: 70.w),
-            child: EraText(
+            SizedBox(height: 10.h),
+            EraText(
               text: 'FIND AGENT',
               color: AppColors.kRedColor,
-              fontSize: 22.sp,
+              fontSize: EraTheme.header,
               fontWeight: FontWeight.bold,
             ),
-          ),
-          buildField(),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.only(left: Get.width - 520.w),
-            child: Button(
-              margin: EdgeInsets.symmetric(horizontal: 5),
-              width: 150.w,
-              height: 35.h,
-              text: 'SEARCH',
-              fontSize: 15.sp,
-              bgColor: AppColors.kRedColor,
-              borderRadius: BorderRadius.circular(10),
+            buildField(),
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.only(left: Get.width - 520.w),
+              child: Button(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                width: 150.w,
+                height: 35.h,
+                text: 'SEARCH',
+                fontSize: EraTheme.buttonFontSizeSmall,
+                bgColor: AppColors.kRedColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
-          ),
-          RosterGridview(listingModels: RealEstateListing.listingsModels),
-          SizedBox(height: 30.h),
-        ],
+            RosterGridview(listingModels: RealEstateListing.listingsModels),
+            SizedBox(height: 30.h),
+          ],
+        ),
       ),
     );
   }

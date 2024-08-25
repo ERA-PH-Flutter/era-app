@@ -6,23 +6,68 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../app/services/local_storage.dart';
 
-
 enum AddListingsState {
   loading,
   loaded,
   error,
 }
 
-class AddListingsController extends GetxController with BaseController{
+class AddListingsController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
   RxList images = [].obs;
   final picker = ImagePicker();
   final removeImage = false.obs;
+  var selectedPropertyT = RxnString();
+  var selectedOfferT = RxnString();
+  var selectedPropertySubCategory = RxnString();
+  var selectedView = RxnString();
+  
+  var viewL = [
+    "Sunset View",
+    "City View",
+    "Mountain View",
+    "Sea View",
+    "Lake View",
+    "River View",
+    "Garden View",
+    "Others"
+  ];
 
+  var subCategory = [
+    "Apartment",
+    "House",
+    "Lot",
+    "Office",
+    "Retail",
+    "Warehouse",
+    "Commercial",
+    "Residential",
+    "Condominium",
+    "Townhouse",
+    "Others",
+  ];
+  var propertyT = [
+    "House and Lot",
+    "Condominium",
+    "Townhouse",
+    "Commercial",
+    "Industrial",
+    "Agricultural",
+    "Land",
+    "Foreclosed",
+    "Pre-selling",
+    "Rent to Own",
+    "Others",
+  ];
+
+  var offerT = [
+    "For Sale",
+    "For Rent",
+  ];
   TextEditingController propertyNameController = TextEditingController();
   TextEditingController propertyCostController = TextEditingController();
   TextEditingController pricePerSqmController = TextEditingController();
-  TextEditingController floorAreaController = TextEditingController();
+//  TextEditingController floorAreaController = TextEditingController();
   TextEditingController bedsController = TextEditingController();
   TextEditingController bathsController = TextEditingController();
   TextEditingController areaController = TextEditingController();

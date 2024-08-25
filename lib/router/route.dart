@@ -4,8 +4,6 @@ import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/contr
 import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/pages/home_analytics.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_binding.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.dart';
-import 'package:eraphilippines/presentation/admin/listingsss/controllers/add_edit_listings_binding.dart';
-import 'package:eraphilippines/presentation/admin/listingsss/pages/add_listings.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/archivedlisting/controllers/archived_binding.dart';
@@ -177,11 +175,6 @@ appRoutes() => [
           name: RouteString.homeAnalytics,
           page: () => const HomeAnalytics(),
           binding: HomeAnalyticsBinding()),
-
-      GetPage(
-          name: RouteString.addlistingsAdmin,
-          page: () => AddListingsAdmin(),
-          binding: AddEditListingsBinding()),
 
       GetPage(
           name: RouteString.addAgent,
