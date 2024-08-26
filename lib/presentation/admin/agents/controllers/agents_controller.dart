@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -22,10 +23,12 @@ class AgentAdminController extends GetxController with BaseController {
     agentState.value = AgentAdminState.loaded;
     super.onInit();
   }
+  List<Listing> listings = [];
 
   RxList images = [].obs;
   final picker = ImagePicker();
   final removeImage = false.obs;
+  
 
   TextEditingController fNameA = TextEditingController();
   TextEditingController lNameA = TextEditingController();

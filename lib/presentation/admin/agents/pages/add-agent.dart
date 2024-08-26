@@ -377,7 +377,7 @@ class AddAgent extends GetView<AgentAdminController> {
   static Widget buildTextFieldFormDesc(
       String text, TextEditingController controller) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
