@@ -32,9 +32,10 @@ import '../../../global.dart';
 import '../controllers/agent_dashboard_controller.dart';
 
 class AgentDashBoard extends GetView<AgentDashboardController> {
-  const AgentDashBoard({
+  AgentDashBoard({
     super.key,
   });
+  final AgentsController agentController = Get.put(AgentsController());
 
   @override
   Widget build(BuildContext context) {
@@ -71,12 +72,17 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                     ),
                     SizedBox(height: 10.h),
                     AgentInfoWidget.agentInformation(
-                        user!.image ?? AppStrings.noUserImageWhite,
-                        '${user!.firstname}',
-                        '${user!.lastname}',
-                        '${user!.whatsApp}',
-                        '${user!.email}',
-                        '${user!.role}'),
+                      agentController.image.value != null
+                          ? FileImage(agentController.image.value!)
+                          : NetworkImage(AppStrings.noUserImageWhite)
+                              as ImageProvider,
+                      '${user!.firstname}',
+                      '${user!.lastname}',
+                      '${user!.whatsApp}',
+                      '${user!.email}',
+                      '${user!.role}',
+                    ),
+
                     SizedBox(height: 25.h),
                     Button(
                       fontSize: EraTheme.paragraph - 2.sp,
@@ -266,7 +272,6 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
         SizedBox(
           height: 20.h,
         ),
-        //direct to companynews page. can find it in lib/presentation/companynews/pages/companynews.dart
         Button(
           text: 'MORE NEWS',
           fontSize: 25.sp,
@@ -502,6 +507,7 @@ Widget settingIcon(Function()? onTap) {
     onTap: onTap,
     child: Container(
         decoration: BoxDecoration(
+          color: AppColors.blue,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: AppColors.blue, width: 2.w),
         ),
@@ -512,13 +518,13 @@ Widget settingIcon(Function()? onTap) {
             children: [
               Icon(
                 CupertinoIcons.settings,
-                color: AppColors.blue,
+                color: AppColors.white,
                 size: 25.sp,
               ),
               SizedBox(width: 5.w),
               EraText(
                 text: 'Setting',
-                color: AppColors.blue,
+                color: AppColors.white,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
               ),

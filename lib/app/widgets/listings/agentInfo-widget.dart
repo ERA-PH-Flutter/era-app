@@ -8,14 +8,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../presentation/agent/agents/pages/agentsDashBoard.dart';
 
 class AgentInfoWidget {
-  static Widget agentInformation(String images, String firstName,
+  static Widget agentInformation(ImageProvider imageProvider, String firstName,
       String lastName, String whatsApp, String email, String role) {
     return Row(
       children: [
-        CachedNetworkImage(
+        Container(
           width: 100.w,
           height: 110.h,
-          imageUrl: images,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
         ),
         Padding(
           padding: EdgeInsets.only(top: 5.w, left: 15.w),
@@ -26,8 +32,7 @@ class AgentInfoWidget {
                   18.sp, FontWeight.bold, 1.2),
               AgentDashBoard.agentText(
                   role, AppColors.black, 12.sp, FontWeight.w400, 0.9),
-              AgentDashBoard.agentContact(
-                  AppEraAssets.whatsappIcon, whatsApp),
+              AgentDashBoard.agentContact(AppEraAssets.whatsappIcon, whatsApp),
               AgentDashBoard.agentContact(AppEraAssets.emailIcon, email),
             ],
           ),

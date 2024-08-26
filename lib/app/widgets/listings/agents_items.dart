@@ -57,6 +57,8 @@ class AgentsItems extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           color: AppColors.blue,
                           lineHeight: 1.0,
+                          textOverflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
                         ),
                         EraText(
                           text: '${agentInfo.role}',
@@ -176,7 +178,8 @@ class AgentsItems extends StatelessWidget {
                           fontSize: 15.sp,
                           onTap: () {
                             Get.to(AgentListings(),
-                                arguments: [agentInfo.id],binding: AgentListingsBinding());
+                                arguments: [agentInfo.id],
+                                binding: AgentListingsBinding());
                           },
                           bgColor: AppColors.kRedColor,
                           height: 38.h,

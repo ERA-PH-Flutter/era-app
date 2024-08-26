@@ -1,5 +1,10 @@
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_card.dart';
+import 'package:eraphilippines/presentation/agent/listingproperties/pages/auction.dart';
+import 'package:eraphilippines/presentation/agent/listingproperties/pages/commercial.dart';
+import 'package:eraphilippines/presentation/agent/listingproperties/pages/pre_selling.dart';
+import 'package:eraphilippines/presentation/agent/listingproperties/pages/rental.dart';
+import 'package:eraphilippines/presentation/agent/listingproperties/pages/residential.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -11,15 +16,24 @@ class PropertiesWidgets extends StatelessWidget {
   const PropertiesWidgets({super.key, required this.listingsModels});
   void _onTap(BuildContext context, String label) {
     if (label == "PRE-SELLING") {
-      Get.toNamed("/selling-search-result");
+      Get.to(() => PreSelling());
+      // Get.toNamed("/selling-search-result");
     } else if (label == "RESIDENTIAL") {
-      Get.toNamed("/project");
+      Get.to(() => Residential());
+
+      // Get.toNamed("/project");
     } else if (label == "COMMERCIAL") {
-      Get.toNamed("/project-main");
+      Get.to(() => Commercial());
+
+      // Get.toNamed("/project-main");
     } else if (label == "RENTAL") {
-      Get.toNamed("/rent-search-result");
+      Get.to(() => Rental());
+
+      // Get.toNamed("/rent-search-result");
     } else if (label == "AUCTION") {
-      Get.toNamed("/project-main");
+      Get.to(() => Auction());
+
+      // Get.toNamed("/project-main");
     }
   }
 

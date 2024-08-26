@@ -174,7 +174,7 @@ class AddListings extends GetView<AddListingsController> {
             (value) => controller.selectedOfferT.value = value!,
             'Offer Type',
             'Offer Type'),
-       dropDownAddlistings(
+        dropDownAddlistings(
             controller.selectedOfferT,
             controller.offerT,
             (value) => controller.selectedOfferT.value = value!,
@@ -264,7 +264,7 @@ class AddListings extends GetView<AddListingsController> {
         ));
   }
 
- static Widget dropDownAddlistings(RxnString selectedItem, List<String> Types,
+  static Widget dropDownAddlistings(RxnString selectedItem, List<String> Types,
       Function(String?) onChanged, String name, String hintText) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
