@@ -22,8 +22,9 @@ class ListingItemss extends StatelessWidget {
   final int beds;
   final int baths;
   final int cars;
+  final String? by;
   final String description;
-  final int price;
+  final double price;
   final String? listedBy;
   final String? agentImage;
   final String? agentFirstName;
@@ -49,6 +50,7 @@ class ListingItemss extends StatelessWidget {
       required this.cars,
       required this.description,
       required this.price,
+      this.by,
       this.listedBy,
       this.agentImage,
       this.agentFirstName,
@@ -186,7 +188,7 @@ class ListingItemss extends StatelessWidget {
                               ),
                             ),
                             EraText(
-                              text: description,
+                              text: description == "" ? "No Description Added" : description,
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                               color: AppColors.black,
@@ -269,7 +271,7 @@ class ListingItemss extends StatelessWidget {
         : GestureDetector(
             onTap: onTap,
             child: Opacity(
-              opacity: isSold ? 0.7 : 1.0,
+              opacity: 1.0,
               child: Stack(
                 children: [
                   Column(
@@ -285,7 +287,7 @@ class ListingItemss extends StatelessWidget {
                               duration: Duration(milliseconds: 300),
                               curve: Curves.easeIn,
                               height: selected.value ? 165.h : 195.h,
-                              width: selected.value ? 340.w : 380.w,
+                              width: selected.value ? Get.width - 40.w : Get.width,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(image!),
@@ -369,7 +371,7 @@ class ListingItemss extends StatelessWidget {
                         lineHeight: 1,
                       ),
                       Text(
-                        description,
+                        description == "" ? "No Description Added" : description,
                         style: TextStyle(
                           fontSize: EraTheme.paragraph,
                           fontWeight: FontWeight.w500,
@@ -385,7 +387,7 @@ class ListingItemss extends StatelessWidget {
                           symbol: 'PHP ',
                         ).format(price),
                         color: AppColors.blue,
-                        fontSize: EraTheme.paragraph + 5.sp,
+                        fontSize: EraTheme.header,
                         fontWeight: FontWeight.bold,
                       ),
                       SizedBox(height: 5.h),
@@ -399,9 +401,9 @@ class ListingItemss extends StatelessWidget {
                         ),
                       SizedBox(height: 20.h),
                       Builder(builder: (context) {
-                        if (user?.id == id) {
+                        if (user?.id == by) {
                           return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               if (buttonEdit != null) buttonEdit!,
                               if (buttonDelete != null) buttonDelete!,

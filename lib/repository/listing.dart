@@ -8,7 +8,7 @@ class Listing {
   FirebaseFirestore db = FirebaseFirestore.instance;
   String? id;
   String? name;
-  int? price;
+  double? price;
   List? photos;
   double? ppsqm;
   double? floorArea;

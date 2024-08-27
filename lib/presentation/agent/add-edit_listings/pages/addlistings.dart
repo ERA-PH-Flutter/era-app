@@ -211,7 +211,7 @@ class AddListings extends GetView<AddListingsController> {
           try {
             await Listing(
                     name: controller.propertyNameController.text,
-                    price: controller.propertyCostController.text.toInt(),
+                    price: controller.propertyCostController.text.toDouble(),
                     photos: controller.images,
                     ppsqm: controller.pricePerSqmController.text.toDouble(),
                     // floorArea: controller.floorAreaController.text.toDouble(),
