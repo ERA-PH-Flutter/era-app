@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/company/company_items.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class CompanyGrid extends StatelessWidget {
               child: EraText(
                 text: 'No featured news!',
                 color: Colors.black,
-                fontSize: 18.sp,
+                fontSize: EraTheme.subHeader,
               ),
             ),
           );

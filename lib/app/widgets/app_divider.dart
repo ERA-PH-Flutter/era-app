@@ -23,7 +23,7 @@ class AppDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 500.w,
+      width: Get.width,
       height: 400.h,
       decoration: BoxDecoration(
         image: DecorationImage(

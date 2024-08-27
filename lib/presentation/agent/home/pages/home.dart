@@ -424,7 +424,14 @@ class Home extends GetView<HomeController> {
               SizedBox(
                 height: 20.h,
               ),
-              CarouselSliderWidget(images: CarouselModels.carouselModels),
+            ],
+          ),
+        ),
+        CarouselSliderWidget(images: CarouselModels.carouselModels),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+          child: Column(
+            children: [
               SizedBox(
                 height: 40.h,
               ),
@@ -503,6 +510,9 @@ class Home extends GetView<HomeController> {
                 height: 20.h,
               ),
               CompanyGrid(companymodels: controller.news),
+              SizedBox(
+                height: 10.h,
+              ),
               Button(
                 text: 'MORE NEWS',
                 fontSize: 25.sp,
