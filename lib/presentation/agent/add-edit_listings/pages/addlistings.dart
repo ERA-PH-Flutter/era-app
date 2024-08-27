@@ -7,6 +7,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,20 +52,14 @@ class AddListings extends GetView<AddListingsController> {
               contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             ),
           ),
-          buildWidget(
-            'Owner Listing',
-            TextformfieldWidget(
-                contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                controller: controller.areaController,
-                hintText: '',
-                maxLines: 1),
-          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               textBuild(
                   'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
-              Obx(()=>textBuild('${controller.images.length}/15',22.sp,FontWeight.w600,Colors.black)),
+              Obx(() => textBuild('${controller.images.length}/15', 22.sp,
+                  FontWeight.w600, Colors.black)),
             ],
           ),
           SizedBox(height: 10.h),
@@ -163,14 +158,6 @@ class AddListings extends GetView<AddListingsController> {
               hintText: '100',
               maxLines: 1),
         ),
-        // buildWidget(
-        //   'Floor Area',
-        //   TextformfieldWidget(
-        //       keyboardType: TextInputType.number,
-        //       controller: controller.floorAreaController,
-        //       hintText: '151',
-        //       maxLines: 1),
-        // ),
         buildWidget(
           'Beds',
           TextformfieldWidget(
@@ -188,6 +175,14 @@ class AddListings extends GetView<AddListingsController> {
               maxLines: 1),
         ),
         buildWidget(
+          'Garage',
+          TextformfieldWidget(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+              controller: controller.carsController,
+              hintText: '3',
+              maxLines: 1),
+        ),
+        buildWidget(
           'Area',
           TextformfieldWidget(
               contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -195,18 +190,18 @@ class AddListings extends GetView<AddListingsController> {
               hintText: '150',
               maxLines: 1),
         ),
-        // dropDownAddlistings(
-        //     controller.selectedOfferT,
-        //     controller.offerT,
-        //     (value) => controller.selectedOfferT.value = value!,
-        //     'Offer Type',
-        //     'Offer Type'),
         dropDownAddlistings(
             controller.selectedOfferT,
             controller.offerT,
             (value) => controller.selectedOfferT.value = value!,
             'Offer Type',
-            'Offer Type'),
+            'Select Offer Type'),
+        // dropDownAddlistings(
+        //     controller.selectedView,
+        //     controller.viewL,
+        //     (value) => controller.selectedView.value = value!,
+        //     'Sunrise',
+        //     'Select View'),
         buildWidget(
           'Location',
           TextformfieldWidget(
@@ -220,33 +215,42 @@ class AddListings extends GetView<AddListingsController> {
             controller.propertyT,
             (value) => controller.selectedPropertyT.value = value!,
             'Property Type',
-            'Property Type'),
-
+            'Select Property Type'),
         dropDownAddlistings(
             controller.selectedPropertySubCategory,
             controller.subCategory,
             (value) => controller.selectedPropertySubCategory.value = value!,
             'Sub Category',
-            'Sub Category'),
+            'Select Sub Category'),
+        buildWidget(
+          'Description *',
+          TextformfieldWidget(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+              controller: controller.descController,
+              hintText: '',
+              maxLines: 10),
+        ),
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           BaseController().showLoading();
           try {
             await Listing(
-                    name: controller.propertyNameController.text,
-                    price: controller.propertyCostController.text.toDouble(),
-                    photos: controller.images,
-                    ppsqm: controller.pricePerSqmController.text.toDouble(),
-                    // floorArea: controller.floorAreaController.text.toDouble(),
-                    beds: controller.bedsController.text.toInt(),
-                    baths: controller.bathsController.text.toInt(),
-                    area: controller.areaController.text.toInt(),
-                    status: controller.selectedOfferT.value,
-                    view: controller.viewController.text,
-                    location: controller.locationController.text,
-                    type: controller.selectedPropertyT.value,
-                    subCategory: controller.selectedPropertySubCategory.value)
-                .addListing();
+              name: controller.propertyNameController.text,
+              price: controller.propertyCostController.text.toDouble(),
+              photos: controller.images,
+              ppsqm: controller.pricePerSqmController.text.toDouble(),
+              beds: controller.bedsController.text.toInt(),
+              baths: controller.bathsController.text.toInt(),
+              cars: controller.carsController.text.toInt(),
+              area: controller.areaController.text.toInt(),
+              status: controller.selectedOfferT.value.toString(),
+              // view: controller.selectedView.value.toString(),
+              location: controller.locationController.text,
+              type: controller.selectedPropertyT.value.toString(),
+              subCategory:
+                  controller.selectedPropertySubCategory.value.toString(),
+              description: controller.descController.text,
+            ).addListing();
           } catch (e, ex) {
             print(ex);
           }

@@ -60,6 +60,7 @@ class Listing {
       price: json['price'].toString().toDouble(),
       type: json["type"] ?? "",
       baths: json["baths"] ?? 0,
+      cars: json["garage"] ?? 0,
       photos: json["photos"] ?? [],
       floorArea: json["floor_area"].toString().toDouble(),
       location: json["location"],
@@ -76,7 +77,6 @@ class Listing {
           ? DateTime.now()
           : json["date_created"].toDate()),
       description: json["description"],
-      cars: json["cars"],
       isSold: json["is_sold"],
     );
   }
@@ -101,7 +101,7 @@ class Listing {
       "description": "",
       "views": 0,
       "date_created": DateTime.now(),
-      "cars": cars ?? 0,
+      "garage": cars,
       "is_sold": isSold ?? false,
     };
   }
@@ -140,7 +140,7 @@ class Listing {
       "sub_category": subCategory,
       "landmarks": "",
       "leads": 0,
-      "garage": 0,
+      "garage": cars,
       "by": user!.id,
       "owner": "admin", //todo change to owner field
       "amenities": "",
@@ -166,5 +166,6 @@ class Listing {
   deleteListingsById(listingId) async {
     await db.collection("listings").doc(listingId).delete();
   }
+
   //todo build widgets
 }

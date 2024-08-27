@@ -48,7 +48,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               maxLines2: 3,
             ),
             SizedBox(height: 20.h),
-
             buildUploadSection(
               title: 'Upload Logo *',
               controller1: controller.fNameA,
@@ -56,7 +55,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               maxLines1: 10,
             ),
             SizedBox(height: 20.h),
-
             buildUploadSection(
               title: 'Add Carousel Images *',
               controller1: controller.fNameA,
@@ -67,7 +65,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               maxLines2: 3,
             ),
             SizedBox(height: 20.h),
-
             EraText(
               text: 'Description *',
               color: AppColors.black,
@@ -80,113 +77,11 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               controller: controller.fNameA,
               maxLines: 10,
             ),
-
-            // uploadImages(
-            //   text: 'Add Caousel Images',
-            //   controller: controller.fNameA,
-            //   text2: 'Carousel Title *',
-            //   text3: 'Carousel Footer *',
-            // ),
           ],
         ),
       ),
     );
   }
-
-  // static Widget uploadImages({
-  //   String? text,
-  //   TextEditingController? controller,
-  //   String? text2,
-  //   String? text3,
-  // }) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: [
-  //       Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           EraText(
-  //             text: text!,
-  //             color: AppColors.black,
-  //             fontSize: 18.sp,
-  //             fontWeight: FontWeight.w500,
-  //           ),
-  //           SizedBox(height: 10.h),
-  //           Container(
-  //             color: AppColors.blue,
-  //             height: 250.h,
-  //             width: 500.w,
-  //           ),
-  //         ],
-  //       ),
-  //       SizedBox(width: 20.w),
-  //       Column(
-  //         children: [
-  //           buildTextFormField2(
-  //             text: text2!,
-  //             controller: controller,
-  //             maxLines: 50,
-  //           ),
-  //           buildTextFormField2(
-  //             text: text3 ?? '',
-  //             controller: controller,
-  //             maxLines: 50,
-  //           ),
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  // }
-
-//   static Widget buildTextFormField2({
-//     String? text,
-//     TextEditingController? controller,
-//     String? hintText,
-//     EdgeInsetsGeometry? contentPadding,
-//     TextStyle? hintstlye,
-//     double? fontSize,
-//     Color? color,
-//     int? maxLines,
-//   }) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         EraText(
-//           text: text!,
-//           fontSize: 18.sp,
-//           color: AppColors.black,
-//           fontWeight: FontWeight.w500,
-//         ),
-//         SizedBox(
-//             height: 105.h,
-//             width: Get.width / 2.5,
-//             child: TextFormField(
-//               keyboardType: TextInputType.text,
-//               maxLines: maxLines ?? 1,
-//               controller: controller,
-//               decoration: InputDecoration(
-//                 contentPadding: contentPadding ?? EdgeInsets.zero,
-//                 hintText: hintText,
-//                 hintStyle: hintstlye ??
-//                     TextStyle(
-//                         color: AppColors.hint, fontSize: fontSize ?? 18.sp),
-//                 fillColor: AppColors.white,
-//                 filled: true,
-//                 enabledBorder: OutlineInputBorder(
-//                   borderRadius: BorderRadius.circular(10),
-//                   borderSide: BorderSide(
-//                     color: color ?? AppColors.black,
-//                     width: 1.5,
-//                   ),
-//                 ),
-//                 border: OutlineInputBorder(
-//                   borderRadius: BorderRadius.circular(10),
-//                 ),
-//               ),
-//             )),
-//       ],
-//     );
-//   }
 
   Widget buildUploadSection({
     required String title,
@@ -212,11 +107,11 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
             ),
             SizedBox(height: 10.h),
             Container(
-              color: AppColors.blue,
               height: 300.h,
               width: 500.w,
-              child: Center(
-                child: Icon(Icons.upload, color: AppColors.black, size: 40.sp),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: AppColors.hint,
               ),
             ),
           ],

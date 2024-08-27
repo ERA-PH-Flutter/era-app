@@ -25,13 +25,17 @@ class SoldPropertiesListings extends StatelessWidget {
       ),
       itemCount: listingModels!.length,
       itemBuilder: (context, i) => ListingItemss(
-        fromSold : true,
-        image: (listingModels![i].photos != null) ? (listingModels[i].photos.isNotEmpty ? listingModels[i].photos.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite,
+        fromSold: true,
+        image: (listingModels![i].photos != null)
+            ? (listingModels[i].photos.isNotEmpty
+                ? listingModels[i].photos.first
+                : AppStrings.noUserImageWhite)
+            : AppStrings.noUserImageWhite,
         type: listingModels![i].type!,
         areas: listingModels![i].area!,
         beds: listingModels![i].beds!,
         baths: listingModels![i].baths!,
-        cars: listingModels![i].cars ?? 0,
+        cars: listingModels![i].cars!,
         description: listingModels![i].description!,
         price: listingModels![i].price ?? 0,
         showListedby: true,

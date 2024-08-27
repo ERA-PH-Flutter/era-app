@@ -32,7 +32,7 @@ class GridviewAlllistings extends StatelessWidget {
           by: listingModels[i].by,
           image: listingModels[i].photos!.firstOrNull ??
               AppStrings.noUserImageWhite,
-          type: listingModels[i].type!,
+          type: listingModels[i].name!,
           areas: listingModels[i].area ?? 0,
           beds: listingModels[i].beds ?? 0,
           baths: listingModels[i].baths ?? 0,

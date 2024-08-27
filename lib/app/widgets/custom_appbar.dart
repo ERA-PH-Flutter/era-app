@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/inbox_widget.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/cupertino.dart';
@@ -59,9 +60,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                               builder: (context, snapshot) {
                                 int count = 0;
                                 if (snapshot.hasData) {
-                                  if(snapshot.data != null){
+                                  if (snapshot.data != null) {
                                     count = snapshot.data!.docs.length;
-                                  }else{
+                                  } else {
                                     count = 0;
                                   }
                                 }
@@ -74,6 +75,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                         child: GestureDetector(
                                           onTap: () {
                                             //todo goto inbox
+                                            Get.to(() => InboxScreen(),
+                                                binding: LoginPageBinding());
                                           },
                                           child: Icon(CupertinoIcons.mail,
                                               color: AppColors.hint,

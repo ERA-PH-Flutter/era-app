@@ -21,7 +21,7 @@ class AddListingsController extends GetxController with BaseController {
   var selectedOfferT = RxnString();
   var selectedPropertySubCategory = RxnString();
   var selectedView = RxnString();
-  
+
   var viewL = [
     "Sunset View",
     "City View",
@@ -64,18 +64,22 @@ class AddListingsController extends GetxController with BaseController {
     "For Sale",
     "For Rent",
   ];
+  //addController
+
   TextEditingController propertyNameController = TextEditingController();
   TextEditingController propertyCostController = TextEditingController();
   TextEditingController pricePerSqmController = TextEditingController();
-//  TextEditingController floorAreaController = TextEditingController();
   TextEditingController bedsController = TextEditingController();
   TextEditingController bathsController = TextEditingController();
+  TextEditingController carsController = TextEditingController();
+
   TextEditingController areaController = TextEditingController();
   TextEditingController offerTypeController = TextEditingController();
   TextEditingController viewController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyTypeController = TextEditingController();
   TextEditingController propertySubCategoryController = TextEditingController();
+  TextEditingController descController = TextEditingController();
 
   Future getImageGallery() async {
     try {

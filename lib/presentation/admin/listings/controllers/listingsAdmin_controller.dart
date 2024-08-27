@@ -13,5 +13,10 @@ class ListingsAdminController extends GetxController {
     super.onInit();
   }
 
-  TextEditingController propertyName_A = TextEditingController();
+  TextEditingController propertyNameC = TextEditingController();
+  TextEditingController descriptionTitleC = TextEditingController();
+  TextEditingController descriptionC = TextEditingController();
+  TextEditingController carouselTitleC = TextEditingController();
+  TextEditingController carouselFooterC = TextEditingController();
+  TextEditingController allDescriptionC = TextEditingController();
 }

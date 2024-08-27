@@ -1,5 +1,3 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -33,8 +31,8 @@ class PropertyInformation extends GetView<ListingController> {
   @override
   Widget build(BuildContext context) {
     controller.images.clear();
-    listing.photos?.forEach((photo){
-      if(photo != ""){
+    listing.photos?.forEach((photo) {
+      if (photo != "") {
         controller.images.add(photo);
       }
     });
@@ -45,7 +43,7 @@ class PropertyInformation extends GetView<ListingController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0,vertical: 11.h),
+              padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 11.h),
               child: EraText(
                 text: 'Property Information'.toUpperCase(),
                 color: AppColors.blue,
@@ -59,7 +57,7 @@ class PropertyInformation extends GetView<ListingController> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: EraText(
-                text: listing.type!,
+                text: listing.name!,
                 color: AppColors.kRedColor,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w700,
@@ -96,10 +94,14 @@ class PropertyInformation extends GetView<ListingController> {
                   children: [
                     Positioned(
                         child: SizedBox(
-                          width: Get.width,
+                      width: Get.width,
                       height: 320.h,
                       child: CachedNetworkImage(
-                        imageUrl: controller.currentImage.value == '' ? (controller.images.isNotEmpty ? controller.images.first : AppStrings.noUserImageWhite) :  controller.currentImage.value ,
+                        imageUrl: controller.currentImage.value == ''
+                            ? (controller.images.isNotEmpty
+                                ? controller.images.first
+                                : AppStrings.noUserImageWhite)
+                            : controller.currentImage.value,
                         fit: BoxFit.cover,
                         errorWidget: (context, url, error) => Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -152,7 +154,7 @@ class PropertyInformation extends GetView<ListingController> {
                         ),
                       ),
                     ),
-                    Obx((){
+                    Obx(() {
                       controller.isFav.value;
                       return Positioned(
                         right: 10.w,
@@ -166,15 +168,15 @@ class PropertyInformation extends GetView<ListingController> {
                             },
                             child: user!.favorites!.contains(listing.id)
                                 ? Icon(
-                              CupertinoIcons.heart_fill,
-                              color: AppColors.kRedColor,
-                              size: 50.sp,
-                            )
+                                    CupertinoIcons.heart_fill,
+                                    color: AppColors.kRedColor,
+                                    size: 50.sp,
+                                  )
                                 : Icon(
-                              CupertinoIcons.heart,
-                              color: AppColors.hint,
-                              size: 50.sp,
-                            ),
+                                    CupertinoIcons.heart,
+                                    color: AppColors.hint,
+                                    size: 50.sp,
+                                  ),
                           ),
                         ),
                       );
@@ -224,10 +226,10 @@ class PropertyInformation extends GetView<ListingController> {
           //featuresWidgets('Features / Amenities', listing.join('\n')),
           SizedBox(height: 20.h),
           //featuresWidgets(
-              //'Rooms & Interior', listing.roomsAndInterior.join('\n')),
+          //'Rooms & Interior', listing.roomsAndInterior.join('\n')),
           SizedBox(height: 20.h),
           //featuresWidgets(
-             // 'Location & School', listing.locationAndSchools.join('\n')),
+          // 'Location & School', listing.locationAndSchools.join('\n')),
 
           SizedBox(height: 40.h),
           //widget location
@@ -346,7 +348,8 @@ class PropertyInformation extends GetView<ListingController> {
           ),
           SizedBox(height: 20.h),
           EraText(
-            text: listing.location ?? "***********************************************************",
+            text: listing.location ??
+                "***********************************************************",
             color: AppColors.black,
             fontWeight: FontWeight.w500,
             fontSize: 14.sp,
@@ -410,6 +413,7 @@ class PropertyInformation extends GetView<ListingController> {
                     .format(listing.ppsqm)),
             shorterSummary('Beds', '${listing.beds}'),
             shorterSummary('Baths', '${listing.baths}'),
+            shorterSummary('Garage', '${listing.cars}'),
             shorterSummary('Area', '${listing.area}'),
             //shorterSummary('Offer Type', listing.type),
             shorterSummary('View', listing.view ?? 0),
