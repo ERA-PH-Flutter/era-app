@@ -35,11 +35,27 @@ class AddListings extends GetView<AddListingsController> {
           SizedBox(height: 20.h),
           buildWidget(
             'Property Name',
-            TextformfieldWidget(hintText: 'Property Name', maxLines: 1,contentPadding: EdgeInsets.symmetric(horizontal: 20.w),),
+            TextformfieldWidget(
+              hintText: 'Property Name',
+              maxLines: 1,
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            ),
           ),
           buildWidget(
             'Property Cost',
-            TextformfieldWidget(hintText: '100,000,000', maxLines: 1,contentPadding: EdgeInsets.symmetric(horizontal: 20.w),),
+            TextformfieldWidget(
+              hintText: '100,000,000',
+              maxLines: 1,
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            ),
+          ),
+          buildWidget(
+            'Owner Listing',
+            TextformfieldWidget(
+                contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                controller: controller.areaController,
+                hintText: '',
+                maxLines: 1),
           ),
           textBuild(
               'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
@@ -172,12 +188,12 @@ class AddListings extends GetView<AddListingsController> {
               hintText: '150',
               maxLines: 1),
         ),
-        dropDownAddlistings(
-            controller.selectedOfferT,
-            controller.offerT,
-            (value) => controller.selectedOfferT.value = value!,
-            'Offer Type',
-            'Offer Type'),
+        // dropDownAddlistings(
+        //     controller.selectedOfferT,
+        //     controller.offerT,
+        //     (value) => controller.selectedOfferT.value = value!,
+        //     'Offer Type',
+        //     'Offer Type'),
         dropDownAddlistings(
             controller.selectedOfferT,
             controller.offerT,

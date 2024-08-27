@@ -40,6 +40,14 @@ class EditListing extends GetView<AddListingsController> {
             'Property Cost',
             TextformfieldWidget(hintText: 'Php 100,000,000', maxLines: 1),
           ),
+          AddListings.buildWidget(
+            'Owner Listing',
+            TextformfieldWidget(
+                contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                controller: controller.areaController,
+                hintText: '',
+                maxLines: 1),
+          ),
           AddListings.textBuild(
               'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
           SizedBox(height: 10.h),

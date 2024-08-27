@@ -57,7 +57,7 @@ class Listing {
     return Listing(
       id: json["id"],
       name: json["name"] ?? "",
-      price: json['price'] ?? 0,
+      price: json['price'].toString().toDouble(),
       type: json["type"] ?? "",
       baths: json["baths"] ?? 0,
       photos: json["photos"] ?? [],
@@ -121,9 +121,10 @@ class Listing {
     for (int i = 0; i < photos!.length; i++) {
       images.add(await CloudStorage().uploadImage(image: photos![i]));
     }
-    DocumentReference<Map<String,dynamic>> doc = db.collection('listings').doc();
+    DocumentReference<Map<String, dynamic>> doc =
+        db.collection('listings').doc();
     await doc.set({
-      "id" : doc.id,
+      "id": doc.id,
       "name": name,
       "price": price,
       "photos": images,
@@ -161,6 +162,7 @@ class Listing {
   deleteListings() async {
     await db.collection("listings").doc(id).delete();
   }
+
   deleteListingsById(listingId) async {
     await db.collection("listings").doc(listingId).delete();
   }

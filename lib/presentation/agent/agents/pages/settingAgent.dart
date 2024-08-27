@@ -102,9 +102,7 @@ class SettingsPage extends GetView<AgentsController> {
             right: 0,
             child: GestureDetector(
               onTap: () {
-                if(agentController.image.value != null){
-                  
-                }
+                if (agentController.image.value != null) {}
                 Get.dialog(
                   BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
@@ -165,23 +163,19 @@ class SettingsPage extends GetView<AgentsController> {
                             ),
                           ),
                           SizedBox(height: 10.h),
-                          Card(
-                            color: AppColors.white,
-                            elevation: 7,
-                            child: GestureDetector(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Container(
-                                height: 40.h,
-                                width: 150.w,
-                                child: Center(
-                                  child: EraText(
-                                    text: 'Cancel',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.blue,
-                                  ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Container(
+                              height: 40.h,
+                              width: 60.w,
+                              child: Center(
+                                child: EraText(
+                                  text: 'Cancel',
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.blue,
                                 ),
                               ),
                             ),
