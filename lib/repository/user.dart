@@ -100,7 +100,7 @@ class EraUser {
       'gender': gender ?? 'male',
       'favorites': favorites ?? [],
       'archives': archives ?? [],
-      'full_name': "$firstname $lastname"
+      'full_name': "${firstname?.toLowerCase()} ${lastname?.toLowerCase()}"
     };
   }
 
