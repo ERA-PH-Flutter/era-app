@@ -15,7 +15,15 @@ class AI{
     required this.query
   });
   search()async{
-    String prompt = "write an mysql string text using this text search ${query.toLowerCase()} here are the available properties for mysql (location, type (apartment, condo, house, subdivision) this is not required, status (pre selling, sold, selling, new, rent) this is not required, size, rooms, baths, balcony, Amenities (gym or landmarks nearby), Garage View ( sunset, sunrise, mountain, beach, city etc.), price) dont use LIKE but use equals instead also it is okay to be null if its not specified in the prompt if its null nevermind it make it simple, give me mysql do not use new lines in generating answer don't add any other text, no new lines, example: SELECT * FROM properties WHERE location = 'makati'";
+    String t1 = "write an mysql string text using this text search ${query.toLowerCase()} here are the available properties for mysql ";
+    String t2 = " dont use LIKE but use equals instead also it is okay to be null if its not specified in the prompt if its null nevermind it make it simple, give me mysql do not use new lines in generating answer don't add any other text, no new lines, example: SELECT * FROM properties WHERE location = 'makati'";
+    String type = "type (apartment, condominium, house and lot, townhouse, commercial, industrial, agricultural, land, foreclosed, pre_selling, rent_to_own, others) this is not required";
+    String view = "view ( sunset, sunrise, mountain, beach, city etc.)";
+    String subCategory = "sub_category (apartment, house, lot, office, retail, warehouse, commercial, residential, condominium, townhouse, others)";
+    String amenities = "amenities (gym or landmarks nearby)";
+    String status = "status (rent, sale) this is not required";
+    String prompt = "$t1(location, $type, $status, size, rooms, baths, balcony, $amenities, garage, $view, price, $subCategory)$t2";
+
     BaseController().showLoading();
     var toReturn;
     await gemini.text(prompt)

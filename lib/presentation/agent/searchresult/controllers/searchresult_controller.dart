@@ -30,13 +30,15 @@ class SearchResultController extends GetxController {
 
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
     data.clear();
+    print(Get.arguments);
     searchResultState.value = SearchResultState.loading;
     try {
+      print(Get.arguments);
       if (Get.arguments == null || Get.arguments.isEmpty) {
-        searchResultState.value = SearchResultState.loaded;
+        searchResultState.value = SearchResultState.searching;
       } else {
         loadData(Get.arguments[0]);
         searchQuery.value = Get.arguments[1];

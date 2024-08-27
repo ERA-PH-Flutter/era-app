@@ -36,6 +36,7 @@ class AddListings extends GetView<AddListingsController> {
           buildWidget(
             'Property Name',
             TextformfieldWidget(
+              controller: controller.propertyNameController,
               hintText: 'Property Name',
               maxLines: 1,
               contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -44,6 +45,7 @@ class AddListings extends GetView<AddListingsController> {
           buildWidget(
             'Property Cost',
             TextformfieldWidget(
+              controller: controller.propertyCostController,
               hintText: '100,000,000',
               maxLines: 1,
               contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -57,8 +59,14 @@ class AddListings extends GetView<AddListingsController> {
                 hintText: '',
                 maxLines: 1),
           ),
-          textBuild(
-              'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              textBuild(
+                  'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
+              Obx(()=>textBuild('${controller.images.length}/15',22.sp,FontWeight.w600,Colors.black)),
+            ],
+          ),
           SizedBox(height: 10.h),
           // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
           Padding(
@@ -93,7 +101,6 @@ class AddListings extends GetView<AddListingsController> {
               ],
             ),
           ),
-
           SizedBox(height: 10.h),
           Obx(() {
             if (controller.images.isEmpty) {
@@ -234,11 +241,11 @@ class AddListings extends GetView<AddListingsController> {
                     beds: controller.bedsController.text.toInt(),
                     baths: controller.bathsController.text.toInt(),
                     area: controller.areaController.text.toInt(),
-                    status: controller.offerTypeController.text,
+                    status: controller.selectedOfferT.value,
                     view: controller.viewController.text,
                     location: controller.locationController.text,
-                    type: controller.propertyTypeController.text,
-                    subCategory: controller.propertySubCategoryController.text)
+                    type: controller.selectedPropertyT.value,
+                    subCategory: controller.selectedPropertySubCategory.value)
                 .addListing();
           } catch (e, ex) {
             print(ex);
