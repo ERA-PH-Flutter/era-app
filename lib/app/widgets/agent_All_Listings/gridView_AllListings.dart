@@ -39,12 +39,10 @@ class GridviewAlllistings extends StatelessWidget {
             price: listingModels[i].price ?? 0,
             showListedby: false,
             buttonEdit: Button.button3((Get.width - 65.w ) / 2, 40.h, () {
-              Get.toNamed('/editListings');
+              Get.toNamed('/editListings',arguments: [listingModels[i].id]);
             }, 'Edit', AppColors.blue),
-            buttonDelete: Button.button3(
-                (Get.width - 65.w ) / 2, 43.h, () {}, 'Delete', AppColors.kRedColor),
-            onTap: () {
-              Get.toNamed('/propertyInfo', arguments: listingModels[i]);
+            buttonDelete: Button.button3((Get.width - 65.w ) / 2, 43.h, () {}, 'Delete', AppColors.kRedColor), onTap: () {
+              //Get.toNamed('/propertyInfo', arguments: listingModels[i]);
             },
             isSold: listingModels[i].isSold ?? false,
         ),
