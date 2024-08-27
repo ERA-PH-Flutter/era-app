@@ -36,12 +36,13 @@ class SearchResultController extends GetxController {
     searchResultState.value = SearchResultState.loading;
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {
-        searchResultState.value = SearchResultState.searching;
+        searchResultState.value = SearchResultState.loaded;
       } else {
         loadData(Get.arguments[0]);
         searchQuery.value = Get.arguments[1];
       }
     } catch (e, ex) {
+      print(ex);
       searchResultState.value = SearchResultState.error;
     }
   }
