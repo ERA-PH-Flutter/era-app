@@ -148,7 +148,6 @@ class Listing {
       "views": 0,
       "date_created": DateTime.now(),
     });
-    //todo add this listing to user
   }
 
   updateListing() async {
@@ -162,6 +161,8 @@ class Listing {
   deleteListings() async {
     await db.collection("listings").doc(id).delete();
   }
-
+  deleteListingsById(listingId) async {
+    await db.collection("listings").doc(listingId).delete();
+  }
   //todo build widgets
 }

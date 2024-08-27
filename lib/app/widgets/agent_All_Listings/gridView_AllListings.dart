@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -42,6 +43,10 @@ class GridviewAlllistings extends StatelessWidget {
               Get.toNamed('/editListings',arguments: [listingModels[i].id]);
             }, 'Edit', AppColors.blue),
             buttonDelete: Button.button3((Get.width - 65.w ) / 2, 43.h, () {}, 'Delete', AppColors.kRedColor), onTap: () {
+              BaseController().showSuccessDialog(title: "Confirm",description: "Do you want to delete this listing?",hitApi: ()async{
+                await Listing().deleteListingsById(listingModels[i].id);
+                Get.back();
+              },cancelable: true);
               //Get.toNamed('/propertyInfo', arguments: listingModels[i]);
             },
             isSold: listingModels[i].isSold ?? false,
