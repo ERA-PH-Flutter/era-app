@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/services/firebase_database.dart';
 import '../../../global.dart';
@@ -75,28 +79,32 @@ class AgentsController extends GetxController with BaseController{
       agentState.value = AgentsState.empty;
     }
   }
+
+  final picker = ImagePicker();
+  Rx<File?> image = Rx<File?>(null);
+  final removeImage = false.obs;
+
+  Future<void> getImageGallery() async {
+    try {
+      final List<XFile>? imagePicks = await picker.pickMultiImage();
+      if (imagePicks != null && imagePicks.isNotEmpty) {
+        image.value = File(imagePicks[0].path);
+      }
+    } on PlatformException catch (e) {
+      showErroDialog(description: "Failed to pick image: ${e.message}");
+    }
+  }
+
+  Future<void> getImagePic() async {
+    try {
+      final XFile? imagePick =
+          await picker.pickImage(source: ImageSource.camera);
+      if (imagePick != null) {
+        image.value = File(imagePick.path);
+      }
+    } on PlatformException catch (e) {
+      showErroDialog(description: "Failed to pick image: ${e.message}");
+    }
+  }
 }
-
-  // final List<String> sortOptions = ['name_ascending', 'name_descending'];
-
-  // List<RealEstateListing> applyFiltersAndSorting(
-  //     List<RealEstateListing> listings, AgentsController controller) {
-  //   if (sortOption.value.contains('name')) {
-  //     listings.sort(
-  //         (a, b) => (a.user.firstname ?? '').compareTo(b.user.firstname ?? ''));
-  //   }
-
-  //   if (!controller.isAscending.value) {
-  //     listings = listings.reversed.toList();
-  //   }
-
-  //   return listings;
-  // }
-
-  // void updateFilterName(String name) {
-  //   filterName.value = name;
-  // }
-
-  // void updateDate(DateTime newDate) {
-  //   date.value = newDate;
-  // }
+ 

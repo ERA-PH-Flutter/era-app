@@ -31,7 +31,7 @@ class FindingProperties extends StatelessWidget {
           baths: listingModels[i].baths,
           cars: listingModels[i].cars,
           description: listingModels[i].description,
-          price: listingModels[i].price,
+          price: listingModels[i].price.toDouble(),
          
           showListedby: true,
           listedBy: 'Listed By',

@@ -39,6 +39,7 @@ class TextformfieldWidget extends StatelessWidget {
       controller: controller,
       obscureText: obscureText ?? false,
       decoration: InputDecoration(
+        contentPadding: contentPadding ?? EdgeInsets.zero,
         suffixIcon: suffixIcon,
         hintText: hintText,
         hintStyle: hintstlye ??

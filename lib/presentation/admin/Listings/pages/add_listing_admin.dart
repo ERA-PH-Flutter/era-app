@@ -36,9 +36,6 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
               fontSize: EraTheme.header,
               fontWeight: FontWeight.w500,
             ),
-            SizedBox(
-              height: 10.h,
-            ),
             EraText(
               text: 'CREATE LISTING',
               color: AppColors.black,

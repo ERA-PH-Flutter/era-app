@@ -8,7 +8,7 @@ class Listing {
   FirebaseFirestore db = FirebaseFirestore.instance;
   String? id;
   String? name;
-  int? price;
+  double? price;
   List? photos;
   double? ppsqm;
   double? floorArea;
@@ -121,7 +121,9 @@ class Listing {
     for (int i = 0; i < photos!.length; i++) {
       images.add(await CloudStorage().uploadImage(image: photos![i]));
     }
-    await db.collection("listings").add({
+    DocumentReference<Map<String,dynamic>> doc = db.collection('listings').doc();
+    await doc.set({
+      "id" : doc.id,
       "name": name,
       "price": price,
       "photos": images,
@@ -146,7 +148,6 @@ class Listing {
       "views": 0,
       "date_created": DateTime.now(),
     });
-    //todo add this listing to user
   }
 
   updateListing() async {
@@ -160,6 +161,8 @@ class Listing {
   deleteListings() async {
     await db.collection("listings").doc(id).delete();
   }
-
+  deleteListingsById(listingId) async {
+    await db.collection("listings").doc(listingId).delete();
+  }
   //todo build widgets
 }

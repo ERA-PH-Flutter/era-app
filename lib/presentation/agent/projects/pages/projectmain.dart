@@ -84,7 +84,7 @@ class ProjectMain extends GetView<ProjectsController> {
             color: AppColors.carouselBgColor),
         SizedBox(height: 20.h),
         projectContent2(project),
-        SizedBox(height: 20.h),
+        SizedBox(height: 60.h),
         Button(
           text: 'VIEW MORE',
           onTap: () {
@@ -131,7 +131,7 @@ class ProjectMain extends GetView<ProjectsController> {
         children: [
           HarayaProject.paddingTextTitle(
             project.text1,
-            20,
+            EraTheme.header - 3.sp,
             FontWeight.bold,
             AppColors.kRedColor,
             0,
@@ -139,7 +139,7 @@ class ProjectMain extends GetView<ProjectsController> {
           SizedBox(height: 20.h),
           HarayaProject.paddingText(
             project.text2,
-            14,
+            EraTheme.paragraph,
             FontWeight.w500,
             AppColors.black,
             0,
@@ -157,7 +157,7 @@ class ProjectMain extends GetView<ProjectsController> {
         children: [
           HarayaProject.paddingText(
             project.text3,
-            20,
+            EraTheme.header - 3.sp,
             FontWeight.bold,
             AppColors.kRedColor,
             0,
@@ -165,7 +165,7 @@ class ProjectMain extends GetView<ProjectsController> {
           SizedBox(height: 20.h),
           HarayaProject.paddingText(
             project.text4,
-            14,
+            EraTheme.paragraph,
             FontWeight.w500,
             AppColors.black,
             0,
@@ -183,7 +183,7 @@ class ProjectMain extends GetView<ProjectsController> {
         children: [
           HarayaProject.paddingTextTitle(
             project.text5,
-            20,
+            EraTheme.header - 3.sp,
             FontWeight.bold,
             AppColors.kRedColor,
             0,
@@ -191,7 +191,7 @@ class ProjectMain extends GetView<ProjectsController> {
           SizedBox(height: 20.h),
           HarayaProject.paddingText(
             project.text6,
-            14,
+            EraTheme.paragraph,
             FontWeight.w500,
             AppColors.black,
             0,

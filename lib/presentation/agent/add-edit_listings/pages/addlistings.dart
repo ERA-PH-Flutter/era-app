@@ -35,11 +35,11 @@ class AddListings extends GetView<AddListingsController> {
           SizedBox(height: 20.h),
           buildWidget(
             'Property Name',
-            TextformfieldWidget(hintText: 'Property Name', maxLines: 1),
+            TextformfieldWidget(hintText: 'Property Name', maxLines: 1,contentPadding: EdgeInsets.symmetric(horizontal: 20.w),),
           ),
           buildWidget(
             'Property Cost',
-            TextformfieldWidget(hintText: '100,000,000', maxLines: 1),
+            TextformfieldWidget(hintText: '100,000,000', maxLines: 1,contentPadding: EdgeInsets.symmetric(horizontal: 20.w),),
           ),
           textBuild(
               'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
@@ -134,6 +134,7 @@ class AddListings extends GetView<AddListingsController> {
         buildWidget(
           'Price per sqm',
           TextformfieldWidget(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
               keyboardType: TextInputType.number,
               controller: controller.pricePerSqmController,
               hintText: '100',
@@ -150,6 +151,7 @@ class AddListings extends GetView<AddListingsController> {
         buildWidget(
           'Beds',
           TextformfieldWidget(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
               controller: controller.bedsController,
               hintText: '2',
               maxLines: 1),
@@ -157,6 +159,7 @@ class AddListings extends GetView<AddListingsController> {
         buildWidget(
           'Baths',
           TextformfieldWidget(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
               controller: controller.bathsController,
               hintText: '3',
               maxLines: 1),
@@ -164,6 +167,7 @@ class AddListings extends GetView<AddListingsController> {
         buildWidget(
           'Area',
           TextformfieldWidget(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
               controller: controller.areaController,
               hintText: '150',
               maxLines: 1),
@@ -174,7 +178,7 @@ class AddListings extends GetView<AddListingsController> {
             (value) => controller.selectedOfferT.value = value!,
             'Offer Type',
             'Offer Type'),
-       dropDownAddlistings(
+        dropDownAddlistings(
             controller.selectedOfferT,
             controller.offerT,
             (value) => controller.selectedOfferT.value = value!,
@@ -183,6 +187,7 @@ class AddListings extends GetView<AddListingsController> {
         buildWidget(
           'Location',
           TextformfieldWidget(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
               controller: controller.locationController,
               hintText: 'Bonifacio Global City, Taguig',
               maxLines: 1),
@@ -206,7 +211,7 @@ class AddListings extends GetView<AddListingsController> {
           try {
             await Listing(
                     name: controller.propertyNameController.text,
-                    price: controller.propertyCostController.text.toInt(),
+                    price: controller.propertyCostController.text.toDouble(),
                     photos: controller.images,
                     ppsqm: controller.pricePerSqmController.text.toDouble(),
                     // floorArea: controller.floorAreaController.text.toDouble(),
@@ -264,7 +269,7 @@ class AddListings extends GetView<AddListingsController> {
         ));
   }
 
- static Widget dropDownAddlistings(RxnString selectedItem, List<String> Types,
+  static Widget dropDownAddlistings(RxnString selectedItem, List<String> Types,
       Function(String?) onChanged, String name, String hintText) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
