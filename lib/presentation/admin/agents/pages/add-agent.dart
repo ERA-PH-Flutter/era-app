@@ -376,30 +376,33 @@ class AddAgent extends GetView<AgentAdminController> {
 
   static Widget buildTextFieldFormDesc(
       String text, TextEditingController controller) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(
-              text: text,
-              fontSize: 18.sp,
-              color: AppColors.black,
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: 200.h,
-              width: Get.width / 1.2 - 45.w,
-              child: TextformfieldWidget(
-                controller: controller,
-                fontSize: 12.sp,
-                maxLines: 50,
+    return Padding(
+      padding: EdgeInsets.only(left: 10.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              EraText(
+                text: text,
+                fontSize: 18.sp,
+                color: AppColors.black,
+                fontWeight: FontWeight.w500,
               ),
-            ),
-          ],
-        ),
-      ],
+              SizedBox(
+                height: 200.h,
+                width: Get.width / 1.2 - 45.w,
+                child: TextformfieldWidget(
+                  controller: controller,
+                  fontSize: 12.sp,
+                  maxLines: 50,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
