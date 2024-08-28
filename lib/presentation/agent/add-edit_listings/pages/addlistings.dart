@@ -251,7 +251,7 @@ class AddListings extends GetView<AddListingsController> {
               name: controller.propertyNameController.text,
               price: controller.propertyCostController.text.toDouble(),
               photos: controller.images,
-              ppsqm: controller.pricePerSqmController.text,
+              ppsqm: controller.pricePerSqmController.text.toDouble(),
               beds: controller.bedsController.text.toInt(),
               baths: controller.bathsController.text.toInt(),
               cars: controller.carsController.text.toInt(),

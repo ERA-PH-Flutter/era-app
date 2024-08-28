@@ -122,7 +122,7 @@ class SettingsPage extends GetView<AgentsController> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            width: 250.w,
+                            width: Get.width,
                             child: ElevatedButton(
                               onPressed: () {
                                 agentController.getImagePic();
@@ -143,7 +143,7 @@ class SettingsPage extends GetView<AgentsController> {
                           ),
                           SizedBox(height: 5.h),
                           Container(
-                            width: 250.w,
+                            width: Get.width,
                             child: ElevatedButton(
                               onPressed: () {
                                 agentController.getImageGallery();

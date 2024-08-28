@@ -94,6 +94,7 @@ class FindAgents extends GetView<AgentsController> {
                     AgentsState.error => _error(),
                     AgentsState.empty => _empty(),
                     AgentsState.blank => _blank(),
+                    AgentsState.noFeaturedAgent => _noFeaturedAgent(),
                   })
             ],
           ),
@@ -139,6 +140,23 @@ class FindAgents extends GetView<AgentsController> {
           EraText(
             fontSize: EraTheme.paragraph,
             text: "No User Found!",
+            color: Colors.black,
+          ),
+        ],
+      ),
+    );
+  }
+
+  _noFeaturedAgent() {
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 100.h,
+          ),
+          EraText(
+            fontSize: EraTheme.paragraph,
+            text: "No Agent was Featured!",
             color: Colors.black,
           ),
         ],

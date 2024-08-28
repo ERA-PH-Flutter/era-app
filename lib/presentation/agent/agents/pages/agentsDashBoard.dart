@@ -69,8 +69,8 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                     ),
                     SizedBox(height: 10.h),
                     AgentInfoWidget.agentInformation(
-                      agentController.image.value != null
-                          ? FileImage(agentController.image.value!)
+                      user!.image != null
+                          ? CachedNetworkImageProvider(user!.image!)
                           : NetworkImage(AppStrings.noUserImageWhite)
                               as ImageProvider,
                       '${user!.firstname}',

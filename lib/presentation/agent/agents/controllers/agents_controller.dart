@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../global.dart';
 
-enum AgentsState {loading,loaded,empty,error,blank}
+enum AgentsState {loading,loaded,empty,error,blank,noFeaturedAgent}
 class AgentsController extends GetxController with BaseController{
 
   var sortOption = 'name_ascending'.obs;
@@ -44,7 +45,7 @@ class AgentsController extends GetxController with BaseController{
         });
         agentState.value = AgentsState.loaded;
       }else{
-        agentState.value = AgentsState.empty;
+        agentState.value = AgentsState.noFeaturedAgent;
       }
     }catch(e){
       agentState.value = AgentsState.error;
@@ -88,7 +89,14 @@ class AgentsController extends GetxController with BaseController{
     try {
       final List<XFile>? imagePicks = await picker.pickMultiImage();
       if (imagePicks != null && imagePicks.isNotEmpty) {
+        showLoading();
         image.value = File(imagePicks[0].path);
+        var im = await CloudStorage().upload(file: image.value!, target: 'users/images');
+        user!.image = await CloudStorage().getFileDirect(docRef: im);
+        await user!.update();
+        showSuccessDialog(description: "Change profile image success!",title: "Success",hitApi: (){
+          Get.back();Get.back();Get.back();
+        });
       }
     } on PlatformException catch (e) {
       showErroDialog(description: "Failed to pick image: ${e.message}");

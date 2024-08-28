@@ -23,6 +23,38 @@ class CloudStorage{
             return "Error: $e";
         }
     }
+    Future<String> getFileDirect({
+        required String docRef,
+    }) async {
+        try{
+            return await ref.child(docRef).getDownloadURL();
+        }catch (e){
+            return "Error: $e";
+        }
+    }
+    Future<String> deleteFileDirect({
+        required String docRef,
+    }) async {
+        try{
+            await ref.child(docRef).delete();
+            return "success";
+        }catch (e){
+            return "Error: $e";
+        }
+    }
+    Future<String> upload({
+        required File file,required String target
+    }) async {
+        try{
+            var filename = file.path.split("/")[file.path.split("/").length - 1];
+            var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename";
+            var fileRef = ref.child('$target/$uploadFilename');
+            await fileRef.putFile(file);
+            return '$target/$uploadFilename';
+        }catch (e){
+            return "error";
+        }
+    }
     Future<String> uploadImage({
         required File image
     }) async {

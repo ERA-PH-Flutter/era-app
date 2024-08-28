@@ -8,6 +8,7 @@ import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../app/services/ai_search.dart';
 import '../controllers/MortageCalculator_controller.dart';
 
 class MortageCalculator extends GetView<MortageCalculatorController> {
@@ -122,7 +123,22 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 text: 'CALCULATE',
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w500,
-                onTap: () {},
+                onTap: ()async{
+                  var mortgage = await AI(query: "").calculateMortage(
+                    amount: controller.propertyAmount.text,
+                    monthly: controller.monthlyP.text,
+                    interest: controller.interestRate.text,
+                    downPayment: controller.downPayment.text,
+                    loanTerm: controller.loanTerm.text
+                  );
+                  controller.showSuccessDialog(
+                    title: "Result",
+                    description: "Calculated value = $mortgage",
+                    hitApi: (){
+                      Get.back();
+                    }
+                  );
+                },
               ),
               SizedBox(height: 30.h),
             ],

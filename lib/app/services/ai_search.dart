@@ -16,7 +16,7 @@ class AI{
   });
   search()async{
     String t1 = "write an mysql string text using this text search ${query.toLowerCase()} here are the available properties for mysql ";
-    String t2 = " dont use LIKE but use equals instead also it is okay to be null if its not specified in the prompt if its null nevermind it make it simple, give me mysql do not use new lines in generating answer don't add any other text, no new lines, example: SELECT * FROM properties WHERE location = 'makati'";
+    String t2 = " dont use LIKE but use equals instead also it is okay to be null if its not specified in the prompt if its null never mind it make it simple, give me mysql only, don't add any other text, no new lines, example: SELECT * FROM properties WHERE location = 'makati'";
     String type = "type (apartment, condominium, house and lot, townhouse, commercial, industrial, agricultural, land, foreclosed, pre_selling, rent_to_own, others) this is not required";
     String view = "view ( sunset, sunrise, mountain, beach, city etc.)";
     String subCategory = "sub_category (apartment, house, lot, office, retail, warehouse, commercial, residential, condominium, townhouse, others)";
@@ -42,7 +42,7 @@ class AI{
   }
   getProperties(List<String> filters) async {
     Query query = FirebaseFirestore.instance.collection('listings');
-    var except = ["garage","baths","view","landmarks","name","owner","price","rooms","size","id","balcony","amenities"];
+    var except = ["garage","baths","view","name","owner","price","rooms","size","id","balcony","amenities"];
     var additionalFilters = [];
     for (final filter in filters) {
       if(filter.contains("<=")){
@@ -131,6 +131,21 @@ class AI{
         ab.assignAll(af.operate(ab));
       }
     });
+    print(ab);
     return ab;
+  }
+  calculateMortage({
+    amount,downPayment, loanTerm, interest, monthly
+  })async{
+    var prompt = "Calculate mortgage given this data, property amount = $amount, down payment = $downPayment, loan term = $loanTerm, interest rate = $interest, monthly payment = $monthly, give me the value directly remove unnecessary explanation";
+    BaseController().showLoading();
+    var toReturn;
+    await gemini.text(prompt)
+        .then((value)async{
+      toReturn = value?.output!;
+      print(value?.output);
+    }).catchError((e) => print(e));
+    BaseController().hideLoading();
+    return toReturn;
   }
 }

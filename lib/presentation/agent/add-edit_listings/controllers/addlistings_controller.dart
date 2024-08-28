@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../../../app/services/local_storage.dart';
 import '../../../../repository/listing.dart';
-import 'package:http/http.dart' as http;
+
 
 enum AddListingsState {
   loading,
@@ -21,6 +22,7 @@ enum AddEditListingsState {loading,loaded}
 class AddListingsController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
   var addEditListingsState = AddEditListingsState.loading.obs;
+  var id = "";
   RxList images = [].obs;
   final picker = ImagePicker();
   final removeImage = false.obs;
@@ -116,11 +118,12 @@ class AddListingsController extends GetxController with BaseController {
   clearImage() {
     images.clear();
   }
-  onInit(){
+  onInit()async{
     super.onInit();
-    print(Get.currentRoute);
+
     if(Get.currentRoute == '/editListings'){
-      assignData();
+      id = Get.arguments[0];
+      await assignData();
     }
   }
   assignData()async{
@@ -128,13 +131,7 @@ class AddListingsController extends GetxController with BaseController {
     propertyNameController.text = listing.name ?? "";
     propertyCostController.text = listing.price == null ? listing.price.toString() : "0";
     for(int i = 0; i <  listing.photos!.length;i++){
-      var rng = Random();
-      Directory tempDir = await getTemporaryDirectory();
-      String tempPath = tempDir.path;
-      File file = File('$tempPath${rng.nextInt(100)}.png');
-      var response = await http.get(Uri.parse(listing.photos![i]));
-      var a = await file.writeAsBytes( response.bodyBytes);
-      images.add(a);
+      images.add( await urlToFile(listing.photos![i]));
     }
     pricePerSqmController.text = listing.ppsqm == null ? listing.ppsqm.toString() : "0";
     bedsController.text = listing.beds == null ? listing.beds.toString() : "0";

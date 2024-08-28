@@ -313,24 +313,33 @@ class EditListing extends GetView<AddListingsController> {
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           BaseController().showLoading();
-          await Listing(
-            name: controller.propertyNameController.text,
-            price: controller.propertyCostController.text.toDouble(),
-            photos: controller.images,
-            ppsqm: controller.pricePerSqmController.text,
-            beds: controller.bedsController.text.toInt(),
-            baths: controller.bathsController.text.toInt(),
-            cars: controller.carsController.text.toInt(),
-            area: controller.areaController.text.toInt(),
-            status: controller.selectedOfferT.value.toString(),
-            //  view: controller.selectedView.value.toString(),
-            location: controller.locationController.text,
-            type: controller.selectedPropertyT.value.toString(),
-            subCategory:
-                controller.selectedPropertySubCategory.value.toString(),
-            description: controller.descController.text,
-          ).updateListing();
-          BaseController().hideLoading();
+          try{
+            await Listing(
+              id: controller.id,
+              name: controller.propertyNameController.text,
+              price: controller.propertyCostController.text.toDouble(),
+              //photos: controller.images,
+              ppsqm: controller.pricePerSqmController.text.toDouble(),
+              beds: controller.bedsController.text.toInt(),
+              baths: controller.bathsController.text.toInt(),
+              cars: controller.carsController.text.toInt(),
+              area: controller.areaController.text.toInt(),
+              status: controller.selectedOfferT.value.toString(),
+              //  view: controller.selectedView.value.toString(),
+              location: controller.locationController.text,
+              type: controller.selectedPropertyT.value.toString(),
+              subCategory:
+              controller.selectedPropertySubCategory.value.toString(),
+              description: controller.descController.text,
+            ).updateListing();
+            BaseController().hideLoading();
+            controller.showSuccessDialog(title: "Success",description:  "Listing update success!, note that changing image doesn't work. Do you want to exit?",hitApi: (){
+              Get.back();Get.back();
+            },cancelable: true,);
+          }catch(e){
+            print(e);
+          }
+          //BaseController().hideLoading();
         }, 'UPDATE LISTING'),
         SizedBox(height: 20.h),
       ],

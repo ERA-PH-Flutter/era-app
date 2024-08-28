@@ -372,8 +372,9 @@ class PropertyInformation extends GetView<ListingController> {
           children: [
             iconsWidgets(
                 AppEraAssets.money2,
-                double.parse(listing.ppsqm!) >= 1000000
-                    ? '${double.parse(listing.ppsqm!) / 1000000}M'
+                listing.ppsqm! >= 1000000
+                    ? '${listing.ppsqm! / 1000000}M'
+                    : listing.ppsqm! >= 1000 ? '${listing.ppsqm! / 1000}K'
                     : '${listing.ppsqm}'),
             iconsWidgets(AppEraAssets.area, '${listing.area} sqm'),
             iconsWidgets(AppEraAssets.bed, '${listing.beds}'),

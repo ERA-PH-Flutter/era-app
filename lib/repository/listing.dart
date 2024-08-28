@@ -10,7 +10,7 @@ class Listing {
   String? name;
   double? price;
   List? photos;
-  String? ppsqm;
+  double? ppsqm;
   double? floorArea;
   int? beds;
   int? baths;
@@ -67,7 +67,7 @@ class Listing {
       status: json["status"],
       area: json["area"],
       beds: json["beds"],
-      ppsqm: json["ppsqm"] ?? "",
+      ppsqm: json["ppsqm"].toString().toDouble(),
       subCategory: json["sub_category"],
       by: json["by"],
       owner: json["owner"],
@@ -82,7 +82,7 @@ class Listing {
   }
   Map<String, dynamic> toMap() {
     return {
-      "name": name,
+      "name": name?.toLowerCase(),
       "price": price,
       "photos": photos,
       "ppsqm": ppsqm,
@@ -90,15 +90,15 @@ class Listing {
       "beds": beds,
       "baths": baths,
       "area": area,
-      "status": status,
-      "view": view,
-      "location": location,
-      "type": type,
-      "sub_category": subCategory,
+      "status": status?.toLowerCase(),
+      "view": view?.toLowerCase(),
+      "location": location?.toLowerCase(),
+      "type": type?.toLowerCase(),
+      "sub_category": subCategory?.toLowerCase(),
       "leads": leads,
       "by": user!.id,
       "owner": "admin", //todo change to owner field
-      "description": "",
+      "description": description?.toLowerCase(),
       "views": 0,
       "date_created": DateTime.now(),
       "garage": cars,
@@ -152,10 +152,12 @@ class Listing {
   }
 
   updateListing() async {
-    var images = [];
+    //var images = [];
+    /*
     for (int i = 0; i < photos!.length; i++) {
       images.add(await CloudStorage().uploadImage(image: photos![i]));
     }
+    */
     await db.collection("listings").doc(id).update(toMap());
   }
 
