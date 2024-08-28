@@ -53,7 +53,6 @@ class Listing {
     this.views,
     this.cars,
     this.isSold,
-
   });
   factory Listing.fromJSON(Map<String, dynamic> json) {
     print(json);
@@ -88,7 +87,7 @@ class Listing {
   }
   Map<String, dynamic> toMap() {
     return {
-      "name": name?.toLowerCase(),
+      "name": name,
       "price": price,
       "photos": photos,
       "ppsqm": ppsqm,
@@ -96,18 +95,18 @@ class Listing {
       "beds": beds,
       "baths": baths,
       "area": area,
-      "status": status?.toLowerCase(),
-      "view": view?.toLowerCase(),
-      "location": location?.toLowerCase(),
-      "type": type?.toLowerCase(),
-      "sub_category": subCategory?.toLowerCase(),
+      "status": status,
+      "view": view,
+      "location": location,
+      "type": type,
+      "sub_category": subCategory,
       "leads": leads,
       "by": user!.id,
       "owner": "admin", //todo change to owner field
-      "description": description?.toLowerCase(),
+      "description": description,
       "views": 0,
       "date_created": dateCreated ?? DateTime.now(),
-      "date_updated" : DateTime.now(),
+      "date_updated": DateTime.now(),
       "garage": cars,
       "is_sold": isSold ?? false,
     };

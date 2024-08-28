@@ -442,11 +442,15 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
     return Row(
       children: [
         Image.asset(iconPath, width: 35.w, height: 28.h),
-        EraText(
-          text: text,
-          color: AppColors.black,
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w600,
+        SizedBox(
+          width: 200.w,
+          child: EraText(
+            text: text,
+            color: AppColors.black,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w600,
+            textOverflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );

@@ -8,8 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../presentation/agent/agents/pages/agentsDashBoard.dart';
 
 class AgentInfoWidget {
-  static Widget agentInformation(
-    ImageProvider imageProvider, String firstName,
+  static Widget agentInformation(ImageProvider imageProvider, String firstName,
       String lastName, String whatsApp, String email, String role) {
     return Row(
       children: [
@@ -31,8 +30,8 @@ class AgentInfoWidget {
             children: [
               AgentDashBoard.agentText('$firstName $lastName', AppColors.blue,
                   18.sp, FontWeight.bold, 1.2),
-              AgentDashBoard.agentText(
-                  role, AppColors.black, 12.sp, FontWeight.w400, 0.9),
+              AgentDashBoard.agentText(role.toUpperCase(), AppColors.black,
+                  12.sp, FontWeight.w400, 0.9),
               AgentDashBoard.agentContact(AppEraAssets.whatsappIcon, whatsApp),
               AgentDashBoard.agentContact(AppEraAssets.emailIcon, email),
             ],

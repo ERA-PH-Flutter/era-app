@@ -55,6 +55,13 @@ class GridviewAlllistings extends StatelessWidget {
                 },
                 cancelable: true);
           }, 'Delete', AppColors.kRedColor),
+          buttonSold: Button.button3(
+            (Get.width - 65.w) / 2,
+            40.h,
+            () {},
+            'Mark as Sold',
+            AppColors.blue,
+          ),
           onTap: () {
             Get.toNamed('/propertyInfo', arguments: listingModels[i]);
           },

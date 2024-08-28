@@ -210,7 +210,7 @@ class EditListing extends GetView<AddListingsController> {
         AddListings.buildWidget(
           'Price per sqm',
           TextformfieldWidget(
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               controller: controller.pricePerSqmController,
               hintText: 'Php 100,000',
               maxLines: 1),
@@ -313,7 +313,7 @@ class EditListing extends GetView<AddListingsController> {
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           BaseController().showLoading();
-          try{
+          try {
             await Listing(
               id: controller.id,
               name: controller.propertyNameController.text,
@@ -329,14 +329,21 @@ class EditListing extends GetView<AddListingsController> {
               location: controller.locationController.text,
               type: controller.selectedPropertyT.value.toString(),
               subCategory:
-              controller.selectedPropertySubCategory.value.toString(),
+                  controller.selectedPropertySubCategory.value.toString(),
               description: controller.descController.text,
             ).updateListing();
             BaseController().hideLoading();
-            controller.showSuccessDialog(title: "Success",description:  "Listing update success!, note that changing image doesn't work. Do you want to exit?",hitApi: (){
-              Get.back();Get.back();
-            },cancelable: true,);
-          }catch(e){
+            controller.showSuccessDialog(
+              title: "Success",
+              description:
+                  "Listing update success!, note that changing image doesn't work. Do you want to exit?",
+              hitApi: () {
+                Get.back();
+                Get.back();
+              },
+              cancelable: true,
+            );
+          } catch (e) {
             print(e);
           }
           //BaseController().hideLoading();

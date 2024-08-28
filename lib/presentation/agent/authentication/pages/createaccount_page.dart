@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../controllers/authentication_controller.dart';
 import 'nextPage.dart';
@@ -44,18 +46,18 @@ class CreateAccount extends GetView<LoginPageController> {
                         children: [
                           Flexible(
                             child: SharedWidgets.textFormfield(
-                               name:  'First Name',
-                              textInputType:   TextInputType.text,
-                              hintText:   'First Name',
-                              controller:   controller.firstName),
+                                name: 'First Name',
+                                textInputType: TextInputType.text,
+                                hintText: 'First Name',
+                                controller: controller.firstName),
                           ),
                           SizedBox(width: 10.w),
                           Flexible(
                             child: SharedWidgets.textFormfield(
-                              name:   'Last Name',
-                              textInputType:    TextInputType.text,
-                                hintText:  'Last Name',
-                                 controller:   controller.lastName),
+                                name: 'Last Name',
+                                textInputType: TextInputType.text,
+                                hintText: 'Last Name',
+                                controller: controller.lastName),
                           ),
                         ],
                       ),
@@ -99,11 +101,11 @@ class CreateAccount extends GetView<LoginPageController> {
                       ),
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
-                         name:  'Age', textInputType:  TextInputType.number, 
-                         
-                         hintText: 'Age', controller: controller.age,
-                          
-                          ),
+                        name: 'Age',
+                        textInputType: TextInputType.number,
+                        hintText: 'Age',
+                        controller: controller.age,
+                      ),
                       SizedBox(height: 20.h),
                       SharedWidgets.dropDown(
                           controller.selectedGender,
@@ -111,18 +113,38 @@ class CreateAccount extends GetView<LoginPageController> {
                           (value) => controller.selectedGender.value = value!,
                           'Gender',
                           'Gender'),
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 30.h),
+                      IntlPhoneField(
+                        focusNode: FocusNode(),
+                        style: TextStyle(
+                          color: AppColors.black,
+                          fontSize: 18.sp,
+                          background: Paint()..color = AppColors.white,
+                        ),
+                        decoration: InputDecoration(
+                          fillColor: AppColors.white,
+                          filled: true,
+                          labelText: 'Phone Number',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        keyboardType: TextInputType.phone,
+                        controller: controller.contactNo,
+                        initialCountryCode: 'PH',
+                        onChanged: (phone) {
+                          controller.contactNo.text = phone.number;
+
+                          controller.fullContactNo.value =
+                              '${phone.countryCode}${phone.number}';
+                        },
+                      ),
+
                       SharedWidgets.textFormfield(
-                        name:   '0000-000-0000',
-                       textInputType:    TextInputType.number,
-                        hintText:   'Contact Number',
-                       controller:    controller.contactNo),
-                      SizedBox(height: 20.h),
-                      SharedWidgets.textFormfield(
-                        name:   'example@mail.com',
-                       textInputType:    TextInputType.text,
-                      hintText:     'Email Address',
-                         controller:  controller.emailAd),
+                          name: 'example@mail.com',
+                          textInputType: TextInputType.text,
+                          hintText: 'Email Address',
+                          controller: controller.emailAd),
                       SizedBox(height: 20.h),
                       Button(
                         margin: EdgeInsets.zero,

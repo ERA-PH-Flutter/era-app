@@ -374,8 +374,9 @@ class PropertyInformation extends GetView<ListingController> {
                 AppEraAssets.money2,
                 listing.ppsqm! >= 1000000
                     ? '${listing.ppsqm! / 1000000}M'
-                    : listing.ppsqm! >= 1000 ? '${listing.ppsqm! / 1000}K'
-                    : '${listing.ppsqm}'),
+                    : listing.ppsqm! >= 1000
+                        ? '${listing.ppsqm! / 1000}K'
+                        : '${listing.ppsqm}'),
             iconsWidgets(AppEraAssets.area, '${listing.area} sqm'),
             iconsWidgets(AppEraAssets.bed, '${listing.beds}'),
           ],
@@ -412,7 +413,13 @@ class PropertyInformation extends GetView<ListingController> {
                 'Price',
                 NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
                     .format(listing.price)),
-            shorterSummary('Price per sqm', '${listing.ppsqm}'),
+            shorterSummary(
+                'Price per sqm',
+                listing.ppsqm! >= 1000000
+                    ? '${listing.ppsqm! / 1000000}M'
+                    : listing.ppsqm! >= 1000
+                        ? '${listing.ppsqm! / 1000}K'
+                        : '${listing.ppsqm}'),
             shorterSummary('Beds', '${listing.beds}'),
             shorterSummary('Baths', '${listing.baths}'),
             shorterSummary('Garage', '${listing.cars}'),

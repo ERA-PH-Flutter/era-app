@@ -53,10 +53,11 @@ class SplashController extends GetxController {
     //  Get.toNamed(RouteString.home);
     //if(kIsWeb ){
     // //todo show era ads
-    if (user != null) {
-      Get.toNamed(RouteString.home);
-    } else {
-      Get.toNamed(RouteString.landingPage);
-    }
+    Get.toNamed(RouteString.home);
+
+    // if (user != null) {
+    // } else {
+    //   Get.toNamed(RouteString.landingPage);
+    // }
   }
 }

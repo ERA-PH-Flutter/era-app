@@ -83,7 +83,7 @@ class Nextpage extends GetView<LoginPageController> {
                       ),
                       SizedBox(height: 20.h),
                       SharedWidgets.dropDown(
-                        controller.selectedTransaction,
+                        controller.selectedTransaction5years,
                         controller.transaction,
                         (value) =>
                             controller.selectedTransaction5years.value = value!,

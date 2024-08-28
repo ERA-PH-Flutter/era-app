@@ -169,7 +169,7 @@ class SettingsPage extends GetView<AgentsController> {
                             },
                             child: Container(
                               height: 40.h,
-                              width: 60.w,
+                              width: 55.w,
                               child: Center(
                                 child: EraText(
                                   text: 'Cancel',

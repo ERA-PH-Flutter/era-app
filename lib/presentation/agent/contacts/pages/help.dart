@@ -208,13 +208,14 @@ class Help extends GetView<ContactusController> {
               children: [
                 Image.asset(
                   icon,
-                  width: 40.w,
-                  height: 40.h,
+                  width: 50.w,
+                  height: 50.h,
                 ),
                 EraText(
                   text: text,
                   fontSize: 18.sp,
                   color: AppColors.black,
+                  fontWeight: FontWeight.w600,
                   textDecoration: TextDecoration.underline,
                 ),
               ],
@@ -231,13 +232,14 @@ class Help extends GetView<ContactusController> {
               children: [
                 Image.asset(
                   icon2,
-                  width: 40.w,
-                  height: 40.h,
+                  width: 50.w,
+                  height: 50.h,
                 ),
                 EraText(
                   text: text1,
                   fontSize: 18.sp,
                   color: AppColors.black,
+                  fontWeight: FontWeight.w600,
                   textDecoration: TextDecoration.underline,
                 ),
               ],

@@ -155,7 +155,7 @@ class AddListings extends GetView<AddListingsController> {
           'Price per sqm',
           TextformfieldWidget(
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-            keyboardType: TextInputType.text,
+            keyboardType: TextInputType.number,
             controller: controller.pricePerSqmController,
             hintText: '100',
             maxLines: 1,

@@ -240,7 +240,7 @@ class LayaProject extends GetView<ProjectsController> {
             AppColors.black,
             45.sp,
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 40.h),
           //one bedroom
           HarayaProject.paddingText(
             layaprojects.text7!,
@@ -267,7 +267,7 @@ class LayaProject extends GetView<ProjectsController> {
             AppColors.black,
             45.sp,
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 40.h),
 
           HarayaProject.paddingText(
             layaprojects.text13!,

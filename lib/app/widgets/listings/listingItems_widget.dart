@@ -38,31 +38,34 @@ class ListingItemss extends StatelessWidget {
   final bool showListedby;
   final bool isSold; // New parameter to indicate if the listing is sold
   bool fromSold = false;
+  final Widget? buttonSold;
 
-  ListingItemss(
-      {super.key,
-      this.onTap,
-      this.image,
-      required this.type,
-      required this.areas,
-      required this.beds,
-      required this.baths,
-      required this.cars,
-      required this.description,
-      required this.price,
-      this.by,
-      this.listedBy,
-      this.agentImage,
-      this.agentFirstName,
-      this.agentLastName,
-      this.role,
-      this.buttonEdit,
-      this.buttonDelete,
-      required this.showListedby,
-      this.id,
-      required this.isSold,
-      this.agent,
-      required this.fromSold});
+  ListingItemss({
+    super.key,
+    this.onTap,
+    this.image,
+    required this.type,
+    required this.areas,
+    required this.beds,
+    required this.baths,
+    required this.cars,
+    required this.description,
+    required this.price,
+    this.by,
+    this.listedBy,
+    this.agentImage,
+    this.agentFirstName,
+    this.agentLastName,
+    this.role,
+    this.buttonEdit,
+    this.buttonDelete,
+    required this.showListedby,
+    this.id,
+    required this.isSold,
+    this.agent,
+    required this.fromSold,
+    this.buttonSold,
+  });
 
   var selected = false.obs;
 
@@ -240,6 +243,7 @@ class ListingItemss extends StatelessWidget {
                                   children: [
                                     if (buttonEdit != null) buttonEdit!,
                                     if (buttonDelete != null) buttonDelete!,
+                                    if (buttonSold != null) buttonSold!,
                                   ],
                                 );
                               } else {
@@ -435,6 +439,12 @@ class ListingItemss extends StatelessWidget {
                         ),
                       ),
                     ),
+                  //todo: nikko im not sure how to put condition that this button will only show in my listing and will only visible to user only.
+                  Positioned(
+                    top: 10.h,
+                    right: 10.w,
+                    child: buttonSold!,
+                  ),
                 ],
               ),
             ),

@@ -31,6 +31,7 @@ class LoginPageController extends GetxController with BaseController {
   var selectedSpeciality = RxnString();
   var selectedTransaction = RxnString();
   var selectedTransaction5years = RxnString();
+  var fullContactNo = ''.obs;
 
   List<String> genderType = ['Female', 'Male'];
   List<String> educationType = ['High School', 'College', 'Masters', 'PhD'];
@@ -105,6 +106,7 @@ class LoginPageController extends GetxController with BaseController {
   }
 
   Future signUp() async {
+ 
     showLoading();
     print(email.text);
     await Authentication().signup(email: emailAd.text, password: 'eraaccount');
@@ -116,7 +118,7 @@ class LoginPageController extends GetxController with BaseController {
       lastname: lastName.text,
       age: age.text.toInt(),
       gender: selectedGender.value,
-      whatsApp: contactNo.text,
+      whatsApp: fullContactNo.value,
       email: emailAd.text,
     );
     var userInfo = EraUserInfo(

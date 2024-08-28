@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
@@ -32,16 +33,16 @@ class AgentsItems extends StatelessWidget {
         children: [
           Obx(
             () => AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeIn,
-              height: selected.value ? 260.h : 250.h,
+              duration: Duration(milliseconds: 2000),
+              curve: Curves.fastEaseInToSlowEaseOut,
+              height: selected.value ? 320.h : 280.h,
               width: 500.w,
               // margin: EdgeInsets.only(top: 120.h, left: 60.w, right: 60.w),
               margin: selected.value
                   ? EdgeInsets.only(top: 320.h, left: 40.w, right: 40.w)
                   : EdgeInsets.only(top: 200.h, left: 40.w, right: 40.w),
 
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               decoration: BoxDecoration(
                   border: Border.all(
                       color: AppColors.hint.withOpacity(0.5), width: 3.w),
@@ -49,10 +50,9 @@ class AgentsItems extends StatelessWidget {
               child: selected.value
                   ? Column(
                       children: [
-                        SizedBox(height: 55.h),
+                        SizedBox(height: 50.h),
                         EraText(
-                          text:
-                              '${agentInfo.firstname} ${agentInfo.lastname}',
+                          text: '${agentInfo.firstname} ${agentInfo.lastname}',
                           fontSize: 25.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blue,
@@ -61,10 +61,12 @@ class AgentsItems extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                         EraText(
-                          text: '${agentInfo.role}',
+                          text: '${agentInfo.role ?? 'Agent'}',
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.black,
+                          textOverflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 10.h),
                         Row(
@@ -78,7 +80,7 @@ class AgentsItems extends StatelessWidget {
                             SizedBox(width: 8.w),
                             EraText(
                               text: '${agentInfo.whatsApp}',
-                              fontSize: 20.sp,
+                              fontSize: 18.sp,
                               fontWeight: FontWeight.bold,
                               color: AppColors.black,
                             ),
@@ -93,12 +95,16 @@ class AgentsItems extends StatelessWidget {
                               height: 30.h,
                             ),
                             SizedBox(width: 8.w),
-                            EraText(
-                              textOverflow: TextOverflow.ellipsis,
-                              text: '${agentInfo.email}',
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.black,
+                            Container(
+                              width: 210.w,
+                              child: EraText(
+                                textOverflow: TextOverflow.ellipsis,
+                                text: '${agentInfo.email}',
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.black,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ],
                         ),
@@ -108,7 +114,9 @@ class AgentsItems extends StatelessWidget {
                           text: 'VIEW LISTING',
                           fontSize: 13.sp,
                           onTap: () {
-                            Get.to(AgentListings(),binding: AgentListingsBinding(), arguments: [agentInfo.id]);
+                            Get.to(AgentListings(),
+                                binding: AgentListingsBinding(),
+                                arguments: [agentInfo.id]);
                           },
                           bgColor: AppColors.kRedColor,
                           height: 30.h,
@@ -123,18 +131,20 @@ class AgentsItems extends StatelessWidget {
                       children: [
                         SizedBox(height: 50.h),
                         EraText(
-                          text:
-                              '${agentInfo.firstname} ${agentInfo.lastname}',
+                          text: '${agentInfo.firstname} ${agentInfo.lastname}',
                           fontSize: 22.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blue,
-
+                          textOverflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
                         ),
                         EraText(
                           text: '${agentInfo.role ?? 'Agent'}',
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                           color: AppColors.black,
+                          textOverflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 10.h),
                         Row(
@@ -199,7 +209,7 @@ class AgentsItems extends StatelessWidget {
                     top: 50.h,
                     left: 50.w,
                     right: 50.w,
-                    bottom: 200.h,
+                    bottom: 280.h,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.w),
                       child: AnimatedContainer(
