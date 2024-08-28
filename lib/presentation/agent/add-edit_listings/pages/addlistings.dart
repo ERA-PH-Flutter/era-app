@@ -177,6 +177,7 @@ class AddListings extends GetView<AddListingsController> {
         buildWidget(
           'Garage',
           TextformfieldWidget(
+              keyboardType: TextInputType.number,
               contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
               controller: controller.carsController,
               hintText: '3',
@@ -247,8 +248,7 @@ class AddListings extends GetView<AddListingsController> {
               // view: controller.selectedView.value.toString(),
               location: controller.locationController.text,
               type: controller.selectedPropertyT.value.toString(),
-              subCategory:
-                  controller.selectedPropertySubCategory.value.toString(),
+              subCategory: controller.selectedPropertySubCategory.value.toString(),
               description: controller.descController.text,
             ).addListing();
           } catch (e, ex) {

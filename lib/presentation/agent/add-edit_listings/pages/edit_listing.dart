@@ -23,40 +23,76 @@ class EditListing extends GetView<AddListingsController> {
         body: SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: SafeArea(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AddListings.textBuild(
-              'EDIT LISTING', 25.sp, FontWeight.w600, AppColors.blue),
-          SizedBox(height: 15.h),
-          AddListings.textBuild('PROPERTY INFORMATION', 25.sp, FontWeight.w600,
-              AppColors.kRedColor),
-          SizedBox(height: 20.h),
-          AddListings.buildWidget(
-            'Property Name',
-            TextformfieldWidget(
-              hintText: 'Property Name',
-              maxLines: 1,
-              controller: controller.propertyNameController,
-            ),
+          child: Obx(()=>switch(controller.addEditListingsState.value){
+            AddEditListingsState.loading => _loading(),
+            AddEditListingsState.loaded => _loaded(),
+          }),
+    )));
+  }
+  _loading(){
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+  _loaded(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AddListings.textBuild(
+            'EDIT LISTING', 25.sp, FontWeight.w600, AppColors.blue),
+        SizedBox(height: 15.h),
+        AddListings.textBuild('PROPERTY INFORMATION', 25.sp, FontWeight.w600,
+            AppColors.kRedColor),
+        SizedBox(height: 20.h),
+        AddListings.buildWidget(
+          'Property Name',
+          TextformfieldWidget(
+            hintText: 'Property Name',
+            maxLines: 1,
+            controller: controller.propertyNameController,
           ),
-          AddListings.buildWidget(
-            'Property Cost',
-            TextformfieldWidget(
-              hintText: 'Php 100,000,000',
-              maxLines: 1,
-              controller: controller.propertyCostController,
-            ),
+        ),
+        AddListings.buildWidget(
+          'Property Cost',
+          TextformfieldWidget(
+            hintText: 'Php 100,000,000',
+            maxLines: 1,
+            controller: controller.propertyCostController,
           ),
+        ),
 
-          AddListings.textBuild(
-              'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
-          SizedBox(height: 10.h),
-          // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton.icon(
+        AddListings.textBuild(
+            'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
+        SizedBox(height: 10.h),
+        // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.blue,
+                shadowColor: Colors.transparent,
+                side: BorderSide(
+                    color: AppColors.hint.withOpacity(0.1), width: 1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onPressed: () {
+                controller.getImageGallery();
+              },
+              icon: Icon(
+                CupertinoIcons.photo_fill_on_rectangle_fill,
+                color: AppColors.white,
+              ),
+              label: EraText(
+                text: 'Select Photos',
+                color: AppColors.white,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.blue,
                   shadowColor: Colors.transparent,
@@ -67,127 +103,101 @@ class EditListing extends GetView<AddListingsController> {
                   ),
                 ),
                 onPressed: () {
-                  controller.getImageGallery();
+                  if (controller.images.isNotEmpty) {
+                    controller.removeMode();
+                  } else {
+                    BaseController().showSuccessDialog(
+                        title: "Error!",
+                        description: "You have selected 0 image!");
+                  }
                 },
                 icon: Icon(
                   CupertinoIcons.photo_fill_on_rectangle_fill,
                   color: AppColors.white,
                 ),
-                label: EraText(
-                  text: 'Select Photos',
-                  color: AppColors.white,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.blue,
-                    shadowColor: Colors.transparent,
-                    side: BorderSide(
-                        color: AppColors.hint.withOpacity(0.1), width: 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    if (controller.images.isNotEmpty) {
-                      controller.removeMode();
-                    } else {
-                      BaseController().showSuccessDialog(
-                          title: "Error!",
-                          description: "You have selected 0 image!");
-                    }
-                  },
-                  icon: Icon(
-                    CupertinoIcons.photo_fill_on_rectangle_fill,
+                label: Obx(
+                      () => EraText(
+                    text: controller.removeImage.value &&
+                        controller.images.isNotEmpty
+                        ? 'Cancel'
+                        : 'Remove',
                     color: AppColors.white,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
                   ),
-                  label: Obx(
-                    () => EraText(
-                      text: controller.removeImage.value &&
-                              controller.images.isNotEmpty
-                          ? 'Cancel'
-                          : 'Remove',
-                      color: AppColors.white,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  )),
-            ],
-          ),
+                )),
+          ],
+        ),
 
-          SizedBox(height: 10.h),
-          Obx(() {
-            if (controller.images.isEmpty) {
-              return Padding(
+        SizedBox(height: 10.h),
+        Obx(() {
+          if (controller.images.isEmpty) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Image.asset(
+                AppEraAssets.uploadphoto,
+              ),
+            );
+          } else {
+            return GridView.builder(
+                shrinkWrap: true,
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Image.asset(
-                  AppEraAssets.uploadphoto,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 10.h,
+                  crossAxisSpacing: 10.h,
                 ),
-              );
-            } else {
-              return GridView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 10.h,
-                    crossAxisSpacing: 10.h,
-                  ),
-                  itemCount: controller.images.length,
-                  itemBuilder: (context, index) {
-                    return Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: FileImage(controller.images[index]),
-                              fit: BoxFit.cover,
-                            ),
+                itemCount: controller.images.length,
+                itemBuilder: (context, index) {
+                  return Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: FileImage(controller.images[index]),
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        Obx(
-                          () => Visibility(
-                            visible: controller.removeImage.value,
-                            child: Positioned(
-                              top: 5,
-                              right: 5,
-                              child: GestureDetector(
-                                onTap: () {
-                                  controller.removeAt(index);
-                                },
-                                child: Icon(
-                                  CupertinoIcons.xmark_circle_fill,
-                                  color: Colors.black.withOpacity(0.7),
-                                ),
+                      ),
+                      Obx(
+                            () => Visibility(
+                          visible: controller.removeImage.value,
+                          child: Positioned(
+                            top: 5,
+                            right: 5,
+                            child: GestureDetector(
+                              onTap: () {
+                                controller.removeAt(index);
+                              },
+                              child: Icon(
+                                CupertinoIcons.xmark_circle_fill,
+                                color: Colors.black.withOpacity(0.7),
                               ),
                             ),
                           ),
-                        )
-                      ],
-                    );
-                  });
-            }
-          }),
+                        ),
+                      )
+                    ],
+                  );
+                });
+          }
+        }),
 
-          SizedBox(height: 5.h),
+        SizedBox(height: 5.h),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: EraText(
-                text: 'Photo must be at least 300px X 300px',
-                fontSize: 15.sp,
-                color: AppColors.hint),
-          ),
-          paddintText2(),
-        ],
-      )),
-    ));
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: EraText(
+              text: 'Photo must be at least 300px X 300px',
+              fontSize: 15.sp,
+              color: AppColors.hint),
+        ),
+        paddintText2(),
+      ],
+    );
   }
-
   Widget paddintText2() {
     return Column(
       children: [

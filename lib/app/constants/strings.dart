@@ -19,6 +19,7 @@ extension NumberParsing on String {
     }catch(e){
       return 0;
     }
+
   }
   bool isEmpty(){
     return this == "" ? true : false;
