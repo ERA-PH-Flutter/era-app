@@ -8,6 +8,7 @@ import 'package:eraphilippines/presentation/agent/agents/bindings/agent_dashboar
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/archivedlisting/controllers/archived_binding.dart';
 import 'package:eraphilippines/presentation/agent/archivedlisting/pages/archived.dart';
+import 'package:eraphilippines/presentation/agent/contacts/pages/direct-contactus.dart';
 import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_binding.dart';
 import 'package:eraphilippines/presentation/agent/favorites/pages/Fav.dart';
 import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
@@ -146,7 +147,10 @@ appRoutes() => [
           name: RouteString.mortageCalculator,
           page: () => MortageCalculator(),
           binding: MortageCalculatorBinding()),
-
+      GetPage(
+          name: RouteString.directContactUs,
+          page: () => DirectContactUs(),
+          binding: ContactUsBinding()),
       GetPage(
         name: RouteString.fav,
         page: () => Fav(),

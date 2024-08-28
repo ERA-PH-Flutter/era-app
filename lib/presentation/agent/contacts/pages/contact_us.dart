@@ -60,28 +60,33 @@ class ContactUs extends GetView<ContactusController> {
         TextformfieldWidget(
           hintText: 'Default Text',
           maxLines: 1,
+          keyboardType: TextInputType.text,
         ),
         SizedBox(height: 20.h),
         EraText(
-            text: 'Name',
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-            color: AppColors.black),
+          text: 'Name',
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
+        ),
         SizedBox(height: 5.h),
         TextformfieldWidget(
           hintText: 'Name',
           maxLines: 1,
+          keyboardType: TextInputType.text,
         ),
         SizedBox(height: 20.h),
         EraText(
-            text: 'Phone Number',
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-            color: AppColors.black),
+          text: 'Phone Number',
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
+        ),
         SizedBox(height: 5.h),
         TextformfieldWidget(
           hintText: '000-000-0000',
           maxLines: 1,
+          keyboardType: TextInputType.number,
         ),
         SizedBox(height: 20.h),
         EraText(
@@ -93,6 +98,7 @@ class ContactUs extends GetView<ContactusController> {
         TextformfieldWidget(
           hintText: 'Your email here',
           maxLines: 1,
+          keyboardType: TextInputType.emailAddress,
         ),
         SizedBox(height: 20.h),
         EraText(
@@ -104,6 +110,7 @@ class ContactUs extends GetView<ContactusController> {
         TextformfieldWidget(
           hintText: 'Your Message',
           maxLines: 15,
+          keyboardType: TextInputType.text,
         ),
         SizedBox(height: 20.h),
         Button.button2(Get.width, 43.h, () {}, 'Send'),

@@ -8,7 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../presentation/agent/agents/pages/agentsDashBoard.dart';
 
 class AgentInfoWidget {
-  static Widget agentInformation(ImageProvider imageProvider, String firstName,
+  static Widget agentInformation(
+    ImageProvider imageProvider, String firstName,
       String lastName, String whatsApp, String email, String role) {
     return Row(
       children: [

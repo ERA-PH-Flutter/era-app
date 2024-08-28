@@ -75,6 +75,7 @@ class SellProperty extends GetView<SellPropertyController> {
                 hintText: 'Enter Description',
                 maxLines: 10,
                 color: AppColors.hint,
+                keyboardType: TextInputType.text,
               ),
               SizedBox(height: 20.h),
               Button(

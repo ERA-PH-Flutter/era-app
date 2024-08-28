@@ -10,7 +10,7 @@ class Listing {
   String? name;
   double? price;
   List? photos;
-  double? ppsqm;
+  String? ppsqm;
   double? floorArea;
   int? beds;
   int? baths;
@@ -67,7 +67,7 @@ class Listing {
       status: json["status"],
       area: json["area"],
       beds: json["beds"],
-      ppsqm: json["ppsqm"].toString().toDouble(),
+      ppsqm: json["ppsqm"] ?? "",
       subCategory: json["sub_category"],
       by: json["by"],
       owner: json["owner"],
@@ -121,7 +121,8 @@ class Listing {
     for (int i = 0; i < photos!.length; i++) {
       images.add(await CloudStorage().uploadImage(image: photos![i]));
     }
-    DocumentReference<Map<String, dynamic>> doc = db.collection('listings').doc();
+    DocumentReference<Map<String, dynamic>> doc =
+        db.collection('listings').doc();
     await doc.set({
       "id": doc.id,
       "name": name,

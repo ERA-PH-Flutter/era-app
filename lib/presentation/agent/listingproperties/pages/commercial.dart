@@ -8,6 +8,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
+import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/agent/listingproperties/pages/findproperties.dart';
@@ -114,7 +115,7 @@ class Commercial extends GetView<ListingController> {
                                                   }),
                                             ),
                                             EraText(
-                                                text: 'SELL',
+                                                text: 'BUY',
                                                 color: AppColors.white
                                                     .withOpacity(0.6),
                                                 fontSize: 15.0.sp,
@@ -146,6 +147,36 @@ class Commercial extends GetView<ListingController> {
                                           ],
                                         ),
                                       ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  Container(
+                                    width: Get.width,
+                                    child: ElevatedButton.icon(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            WidgetStateProperty.all(
+                                                AppColors.white),
+                                        shape: WidgetStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        openFilterDialog();
+                                      },
+                                      label: EraText(
+                                        text: 'Filters',
+                                        color: AppColors.black,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      icon: Icon(
+                                        Icons.filter_alt,
+                                        color: AppColors.black,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(height: 20.h),

@@ -126,23 +126,23 @@ class ProjectsModels1 {
       text4: 'A New Era Requires New Thinking',
       image2: 'assets/images/image2.png',
       text5:
-          'It demands a new understanding of the home: how we live, interact, unwind, and be productive. Bringing together the finest architects, designers, and artisans to deliver this unique vision, Haraya Residences offers an uncompromising new perspective on cosmopolitan living.\n\nHaraya Residences is a vertical gated village located at the heart of Bridgetowne Estate, featuring a collection of 558 beautifully appointed residences in the South Tower and\nmore forthcoming in the North Tower.\n\nTake in the soaring views! You can lounge in the lofty Italian-inspired loggias that redefine the experience of home living and rediscover a sense of freedom and vibrancy among the lush private landscapes and world-class amenities.',
-      text6: 'A New Perspective on\nCosmopolitan Living',
+          'It demands a new understanding of the home: how we live, interact, unwind, and be productive. Bringing together the finest architects, designers, and artisans to deliver this unique vision, Haraya Residences offers an uncompromising new perspective on cosmopolitan living.\n\nHaraya Residences is a vertical gated village located at the heart of Bridgetowne Estate, featuring a collection of 558 beautifully appointed residences in the South Tower and more forthcoming in the North Tower.\n\nTake in the soaring views! You can lounge in the lofty Italian-inspired loggias that redefine the experience of home living and rediscover a sense of freedom and vibrancy among the lush private landscapes and world-class amenities.',
+      text6: 'A New Perspective on Cosmopolitan Living',
       image3: 'assets/images/slider_haraya-project.jpg',
       text7:
-          'Haraya is an old Filipino word that means\n“imagination”. At Haraya Residences, it is a new\ncall to reimagine possibilities: new vistas from\nnew vantage points; a new township brimming\nwith innovation and opportunities; and spatial\nways to experience comfort, privacy, and the\nsense of freedom in your homes.\n\nNew perspectives from the heart of your home.',
+          'Haraya is an old Filipino word that means “imagination”. At Haraya Residences, it is a new call to reimagine possibilities: new vistas from new vantage points; a new township brimming with innovation and opportunities; and spatial ways to experience comfort, privacy, and the sense of freedom in your homes.\n\nNew perspectives from the heart of your home.',
       image4: 'assets/images/locationImage.png',
       text8: 'LOCATION',
       text9: 'Address65 Calle Industria 1100,\n Cubao Quezon City 6350718',
       text10:
-          'Welcome to The Grounds at Haraya,\n An Amenities Space Like No Other',
+          'Welcome to The Grounds at Haraya, An Amenities Space Like No Other',
       text11:
-          'The amenities at Haraya Residences are the heart\nof the development, where privacy, community,\nand vibrant landscaping come together.\n\nEscape to the private gardens on the podium or\ncatch a movie with family and friends at The\nViewing Room; curl up with a novel at The Library\nor wine and dine guests in our exquisitely\nfurnished function rooms.',
+          'The amenities at Haraya Residences are the heart of the development, where privacy, community, and vibrant landscaping come together.\n\nEscape to the private gardens on the podium or catch a movie with family and friends at The Viewing Room; curl up with a novel at The Library or wine and dine guests in our exquisitely furnished function rooms.',
       image5: 'assets/images/image5.png',
       image6: 'assets/images/image6.png',
       text12: 'Outdoor Amenities',
       text13:
-          'The outdoor amenities of Haraya Residences offer\nover 2,500 square meters of thoughtfully designed outdoor amenities, featuring a variety of beautifully tended green spaces and private nooks. Unwind with the whole family in the swimming pools and children\'s play areas; decompress after a day at the office in the jacuzzi; rejuvenate with some outdoor yoga under the swaying trees. Outdoor Amenities include a tropical pool, kiddie pool, jacuzzi, children\'s play area, and garden areas',
+          'The outdoor amenities of Haraya Residences offer over 2,500 square meters of thoughtfully designed outdoor amenities, featuring a variety of beautifully tended green spaces and private nooks. Unwind with the whole family in the swimming pools and children\'s play areas; decompress after a day at the office in the jacuzzi; rejuvenate with some outdoor yoga under the swaying trees. Outdoor Amenities include a tropical pool, kiddie pool, jacuzzi, children\'s play area, and garden areas',
       image7: 'assets/images/image7.png',
       text14: 'Indoor Amenities',
       text15:
@@ -150,7 +150,7 @@ class ProjectsModels1 {
       image8: 'assets/images/image8.png',
       text16: 'The Gym',
       text17:
-          'The Gym at Haraya Residences features a full suite\nof world-class fitness and wellness equipment in\nover 300 square meters of dedicated space at your doorstep. Whether you are just starting out or training for performance, keeping fit has never been more convenient.',
+          'The Gym at Haraya Residences features a full suite of world-class fitness and wellness equipment in over 300 square meters of dedicated space at your doorstep. Whether you are just starting out or training for performance, keeping fit has never been more convenient.',
       text18: 'Discover Our Spaces',
       text19: 'The One-Bedrooms',
       icons: 'assets/icons/floor-area.png',
@@ -265,10 +265,9 @@ class ProjectsModels2 {
       text3: 'Life Finds a Way',
       text4:
           'Located in Arca South, the next emerging district South of the Metro. Championing synchronicity, the estate puts you at the core of a prime location attuned with contemporary lifestyles. Bringing the elements that are working well in Makati, Nuvali and BGC in one visionary destination.\n\nA City in Sync. Arca South champions connectivity and synchronicity as it perfectly integrates Ayala Land’s best practices to date in a 74-hectare large scale master-planned mixed-use development – an urban oasis with myriad opportunities for growth with its diverse retail options, residential developments, and leisure hotspots.',
-      text5:
-          ' An exclusive resort-inspired residential property in the verdant neighborhood of Wack Wack',
+      text5: 'Newport Boulevard',
       text6:
-          'Shang Residences at Wack Wack is an exclusive resort-inspired residential property in the verdant neighborhood of Wack Wack, Mandaluyong. Set in beautifully landscaped gardens neighboring one of Manila’s iconic heritage golf clubs – The Wack Wack Golf & Country Club- enjoy some of the city’s most sought-after views: sweeping vistas over two 18-hole championship golf courses or towards the dramatic Makati skyline.',
+          'One of the most coveted addresses in the Philippines. A location defined by the extraordinary cosmopolitan skyline views and the lush greens of Manila Golf Club, Manila Polo Club, and Forbes Park. An unparalleled collaboration of architects, designers, and artisans who represent the pinnacle of their respective fields. A meticulously-curated vision inspired by sprezzatura - an effortless and understated sense of classic Italian elegance. A limited collection of 285 bespoke residences at the heart of Bonifacio Global City, the fastest-growing central business district in the Philippines.',
     )
   ];
 }

@@ -18,7 +18,8 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
     return BaseScaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 16.h),
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidth, vertical: 16.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -63,6 +64,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
               TextformfieldWidget(
                 hintText: 'eg: 100000.00',
                 maxLines: 1,
+                keyboardType: TextInputType.number,
               ),
               SizedBox(height: 10),
               EraText(
@@ -73,6 +75,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
               TextformfieldWidget(
                 hintText: 'eg: 10000.00',
                 maxLines: 1,
+                keyboardType: TextInputType.number,
               ),
               SizedBox(height: 10),
               EraText(
@@ -83,6 +86,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
               TextformfieldWidget(
                 hintText: 'eg:30',
                 maxLines: 1,
+                keyboardType: TextInputType.number,
               ),
               SizedBox(height: 10),
               EraText(
@@ -93,6 +97,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
               TextformfieldWidget(
                 hintText: 'eg: 5.000',
                 maxLines: 1,
+                keyboardType: TextInputType.number,
               ),
               SizedBox(height: 10),
               EraText(
@@ -103,6 +108,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
               TextformfieldWidget(
                 hintText: 'eg: 20000.00',
                 maxLines: 1,
+                keyboardType: TextInputType.number,
               ),
               SizedBox(height: 20),
               Button(

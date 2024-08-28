@@ -6,6 +6,8 @@ import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/presentation/agent/contacts/pages/direct-contactus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -169,9 +171,79 @@ class Help extends GetView<ContactusController> {
               SizedBox(height: 20.h),
               expansionTile(
                   'Can I leave a review for a property or an agent?', ''),
+              SizedBox(
+                height: 20.h,
+              ),
+              iconButton(
+                padding: EdgeInsets.only(right: 30.w),
+                icon: AppEraAssets.whatsappIcon,
+                text: 'WhatsApp',
+                text1: 'Email',
+                icon2: AppEraAssets.emailIcon,
+              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  static Widget iconButton({
+    required String text,
+    required String icon,
+    required String text1,
+    required String icon2,
+    EdgeInsets? padding,
+  }) {
+    return Container(
+      padding: padding ?? EdgeInsets.zero,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: () {
+              //direct to whatsapp so it's fixed
+            },
+            child: Row(
+              children: [
+                Image.asset(
+                  icon,
+                  width: 40.w,
+                  height: 40.h,
+                ),
+                EraText(
+                  text: text,
+                  fontSize: 18.sp,
+                  color: AppColors.black,
+                  textDecoration: TextDecoration.underline,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 40.w,
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed("/direct-contactus");
+            },
+            child: Row(
+              children: [
+                Image.asset(
+                  icon2,
+                  width: 40.w,
+                  height: 40.h,
+                ),
+                EraText(
+                  text: text1,
+                  fontSize: 18.sp,
+                  color: AppColors.black,
+                  textDecoration: TextDecoration.underline,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

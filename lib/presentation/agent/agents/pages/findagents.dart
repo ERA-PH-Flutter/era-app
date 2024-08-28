@@ -1,4 +1,3 @@
-
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
@@ -22,7 +21,8 @@ class FindAgents extends GetView<AgentsController> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal:EraTheme.paddingWidth,vertical: 16.h),
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidth, vertical: 16.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -37,7 +37,9 @@ class FindAgents extends GetView<AgentsController> {
                 controller: controller.agentName,
                 hintText: 'Type Name Here',
                 maxLines: 1,
-                hintstlye: TextStyle(color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
+                keyboardType: TextInputType.text,
+                hintstlye: TextStyle(
+                    color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
               ),
               SizedBox(height: 10.h),
               EraText(
@@ -51,7 +53,10 @@ class FindAgents extends GetView<AgentsController> {
                 controller: controller.agentId,
                 hintText: 'Enter Agent ID',
                 maxLines: 1,
-                hintstlye: TextStyle(color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
+                //agent id is a nuumber or not
+                keyboardType: TextInputType.text,
+                hintstlye: TextStyle(
+                    color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
               ),
               SizedBox(height: 10.h),
               EraText(
@@ -65,7 +70,9 @@ class FindAgents extends GetView<AgentsController> {
                 controller: controller.agentLocation,
                 hintText: 'Type Your Location',
                 maxLines: 1,
-                hintstlye: TextStyle(color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
+                keyboardType: TextInputType.text,
+                hintstlye: TextStyle(
+                    color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
               ),
               SizedBox(height: 20.h),
               Button(
@@ -81,32 +88,37 @@ class FindAgents extends GetView<AgentsController> {
                 margin: EdgeInsets.symmetric(horizontal: 0),
               ),
               SizedBox(height: 25.h),
-              Obx(()=>switch(controller.agentState.value){
-                AgentsState.loading => _loading(),
-                AgentsState.loaded => _loaded(),
-                AgentsState.error => _error(),
-                AgentsState.empty => _empty(),
-                AgentsState.blank => _blank(),
-              })
+              Obx(() => switch (controller.agentState.value) {
+                    AgentsState.loading => _loading(),
+                    AgentsState.loaded => _loaded(),
+                    AgentsState.error => _error(),
+                    AgentsState.empty => _empty(),
+                    AgentsState.blank => _blank(),
+                  })
             ],
           ),
         ),
       ),
     );
   }
-  _blank(){
+
+  _blank() {
     return Container();
   }
+
   _loading() {
     return Center(
       child: CircularProgressIndicator(),
     );
   }
+
   _error() {
     return Center(
       child: Column(
         children: [
-          SizedBox(height: 100.h,),
+          SizedBox(
+            height: 100.h,
+          ),
           EraText(
             fontSize: EraTheme.paragraph,
             text: "Something went Wrong!",
@@ -116,11 +128,14 @@ class FindAgents extends GetView<AgentsController> {
       ),
     );
   }
-  _empty(){
+
+  _empty() {
     return Center(
       child: Column(
         children: [
-          SizedBox(height: 100.h,),
+          SizedBox(
+            height: 100.h,
+          ),
           EraText(
             fontSize: EraTheme.paragraph,
             text: "No User Found!",
@@ -131,17 +146,17 @@ class FindAgents extends GetView<AgentsController> {
     );
   }
 
-  _loaded(){
-    return Column(
-      children: [
-        Obx(()=>EraText(
-          text: controller.resultText.value,
-          fontSize: 22.sp,
-          fontWeight: FontWeight.w600,
-          color: AppColors.blue,
-        )),
-        Obx(()=> AgentListView(agentsModels: controller.results.value),)
-      ]
-    );
+  _loaded() {
+    return Column(children: [
+      Obx(() => EraText(
+            text: controller.resultText.value,
+            fontSize: 22.sp,
+            fontWeight: FontWeight.w600,
+            color: AppColors.blue,
+          )),
+      Obx(
+        () => AgentListView(agentsModels: controller.results.value),
+      )
+    ]);
   }
 }

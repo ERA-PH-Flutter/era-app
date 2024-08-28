@@ -72,7 +72,7 @@ class ProjectMain extends GetView<ProjectsController> {
             borderRadius: BorderRadius.circular(30),
             height: 40.h,
             width: 240.w),
-        SizedBox(height: 30.h),
+        SizedBox(height: 80.h),
         ProjectDivider(
             textImage: ProjectTextImageModels.textImageModels2,
             height: 150.h,
@@ -95,7 +95,7 @@ class ProjectMain extends GetView<ProjectsController> {
           height: 40.h,
           width: 240.w,
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 80.h),
         ProjectDivider(
           textImage: ProjectTextImageModels.textImageModels3,
           height: 200.h,
@@ -118,7 +118,7 @@ class ProjectMain extends GetView<ProjectsController> {
           height: 40.h,
           width: 240.w,
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 50.h),
       ],
     );
   }
@@ -179,7 +179,6 @@ class ProjectMain extends GetView<ProjectsController> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.0.h),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HarayaProject.paddingTextTitle(
             project.text5,

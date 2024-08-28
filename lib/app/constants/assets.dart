@@ -4,6 +4,8 @@ class AppEraAssets {
   static String hide = "";
   static String person = "";
 
+  static String whatsapp2 = "${l}whatsapp2.jpeg";
+
   static String bg = "${l}bgSplash.png";
 
   static String next = "${l}next.png";

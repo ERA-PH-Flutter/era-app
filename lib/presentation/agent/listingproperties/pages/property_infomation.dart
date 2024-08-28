@@ -370,7 +370,11 @@ class PropertyInformation extends GetView<ListingController> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            iconsWidgets(AppEraAssets.money2, '${listing.ppsqm}'),
+            iconsWidgets(
+                AppEraAssets.money2,
+                double.parse(listing.ppsqm!) >= 1000000
+                    ? '${double.parse(listing.ppsqm!) / 1000000}M'
+                    : '${listing.ppsqm}'),
             iconsWidgets(AppEraAssets.area, '${listing.area} sqm'),
             iconsWidgets(AppEraAssets.bed, '${listing.beds}'),
           ],
@@ -407,10 +411,7 @@ class PropertyInformation extends GetView<ListingController> {
                 'Price',
                 NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
                     .format(listing.price)),
-            shorterSummary(
-                'Price per sqm',
-                NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
-                    .format(listing.ppsqm)),
+            shorterSummary('Price per sqm', '${listing.ppsqm}'),
             shorterSummary('Beds', '${listing.beds}'),
             shorterSummary('Baths', '${listing.baths}'),
             shorterSummary('Garage', '${listing.cars}'),

@@ -126,7 +126,7 @@ class SearchResult extends GetView<SearchResultController> {
                                         }),
                                   ),
                                   EraText(
-                                      text: 'SELL',
+                                      text: 'BUY',
                                       color: AppColors.white.withOpacity(0.6),
                                       fontSize: 15.0.sp,
                                       fontWeight: FontWeight.w500),
@@ -154,6 +154,34 @@ class SearchResult extends GetView<SearchResultController> {
                                 ],
                               ),
                             ],
+                          ),
+                        ),
+                        SizedBox(height: 10.h),
+                        Container(
+                          width: Get.width,
+                          child: ElevatedButton.icon(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  WidgetStateProperty.all(AppColors.white),
+                              shape: WidgetStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              openFilterDialog();
+                            },
+                            label: EraText(
+                              text: 'Filters',
+                              color: AppColors.black,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            icon: Icon(
+                              Icons.filter_alt,
+                              color: AppColors.black,
+                            ),
                           ),
                         ),
                         SizedBox(height: 20.h),
@@ -424,7 +452,7 @@ class SearchResult extends GetView<SearchResultController> {
                                             }),
                                       ),
                                       EraText(
-                                          text: 'SELL',
+                                          text: 'BUY',
                                           color:
                                               AppColors.white.withOpacity(0.6),
                                           fontSize: 15.0.sp,

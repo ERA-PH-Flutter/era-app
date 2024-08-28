@@ -50,12 +50,13 @@ class SplashController extends GetxController {
     if (FirebaseAuth.instance.currentUser != null) {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
-
-    //todo show era ads
-    if(user != null){
+    //  Get.toNamed(RouteString.home);
+    //if(kIsWeb ){
+    // //todo show era ads
+    if (user != null) {
       Get.toNamed(RouteString.home);
-    }else{
-    Get.toNamed(RouteString.landingPage);
+    } else {
+      Get.toNamed(RouteString.landingPage);
     }
   }
 }

@@ -13,6 +13,6 @@ class AppColors {
   static Color carouselBgColor1 = const Color(0xFF79BA5E);
   static Color maroon = const Color(0xFF920337);
   static Color laya_1 = const Color(0xFF404f59);
-    static Color laya_2 = const Color(0xFF70858A);
-
+  static Color laya_2 = const Color(0xFF70858A);
+  static Color green = const Color(0xFF075E54);
 }

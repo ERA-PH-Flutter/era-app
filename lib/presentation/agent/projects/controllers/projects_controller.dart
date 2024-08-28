@@ -19,6 +19,8 @@ class ProjectsController extends GetxController {
   var urlList = [
     "https://livetour.istaging.com/1897223f-79f8-4d10-ad66-37bf1126bcf8?index=2",
     "https://my.matterport.com/show/?m=Nfso9YhjtJA&play=1",
+    "https://livetour.istaging.com/d648d3c2-86bb-4f1d-9224-ff37d99c6d69",
+    "https://livetour.istaging.com/ba0d3366-5267-4209-af73-a8841381dc44",
   ];
 
   @override

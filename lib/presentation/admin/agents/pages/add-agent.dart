@@ -34,7 +34,7 @@ class AddAgent extends GetView<AgentAdminController> {
               height: 10.h,
             ),
             buildTextFormField2('First Name *', controller.fNameA,
-                'Last Name *', controller.lNameA),
+                'Last Name *', controller.lNameA, TextInputType.text),
             SizedBox(
               height: 10.h,
             ),
@@ -49,19 +49,20 @@ class AddAgent extends GetView<AgentAdminController> {
               height: 10.h,
             ),
             buildTextFormField2('Office Location *', controller.fNameA,
-                'Licensed Number *', controller.lNameA),
+                'Licensed Number *', controller.lNameA, TextInputType.text),
             SizedBox(
               height: 10.h,
             ),
             buildTextFormField4(
-                'Phone Number *',
-                controller.phoneNA,
-                'Position *',
-                controller.positionA,
-                'Password *',
-                controller.passwordA,
-                'Confirm Password *',
-                controller.confirmPA),
+              text: 'Phone Number *',
+              controller: controller.phoneNA,
+              text2: 'Position *',
+              controller2: controller.positionA,
+              text3: 'Password *',
+              controller3: controller.passwordA,
+              text4: 'Confirm Password *',
+              controller4: controller.confirmPA,
+            ),
             SizedBox(
               height: 10.h,
             ),
@@ -131,7 +132,8 @@ class AddAgent extends GetView<AgentAdminController> {
       String text,
       TextEditingController controller,
       String text2,
-      TextEditingController controller2) {
+      TextEditingController controller2,
+      TextInputType? keyboardType) {
     return Padding(
       padding: EdgeInsets.only(left: 10.w),
       child: Row(
@@ -152,6 +154,7 @@ class AddAgent extends GetView<AgentAdminController> {
                   controller: controller,
                   fontSize: 12.sp,
                   maxLines: 1,
+                  keyboardType: keyboardType ?? TextInputType.text,
                 ),
               ),
             ],
@@ -266,16 +269,17 @@ class AddAgent extends GetView<AgentAdminController> {
     );
   }
 
-  static Widget buildTextFormField4(
-    String text,
-    TextEditingController controller,
-    String text2,
-    TextEditingController controller2,
-    String text3,
-    TextEditingController controller3,
-    String text4,
-    TextEditingController controller4,
-  ) {
+  static Widget buildTextFormField4({
+    String? text,
+    TextEditingController? controller,
+    String? text2,
+    TextEditingController? controller2,
+    String? text3,
+    TextEditingController? controller3,
+    String? text4,
+    TextEditingController? controller4,
+    TextInputType? keyboardType,
+  }) {
     return Padding(
       padding: EdgeInsets.only(left: 10.w),
       child: Row(
@@ -284,7 +288,7 @@ class AddAgent extends GetView<AgentAdminController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               EraText(
-                text: text,
+                text: text!,
                 fontSize: 18.sp,
                 color: AppColors.black,
                 fontWeight: FontWeight.w500,
@@ -296,6 +300,7 @@ class AddAgent extends GetView<AgentAdminController> {
                   controller: controller,
                   fontSize: 12.sp,
                   maxLines: 1,
+                  keyboardType: keyboardType ?? TextInputType.text,
                 ),
               ),
             ],
@@ -307,7 +312,7 @@ class AddAgent extends GetView<AgentAdminController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               EraText(
-                text: text2,
+                text: text2!,
                 fontSize: 18.sp,
                 color: AppColors.black,
                 fontWeight: FontWeight.w500,
@@ -319,6 +324,7 @@ class AddAgent extends GetView<AgentAdminController> {
                   controller: controller,
                   fontSize: 12.sp,
                   maxLines: 1,
+                  keyboardType: keyboardType ?? TextInputType.text,
                 ),
               ),
             ],
@@ -330,7 +336,7 @@ class AddAgent extends GetView<AgentAdminController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               EraText(
-                text: text3,
+                text: text3!,
                 fontSize: 18.sp,
                 color: AppColors.black,
                 fontWeight: FontWeight.w500,
@@ -342,6 +348,7 @@ class AddAgent extends GetView<AgentAdminController> {
                   controller: controller,
                   fontSize: 12.sp,
                   maxLines: 1,
+                  keyboardType: keyboardType ?? TextInputType.text,
                 ),
               ),
             ],
@@ -353,7 +360,7 @@ class AddAgent extends GetView<AgentAdminController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               EraText(
-                text: text4,
+                text: text4!,
                 fontSize: 18.sp,
                 color: AppColors.black,
                 fontWeight: FontWeight.w500,
@@ -365,6 +372,7 @@ class AddAgent extends GetView<AgentAdminController> {
                   controller: controller,
                   fontSize: 12.sp,
                   maxLines: 1,
+                  keyboardType: keyboardType ?? TextInputType.text,
                 ),
               ),
             ],

@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../contacts/pages/findus.dart';
 import '../../contacts/pages/inquiry.dart';
@@ -71,7 +72,14 @@ class HarayaProject extends GetView<ProjectsController> {
           45,
         ),
         SizedBox(height: 10.h),
-        Image.asset(project.text36 ?? ""),
+        SizedBox(
+          height: 200.h,
+          child: GestureDetector(
+            child: WebViewWidget(
+              controller: controller.webviews[3],
+            ),
+          ),
+        ),
         SizedBox(height: 15.h),
         Inquiry(),
         SizedBox(height: 40.h),
@@ -111,9 +119,13 @@ class HarayaProject extends GetView<ProjectsController> {
             20,
           ),
           SizedBox(height: 10.h),
-          Image.asset(
-            project.image1!,
-            fit: BoxFit.cover,
+          SizedBox(
+            height: 200.h,
+            child: GestureDetector(
+              child: WebViewWidget(
+                controller: controller.webviews[2],
+              ),
+            ),
           ),
         ],
       ),

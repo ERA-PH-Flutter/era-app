@@ -10,17 +10,17 @@ class FindUs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(12),
-      margin: EdgeInsets.symmetric(horizontal: 40.w),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           EraText(
-            text: 'Where to Find Us',
-            fontSize: 23,
+            text: 'Visit Era Philippines to learn more about this project.',
+            fontSize: 20.sp,
             fontWeight: FontWeight.bold,
             color: AppColors.kRedColor,
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 15.h),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34,7 +34,28 @@ class FindUs extends StatelessWidget {
               ),
               EraText(
                 text:
-                    'Riverside Road corner Bridgetowne\nBlvd., Bridgetowne Destination\nEstate, E. Rodriguez Ave., Brgy.\nRosario, Pasig City',
+                    '1212 Century Spire Bldg. Century City,\nKalayaan Ave. Makati City',
+                fontSize: 14.sp,
+                color: AppColors.black,
+                maxLines: 2,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            children: [
+              Image.asset(
+                AppEraAssets.whatsappIcon,
+                width: 38.w,
+                height: 40.h,
+              ),
+              SizedBox(
+                width: 5.w,
+              ),
+              EraText(
+                text: '+639177710572',
                 fontSize: 14.sp,
                 color: AppColors.black,
                 maxLines: 4,
@@ -54,34 +75,19 @@ class FindUs extends StatelessWidget {
               SizedBox(
                 width: 5.w,
               ),
-              EraText(
-                text: 'sales@harayaresodemces.com',
-                fontSize: 14.sp,
-                color: AppColors.black,
-                maxLines: 4,
+              GestureDetector(
+                onTap: () {},
+                child: EraText(
+                  text: 'eraphilippines@gmail.com',
+                  fontSize: 14.sp,
+                  color: AppColors.black,
+                  maxLines: 4,
+                ),
               ),
             ],
           ),
           SizedBox(
             height: 20.h,
-          ),
-          Row(
-            children: [
-              Image.asset(
-                AppEraAssets.whatsappIcon,
-                width: 38.w,
-                height: 40.h,
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              EraText(
-                text: '0917 5-HARAYA (427292)',
-                fontSize: 14.sp,
-                color: AppColors.black,
-                maxLines: 4,
-              ),
-            ],
           ),
         ],
       ),

@@ -34,6 +34,7 @@ class RouteString {
   static String archived = "/archived";
   static String soldP = "/soldP";
   static String sellProperty = "/sellProperty";
+  static String directContactUs = "/direct-contactus";
 
   //admin
   static String landingPage = "/landingPage";

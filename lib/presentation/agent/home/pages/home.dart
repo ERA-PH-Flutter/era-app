@@ -12,6 +12,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/company/company_grid.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
+import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/listings/gridView_Listing.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
@@ -69,7 +70,7 @@ class Home extends GetView<HomeController> {
                         );
                       }).toList(),
                       options: CarouselOptions(
-                        autoPlayInterval: Duration(seconds: 2),
+                        autoPlayInterval: Duration(milliseconds: 3000),
                         autoPlay: true,
                         viewportFraction: 1,
                         aspectRatio: 1.2,
@@ -200,7 +201,7 @@ class Home extends GetView<HomeController> {
                                     }),
                               ),
                               EraText(
-                                  text: 'SELL',
+                                  text: 'BUY',
                                   color: AppColors.white.withOpacity(0.6),
                                   fontSize: 15.0.sp,
                                   fontWeight: FontWeight.w500),
@@ -227,6 +228,34 @@ class Home extends GetView<HomeController> {
                             ],
                           ),
                         ],
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    Container(
+                      width: Get.width,
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              WidgetStateProperty.all(AppColors.white),
+                          shape: WidgetStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          openFilterDialog();
+                        },
+                        label: EraText(
+                          text: 'Filters',
+                          color: AppColors.black,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        icon: Icon(
+                          Icons.filter_alt,
+                          color: AppColors.black,
+                        ),
                       ),
                     ),
                     SizedBox(height: 20.h),
@@ -401,33 +430,41 @@ class Home extends GetView<HomeController> {
         ),
 
         /// Projects
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: EraTheme.paddingWidth, vertical: 15.h),
+        GestureDetector(
+          onTap: () => Get.toNamed("/haraya"),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextListing.projectTitle(
-                  EraTheme.header, FontWeight.w600, AppColors.blue),
-              TextListing.projectSubtitle(
-                  EraTheme.subHeader, FontWeight.w500, AppColors.black),
-              SizedBox(
-                height: 20.h,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: EraTheme.paddingWidth, vertical: 15.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextListing.projectTitle(
+                        EraTheme.header, FontWeight.w600, AppColors.blue),
+                    TextListing.projectSubtitle(
+                        EraTheme.subHeader, FontWeight.w500, AppColors.black),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    TextListing(
+                        text: 'Featured Projects'.toUpperCase(),
+                        fontSize: EraTheme.header - 4.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.kRedColor),
+                    SizedBox(height: 20.h),
+                    ProjectDivider(
+                        textImage: ProjectTextImageModels.textImageModels),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                  ],
+                ),
               ),
-              TextListing(
-                  text: 'Featured Projects'.toUpperCase(),
-                  fontSize: EraTheme.header - 4.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.kRedColor),
-              SizedBox(height: 20.h),
-              ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
-              SizedBox(
-                height: 20.h,
-              ),
+              CarouselSliderWidget(images: CarouselModels.carouselModels),
             ],
           ),
         ),
-        CarouselSliderWidget(images: CarouselModels.carouselModels),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: Column(
@@ -436,15 +473,15 @@ class Home extends GetView<HomeController> {
                 height: 40.h,
               ),
               Button(
-                text: 'VIEW PROJECTS',
+                text: 'VIEW MORE PROJECTS',
                 onTap: () {
-                  Get.toNamed("/haraya");
+                  Get.toNamed("/project-main");
                 },
                 bgColor: AppColors.kRedColor,
                 height: EraTheme.buttonHeightSmall,
+                width: Get.width - 180.w,
                 borderRadius: BorderRadius.circular(30),
               ),
-              SizedBox(height: 40.h),
             ],
           ),
         ),
@@ -453,9 +490,9 @@ class Home extends GetView<HomeController> {
         ),
 
         ///
-        AppDivider(
-          button: true,
-        ),
+        // AppDivider(
+        //   button: true,
+        // ),
         SizedBox(
           height: 10.h,
         ),

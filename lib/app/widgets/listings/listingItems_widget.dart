@@ -188,7 +188,9 @@ class ListingItemss extends StatelessWidget {
                               ),
                             ),
                             EraText(
-                              text: description == "" ? "No Description Added" : description,
+                              text: description == ""
+                                  ? "No Description Added"
+                                  : description,
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                               color: AppColors.black,
@@ -287,7 +289,8 @@ class ListingItemss extends StatelessWidget {
                               duration: Duration(milliseconds: 300),
                               curve: Curves.easeIn,
                               height: selected.value ? 165.h : 195.h,
-                              width: selected.value ? Get.width - 40.w : Get.width,
+                              width:
+                                  selected.value ? Get.width - 40.w : Get.width,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(image!),
@@ -371,7 +374,9 @@ class ListingItemss extends StatelessWidget {
                         lineHeight: 1,
                       ),
                       Text(
-                        description == "" ? "No Description Added" : description,
+                        description == ""
+                            ? "No Description Added"
+                            : description,
                         style: TextStyle(
                           fontSize: EraTheme.paragraph,
                           fontWeight: FontWeight.w500,

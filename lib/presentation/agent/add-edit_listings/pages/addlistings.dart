@@ -41,6 +41,7 @@ class AddListings extends GetView<AddListingsController> {
               hintText: 'Property Name',
               maxLines: 1,
               contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+              keyboardType: TextInputType.text,
             ),
           ),
           buildWidget(
@@ -50,6 +51,7 @@ class AddListings extends GetView<AddListingsController> {
               hintText: '100,000,000',
               maxLines: 1,
               contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+              keyboardType: TextInputType.number,
             ),
           ),
 
@@ -152,44 +154,52 @@ class AddListings extends GetView<AddListingsController> {
         buildWidget(
           'Price per sqm',
           TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              keyboardType: TextInputType.number,
-              controller: controller.pricePerSqmController,
-              hintText: '100',
-              maxLines: 1),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            keyboardType: TextInputType.text,
+            controller: controller.pricePerSqmController,
+            hintText: '100',
+            maxLines: 1,
+          ),
         ),
         buildWidget(
           'Beds',
           TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              controller: controller.bedsController,
-              hintText: '2',
-              maxLines: 1),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            controller: controller.bedsController,
+            hintText: '2',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+          ),
         ),
         buildWidget(
           'Baths',
           TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              controller: controller.bathsController,
-              hintText: '3',
-              maxLines: 1),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            controller: controller.bathsController,
+            hintText: '3',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+          ),
         ),
         buildWidget(
           'Garage',
           TextformfieldWidget(
-              keyboardType: TextInputType.number,
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              controller: controller.carsController,
-              hintText: '3',
-              maxLines: 1),
+            keyboardType: TextInputType.number,
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            controller: controller.carsController,
+            hintText: '3',
+            maxLines: 1,
+          ),
         ),
         buildWidget(
           'Area',
           TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              controller: controller.areaController,
-              hintText: '150',
-              maxLines: 1),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            controller: controller.areaController,
+            hintText: '150',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+          ),
         ),
         dropDownAddlistings(
             controller.selectedOfferT,
@@ -226,10 +236,12 @@ class AddListings extends GetView<AddListingsController> {
         buildWidget(
           'Description *',
           TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              controller: controller.descController,
-              hintText: '',
-              maxLines: 10),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            controller: controller.descController,
+            hintText: '',
+            maxLines: 10,
+            keyboardType: TextInputType.text,
+          ),
         ),
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
@@ -239,7 +251,7 @@ class AddListings extends GetView<AddListingsController> {
               name: controller.propertyNameController.text,
               price: controller.propertyCostController.text.toDouble(),
               photos: controller.images,
-              ppsqm: controller.pricePerSqmController.text.toDouble(),
+              ppsqm: controller.pricePerSqmController.text,
               beds: controller.bedsController.text.toInt(),
               baths: controller.bathsController.text.toInt(),
               cars: controller.carsController.text.toInt(),
@@ -248,7 +260,8 @@ class AddListings extends GetView<AddListingsController> {
               // view: controller.selectedView.value.toString(),
               location: controller.locationController.text,
               type: controller.selectedPropertyT.value.toString(),
-              subCategory: controller.selectedPropertySubCategory.value.toString(),
+              subCategory:
+                  controller.selectedPropertySubCategory.value.toString(),
               description: controller.descController.text,
             ).addListing();
           } catch (e, ex) {

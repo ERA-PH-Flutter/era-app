@@ -159,6 +159,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                     _buildMenuCard('MORTGAGE CALCULATOR', () {
                                       Get.toNamed("/mortageCalculator");
                                     }),
+                                    _buildMenuCard('CONTACTUS', () {
+                                      Get.toNamed("/direct-contactus");
+                                    }),
                                     Divider(
                                       thickness: 1,
                                       color: Colors.grey,

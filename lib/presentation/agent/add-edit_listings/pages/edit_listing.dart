@@ -21,20 +21,22 @@ class EditListing extends GetView<AddListingsController> {
   Widget build(BuildContext context) {
     return BaseScaffold(
         body: SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: SafeArea(
-          child: Obx(()=>switch(controller.addEditListingsState.value){
-            AddEditListingsState.loading => _loading(),
-            AddEditListingsState.loaded => _loaded(),
-          }),
-    )));
+            scrollDirection: Axis.vertical,
+            child: SafeArea(
+              child: Obx(() => switch (controller.addEditListingsState.value) {
+                    AddEditListingsState.loading => _loading(),
+                    AddEditListingsState.loaded => _loaded(),
+                  }),
+            )));
   }
-  _loading(){
+
+  _loading() {
     return Center(
       child: CircularProgressIndicator(),
     );
   }
-  _loaded(){
+
+  _loaded() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -50,6 +52,7 @@ class EditListing extends GetView<AddListingsController> {
             hintText: 'Property Name',
             maxLines: 1,
             controller: controller.propertyNameController,
+            keyboardType: TextInputType.text,
           ),
         ),
         AddListings.buildWidget(
@@ -58,6 +61,7 @@ class EditListing extends GetView<AddListingsController> {
             hintText: 'Php 100,000,000',
             maxLines: 1,
             controller: controller.propertyCostController,
+            keyboardType: TextInputType.number,
           ),
         ),
 
@@ -116,9 +120,9 @@ class EditListing extends GetView<AddListingsController> {
                   color: AppColors.white,
                 ),
                 label: Obx(
-                      () => EraText(
+                  () => EraText(
                     text: controller.removeImage.value &&
-                        controller.images.isNotEmpty
+                            controller.images.isNotEmpty
                         ? 'Cancel'
                         : 'Remove',
                     color: AppColors.white,
@@ -162,7 +166,7 @@ class EditListing extends GetView<AddListingsController> {
                         ),
                       ),
                       Obx(
-                            () => Visibility(
+                        () => Visibility(
                           visible: controller.removeImage.value,
                           child: Positioned(
                             top: 5,
@@ -198,6 +202,7 @@ class EditListing extends GetView<AddListingsController> {
       ],
     );
   }
+
   Widget paddintText2() {
     return Column(
       children: [
@@ -205,7 +210,7 @@ class EditListing extends GetView<AddListingsController> {
         AddListings.buildWidget(
           'Price per sqm',
           TextformfieldWidget(
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
               controller: controller.pricePerSqmController,
               hintText: 'Php 100,000',
               maxLines: 1),
@@ -221,31 +226,39 @@ class EditListing extends GetView<AddListingsController> {
         AddListings.buildWidget(
           'Beds',
           TextformfieldWidget(
-              controller: controller.bedsController,
-              hintText: '2',
-              maxLines: 1),
+            controller: controller.bedsController,
+            hintText: '2',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+          ),
         ),
         AddListings.buildWidget(
           'Baths',
           TextformfieldWidget(
-              controller: controller.bathsController,
-              hintText: '3',
-              maxLines: 1),
+            controller: controller.bathsController,
+            hintText: '3',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+          ),
         ),
         AddListings.buildWidget(
           'Garage',
           TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              controller: controller.carsController,
-              hintText: '3',
-              maxLines: 1),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            controller: controller.carsController,
+            hintText: '3',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+          ),
         ),
         AddListings.buildWidget(
           'Area',
           TextformfieldWidget(
-              controller: controller.areaController,
-              hintText: '150 sqm',
-              maxLines: 1),
+            controller: controller.areaController,
+            hintText: '150 sqm',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+          ),
         ),
         AddListings.dropDownAddlistings(
             controller.selectedOfferT,
@@ -290,10 +303,12 @@ class EditListing extends GetView<AddListingsController> {
         AddListings.buildWidget(
           'Description *',
           TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              controller: controller.descController,
-              hintText: '',
-              maxLines: 10),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            controller: controller.descController,
+            hintText: '',
+            maxLines: 10,
+            keyboardType: TextInputType.text,
+          ),
         ),
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
@@ -302,7 +317,7 @@ class EditListing extends GetView<AddListingsController> {
             name: controller.propertyNameController.text,
             price: controller.propertyCostController.text.toDouble(),
             photos: controller.images,
-            ppsqm: controller.pricePerSqmController.text.toDouble(),
+            ppsqm: controller.pricePerSqmController.text,
             beds: controller.bedsController.text.toInt(),
             baths: controller.bathsController.text.toInt(),
             cars: controller.carsController.text.toInt(),

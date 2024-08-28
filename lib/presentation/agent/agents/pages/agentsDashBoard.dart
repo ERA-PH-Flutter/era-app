@@ -79,7 +79,6 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                       '${user!.email}',
                       '${user!.role}',
                     ),
-
                     SizedBox(height: 25.h),
                     Button(
                       fontSize: EraTheme.paragraph - 2.sp,
