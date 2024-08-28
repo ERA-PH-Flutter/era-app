@@ -48,7 +48,9 @@ class GridviewAlllistings extends StatelessWidget {
                 title: "Confirm",
                 description: "Do you want to delete this listing?",
                 hitApi: () async {
+                  BaseController().showLoading();
                   await Listing().deleteListingsById(listingModels[i].id);
+                  BaseController().hideLoading();
                   Get.back();
                 },
                 cancelable: true);
