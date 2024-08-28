@@ -121,8 +121,7 @@ class Listing {
     for (int i = 0; i < photos!.length; i++) {
       images.add(await CloudStorage().uploadImage(image: photos![i]));
     }
-    DocumentReference<Map<String, dynamic>> doc =
-        db.collection('listings').doc();
+    DocumentReference<Map<String, dynamic>> doc = db.collection('listings').doc();
     await doc.set({
       "id": doc.id,
       "name": name,
