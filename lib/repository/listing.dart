@@ -24,6 +24,7 @@ class Listing {
   String? owner;
   int? leads;
   int? views;
+  DateTime? dateUpdated;
   DateTime? dateCreated;
   String? description;
   int? cars;
@@ -45,12 +46,14 @@ class Listing {
     this.view,
     this.description,
     this.by,
+    this.dateUpdated,
     this.dateCreated,
     this.leads,
     this.owner,
     this.views,
     this.cars,
     this.isSold,
+
   });
   factory Listing.fromJSON(Map<String, dynamic> json) {
     print(json);
@@ -74,6 +77,9 @@ class Listing {
       leads: json["leads"],
       views: json["views"],
       dateCreated: (json["date_created"] == null
+          ? DateTime.now()
+          : json["date_created"].toDate()),
+      dateUpdated: (json["date_updated"] == null
           ? DateTime.now()
           : json["date_created"].toDate()),
       description: json["description"],
@@ -100,7 +106,8 @@ class Listing {
       "owner": "admin", //todo change to owner field
       "description": description?.toLowerCase(),
       "views": 0,
-      "date_created": DateTime.now(),
+      "date_created": dateCreated ?? DateTime.now(),
+      "date_updated" : DateTime.now(),
       "garage": cars,
       "is_sold": isSold ?? false,
     };
