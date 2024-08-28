@@ -65,6 +65,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 hintText: 'eg: 100000.00',
                 maxLines: 1,
                 keyboardType: TextInputType.number,
+                controller: controller.propertyAmount,
               ),
               SizedBox(height: 10),
               EraText(
@@ -76,6 +77,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 hintText: 'eg: 10000.00',
                 maxLines: 1,
                 keyboardType: TextInputType.number,
+                controller: controller.downPayment,
               ),
               SizedBox(height: 10),
               EraText(
@@ -87,6 +89,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 hintText: 'eg:30',
                 maxLines: 1,
                 keyboardType: TextInputType.number,
+                controller: controller.loanTerm,
               ),
               SizedBox(height: 10),
               EraText(
@@ -98,6 +101,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 hintText: 'eg: 5.000',
                 maxLines: 1,
                 keyboardType: TextInputType.number,
+                controller: controller.interestRate,
               ),
               SizedBox(height: 10),
               EraText(
@@ -109,6 +113,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 hintText: 'eg: 20000.00',
                 maxLines: 1,
                 keyboardType: TextInputType.number,
+                controller: controller.monthlyP,
               ),
               SizedBox(height: 20),
               Button(
