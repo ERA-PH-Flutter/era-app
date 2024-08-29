@@ -21,7 +21,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
+import '../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../repository/listing.dart';
+import '../../../../repository/user.dart';
 import '../controllers/searchresult_controller.dart';
 
 class SearchResult extends GetView<SearchResultController> {
@@ -397,11 +399,24 @@ class SearchResult extends GetView<SearchResultController> {
                   Get.toNamed('/propertyInfo', arguments: listing);
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 21.w),
+                  padding: EdgeInsets.zero,
+                  decoration: BoxDecoration(
+                    color:Colors.white,
+                    borderRadius: BorderRadius.circular(10.r),
+                    boxShadow: [
+                      BoxShadow(
+                        offset : Offset(0,0),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        color:Colors.black26
+                      )
+                    ]
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
+                        borderRadius: BorderRadius.circular(10.r),
                         child: CachedNetworkImage(
                           imageUrl: listing.photos != null
                               ? (listing.photos!.isNotEmpty
@@ -414,17 +429,20 @@ class SearchResult extends GetView<SearchResultController> {
                         ),
                       ),
                       SizedBox(
-                        height: 15.h,
+                        height: 17.h,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: EdgeInsets.symmetric(horizontal:14.w),
                         child: EraText(
                           text: listing.type!,
-                          fontSize: EraTheme.header - 3.sp,
+                          fontSize: EraTheme.header - 5.sp,
                           color: AppColors.kRedColor,
                           fontWeight: FontWeight.bold,
                           lineHeight: 0.4,
                         ),
+                      ),
+                      SizedBox(
+                        height: 15.h,
                       ),
                       Row(
                         //crossAxisAlignment: CrossAxisAlignment.start,
@@ -439,7 +457,7 @@ class SearchResult extends GetView<SearchResultController> {
                               SizedBox(width: 2.w),
                               EraText(
                                 text: '${listing.area} sqm',
-                                fontSize: EraTheme.paragraph,
+                                fontSize: EraTheme.paragraph - 1.sp,
                                 fontWeight: FontWeight.w500,
                                 color: AppColors.black,
                               ),
@@ -453,7 +471,7 @@ class SearchResult extends GetView<SearchResultController> {
                           ),
                           EraText(
                             text: '${listing.beds}',
-                            fontSize: EraTheme.paragraph,
+                            fontSize: EraTheme.paragraph  - 1.sp,
                             fontWeight: FontWeight.w500,
                             color: AppColors.black,
                           ),
@@ -465,7 +483,7 @@ class SearchResult extends GetView<SearchResultController> {
                           ),
                           EraText(
                             text: '${listing.baths}',
-                            fontSize: EraTheme.paragraph,
+                            fontSize: EraTheme.paragraph  - 1.sp,
                             fontWeight: FontWeight.w500,
                             color: AppColors.black,
                           ),
@@ -477,7 +495,7 @@ class SearchResult extends GetView<SearchResultController> {
                           ),
                           EraText(
                             text: '${listing.cars}',
-                            fontSize: EraTheme.paragraph,
+                            fontSize: EraTheme.paragraph - 1.sp,
                             fontWeight: FontWeight.w500,
                             color: AppColors.black,
                           ),
@@ -487,21 +505,22 @@ class SearchResult extends GetView<SearchResultController> {
                         height: 5.h,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
                         child: EraText(
                           text: 'Description:',
-                          fontSize: EraTheme.header - 5.sp,
+                          fontSize: EraTheme.header - 8.sp,
                           color: AppColors.black,
                           fontWeight: FontWeight.w600,
                           lineHeight: 1,
                         ),
                       ),
+                      SizedBox(height: 2.h,),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
                         child: Text(
-                          listing.description!,
+                          listing.description == "" ? "No description." : listing.description!,
                           style: TextStyle(
-                            fontSize: EraTheme.paragraph,
+                            fontSize: EraTheme.paragraph-4.sp,
                             fontWeight: FontWeight.w500,
                             color: AppColors.black,
                           ),
@@ -513,7 +532,7 @@ class SearchResult extends GetView<SearchResultController> {
                         height: 5.h,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
                         child: EraText(
                           text: NumberFormat.currency(
                                   locale: 'en_PH', symbol: 'PHP ')
@@ -525,7 +544,25 @@ class SearchResult extends GetView<SearchResultController> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      //todo missy add listed by
+                      FutureBuilder(
+                        future: EraUser().getById(listing.by),
+                        builder: (context,snapshot){
+                          if(snapshot.hasData){
+                            var user1 = snapshot.data;
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: ListedBy(image:user1!.image ?? AppStrings.noUserImageWhite , agentFirstName: user1.firstname ?? "", agentType: user1.role ?? "Agent", agentLastName: user1.lastname!),
+                            );
+                          }else{
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        }
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
                     ],
                   ),
                 ),

@@ -77,6 +77,7 @@ class ListingItemss extends StatelessWidget {
   Widget build(BuildContext context) {
     return fromSold
         ? Card(
+
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),

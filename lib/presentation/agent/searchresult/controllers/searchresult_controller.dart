@@ -56,6 +56,7 @@ class SearchResultController extends GetxController {
   }
 
   loadData(loadedData) {
+    print(loadedData);
     data.value = loadedData;
     if (data.isEmpty) {
       searchResultState.value = SearchResultState.empty;

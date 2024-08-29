@@ -38,17 +38,27 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              leading ??
-                  Transform.translate(
-                      offset: Offset(-14, 1),
-                      child: IconButton(
-                        icon: Image.asset(
-                          'assets/images/eraph_logo.png',
-                        ),
-                        onPressed: () {
-                          Get.toNamed('/home');
-                        },
-                      )),
+              Row(
+                children: [
+                  ['/haraya'].contains(Get.currentRoute)  ? IconButton(
+                      onPressed:(){
+                        Get.back();
+                      },
+                      icon: Icon(Icons.arrow_back_ios,size:20.sp)
+                  ) : Visibility(visible:false,child:Container()),
+                  leading ??
+                      Transform.translate(
+                          offset: Offset(-14, 1),
+                          child: IconButton(
+                            icon: Image.asset(
+                              'assets/images/eraph_logo.png',
+                            ),
+                            onPressed: () {
+                              Get.toNamed('/home');
+                            },
+                          )),
+                ],
+              ),
               Row(
                 children: [
                   action ??
@@ -153,6 +163,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                     },Get.currentRoute == '/aboutus'),
                                     user != null
                                         ? _buildMenuCard('MY DASHBOARD', () {
+                                            changeIndex(0);
                                             Get.offAllNamed("/agentDashBoard");
                                           },Get.currentRoute == '/agentDashBoard')
                                         : Container(),
