@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/contacts/controllers/contacts_controller.dart';
+import 'package:eraphilippines/presentation/agent/contacts/pages/findus.dart';
 import 'package:eraphilippines/presentation/agent/contacts/pages/help.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,12 +37,13 @@ class DirectContactUs extends GetView<ContactusController> {
                 ),
                 SizedBox(height: 20.h),
                 contacts(),
-                Help.iconButton(
-                  padding: EdgeInsets.only(right: 10.w),
-                  icon: AppEraAssets.whatsappIcon,
-                  text: 'WhatsApp',
-                  text1: 'Email',
-                  icon2: AppEraAssets.emailIcon,
+                // Help.iconButton(
+                //   padding: EdgeInsets.only(right: 10.w),
+                //   icon: AppEraAssets.whatsappIcon,
+                //   icon2: AppEraAssets.emailIcon,
+                // ),
+                FindUs(
+                  title: 'Find Us',
                 ),
               ],
             ),

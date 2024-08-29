@@ -473,26 +473,25 @@ class Home extends GetView<HomeController> {
                 height: 40.h,
               ),
               Button(
-                text: 'VIEW MORE PROJECTS',
+                text: 'LEARN MORE',
                 onTap: () {
-                  Get.toNamed("/project-main");
+                  Get.toNamed("/haraya");
                 },
                 bgColor: AppColors.kRedColor,
                 height: EraTheme.buttonHeightSmall,
-                width: Get.width - 180.w,
+                width: Get.width - 220.w,
                 borderRadius: BorderRadius.circular(30),
               ),
             ],
           ),
         ),
         SizedBox(
-          height: 10.h,
+          height: 50.h,
         ),
 
-        ///
-        // AppDivider(
-        //   button: true,
-        // ),
+        AppDivider(
+          button: true,
+        ),
         SizedBox(
           height: 10.h,
         ),

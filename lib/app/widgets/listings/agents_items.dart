@@ -8,9 +8,11 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
+import 'package:eraphilippines/presentation/agent/contacts/controllers/contacts_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AgentsItems extends StatelessWidget {
   final agentInfo;
@@ -24,6 +26,8 @@ class AgentsItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ContactusController contactusController = Get.put(ContactusController());
+
     return GestureDetector(
       onTap: () {
         toggleSelected();
@@ -78,11 +82,16 @@ class AgentsItems extends StatelessWidget {
                               height: 30.h,
                             ),
                             SizedBox(width: 8.w),
-                            EraText(
-                              text: '${agentInfo.whatsApp}',
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.black,
+                            GestureDetector(
+                              onTap: () {
+                                launchUrl(contactusController.whatsappUrl);
+                              },
+                              child: EraText(
+                                text: '${agentInfo.whatsApp}',
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.black,
+                              ),
                             ),
                           ],
                         ),

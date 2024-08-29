@@ -115,7 +115,7 @@ appRoutes() => [
           binding: SearchResultBinding()),
       GetPage(
           name: RouteString.help,
-          page: () => const Help(),
+          page: () => Help(),
           binding: ContactUsBinding()),
       GetPage(
           name: RouteString.findagents,

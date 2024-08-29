@@ -1,6 +1,5 @@
 // ignore_for_file: unused_import
 
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -50,13 +49,12 @@ class AppDivider extends StatelessWidget {
             fontSize: 21.sp,
             maxLines: 20,
           ),
-
           if (button == true)
             Column(
               children: [
                 SizedBox(height: 25.h),
                 Button(
-                  text: 'VIEW MORE PROJECTS',
+                  text: 'FIND MORE PROJECTS',
                   onTap: () {
                     Get.toNamed('/project-main');
                   },

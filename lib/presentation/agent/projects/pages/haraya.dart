@@ -8,6 +8,7 @@ import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
+import 'package:eraphilippines/presentation/agent/contacts/controllers/contacts_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,6 +25,7 @@ class HarayaProject extends GetView<ProjectsController> {
 
   @override
   Widget build(BuildContext context) {
+    ContactusController contactusController = Get.put(ContactusController());
     return BaseScaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -83,7 +85,10 @@ class HarayaProject extends GetView<ProjectsController> {
         SizedBox(height: 15.h),
         Inquiry(),
         SizedBox(height: 40.h),
-        FindUs(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          child: FindUs(),
+        ),
         SizedBox(height: 20.h),
       ],
     );

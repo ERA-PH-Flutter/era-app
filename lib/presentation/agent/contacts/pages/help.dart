@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
+import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/agent/contacts/pages/direct-contactus.dart';
@@ -11,11 +12,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../controllers/contacts_controller.dart';
 
 class Help extends GetView<ContactusController> {
-  const Help({super.key});
+  Help({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -172,13 +175,10 @@ class Help extends GetView<ContactusController> {
               expansionTile(
                   'Can I leave a review for a property or an agent?', ''),
               SizedBox(
-                height: 20.h,
+                height: 50.h,
               ),
               iconButton(
-                padding: EdgeInsets.only(right: 30.w),
                 icon: AppEraAssets.whatsappIcon,
-                text: 'WhatsApp',
-                text1: 'Email',
                 icon2: AppEraAssets.emailIcon,
               ),
             ],
@@ -188,62 +188,71 @@ class Help extends GetView<ContactusController> {
     );
   }
 
-  static Widget iconButton({
-    required String text,
+  Widget iconButton({
     required String icon,
-    required String text1,
     required String icon2,
     EdgeInsets? padding,
   }) {
+    // final Uri whatsappUrl = Uri.parse('https://wa.me/639177710572');
+
     return Container(
       padding: padding ?? EdgeInsets.zero,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          GestureDetector(
-            onTap: () {
-              //direct to whatsapp so it's fixed
-            },
-            child: Row(
-              children: [
-                Image.asset(
-                  icon,
-                  width: 50.w,
-                  height: 50.h,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  //launchUrl(controller.whatsappUrl);
+                },
+                child: Container(
+                  width: Get.width - 100.w,
+                  height: 45.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.kRedColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: EraText(
+                      text: 'CONTACT US VIA EMAIL',
+                      fontSize: 18.sp,
+                      color: AppColors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-                EraText(
-                  text: text,
-                  fontSize: 18.sp,
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w600,
-                  textDecoration: TextDecoration.underline,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           SizedBox(
-            width: 40.w,
+            height: 15.w,
           ),
-          GestureDetector(
-            onTap: () {
-              Get.toNamed("/direct-contactus");
-            },
-            child: Row(
-              children: [
-                Image.asset(
-                  icon2,
-                  width: 50.w,
-                  height: 50.h,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                 launchUrl(controller.whatsappUrl);
+                },
+                child: Container(
+                  width: Get.width - 100.w,
+                  height: 45.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.green,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: EraText(
+                      text: 'CONTACT US VIA WHATSAPP',
+                      fontSize: 18.sp,
+                      color: AppColors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-                EraText(
-                  text: text1,
-                  fontSize: 18.sp,
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w600,
-                  textDecoration: TextDecoration.underline,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
