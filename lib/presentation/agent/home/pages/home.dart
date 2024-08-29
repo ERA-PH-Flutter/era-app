@@ -192,7 +192,7 @@ class Home extends GetView<HomeController> {
                               Transform.scale(
                                 scale: 1.9,
                                 child: Radio(
-                                    toggleable:true,
+                                    toggleable: true,
                                     fillColor: WidgetStateProperty.all(
                                         AppColors.white.withOpacity(0.6)),
                                     value: 1,
@@ -213,6 +213,7 @@ class Home extends GetView<HomeController> {
                               Transform.scale(
                                 scale: 1.9,
                                 child: Radio(
+                                    toggleable: true,
                                     fillColor: WidgetStateProperty.all(
                                         AppColors.white.withOpacity(0.6)),
                                     value: 2,
@@ -275,11 +276,10 @@ class Home extends GetView<HomeController> {
                             await AI(query: controller.aiSearchController.text)
                                 .search();
                       }
-                      Get.toNamed("/searchresult",
-                          arguments: [
-                            data,
-                            controller.aiSearchController.text
-                          ]);
+                      Get.toNamed("/searchresult", arguments: [
+                        data,
+                        controller.aiSearchController.text
+                      ]);
                     }),
                     SizedBox(height: 10.h),
                   ],
@@ -293,7 +293,7 @@ class Home extends GetView<HomeController> {
                   padding:
                       EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                   child: TextListing(
-                    text: 'QUICK RESEARCH',
+                    text: 'QUICK SEARCH',
                     fontSize: 25.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.kRedColor,

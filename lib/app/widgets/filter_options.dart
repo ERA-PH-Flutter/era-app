@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
+import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,9 @@ class FilterController extends GetxController {
   var maxPrice = 1000.0.obs;
   TextEditingController minPriceController = TextEditingController();
   TextEditingController maxPriceController = TextEditingController();
+  TextEditingController lotAreaController = TextEditingController();
+  TextEditingController floorAreaController = TextEditingController();
+  TextEditingController pricePerSqmController = TextEditingController();
 
   // Rooms and Beds
   var bedrooms = 1.obs;
@@ -47,6 +51,10 @@ class FilterController extends GetxController {
   // Location
   var beachfront = false.obs;
   var waterfront = false.obs;
+  var cityView = false.obs;
+  var mountainView = false.obs;
+  var sunset = false.obs;
+  var sunrise = false.obs;
 
   // Filter visibility
   var filtersVisible = false.obs;
@@ -264,16 +272,15 @@ class AmenitiesFilter extends StatelessWidget {
                   'Beachfront', controller.beachfront),
               SizedBox(width: 10.w),
               AmenitiesFilter._buildAmenityButton(
-                  'City View', controller.waterfront),
+                  'City View', controller.cityView),
               SizedBox(width: 10.w),
               AmenitiesFilter._buildAmenityButton(
-                  'Mountain View', controller.waterfront),
+                  'Mountain View', controller.mountainView),
+              SizedBox(width: 10.w),
+              AmenitiesFilter._buildAmenityButton('Sunset', controller.sunset),
               SizedBox(width: 10.w),
               AmenitiesFilter._buildAmenityButton(
-                  'Sunset', controller.waterfront),
-              SizedBox(width: 10.w),
-              AmenitiesFilter._buildAmenityButton(
-                  'Sunrise', controller.waterfront),
+                  'Sunrise', controller.sunrise),
             ],
           ),
         ],
@@ -300,6 +307,62 @@ class AmenitiesFilter extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildFloorAreaFilter() {
+  final FilterController controller = Get.put(FilterController());
+
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Container(
+        width: 115.w,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            EraText(text: 'Lot Area', fontSize: 18.sp, color: AppColors.black),
+            TextformfieldWidget(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+              keyboardType: TextInputType.number,
+              controller: controller.lotAreaController,
+              maxLines: 1,
+            ),
+          ],
+        ),
+      ),
+      Container(
+        width: 115.w,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            EraText(
+                text: 'Floor Area', fontSize: 18.sp, color: AppColors.black),
+            TextformfieldWidget(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+              keyboardType: TextInputType.number,
+              controller: controller.floorAreaController,
+              maxLines: 1,
+            ),
+          ],
+        ),
+      ),
+      Container(
+        width: 115.w,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            EraText(text: 'Price/SQM', fontSize: 18.sp, color: AppColors.black),
+            TextformfieldWidget(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+              keyboardType: TextInputType.number,
+              controller: controller.pricePerSqmController,
+              maxLines: 1,
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
 }
 
 void openFilterDialog() {
@@ -340,23 +403,7 @@ void openFilterDialog() {
                     ],
                   ),
                   SizedBox(height: 10.h),
-                  EraText(
-                    text: 'Price Range',
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black,
-                  ),
-                  SizedBox(height: 10.h),
-                  PriceRangeFilter(controller: controller),
-                  EraText(
-                    text: 'Rooms and Beds',
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black,
-                  ),
-                  SizedBox(height: 10.h),
-                  RoomsAndBedsFilter(controller: controller),
-                  SizedBox(height: 10.h),
+                  // property type
                   EraText(
                     text: 'Property Type',
                     fontSize: 18.sp,
@@ -365,6 +412,41 @@ void openFilterDialog() {
                   ),
                   SizedBox(height: 10.h),
                   PropertyTypeFilter(controller: controller),
+                  //
+                  SizedBox(height: 10.h),
+                  //price range
+                  EraText(
+                    text: 'Price Range',
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.black,
+                  ),
+                  SizedBox(height: 10.h),
+                  PriceRangeFilter(controller: controller),
+                  //
+                  SizedBox(height: 10.h),
+                  //rooms and beds
+                  EraText(
+                    text: 'Rooms and Beds',
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.black,
+                  ),
+                  SizedBox(height: 10.h),
+                  RoomsAndBedsFilter(controller: controller),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  // lot area floor area
+                  // EraText(
+                  //     text: 'Lot Area and Floor Area',
+                  //     fontSize: 18.sp,
+                  //     fontWeight: FontWeight.bold,
+                  //     color: AppColors.black),
+                  SizedBox(height: 10.h),
+                  _buildFloorAreaFilter(),
+
+                  //amenites
                   SizedBox(height: 10.h),
                   EraText(
                     text: 'Amenities',

@@ -228,7 +228,7 @@ class Auction extends GetView<ListingController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextListing(
-                            text: 'QUICK RESEARCH',
+                            text: 'QUICK SEARCH',
                             fontSize: 25.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.kRedColor,

@@ -207,12 +207,12 @@ class AddListings extends GetView<AddListingsController> {
             (value) => controller.selectedOfferT.value = value!,
             'Offer Type',
             'Select Offer Type'),
-        // dropDownAddlistings(
-        //     controller.selectedView,
-        //     controller.viewL,
-        //     (value) => controller.selectedView.value = value!,
-        //     'Sunrise',
-        //     'Select View'),
+        dropDownAddlistings(
+            controller.selectedView,
+            controller.viewL,
+            (value) => controller.selectedView.value = value!,
+            'View',
+            'Select View'),
         buildWidget(
           'Location',
           TextformfieldWidget(
@@ -262,6 +262,7 @@ class AddListings extends GetView<AddListingsController> {
               subCategory:
                   controller.selectedPropertySubCategory.value.toString(),
               description: controller.descController.text,
+              view: controller.selectedView.value.toString(),
             ).addListing(controller.images);
           } catch (e, ex) {
             print(ex);

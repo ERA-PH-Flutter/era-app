@@ -147,7 +147,7 @@ class FindProperties extends GetView<ListingController> {
                 ),
                 SizedBox(height: 20.h),
                 TextListing(
-                  text: 'QUICK RESEARCH',
+                  text: 'QUICK SEARCH',
                   fontSize: 25.sp,
                   fontWeight: FontWeight.w600,
                   color: AppColors.kRedColor,

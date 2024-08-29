@@ -50,7 +50,7 @@ class TextListing extends StatelessWidget {
   static Widget projectSubtitle(
       double? fontSize, FontWeight? fontWeight, Color? color) {
     return EraText(
-      text: 'Perspectives by ERA Research & Market Inteleligence',
+      text: 'Perspectives by ERA Research & Market Intelligence',
       fontSize: fontSize,
       fontWeight: fontWeight,
       color: color,

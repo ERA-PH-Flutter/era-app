@@ -59,7 +59,6 @@ class AgentsItems extends StatelessWidget {
                           text: '${agentInfo.firstname} ${agentInfo.lastname}',
                           fontSize: 25.sp,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.blue,
                           lineHeight: 1.0,
                           textOverflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,

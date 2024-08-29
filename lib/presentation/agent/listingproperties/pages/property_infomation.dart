@@ -386,7 +386,7 @@ class PropertyInformation extends GetView<ListingController> {
           children: [
             iconsWidgets(AppEraAssets.tub, '${listing.baths}'),
             iconsWidgets(AppEraAssets.car, '${listing.cars}'),
-            iconsWidgets(AppEraAssets.sunrise, 'SUNRISE'),
+            iconsWidgets(AppEraAssets.sunrise, '${listing.view}'),
           ],
         ),
       ],
@@ -425,7 +425,7 @@ class PropertyInformation extends GetView<ListingController> {
             shorterSummary('Garage', '${listing.cars}'),
             shorterSummary('Area', '${listing.area}'),
             //shorterSummary('Offer Type', listing.type),
-            shorterSummary('View', listing.view ?? 0),
+            shorterSummary('View', '${listing.view}'),
             shorterSummary('Location', listing.location ?? ""),
             shorterSummary('Type', listing.type),
             shorterSummary('Sub Category', listing.subCategory),

@@ -12,13 +12,14 @@ import 'package:path_provider/path_provider.dart';
 import '../../../../app/services/local_storage.dart';
 import '../../../../repository/listing.dart';
 
-
 enum AddListingsState {
   loading,
   loaded,
   error,
 }
-enum AddEditListingsState {loading,loaded}
+
+enum AddEditListingsState { loading, loaded }
+
 class AddListingsController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
   var addEditListingsState = AddEditListingsState.loading.obs;
@@ -32,14 +33,8 @@ class AddListingsController extends GetxController with BaseController {
   var selectedView = RxnString();
 
   var viewL = [
-    "Sunset View",
-    "City View",
-    "Mountain View",
-    "Sea View",
-    "Lake View",
-    "River View",
-    "Garden View",
-    "Others"
+    "SUNSET",
+    "SUNRISE",
   ];
 
   var subCategory = [
@@ -118,37 +113,43 @@ class AddListingsController extends GetxController with BaseController {
   clearImage() {
     images.clear();
   }
-  onInit()async{
+
+  onInit() async {
     super.onInit();
     print(Get.currentRoute == '/editListings');
-    if(Get.currentRoute == '/editListings'){
+    if (Get.currentRoute == '/editListings') {
       print(id);
       id = Get.arguments[0];
       await assignData();
     }
   }
+
   @override
-  onClose(){
+  onClose() {
     Get.delete<AddListingsController>();
     super.onClose;
   }
-  assignData()async{
 
+  assignData() async {
     Listing listing = await Listing().getListing(Get.arguments[0]);
     propertyNameController.text = listing.name ?? "";
-    propertyCostController.text = listing.price == null ?  "0" : listing.price.toString();
-    for(int i = 0; i <  listing.photos!.length;i++){
-      images.add( await urlToFile(listing.photos![i]));
+    propertyCostController.text =
+        listing.price == null ? "0" : listing.price.toString();
+    for (int i = 0; i < listing.photos!.length; i++) {
+      images.add(await urlToFile(listing.photos![i]));
     }
     pricePerSqmController.text = listing.ppsqm.toString();
-    bedsController.text =listing.beds.toString();
+    bedsController.text = listing.beds.toString();
     bathsController.text = listing.baths.toString();
-    carsController.text =listing.cars.toString();
+    carsController.text = listing.cars.toString();
     areaController.text = listing.area.toString();
-    selectedOfferT.value = offerT.contains(listing.status) ? listing.status : null;
+    selectedOfferT.value =
+        offerT.contains(listing.status) ? listing.status : null;
     locationController.text = listing.location ?? "";
-    selectedPropertyT.value = propertyT.contains(listing.type) ? listing.type : null;
-    selectedPropertySubCategory.value = subCategory.contains( listing.subCategory) ?  listing.subCategory : null;
+    selectedPropertyT.value =
+        propertyT.contains(listing.type) ? listing.type : null;
+    selectedPropertySubCategory.value =
+        subCategory.contains(listing.subCategory) ? listing.subCategory : null;
     descController.text = listing.description ?? "";
     addEditListingsState.value = AddEditListingsState.loaded;
   }

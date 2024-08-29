@@ -69,6 +69,7 @@ class Listing {
       status: json["status"],
       area: json["area"],
       beds: json["beds"],
+      view: json["view"],
       ppsqm: json["ppsqm"].toString().toDouble(),
       subCategory: json["sub_category"],
       by: json["by"],

@@ -16,9 +16,11 @@ class AgentInfoWidget {
           width: 100.w,
           height: 110.h,
           decoration: BoxDecoration(
+           
             image: DecorationImage(
               image: imageProvider,
               fit: BoxFit.cover,
+              
             ),
             borderRadius: BorderRadius.circular(8.0),
           ),

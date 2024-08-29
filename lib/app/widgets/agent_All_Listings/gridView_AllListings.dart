@@ -24,6 +24,7 @@ class GridviewAlllistings extends StatelessWidget {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 1,
           mainAxisExtent: 500,
+          mainAxisSpacing: 20,
         ),
         itemCount: listingModels.length,
         itemBuilder: (context, i) => ListingItemss(

@@ -77,7 +77,6 @@ class ListingItemss extends StatelessWidget {
   Widget build(BuildContext context) {
     return fromSold
         ? Card(
-
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -90,28 +89,23 @@ class ListingItemss extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: toggleSelected,
-                        child: Obx(() {
-                          return ClipPath(
-                            clipper:
-                                selected.value ? CustomCornerClipPath() : null,
-                            child: AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeIn,
-                              height: selected.value ? 170.h : 200.h,
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                      image ?? AppStrings.noUserImageWhite),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
+                        //  onTap: toggleSelected,
+                        child: Container(
+                          width: Get.width,
+                          height: 195.h,
+                          // duration: Duration(milliseconds: 300),
+                          // curve: Curves.easeIn,
+                          // height: selected.value ? 170.h : 200.h,
+                          // width: Get.width,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                                  image ?? AppStrings.noUserImageWhite),
+                              fit: BoxFit.cover,
                             ),
-                          );
-                        }),
+                          ),
+                        ),
                       ),
-
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: EraTheme.paddingWidth, vertical: 5.h),
@@ -245,7 +239,6 @@ class ListingItemss extends StatelessWidget {
                                   children: [
                                     if (buttonEdit != null) buttonEdit!,
                                     if (buttonDelete != null) buttonDelete!,
-                                    if (buttonSold != null) buttonSold!,
                                   ],
                                 );
                               } else {
@@ -276,49 +269,56 @@ class ListingItemss extends StatelessWidget {
               ),
             ),
           )
-        : GestureDetector(
-            onTap: onTap,
-            child: Opacity(
-              opacity: 1.0,
+        : Container(
+            padding: EdgeInsets.zero,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.r),
+                boxShadow: const [
+                  BoxShadow(
+                      offset: Offset(0, 0),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      color: Colors.black26)
+                ]),
+            child: GestureDetector(
+              onTap: onTap,
               child: Stack(
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: toggleSelected,
-                        child: Obx(() {
-                          return ClipPath(
-                            clipper:
-                                selected.value ? CustomCornerClipPath() : null,
-                            child: AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeIn,
-                              height: selected.value ? 165.h : 195.h,
-                              width:
-                                  selected.value ? Get.width - 40.w : Get.width,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: CachedNetworkImageProvider(image!),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
+                        // onTap: toggleSelected,
+                        child: Container(
+                          width: Get.width,
+                          height: 195.h,
+                          // duration: Duration(milliseconds: 300),
+                          // curve: Curves.easeIn,
+                          // height: selected.value ? 165.h : 195.h,
+                          // width:
+                          //     selected.value ? Get.width - 40.w : Get.width,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: CachedNetworkImageProvider(image!),
+                              fit: BoxFit.cover,
                             ),
-                          );
-                        }),
-                      ),
-                      Center(
-                        child: EraText(
-                            text: 'Tap to view',
-                            color: Colors.black
+                          ),
                         ),
                       ),
+                      Center(
+                        child:
+                            EraText(text: 'Tap to view', color: Colors.black),
+                      ),
                       SizedBox(height: 15.h),
-                      EraText(
-                        text: type,
-                        fontSize: EraTheme.paragraph + 2.sp,
-                        color: AppColors.kRedColor,
-                        fontWeight: FontWeight.w600,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                        child: EraText(
+                          text: type,
+                          fontSize: EraTheme.header - 5.sp,
+                          color: AppColors.kRedColor,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       SizedBox(width: 10.w),
                       Row(
@@ -378,34 +378,43 @@ class ListingItemss extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 5.h),
-                      EraText(
-                        text: 'Description:',
-                        fontSize: EraTheme.paragraph + 2.sp,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w600,
-                        lineHeight: 1,
-                      ),
-                      Text(
-                        description == ""
-                            ? "No Description Added"
-                            : description,
-                        style: TextStyle(
-                          fontSize: EraTheme.paragraph,
-                          fontWeight: FontWeight.w500,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                        child: EraText(
+                          text: 'Description:',
+                          fontSize: EraTheme.paragraph + 2.sp,
                           color: AppColors.black,
+                          fontWeight: FontWeight.w600,
+                          lineHeight: 1,
                         ),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                        child: Text(
+                          description == ""
+                              ? "No Description Added"
+                              : description,
+                          style: TextStyle(
+                            fontSize: EraTheme.paragraph,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.black,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       SizedBox(height: 5.h),
-                      EraText(
-                        text: NumberFormat.currency(
-                          locale: 'en_PH',
-                          symbol: 'PHP ',
-                        ).format(price),
-                        color: AppColors.blue,
-                        fontSize: EraTheme.header,
-                        fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                        child: EraText(
+                          text: NumberFormat.currency(
+                            locale: 'en_PH',
+                            symbol: 'PHP ',
+                          ).format(price),
+                          color: AppColors.blue,
+                          fontSize: EraTheme.header,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(height: 5.h),
                       if (showListedby)
@@ -451,7 +460,18 @@ class ListingItemss extends StatelessWidget {
                   Positioned(
                     top: 10.h,
                     right: 10.w,
-                    child: buttonSold!,
+                    child: Builder(builder: (context) {
+                      if (user?.id == by) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            if (buttonSold != null) buttonSold!,
+                          ],
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }),
                   ),
                 ],
               ),

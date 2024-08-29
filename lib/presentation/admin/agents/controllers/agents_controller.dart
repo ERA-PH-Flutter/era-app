@@ -23,13 +23,15 @@ class AgentAdminController extends GetxController with BaseController {
     agentState.value = AgentAdminState.loaded;
     super.onInit();
   }
+
   List<Listing> listings = [];
 
   RxList images = [].obs;
   final picker = ImagePicker();
   final removeImage = false.obs;
-  
 
+  var agentType = ['ASC', 'AMM', 'MM', 'SMM', 'MD', 'SMD', 'ADD', 'BDD'];
+  var selectedAgentType = RxnString();
   TextEditingController fNameA = TextEditingController();
   TextEditingController lNameA = TextEditingController();
   TextEditingController emailAdressA = TextEditingController();

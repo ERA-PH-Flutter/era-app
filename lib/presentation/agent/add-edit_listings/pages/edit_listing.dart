@@ -266,12 +266,12 @@ class EditListing extends GetView<AddListingsController> {
             (value) => controller.selectedOfferT.value = value!,
             'Offer Type',
             'Edit Offer Type'),
-        // AddListings.dropDownAddlistings(
-        //     controller.selectedView,
-        //     controller.viewL,
-        //     (value) => controller.selectedView.value = value!,
-        //     'Sunrise',
-        //     'Edit View'),
+        AddListings.dropDownAddlistings(
+            controller.selectedView,
+            controller.viewL,
+            (value) => controller.selectedView.value = value!,
+            'Sunrise',
+            'Edit View'),
 
         // AddListings.buildWidget(
         //   'View',
@@ -315,6 +315,7 @@ class EditListing extends GetView<AddListingsController> {
           BaseController().showLoading();
           try {
             await Listing(
+              
               id: controller.id,
               name: controller.propertyNameController.text,
               price: controller.propertyCostController.text.toDouble(),
@@ -331,6 +332,7 @@ class EditListing extends GetView<AddListingsController> {
               subCategory:
                   controller.selectedPropertySubCategory.value.toString(),
               description: controller.descController.text,
+              view: controller.selectedView.value.toString(),
             ).updateListing();
             BaseController().hideLoading();
             controller.showSuccessDialog(
