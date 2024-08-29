@@ -4,6 +4,8 @@ import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/models/settings.dart';
@@ -50,10 +52,16 @@ class SplashController extends GetxController {
     if (FirebaseAuth.instance.currentUser != null) {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
+    var shortestSide = MediaQuery.of(Get.context!).size.shortestSide;
+    kIsWeb
+        ?  Get.toNamed(RouteString.landingPage)
+        : shortestSide < 600
+        ? Get.toNamed(RouteString.home)
+        : Get.toNamed(RouteString.home);
     //  Get.toNamed(RouteString.home);
     //if(kIsWeb ){
     // //todo show era ads
-    Get.toNamed(RouteString.home);
+
 
     // if (user != null) {
     // } else {

@@ -17,6 +17,7 @@ class AgentListingsController extends GetxController{
   @override
   void onInit()async{
     user = await EraUser().getById(Get.arguments[0]);
+    print(user);
     listings = (await Database().searchListingsByUserId(Get.arguments[0]));
     agentListingsState.value = AgentListingsState.loaded;
     super.onInit();

@@ -138,32 +138,32 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                 child: Column(
                                   children: [
                                     _buildMenuCard('FIND PROPERTIES', () {
-                                      Get.toNamed("/findproperties");
+                                      Get.offAllNamed("/findproperties");
                                     },Get.currentRoute == '/findproperties'),
                                     _buildMenuCard('PROJECTS', () {
                                       changeIndex(1);
-                                      Get.toNamed("/project-main");
+                                      Get.offAllNamed("/project-main");
                                     },Get.currentRoute == '/project-main'),
                                     _buildMenuCard('FIND AGENTS', () {
                                       changeIndex(3);
-                                      Get.toNamed("/findagents");
+                                      Get.offAllNamed("/findagents");
                                     },Get.currentRoute == '/findagents'),
                                     _buildMenuCard('ABOUT US', () {
-                                      Get.toNamed("/aboutus");
+                                      Get.offAllNamed("/aboutus");
                                     },Get.currentRoute == '/aboutus'),
                                     user != null
                                         ? _buildMenuCard('MY DASHBOARD', () {
-                                            Get.toNamed("/agentDashBoard");
+                                            Get.offAllNamed("/agentDashBoard");
                                           },Get.currentRoute == '/agentDashBoard')
                                         : Container(),
                                     _buildMenuCard('SELL PROPERTY', () {
-                                      Get.toNamed("/sellProperty");
+                                      Get.offAllNamed("/sellProperty");
                                     },Get.currentRoute == '/sellProperty'),
                                     _buildMenuCard('MORTGAGE CALCULATOR', () {
-                                      Get.toNamed("/mortageCalculator");
+                                      Get.offAllNamed("/mortageCalculator");
                                     },Get.currentRoute == '/mortageCalculator'),
                                     _buildMenuCard('CONTACTUS', () {
-                                      Get.toNamed("/direct-contactus");
+                                      Get.offAllNamed("/direct-contactus");
                                     },Get.currentRoute == '/direct-contactus'),
                                     Divider(
                                       thickness: 1,
