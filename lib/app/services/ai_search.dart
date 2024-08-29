@@ -22,7 +22,7 @@ class AI{
     String subCategory = "sub_category (apartment, house, lot, office, retail, warehouse, commercial, residential, condominium, townhouse, others)";
     String amenities = "amenities (gym or landmarks nearby)";
     String status = "status (rent, sale) this is not required";
-    String prompt = "$t1(location, $type, $status, size, rooms, baths, balcony, $amenities, garage, $view, price, $subCategory)$t2";
+    String prompt = "$t1(location (if not complete please make it complete don not use space for example (makati, change it to makati,city), $type, $status, size, rooms, baths, balcony, $amenities, garage, $view, price, $subCategory)$t2";
 
     BaseController().showLoading();
     var toReturn;
@@ -36,7 +36,7 @@ class AI{
   }
   process(results)async{
     results = results.replaceAll('`', "");
-    results = results.split("WHERE")[1].replaceAll("'","").replaceAll(" ","").split("AND");
+    results = results.split("WHERE")[1].replaceAll("'","").replaceAll(" ","").replaceAll(',',' ').split("AND");
     print(results);
     return await getProperties(results);
   }
