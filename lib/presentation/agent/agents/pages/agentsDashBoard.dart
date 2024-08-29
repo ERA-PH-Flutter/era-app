@@ -311,8 +311,13 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                   return Center(child: CircularProgressIndicator());
                 }
                 List<Widget> children = [];
+                List randomIndex = [];
                 for (int i = 0; i < min(5, snapshot.data!.docs.length); i++) {
                   var random = Random().nextInt(snapshot.data!.docs.length);
+                  while(randomIndex.contains(random)){
+                    random = Random().nextInt(snapshot.data!.docs.length);
+                  }
+                  randomIndex.add(random);
                   var user =
                       EraUser.fromJSON(snapshot.data!.docs[random].data());
                   children.add(
@@ -462,10 +467,18 @@ Widget iconAgents(String assetPath, Function()? onTap, String name) {
     onTap: onTap,
     child: Column(
       children: [
-        CachedNetworkImage(
-          imageUrl: assetPath,
+        Container(
           height: 110.h,
           width: 110.w,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: CachedNetworkImageProvider(
+                assetPath,
+              )
+            ),
+            borderRadius: BorderRadius.circular(10.r)
+          ),
         ),
         ConstrainedBox(
           constraints: BoxConstraints(
