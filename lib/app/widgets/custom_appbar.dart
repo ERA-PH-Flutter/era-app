@@ -14,6 +14,7 @@ import '../../presentation/agent/authentication/controllers/authentication_bindi
 import '../../presentation/agent/authentication/pages/login_page.dart';
 import '../models/realestatelisting.dart';
 import '../services/firebase_auth.dart';
+import 'navigation/customenavigationbar.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppbar({
@@ -140,9 +141,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       Get.toNamed("/findproperties");
                                     },Get.currentRoute == '/findproperties'),
                                     _buildMenuCard('PROJECTS', () {
+                                      changeIndex(1);
                                       Get.toNamed("/project-main");
                                     },Get.currentRoute == '/project-main'),
                                     _buildMenuCard('FIND AGENTS', () {
+                                      changeIndex(3);
                                       Get.toNamed("/findagents");
                                     },Get.currentRoute == '/findagents'),
                                     _buildMenuCard('ABOUT US', () {
