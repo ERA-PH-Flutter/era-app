@@ -52,7 +52,7 @@ class BaseScaffold extends StatelessWidget {
         buttonBackgroundColor: Colors.white.withOpacity(0),
 
         // buttonBackgroundColor: AppColors.maroon,
-        index: selectedIndex.value,
+        index: ['/home','/project-main', '/searchresult','/findagents','/help'].contains(Get.currentRoute) ? ['/home','/project-main','/searchresult','/findagents','/help'].indexOf(Get.currentRoute) : 0,
         onTap: (index) {
           changeIndex(index);
           navBarItems[index].onTap?.call();

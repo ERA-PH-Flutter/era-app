@@ -138,30 +138,30 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                   children: [
                                     _buildMenuCard('FIND PROPERTIES', () {
                                       Get.toNamed("/findproperties");
-                                    }),
+                                    },Get.currentRoute == '/findproperties'),
                                     _buildMenuCard('PROJECTS', () {
                                       Get.toNamed("/project-main");
-                                    }),
+                                    },Get.currentRoute == '/project-main'),
                                     _buildMenuCard('FIND AGENTS', () {
                                       Get.toNamed("/findagents");
-                                    }),
+                                    },Get.currentRoute == '/findagents'),
                                     _buildMenuCard('ABOUT US', () {
                                       Get.toNamed("/aboutus");
-                                    }),
+                                    },Get.currentRoute == '/aboutus'),
                                     user != null
                                         ? _buildMenuCard('MY DASHBOARD', () {
                                             Get.toNamed("/agentDashBoard");
-                                          })
+                                          },Get.currentRoute == '/agentDashBoard')
                                         : Container(),
                                     _buildMenuCard('SELL PROPERTY', () {
                                       Get.toNamed("/sellProperty");
-                                    }),
+                                    },Get.currentRoute == '/sellProperty'),
                                     _buildMenuCard('MORTGAGE CALCULATOR', () {
                                       Get.toNamed("/mortageCalculator");
-                                    }),
+                                    },Get.currentRoute == '/mortageCalculator'),
                                     _buildMenuCard('CONTACTUS', () {
                                       Get.toNamed("/direct-contactus");
-                                    }),
+                                    },Get.currentRoute == '/direct-contactus'),
                                     Divider(
                                       thickness: 1,
                                       color: Colors.grey,
@@ -181,7 +181,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                           Get.to(LoginPage(),
                                               binding: LoginPageBinding());
                                         }
-                                      });
+                                      },Get.currentRoute == '/loginpage');
                                     })
                                   ],
                                 ),
@@ -277,11 +277,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  _buildMenuCard(text, callback) {
+  _buildMenuCard(text, callback,isActive) {
     return GestureDetector(
       onTap: callback,
       child: Card(
-        color: AppColors.white,
+        color: isActive ? AppColors.kRedColor : AppColors.white,
         elevation: 4,
         child: SizedBox(
           // width: Get.width,
@@ -296,7 +296,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                       textOverflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       text: text,
-                      color: AppColors.black,
+                      color: isActive ? AppColors.white : AppColors.black,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                     ),

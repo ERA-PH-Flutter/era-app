@@ -274,8 +274,7 @@ class Home extends GetView<HomeController> {
                             await AI(query: controller.aiSearchController.text)
                                 .search();
                       }
-                      Get.to(() => SearchResult(),
-                          binding: SearchResultBinding(),
+                      Get.toNamed("/searchresult",
                           arguments: [
                             data,
                             controller.aiSearchController.text
@@ -317,8 +316,7 @@ class Home extends GetView<HomeController> {
                           var data = listings.map((listing) {
                             return listing.data();
                           }).toList();
-                          Get.to(() => SearchResult(),
-                              binding: SearchResultBinding(),
+                          Get.toNamed("/searchresult",
                               arguments: [data, 'All Condominium']);
                         }),
                         SizedBox(width: 15.w),
@@ -332,8 +330,7 @@ class Home extends GetView<HomeController> {
                           var data = listings.map((listing) {
                             return listing.data();
                           }).toList();
-                          Get.to(() => SearchResult(),
-                              binding: SearchResultBinding(),
+                          Get.toNamed("/searchresult",
                               arguments: [data, 'All Condotel']);
                         }),
                         SizedBox(width: 15.w),
@@ -347,8 +344,7 @@ class Home extends GetView<HomeController> {
                           var data = listings.map((listing) {
                             return listing.data();
                           }).toList();
-                          Get.to(() => SearchResult(),
-                              binding: SearchResultBinding(),
+                          Get.toNamed("/searchresult",
                               arguments: [data, 'All Commercial']);
                         }),
                         SizedBox(width: 15.w),
@@ -362,8 +358,7 @@ class Home extends GetView<HomeController> {
                           var data = listings.map((listing) {
                             return listing.data();
                           }).toList();
-                          Get.to(() => SearchResult(),
-                              binding: SearchResultBinding(),
+                          Get.toNamed("/searchresult",
                               arguments: [data, 'All Apartments']);
                         }),
                         SizedBox(width: 15.w),
@@ -377,8 +372,7 @@ class Home extends GetView<HomeController> {
                           var data = listings.map((listing) {
                             return listing.data();
                           }).toList();
-                          Get.to(() => SearchResult(),
-                              binding: SearchResultBinding(),
+                          Get.toNamed("/searchresult",
                               arguments: [data, 'All Houses']);
                         }),
                         SizedBox(width: 15.w),
@@ -392,8 +386,7 @@ class Home extends GetView<HomeController> {
                           var data = listings.map((listing) {
                             return listing.data();
                           }).toList();
-                          Get.to(() => SearchResult(),
-                              binding: SearchResultBinding(),
+                          Get.toNamed("/searchresult",
                               arguments: [data, 'All Lands']);
                         }),
                         SizedBox(width: 15.w),
@@ -407,8 +400,7 @@ class Home extends GetView<HomeController> {
                           var data = listings.map((listing) {
                             return listing.data();
                           }).toList();
-                          Get.to(() => SearchResult(),
-                              binding: SearchResultBinding(),
+                          Get.toNamed("/searchresult",
                               arguments: [data, 'All Water Fronts']);
                         }),
                       ],
