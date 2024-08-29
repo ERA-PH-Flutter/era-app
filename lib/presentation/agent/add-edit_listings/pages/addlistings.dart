@@ -250,7 +250,6 @@ class AddListings extends GetView<AddListingsController> {
             await Listing(
               name: controller.propertyNameController.text,
               price: controller.propertyCostController.text.toDouble(),
-              photos: controller.images,
               ppsqm: controller.pricePerSqmController.text.toDouble(),
               beds: controller.bedsController.text.toInt(),
               baths: controller.bathsController.text.toInt(),
@@ -263,7 +262,7 @@ class AddListings extends GetView<AddListingsController> {
               subCategory:
                   controller.selectedPropertySubCategory.value.toString(),
               description: controller.descController.text,
-            ).addListing();
+            ).addListing(controller.images);
           } catch (e, ex) {
             print(ex);
           }

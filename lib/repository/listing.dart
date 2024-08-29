@@ -97,7 +97,7 @@ class Listing {
       "area": area,
       "status": status,
       "view": view,
-      "location": location,
+      "location": location?.toLowerCase(),
       "type": type,
       "sub_category": subCategory,
       "leads": leads,
@@ -117,23 +117,24 @@ class Listing {
         (await db.collection('listings').doc(id).get()).data() ?? {});
   }
 
-  addListing() async {
+  addListing(images) async {
     /*
     landmarks
     amenities
     balcony,
     */
-    var images = [];
-    for (int i = 0; i < photos!.length; i++) {
-      images.add(await CloudStorage().uploadImage(image: photos![i]));
+    photos = [];
+    for (int i = 0; i < images!.length; i++) {
+      photos!.add(await CloudStorage().uploadImage(image: images![i]));
     }
+    print(photos);
     DocumentReference<Map<String, dynamic>> doc =
         db.collection('listings').doc();
     await doc.set({
       "id": doc.id,
       "name": name,
       "price": price,
-      "photos": images,
+      "photos": photos,
       "ppsqm": ppsqm,
       "floor_area": floorArea,
       "beds": beds,

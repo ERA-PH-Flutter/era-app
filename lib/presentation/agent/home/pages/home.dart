@@ -192,6 +192,7 @@ class Home extends GetView<HomeController> {
                               Transform.scale(
                                 scale: 1.9,
                                 child: Radio(
+                                    toggleable:true,
                                     fillColor: WidgetStateProperty.all(
                                         AppColors.white.withOpacity(0.6)),
                                     value: 1,

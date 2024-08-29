@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../controllers/authentication_controller.dart';
@@ -115,6 +116,10 @@ class CreateAccount extends GetView<LoginPageController> {
                           'Gender'),
                       SizedBox(height: 30.h),
                       IntlPhoneField(
+                        pickerDialogStyle: PickerDialogStyle(
+                            backgroundColor: Colors.white,
+                            width: Get.width
+                        ),
                         focusNode: FocusNode(),
                         style: TextStyle(
                           color: AppColors.black,

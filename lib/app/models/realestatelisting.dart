@@ -77,7 +77,7 @@ class RealEstateListing {
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       price: 100000,
-      listingBy: 'Era Philippines',
+      listingBy: 'ERA Philippines',
       user: EraUser(
         id: '1',
         firstname: 'John',

@@ -120,24 +120,31 @@ class AddListingsController extends GetxController with BaseController {
   }
   onInit()async{
     super.onInit();
-
+    print(Get.currentRoute == '/editListings');
     if(Get.currentRoute == '/editListings'){
+      print(id);
       id = Get.arguments[0];
       await assignData();
     }
   }
+  @override
+  onClose(){
+    Get.delete<AddListingsController>();
+    super.onClose;
+  }
   assignData()async{
+
     Listing listing = await Listing().getListing(Get.arguments[0]);
     propertyNameController.text = listing.name ?? "";
-    propertyCostController.text = listing.price == null ? listing.price.toString() : "0";
+    propertyCostController.text = listing.price == null ?  "0" : listing.price.toString();
     for(int i = 0; i <  listing.photos!.length;i++){
       images.add( await urlToFile(listing.photos![i]));
     }
-    pricePerSqmController.text = listing.ppsqm == null ? listing.ppsqm.toString() : "0";
-    bedsController.text = listing.beds == null ? listing.beds.toString() : "0";
-    bathsController.text = listing.baths == null ? listing.baths.toString() : "0";
-    carsController.text = listing.cars == null ? listing.cars.toString() : "0";
-    areaController.text = listing.area == null ? listing.area.toString() : "0";
+    pricePerSqmController.text = listing.ppsqm.toString();
+    bedsController.text =listing.beds.toString();
+    bathsController.text = listing.baths.toString();
+    carsController.text =listing.cars.toString();
+    areaController.text = listing.area.toString();
     selectedOfferT.value = offerT.contains(listing.status) ? listing.status : null;
     locationController.text = listing.location ?? "";
     selectedPropertyT.value = propertyT.contains(listing.type) ? listing.type : null;

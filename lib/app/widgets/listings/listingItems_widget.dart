@@ -110,6 +110,7 @@ class ListingItemss extends StatelessWidget {
                           );
                         }),
                       ),
+
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: EraTheme.paddingWidth, vertical: 5.h),
@@ -304,6 +305,12 @@ class ListingItemss extends StatelessWidget {
                             ),
                           );
                         }),
+                      ),
+                      Center(
+                        child: EraText(
+                            text: 'Tap to view',
+                            color: Colors.black
+                        ),
                       ),
                       SizedBox(height: 15.h),
                       EraText(

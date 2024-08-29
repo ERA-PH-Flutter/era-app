@@ -18,7 +18,7 @@ extension NumberParsing on String {
     try{
       return double.parse(this);
     }catch(e){
-      return 0;
+      return 0.0;
     }
 
   }

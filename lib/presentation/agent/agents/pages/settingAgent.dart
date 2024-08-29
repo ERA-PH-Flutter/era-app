@@ -169,14 +169,12 @@ class SettingsPage extends GetView<AgentsController> {
                             },
                             child: Container(
                               height: 40.h,
-                              width: 55.w,
-                              child: Center(
-                                child: EraText(
-                                  text: 'Cancel',
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.blue,
-                                ),
+                              alignment: Alignment.centerRight,
+                              child: EraText(
+                                text: 'Cancel',
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.blue,
                               ),
                             ),
                           )

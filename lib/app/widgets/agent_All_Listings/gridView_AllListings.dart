@@ -57,7 +57,7 @@ class GridviewAlllistings extends StatelessWidget {
           }, 'Delete', AppColors.kRedColor),
           buttonSold: Button.button3(
             (Get.width - 65.w) / 2,
-            40.h,
+            30.h,
             () {},
             'Mark as Sold',
             AppColors.blue,
