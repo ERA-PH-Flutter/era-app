@@ -164,6 +164,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                 child: Column(
                                   children: [
                                     _buildMenuCard('FIND PROPERTIES', () {
+                                      selectedIndex.value = 0;
                                       Get.offAllNamed("/findproperties");
                                     }, Get.currentRoute == '/findproperties'),
                                     _buildMenuCard('PROJECTS', () {
@@ -175,6 +176,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       Get.offAllNamed("/findagents");
                                     }, Get.currentRoute == '/findagents'),
                                     _buildMenuCard('ABOUT US', () {
+                                      selectedIndex.value = 0;
                                       Get.offAllNamed("/aboutus");
                                     }, Get.currentRoute == '/aboutus'),
                                     user != null
@@ -186,14 +188,17 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                                 '/agentDashBoard')
                                         : Container(),
                                     _buildMenuCard('SELL PROPERTY', () {
+                                      selectedIndex.value = 0;
                                       Get.offAllNamed("/sellProperty");
                                     }, Get.currentRoute == '/sellProperty'),
                                     _buildMenuCard('MORTGAGE CALCULATOR', () {
+                                      selectedIndex.value = 0;
                                       Get.offAllNamed("/mortageCalculator");
                                     },
                                         Get.currentRoute ==
                                             '/mortageCalculator'),
                                     _buildMenuCard('CONTACTUS', () {
+                                      selectedIndex.value = 0;
                                       Get.offAllNamed("/direct-contactus");
                                     }, Get.currentRoute == '/direct-contactus'),
                                     Divider(
@@ -206,6 +211,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                           user == null ? "LOGIN" : "LOGOUT",
                                           () async {
                                         if (user == null) {
+                                          selectedIndex.value = 0;
                                           Get.toNamed("/loginpage");
                                         } else {
                                           BaseController().showLoading();
