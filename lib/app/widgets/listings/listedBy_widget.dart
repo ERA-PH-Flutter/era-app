@@ -47,7 +47,7 @@ class ListedBy extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         EraText(
-          text: text ?? 'Listed By',
+          text: text ?? 'Listed By:',
           fontWeight: FontWeight.bold,
           fontSize: EraTheme.paragraph,
           color: AppColors.black,

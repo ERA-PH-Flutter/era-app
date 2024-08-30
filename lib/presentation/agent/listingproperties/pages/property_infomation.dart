@@ -297,7 +297,7 @@ class PropertyInformation extends GetView<ListingController> {
                     image: user1!.image ?? AppStrings.noUserImageWhite,
                     agentFirstName: user1.firstname ?? "",
                     agentType: user1.role ?? "Agent",
-                    agentLastName: user1.lastname!,
+                    agentLastName: user1.lastname ?? "",
                     whatsapp: user1.whatsApp,
                     whatsappIcon: AppEraAssets.whatsappIcon,
                     email: user1.email,
@@ -325,13 +325,13 @@ class PropertyInformation extends GetView<ListingController> {
           */
 
           SizedBox(height: 20.h),
-          EraText(
-            text: 'SIMILAR LISTINGS',
-            color: AppColors.kRedColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-          ),
-          SizedBox(height: 10.h),
+          // EraText(
+          //   text: 'SIMILAR LISTINGS',
+          //   color: AppColors.kRedColor,
+          //   fontSize: 20.sp,
+          //   fontWeight: FontWeight.bold,
+          // ),
+          // SizedBox(height: 10.h),
 
           //ListingProperties(listingModels: RealEstateListing.listingsModels),
           Button(

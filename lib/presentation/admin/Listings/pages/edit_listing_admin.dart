@@ -41,8 +41,12 @@ class EditPropertyAdmin extends GetView<ListingsAdminController> {
             SizedBox(
               height: 10.h,
             ),
-            AddAgent.buildTextFormField2('Property Name *', controller.fNameA,
-                'Property Cost *', controller.lNameA, TextInputType.text),
+            AddAgent.buildTextFormField2(
+              'Property Name *',
+              controller.fNameA,
+              'Property Cost *',
+              controller.lNameA,
+            ),
             SizedBox(
               height: 10.h,
             ),
@@ -58,8 +62,12 @@ class EditPropertyAdmin extends GetView<ListingsAdminController> {
             SizedBox(
               height: 10.h,
             ),
-            AddAgent.buildTextFormField2('Location *', controller.fNameA,
-                'Property Type *', controller.lNameA, TextInputType.name),
+            AddAgent.buildTextFormField2(
+              'Location *',
+              controller.fNameA,
+              'Property Type *',
+              controller.lNameA,
+            ),
             SizedBox(
               height: 10.h,
             ),

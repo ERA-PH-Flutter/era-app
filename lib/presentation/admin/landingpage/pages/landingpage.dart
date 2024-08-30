@@ -17,19 +17,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class LandingPage extends GetView<LandingPageController> {
-    LandingPage({super.key});
+  LandingPage({super.key});
 
-  final List<Widget> _screens =   [
+  final List<Widget> _screens = [
+    AddPropertyAdmin(),
     ApprovedAgents(),
-    PropertylistAdmin(),
-    AddProjectAdmin(),
     AddAgent(),
     Roster(),
     AgentProfileAdmin(),
-    AddAgent(),
+    PropertylistAdmin(),
     AddPropertyAdmin(),
     EditPropertyAdmin(),
-    AddAgent(),
+    AddProjectAdmin(),
   ];
 
   @override
@@ -165,32 +164,62 @@ class LandingPage extends GetView<LandingPageController> {
   Widget _buildSidebarMenu() => ListView(
         children: [
           _buildExpansionTile(
+            text: "DASHBOARD",
+            image: AppEraAssets.dashboard,
+            children: [
+              _buildMenuItem('HOME', 0),
+              _buildMenuItem('PROPERTIES & AGENTS', 1),
+              _buildMenuItem('REVIEWS', 2),
+            ],
+          ),
+          _buildExpansionTile(
             text: "AGENTS",
             image: AppEraAssets.agentDash,
             children: [
-              _buildMenuItem('ADD AGENT', 0),
-              _buildMenuItem('ROSTER', 1),
-              _buildMenuItem('AGENT PROFILE', 2),
+              _buildMenuItem('APPROVAL NEW AGENT', 3),
+              _buildMenuItem('ADD AGENT', 4),
+              _buildMenuItem('ROSTER', 5),
+              _buildMenuItem('AGENT PROFILE', 6),
             ],
           ),
           _buildExpansionTile(
             text: "LISTINGS",
             image: AppEraAssets.listingDash,
             children: [
-              _buildMenuItem('PROPERTY LIST', 3),
-              _buildMenuItem('ADD PROPERTY', 4),
-              _buildMenuItem('EDIT PROPERTY', 5),
-              _buildMenuItem('PROPERTY DETAILS', 6),
+              _buildMenuItem('PROPERTY LIST', 7),
+              _buildMenuItem('ADD PROPERTY', 8),
+              _buildMenuItem('EDIT PROPERTY', 9),
+              _buildMenuItem('PROPERTY DETAILS', 10),
               Divider(
                   height: 20,
                   thickness: 1,
                   indent: 20,
                   endIndent: 20,
                   color: AppColors.blue),
-              _buildMenuItem('PROJECT LIST', 7),
-              _buildMenuItem('ADD PROJECT', 8),
-              _buildMenuItem('EDIT PROJECT', 9),
-              _buildMenuItem('PROJECT DETAILS', 10),
+              _buildMenuItem('PROJECT LIST', 11),
+              _buildMenuItem('ADD PROJECT', 12),
+              _buildMenuItem('EDIT PROJECT', 13),
+              _buildMenuItem('PROJECT DETAILS', 14),
+            ],
+          ),
+          _buildExpansionTile(
+            text: "MESSAGING",
+            image: AppEraAssets.messagingDash,
+            children: [
+              _buildMenuItem('APPROVAL NEW AGENT', 15),
+              _buildMenuItem('ADD AGENT', 16),
+              _buildMenuItem('ROSTER', 17),
+              _buildMenuItem('AGENT PROFILE', 18),
+            ],
+          ),
+          _buildExpansionTile(
+            text: "SETTINGS",
+            image: AppEraAssets.settingDash,
+            children: [
+              _buildMenuItem('APPROVAL NEW AGENT', 19),
+              _buildMenuItem('ADD AGENT', 20),
+              _buildMenuItem('ROSTER', 21),
+              _buildMenuItem('AGENT PROFILE', 22),
             ],
           ),
         ],

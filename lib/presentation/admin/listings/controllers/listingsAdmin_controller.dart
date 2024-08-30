@@ -19,4 +19,4 @@ class ListingsAdminController extends GetxController {
   TextEditingController carouselTitleC = TextEditingController();
   TextEditingController carouselFooterC = TextEditingController();
   TextEditingController allDescriptionC = TextEditingController();
-}
+ }

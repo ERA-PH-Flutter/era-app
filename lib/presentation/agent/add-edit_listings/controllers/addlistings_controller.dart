@@ -13,17 +13,15 @@ import '../../../../app/services/local_storage.dart';
 import '../../../../repository/listing.dart';
 import 'package:http/http.dart' as http;
 
-enum AddListingsState {
-  loading,
-  loaded,
-  error,
-}
+enum AddListingsState { loading, loaded, location_pick }
 
-enum AddEditListingsState { loading, loaded,location_pick}
+enum AddEditListingsState { loading, loaded, location_pick }
 
 class AddListingsController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
   var addEditListingsState = AddEditListingsState.loading.obs;
+
+  var addListingsState = AddListingsState.loading.obs;
   var id = "";
   RxSet<Marker> marker = {Marker(markerId: MarkerId("aaaa"))}.obs;
   var address = "".obs;
@@ -35,21 +33,7 @@ class AddListingsController extends GetxController with BaseController {
   var selectedPropertySubCategory = RxnString();
   var selectedView = RxnString();
 
-  var selectedLocation = Rx<LatLng?>(null);
-  var selectedPlace = Rx<String?>(null);
-
-  var pinPosition = Rx<LatLng?>(null);
-
-  void updateLocation(LatLng location) {
-    selectedLocation.value = location;
-    pinPosition.value = location; // Update the pin position
-  }
-
-  void setPinLocation(LatLng location) {
-    pinPosition.value = location;
-  }
-
-  generateMarker(position)async{
+  generateMarker(position) async {
     marker?.value = {
       Marker(
           anchor: const Offset(0.5, 0.5),
@@ -58,11 +42,6 @@ class AddListingsController extends GetxController with BaseController {
           position: position,
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed))
     };
-  }
-
-  // Function to update the selected place from dropdown
-  void updatePlace(String place) {
-    selectedPlace.value = place;
   }
 
   var viewL = [
@@ -186,5 +165,6 @@ class AddListingsController extends GetxController with BaseController {
     descController.text = listing.description ?? "";
     addressController.text = listing.address ?? "";
     addEditListingsState.value = AddEditListingsState.loaded;
+    addListingsState.value = AddListingsState.loaded;
   }
 }

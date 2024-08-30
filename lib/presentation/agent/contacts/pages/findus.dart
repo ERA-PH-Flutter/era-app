@@ -22,7 +22,7 @@ class FindUs extends GetView<ContactusController> {
         children: [
           EraText(
             text: title ??
-                'Visit Era Philippines to learn more about this project.',
+                'Visit ERA Philippines to learn more about this project.',
             fontSize: 22.sp,
             fontWeight: FontWeight.bold,
             color: AppColors.kRedColor,
@@ -49,7 +49,7 @@ class FindUs extends GetView<ContactusController> {
             ],
           ),
           SizedBox(
-            height: 20.h,
+            height: 10.h,
           ),
           GestureDetector(
             onTap: () async {
@@ -75,7 +75,7 @@ class FindUs extends GetView<ContactusController> {
             ),
           ),
           SizedBox(
-            height: 20.h,
+            height: 10.h,
           ),
           Row(
             children: [

@@ -207,46 +207,51 @@ class EditListing extends GetView<AddListingsController> {
       ],
     );
   }
-  _locationPick(){
+
+  _locationPick() {
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         controller.addEditListingsState.value = AddEditListingsState.loaded;
         return Future.value(false);
       },
-      child: Obx(()=>Container(
+      child: Obx(() => Container(
           width: Get.width,
           height: Get.height - 212.h,
           child: Stack(
             children: [
-
               Positioned.fill(
                 child: GoogleMap(
                   initialCameraPosition: CameraPosition(
-                      target: LatLng(14.599512, 120.984222),
-                      zoom: 12
-                  ),
+                      target: LatLng(14.599512, 120.984222), zoom: 12),
                   markers: controller.marker.value,
-                  onTap: (position)async{
+                  onTap: (position) async {
                     controller.generateMarker(position);
                     controller.latLng = position;
-                    controller.address.value = (await GeoCode(apiKey: "65d99e660931a611004109ogd35593a",lat: position.latitude,lng: position.longitude).reverse()).displayName!;
-                    controller.addressController.text = controller.address.value;
+                    controller.address.value = (await GeoCode(
+                                apiKey: "65d99e660931a611004109ogd35593a",
+                                lat: position.latitude,
+                                lng: position.longitude)
+                            .reverse())
+                        .displayName!;
+                    controller.addressController.text =
+                        controller.address.value;
                     //search for location
                   },
-
                 ),
               ),
               Positioned(
                 bottom: 75.h,
                 child: Container(
                   width: Get.width - EraTheme.paddingWidth * 2,
-                  padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthSmall),
-                  margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: EraTheme.paddingWidthSmall),
+                  margin:
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                   color: Colors.white,
-                  child: Obx(()=>EraText(
-                    text: "Address: ${controller.address.value}",
-                    color: Colors.black,
-                  )),
+                  child: Obx(() => EraText(
+                        text: "Address: ${controller.address.value}",
+                        color: Colors.black,
+                      )),
                 ),
               ),
 
@@ -256,8 +261,9 @@ class EditListing extends GetView<AddListingsController> {
                   width: Get.width,
                   height: 35.h,
                   child: Button(
-                    onTap: (){
-                      controller.addEditListingsState.value = AddEditListingsState.loaded;
+                    onTap: () {
+                      controller.addEditListingsState.value =
+                          AddEditListingsState.loaded;
                     },
                     bgColor: AppColors.kRedColor,
                     text: "Select Location",
@@ -266,10 +272,10 @@ class EditListing extends GetView<AddListingsController> {
               ),
               //widget that display location text
             ],
-          )
-      )),
+          ))),
     );
   }
+
   Widget paddintText2() {
     return Column(
       children: [
@@ -325,8 +331,9 @@ class EditListing extends GetView<AddListingsController> {
             margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
             bgColor: Colors.red,
             text: 'Pick Address',
-            onTap: (){
-              controller.addEditListingsState.value = AddEditListingsState.location_pick;
+            onTap: () {
+              controller.addEditListingsState.value =
+                  AddEditListingsState.location_pick;
             },
           ),
         ),
@@ -405,27 +412,30 @@ class EditListing extends GetView<AddListingsController> {
           BaseController().showLoading();
           try {
             await Listing(
-              id: controller.id,
-              name: controller.propertyNameController.text,
-              price: controller.propertyCostController.text.toDouble(),
-              //photos: controller.images,
-              ppsqm: controller.pricePerSqmController.text.toDouble(),
-              beds: controller.bedsController.text.toInt(),
-              baths: controller.bathsController.text.toInt(),
-              cars: controller.carsController.text.toInt(),
-              area: controller.areaController.text.toInt(),
-              status: controller.selectedOfferT.value.toString(),
-              //  view: controller.selectedView.value.toString(),
-              location: controller.locationController.text,
-              type: controller.selectedPropertyT.value.toString(),
-              subCategory:
-                  controller.selectedPropertySubCategory.value.toString(),
-              description: controller.descController.text,
-              view: controller.selectedView.value.toString(),
-              address: controller.addressController.text,
-              latLng: [controller.latLng?.latitude,controller.latLng?.longitude]
-              //latLng
-            ).updateListing();
+                id: controller.id,
+                name: controller.propertyNameController.text,
+                price: controller.propertyCostController.text.toDouble(),
+                //photos: controller.images,
+                ppsqm: controller.pricePerSqmController.text.toDouble(),
+                beds: controller.bedsController.text.toInt(),
+                baths: controller.bathsController.text.toInt(),
+                cars: controller.carsController.text.toInt(),
+                area: controller.areaController.text.toInt(),
+                status: controller.selectedOfferT.value.toString(),
+                //  view: controller.selectedView.value.toString(),
+                location: controller.locationController.text,
+                type: controller.selectedPropertyT.value.toString(),
+                subCategory:
+                    controller.selectedPropertySubCategory.value.toString(),
+                description: controller.descController.text,
+                view: controller.selectedView.value.toString(),
+                address: controller.addressController.text,
+                latLng: [
+                  controller.latLng?.latitude,
+                  controller.latLng?.longitude
+                ]
+                //latLng
+                ).updateListing();
             BaseController().hideLoading();
             controller.showSuccessDialog(
               title: "Success",

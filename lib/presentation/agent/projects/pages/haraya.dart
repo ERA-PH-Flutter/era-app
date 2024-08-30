@@ -444,7 +444,7 @@ class HarayaProject extends GetView<ProjectsController> {
         fontWeight: fontWeight,
         color: color,
         maxLines: 50,
-      ),
+       ),
     );
   }
 

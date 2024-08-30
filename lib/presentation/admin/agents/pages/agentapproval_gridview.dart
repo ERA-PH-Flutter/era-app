@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -21,137 +22,255 @@ class AgentapprovalGridview extends GetView<AgentAdminController> {
   Widget build(BuildContext context) {
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.only(
-        top: 90.h,
-        left: 10.w,
-        right: 10.w,
-      ),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisExtent: 250.h, crossAxisCount: 3, crossAxisSpacing: 20.w),
+          mainAxisExtent: 370.h, crossAxisCount: 3, crossAxisSpacing: 10.w),
       itemCount: listing.length,
       itemBuilder: (context, i) => Column(
         children: [
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListTile(
-                  leading: listing[i].user.image != null
-                      ? CircleAvatar(
-                          backgroundImage: NetworkImage(listing[i].user.image!),
-                        )
-                      : CircleAvatar(
-                          child: Icon(Icons.person),
-                        ),
-                  title: EraText(
-                    text:
-                        "${listing[i].user.firstname!} ${listing[i].user.lastname!}",
-                    color: AppColors.black,
-                    fontSize: 16.sp,
+          Container(
+            height: 360.h,
+            child: Card(
+              color: AppColors.white,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: AppColors.hint, width: 2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListTile(
+                    leading: listing[i].user.image != null
+                        ? CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(listing[i].user.image!),
+                          )
+                        : CircleAvatar(
+                            child: Icon(Icons.person),
+                          ),
+                    title: EraText(
+                      text: 'Agent Name',
+                      color: AppColors.hint,
+                      fontSize: 12.sp,
+                    ),
+                    subtitle: EraText(
+                      text:
+                          "${listing[i].user.firstname!} ${listing[i].user.lastname!}",
+                      color: AppColors.black,
+                      fontSize: 20.sp,
+                    ),
+                    trailing: EraText(
+                      text: 'AGENT ID: ${listing[i].user.id}',
+                      color: AppColors.black,
+                      fontSize: 20.sp,
+                    ),
                   ),
-                  subtitle: EraText(
-                    text: "${listing[i].user.email}",
-                    color: AppColors.black,
-                    fontSize: 14.sp,
-                  ),
-                  trailing: Wrap(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.check),
-                        onPressed: () {
-                          Get.dialog(AlertDialog(
-                            backgroundColor: AppColors.white,
-                            title: EraText(
-                              text: 'APPROVE AGENT',
-                              color: AppColors.blue,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            content: Container(
-                              height: 300.h,
-                              child: Column(
-                                children: [
-                                  EraText(
-                                    text:
-                                        'Before you approve this agent, please choose what type of agent you want to this user to be.',
-                                    color: AppColors.black,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  SharedWidgets.dropDown(
-                                      controller.selectedAgentType,
-                                      controller.agentType,
-                                      (value) => controller
-                                          .selectedAgentType.value = value!,
-                                      'Agent Type',
-                                      'Agent Type'),
-                                ],
-                              ),
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                child: Text('No'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                child: Text('Yes'),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              EraText(
+                                  text: 'WHATSAPP',
+                                  color: AppColors.hint,
+                                  fontSize: 14.sp),
+                              EraText(
+                                text: '${listing[i].user.whatsApp}',
+                                color: AppColors.black,
+                                fontSize: 20.sp,
                               ),
                             ],
-                          ));
-                        },
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                EraText(
+                                    text: 'E-MAIL',
+                                    color: AppColors.hint,
+                                    fontSize: 14.sp),
+                                EraText(
+                                  text: '${listing[i].user.email}',
+                                  color: AppColors.black,
+                                  fontSize: 20.sp,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]),
+                  ),
+                  SizedBox(height: 10.h),
+                  _buildRow(
+                    text: 'Status:',
+                    listing: '${listing[i].user.role}',
+                  ),
+                  _buildRow(
+                    text: 'Recruiter:',
+                    listing: 'N/A:',
+                  ),
+                  _buildRow(
+                    text: 'Years of Experience:',
+                    listing: '6 YEARS',
+                  ),
+                  _buildRow(
+                    text: 'Specialization:',
+                    listing: 'RENTAL',
+                  ),
+                  SizedBox(height: 10.h),
+                  Divider(
+                    color: AppColors.hint,
+                    thickness: 1,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: 200.w,
+                        height: 40.h,
+                        child: ElevatedButton.icon(
+                          style: ButtonStyle(
+                            side: WidgetStateProperty.all(BorderSide(
+                              color: AppColors.hint,
+                              width: 1,
+                            )),
+                            shape: WidgetStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            backgroundColor:
+                                WidgetStateProperty.all(AppColors.white),
+                          ),
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.cancel,
+                            color: AppColors.black,
+                          ),
+                          label: EraText(
+                            text: 'Decline',
+                            color: AppColors.black,
+                            fontSize: 16.sp,
+                          ),
+                        ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.cancel),
-                        onPressed: () {},
+                      SizedBox(
+                        width: 200.w,
+                        height: 40.h,
+                        child: ElevatedButton.icon(
+                          style: ButtonStyle(
+                            shape: WidgetStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            backgroundColor:
+                                WidgetStateProperty.all(AppColors.blue),
+                          ),
+                          onPressed: () {
+                            Get.dialog(AlertDialog(
+                              backgroundColor: AppColors.white,
+                              title: EraText(
+                                text: 'APPROVE AGENT',
+                                color: AppColors.blue,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              content: Container(
+                                height: 200.h,
+                                child: Column(
+                                  children: [
+                                    EraText(
+                                      text:
+                                          'Before you approve this agent, please choose what type of agent you want to this user to be.',
+                                      color: AppColors.black,
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    SizedBox(height: 10.h),
+                                    SharedWidgets.dropDown(
+                                        controller.selectedAgentType,
+                                        controller.agentType,
+                                        (value) => controller
+                                            .selectedAgentType.value = value!,
+                                        'Agent Type',
+                                        'Agent Type'),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: EraText(
+                                    text: 'NO',
+                                    color: AppColors.black,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20.w,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: EraText(
+                                    text: 'YES',
+                                    color: AppColors.black,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ));
+                          },
+                          icon: Icon(
+                            Icons.check,
+                            color: AppColors.white,
+                          ),
+                          label: EraText(
+                            text: 'Approved',
+                            color: AppColors.white,
+                            fontSize: 16.sp,
+                          ),
+                        ),
                       ),
                     ],
-                  ),
-                  onTap: () {},
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  child: EraText(
-                    text: 'STATUS: ${listing[i].user.role}',
-                    color: AppColors.black,
-                    fontSize: 16.sp,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  child: EraText(
-                    text: 'RECRUITER: N/A',
-                    color: AppColors.black,
-                    fontSize: 16.sp,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  child: EraText(
-                    text: 'YEARS OF EXPERIENCE: 6 YEARS',
-                    color: AppColors.black,
-                    fontSize: 16.sp,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  child: EraText(
-                    text: 'SPECIALIZATION: RENTAL',
-                    color: AppColors.black,
-                    fontSize: 16.sp,
-                  ),
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildRow({
+    required String text,
+    required String listing,
+  }) {
+    return Row(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 15.w),
+          child: EraText(
+            text: text,
+            color: AppColors.hint,
+            fontSize: 20.sp,
+          ),
+        ),
+        SizedBox(width: 5.w),
+        EraText(
+          text: listing,
+          color: AppColors.black,
+          fontSize: 20.sp,
+        ),
+      ],
     );
   }
 }

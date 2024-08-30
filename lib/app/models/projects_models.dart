@@ -123,7 +123,7 @@ class ProjectsModels1 {
       text3:
           'Take a virtual tour through each carefully rendered unit and experience Haraya Residences for yourself.',
       image1: 'assets/images/virtual_image.png',
-      text4: 'A New Era Requires New Thinking',
+      text4: 'A New ERA Requires New Thinking',
       image2: 'assets/images/image2.png',
       text5:
           'It demands a new understanding of the home: how we live, interact, unwind, and be productive. Bringing together the finest architects, designers, and artisans to deliver this unique vision, Haraya Residences offers an uncompromising new perspective on cosmopolitan living.\n\nHaraya Residences is a vertical gated village located at the heart of Bridgetowne Estate, featuring a collection of 558 beautifully appointed residences in the South Tower and more forthcoming in the North Tower.\n\nTake in the soaring views! You can lounge in the lofty Italian-inspired loggias that redefine the experience of home living and rediscover a sense of freedom and vibrancy among the lush private landscapes and world-class amenities.',

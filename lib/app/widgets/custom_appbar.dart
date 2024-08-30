@@ -42,20 +42,20 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Row(
                 children: [
-                  // if (Platform.isIOS)
                   [
-                    '/haraya',
-                    '/aurelia',
-                    '/laya',
-                    '/agentMyListing',
-                    '/AgentListings',
-                    '/propertyInfo',
-                    '/editListings',
-                    '/addListings',
-                    '/fav',
-                    '/soldP',
-                    '/archived',
-                  ].contains(Get.currentRoute)
+                            '/haraya',
+                            '/aurelia',
+                            '/laya',
+                            '/agentMyListing',
+                            '/AgentListings',
+                            '/propertyInfo',
+                            '/editListings',
+                            '/addListings',
+                            '/fav',
+                            '/soldP',
+                            '/archived',
+                          ].contains(Get.currentRoute) &&
+                          (Platform.isIOS)
                       ? IconButton(
                           onPressed: () {
                             Get.back();

@@ -14,6 +14,7 @@ class AgentListingsController extends GetxController{
   var agentListingsState = AgentListingsState.loading.obs;
   var user;
   List<Listing> listings = [];
+  var data = [].obs;
   @override
   void onInit()async{
     user = await EraUser().getById(Get.arguments[0]);

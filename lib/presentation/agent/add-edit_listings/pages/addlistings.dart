@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/models/geocode.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
@@ -24,8 +25,7 @@ class AddListings extends GetView<AddListingsController> {
     return BaseScaffold(
         body: SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: SafeArea(
-          child: Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           textBuild('CREATE LISTING', 25.sp, FontWeight.w600, AppColors.blue),
@@ -142,8 +142,208 @@ class AddListings extends GetView<AddListingsController> {
           ),
           paddintText2(),
         ],
-      )),
+      ),
     ));
+  }
+
+  _loading() {
+    return Center(
+      child: GestureDetector(
+          onTap: () {
+            print("Debug: Checking addListingsState value");
+            print(controller.addListingsState.value == AddListingsState.loaded);
+          },
+          child: CircularProgressIndicator()),
+    );
+  }
+
+  // _loaded() {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       textBuild('CREATE LISTING', 25.sp, FontWeight.w600, AppColors.blue),
+  //       SizedBox(height: 15.h),
+  //       textBuild('PROPERTY INFORMATION', 25.sp, FontWeight.w600,
+  //           AppColors.kRedColor),
+  //       SizedBox(height: 20.h),
+  //       buildWidget(
+  //         'Property Name',
+  //         TextformfieldWidget(
+  //           controller: controller.propertyNameController,
+  //           hintText: 'Property Name',
+  //           maxLines: 1,
+  //           contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+  //           keyboardType: TextInputType.text,
+  //         ),
+  //       ),
+  //       buildWidget(
+  //         'Property Cost',
+  //         TextformfieldWidget(
+  //           controller: controller.propertyCostController,
+  //           hintText: '100,000,000',
+  //           maxLines: 1,
+  //           contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+  //           keyboardType: TextInputType.number,
+  //         ),
+  //       ),
+
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           textBuild(
+  //               'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
+  //           Obx(() => textBuild('${controller.images.length}/15', 22.sp,
+  //               FontWeight.w600, Colors.black)),
+  //         ],
+  //       ),
+  //       SizedBox(height: 10.h),
+  //       // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
+  //       Padding(
+  //         padding: EdgeInsets.symmetric(horizontal: 20.w),
+  //         child: Row(
+  //           mainAxisAlignment: MainAxisAlignment.start,
+  //           children: [
+  //             ElevatedButton.icon(
+  //               style: ElevatedButton.styleFrom(
+  //                 backgroundColor: AppColors.blue,
+  //                 shadowColor: Colors.transparent,
+  //                 side: BorderSide(
+  //                     color: AppColors.hint.withOpacity(0.1), width: 1),
+  //                 shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(10),
+  //                 ),
+  //               ),
+  //               onPressed: () {
+  //                 controller.getImageGallery();
+  //               },
+  //               icon: Icon(
+  //                 CupertinoIcons.photo_fill_on_rectangle_fill,
+  //                 color: AppColors.white,
+  //               ),
+  //               label: EraText(
+  //                 text: 'Select Photos',
+  //                 color: AppColors.white,
+  //                 fontSize: 20.sp,
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //       SizedBox(height: 10.h),
+  //       Obx(() {
+  //         if (controller.images.isEmpty) {
+  //           return Padding(
+  //             padding: EdgeInsets.symmetric(horizontal: 20.w),
+  //             child: Image.asset(
+  //               AppEraAssets.uploadphoto,
+  //             ),
+  //           );
+  //         } else {
+  //           return GridView.builder(
+  //               shrinkWrap: true,
+  //               padding: EdgeInsets.symmetric(horizontal: 20.w),
+  //               physics: NeverScrollableScrollPhysics(),
+  //               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //                 crossAxisCount: 3,
+  //                 mainAxisSpacing: 10.h,
+  //                 crossAxisSpacing: 10.h,
+  //               ),
+  //               itemCount: controller.images.length,
+  //               itemBuilder: (context, index) {
+  //                 return Container(
+  //                   decoration: BoxDecoration(
+  //                     borderRadius: BorderRadius.circular(10),
+  //                     image: DecorationImage(
+  //                       image: FileImage(controller.images[index]),
+  //                       fit: BoxFit.cover,
+  //                     ),
+  //                   ),
+  //                 );
+  //               });
+  //         }
+  //       }),
+
+  //       SizedBox(height: 5.h),
+
+  //       Padding(
+  //         padding: EdgeInsets.symmetric(horizontal: 20.w),
+  //         child: EraText(
+  //             text: 'Photo must be at least 300px X 300px',
+  //             fontSize: 15.sp,
+  //             color: AppColors.hint),
+  //       ),
+  //       paddintText2(),
+  //     ],
+  //   );
+  // }
+
+  _locationPick() {
+    return WillPopScope(
+      onWillPop: () async {
+        controller.addEditListingsState.value = AddEditListingsState.loaded;
+        return Future.value(false);
+      },
+      child: Obx(() => Container(
+          width: Get.width,
+          height: Get.height - 212.h,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(14.599512, 120.984222), zoom: 12),
+                  markers: controller.marker.value,
+                  onTap: (position) async {
+                    controller.generateMarker(position);
+                    controller.latLng = position;
+                    controller.address.value = (await GeoCode(
+                                apiKey: "65d99e660931a611004109ogd35593a",
+                                lat: position.latitude,
+                                lng: position.longitude)
+                            .reverse())
+                        .displayName!;
+                    controller.addressController.text =
+                        controller.address.value;
+                    //search for location
+                  },
+                ),
+              ),
+              Positioned(
+                bottom: 75.h,
+                child: Container(
+                  width: Get.width - EraTheme.paddingWidth * 2,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: EraTheme.paddingWidthSmall),
+                  margin:
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  color: Colors.white,
+                  child: Obx(() => EraText(
+                        text: "Address: ${controller.address.value}",
+                        color: Colors.black,
+                      )),
+                ),
+              ),
+
+              Positioned(
+                bottom: 21.w,
+                child: SizedBox(
+                  width: Get.width,
+                  height: 35.h,
+                  child: Button(
+                    onTap: () {
+                      controller.addEditListingsState.value =
+                          AddEditListingsState.loaded;
+                    },
+                    bgColor: AppColors.kRedColor,
+                    text: "Select Location",
+                  ),
+                ),
+              ),
+              //widget that display location text
+            ],
+          ))),
+    );
   }
 
   Widget paddintText2() {
@@ -178,6 +378,29 @@ class AddListings extends GetView<AddListingsController> {
             hintText: '3',
             maxLines: 1,
             keyboardType: TextInputType.number,
+          ),
+        ),
+        AddListings.buildWidget(
+          'Address',
+          TextformfieldWidget(
+            controller: controller.addressController,
+            hintText: 'Address',
+            maxLines: 1,
+            keyboardType: TextInputType.text,
+          ),
+        ),
+        SizedBox(
+          height: 48.h,
+          width: Get.width,
+          child: Button(
+            width: Get.width,
+            margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+            bgColor: Colors.red,
+            text: 'Pick Address',
+            onTap: () {
+              controller.addEditListingsState.value =
+                  AddEditListingsState.location_pick;
+            },
           ),
         ),
         buildWidget(
@@ -241,66 +464,6 @@ class AddListings extends GetView<AddListingsController> {
             hintText: '',
             maxLines: 10,
             keyboardType: TextInputType.text,
-          ),
-        ),
-        Container(
-          height: 500.h,
-          width: 500.w,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Obx(
-                  () => TextField(
-                    controller: TextEditingController(
-                        text: controller.pinPosition.value != null
-                            ? controller.pinPosition.value.toString()
-                            : ''),
-                    onChanged: (text) {
-                      if (text.isNotEmpty) {
-                        final parts = text.split(',');
-                        if (parts.length == 2) {
-                          final lat = double.tryParse(parts[0].trim());
-                          final lng = double.tryParse(parts[1].trim());
-                          if (lat != null && lng != null) {
-                            controller.updateLocation(LatLng(lat, lng));
-                          }
-                        }
-                      }
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Selected Location",
-                      hintText: "Tap on the map or enter coordinates",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-              Obx(
-                () => Expanded(
-                  child: GoogleMap(
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(37.42796133580664, -122.085749655962),
-                      zoom: 14.4746,
-                    ),
-                    onTap: (LatLng position) {
-                      controller.setPinLocation(position);
-                    },
-                    markers: controller.pinPosition.value != null
-                        ? {
-                            Marker(
-                              markerId: MarkerId('pin-location'),
-                              position: controller.pinPosition.value!,
-                              infoWindow: InfoWindow(title: 'Pinned Location'),
-                              icon: BitmapDescriptor.defaultMarkerWithHue(
-                                  BitmapDescriptor.hueRed),
-                            ),
-                          }
-                        : {},
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
 
@@ -431,5 +594,4 @@ class AddListings extends GetView<AddListingsController> {
       ),
     );
   }
-
 }

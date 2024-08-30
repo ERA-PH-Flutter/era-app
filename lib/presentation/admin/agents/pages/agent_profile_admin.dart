@@ -51,14 +51,7 @@ class AgentProfileAdmin extends GetView<AgentAdminController> {
                   SizedBox(height: 20.h),
 
                   latestNews(),
-                  // Agent Profile Section
-                  // AgentProfileSection( ),
-
-                  // Favorites Section
-                  //FavoritesSection(),
-
-                  // Latest News Section
-                  // LatestNewsSection(),
+               
                 ],
               ),
             ),

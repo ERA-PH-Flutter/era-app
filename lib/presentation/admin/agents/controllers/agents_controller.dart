@@ -32,21 +32,26 @@ class AgentAdminController extends GetxController with BaseController {
 
   var agentType = ['ASC', 'AMM', 'MM', 'SMM', 'MD', 'SMD', 'ADD', 'BDD'];
   var selectedAgentType = RxnString();
+  
   TextEditingController fNameA = TextEditingController();
   TextEditingController lNameA = TextEditingController();
   TextEditingController emailAdressA = TextEditingController();
-
   TextEditingController dateBirthA = TextEditingController();
   TextEditingController sexA = TextEditingController();
   TextEditingController locationA = TextEditingController();
   TextEditingController licenseNA = TextEditingController();
   TextEditingController phoneNA = TextEditingController();
   TextEditingController passwordA = TextEditingController();
-
   TextEditingController confirmPA = TextEditingController();
   TextEditingController positionA = TextEditingController();
-
   TextEditingController descriptionA = TextEditingController();
+  TextEditingController officeLA = TextEditingController();
+  TextEditingController licensedNumA = TextEditingController();
+
+
+//create listing controller
+
+ // TextEditingController officeLA = TextEditingController();
 
   Future getImageGallery() async {
     try {

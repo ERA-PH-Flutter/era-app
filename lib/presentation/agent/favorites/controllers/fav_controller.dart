@@ -9,63 +9,37 @@ enum FavState { loading, loaded, error, empty }
 class FavController extends GetxController {
   var favoritesList = [].obs;
 
-  var store = Get.find<LocalStorageService>();
+  var selectedItems = <int>[].obs;
+  var selectionModeActive = false.obs;
   var favState = FavState.loading.obs;
   var listing = [];
 
-  List<String> sorting = ['Category', 'Date Added', 'Price', 'Location'];
   @override
-  void onInit()async{
-    //
-
-    if(user!.favorites!.isNotEmpty){
-      for(int i = 0;i<user!.favorites!.length;i++){
-        favoritesList.add( await Listing().getListing(user!.favorites![i]));
+  void onInit() async {
+    if (user!.favorites!.isNotEmpty) {
+      for (int i = 0; i < user!.favorites!.length; i++) {
+        favoritesList.add(await Listing().getListing(user!.favorites![i]));
       }
     }
-    if(favoritesList.isEmpty){
+    if (favoritesList.isEmpty) {
       favState.value = FavState.empty;
-    }else{
+    } else {
       favState.value = FavState.loaded;
     }
     super.onInit();
   }
 
-  void addToFavorites(RealEstateListing listing) {
-    if (!favoritesList.contains(listing)) {
-      favoritesList.add(listing);
-    }
+  void onGeneratePdfButtonPressed() {
+    if (!selectionModeActive.value) {
+      enterSelectionMode();
+    } else {}
   }
-
-  void removeFromFavorites(RealEstateListing listing) {
-    favoritesList.remove(listing);
-  }
-
-  void removeSelectedFavorites() {
-    for (int index in selectedItems) {
-      removeFromFavorites(favoritesList[index]);
-    }
-    clearSelection();
-  }
-
-  bool isFavorite(RealEstateListing listing) {
-    return favoritesList.contains(listing);
-  }
-
-  var selectedItems = <int>[].obs;
-  var selectionModeActive = false.obs;
 
   void toggleSelection(int index) {
     if (selectedItems.contains(index)) {
       selectedItems.remove(index);
     } else {
       selectedItems.add(index);
-    }
-
-    if (selectedItems.isEmpty) {
-      exitSelectionMode();
-    } else {
-      selectionModeActive.value = true;
     }
   }
 
@@ -85,6 +59,4 @@ class FavController extends GetxController {
   void exitSelectionMode() {
     clearSelection();
   }
-
-  bool get anyItemSelected => selectedItems.isNotEmpty;
 }

@@ -71,4 +71,7 @@ class GridviewAlllistings extends StatelessWidget {
       ),
     );
   }
+
+
+
 }

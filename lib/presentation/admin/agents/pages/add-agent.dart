@@ -34,7 +34,7 @@ class AddAgent extends GetView<AgentAdminController> {
               height: 10.h,
             ),
             buildTextFormField2('First Name *', controller.fNameA,
-                'Last Name *', controller.lNameA, TextInputType.text),
+                'Last Name *', controller.lNameA),
             SizedBox(
               height: 10.h,
             ),
@@ -48,8 +48,12 @@ class AddAgent extends GetView<AgentAdminController> {
             SizedBox(
               height: 10.h,
             ),
-            buildTextFormField2('Office Location *', controller.fNameA,
-                'Licensed Number *', controller.lNameA, TextInputType.text),
+            buildTextFormField2(
+              'Office Location *',
+              controller.officeLA,
+              'Licensed Number *',
+              controller.licensedNumA,
+            ),
             SizedBox(
               height: 10.h,
             ),
@@ -129,11 +133,11 @@ class AddAgent extends GetView<AgentAdminController> {
   }
 
   static Widget buildTextFormField2(
-      String text,
-      TextEditingController controller,
-      String text2,
-      TextEditingController controller2,
-      TextInputType? keyboardType) {
+    String text,
+    TextEditingController controller,
+    String text2,
+    TextEditingController controller2,
+  ) {
     return Padding(
       padding: EdgeInsets.only(left: 10.w),
       child: Row(
@@ -154,7 +158,6 @@ class AddAgent extends GetView<AgentAdminController> {
                   controller: controller,
                   fontSize: 12.sp,
                   maxLines: 1,
-                  keyboardType: keyboardType ?? TextInputType.text,
                 ),
               ),
             ],
@@ -187,6 +190,7 @@ class AddAgent extends GetView<AgentAdminController> {
     );
   }
 
+  
   static Widget buildTextFormField3(
       String text,
       TextEditingController controller,

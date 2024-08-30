@@ -175,7 +175,7 @@ class Fav extends GetView<FavController> {
   Widget _pdfButton() {
     return GestureDetector(
       onTap: () {
-
+        controller.onGeneratePdfButtonPressed();
       },
       child: Container(
         height: 40.h,

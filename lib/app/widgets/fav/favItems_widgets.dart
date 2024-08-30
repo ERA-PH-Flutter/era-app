@@ -33,10 +33,9 @@ class FavItems extends StatelessWidget {
     final FavController favC = Get.find();
     return GestureDetector(
       onTap: onTap,
-      onLongPress: () {
-        favC.enterSelectionMode();
-        onLongPress(index);
-      },
+      // onLongPress: () {
+      //   favC.enterSelectionMode();
+      //  },
       child: Stack(
         children: [
           Obx(() {
@@ -117,19 +116,13 @@ class FavItems extends StatelessWidget {
           Positioned(
             bottom: 10.w,
             right: 10.w,
-            child: Obx(
-              () => favC.isSelected(index)
-                  ? Icon(
-                      CupertinoIcons.heart,
-                      color: AppColors.kRedColor,
-                      size: 25.sp,
-                    )
-                  : Icon(
-                      CupertinoIcons.heart_fill,
-                      color: AppColors.kRedColor,
-                      size: 25.sp,
-                    ),
-            ),
+            child: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  CupertinoIcons.heart_fill,
+                  color: AppColors.kRedColor,
+                  size: 40.sp,
+                )),
           ),
         ],
       ),

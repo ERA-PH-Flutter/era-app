@@ -187,7 +187,6 @@ class SearchResult extends GetView<SearchResultController> {
                                         location:
                                             controller.locationController.text,
                                         price: controller.priceController,
-
                                         property:
                                             controller.propertyController.text);
                                   } else {
@@ -551,7 +550,7 @@ class SearchResult extends GetView<SearchResultController> {
                             fontWeight: FontWeight.w500,
                             color: AppColors.black,
                           ),
-                          maxLines: 3,
+                          maxLines: 5,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -581,7 +580,8 @@ class SearchResult extends GetView<SearchResultController> {
                                 child: ListedBy(
                                     image: user1!.image ??
                                         AppStrings.noUserImageWhite,
-                                    agentFirstName: user1.firstname ?? "No Name",
+                                    agentFirstName:
+                                        user1.firstname ?? "No Name",
                                     agentType: user1.role ?? "Agent",
                                     agentLastName: user1.lastname ?? ""),
                               );
