@@ -276,6 +276,7 @@ class Home extends GetView<HomeController> {
                             await AI(query: controller.aiSearchController.text)
                                 .search();
                       }
+                      selectedIndex.value = 2;
                       Get.toNamed("/searchresult", arguments: [
                         data,
                         controller.aiSearchController.text
