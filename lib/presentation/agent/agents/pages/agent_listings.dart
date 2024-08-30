@@ -110,6 +110,7 @@ class AgentListings extends GetView<AgentListingsController> {
                 '${controller.user.image == null || controller.user.image == "" ? AppStrings.noUserImageWhite : controller.user.image}',
                 width: 100.w,
                 height: 110.h,
+                fit: BoxFit.cover,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10.w, left: 10.w),
@@ -149,7 +150,7 @@ class AgentListings extends GetView<AgentListingsController> {
             ],
           ),
           SizedBox(
-            height: 10.h,
+            height: 20.h,
           ),
           GridviewAlllistings(listingModels: controller.listings),
         ],
