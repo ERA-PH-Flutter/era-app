@@ -28,6 +28,7 @@ class RouteString {
   static String agentDashBoard = "/agentDashBoard";
   static String addListings = "/addListings";
   static String agentMyListing = "/agentMyListing";
+  static String agentListings = "/agentListings";
   static String editListings = "/editListings";
   static String mortageCalculator = "/mortageCalculator";
   static String fav = "/fav";

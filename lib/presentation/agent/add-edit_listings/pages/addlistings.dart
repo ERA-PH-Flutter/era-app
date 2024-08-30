@@ -4,15 +4,14 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:map_location_picker/map_location_picker.dart';
 
 import '../../../../repository/listing.dart';
 import '../controllers/addlistings_controller.dart';
@@ -233,6 +232,7 @@ class AddListings extends GetView<AddListingsController> {
             (value) => controller.selectedPropertySubCategory.value = value!,
             'Sub Category',
             'Select Sub Category'),
+        // SearchLocationWidget(),
         buildWidget(
           'Description *',
           TextformfieldWidget(
@@ -243,6 +243,67 @@ class AddListings extends GetView<AddListingsController> {
             keyboardType: TextInputType.text,
           ),
         ),
+        Container(
+          height: 500.h,
+          width: 500.w,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Obx(
+                  () => TextField(
+                    controller: TextEditingController(
+                        text: controller.pinPosition.value != null
+                            ? controller.pinPosition.value.toString()
+                            : ''),
+                    onChanged: (text) {
+                      if (text.isNotEmpty) {
+                        final parts = text.split(',');
+                        if (parts.length == 2) {
+                          final lat = double.tryParse(parts[0].trim());
+                          final lng = double.tryParse(parts[1].trim());
+                          if (lat != null && lng != null) {
+                            controller.updateLocation(LatLng(lat, lng));
+                          }
+                        }
+                      }
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Selected Location",
+                      hintText: "Tap on the map or enter coordinates",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+              ),
+              Obx(
+                () => Expanded(
+                  child: GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(37.42796133580664, -122.085749655962),
+                      zoom: 14.4746,
+                    ),
+                    onTap: (LatLng position) {
+                      controller.setPinLocation(position);
+                    },
+                    markers: controller.pinPosition.value != null
+                        ? {
+                            Marker(
+                              markerId: MarkerId('pin-location'),
+                              position: controller.pinPosition.value!,
+                              infoWindow: InfoWindow(title: 'Pinned Location'),
+                              icon: BitmapDescriptor.defaultMarkerWithHue(
+                                  BitmapDescriptor.hueRed),
+                            ),
+                          }
+                        : {},
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           BaseController().showLoading();

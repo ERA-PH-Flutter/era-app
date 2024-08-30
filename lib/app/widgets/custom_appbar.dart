@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -40,12 +42,26 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Row(
                 children: [
-                  ['/haraya'].contains(Get.currentRoute)  ? IconButton(
-                      onPressed:(){
-                        Get.back();
-                      },
-                      icon: Icon(Icons.arrow_back_ios,size:20.sp)
-                  ) : Visibility(visible:false,child:Container()),
+                  // if (Platform.isIOS)
+                  [
+                    '/haraya',
+                    '/aurelia',
+                    '/laya',
+                    '/agentMyListing',
+                    '/AgentListings',
+                    '/propertyInfo',
+                    '/editListings',
+                    '/addListings',
+                    '/fav',
+                    '/soldP',
+                    '/archived',
+                  ].contains(Get.currentRoute)
+                      ? IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(Icons.arrow_back_ios, size: 20.sp))
+                      : Visibility(visible: false, child: Container()),
                   leading ??
                       Transform.translate(
                           offset: Offset(-14, 1),
@@ -149,33 +165,37 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                   children: [
                                     _buildMenuCard('FIND PROPERTIES', () {
                                       Get.offAllNamed("/findproperties");
-                                    },Get.currentRoute == '/findproperties'),
+                                    }, Get.currentRoute == '/findproperties'),
                                     _buildMenuCard('PROJECTS', () {
                                       changeIndex(1);
                                       Get.offAllNamed("/project-main");
-                                    },Get.currentRoute == '/project-main'),
+                                    }, Get.currentRoute == '/project-main'),
                                     _buildMenuCard('FIND AGENTS', () {
                                       changeIndex(3);
                                       Get.offAllNamed("/findagents");
-                                    },Get.currentRoute == '/findagents'),
+                                    }, Get.currentRoute == '/findagents'),
                                     _buildMenuCard('ABOUT US', () {
                                       Get.offAllNamed("/aboutus");
-                                    },Get.currentRoute == '/aboutus'),
+                                    }, Get.currentRoute == '/aboutus'),
                                     user != null
                                         ? _buildMenuCard('MY DASHBOARD', () {
                                             changeIndex(0);
                                             Get.offAllNamed("/agentDashBoard");
-                                          },Get.currentRoute == '/agentDashBoard')
+                                          },
+                                            Get.currentRoute ==
+                                                '/agentDashBoard')
                                         : Container(),
                                     _buildMenuCard('SELL PROPERTY', () {
                                       Get.offAllNamed("/sellProperty");
-                                    },Get.currentRoute == '/sellProperty'),
+                                    }, Get.currentRoute == '/sellProperty'),
                                     _buildMenuCard('MORTGAGE CALCULATOR', () {
                                       Get.offAllNamed("/mortageCalculator");
-                                    },Get.currentRoute == '/mortageCalculator'),
+                                    },
+                                        Get.currentRoute ==
+                                            '/mortageCalculator'),
                                     _buildMenuCard('CONTACTUS', () {
                                       Get.offAllNamed("/direct-contactus");
-                                    },Get.currentRoute == '/direct-contactus'),
+                                    }, Get.currentRoute == '/direct-contactus'),
                                     Divider(
                                       thickness: 1,
                                       color: Colors.grey,
@@ -195,7 +215,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                           Get.to(LoginPage(),
                                               binding: LoginPageBinding());
                                         }
-                                      },Get.currentRoute == '/loginpage');
+                                      }, Get.currentRoute == '/loginpage');
                                     })
                                   ],
                                 ),
@@ -291,7 +311,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  _buildMenuCard(text, callback,isActive) {
+  _buildMenuCard(text, callback, isActive) {
     return GestureDetector(
       onTap: callback,
       child: Card(

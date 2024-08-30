@@ -75,7 +75,7 @@ class HarayaProject extends GetView<ProjectsController> {
         ),
         SizedBox(height: 10.h),
         SizedBox(
-          height: 200.h,
+          height: 400.h,
           child: GestureDetector(
             child: WebViewWidget(
               controller: controller.webviews[3],
@@ -125,7 +125,7 @@ class HarayaProject extends GetView<ProjectsController> {
           ),
           SizedBox(height: 10.h),
           SizedBox(
-            height: 200.h,
+            height: 400.h,
             child: GestureDetector(
               child: WebViewWidget(
                 controller: controller.webviews[2],

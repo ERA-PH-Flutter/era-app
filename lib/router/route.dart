@@ -6,6 +6,7 @@ import 'package:eraphilippines/presentation/admin/landingpage/controllers/landin
 import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
+import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
 import 'package:eraphilippines/presentation/agent/archivedlisting/controllers/archived_binding.dart';
 import 'package:eraphilippines/presentation/agent/archivedlisting/pages/archived.dart';
 import 'package:eraphilippines/presentation/agent/contacts/pages/direct-contactus.dart';
@@ -139,6 +140,11 @@ appRoutes() => [
           name: RouteString.agentMyListing,
           page: () => AgentsMyListing(),
           binding: AgentListingsBinding()),
+      GetPage(
+          name: RouteString.agentListings,
+          page: () => AgentListings(),
+          binding: AgentListingsBinding()),
+
       GetPage(
           name: RouteString.editListings,
           page: () => EditListing(),

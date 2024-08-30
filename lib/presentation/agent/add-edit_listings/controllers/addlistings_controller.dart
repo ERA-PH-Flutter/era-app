@@ -1,16 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:map_location_picker/map_location_picker.dart';
 import '../../../../app/services/local_storage.dart';
 import '../../../../repository/listing.dart';
+import 'package:http/http.dart' as http;
 
 enum AddListingsState {
   loading,
@@ -31,6 +31,25 @@ class AddListingsController extends GetxController with BaseController {
   var selectedOfferT = RxnString();
   var selectedPropertySubCategory = RxnString();
   var selectedView = RxnString();
+
+  var selectedLocation = Rx<LatLng?>(null);
+  var selectedPlace = Rx<String?>(null);
+
+  var pinPosition = Rx<LatLng?>(null);
+
+  void updateLocation(LatLng location) {
+    selectedLocation.value = location;
+    pinPosition.value = location; // Update the pin position
+  }
+
+  void setPinLocation(LatLng location) {
+    pinPosition.value = location;
+  }
+
+  // Function to update the selected place from dropdown
+  void updatePlace(String place) {
+    selectedPlace.value = place;
+  }
 
   var viewL = [
     "SUNSET",

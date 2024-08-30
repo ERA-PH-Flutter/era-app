@@ -7,15 +7,18 @@ import 'package:eraphilippines/app/widgets/agent_All_Listings/listview_agent_all
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/sold_properties/custom_sort.dart';
+import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../app/constants/assets.dart';
 import '../controllers/agent_listings_controller.dart';
 import 'agentsDashBoard.dart';
 
 class AgentListings extends GetView<AgentListingsController> {
-  const AgentListings({super.key});
+  AgentListings({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,14 @@ class AgentListings extends GetView<AgentListingsController> {
   }
 
   _loaded() {
+    final Uri whatsAppUrl2 = controller.user.whatsApp != null
+        ? Uri.parse('https://wa.me/${controller.user.whatsApp}')
+        : Uri.parse('https://wa.me/null');
+    final Uri emailUrl = controller.user.email != null
+        ? Uri.parse(
+            'mailto:${controller.user.email}?subject=Your%20Subject&body=Your%20Message')
+        : Uri.parse('https://mail.google.com/');
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
       child: Column(
@@ -117,10 +128,21 @@ class AgentListings extends GetView<AgentListingsController> {
                         12.sp,
                         FontWeight.w400,
                         0.9),
-                    AgentDashBoard.agentContact(AppEraAssets.whatsappIcon,
-                        '${controller.user.whatsApp}'),
-                    AgentDashBoard.agentContact(
-                        AppEraAssets.emailIcon, '${controller.user.email}'),
+                    GestureDetector(
+                      onTap: () {
+                        launchUrl(whatsAppUrl2);
+                      },
+                      child: AgentDashBoard.agentContact(
+                          AppEraAssets.whatsappIcon,
+                          '${controller.user.whatsApp}'),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        launchUrl(emailUrl);
+                      },
+                      child: AgentDashBoard.agentContact(
+                          AppEraAssets.emailIcon, '${controller.user.email}'),
+                    ),
                   ],
                 ),
               ),

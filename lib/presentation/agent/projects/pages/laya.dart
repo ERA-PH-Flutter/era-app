@@ -64,7 +64,7 @@ class LayaProject extends GetView<ProjectsController> {
         SizedBox(height: 30.h),
         //virtual
         SizedBox(
-          height: 200.h,
+          height: 400.h,
           child: GestureDetector(
             child: WebViewWidget(
               controller: controller.webviews[0],
@@ -118,7 +118,7 @@ class LayaProject extends GetView<ProjectsController> {
           layaprojects,
         ),
         SizedBox(
-          height: 200.h,
+          height: 400.h,
           child: GestureDetector(
             child: WebViewWidget(
               controller: controller.webviews[1],

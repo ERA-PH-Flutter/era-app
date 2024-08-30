@@ -10,6 +10,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_controller.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -173,8 +174,8 @@ class PropertyInformation extends GetView<ListingController> {
                                     size: 50.sp,
                                   )
                                 : Icon(
-                                    CupertinoIcons.heart,
-                                    color: AppColors.hint,
+                                    CupertinoIcons.heart_fill,
+                                    color: AppColors.white,
                                     size: 50.sp,
                                   ),
                           ),
@@ -286,6 +287,28 @@ class PropertyInformation extends GetView<ListingController> {
                   ],
                 ),
               )),
+          SizedBox(height: 20.h),
+          FutureBuilder(
+              future: EraUser().getById(listing.by),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  var user1 = snapshot.data;
+                  return ListedBy(
+                    image: user1!.image ?? AppStrings.noUserImageWhite,
+                    agentFirstName: user1.firstname ?? "",
+                    agentType: user1.role ?? "Agent",
+                    agentLastName: user1.lastname!,
+                    whatsapp: user1.whatsApp,
+                    whatsappIcon: AppEraAssets.whatsappIcon,
+                    email: user1.email,
+                    emailIcon: AppEraAssets.emailIcon,
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }),
           SizedBox(height: 30.h),
           /*
           ListedBy(

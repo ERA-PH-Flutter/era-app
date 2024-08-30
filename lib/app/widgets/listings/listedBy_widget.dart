@@ -1,11 +1,17 @@
+import 'dart:math';
+
+import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ListedBy extends StatelessWidget {
-  final String? text; /// remove this
+  final String? text;
+
+  /// remove this
   final String image;
   final String agentFirstName;
   final String agentLastName;
@@ -30,6 +36,13 @@ class ListedBy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Uri whatsAppUrl2 = whatsapp != null
+        ? Uri.parse('https://wa.me/$whatsapp')
+        : Uri.parse('https://wa.me/null');
+    final Uri emailUrl = email != null
+        ? Uri.parse('mailto:$email?subject=Your%20Subject&body=Your%20Message')
+        : Uri.parse('https://mail.google.com/');
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -41,7 +54,7 @@ class ListedBy extends StatelessWidget {
         ),
         SizedBox(height: 10.h),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Row(
             children: [
               Container(
@@ -60,11 +73,15 @@ class ListedBy extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  EraText(
-                    text: '$agentFirstName $agentLastName',
-                    fontSize: EraTheme.paragraph,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black,
+                  SizedBox(
+                    width: 200.w,
+                    child: EraText(
+                      text: '$agentFirstName $agentLastName',
+                      fontSize: EraTheme.paragraph,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.black,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   EraText(
                     text: agentType,
@@ -78,44 +95,56 @@ class ListedBy extends StatelessWidget {
             ],
           ),
         ),
+        SizedBox(height: 10.h),
         if (whatsapp != null && whatsappIcon != null)
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 65.w),
-            child: Row(
-              children: [
-                Image.asset(
-                  whatsappIcon!,
-                  width: 30.w,
-                  height: 30.h,
-                ),
-                SizedBox(width: 8.w),
-                EraText(
-                  text: whatsapp!,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black,
-                ),
-              ],
+          GestureDetector(
+            onTap: () {
+              launchUrl(whatsAppUrl2);
+            },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                children: [
+                  Image.asset(
+                    whatsappIcon!,
+                    width: 35.w,
+                    height: 35.h,
+                  ),
+                  SizedBox(width: 8.w),
+                  EraText(
+                    text: whatsapp!,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black,
+                  ),
+                ],
+              ),
             ),
           ),
         if (email != null && emailIcon != null)
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 65.w),
-            child: Row(
-              children: [
-                Image.asset(
-                  emailIcon!,
-                  width: 30.w,
-                  height: 30.h,
-                ),
-                SizedBox(width: 8.w),
-                EraText(
-                  text: email!,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black,
-                ),
-              ],
+          GestureDetector(
+            onTap: () {
+              launchUrl(emailUrl);
+            },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                children: [
+                  Image.asset(
+                    emailIcon!,
+                    width: 35.w,
+                    height: 35.h,
+                  ),
+                  SizedBox(width: 8.w),
+                  EraText(
+                    text: email!,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black,
+                    textOverflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
           )
       ],

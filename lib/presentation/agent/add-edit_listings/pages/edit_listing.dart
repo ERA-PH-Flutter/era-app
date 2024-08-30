@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:map_location_picker/map_location_picker.dart';
 import '../../../../repository/listing.dart';
 import '../controllers/addlistings_controller.dart';
 import 'addlistings.dart';
@@ -310,12 +311,12 @@ class EditListing extends GetView<AddListingsController> {
             keyboardType: TextInputType.text,
           ),
         ),
+
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           BaseController().showLoading();
           try {
             await Listing(
-              
               id: controller.id,
               name: controller.propertyNameController.text,
               price: controller.propertyCostController.text.toDouble(),
