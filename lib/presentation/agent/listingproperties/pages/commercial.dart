@@ -190,11 +190,6 @@ class Commercial extends GetView<ListingController> {
                                               .locationController.text,
                                           price:
                                               searchController.priceController,
-                                          type: searchController
-                                                      .isForSale.value ==
-                                                  1
-                                              ? "selling"
-                                              : "rent",
                                           property: searchController
                                               .propertyController.text);
                                     } else {

@@ -187,9 +187,7 @@ class SearchResult extends GetView<SearchResultController> {
                                         location:
                                             controller.locationController.text,
                                         price: controller.priceController,
-                                        type: controller.isForSale.value == 1
-                                            ? "selling"
-                                            : "rent",
+
                                         property:
                                             controller.propertyController.text);
                                   } else {
@@ -413,6 +411,7 @@ class SearchResult extends GetView<SearchResultController> {
                   Get.toNamed('/propertyInfo', arguments: listing);
                 },
                 child: Container(
+                  margin: EdgeInsets.only(bottom: 16.h),
                   padding: EdgeInsets.zero,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -421,8 +420,8 @@ class SearchResult extends GetView<SearchResultController> {
                         BoxShadow(
                             offset: Offset(0, 0),
                             spreadRadius: 1,
-                            blurRadius: 5,
-                            color: Colors.black26)
+                            blurRadius: 10,
+                            color: Colors.black12)
                       ]),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -437,24 +436,36 @@ class SearchResult extends GetView<SearchResultController> {
                               : AppStrings.noUserImageWhite,
                           fit: BoxFit.cover,
                           width: Get.width,
-                          height: 200.h,
+                          height: 300.h,
                         ),
                       ),
                       SizedBox(
                         height: 17.h,
                       ),
+                      Container(
+                        width: Get.width,
+                        height: 30.h,
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                        child: EraText(
+                          textOverflow: TextOverflow.ellipsis,
+                          text: listing.name! == "" ? "No Name" : listing.name!,
+                          fontSize: EraTheme.header - 5.sp,
+                          color: AppColors.kRedColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 14.w),
                         child: EraText(
                           text: listing.type!,
-                          fontSize: EraTheme.header - 5.sp,
-                          color: AppColors.kRedColor,
+                          fontSize: EraTheme.header - 12.sp,
+                          color: AppColors.black,
                           fontWeight: FontWeight.bold,
-                          lineHeight: 0.4,
+                          lineHeight: 1,
                         ),
                       ),
                       SizedBox(
-                        height: 15.h,
+                        height: 5.h,
                       ),
                       Row(
                         //crossAxisAlignment: CrossAxisAlignment.start,
@@ -570,9 +581,9 @@ class SearchResult extends GetView<SearchResultController> {
                                 child: ListedBy(
                                     image: user1!.image ??
                                         AppStrings.noUserImageWhite,
-                                    agentFirstName: user1.firstname ?? "",
+                                    agentFirstName: user1.firstname ?? "No Name",
                                     agentType: user1.role ?? "Agent",
-                                    agentLastName: user1.lastname!),
+                                    agentLastName: user1.lastname ?? ""),
                               );
                             } else {
                               return Center(

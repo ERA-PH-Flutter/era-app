@@ -1,6 +1,7 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:map_location_picker/map_location_picker.dart';
+import '../../../../app/models/geocode.dart';
 import '../../../../repository/listing.dart';
 import '../controllers/addlistings_controller.dart';
 import 'addlistings.dart';
@@ -27,6 +29,7 @@ class EditListing extends GetView<AddListingsController> {
               child: Obx(() => switch (controller.addEditListingsState.value) {
                     AddEditListingsState.loading => _loading(),
                     AddEditListingsState.loaded => _loaded(),
+                    AddEditListingsState.location_pick => _locationPick()
                   }),
             )));
   }
@@ -135,6 +138,7 @@ class EditListing extends GetView<AddListingsController> {
         ),
 
         SizedBox(height: 10.h),
+
         Obx(() {
           if (controller.images.isEmpty) {
             return Padding(
@@ -203,7 +207,69 @@ class EditListing extends GetView<AddListingsController> {
       ],
     );
   }
+  _locationPick(){
+    return WillPopScope(
+      onWillPop: ()async{
+        controller.addEditListingsState.value = AddEditListingsState.loaded;
+        return Future.value(false);
+      },
+      child: Obx(()=>Container(
+          width: Get.width,
+          height: Get.height - 212.h,
+          child: Stack(
+            children: [
 
+              Positioned.fill(
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(14.599512, 120.984222),
+                      zoom: 12
+                  ),
+                  markers: controller.marker.value,
+                  onTap: (position)async{
+                    controller.generateMarker(position);
+                    controller.latLng = position;
+                    controller.address.value = (await GeoCode(apiKey: "65d99e660931a611004109ogd35593a",lat: position.latitude,lng: position.longitude).reverse()).displayName!;
+                    controller.addressController.text = controller.address.value;
+                    //search for location
+                  },
+
+                ),
+              ),
+              Positioned(
+                bottom: 75.h,
+                child: Container(
+                  width: Get.width - EraTheme.paddingWidth * 2,
+                  padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthSmall),
+                  margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  color: Colors.white,
+                  child: Obx(()=>EraText(
+                    text: "Address: ${controller.address.value}",
+                    color: Colors.black,
+                  )),
+                ),
+              ),
+
+              Positioned(
+                bottom: 21.w,
+                child: SizedBox(
+                  width: Get.width,
+                  height: 35.h,
+                  child: Button(
+                    onTap: (){
+                      controller.addEditListingsState.value = AddEditListingsState.loaded;
+                    },
+                    bgColor: AppColors.kRedColor,
+                    text: "Select Location",
+                  ),
+                ),
+              ),
+              //widget that display location text
+            ],
+          )
+      )),
+    );
+  }
   Widget paddintText2() {
     return Column(
       children: [
@@ -240,6 +306,28 @@ class EditListing extends GetView<AddListingsController> {
             hintText: '3',
             maxLines: 1,
             keyboardType: TextInputType.number,
+          ),
+        ),
+        AddListings.buildWidget(
+          'Address',
+          TextformfieldWidget(
+            controller: controller.addressController,
+            hintText: 'Address',
+            maxLines: 1,
+            keyboardType: TextInputType.text,
+          ),
+        ),
+        SizedBox(
+          height: 48.h,
+          width: Get.width,
+          child: Button(
+            width: Get.width,
+            margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+            bgColor: Colors.red,
+            text: 'Pick Address',
+            onTap: (){
+              controller.addEditListingsState.value = AddEditListingsState.location_pick;
+            },
           ),
         ),
         AddListings.buildWidget(
@@ -334,6 +422,9 @@ class EditListing extends GetView<AddListingsController> {
                   controller.selectedPropertySubCategory.value.toString(),
               description: controller.descController.text,
               view: controller.selectedView.value.toString(),
+              address: controller.addressController.text,
+              latLng: [controller.latLng?.latitude,controller.latLng?.longitude]
+              //latLng
             ).updateListing();
             BaseController().hideLoading();
             controller.showSuccessDialog(

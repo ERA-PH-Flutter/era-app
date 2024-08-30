@@ -176,9 +176,6 @@ class PropertylistAdmin extends StatelessWidget {
                             data = await Database().searchListing(
                                 location: controller.locationController.text,
                                 price: controller.priceController,
-                                type: controller.isForSale.value == 1
-                                    ? "selling"
-                                    : "rent",
                                 property: controller.propertyController.text);
                           } else {
                             data = await AI(

@@ -219,6 +219,7 @@ class Home extends GetView<HomeController> {
                                     value: 2,
                                     groupValue: controller.isForSale.value,
                                     onChanged: (value) {
+
                                       controller.isForSale.value = value ?? 0;
                                     }),
                               ),
@@ -263,23 +264,30 @@ class Home extends GetView<HomeController> {
                     SizedBox(height: 20.h),
                     SearchWidget.build(() async {
                       var data;
-                      if (controller.aiSearchController.text == "") {
+                      var searchQuery;
+                      if(controller.isForSale.value == 1){
+                        data = await Database().getForSaleListing();
+                        searchQuery = "All For Sale Listings";
+                      }else if(controller.isForSale.value == 2){
+                        data = await Database().getForRentListing();
+                        searchQuery = "All For Rent Listings";
+                      }else if (controller.aiSearchController.text == "") {
                         data = await Database().searchListing(
                             location: controller.locationController.text,
                             price: controller.priceController,
-                            type: controller.isForSale.value == 1
-                                ? "selling"
-                                : "rent",
                             property: controller.propertyController.text);
-                      } else {
+                        searchQuery = controller.locationController.text != "" ?  controller.locationController.text : controller.propertyController.text == "" ? controller.propertyController.text : controller.priceController.text;
+                      }else {
                         data =
                             await AI(query: controller.aiSearchController.text)
                                 .search();
+                        searchQuery = controller.aiSearchController.text;
                       }
                       selectedIndex.value = 2;
+                      print("search results: " + searchQuery);
                       Get.toNamed("/searchresult", arguments: [
                         data,
-                        controller.aiSearchController.text
+                        searchQuery
                       ]);
                     }),
                     SizedBox(height: 10.h),

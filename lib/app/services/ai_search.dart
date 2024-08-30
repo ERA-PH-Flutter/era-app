@@ -130,7 +130,6 @@ class AI{
 
       for (var af in additionalFilters) {
         af.operate(ab) != null ? ac.add(af.operate(ab)) : null;
-        print(af.operate(ab));
       }
       ac = additionalFilters.isEmpty ? ab : ac;
     });

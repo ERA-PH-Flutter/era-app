@@ -431,4 +431,5 @@ class AddListings extends GetView<AddListingsController> {
       ),
     );
   }
+
 }

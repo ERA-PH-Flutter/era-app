@@ -21,23 +21,19 @@ class Database{
   }
   searchListing({
     location,
-    type,
     price,
     property,
   })async{
     Query query = FirebaseFirestore.instance.collection('listings');
     var searchData = [];
-    if(location != null || location == ""){
-      query.where("location",isEqualTo: location);
+    if(location != ""){
+      query.where('location',isGreaterThanOrEqualTo: location).where('location',isLessThanOrEqualTo: location + '\uf8ff');
     }
-    if(type != null || location == ""){
-      query.where("type",isEqualTo: type);
+    if(price != ""){
+      query.where('price',isLessThanOrEqualTo: price);
     }
-    if(price != null || location == ""){
-      query.where("price",isLessThanOrEqualTo: price);
-    }
-    if(property != null || location == ""){
-      query.where("property",isEqualTo: property);
+    if(property != ""){
+      query.where('property',isGreaterThanOrEqualTo: property).where('property',isLessThanOrEqualTo: property + '\uf8ff');
     }
     await query.get().then((snapshot){
       var a = snapshot.docs;
@@ -46,6 +42,16 @@ class Database{
       });
     });
     return searchData;
+  }
+  getForSaleListing()async{
+    return (await db.collection('listings').where('status', isEqualTo: 'For Sale').get()).docs.map((doc){
+      return doc.data();
+    }).toList();
+  }
+  getForRentListing()async{
+    return (await db.collection('listings').where('status', isEqualTo: 'For Rent').get()).docs.map((doc){
+      return doc.data();
+    }).toList();
   }
   getAllListing()async{
     try{

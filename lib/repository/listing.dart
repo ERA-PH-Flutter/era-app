@@ -29,6 +29,8 @@ class Listing {
   String? description;
   int? cars;
   bool? isSold;
+  List? latLng;
+  String? address;
   Listing({
     this.id,
     this.name,
@@ -53,6 +55,8 @@ class Listing {
     this.views,
     this.cars,
     this.isSold,
+    this.latLng,
+    this.address
   });
   factory Listing.fromJSON(Map<String, dynamic> json) {
     print(json);
@@ -84,6 +88,8 @@ class Listing {
           : json["date_created"].toDate()),
       description: json["description"],
       isSold: json["is_sold"],
+      latLng: json['latLng'] ?? [0,0],
+      address: json['address']
     );
   }
   Map<String, dynamic> toMap() {
@@ -110,6 +116,8 @@ class Listing {
       "date_updated": DateTime.now(),
       "garage": cars,
       "is_sold": isSold ?? false,
+      "latLng" : latLng ?? [0,0],
+      "address" : address ?? ""
     };
   }
 

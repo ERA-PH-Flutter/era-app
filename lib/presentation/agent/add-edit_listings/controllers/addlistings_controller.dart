@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 import '../../../../app/services/local_storage.dart';
@@ -18,12 +19,14 @@ enum AddListingsState {
   error,
 }
 
-enum AddEditListingsState { loading, loaded }
+enum AddEditListingsState { loading, loaded,location_pick}
 
 class AddListingsController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
   var addEditListingsState = AddEditListingsState.loading.obs;
   var id = "";
+  RxSet<Marker> marker = {Marker(markerId: MarkerId("aaaa"))}.obs;
+  var address = "".obs;
   RxList images = [].obs;
   final picker = ImagePicker();
   final removeImage = false.obs;
@@ -44,6 +47,17 @@ class AddListingsController extends GetxController with BaseController {
 
   void setPinLocation(LatLng location) {
     pinPosition.value = location;
+  }
+
+  generateMarker(position)async{
+    marker?.value = {
+      Marker(
+          anchor: const Offset(0.5, 0.5),
+          draggable: true,
+          markerId: MarkerId("aaaa1"),
+          position: position,
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed))
+    };
   }
 
   // Function to update the selected place from dropdown
@@ -88,14 +102,14 @@ class AddListingsController extends GetxController with BaseController {
     "For Rent",
   ];
   //addController
-
+  LatLng? latLng;
   TextEditingController propertyNameController = TextEditingController();
   TextEditingController propertyCostController = TextEditingController();
   TextEditingController pricePerSqmController = TextEditingController();
   TextEditingController bedsController = TextEditingController();
   TextEditingController bathsController = TextEditingController();
   TextEditingController carsController = TextEditingController();
-
+  TextEditingController addressController = TextEditingController();
   TextEditingController areaController = TextEditingController();
   TextEditingController offerTypeController = TextEditingController();
   TextEditingController viewController = TextEditingController();
@@ -170,6 +184,7 @@ class AddListingsController extends GetxController with BaseController {
     selectedPropertySubCategory.value =
         subCategory.contains(listing.subCategory) ? listing.subCategory : null;
     descController.text = listing.description ?? "";
+    addressController.text = listing.address ?? "";
     addEditListingsState.value = AddEditListingsState.loaded;
   }
 }
