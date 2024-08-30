@@ -22,7 +22,7 @@ class AI{
     String subCategory = "sub_category (apartment, house, lot, office, retail, warehouse, commercial, residential, condominium, townhouse, others)";
     String amenities = "amenities (gym or landmarks nearby)";
     String status = "status (rent, sale) this is not required";
-    String prompt = "$t1(location (if not complete please make it complete don not use space for example (makati, change it to makati,city), $type, $status, size, rooms, baths, balcony, $amenities, garage, $view, price, $subCategory)$t2";
+    String prompt = "$t1(location (if not complete please make it complete don not use space for example (makati, change it to makati,city), $type, $status, size, rooms, baths, balcony, $amenities, cars, $view, price, $subCategory)$t2";
 
     BaseController().showLoading();
     var toReturn;
@@ -30,19 +30,18 @@ class AI{
       .then((value)async{
         toReturn = await process(value?.output!);
         print(value?.output);
-      }).catchError((e) => print(e));
+      }).catchError((e,ex) => print(ex));
     BaseController().hideLoading();
     return toReturn;
   }
   process(results)async{
     results = results.replaceAll('`', "");
     results = results.split("WHERE")[1].replaceAll("'","").replaceAll(" ","").replaceAll(',',' ').split("AND");
-    print(results);
     return await getProperties(results);
   }
   getProperties(List<String> filters) async {
     Query query = FirebaseFirestore.instance.collection('listings');
-    var except = ["garage","baths","view","name","owner","price","rooms","size","id","balcony","amenities"];
+    var except = ["cars","baths","view","name","owner","price","beds","size","id","balcony","amenities","area","by","description","floor_area","landmarks"];
     var additionalFilters = [];
     for (final filter in filters) {
       if(filter.contains("<=")){
@@ -71,7 +70,6 @@ class AI{
           ));
           continue;
         }
-
         query = query.where(field, isGreaterThanOrEqualTo: int.tryParse(value) ?? value);
       }
       else if(filter.contains("=")){
@@ -122,21 +120,26 @@ class AI{
 
     }
     var ab = [];
+    var ac = [];
     await query.get().then((QuerySnapshot snapshot){
       var a = snapshot.docs;
+
       for (var b in a) {
        ab.add(b.data());
       }
+
       for (var af in additionalFilters) {
-        ab.assignAll(af.operate(ab));
+        af.operate(ab) != null ? ac.add(af.operate(ab)) : null;
+        print(af.operate(ab));
       }
+      ac = additionalFilters.isEmpty ? ab : ac;
     });
-    print(ab);
-    return ab;
+    return ac;
   }
   calculateMortage({
     amount,downPayment, loanTerm, interest, monthly
-  })async{
+  })async
+  {
     var prompt = "Calculate mortgage given this data, property amount = $amount, down payment = $downPayment, loan term = $loanTerm, interest rate = $interest, monthly payment = $monthly, give me the value directly remove unnecessary explanation";
     BaseController().showLoading();
     var toReturn;

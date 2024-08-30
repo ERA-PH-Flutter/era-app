@@ -406,6 +406,7 @@ class SearchResult extends GetView<SearchResultController> {
             shrinkWrap: true,
             itemCount: controller.data.length,
             itemBuilder: (context, index) {
+              //print(controller.data[index]);
               Listing listing = Listing.fromJSON(controller.data[index]);
               return GestureDetector(
                 onTap: () {

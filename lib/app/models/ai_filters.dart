@@ -10,39 +10,47 @@ class AiFilters{
     required this.operator
   });
   operate(datas){
-    List<QueryDocumentSnapshot> newData = [];
+    var val;
+    var res = null;
+    try{
+      val = int.parse(value);
+    }catch(e){
+      val = null;
+    }
     datas.forEach((data){
-
-      if(int.tryParse(value) != null){
+      if(val != null){
         value = int.tryParse(value);
         if(operator == ">="){
           if(data[field] >= value){
-            newData.add(data);
+            res = data;
           }
-        }else if(operator == "<="){
+        }
+        else if(operator == "<="){
           if(data[field] <= value){
-            newData.add(data);
+            res = data;
           }
-        }else if(operator == "="){
+        }
+        else if(operator == "="){
           if(data[field] == value){
-            newData.add(data);
+            res = data;
           }
-        }else if(operator == ">"){
+        }
+        else if(operator == ">"){
           if(data[field] > value){
-            newData.add(data);
+            res = data;
           }
-        }else if(operator == "<"){
+        }
+        else if(operator == "<"){
           if(data[field] < value){
-            newData.add(data);
+            res = data;
           }
         }
       }else{
         if(data[field] == value){
-          newData.add(data);
+          res = data;
         }
       }
-
     });
-    return newData;
+    return res;
   }
 }

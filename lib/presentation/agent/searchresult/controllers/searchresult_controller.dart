@@ -30,13 +30,10 @@ class SearchResultController extends GetxController {
 
 
   @override
-  void onReady() {
-    super.onReady();
+  void onInit() {
     data.clear();
-    print(Get.arguments);
     searchResultState.value = SearchResultState.loading;
     try {
-      print(Get.arguments);
       if (Get.arguments == null || Get.arguments.isEmpty) {
         searchResultState.value = SearchResultState.searching;
       } else {
@@ -47,17 +44,16 @@ class SearchResultController extends GetxController {
       print(ex);
       searchResultState.value = SearchResultState.error;
     }
+    super.onInit();
   }
-
   @override
   void onClose() {
-    Get.delete<SearchResultController>();
+    Get.delete<SearchResultController>(force: true);
     super.onClose();
   }
 
   loadData(loadedData) {
-    print(loadedData);
-    data.value = loadedData;
+    data.assignAll(loadedData ?? []);
     if (data.isEmpty) {
       searchResultState.value = SearchResultState.empty;
     } else {
