@@ -17,6 +17,8 @@ import '../../../../repository/listing.dart';
 import '../controllers/addlistings_controller.dart';
 import 'addlistings.dart';
 
+final GlobalKey<FormState> _formyKey = GlobalKey<FormState>();
+
 class EditListing extends GetView<AddListingsController> {
   const EditListing({super.key});
 
@@ -57,6 +59,12 @@ class EditListing extends GetView<AddListingsController> {
             maxLines: 1,
             controller: controller.propertyNameController,
             keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Property Name is required';
+              }
+              return null;
+            },
           ),
         ),
         AddListings.buildWidget(
@@ -66,6 +74,15 @@ class EditListing extends GetView<AddListingsController> {
             maxLines: 1,
             controller: controller.propertyCostController,
             keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Property Cost is required';
+              }
+              if (double.tryParse(value) == null) {
+                return 'Please enter a valid number';
+              }
+              return null;
+            },
           ),
         ),
 
@@ -222,7 +239,6 @@ class EditListing extends GetView<AddListingsController> {
               Positioned.fill(
                 child: GoogleMap(
                   zoomControlsEnabled: false,
-
                   initialCameraPosition: CameraPosition(
                       target: LatLng(14.599512, 120.984222), zoom: 12),
                   markers: controller.marker.value,
@@ -232,9 +248,9 @@ class EditListing extends GetView<AddListingsController> {
                     controller.generateMarker(position);
                     controller.latLng = position;
                     controller.add = (await GeoCode(
-                        apiKey: "65d99e660931a611004109ogd35593a",
-                        lat: position.latitude,
-                        lng: position.longitude)
+                            apiKey: "65d99e660931a611004109ogd35593a",
+                            lat: position.latitude,
+                            lng: position.longitude)
                         .reverse());
                     controller.address.value = controller.add.displayName!;
                     controller.addressController.text =
@@ -248,19 +264,18 @@ class EditListing extends GetView<AddListingsController> {
                 child: Container(
                   width: Get.width - EraTheme.paddingWidth * 2,
                   padding: EdgeInsets.symmetric(
-                      horizontal: EraTheme.paddingWidthSmall,vertical: 10.h),
+                      horizontal: EraTheme.paddingWidthSmall, vertical: 10.h),
                   margin:
-                  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.r)
-                  ),
+                      borderRadius: BorderRadius.circular(10.r)),
                   child: Obx(() => EraText(
-                    text: "Address: ${controller.address.value}",
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  )),
+                        text: "Address: ${controller.address.value}",
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                      )),
                 ),
               ),
 
@@ -268,11 +283,12 @@ class EditListing extends GetView<AddListingsController> {
                 bottom: 21.w,
                 child: Container(
                   alignment: Alignment.center,
-                  width: Get.width  -  (EraTheme.paddingWidth * 2),
-                  margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  width: Get.width - (EraTheme.paddingWidth * 2),
+                  margin:
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                   height: 35.h,
                   child: Button(
-                    width: Get.width -  (EraTheme.paddingWidth * 2),
+                    width: Get.width - (EraTheme.paddingWidth * 2),
                     onTap: () {
                       controller.addEditListingsState.value =
                           AddEditListingsState.loaded;
@@ -295,10 +311,20 @@ class EditListing extends GetView<AddListingsController> {
         AddListings.buildWidget(
           'Price per sqm',
           TextformfieldWidget(
-              keyboardType: TextInputType.number,
-              controller: controller.pricePerSqmController,
-              hintText: 'Php 100,000',
-              maxLines: 1),
+            keyboardType: TextInputType.number,
+            controller: controller.pricePerSqmController,
+            hintText: 'Php 100,000',
+            maxLines: 1,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Price per sqm is required';
+              }
+              if (double.tryParse(value) == null) {
+                return 'Please enter a valid number';
+              }
+              return null;
+            },
+          ),
         ),
         // AddListings.buildWidget(
         //   'Floor Area',
@@ -315,6 +341,15 @@ class EditListing extends GetView<AddListingsController> {
             hintText: '2',
             maxLines: 1,
             keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Beds is required';
+              }
+              if (double.tryParse(value) == null) {
+                return 'Please enter a valid number';
+              }
+              return null;
+            },
           ),
         ),
         AddListings.buildWidget(
@@ -324,6 +359,15 @@ class EditListing extends GetView<AddListingsController> {
             hintText: '3',
             maxLines: 1,
             keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Baths is required';
+              }
+              if (double.tryParse(value) == null) {
+                return 'Please enter a valid number';
+              }
+              return null;
+            },
           ),
         ),
         AddListings.buildWidget(
@@ -333,6 +377,13 @@ class EditListing extends GetView<AddListingsController> {
             hintText: 'Address',
             maxLines: 1,
             keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Address is required';
+              }
+
+              return null;
+            },
           ),
         ),
         SizedBox(
@@ -357,6 +408,15 @@ class EditListing extends GetView<AddListingsController> {
             hintText: '3',
             maxLines: 1,
             keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Garage is required';
+              }
+              if (double.tryParse(value) == null) {
+                return 'Please enter a valid number';
+              }
+              return null;
+            },
           ),
         ),
         AddListings.buildWidget(
@@ -366,6 +426,15 @@ class EditListing extends GetView<AddListingsController> {
             hintText: '150 sqm',
             maxLines: 1,
             keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Area is required';
+              }
+              if (double.tryParse(value) == null) {
+                return 'Please enter a valid number';
+              }
+              return null;
+            },
           ),
         ),
         AddListings.dropDownAddlistings(
@@ -373,34 +442,47 @@ class EditListing extends GetView<AddListingsController> {
             controller.offerT,
             (value) => controller.selectedOfferT.value = value!,
             'Offer Type',
-            'Edit Offer Type'),
+            'Edit Offer Type', (value) {
+          if (value!.isEmpty) {
+            return 'Property Type is required';
+          }
+          return null;
+        }),
         AddListings.dropDownAddlistings(
             controller.selectedView,
             controller.viewL,
             (value) => controller.selectedView.value = value!,
             'Sunrise',
-            'Edit View'),
+            'Edit View', (value) {
+          if (value!.isEmpty) {
+            return 'Property Type is required';
+          }
+          return null;
+        }),
 
-        // AddListings.buildWidget(
-        //   'View',
-        //   TextformfieldWidget(
-        //       controller: controller.viewController,
-        //       hintText: 'Sunrise',
-        //       maxLines: 1),
-        // ),
         AddListings.dropDownAddlistings(
             controller.selectedPropertyT,
             controller.propertyT,
             (value) => controller.selectedPropertyT.value = value!,
             'Property Type',
-            'Edit Property Type'),
+            'Edit Property Type', (value) {
+          if (value!.isEmpty) {
+            return 'Property Type is required';
+          }
+          return null;
+        }),
 
         AddListings.dropDownAddlistings(
             controller.selectedPropertySubCategory,
             controller.subCategory,
             (value) => controller.selectedPropertySubCategory.value = value!,
             'Sub Category',
-            'Edit Sub Category'),
+            'Edit Sub Category', (value) {
+          if (value!.isEmpty) {
+            return 'Sub Category is required';
+          }
+          return null;
+        }),
         AddListings.buildWidget(
           'Description *',
           TextformfieldWidget(
@@ -409,12 +491,18 @@ class EditListing extends GetView<AddListingsController> {
             hintText: '',
             maxLines: 10,
             keyboardType: TextInputType.text,
+            validator: (value) =>
+                value!.isEmpty ? 'Description is required' : null,
           ),
         ),
 
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
-          BaseController().showLoading();
+          if (_formyKey.currentState!.validate()) {
+            _formyKey.currentState!.save();
+            BaseController().showLoading();
+          }
+
           try {
             await Listing(
                 id: controller.id,
@@ -455,7 +543,6 @@ class EditListing extends GetView<AddListingsController> {
           } catch (e) {
             print(e);
           }
-          //BaseController().hideLoading();
         }, 'UPDATE LISTING'),
         SizedBox(height: 20.h),
       ],

@@ -14,6 +14,7 @@ class TextformfieldWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final double? fontSize;
   final Color? color;
+  final String? Function(String?)? validator;
 
   const TextformfieldWidget({
     super.key,
@@ -28,6 +29,7 @@ class TextformfieldWidget extends StatelessWidget {
     this.keyboardType,
     this.fontSize,
     this.color,
+    this.validator,
   });
 
   @override
@@ -37,6 +39,7 @@ class TextformfieldWidget extends StatelessWidget {
       maxLines: maxLines ?? 18,
       controller: controller,
       obscureText: obscureText ?? false,
+      validator: validator,
       decoration: InputDecoration(
         // contentPadding: contentPadding ?? EdgeInsets.zero,
         suffixIcon: suffixIcon,
