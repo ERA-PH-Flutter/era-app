@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
@@ -40,12 +41,9 @@ class CompanyItems extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CachedNetworkImage(
-              imageUrl: companyItems.image,
-              fit: BoxFit.cover,
+            CloudStorage().imageLoader(
+              ref: companyItems.image,
               height: 250.h,
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
             Spacer(),
           ],
@@ -81,9 +79,8 @@ class CompanyItems extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: EraTheme.paddingWidthSmall, vertical: 10.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Wrap(
+
                 children: [
                   EraText(
                     text: companyItems.title,

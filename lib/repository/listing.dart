@@ -60,7 +60,6 @@ class Listing {
     this.address
   });
   factory Listing.fromJSON(Map<String, dynamic> json) {
-    print(json);
     return Listing(
       id: json["id"],
       name: json["name"] ?? "",
@@ -94,6 +93,7 @@ class Listing {
     );
   }
   Map<String, dynamic> toMap() {
+    print(isSold);
     return {
       "name": name,
       "price": price,
@@ -135,7 +135,7 @@ class Listing {
     */
     photos = [];
     for (int i = 0; i < images!.length; i++) {
-      photos!.add(await CloudStorage().uploadImage(image: images![i]));
+      photos!.add(await CloudStorage().upload(file: images![i], target: 'listings/$id'));
     }
     print(photos);
     DocumentReference<Map<String, dynamic>> doc =

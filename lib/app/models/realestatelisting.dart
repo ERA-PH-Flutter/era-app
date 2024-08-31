@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -67,8 +68,61 @@ class RealEstateListing {
   static List<RealEstateListing> listingsModels = [
     RealEstateListing(
       type: 'BGC Luxury Condo',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/listings%2F1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg?alt=media&token=873c7d4d-aa49-40fb-9e1b-c6715926b3e2',
+      image: 'listings/1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg',
+      areas: 900,
+      baths: 2,
+      beds: 3,
+      cars: 1,
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      price: 100000,
+      listingBy: 'Era Philippines',
+      user: EraUser(
+        id: '1',
+        firstname: 'John',
+        lastname: 'Doe',
+        role: 'Agent',
+        email: 'name@mail.com',
+        whatsApp: '1234-123-1234',
+        image: 'assets/images/agentpfp.png',
+      ),
+      listingId: 24005341,
+      lastUpdated: DateTime.parse('2024-06-26T08:02:00'),
+      addedDaysago: 116,
+      features: [
+        'Fitness Center',
+        '24 – Hour Security',
+        'Landscaped Garden',
+        'Swimming pool',
+        'Basement Parking',
+        'Gym',
+        'Lounge',
+        'Jogging path',
+        'Parking lot'
+      ],
+      roomsAndInterior: [
+        'Lorem ipsum dolor',
+        'Sit amet consectetur',
+        'Adipiscing elit, sed do'
+      ],
+      locationAndSchools: [
+        'Lorem ipsum dolor',
+        'Sit amet consectetur',
+        'Adipiscing elit, sed do'
+      ],
+      address: '65 Calle Industria 1100,\nCubao Quezon City 6350718',
+      propertyId: 12345,
+      pricePerSqm: 15000,
+      offerType: 'Sale',
+      view: 'Riverside',
+      location: 'Bonifacio Global\nCity, Taguig',
+      subCategory: 'Penthouse',
+      views: 100,
+      leads: 30,
+      specificType: 'Condominium',
+    ),
+    RealEstateListing(
+      type: 'BGC Luxury Condo',
+      image: 'listings/1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg',
       areas: 900,
       baths: 2,
       beds: 3,
@@ -124,63 +178,7 @@ class RealEstateListing {
     RealEstateListing(
       type: 'BGC Luxury Condo',
       image:
-          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/listings%2F1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg?alt=media&token=873c7d4d-aa49-40fb-9e1b-c6715926b3e2',
-      areas: 900,
-      baths: 2,
-      beds: 3,
-      cars: 1,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      price: 100000,
-      listingBy: 'Era Philippines',
-      user: EraUser(
-        id: '1',
-        firstname: 'John',
-        lastname: 'Doe',
-        role: 'Agent',
-        email: 'name@mail.com',
-        whatsApp: '1234-123-1234',
-        image: 'assets/images/agentpfp.png',
-      ),
-      listingId: 24005341,
-      lastUpdated: DateTime.parse('2024-06-26T08:02:00'),
-      addedDaysago: 116,
-      features: [
-        'Fitness Center',
-        '24 – Hour Security',
-        'Landscaped Garden',
-        'Swimming pool',
-        'Basement Parking',
-        'Gym',
-        'Lounge',
-        'Jogging path',
-        'Parking lot'
-      ],
-      roomsAndInterior: [
-        'Lorem ipsum dolor',
-        'Sit amet consectetur',
-        'Adipiscing elit, sed do'
-      ],
-      locationAndSchools: [
-        'Lorem ipsum dolor',
-        'Sit amet consectetur',
-        'Adipiscing elit, sed do'
-      ],
-      address: '65 Calle Industria 1100,\nCubao Quezon City 6350718',
-      propertyId: 12345,
-      pricePerSqm: 15000,
-      offerType: 'Sale',
-      view: 'Riverside',
-      location: 'Bonifacio Global\nCity, Taguig',
-      subCategory: 'Penthouse',
-      views: 100,
-      leads: 30,
-      specificType: 'Condominium',
-    ),
-    RealEstateListing(
-      type: 'BGC Luxury Condo',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/listings%2F1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg?alt=media&token=873c7d4d-aa49-40fb-9e1b-c6715926b3e2',
+          'listings/1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg',
       areas: 900,
       baths: 2,
       beds: 3,
@@ -236,7 +234,7 @@ class RealEstateListing {
     RealEstateListing(
       type: 'BGC Luxury Condo',
       image:
-          'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/listings%2F1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg?alt=media&token=873c7d4d-aa49-40fb-9e1b-c6715926b3e2',
+          'listings/1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg',
       areas: 900,
       baths: 2,
       beds: 3,
@@ -302,9 +300,8 @@ class RealEstateListing {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              child: CachedNetworkImage(
-                imageUrl: image,
-                fit: BoxFit.cover,
+              child: CloudStorage().imageLoader(
+                ref: image,
                 width: 380.w,
                 height: 200.h,
               ),

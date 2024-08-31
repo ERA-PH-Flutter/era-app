@@ -4,6 +4,7 @@ import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,8 +64,8 @@ class ListedBy extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle, color: AppColors.hint),
-                child: Image.network(
-                  image,
+                child:CloudStorage().imageLoader(
+                  ref: image,
                   width: 55.w,
                   height: 55.w,
                 ),

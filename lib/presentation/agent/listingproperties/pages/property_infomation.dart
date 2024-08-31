@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -101,8 +102,6 @@ class PropertyInformation extends GetView<ListingController> {
             // i dont know why URI is not working here
             Obx(() {
               bool isFav = false;
-              //CachedNetworkImage.evictFromCache(controller.currentImage.value);
-
               return SizedBox(
                 height: 350.h,
                 child: Stack(
@@ -111,23 +110,12 @@ class PropertyInformation extends GetView<ListingController> {
                         child: SizedBox(
                       width: Get.width,
                       height: 320.h,
-                      child: CachedNetworkImage(
-                        imageUrl: controller.currentImage.value == ''
+                      child: CloudStorage().imageLoader(
+                        ref: controller.currentImage.value == ''
                             ? (controller.images.isNotEmpty
                                 ? controller.images.first
                                 : AppStrings.noUserImageWhite)
                             : controller.currentImage.value,
-                        fit: BoxFit.cover,
-                        errorWidget: (context, url, error) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.error, color: Colors.red),
-                            Text('Failed to load image'),
-                            Text(error.toString()),
-                          ],
-                        ),
-                        placeholder: (context, url) =>
-                            Center(child: CircularProgressIndicator()),
                       ),
                     )),
                     Positioned(
@@ -158,9 +146,8 @@ class PropertyInformation extends GetView<ListingController> {
                                       )
                                     : null,
                                 margin: EdgeInsets.symmetric(horizontal: 7.w),
-                                child: CachedNetworkImage(
-                                  imageUrl: controller.images[index],
-                                  fit: BoxFit.cover,
+                                child: CloudStorage().imageLoader(
+                                  ref: controller.images[index],
                                   width: Get.width / 6,
                                 ),
                               ),
@@ -440,7 +427,7 @@ class PropertyInformation extends GetView<ListingController> {
           children: [
             iconsWidgets(AppEraAssets.tub, '${listing.baths}'),
             iconsWidgets(AppEraAssets.car, '${listing.cars}'),
-            listing.view == "Sunrise" ? iconsWidgets(AppEraAssets.sunrise, '${listing.view}') : Opacity(opacity: 0,child: iconsWidgets(AppEraAssets.sunrise, '${listing.view}'),),
+            listing.view == "SUNRISE" ? iconsWidgets(AppEraAssets.sunrise, '${listing.view}') : Opacity(opacity: 0,child: iconsWidgets(AppEraAssets.sunrise, '${listing.view}'),),
           ],
         ),
       ],

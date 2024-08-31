@@ -16,7 +16,7 @@ class CompanyGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return companymodels.isNotEmpty
         ? SizedBox(
-            height: 440.h,
+            height: 460.h,
             child: GridView.builder(
               physics: ScrollPhysics(),
               scrollDirection: Axis.horizontal,

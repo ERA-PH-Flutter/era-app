@@ -53,6 +53,7 @@ class HomeController extends GetxController {
       await getNews();
       await getImages();
       await getListings();
+      //await Future.delayed(Duration(seconds: 1,milliseconds: 500));
       homeState.value = HomeState.loaded;
     } catch (e) {
       print(e);

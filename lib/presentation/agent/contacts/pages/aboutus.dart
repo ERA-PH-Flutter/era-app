@@ -11,7 +11,6 @@ import 'contact_us.dart';
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});
 
-  // https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/about-us%2Faboutuspic.png?alt=media&token=0bb205a5-3807-4066-bb1d-18f410d64d9f
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(

@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_divider.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
@@ -552,13 +553,12 @@ class Home extends GetView<HomeController> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10.r),
-                            child: CachedNetworkImage(
-                              imageUrl: listing.photos != null
+                            child: CloudStorage().imageLoader(
+                              ref: listing.photos != null
                                   ? (listing.photos!.isNotEmpty
                                       ? listing.photos!.first
                                       : AppStrings.noUserImageWhite)
                                   : AppStrings.noUserImageWhite,
-                              fit: BoxFit.cover,
                               width: Get.width,
                               height: 300.h,
                             ),

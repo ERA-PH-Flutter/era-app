@@ -3,6 +3,8 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../services/firebase_storage.dart';
+
 class PropertiesCard extends StatelessWidget {
   final String image;
   final String label;
@@ -10,16 +12,9 @@ class PropertiesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: CachedNetworkImageProvider(
-            image,
-          ),
-          fit: BoxFit.cover
-        ),
-        borderRadius: BorderRadius.only(topRight: Radius.circular(20.0)),
-      ),
+    return CloudStorage().imageLoaderProvider(
+      ref: image,
+      borderRadius: BorderRadius.only(topRight: Radius.circular(20.0)),
       child: Stack(
         children: [
           Positioned(

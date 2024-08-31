@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/sold_properties/sold_properties_listings.dart';
@@ -101,13 +102,12 @@ class SoldProperties extends GetView<SoldPropertiesController> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10.r),
-                              child: CachedNetworkImage(
-                                imageUrl: listing.photos != null
+                              child: CloudStorage().imageLoader(
+                                ref: listing.photos != null
                                     ? (listing.photos!.isNotEmpty
                                         ? listing.photos!.first
                                         : AppStrings.noUserImageWhite)
                                     : AppStrings.noUserImageWhite,
-                                fit: BoxFit.cover,
                                 width: Get.width,
                                 height: 300.h,
                               ),

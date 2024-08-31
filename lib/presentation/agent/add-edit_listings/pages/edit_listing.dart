@@ -7,6 +7,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -192,7 +193,11 @@ class EditListing extends GetView<AddListingsController> {
                             top: 5,
                             right: 5,
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: ()async{
+                                //controller.listing?.photos![index];
+                                await FirebaseStorage.instance.ref(controller.listing?.photos![index]).delete();
+                                controller.listing?.photos?.removeAt(index);
+                                await controller.listing?.updateListing();
                                 controller.removeAt(index);
                               },
                               child: Icon(
@@ -572,38 +577,32 @@ class EditListing extends GetView<AddListingsController> {
           }
 
           try {
-            await Listing(
-                id: controller.id,
-                name: controller.propertyNameController.text,
-                price: controller.propertyCostController.text.toDouble(),
-                //photos: controller.images,
-                ppsqm: controller.pricePerSqmController.text.toDouble(),
-                beds: controller.bedsController.text.toInt(),
-                baths: controller.bathsController.text.toInt(),
-                cars: controller.carsController.text.toInt(),
-                area: controller.areaController.text.toInt(),
-                status: controller.selectedOfferT.value.toString(),
-                //  view: controller.selectedView.value.toString(),
-                location: controller.locationController.text,
-                type: controller.selectedPropertyT.value.toString(),
-                subCategory:
-                    controller.selectedPropertySubCategory.value.toString(),
-                description: controller.descController.text,
-                view: controller.selectedView.value.toString(),
-                address: controller.addressController.text,
-                latLng: [
-                  controller.latLng?.latitude,
-                  controller.latLng?.longitude
-                ]
-                //latLng
-                ).updateListing();
+            controller.listing!.name = controller.propertyNameController.text;
+            controller.listing!.price = controller.propertyCostController.text.toDouble();
+            controller.listing!.ppsqm = controller.pricePerSqmController.text.toDouble();
+            controller.listing!.beds = controller.bedsController.text.toInt();
+            controller.listing!.baths = controller.bathsController.text.toInt();
+            controller.listing!.cars = controller.carsController.text.toInt();
+            controller.listing!.area = controller.areaController.text.toInt();
+            controller.listing!.status = controller.selectedOfferT.value.toString();
+            controller.listing!.location = controller.add == null ? controller.locationController.text : controller.add.city;
+            controller.listing!.type = controller.selectedPropertyT.value.toString();
+            controller.listing!.subCategory = controller.selectedPropertySubCategory.value.toString();
+            controller.listing!.description = controller.descController.text;
+            controller.listing!.view = controller.selectedView.value.toString();
+            controller.listing!.address = controller.addressController.text;
+            controller.listing!.latLng = [
+              controller.latLng?.latitude,
+              controller.latLng?.longitude
+            ];
+            await controller.listing!.updateListing();
+
             BaseController().hideLoading();
             controller.showSuccessDialog(
               title: "Success",
               description:
                   "Listing update success!, note that changing image doesn't work. Do you want to exit?",
               hitApi: () {
-                Get.back();
                 Get.back();
               },
               cancelable: true,

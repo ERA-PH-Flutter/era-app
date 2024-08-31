@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/agent/archivedlisting/controllers/archived_controller.dart';
 import 'package:eraphilippines/repository/listing.dart';
@@ -48,12 +49,10 @@ class ArchivedItems extends StatelessWidget {
             elevation: 7,
             child: Row(
               children: [
-                CachedNetworkImage(
-                  imageUrl:
-                      '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
+                CloudStorage().imageLoader(
+                  ref : '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
                   width: 100.w,
                   height: Get.height,
-                  fit: BoxFit.cover,
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 10.h, left: 15.w),

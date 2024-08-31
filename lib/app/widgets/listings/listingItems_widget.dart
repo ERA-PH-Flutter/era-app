@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
@@ -90,20 +91,10 @@ class ListingItemss extends StatelessWidget {
                     children: [
                       GestureDetector(
                         //  onTap: toggleSelected,
-                        child: Container(
+                        child: CloudStorage().imageLoaderProvider(
                           width: Get.width,
+                          ref: image ?? AppStrings.noUserImageWhite,
                           height: 195.h,
-                          // duration: Duration(milliseconds: 300),
-                          // curve: Curves.easeIn,
-                          // height: selected.value ? 170.h : 200.h,
-                          // width: Get.width,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: CachedNetworkImageProvider(
-                                  image ?? AppStrings.noUserImageWhite),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
                         ),
                       ),
                       Padding(
@@ -290,20 +281,10 @@ class ListingItemss extends StatelessWidget {
                     children: [
                       GestureDetector(
                         // onTap: toggleSelected,
-                        child: Container(
+                        child: CloudStorage().imageLoaderProvider(
                           width: Get.width,
+                          ref: image!,
                           height: 195.h,
-                          // duration: Duration(milliseconds: 300),
-                          // curve: Curves.easeIn,
-                          // height: selected.value ? 165.h : 195.h,
-                          // width:
-                          //     selected.value ? Get.width - 40.w : Get.width,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: CachedNetworkImageProvider(image!),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
                         ),
                       ),
                       Center(

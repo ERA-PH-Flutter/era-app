@@ -1,6 +1,10 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CloudStorage{
     final ref = FirebaseStorage.instance.ref();
@@ -32,6 +36,68 @@ class CloudStorage{
             return "Error: $e";
         }
     }
+    imageLoader({
+      ref,
+        height,
+        width
+    }){
+        return FutureBuilder(
+            future: getFileDirect(docRef: ref),
+            builder: (context,snapshot){
+                if(snapshot.hasData){
+                    return CachedNetworkImage(
+                        placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        imageUrl: snapshot.data!,
+                        fit: BoxFit.cover,
+                        width:  width,
+                        height: height,
+                    );
+                }else{
+                    return Center(
+                        child: CircularProgressIndicator(),
+                    );
+                }
+            },
+        );
+    }
+    imageLoaderProvider({
+        ref,
+        height,
+        width,
+        borderRadius,
+        color,
+        child,
+        shadow,
+    }){
+        return FutureBuilder(
+            future: getFileDirect(docRef: ref),
+            builder: (context,snapshot){
+                if(snapshot.hasData){
+                    return Container(
+                        width:  width,
+                        height: height,
+                        decoration: BoxDecoration(
+                            borderRadius: borderRadius ?? BorderRadius.zero,
+                            color: color ?? AppColors.white,
+                            boxShadow: shadow ?? [],
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: CachedNetworkImageProvider(
+                                    snapshot.data!,
+                                )
+                            )
+                        ),
+                        child: child,
+                    );
+                }else{
+                    return Center(
+                        child: CircularProgressIndicator(),
+                    );
+                }
+            },
+        );
+    }
     Future<String> deleteFileDirect({
         required String docRef,
     }) async {
@@ -43,14 +109,14 @@ class CloudStorage{
         }
     }
     Future<String> upload({
-        required File file,required String target
+        required File file,required String target,customName
     }) async {
         try{
             var filename = file.path.split("/")[file.path.split("/").length - 1];
             var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename";
-            var fileRef = ref.child('$target/$uploadFilename');
+            var fileRef = ref.child('$target/${customName ?? uploadFilename}');
             await fileRef.putFile(file);
-            return '$target/$uploadFilename';
+            return '$target/${customName ?? uploadFilename}';
         }catch (e){
             return "error";
         }

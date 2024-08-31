@@ -1,9 +1,12 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
@@ -15,11 +18,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../global.dart';
+
 class SettingsPage extends GetView<AgentsController> {
-  final EraUser? agent;
   final AgentsController agentController = Get.put(AgentsController());
 
-  SettingsPage({super.key, required this.agent});
+  SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +57,11 @@ class SettingsPage extends GetView<AgentsController> {
             agentProfile(),
             textField(
                 labelText: 'Full Name',
-                hintText: "${agent?.firstname ?? ""} ${agent?.lastname ?? ""}",
+                hintText: "${user!.firstname ?? ""} ${user!.lastname ?? ""}",
                 isPasswordTextField: false),
             textField(
                 labelText: 'Email',
-                hintText: agent?.email ?? "",
+                hintText: user!.email ?? "",
                 isPasswordTextField: false),
             textField(
                 labelText: 'Password',
@@ -74,28 +78,40 @@ class SettingsPage extends GetView<AgentsController> {
         child: Stack(
       children: [
         Obx(() {
-          return Container(
-              width: 130,
-              height: 130,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 4,
-                    color: AppColors.white,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                        spreadRadius: 2,
-                        blurRadius: 10,
-                        color: Colors.black.withOpacity(0.1),
-                        offset: Offset(0, 10))
-                  ],
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: agentController.image.value != null
-                          ? FileImage(agentController.image.value!)
-                          : NetworkImage(agent?.image ?? "")
-                              as ImageProvider)));
+          controller.image.value;
+          return FutureBuilder(
+            future: CloudStorage().getFileDirect(docRef: user!.image ?? AppStrings.noUserImageWhite),
+            builder: (context,snapshot){
+              if(snapshot.hasData){
+                return Container(
+                    width: 130,
+                    height: 130,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 4,
+                          color: AppColors.white,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              color: Colors.black.withOpacity(0.1),
+                              offset: Offset(0, 10))
+                        ],
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: agentController.image.value != null
+                                ? FileImage(agentController.image.value!)
+                                : CachedNetworkImageProvider(snapshot.data!)
+                            as ImageProvider)));
+              }else{
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          );
         }),
         Positioned(
             bottom: 0,

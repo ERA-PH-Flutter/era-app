@@ -9,6 +9,7 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/companynews_model.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/company/company_grid.dart';
@@ -62,7 +63,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                         ),
                         settingIcon(() {
                           Get.to(() => SettingsPage(
-                                agent: user!,
+
                               ));
                         }),
                       ],
@@ -70,9 +71,8 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                     SizedBox(height: 10.h),
                     AgentInfoWidget.agentInformation(
                       user!.image != null
-                          ? CachedNetworkImageProvider(user!.image!)
-                          : NetworkImage(AppStrings.noUserImageWhite)
-                              as ImageProvider,
+                          ? user!.image!
+                          : AppStrings.noUserImageWhite,
                       '${user!.firstname}',
                       '${user!.lastname}',
                       '${user!.whatsApp}',
@@ -467,18 +467,11 @@ Widget iconAgents(String assetPath, Function()? onTap, String name) {
     onTap: onTap,
     child: Column(
       children: [
-        Container(
+        CloudStorage().imageLoaderProvider(
           height: 110.h,
           width: 110.w,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: CachedNetworkImageProvider(
-                assetPath,
-              )
-            ),
-            borderRadius: BorderRadius.circular(10.r)
-          ),
+          ref: assetPath,
+          borderRadius: BorderRadius.circular(10.r)
         ),
         ConstrainedBox(
           constraints: BoxConstraints(

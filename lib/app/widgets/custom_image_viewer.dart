@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,12 +27,9 @@ class CustomImage extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderradius ?? 0),
-        child: CachedNetworkImage(
-          imageUrl: url,
-          fit: BoxFit.cover,
+        child: CloudStorage().imageLoader(
+          ref: url,
           width: 500.w,
-          placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
         ),
       ),
     );

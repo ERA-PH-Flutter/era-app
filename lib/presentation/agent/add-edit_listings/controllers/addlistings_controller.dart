@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,6 +34,7 @@ class AddListingsController extends GetxController with BaseController {
   var selectedOfferT = RxnString();
   var selectedPropertySubCategory = RxnString();
   var selectedView = RxnString();
+  Listing? listing;
 
   generateMarker(position) async {
     marker?.value = {
@@ -104,6 +106,14 @@ class AddListingsController extends GetxController with BaseController {
       if (imagePick.isNotEmpty) {
         for (var image in imagePick) {
           images.add(File(image.path));
+          if(Get.currentRoute == '/editListings'){
+            imagePick.forEach((image)async{
+              var a = await CloudStorage().upload(file: File(image.path), target: 'listings/${user!.id}');
+              listing?.photos!.add(a);
+              await listing!.updateListing();
+            });
+
+          }
         }
       }
     } on PlatformException catch (e) {
@@ -129,9 +139,7 @@ class AddListingsController extends GetxController with BaseController {
 
   onInit() async {
     super.onInit();
-    print(Get.currentRoute == '/editListings');
     if (Get.currentRoute == '/editListings') {
-      print(id);
       id = Get.arguments[0];
       await assignData();
     }else{
@@ -146,28 +154,29 @@ class AddListingsController extends GetxController with BaseController {
   }
 
   assignData() async {
-    Listing listing = await Listing().getListing(Get.arguments[0]);
-    propertyNameController.text = listing.name ?? "";
+    listing = await Listing().getListing(Get.arguments[0]);
+    propertyNameController.text = listing!.name ?? "";
     propertyCostController.text =
-        listing.price == null ? "0" : listing.price.toString();
-    for (int i = 0; i < listing.photos!.length; i++) {
-      images.add(await urlToFile(listing.photos![i]));
+        listing!.price == null ? "0" : listing!.price.toString();
+    for (int i = 0; i < listing!.photos!.length; i++) {
+      images.add(await urlToFile(listing!.photos![i]));
     }
-    pricePerSqmController.text = listing.ppsqm.toString();
-    bedsController.text = listing.beds.toString();
-    bathsController.text = listing.baths.toString();
-    carsController.text = listing.cars.toString();
-    areaController.text = listing.area.toString();
+    pricePerSqmController.text = listing!.ppsqm.toString();
+    bedsController.text = listing!.beds.toString();
+    bathsController.text = listing!.baths.toString();
+    carsController.text = listing!.cars.toString();
+    areaController.text = listing!.area.toString();
     selectedOfferT.value =
-        offerT.contains(listing.status) ? listing.status : null;
-    locationController.text = listing.location ?? "";
+        offerT.contains(listing!.status) ? listing!.status : null;
+    locationController.text = listing!.location ?? "";
     selectedPropertyT.value =
-        propertyT.contains(listing.type) ? listing.type : null;
+        propertyT.contains(listing!.type) ? listing!.type : null;
     selectedPropertySubCategory.value =
-        subCategory.contains(listing.subCategory) ? listing.subCategory : null;
-    descController.text = listing.description ?? "";
-    addressController.text = listing.address ?? "";
+        subCategory.contains(listing!.subCategory) ? listing!.subCategory : null;
+    descController.text = listing!.description ?? "";
+    addressController.text = listing!.address ?? "";
     addEditListingsState.value = AddEditListingsState.loaded;
+    selectedView.value = listing!.view ?? "SUNRISE";
     addListingsState.value = AddListingsState.loaded;
   }
 }

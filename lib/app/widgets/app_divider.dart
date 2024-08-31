@@ -14,8 +14,6 @@ class AppDivider extends StatelessWidget {
   final double? fontSize;
   final bool? button;
 
-//    'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Fdivider_bg.jpeg?alt=media&token=fa4f5974-ba69-4123-bdee-d044f2ec3600'
-//'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/project-main%2Feraph_white-logo.png?alt=media&token=624a65d5-d64e-4272-8055-e47299a32c06
   const AppDivider(
       {super.key, this.text, this.color, this.fontSize, this.button});
 

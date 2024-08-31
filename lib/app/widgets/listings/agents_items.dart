@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
@@ -236,20 +237,31 @@ class AgentsItems extends StatelessWidget {
                     bottom: 280.h,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.w),
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.easeIn,
-                        height: 200.h,
-                        width: 50.w,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                              '${agentInfo.image ?? AppStrings.noUserImageWhite}',
-                            ),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                      child: FutureBuilder(
+                        future: CloudStorage().getFileDirect(docRef: '${agentInfo.image ?? AppStrings.noUserImageWhite}'),
+                        builder: (context,snapshot){
+                          if(snapshot.hasData){
+                            return AnimatedContainer(
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.easeIn,
+                              height: 200.h,
+                              width: 50.w,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: CachedNetworkImageProvider(
+                                    snapshot.data!,
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            );
+                          }else{
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
                       ),
                     ),
                   )
@@ -259,20 +271,31 @@ class AgentsItems extends StatelessWidget {
                     right: 100.w,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.w),
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                        height: 200.h,
-                        width: 50.w,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                              '${agentInfo.image ?? AppStrings.noUserImageWhite}',
-                            ),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                      child: FutureBuilder(
+                        future: CloudStorage().getFileDirect(docRef: '${agentInfo.image ?? AppStrings.noUserImageWhite}'),
+                        builder: (context,snapshot){
+                          if(snapshot.hasData){
+                            return AnimatedContainer(
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.easeIn,
+                              height: 200.h,
+                              width: 50.w,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: CachedNetworkImageProvider(
+                                    snapshot.data!,
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            );
+                          }else{
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
                       ),
                     ),
                   ),
