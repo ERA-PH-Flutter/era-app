@@ -37,7 +37,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
             Obx(() => switch (controller.agentListingsState.value) {
                   AgentListingsState.loading => _loading(),
                   AgentListingsState.loaded => _loaded(),
-                  //AgentListingsState.empty => _loading(),
+                  AgentListingsState.empty => _empty(),
                   AgentListingsState.error => _error(),
                 })
           ],
@@ -340,7 +340,10 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                                       await Listing()
                                           .deleteListingsById(listing.id);
                                       BaseController().hideLoading();
+                                      controller.agentListingsState.value = AgentListingsState.loading;
                                       Get.back();
+                                      await controller.loadListing();
+
                                     },
                                     cancelable: true);
                               }, 'Delete', AppColors.kRedColor),
@@ -369,6 +372,37 @@ class AgentsMyListing extends GetView<AgentListingsController> {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  _empty() {
+    return Container(
+      height: Get.height - 225.h,
+      width:Get.width,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            EraText(
+              text: "You dont have any listings!",
+              color: Colors.black,
+              fontSize: 16.sp,
+            ),
+            SizedBox(height: 10.h,),
+            GestureDetector(
+              onTap: (){
+                Get.toNamed('addListings');
+              },
+              child: EraText(
+                textDecoration: TextDecoration.underline,
+                text: "Add Listings?",
+                fontSize: 20.sp,
+                color: AppColors.kPrimaryColor,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

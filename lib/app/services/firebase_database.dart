@@ -27,13 +27,13 @@ class Database{
     Query query = FirebaseFirestore.instance.collection('listings');
     var searchData = [];
     if(location != ""){
-      query.where('location',isGreaterThanOrEqualTo: location).where('location',isLessThanOrEqualTo: location + '\uf8ff');
+      query = query.where('location',isGreaterThanOrEqualTo: location).where('location',isLessThanOrEqualTo: location + '\uf8ff');
     }
-    if(price != ""){
-      query.where('price',isLessThanOrEqualTo: price);
+    else if(price != ""){
+      query = query.where('price',isLessThanOrEqualTo: price);
     }
-    if(property != ""){
-      query.where('property',isGreaterThanOrEqualTo: property).where('property',isLessThanOrEqualTo: property + '\uf8ff');
+    else if(property != ""){
+      query = query.where('property',isGreaterThanOrEqualTo: property).where('property',isLessThanOrEqualTo: property + '\uf8ff');
     }
     await query.get().then((snapshot){
       var a = snapshot.docs;

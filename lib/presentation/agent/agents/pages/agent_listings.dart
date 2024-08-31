@@ -35,7 +35,7 @@ class AgentListings extends GetView<AgentListingsController> {
             Obx(() => switch (controller.agentListingsState.value) {
                   AgentListingsState.loading => _loading(),
                   AgentListingsState.loaded => _loaded(),
-                  //AgentListingsState.empty => _loading(),
+                  AgentListingsState.empty => _empty(),
                   AgentListingsState.error => _error(),
                 })
           ],
@@ -354,6 +354,24 @@ class AgentListings extends GetView<AgentListingsController> {
       child: EraText(
         text: "Something went Wrong!",
         color: Colors.black,
+      ),
+    );
+  }
+  _empty() {
+    return Container(
+      height: Get.height - 225.h,
+      width:Get.width,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            EraText(
+              text: "This User don't have any listings!",
+              color: Colors.black,
+              fontSize: 16.sp,
+            ),
+          ],
+        ),
       ),
     );
   }

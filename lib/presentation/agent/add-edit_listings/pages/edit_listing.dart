@@ -221,18 +221,22 @@ class EditListing extends GetView<AddListingsController> {
             children: [
               Positioned.fill(
                 child: GoogleMap(
+                  zoomControlsEnabled: false,
+
                   initialCameraPosition: CameraPosition(
                       target: LatLng(14.599512, 120.984222), zoom: 12),
                   markers: controller.marker.value,
+                  mapToolbarEnabled: false,
+                  myLocationButtonEnabled: true,
                   onTap: (position) async {
                     controller.generateMarker(position);
                     controller.latLng = position;
-                    controller.address.value = (await GeoCode(
-                                apiKey: "65d99e660931a611004109ogd35593a",
-                                lat: position.latitude,
-                                lng: position.longitude)
-                            .reverse())
-                        .displayName!;
+                    controller.add = (await GeoCode(
+                        apiKey: "65d99e660931a611004109ogd35593a",
+                        lat: position.latitude,
+                        lng: position.longitude)
+                        .reverse());
+                    controller.address.value = controller.add.displayName!;
                     controller.addressController.text =
                         controller.address.value;
                     //search for location
@@ -244,23 +248,31 @@ class EditListing extends GetView<AddListingsController> {
                 child: Container(
                   width: Get.width - EraTheme.paddingWidth * 2,
                   padding: EdgeInsets.symmetric(
-                      horizontal: EraTheme.paddingWidthSmall),
+                      horizontal: EraTheme.paddingWidthSmall,vertical: 10.h),
                   margin:
-                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                  color: Colors.white,
+                  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.r)
+                  ),
                   child: Obx(() => EraText(
-                        text: "Address: ${controller.address.value}",
-                        color: Colors.black,
-                      )),
+                    text: "Address: ${controller.address.value}",
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  )),
                 ),
               ),
 
               Positioned(
                 bottom: 21.w,
-                child: SizedBox(
-                  width: Get.width,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: Get.width  -  (EraTheme.paddingWidth * 2),
+                  margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                   height: 35.h,
                   child: Button(
+                    width: Get.width -  (EraTheme.paddingWidth * 2),
                     onTap: () {
                       controller.addEditListingsState.value =
                           AddEditListingsState.loaded;
@@ -376,13 +388,6 @@ class EditListing extends GetView<AddListingsController> {
         //       hintText: 'Sunrise',
         //       maxLines: 1),
         // ),
-        AddListings.buildWidget(
-          'Location',
-          TextformfieldWidget(
-              controller: controller.locationController,
-              hintText: 'Bonifacio Global City, Taguig',
-              maxLines: 1),
-        ),
         AddListings.dropDownAddlistings(
             controller.selectedPropertyT,
             controller.propertyT,
@@ -423,7 +428,7 @@ class EditListing extends GetView<AddListingsController> {
                 area: controller.areaController.text.toInt(),
                 status: controller.selectedOfferT.value.toString(),
                 //  view: controller.selectedView.value.toString(),
-                location: controller.locationController.text,
+                location: controller.add.city,
                 type: controller.selectedPropertyT.value.toString(),
                 subCategory:
                     controller.selectedPropertySubCategory.value.toString(),

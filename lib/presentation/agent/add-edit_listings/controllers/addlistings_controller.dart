@@ -25,6 +25,7 @@ class AddListingsController extends GetxController with BaseController {
   var id = "";
   RxSet<Marker> marker = {Marker(markerId: MarkerId("aaaa"))}.obs;
   var address = "".obs;
+  var add;
   RxList images = [].obs;
   final picker = ImagePicker();
   final removeImage = false.obs;
@@ -133,6 +134,8 @@ class AddListingsController extends GetxController with BaseController {
       print(id);
       id = Get.arguments[0];
       await assignData();
+    }else{
+      addEditListingsState.value = AddEditListingsState.loaded;
     }
   }
 

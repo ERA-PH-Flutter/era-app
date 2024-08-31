@@ -269,7 +269,7 @@ class Home extends GetView<HomeController> {
                     SizedBox(height: 20.h),
                     SearchWidget.build(() async {
                       var data;
-                      var searchQuery;
+                      var searchQuery = "";
                       if (controller.isForSale.value == 1) {
                         data = await Database().getForSaleListing();
                         searchQuery = "All For Sale Listings";
@@ -279,13 +279,15 @@ class Home extends GetView<HomeController> {
                       } else if (controller.aiSearchController.text == "") {
                         data = await Database().searchListing(
                             location: controller.locationController.text,
-                            price: controller.priceController,
+                            price: controller.priceController.text,
                             property: controller.propertyController.text);
-                        searchQuery = controller.locationController.text != ""
-                            ? controller.locationController.text
-                            : controller.propertyController.text == ""
-                                ? controller.propertyController.text
-                                : controller.priceController.text;
+                        if(controller.locationController.text != ""){
+                          searchQuery += "Location: ${controller.locationController.text}";
+                        }else if(controller.propertyController.text != ""){
+                          searchQuery += "Property Type: ${controller.locationController.text}";
+                        }else if(controller.priceController.text != ""){
+                          searchQuery += "With price less than: ${controller.priceController.text}";
+                        }
                       } else {
                         data =
                             await AI(query: controller.aiSearchController.text)
@@ -327,7 +329,7 @@ class Home extends GetView<HomeController> {
                             () async {
                           var listings = (await FirebaseFirestore.instance
                                   .collection('listings')
-                                  .where('type', isEqualTo: 'condominium')
+                                  .where('type', isEqualTo: 'Condominium')
                                   .get())
                               .docs;
                           var data = listings.map((listing) {
@@ -341,7 +343,7 @@ class Home extends GetView<HomeController> {
                             () async {
                           var listings = (await FirebaseFirestore.instance
                                   .collection('listings')
-                                  .where('type', isEqualTo: 'condotel')
+                                  .where('type', isEqualTo: 'Condotel')
                                   .get())
                               .docs;
                           var data = listings.map((listing) {
@@ -355,7 +357,7 @@ class Home extends GetView<HomeController> {
                             () async {
                           var listings = (await FirebaseFirestore.instance
                                   .collection('listings')
-                                  .where('type', isEqualTo: 'commercial')
+                                  .where('type', isEqualTo: 'Commercial')
                                   .get())
                               .docs;
                           var data = listings.map((listing) {
@@ -369,7 +371,7 @@ class Home extends GetView<HomeController> {
                             () async {
                           var listings = (await FirebaseFirestore.instance
                                   .collection('listings')
-                                  .where('type', isEqualTo: 'apartment')
+                                  .where('sub_category', isEqualTo: 'Apartment')
                                   .get())
                               .docs;
                           var data = listings.map((listing) {
@@ -383,7 +385,7 @@ class Home extends GetView<HomeController> {
                             () async {
                           var listings = (await FirebaseFirestore.instance
                                   .collection('listings')
-                                  .where('type', isEqualTo: 'house')
+                                  .where('sub_category', isEqualTo: 'House')
                                   .get())
                               .docs;
                           var data = listings.map((listing) {
@@ -397,7 +399,7 @@ class Home extends GetView<HomeController> {
                             () async {
                           var listings = (await FirebaseFirestore.instance
                                   .collection('listings')
-                                  .where('type', isEqualTo: 'land')
+                                  .where('sub_category', isEqualTo: 'Lot')
                                   .get())
                               .docs;
                           var data = listings.map((listing) {
@@ -411,7 +413,7 @@ class Home extends GetView<HomeController> {
                             () async {
                           var listings = (await FirebaseFirestore.instance
                                   .collection('listings')
-                                  .where('type', isEqualTo: 'water front')
+                                  .where('view', isEqualTo: 'Water Front')
                                   .get())
                               .docs;
                           var data = listings.map((listing) {

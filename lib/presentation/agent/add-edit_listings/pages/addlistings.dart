@@ -25,127 +25,133 @@ class AddListings extends GetView<AddListingsController> {
     return BaseScaffold(
         body: SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          textBuild('CREATE LISTING', 25.sp, FontWeight.w600, AppColors.blue),
-          SizedBox(height: 15.h),
-          textBuild('PROPERTY INFORMATION', 25.sp, FontWeight.w600,
-              AppColors.kRedColor),
-          SizedBox(height: 20.h),
-          buildWidget(
-            'Property Name',
-            TextformfieldWidget(
-              controller: controller.propertyNameController,
-              hintText: 'Property Name',
-              maxLines: 1,
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              keyboardType: TextInputType.text,
-            ),
-          ),
-          buildWidget(
-            'Property Cost',
-            TextformfieldWidget(
-              controller: controller.propertyCostController,
-              hintText: '100,000,000',
-              maxLines: 1,
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              keyboardType: TextInputType.number,
-            ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              textBuild(
-                  'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
-              Obx(() => textBuild('${controller.images.length}/15', 22.sp,
-                  FontWeight.w600, Colors.black)),
-            ],
-          ),
-          SizedBox(height: 10.h),
-          // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.blue,
-                    shadowColor: Colors.transparent,
-                    side: BorderSide(
-                        color: AppColors.hint.withOpacity(0.1), width: 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    controller.getImageGallery();
-                  },
-                  icon: Icon(
-                    CupertinoIcons.photo_fill_on_rectangle_fill,
-                    color: AppColors.white,
-                  ),
-                  label: EraText(
-                    text: 'Select Photos',
-                    color: AppColors.white,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 10.h),
-          Obx(() {
-            if (controller.images.isEmpty) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Image.asset(
-                  AppEraAssets.uploadphoto,
-                ),
-              );
-            } else {
-              return GridView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 10.h,
-                    crossAxisSpacing: 10.h,
-                  ),
-                  itemCount: controller.images.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: FileImage(controller.images[index]),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  });
-            }
-          }),
-
-          SizedBox(height: 5.h),
-
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: EraText(
-                text: 'Photo must be at least 300px X 300px',
-                fontSize: 15.sp,
-                color: AppColors.hint),
-          ),
-          paddintText2(),
-        ],
-      ),
+      child: Obx(()=>switch(controller.addEditListingsState.value){
+        AddEditListingsState.loaded => _loaded(),
+        AddEditListingsState.loading => _loading(),
+        AddEditListingsState.location_pick => _locationPick()
+      })
     ));
   }
+  _loaded(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textBuild('CREATE LISTING', 25.sp, FontWeight.w600, AppColors.blue),
+        SizedBox(height: 15.h),
+        textBuild('PROPERTY INFORMATION', 25.sp, FontWeight.w600,
+            AppColors.kRedColor),
+        SizedBox(height: 20.h),
+        buildWidget(
+          'Property Name',
+          TextformfieldWidget(
+            controller: controller.propertyNameController,
+            hintText: 'Property Name',
+            maxLines: 1,
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            keyboardType: TextInputType.text,
+          ),
+        ),
+        buildWidget(
+          'Property Cost',
+          TextformfieldWidget(
+            controller: controller.propertyCostController,
+            hintText: '100,000,000',
+            maxLines: 1,
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            keyboardType: TextInputType.number,
+          ),
+        ),
 
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            textBuild(
+                'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
+            Obx(() => textBuild('${controller.images.length}/15', 22.sp,
+                FontWeight.w600, Colors.black)),
+          ],
+        ),
+        SizedBox(height: 10.h),
+        // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.blue,
+                  shadowColor: Colors.transparent,
+                  side: BorderSide(
+                      color: AppColors.hint.withOpacity(0.1), width: 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () {
+                  controller.getImageGallery();
+                },
+                icon: Icon(
+                  CupertinoIcons.photo_fill_on_rectangle_fill,
+                  color: AppColors.white,
+                ),
+                label: EraText(
+                  text: 'Select Photos',
+                  color: AppColors.white,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 10.h),
+        Obx(() {
+          if (controller.images.isEmpty) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Image.asset(
+                AppEraAssets.uploadphoto,
+              ),
+            );
+          } else {
+            return GridView.builder(
+                shrinkWrap: true,
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 10.h,
+                  crossAxisSpacing: 10.h,
+                ),
+                itemCount: controller.images.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: FileImage(controller.images[index]),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                });
+          }
+        }),
+
+        SizedBox(height: 5.h),
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: EraText(
+              text: 'Photo must be at least 300px X 300px',
+              fontSize: 15.sp,
+              color: AppColors.hint),
+        ),
+        paddintText2(),
+      ],
+    );
+  }
   _loading() {
     return Center(
       child: GestureDetector(
@@ -291,18 +297,22 @@ class AddListings extends GetView<AddListingsController> {
             children: [
               Positioned.fill(
                 child: GoogleMap(
+                  zoomControlsEnabled: false,
+
                   initialCameraPosition: CameraPosition(
                       target: LatLng(14.599512, 120.984222), zoom: 12),
                   markers: controller.marker.value,
+                  mapToolbarEnabled: false,
+                  myLocationButtonEnabled: true,
                   onTap: (position) async {
                     controller.generateMarker(position);
                     controller.latLng = position;
-                    controller.address.value = (await GeoCode(
-                                apiKey: "65d99e660931a611004109ogd35593a",
-                                lat: position.latitude,
-                                lng: position.longitude)
-                            .reverse())
-                        .displayName!;
+                    controller.add = (await GeoCode(
+                        apiKey: "65d99e660931a611004109ogd35593a",
+                        lat: position.latitude,
+                        lng: position.longitude)
+                        .reverse());
+                    controller.address.value = controller.add.displayName!;
                     controller.addressController.text =
                         controller.address.value;
                     //search for location
@@ -314,23 +324,31 @@ class AddListings extends GetView<AddListingsController> {
                 child: Container(
                   width: Get.width - EraTheme.paddingWidth * 2,
                   padding: EdgeInsets.symmetric(
-                      horizontal: EraTheme.paddingWidthSmall),
+                      horizontal: EraTheme.paddingWidthSmall,vertical: 10.h),
                   margin:
-                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                  color: Colors.white,
+                  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.r)
+                  ),
                   child: Obx(() => EraText(
-                        text: "Address: ${controller.address.value}",
-                        color: Colors.black,
-                      )),
+                    text: "Address: ${controller.address.value}",
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  )),
                 ),
               ),
 
               Positioned(
                 bottom: 21.w,
-                child: SizedBox(
-                  width: Get.width,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: Get.width  -  (EraTheme.paddingWidth * 2),
+                  margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                   height: 35.h,
                   child: Button(
+                    width: Get.width -  (EraTheme.paddingWidth * 2),
                     onTap: () {
                       controller.addEditListingsState.value =
                           AddEditListingsState.loaded;
@@ -435,14 +453,6 @@ class AddListings extends GetView<AddListingsController> {
             (value) => controller.selectedView.value = value!,
             'View',
             'Select View'),
-        buildWidget(
-          'Location',
-          TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              controller: controller.locationController,
-              hintText: 'Bonifacio Global City, Taguig',
-              maxLines: 1),
-        ),
         dropDownAddlistings(
             controller.selectedPropertyT,
             controller.propertyT,
@@ -481,17 +491,22 @@ class AddListings extends GetView<AddListingsController> {
               area: controller.areaController.text.toInt(),
               status: controller.selectedOfferT.value.toString(),
               // view: controller.selectedView.value.toString(),
-              location: controller.locationController.text,
+              location: controller.add.city,
               type: controller.selectedPropertyT.value.toString(),
               subCategory:
                   controller.selectedPropertySubCategory.value.toString(),
               description: controller.descController.text,
               view: controller.selectedView.value.toString(),
+              address: controller.addressController.text,
+              latLng: [controller.latLng!.latitude, controller.latLng!.longitude]
             ).addListing(controller.images);
+            controller.showSuccessDialog(hitApi: (){
+              Get.back();Get.back();Get.back();
+            },title: "Add Listing Success",description: "Listing has been uploaded to the database.");
           } catch (e, ex) {
             print(ex);
           }
-          BaseController().hideLoading();
+          //BaseController().hideLoading();
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
       ],
@@ -594,4 +609,5 @@ class AddListings extends GetView<AddListingsController> {
       ),
     );
   }
+
 }

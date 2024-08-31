@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../presentation/global.dart';
+
 class InboxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,43 +22,44 @@ class InboxWidget extends StatelessWidget {
             itemCount: snapshot.data?.docs.length,
             itemBuilder: (context, index) {
               final message = Message.fromJson(data![index]);
-              return Column(
-                children: [
-                  ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: AppColors.white,
-                      child: Icon(
-                        CupertinoIcons.mail,
-                        color: AppColors.kRedColor,
+              if(data![index]['to'] == "all" || data[index]['to'] == user!.id){
+                return Column(
+                  children: [
+                    ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: AppColors.white,
+                        child: Icon(
+                          CupertinoIcons.mail,
+                          color: AppColors.kRedColor,
+                        ),
                       ),
+                      title: EraText(
+                        text: message.title,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      subtitle: EraText(
+                        text: message.subject,
+                        color: AppColors.black,
+                      ),
+                      trailing: EraText(
+                        text: message.time,
+                        color: AppColors.hint,
+                      ),
+                      onTap: () {
+                        Get.to(MessageScreen(message: message));
+                      },
                     ),
-                    title: EraText(
-                      text: message.title,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    subtitle: EraText(
-                      text: message.subject,
-                      color: AppColors.black,
-                    ),
-                    trailing: EraText(
-                      text: message.time,
-                      color: AppColors.hint,
-                    ),
-                    onTap: () {
-                      Get.to(MessageScreen(message: message));
-                    },
-                  ),
-                  Divider(), // Add a Divider here
-                ],
-              );
+                    Divider(), // Add a Divider here
+                  ],
+                );
+              }
             },
           );
-        }else{
-          return Center(
-            child: CircularProgressIndicator(),
-          );
         }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }

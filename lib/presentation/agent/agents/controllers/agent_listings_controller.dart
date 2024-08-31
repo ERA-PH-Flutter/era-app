@@ -8,6 +8,7 @@ enum AgentListingsState{
   loading,
   loaded,
   error,
+  empty
 }
 class AgentListingsController extends GetxController{
   var store = Get.find<LocalStorageService>();
@@ -17,11 +18,18 @@ class AgentListingsController extends GetxController{
   var data = [].obs;
   @override
   void onInit()async{
-    user = await EraUser().getById(Get.arguments[0]);
-    print(user);
-    listings = (await Database().searchListingsByUserId(Get.arguments[0]));
-    agentListingsState.value = AgentListingsState.loaded;
+    loadListing();
     super.onInit();
+  }
+  loadListing()async{
+    user = await EraUser().getById(Get.arguments[0]);
+    listings = (await Database().searchListingsByUserId(Get.arguments[0]));
+    if(listings.isEmpty){
+      agentListingsState.value = AgentListingsState.empty;
+    }else{
+      agentListingsState.value = AgentListingsState.loaded;
+    }
+
   }
   /*
   filter(category)async{
