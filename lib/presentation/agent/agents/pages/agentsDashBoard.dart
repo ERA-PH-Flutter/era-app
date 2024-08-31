@@ -117,8 +117,11 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(),
+    return Container(
+      height: Get.height - 200.h,
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 
@@ -304,8 +307,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('users').snapshots(),
+              stream: FirebaseFirestore.instance.collection('users').snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());

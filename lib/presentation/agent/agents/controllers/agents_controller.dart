@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/user.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -91,8 +92,14 @@ class AgentsController extends GetxController with BaseController{
       if (imagePicks != null && imagePicks.isNotEmpty) {
         showLoading();
         image.value = File(imagePicks[0].path);
-        var im = await CloudStorage().upload(file: image.value!, target: 'users/images');
-        user!.image = await CloudStorage().getFileDirect(docRef: im);
+        try{
+          var ref = await FirebaseStorage.instance.ref('users/images/${user!.id}.png').delete();
+        }catch(e){
+          print(e);
+        }
+        var im = await CloudStorage().upload(file: image.value!, target: 'users/images',customName: '${user!.id}.png');
+
+        user!.image = im;
         await user!.update();
         showSuccessDialog(description: "Change profile image success!",title: "Success",hitApi: (){
           Get.back();Get.back();Get.back();
@@ -107,8 +114,20 @@ class AgentsController extends GetxController with BaseController{
     try {
       final XFile? imagePick =
           await picker.pickImage(source: ImageSource.camera);
+
       if (imagePick != null) {
         image.value = File(imagePick.path);
+        try{
+          var ref = await FirebaseStorage.instance.ref('users/images/${user!.id}.png').delete();
+        }catch(e){
+          print(e);
+        }
+        var im = await CloudStorage().upload(file: image.value!, target: 'users/images',customName: '${user!.id}.png');
+        user!.image = im;
+        await user!.update();
+        showSuccessDialog(description: "Change profile image success!",title: "Success",hitApi: (){
+          Get.back();Get.back();Get.back();
+        });
       }
     } on PlatformException catch (e) {
       showErroDialog(description: "Failed to pick image: ${e.message}");

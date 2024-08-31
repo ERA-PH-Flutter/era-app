@@ -227,7 +227,7 @@ class PropertyInformation extends GetView<ListingController> {
           ),
           SizedBox(height: 20.h),
           eratexts('Listing ID# ', '${listing.id}'),
-          eratexts('Last Updated: ', DateFormat('MM dd, yyyy hh:mm aaa').format(listing.dateUpdated!)),
+          eratexts('Last Updated: ', DateFormat('MMMM dd, yyyy hh:mm aaa').format(listing.dateUpdated!)),
           eratexts('Added: ', "Added ${DateTime.now().difference(listing.dateCreated!).inDays.toString()} days ago"),
           //SizedBox(height: 20.h),
 
@@ -389,12 +389,12 @@ class PropertyInformation extends GetView<ListingController> {
           height: 250.h,
           child: GoogleMap(
             initialCameraPosition: CameraPosition(
-              target: LatLng(listing.latLng![0].toDouble(),listing.latLng![1].toDouble()),
+              target: LatLng(listing.latLng != null ? listing.latLng![0].toString().toDouble() : 0,listing.latLng != null ? listing.latLng![1].toString().toDouble() : 0),
               zoom: 13.0
             ),
             markers: {
               Marker(
-                position: LatLng(listing.latLng![0].toDouble(),listing.latLng![1].toDouble()),
+                position: LatLng(listing.latLng != null ? listing.latLng![0].toString().toDouble() : 0,listing.latLng != null ? listing.latLng![1].toString().toDouble() : 0),
                 markerId: MarkerId('mainPin'),
                 icon: BitmapDescriptor.defaultMarker
               )
@@ -467,7 +467,7 @@ class PropertyInformation extends GetView<ListingController> {
             shorterSummary('Area', '${listing.area} sqm'),
             //shorterSummary('Offer Type', listing.type),
             shorterSummary('View', listing.view ?? "None"),
-            shorterSummary('Location', listing.location ?? ""),
+            shorterSummary('Location', (listing.location ?? "").toString().capitalize),
             shorterSummary('Type', listing.type),
             shorterSummary('Sub Category', listing.subCategory),
           ],

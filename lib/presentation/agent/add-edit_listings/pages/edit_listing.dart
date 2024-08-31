@@ -36,8 +36,11 @@ class EditListing extends GetView<AddListingsController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(),
+    return SizedBox(
+      height: Get.height - 200.h,
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 
@@ -523,7 +526,7 @@ class EditListing extends GetView<AddListingsController> {
             );
             return;
           }
-          if (controller.addressController.text.isEmpty) {
+          if (controller.add == null) {
             AddListings.showErroDialogs(
               title: "Error",
               description: "All fields are required!",
@@ -577,6 +580,7 @@ class EditListing extends GetView<AddListingsController> {
           }
 
           try {
+            print(controller.latLng);
             controller.listing!.name = controller.propertyNameController.text;
             controller.listing!.price = controller.propertyCostController.text.toDouble();
             controller.listing!.ppsqm = controller.pricePerSqmController.text.toDouble();
@@ -591,10 +595,10 @@ class EditListing extends GetView<AddListingsController> {
             controller.listing!.description = controller.descController.text;
             controller.listing!.view = controller.selectedView.value.toString();
             controller.listing!.address = controller.addressController.text;
-            controller.listing!.latLng = [
+            controller.listing!.latLng = controller.latLng != null ?[
               controller.latLng?.latitude,
               controller.latLng?.longitude
-            ];
+            ] : controller.listing!.latLng;
             await controller.listing!.updateListing();
 
             BaseController().hideLoading();

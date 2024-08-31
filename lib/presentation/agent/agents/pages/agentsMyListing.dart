@@ -459,8 +459,11 @@ class AgentsMyListing extends GetView<AgentListingsController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(),
+    return SizedBox(
+      height: Get.height -200.h,
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 
