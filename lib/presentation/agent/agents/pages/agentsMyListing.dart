@@ -147,6 +147,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
               Listing listing = controller.listings[index];
               return Stack(
                 children: [
+
                   GestureDetector(
                     onTap: ()async{
                       await Database().addViews(listing.id);
@@ -321,18 +322,18 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                             height: 15.h,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                            padding: EdgeInsets.symmetric(horizontal: 14.w),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Button.button3((Get.width - 113.w) / 2, 40.h, () {
+                                Button.button3((Get.width - 90.w) / 2, 40.h, () {
                                   Get.toNamed('/editListings',
                                       arguments: [listing.id]);
                                 }, 'Edit', AppColors.blue,fontSize: 18.sp),
                                 SizedBox(
                                   width: 5.w,
                                 ),
-                                Button.button3((Get.width - 113.w) / 2, 43.h, () {
+                                Button.button3((Get.width - 90.w) / 2, 43.h, () {
                                   print(controller.listings[index].id);
                                   BaseController().showSuccessDialog(
                                       title: "Confirm",
@@ -361,6 +362,23 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                     ),
                   ),
                   Positioned(
+                    top: 20.h,
+                    child: Visibility(
+                      visible: listing.isSold ?? false,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.w, vertical: 4.h),
+                        color: AppColors.kRedColor,
+                        child: EraText(
+                          text: 'SOLD',
+                          color: Colors.white,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
                     top: 10.h,
                     right: 10.w,
                     child: Visibility(
@@ -383,6 +401,14 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                           35.h,
                           ()async{
                             await Database().listingMarkAsSold(listing.id);
+                            controller.agentListingsState.value = AgentListingsState.loading;
+                            await controller.loadListing();
+                            Get.showSnackbar(GetSnackBar(
+                              title: "Success",
+                              message: "Listing has been mark as sold!",
+                              backgroundColor: AppColors.kRedColor,
+                              duration: Duration(seconds: 1,milliseconds: 500),
+                            ));
                           },
                           'Mark as Sold',
                           AppColors.blue,

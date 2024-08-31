@@ -15,16 +15,12 @@ import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/company/company_grid.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
-import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
-import 'package:eraphilippines/app/widgets/listings/gridView_Listing.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
-import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/agent/listingproperties/pages/findproperties.dart';
 import 'package:eraphilippines/repository/listing.dart';
-import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -34,9 +30,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
-import '../../../global.dart';
-import '../../searchresult/controllers/searchresult_binding.dart';
-import '../../searchresult/pages/searchresult.dart';
 import '../controllers/home_controller.dart';
 
 class Home extends GetView<HomeController> {
