@@ -389,7 +389,7 @@ class PropertyInformation extends GetView<ListingController> {
           fontSize: 18.sp,
         ),
         EraText(
-          text: listing.location ??
+          text: listing.address ??
               "No Address Added",
           color: AppColors.black,
           fontWeight: FontWeight.w500,
@@ -407,6 +407,7 @@ class PropertyInformation extends GetView<ListingController> {
             ),
             markers: {
               Marker(
+                position: LatLng(listing.latLng![0].toDouble(),listing.latLng![1].toDouble()),
                 markerId: MarkerId('mainPin'),
                 icon: BitmapDescriptor.defaultMarker
               )

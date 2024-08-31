@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../presentation/agent/utility/controller/base_controller.dart';
+import '../../services/firebase_database.dart';
+
 class ArchivedListings extends StatelessWidget {
   final List listingModels;
 
@@ -90,7 +93,8 @@ class ArchivedListings extends StatelessWidget {
 
               // agent: listingModels[i].by,
               //    type: listingModels[i].type,
-              onTap: () {
+              onTap: ()async{
+                await Database().addViews(listingModels[i].id);
                 Get.toNamed('/propertyInfo', arguments: listingModels[i]);
               },
             ),

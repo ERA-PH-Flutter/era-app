@@ -584,7 +584,7 @@ class EditListing extends GetView<AddListingsController> {
                 area: controller.areaController.text.toInt(),
                 status: controller.selectedOfferT.value.toString(),
                 //  view: controller.selectedView.value.toString(),
-                location: controller.add.city,
+                location: controller.locationController.text,
                 type: controller.selectedPropertyT.value.toString(),
                 subCategory:
                     controller.selectedPropertySubCategory.value.toString(),

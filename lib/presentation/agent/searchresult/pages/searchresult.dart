@@ -15,6 +15,7 @@ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart'
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/agent/listingproperties/pages/findproperties.dart';
 import 'package:eraphilippines/presentation/agent/searchresult/controllers/searchresult_binding.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -406,7 +407,8 @@ class SearchResult extends GetView<SearchResultController> {
               //print(controller.data[index]);
               Listing listing = Listing.fromJSON(controller.data[index]);
               return GestureDetector(
-                onTap: () {
+                onTap: ()async{
+                  await Database().addViews(listing.id);
                   Get.toNamed('/propertyInfo', arguments: listing);
                 },
                 child: Container(

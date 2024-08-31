@@ -21,6 +21,7 @@ import 'package:eraphilippines/app/widgets/listings/gridView_Listing.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/agent/listingproperties/pages/findproperties.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/user.dart';
@@ -536,7 +537,8 @@ class Home extends GetView<HomeController> {
                 itemBuilder: (context, index) {
                   Listing listing = controller.listings[index];
                   return GestureDetector(
-                    onTap: () {
+                    onTap: ()async{
+                      await Database().addViews(listing.id);
                       Get.toNamed('/propertyInfo', arguments: listing);
                     },
                     child: Container(

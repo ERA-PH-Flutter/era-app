@@ -71,6 +71,11 @@ class Database{
       'views' : FieldValue.increment(1),
     });
   }
+  listingMarkAsSold(id)async{
+    await db.collection('listings').doc(id).update({
+      'is_sold' : true,
+    });
+  }
   // USER
   getAllUser()async{
     return await db.collection('users').get();

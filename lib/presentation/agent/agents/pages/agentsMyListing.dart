@@ -18,6 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../app/constants/assets.dart';
+import '../../../../app/services/firebase_database.dart';
 import '../controllers/agent_listings_controller.dart';
 import 'agentsDashBoard.dart';
 
@@ -147,7 +148,8 @@ class AgentsMyListing extends GetView<AgentListingsController> {
               return Stack(
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: ()async{
+                      await Database().addViews(listing.id);
                       Get.toNamed('/propertyInfo', arguments: listing);
                     },
                     child: Container(
@@ -318,39 +320,41 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                           SizedBox(
                             height: 15.h,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Button.button3((Get.width - 65.w) / 2, 40.h, () {
-                                Get.toNamed('/editListings',
-                                    arguments: [listing.id]);
-                              }, 'Edit', AppColors.blue),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Button.button3((Get.width - 65.w) / 2, 43.h, () {
-                                print(controller.listings[index].id);
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Button.button3((Get.width - 113.w) / 2, 40.h, () {
+                                  Get.toNamed('/editListings',
+                                      arguments: [listing.id]);
+                                }, 'Edit', AppColors.blue,fontSize: 18.sp),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Button.button3((Get.width - 113.w) / 2, 43.h, () {
+                                  print(controller.listings[index].id);
+                                  BaseController().showSuccessDialog(
+                                      title: "Confirm",
+                                      description:
+                                          "Do you want to delete this listing?",
+                                      hitApi: () async {
+                                        BaseController().showLoading();
+                                        await Listing()
+                                            .deleteListingsById(listing.id);
+                                        BaseController().hideLoading();
+                                        controller.agentListingsState.value = AgentListingsState.loading;
+                                        Get.back();
+                                        await controller.loadListing();
 
-                                BaseController().showSuccessDialog(
-                                    title: "Confirm",
-                                    description:
-                                        "Do you want to delete this listing?",
-                                    hitApi: () async {
-                                      BaseController().showLoading();
-                                      await Listing()
-                                          .deleteListingsById(listing.id);
-                                      BaseController().hideLoading();
-                                      controller.agentListingsState.value = AgentListingsState.loading;
-                                      Get.back();
-                                      await controller.loadListing();
-
-                                    },
-                                    cancelable: true);
-                              }, 'Delete', AppColors.kRedColor),
-                            ],
+                                      },
+                                      cancelable: true);
+                                }, 'Delete', AppColors.kRedColor,fontSize: 18.sp),
+                              ],
+                            ),
                           ),
                           SizedBox(
-                            height: 15.h,
+                            height: 20.h,
                           ),
                         ],
                       ),
@@ -359,12 +363,33 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                   Positioned(
                     top: 10.h,
                     right: 10.w,
-                    child: Button.button3(
-                      (Get.width - 130.w) / 2,
-                      40.h,
-                      () {},
-                      'Mark as Sold',
-                      AppColors.blue,
+                    child: Visibility(
+                      visible: !(listing.isSold ?? false),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(99.r),
+                          color:Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.white38,
+                              offset: Offset(1,1),
+                              spreadRadius: 1,
+                              blurRadius: 5
+                            )
+                          ]
+                        ),
+                        child: Button.button3(
+                          140.w,
+                          35.h,
+                          ()async{
+                            await Database().listingMarkAsSold(listing.id);
+                          },
+                          'Mark as Sold',
+                          AppColors.blue,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15.sp
+                        ),
+                      ),
                     ),
                   )
                 ],

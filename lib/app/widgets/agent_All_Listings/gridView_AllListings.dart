@@ -1,6 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
-import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../repository/listing.dart';
+import '../../services/firebase_database.dart';
 
 class GridviewAlllistings extends StatelessWidget {
   final List<Listing> listingModels;
@@ -63,7 +63,8 @@ class GridviewAlllistings extends StatelessWidget {
             'Mark as Sold',
             AppColors.blue,
           ),
-          onTap: () {
+          onTap: ()async{
+             await Database().addViews(listingModels[i].id);
             Get.toNamed('/propertyInfo', arguments: listingModels[i]);
           },
           isSold: listingModels[i].isSold ?? false,

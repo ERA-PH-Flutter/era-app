@@ -1,13 +1,10 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/repository/listing.dart';
-import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
-import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 
 class AgentProfileCard extends StatelessWidget {

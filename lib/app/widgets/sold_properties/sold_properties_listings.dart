@@ -1,11 +1,13 @@
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../repository/listing.dart';
 import '../../constants/strings.dart';
+import '../../services/firebase_database.dart';
 
 class SoldPropertiesListings extends StatelessWidget {
   final listingModels;
@@ -41,7 +43,8 @@ class SoldPropertiesListings extends StatelessWidget {
         showListedby: true,
         listedBy: 'Listed By',
         agent: listingModels[i].by,
-        onTap: () {
+        onTap: ()async{
+          await Database().addViews(listingModels[i].id);
           Get.toNamed('/propertyInfo', arguments: listingModels![i]);
         },
         isSold: listingModels![i].isSold!,

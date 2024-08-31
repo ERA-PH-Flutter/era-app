@@ -2,12 +2,15 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../services/firebase_database.dart';
 
 //todo: nikko i want you to check why when i click tap the property info it is not working when im in property info page but in homepage it is working.
 class ListingProperties extends StatelessWidget {
@@ -50,7 +53,8 @@ class ListingProperties extends StatelessWidget {
                       agentFirstName: '${snapshot.data!.firstname}',
                       agentLastName: '${snapshot.data!.lastname}',
                       role: '${snapshot.data!.role}',
-                      onTap: () {
+                      onTap: ()async{
+                        await Database().addViews(listingModels[i].id);
                         Get.toNamed('/propertyInfo', arguments: listingModels[i],);
                       },
                       isSold: false,

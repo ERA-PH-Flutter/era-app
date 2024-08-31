@@ -10,6 +10,7 @@ import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/sold_properties/custom_sort.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/user.dart';
@@ -19,6 +20,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../app/constants/assets.dart';
+import '../../../../app/services/firebase_database.dart';
 import '../controllers/agent_listings_controller.dart';
 import 'agentsDashBoard.dart';
 
@@ -165,7 +167,8 @@ class AgentListings extends GetView<AgentListingsController> {
             itemBuilder: (context, index) {
               Listing listing = controller.listings[index];
               return GestureDetector(
-                onTap: () {
+                onTap: ()async{
+                  await Database().addViews(listing.id);
                   Get.toNamed('/propertyInfo', arguments: listing);
                 },
                 child: Container(

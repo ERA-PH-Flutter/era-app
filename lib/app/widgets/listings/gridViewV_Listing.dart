@@ -3,6 +3,9 @@ import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../../presentation/agent/utility/controller/base_controller.dart';
+import '../../services/firebase_database.dart';
+
 class FindingProperties extends StatelessWidget {
   final List<RealEstateListing> listingModels;
 
@@ -39,7 +42,7 @@ class FindingProperties extends StatelessWidget {
           agentFirstName: ' ${listingModels[i].user.firstname}',
           agentLastName: '${listingModels[i].user.lastname}',
           role: '${listingModels[i].user.role}',
-          onTap: () {
+          onTap: ()async{
             Get.toNamed('/propertyInfo', arguments: listingModels[i]);
           },
           isSold: false,
