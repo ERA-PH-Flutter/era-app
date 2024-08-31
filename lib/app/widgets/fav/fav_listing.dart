@@ -75,6 +75,7 @@ class FavListing extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,
               mainAxisExtent: 150,
+              mainAxisSpacing: 5,
             ),
             itemCount: listingModels.length,
             itemBuilder: (context, i) => Obx(() {
@@ -96,18 +97,20 @@ class FavListing extends StatelessWidget {
                     },
                   ),
                   if (favC.selectionModeActive.value)
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: Icon(
-                        favC.isSelected(i)
-                            ? CupertinoIcons.check_mark_circled_solid
-                            : CupertinoIcons.circle,
-                        color: favC.isSelected(i)
-                            ? AppColors.blue
-                            : AppColors.hint,
-                        size: 25.sp,
-                      ),
+                    GestureDetector(
+                      onTap: () => favC.toggleSelection(i),
+                      child: Container(
+                          decoration: BoxDecoration(
+                        borderRadius: favC.isSelected(i)
+                            ? BorderRadius.circular(10)
+                            : null,
+                        border: Border.all(
+                          color: favC.isSelected(i)
+                              ? AppColors.kRedColor
+                              : Colors.transparent,
+                          width: 2,
+                        ),
+                      )),
                     ),
                 ],
               );
