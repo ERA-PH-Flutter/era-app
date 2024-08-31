@@ -28,7 +28,13 @@ class FavListing extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          var selectedListings = [];
+                          favC.selectedItems.forEach((selected){
+                            selectedListings.add(listingModels[selected]);
+                          });
+                          print(selectedListings);
+                        },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -39,7 +45,7 @@ class FavListing extends StatelessWidget {
                         ),
                         label: EraText(
                           text:
-                              'SELECT TO GENERATE PDF ${favC.selectedItems.length}',
+                              'GENERATE PDF ( ${favC.selectedItems.length} selected )',
                           color: AppColors.blue,
                         ),
                       ),

@@ -39,20 +39,27 @@ class FavItems extends StatelessWidget {
       child: Stack(
         children: [
           Obx(() {
+            favC.selectionModeActive.value;
             return Card(
-              color: favC.isSelected(index)
-                  ? AppColors.hint.withOpacity(0.7)
-                  : AppColors.white,
+              color: AppColors.white,
               elevation: 7,
               child: Row(
                 children: [
-                  CachedNetworkImage(
-                    imageUrl:
-                        '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
-                    width: 110.w,
+                  Container(
+                    width: 140.w,
                     height: Get.height,
-                    fit: BoxFit.cover,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r),bottomLeft: Radius.circular(10.r)),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: CachedNetworkImageProvider(
+                          '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
+
+                        )
+                      )
+                    ),
                   ),
+                  SizedBox(width: 5.w,),
                   FutureBuilder(
                     future: EraUser().getById(listing.by),
                     builder: (context, AsyncSnapshot<EraUser> snapshot) {
@@ -62,17 +69,23 @@ class FavItems extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              EraText(
-                                text:
-                                    '${snapshot.data?.firstname ?? "Admin"} ${snapshot.data?.lastname ?? ""}',
-                                color: AppColors.blue,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.bold,
+                              Container(
+                                height: 25.h,
+                                width:Get.width - 200.w,
+
+                                child: EraText(
+                                  textOverflow: TextOverflow.ellipsis,
+                                  text:
+                                      '${snapshot.data?.firstname ?? "Admin"} ${snapshot.data?.lastname ?? ""}',
+                                  color: AppColors.blue,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               EraText(
                                 text: listing.type!,
                                 color: AppColors.black,
-                                fontSize: 12.sp,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.bold,
                                 maxLines: 3,
                                 textOverflow: TextOverflow.ellipsis,
@@ -83,7 +96,7 @@ class FavItems extends StatelessWidget {
                                 child: EraText(
                                   text: listing.description ?? "No Description",
                                   color: AppColors.black,
-                                  fontSize: 12.sp,
+                                  fontSize: 13.sp,
                                   fontWeight: FontWeight.w500,
                                   maxLines: 3,
                                   textOverflow: TextOverflow.ellipsis,
@@ -96,7 +109,7 @@ class FavItems extends StatelessWidget {
                                   symbol: 'PHP ',
                                 ).format(listing.price),
                                 color: AppColors.blue,
-                                fontSize: 14.sp,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ],

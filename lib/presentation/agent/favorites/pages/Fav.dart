@@ -55,6 +55,7 @@ class Fav extends GetView<FavController> {
               return Center(child: Text('No favorites yet.'));
             }
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 EraText(
                   text: 'MY FAVORITES',
@@ -64,7 +65,7 @@ class Fav extends GetView<FavController> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: EraTheme.paddingWidthSmall),
+                      horizontal: EraTheme.paddingWidth),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
