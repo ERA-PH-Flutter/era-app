@@ -17,8 +17,6 @@ import '../../../../repository/listing.dart';
 import '../../utility/controller/base_controller.dart';
 import '../controllers/addlistings_controller.dart';
 
-final _formKey = GlobalKey<FormState>();
-
 class AddListings extends GetView<AddListingsController> with BaseController {
   const AddListings({super.key});
 
@@ -35,141 +33,123 @@ class AddListings extends GetView<AddListingsController> with BaseController {
   }
 
   _loaded() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          textBuild('CREATE LISTING', 25.sp, FontWeight.w600, AppColors.blue),
-          SizedBox(height: 15.h),
-          textBuild('PROPERTY INFORMATION', 25.sp, FontWeight.w600,
-              AppColors.kRedColor),
-          SizedBox(height: 20.h),
-          buildWidget(
-            'Property Name',
-            TextformfieldWidget(
-              controller: controller.propertyNameController,
-              hintText: 'Property Name',
-              maxLines: 1,
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              keyboardType: TextInputType.text,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Property Name is required';
-                }
-                return null;
-              },
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textBuild('CREATE LISTING', 25.sp, FontWeight.w600, AppColors.blue),
+        SizedBox(height: 15.h),
+        textBuild('PROPERTY INFORMATION', 25.sp, FontWeight.w600,
+            AppColors.kRedColor),
+        SizedBox(height: 20.h),
+        buildWidget(
+          'Property Name',
+          TextformfieldWidget(
+            controller: controller.propertyNameController,
+            hintText: 'Property Name',
+            maxLines: 1,
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            keyboardType: TextInputType.text,
           ),
-          buildWidget(
-            'Property Cost',
-            TextformfieldWidget(
-              controller: controller.propertyCostController,
-              hintText: '100,000,000',
-              maxLines: 1,
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              keyboardType: TextInputType.number,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Property Cost is required';
-                }
-                if (double.tryParse(value) == null) {
-                  return 'Please enter a valid number';
-                }
-                return null;
-              },
-            ),
+        ),
+        buildWidget(
+          'Property Cost',
+          TextformfieldWidget(
+            controller: controller.propertyCostController,
+            hintText: '100,000,000',
+            maxLines: 1,
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            keyboardType: TextInputType.number,
           ),
+        ),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            textBuild(
+                'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
+            Obx(() => textBuild('${controller.images.length}/15', 22.sp,
+                FontWeight.w600, Colors.black)),
+          ],
+        ),
+        SizedBox(height: 10.h),
+        // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              textBuild(
-                  'UPLOAD PHOTOS', 22.sp, FontWeight.w600, AppColors.kRedColor),
-              Obx(() => textBuild('${controller.images.length}/15', 22.sp,
-                  FontWeight.w600, Colors.black)),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.blue,
+                  shadowColor: Colors.transparent,
+                  side: BorderSide(
+                      color: AppColors.hint.withOpacity(0.1), width: 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () {
+                  controller.getImageGallery();
+                },
+                icon: Icon(
+                  CupertinoIcons.photo_fill_on_rectangle_fill,
+                  color: AppColors.white,
+                ),
+                label: EraText(
+                  text: 'Select Photos',
+                  color: AppColors.white,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
-          SizedBox(height: 10.h),
-          // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.blue,
-                    shadowColor: Colors.transparent,
-                    side: BorderSide(
-                        color: AppColors.hint.withOpacity(0.1), width: 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    controller.getImageGallery();
-                  },
-                  icon: Icon(
-                    CupertinoIcons.photo_fill_on_rectangle_fill,
-                    color: AppColors.white,
-                  ),
-                  label: EraText(
-                    text: 'Select Photos',
-                    color: AppColors.white,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 10.h),
-          Obx(() {
-            if (controller.images.isEmpty) {
-              return Padding(
+        ),
+        SizedBox(height: 10.h),
+        Obx(() {
+          if (controller.images.isEmpty) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Image.asset(
+                AppEraAssets.uploadphoto,
+              ),
+            );
+          } else {
+            return GridView.builder(
+                shrinkWrap: true,
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Image.asset(
-                  AppEraAssets.uploadphoto,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 10.h,
+                  crossAxisSpacing: 10.h,
                 ),
-              );
-            } else {
-              return GridView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 10.h,
-                    crossAxisSpacing: 10.h,
-                  ),
-                  itemCount: controller.images.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: FileImage(controller.images[index]),
-                          fit: BoxFit.cover,
-                        ),
+                itemCount: controller.images.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: FileImage(controller.images[index]),
+                        fit: BoxFit.cover,
                       ),
-                    );
-                  });
-            }
-          }),
+                    ),
+                  );
+                });
+          }
+        }),
 
-          SizedBox(height: 5.h),
+        SizedBox(height: 5.h),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: EraText(
-                text: 'Photo must be at least 300px X 300px',
-                fontSize: 15.sp,
-                color: AppColors.hint),
-          ),
-          paddintText2(),
-        ],
-      ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: EraText(
+              text: 'Photo must be at least 300px X 300px',
+              fontSize: 15.sp,
+              color: AppColors.hint),
+        ),
+        paddintText2(),
+      ],
     );
   }
 
@@ -275,15 +255,6 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             controller: controller.pricePerSqmController,
             hintText: '100',
             maxLines: 1,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Price per sqm is required';
-              }
-              if (double.tryParse(value) == null) {
-                return 'Please enter a valid number';
-              }
-              return null;
-            },
           ),
         ),
         buildWidget(
@@ -294,15 +265,6 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             hintText: '2',
             maxLines: 1,
             keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Beds is required';
-              }
-              if (double.tryParse(value) == null) {
-                return 'Please enter a valid number';
-              }
-              return null;
-            },
           ),
         ),
         buildWidget(
@@ -313,15 +275,6 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             hintText: '3',
             maxLines: 1,
             keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Baths is required';
-              }
-              if (double.tryParse(value) == null) {
-                return 'Please enter a valid number';
-              }
-              return null;
-            },
           ),
         ),
         AddListings.buildWidget(
@@ -331,13 +284,6 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             hintText: 'Address',
             maxLines: 1,
             keyboardType: TextInputType.text,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Address is required';
-              }
-
-              return null;
-            },
           ),
         ),
         SizedBox(
@@ -362,15 +308,6 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             controller: controller.carsController,
             hintText: '3',
             maxLines: 1,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Garage is required';
-              }
-              if (double.tryParse(value) == null) {
-                return 'Please enter a valid number';
-              }
-              return null;
-            },
           ),
         ),
         buildWidget(
@@ -381,49 +318,35 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             hintText: '150',
             maxLines: 1,
             keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Area is required';
-              }
-              if (double.tryParse(value) == null) {
-                return 'Please enter a valid number';
-              }
-              return null;
-            },
           ),
         ),
         dropDownAddlistings(
-            controller.selectedOfferT,
-            controller.offerT,
-            (value) => controller.selectedOfferT.value = value!,
-            'Offer Type',
-            'Select Offer Type', (value) {
-          value!.isEmpty ? 'Offer Type is required' : null;
-        }),
+          controller.selectedOfferT,
+          controller.offerT,
+          (value) => controller.selectedOfferT.value = value!,
+          'Offer Type',
+          'Select Offer Type',
+        ),
         dropDownAddlistings(
             controller.selectedView,
             controller.viewL,
             (value) => controller.selectedView.value = value!,
             'View',
-            'Select View', (value) {
-          value!.isEmpty ? 'View is required' : null;
-        }),
+            'Select View'),
         dropDownAddlistings(
-            controller.selectedPropertyT,
-            controller.propertyT,
-            (value) => controller.selectedPropertyT.value = value!,
-            'Property Type',
-            'Select Property Type', (value) {
-          value!.isEmpty ? 'Property Type is required' : null;
-        }),
+          controller.selectedPropertyT,
+          controller.propertyT,
+          (value) => controller.selectedPropertyT.value = value!,
+          'Property Type',
+          'Select Property Type',
+        ),
         dropDownAddlistings(
-            controller.selectedPropertySubCategory,
-            controller.subCategory,
-            (value) => controller.selectedPropertySubCategory.value = value!,
-            'Sub Category',
-            'Select Sub Category', (value) {
-          value!.isEmpty ? 'Sub Category is required' : null;
-        }),
+          controller.selectedPropertySubCategory,
+          controller.subCategory,
+          (value) => controller.selectedPropertySubCategory.value = value!,
+          'Sub Category',
+          'Select Sub Category',
+        ),
         // SearchLocationWidget(),
         buildWidget(
           'Description *',
@@ -433,17 +356,102 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             hintText: '',
             maxLines: 10,
             keyboardType: TextInputType.text,
-            validator: (value) =>
-                value!.isEmpty ? 'Description is required' : null,
           ),
         ),
 
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
-          if (_formKey.currentState!.validate()) {
-            _formKey.currentState!.save();
-            BaseController().showLoading();
+          if (controller.propertyNameController.text.isEmpty) {
+            showErroDialogs(
+              title: "Error",
+              description:
+                  "All fields are required! Only Description is optional",
+            );
+            return;
           }
+
+          if (controller.propertyCostController.text.isEmpty) {
+            showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+
+          if (controller.pricePerSqmController.text.isEmpty) {
+            showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.bedsController.text.isEmpty) {
+            showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.bathsController.text.isEmpty) {
+            showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.addressController.text.isEmpty) {
+            showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.carsController.text.isEmpty) {
+            showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.areaController.text.isEmpty) {
+            showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+
+          if (controller.selectedOfferT.value == null) {
+            showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+
+          if (controller.selectedView.value == null) {
+            showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.selectedPropertyT.value == null) {
+            showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.selectedPropertySubCategory.value == null) {
+            showErroDialogs(
+              title: "Error",
+              description:
+                  "All fields are required! Only Description is optional",
+            );
+            return;
+          }
+          BaseController().showLoading();
           try {
             await Listing(
                 name: controller.propertyNameController.text,
@@ -520,12 +528,12 @@ class AddListings extends GetView<AddListingsController> with BaseController {
   }
 
   static Widget dropDownAddlistings(
-      RxnString selectedItem,
-      List<String> Types,
-      Function(String?) onChanged,
-      String name,
-      String hintText,
-      String? Function(String?)? validator) {
+    RxnString selectedItem,
+    List<String> Types,
+    Function(String?) onChanged,
+    String name,
+    String hintText,
+  ) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
       child: Column(
@@ -535,7 +543,6 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           SizedBox(height: 5.h),
           Obx(
             () => DropdownButtonFormField<String>(
-              validator: validator,
               alignment: Alignment.centerLeft,
               decoration: InputDecoration(
                 hintText: hintText,
@@ -583,6 +590,62 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           ),
           SizedBox(height: 20.h),
         ],
+      ),
+    );
+  }
+
+  static  showErroDialogs({
+    VoidCallback? onTap,
+    String title = 'Error',
+    String? description = 'Something went wrong',
+  }) {
+    showCupertinoDialog(
+      barrierDismissible: false,
+      context: Get.context!,
+      builder: (context) => Dialog(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.5),
+            color: Colors.white,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              EraText(
+                text: title,
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w400,
+                color: Colors.red,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              EraText(
+                text: description ?? '',
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Button(
+                height: 48.h,
+                text: "Okay",
+                onTap: () {
+                  // if (hitApi != null) {
+
+                  // }
+                  // if (Get.isDialogOpen!)
+                  Get.back();
+                },
+                bgColor: AppColors.primary,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

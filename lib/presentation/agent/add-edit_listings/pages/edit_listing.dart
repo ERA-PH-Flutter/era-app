@@ -17,8 +17,6 @@ import '../../../../repository/listing.dart';
 import '../controllers/addlistings_controller.dart';
 import 'addlistings.dart';
 
-final GlobalKey<FormState> _formyKey = GlobalKey<FormState>();
-
 class EditListing extends GetView<AddListingsController> {
   const EditListing({super.key});
 
@@ -438,51 +436,35 @@ class EditListing extends GetView<AddListingsController> {
           ),
         ),
         AddListings.dropDownAddlistings(
-            controller.selectedOfferT,
-            controller.offerT,
-            (value) => controller.selectedOfferT.value = value!,
-            'Offer Type',
-            'Edit Offer Type', (value) {
-          if (value!.isEmpty) {
-            return 'Property Type is required';
-          }
-          return null;
-        }),
+          controller.selectedOfferT,
+          controller.offerT,
+          (value) => controller.selectedOfferT.value = value!,
+          'Offer Type',
+          'Edit Offer Type',
+        ),
         AddListings.dropDownAddlistings(
-            controller.selectedView,
-            controller.viewL,
-            (value) => controller.selectedView.value = value!,
-            'Sunrise',
-            'Edit View', (value) {
-          if (value!.isEmpty) {
-            return 'Property Type is required';
-          }
-          return null;
-        }),
+          controller.selectedView,
+          controller.viewL,
+          (value) => controller.selectedView.value = value!,
+          'Sunrise',
+          'Edit View',
+        ),
 
         AddListings.dropDownAddlistings(
-            controller.selectedPropertyT,
-            controller.propertyT,
-            (value) => controller.selectedPropertyT.value = value!,
-            'Property Type',
-            'Edit Property Type', (value) {
-          if (value!.isEmpty) {
-            return 'Property Type is required';
-          }
-          return null;
-        }),
+          controller.selectedPropertyT,
+          controller.propertyT,
+          (value) => controller.selectedPropertyT.value = value!,
+          'Property Type',
+          'Edit Property Type',
+        ),
 
         AddListings.dropDownAddlistings(
-            controller.selectedPropertySubCategory,
-            controller.subCategory,
-            (value) => controller.selectedPropertySubCategory.value = value!,
-            'Sub Category',
-            'Edit Sub Category', (value) {
-          if (value!.isEmpty) {
-            return 'Sub Category is required';
-          }
-          return null;
-        }),
+          controller.selectedPropertySubCategory,
+          controller.subCategory,
+          (value) => controller.selectedPropertySubCategory.value = value!,
+          'Sub Category',
+          'Edit Sub Category',
+        ),
         AddListings.buildWidget(
           'Description *',
           TextformfieldWidget(
@@ -498,9 +480,95 @@ class EditListing extends GetView<AddListingsController> {
 
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
-          if (_formyKey.currentState!.validate()) {
-            _formyKey.currentState!.save();
-            BaseController().showLoading();
+          if (controller.propertyNameController.text.isEmpty) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description:
+                  "All fields are required! Only Description is optional",
+            );
+            return;
+          }
+
+          if (controller.propertyCostController.text.isEmpty) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+
+          if (controller.pricePerSqmController.text.isEmpty) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.bedsController.text.isEmpty) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.bathsController.text.isEmpty) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.addressController.text.isEmpty) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.carsController.text.isEmpty) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.areaController.text.isEmpty) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+
+          if (controller.selectedOfferT.value == null) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+
+          if (controller.selectedView.value == null) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.selectedPropertyT.value == null) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "All fields are required!",
+            );
+            return;
+          }
+          if (controller.selectedPropertySubCategory.value == null) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description:
+                  "All fields are required! Only Description is optional",
+            );
+            return;
           }
 
           try {

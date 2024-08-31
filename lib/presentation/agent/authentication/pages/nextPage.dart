@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
+import 'package:eraphilippines/presentation/agent/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/authentication/controllers/authentication_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -108,6 +109,61 @@ class Nextpage extends GetView<LoginPageController> {
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                         onTap: () {
+                          if (controller.selectedStatus.value == null) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+
+                          if (controller.recruiter.text.isEmpty) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+
+                          if (controller.selectedEducation.value == null) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+                          if (controller.experience.text.isEmpty) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+                          if (controller.selectedTransaction.value == null) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description:
+                                  "All fields are required! Only Description is optional",
+                            );
+                            return;
+                          }
+                          if (controller.selectedTransaction5years.value ==
+                              null) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description:
+                                  "All fields are required! Only Description is optional",
+                            );
+                            return;
+                          }
+                          if (controller.selectedSpeciality.value == null) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description:
+                                  "All fields are required! Only Description is optional",
+                            );
+                            return;
+                          }
                           controller.signUp();
                         },
                         borderRadius: BorderRadius.circular(10),

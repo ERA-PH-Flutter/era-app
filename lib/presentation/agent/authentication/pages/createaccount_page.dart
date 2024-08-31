@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
+import 'package:eraphilippines/presentation/agent/add-edit_listings/pages/addlistings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -160,6 +161,64 @@ class CreateAccount extends GetView<LoginPageController> {
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                         onTap: () {
+                                if (controller.firstName.text.isEmpty) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+
+                          if (controller.lastName.text.isEmpty) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+
+                          if (controller.password.text.isEmpty) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+                          if (controller.passwordC.text.isEmpty) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+                          if (controller.age.text.isEmpty) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+                          if (controller.selectedGender.value == null) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+                          if (controller.contactNo.text.isEmpty) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
+                          if (controller.emailAd.text.isEmpty) {
+                            AddListings.showErroDialogs(
+                              title: "Error",
+                              description: "All fields are required!",
+                            );
+                            return;
+                          }
                           Get.to(() => Nextpage());
                         },
                         borderRadius: BorderRadius.circular(10),
