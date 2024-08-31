@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import '../../../../app/services/local_storage.dart';
 
 enum ListingState {
@@ -9,7 +10,8 @@ enum ListingState {
 
 class ListingController extends GetxController {
   var store = Get.find<LocalStorageService>();
-
+  RxString price = "".obs;
+  var symbol = "PHP ";
   var selectedLocation = ''.obs;
   var selectedPropertyType = ''.obs;
   var selectedPriceRange = ''.obs;

@@ -490,11 +490,9 @@ class AddListings extends GetView<AddListingsController> {
               cars: controller.carsController.text.toInt(),
               area: controller.areaController.text.toInt(),
               status: controller.selectedOfferT.value.toString(),
-              // view: controller.selectedView.value.toString(),
               location: controller.add.city,
               type: controller.selectedPropertyT.value.toString(),
-              subCategory:
-                  controller.selectedPropertySubCategory.value.toString(),
+              subCategory: controller.selectedPropertySubCategory.value.toString(),
               description: controller.descController.text,
               view: controller.selectedView.value.toString(),
               address: controller.addressController.text,

@@ -61,6 +61,16 @@ class Database{
       return "Error: $error";
     }
   }
+  addLeads(id)async{
+    await db.collection('listings').doc(id).update({
+      'leads' : FieldValue.increment(1),
+    });
+  }
+  addViews(id)async{
+    await db.collection('listings').doc(id).update({
+      'views' : FieldValue.increment(1),
+    });
+  }
   // USER
   getAllUser()async{
     return await db.collection('users').get();

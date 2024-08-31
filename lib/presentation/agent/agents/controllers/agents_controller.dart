@@ -62,10 +62,10 @@ class AgentsController extends GetxController with BaseController{
       results.value = (await Database().searchUser(searchParam: 'full_name',searchQuery: agentName.text)) ?? [];
       hideLoading();
     }else if(agentId.text != ""){
-      results.value = (await Database().searchUser(searchParam: 'era_id',searchQuery: agentName.text)) ?? [];
+      results.value = (await Database().searchUser(searchParam: 'era_id',searchQuery: agentId.text)) ?? [];
       hideLoading();
     }else if(agentLocation.text != ""){
-      results.value = (await Database().searchUser(searchParam: 'location',searchQuery: agentName.text)) ?? [];
+      results.value = (await Database().searchUser(searchParam: 'location',searchQuery: agentLocation.text)) ?? [];
       hideLoading();
     }else{
       hideLoading();

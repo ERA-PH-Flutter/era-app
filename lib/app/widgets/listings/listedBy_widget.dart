@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,10 +21,11 @@ class ListedBy extends StatelessWidget {
   final String? whatsappIcon;
   final String? email;
   final String? emailIcon;
-
+  final String? listingId;
   const ListedBy({
     super.key,
     this.text,
+    this.listingId,
     required this.image,
     required this.agentFirstName,
     required this.agentType,
@@ -98,7 +100,10 @@ class ListedBy extends StatelessWidget {
         SizedBox(height: 10.h),
         if (whatsapp != null && whatsappIcon != null)
           GestureDetector(
-            onTap: () {
+            onTap: ()async{
+              if(listingId != null){
+                await Database().addLeads(listingId);
+              }
               launchUrl(whatsAppUrl2);
             },
             child: Padding(
@@ -123,7 +128,10 @@ class ListedBy extends StatelessWidget {
           ),
         if (email != null && emailIcon != null)
           GestureDetector(
-            onTap: () {
+            onTap: ()async{
+              if(listingId != null){
+                await Database().addLeads(listingId);
+              }
               launchUrl(emailUrl);
             },
             child: Padding(

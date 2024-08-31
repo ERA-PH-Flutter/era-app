@@ -15,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import '../../../../repository/listing.dart';
 import '../../../global.dart';
@@ -28,7 +29,6 @@ class PropertyInformation extends GetView<ListingController> {
     required this.listing,
   });
   final FavController favoritesController = Get.put(FavController());
-
   @override
   Widget build(BuildContext context) {
     controller.images.clear();
@@ -44,7 +44,7 @@ class PropertyInformation extends GetView<ListingController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 11.h),
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth, vertical: 11.h),
               child: EraText(
                 text: 'Property Information'.toUpperCase(),
                 color: AppColors.blue,
@@ -56,7 +56,7 @@ class PropertyInformation extends GetView<ListingController> {
               height: 20.h,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              padding:  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               child: EraText(
                 text: listing.name!,
                 color: AppColors.kRedColor,
@@ -65,20 +65,34 @@ class PropertyInformation extends GetView<ListingController> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              padding:  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  EraText(
-                    text: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
-                        .format(listing.price),
-                    color: AppColors.black,
-                    fontSize: 23.sp,
-                    fontWeight: FontWeight.bold,
+                   Obx((){
+                     return EraText(
+                       text: controller.price.value == "" ?  NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
+                           .format(listing.price) : controller.price.value,
+                       color: AppColors.black,
+                       fontSize: 23.sp,
+                       fontWeight: FontWeight.bold,
+                     );
+                   }),
+                  GestureDetector(
+                    onTap: (){
+                      if(controller.symbol == "PHP "){
+                        controller.symbol = "USD ";
+                        controller.price.value = NumberFormat.currency(locale: 'en_US', symbol: controller.symbol)
+                            .format(listing.price! / settings!.exchangeRate!);
+                      }else{
+                        controller.symbol = "PHP ";
+                        controller.price.value = NumberFormat.currency(locale: 'en_PH', symbol: controller.symbol)
+                            .format(listing.price!);
+                      }
+                    },
+                    child: Image.asset(AppEraAssets.convertusd,
+                        height: 50.h, width: 50.w),
                   ),
-                  //convert to usd
-                  Image.asset(AppEraAssets.convertusd,
-                      height: 50.h, width: 50.w),
                 ],
               ),
             ),
@@ -158,7 +172,7 @@ class PropertyInformation extends GetView<ListingController> {
                     Obx(() {
                       controller.isFav.value;
                       return Positioned(
-                        right: 10.w,
+                        right: 15.w,
                         top: 10.h,
                         child: Container(
                           alignment: Alignment.center,
@@ -166,18 +180,25 @@ class PropertyInformation extends GetView<ListingController> {
                             onTap: () {
                               controller.isFav.value = !controller.isFav.value;
                               user!.addFavorites(listing.id);
+                              Get.showSnackbar(GetSnackBar(
+                                title: "Success",
+                                message: "${controller.isFav.value ? "Added" : "Removed"} to favorites",
+                                backgroundColor: AppColors.kRedColor,
+                                duration: Duration(milliseconds: 500,seconds: 1),
+                              ));
                             },
-                            child: user!.favorites!.contains(listing.id)
-                                ? Icon(
-                                    CupertinoIcons.heart_fill,
-                                    color: AppColors.kRedColor,
-                                    size: 50.sp,
-                                  )
-                                : Icon(
-                                    CupertinoIcons.heart_fill,
-                                    color: AppColors.white,
-                                    size: 50.sp,
-                                  ),
+                            child:Icon(
+                              shadows: const [
+                                Shadow(
+                                    color: Colors.black38,
+                                    offset: Offset(1,1),
+                                    blurRadius: 15
+                                )
+                              ],
+                              user!.favorites!.contains(listing.id) ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                              color: AppColors.kRedColor,
+                              size: 45.sp,
+                            )
                           ),
                         ),
                       );
@@ -187,7 +208,7 @@ class PropertyInformation extends GetView<ListingController> {
               );
             }),
 
-            SizedBox(height: 20.h),
+            //SizedBox(height: 0.h),
             //widget
             iconsText(),
             SizedBox(height: 20.h),
@@ -219,20 +240,19 @@ class PropertyInformation extends GetView<ListingController> {
           ),
           SizedBox(height: 20.h),
           eratexts('Listing ID# ', '${listing.id}'),
-          eratexts('Last Updated: ', 'ADD LAST UPDATED IN FIRESTORE'),
-          eratexts('Added: ', ' days Ago'),
-
-          SizedBox(height: 20.h),
+          eratexts('Last Updated: ', DateFormat('MM dd, yyyy hh:mm aaa').format(listing.dateUpdated!)),
+          eratexts('Added: ', "Added ${DateTime.now().difference(listing.dateCreated!).inDays.toString()} days ago"),
+          //SizedBox(height: 20.h),
 
           //featuresWidgets('Features / Amenities', listing.join('\n')),
-          SizedBox(height: 20.h),
+          //SizedBox(height: 20.h),
           //featuresWidgets(
           //'Rooms & Interior', listing.roomsAndInterior.join('\n')),
-          SizedBox(height: 20.h),
+          //SizedBox(height: 20.h),
           //featuresWidgets(
           // 'Location & School', listing.locationAndSchools.join('\n')),
 
-          SizedBox(height: 40.h),
+          SizedBox(height: 20.h),
           //widget location
           location(),
           SizedBox(height: 30.h),
@@ -278,7 +298,7 @@ class PropertyInformation extends GetView<ListingController> {
                         ),
                         SizedBox(width: 100.w),
                         EraText(
-                          text: '${listing.leads}',
+                          text: '${listing.leads ?? 0}',
                           fontSize: 18.sp,
                           color: AppColors.black,
                         ),
@@ -294,6 +314,7 @@ class PropertyInformation extends GetView<ListingController> {
                 if (snapshot.hasData) {
                   var user1 = snapshot.data;
                   return ListedBy(
+                    listingId: listing.id,
                     image: user1!.image ?? AppStrings.noUserImageWhite,
                     agentFirstName: user1.firstname ?? "",
                     agentType: user1.role ?? "Agent",
@@ -309,7 +330,7 @@ class PropertyInformation extends GetView<ListingController> {
                   );
                 }
               }),
-          SizedBox(height: 30.h),
+          SizedBox(height: 10.h),
           /*
           ListedBy(
             text: 'Listed By',
@@ -351,39 +372,48 @@ class PropertyInformation extends GetView<ListingController> {
   }
 
   Widget location() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'Location',
-            color: AppColors.kRedColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'Location',
+          color: AppColors.kRedColor,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        SizedBox(height: 15.h),
+        EraText(
+          text: 'Address',
+          color: AppColors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 18.sp,
+        ),
+        EraText(
+          text: listing.location ??
+              "No Address Added",
+          color: AppColors.black,
+          fontWeight: FontWeight.w500,
+          fontSize: 14.sp,
+        ),
+        //temporary i dont know how to implemnt the location
+        SizedBox(height: 10.h),
+        Container(
+          width: Get.width,
+          height: 250.h,
+          child: GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: LatLng(listing.latLng![0].toDouble(),listing.latLng![1].toDouble()),
+              zoom: 13.0
+            ),
+            markers: {
+              Marker(
+                markerId: MarkerId('mainPin'),
+                icon: BitmapDescriptor.defaultMarker
+              )
+            },
           ),
-          SizedBox(height: 20.h),
-          EraText(
-            text: 'Address',
-            color: AppColors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 18.sp,
-          ),
-          SizedBox(height: 20.h),
-          EraText(
-            text: listing.location ??
-                "***********************************************************",
-            color: AppColors.black,
-            fontWeight: FontWeight.w500,
-            fontSize: 14.sp,
-          ),
-          //temporary i dont know how to implemnt the location
-          SizedBox(height: 10.h),
-          Image.asset(
-            'assets/images/locationImage.png',
-          ),
-        ],
-      ),
+        )
+      ],
     );
   }
 
@@ -409,7 +439,7 @@ class PropertyInformation extends GetView<ListingController> {
           children: [
             iconsWidgets(AppEraAssets.tub, '${listing.baths}'),
             iconsWidgets(AppEraAssets.car, '${listing.cars}'),
-            iconsWidgets(AppEraAssets.sunrise, '${listing.view}'),
+            listing.view == "Sunrise" ? iconsWidgets(AppEraAssets.sunrise, '${listing.view}') : Opacity(opacity: 0,child: iconsWidgets(AppEraAssets.sunrise, '${listing.view}'),),
           ],
         ),
       ],
@@ -446,9 +476,9 @@ class PropertyInformation extends GetView<ListingController> {
             shorterSummary('Beds', '${listing.beds}'),
             shorterSummary('Baths', '${listing.baths}'),
             shorterSummary('Garage', '${listing.cars}'),
-            shorterSummary('Area', '${listing.area}'),
+            shorterSummary('Area', '${listing.area} sqm'),
             //shorterSummary('Offer Type', listing.type),
-            shorterSummary('View', '${listing.view}'),
+            shorterSummary('View', listing.view ?? "None"),
             shorterSummary('Location', listing.location ?? ""),
             shorterSummary('Type', listing.type),
             shorterSummary('Sub Category', listing.subCategory),
@@ -508,14 +538,15 @@ class PropertyInformation extends GetView<ListingController> {
             child: EraText(
               text: text,
               color: AppColors.black,
-              fontSize: 18.sp,
+              fontSize: 16.sp,
             ),
           ),
           Expanded(
             child: EraText(
+              textOverflow: TextOverflow.ellipsis,
               text: text2.toString(),
               color: AppColors.black,
-              fontSize: 18.sp,
+              fontSize: 16.sp,
             ),
           ),
         ],

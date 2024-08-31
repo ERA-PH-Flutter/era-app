@@ -13,6 +13,7 @@ class Settings{
   String? auctionPicture;
   String? commercialPicture;
   String? rentalPicture;
+  double? exchangeRate;
   Settings({
     required this.appName,
     this.featuredListings,
@@ -27,7 +28,8 @@ class Settings{
     this.commercialPicture,
     this.rentalPicture,
     this.banners,
-    this.featuredAgents
+    this.featuredAgents,
+    this.exchangeRate
   });
   factory Settings.fromJSON(Map<String,dynamic> json){
     return Settings(
@@ -44,7 +46,8 @@ class Settings{
       commercialPicture: json['commercial_picture'] ?? "",
       rentalPicture: json['rental_picture'] ?? "",
       banners: json["banners"] ?? [],
-      featuredAgents: json["featured_agents"] ?? []
+      featuredAgents: json["featured_agents"] ?? [],
+      exchangeRate: json["exchange_rate"] ?? 0
     );
   }
 
