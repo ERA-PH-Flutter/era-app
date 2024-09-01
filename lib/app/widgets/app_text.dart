@@ -38,7 +38,7 @@ class EraText extends StatelessWidget {
       style: style ??
           TextStyle(
             decoration: textDecoration ?? TextDecoration.none,
-            decorationColor: color ?? AppColors.black,
+            decorationColor: color ?? AppColors.white,
             fontFamily: GoogleFonts.montserrat(
                     fontWeight: fontWeight ?? FontWeight.w500)
                 .fontFamily,

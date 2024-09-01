@@ -24,8 +24,12 @@ class AgentInfoWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AgentDashBoard.agentText('$firstName $lastName', AppColors.blue,
-                  18.sp, FontWeight.bold, 1.2),
+              AgentDashBoard.agentText(
+                  '$firstName $lastName',
+                  AppColors.blue,
+                  18.sp,
+                  FontWeight.bold,
+                  1.2),
               AgentDashBoard.agentText(role.toUpperCase(), AppColors.black,
                   12.sp, FontWeight.w400, 0.9),
               AgentDashBoard.agentContact(AppEraAssets.whatsappIcon, whatsApp),

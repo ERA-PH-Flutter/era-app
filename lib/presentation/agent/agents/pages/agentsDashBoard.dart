@@ -437,7 +437,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
   static Widget agentText(String text, Color color, double fontSize,
       FontWeight fontWeight, double lineHeight) {
     return EraText(
-      text: text,
+      text: text.capitalize!,
       color: color,
       fontSize: fontSize,
       fontWeight: fontWeight,

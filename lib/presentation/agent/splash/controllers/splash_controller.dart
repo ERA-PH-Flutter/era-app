@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -42,6 +43,11 @@ class SplashController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
     settings = Settings.fromJSON(await Database().getSettings());
     if (user != null) {
       user = await EraUser().getById(user!.id);

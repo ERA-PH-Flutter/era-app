@@ -16,6 +16,7 @@ class SearchResultController extends GetxController {
   var aiSearchController = TextEditingController();
   var data = [].obs;
   var searchQuery = ''.obs;
+  var expanded = false.obs;
 
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();

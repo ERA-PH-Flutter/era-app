@@ -17,6 +17,7 @@ import '../../widgets/custom_corner_image.dart';
 import '../../widgets/listings/listedBy_widget.dart';
 
 class ListingItemss extends StatelessWidget {
+  final String? name;
   final String? image;
   final String type;
   final int areas;
@@ -43,6 +44,7 @@ class ListingItemss extends StatelessWidget {
 
   ListingItemss({
     super.key,
+    this.name,
     this.onTap,
     this.image,
     required this.type,
@@ -283,20 +285,26 @@ class ListingItemss extends StatelessWidget {
                         // onTap: toggleSelected,
                         child: CloudStorage().imageLoaderProvider(
                           width: Get.width,
-                          ref: image!,
-                          height: 195.h,
+                          borderRadius: BorderRadius.circular(10.r),
+                          ref: image ?? AppStrings.noUserImageWhite,
+                          height: 255.h,
                         ),
                       ),
-                      Center(
-                        child:
-                            EraText(text: 'Tap to view', color: Colors.black),
+                      SizedBox(height: 15.w),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 14.w,),
+                        child: EraText(
+                          text: name ?? "Test",
+                          fontSize: EraTheme.header - 5.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      SizedBox(height: 15.h),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 14.w),
                         child: EraText(
                           text: type,
-                          fontSize: EraTheme.header - 5.sp,
+                          fontSize: EraTheme.header - 10.sp,
                           color: AppColors.kRedColor,
                           fontWeight: FontWeight.w600,
                         ),
@@ -424,10 +432,10 @@ class ListingItemss extends StatelessWidget {
                   ),
                   if (isSold)
                     Positioned(
-                      top: 10.h,
+                      top: 20.h,
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 8.w, vertical: 4.h),
+                            horizontal: 15.w, vertical: 4.h),
                         color: AppColors.kRedColor,
                         child: EraText(
                           text: 'SOLD',

@@ -159,12 +159,12 @@ class Listing {
       "leads": 0,
       "garage": cars,
       "by": user!.id,
-      "owner": "admin", //todo change to owner field
+      "owner": "admin",
       "amenities": "",
-      "description": "",
-      "rooms": 0,
+      "description": description,
       "views": 0,
       "date_created": DateTime.now(),
+      "date_updated" : DateTime.now(),
       "address" : address ?? "",
       "latLng" : latLng ?? [0,0]
     });

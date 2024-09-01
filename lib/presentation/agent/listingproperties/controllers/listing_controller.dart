@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import '../../../../app/services/local_storage.dart';
@@ -19,6 +20,11 @@ class ListingController extends GetxController {
   var isForLease = true.obs;
   var isClicked = false.obs;
   var currentPage = 0.obs;
+
+  TextEditingController locationController = TextEditingController();
+  TextEditingController propertyController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController aiSearchController = TextEditingController();
 
   @override
   void onInit() {

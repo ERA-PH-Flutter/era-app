@@ -290,7 +290,6 @@ class Home extends GetView<HomeController> {
                         searchQuery = controller.aiSearchController.text;
                       }
                       selectedIndex.value = 2;
-                      print("search results: " + searchQuery);
                       Get.toNamed("/searchresult",
                           arguments: [data, searchQuery]);
                     }),

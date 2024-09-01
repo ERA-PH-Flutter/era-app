@@ -1,15 +1,19 @@
 import 'package:eraphilippines/app/models/realestatelisting.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:get/get.dart';
+import 'package:screenshot/screenshot.dart';
 import '../../../../app/services/local_storage.dart';
 import '../../../../repository/listing.dart';
 import '../../../global.dart';
 
-enum FavState { loading, loaded, error, empty }
+enum FavState { loading, loaded, error, empty , preview}
 
-class FavController extends GetxController {
+class FavController extends GetxController with BaseController {
   var favoritesList = [].obs;
-
+  List<ScreenshotController> screenshotControllers = [];
   var selectedItems = <int>[].obs;
+  var selectedCount = 0.obs;
+  var selectedListings = [].obs;
   var selectionModeActive = false.obs;
   var favState = FavState.loading.obs;
   var listing = [];
@@ -18,7 +22,10 @@ class FavController extends GetxController {
   void onInit() async {
     if (user!.favorites!.isNotEmpty) {
       for (int i = 0; i < user!.favorites!.length; i++) {
-        favoritesList.add(await Listing().getListing(user!.favorites![i]));
+        Listing listingA = await Listing().getListing(user!.favorites![i]);
+        if(!(listingA.isSold ?? true)){
+          favoritesList.add(listingA);
+        }
       }
     }
     if (favoritesList.isEmpty) {
@@ -37,8 +44,10 @@ class FavController extends GetxController {
 
   void toggleSelection(int index) {
     if (selectedItems.contains(index)) {
+      selectedCount.value--;
       selectedItems.remove(index);
     } else {
+      selectedCount.value++;
       selectedItems.add(index);
     }
   }
