@@ -30,7 +30,9 @@ dependencies:
   screenshot: ^3.0.0
   image_to_pdf_converter: 0.0.1
   awesome_notifications: any
+  permission_handler: ^11.3.1
   awesome_notifications_core: ^0.9.3
+  device_info: ^2.0.3
     
   #firebase
   firebase_core: ^3.2.0

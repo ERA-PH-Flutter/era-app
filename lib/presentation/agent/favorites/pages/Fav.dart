@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'dart:math';
-
+import 'package:permission_handler/permission_handler.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:device_info/device_info.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'dart:ui' as image;
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -249,37 +250,27 @@ class Fav extends GetView<FavController> {
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 11.w),
           alignment: Alignment.centerRight,
           child: SizedBox(
-            width: 220.w,
+            width: 230.w,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
                   onTap: ()async{
                     controller.showLoading();
-
-                    final tempDir = await getTemporaryDirectory();
-                    List<File?> listOfFiles = [];
-                    for (var sc in controller.screenshotControllers) {
-                      var imageFile = File((await sc.captureAndSave(tempDir.path))!);
-                      listOfFiles.add(imageFile);
+                    if (Platform.isAndroid) {
+                      var androidInfo = await DeviceInfoPlugin().androidInfo;
+                      var version = androidInfo.version.release.toInt();
+                      if(version < 13){
+                        if (await Permission.storage.request().isGranted) {
+                          downloadPDF();
+                        }
+                      }else{
+                        if (await Permission.photos.request().isGranted) {
+                          downloadPDF();
+                        }
+                      }
                     }
-                    File a = await ImageToPdf.imageList(listOfFiles: listOfFiles);
-                    AwesomeNotifications().createNotification(
-                        content: NotificationContent(
-                          id: Random().nextInt(1000),
-                          channelKey: 'download_channel',
-                          actionType: ActionType.Default,
-                          title: 'File Downloaded',
-                          body: 'Pdf file has been downloaded, look at the download folder!',
-                        )
-                    );
-                    var pdfFileName = '${user!.firstname}_${user!.firstname}_${Random().nextInt(1000)}_listing.pdf';
-                    var downloadsFolder = Directory('/storage/emulated/0/Download');
-                    File pdfFile = await (await File('${downloadsFolder.path}/$pdfFileName').create()).writeAsBytes(await a.readAsBytes());
-                    //launchUrl(Uri.parse(pdfFile.path));
-                    controller.showSuccessDialog(title: "Success",description: "PDF has been downloaded",hitApi: (){
-                      Get.back();Get.back();
-                    });
+
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -301,7 +292,7 @@ class Fav extends GetView<FavController> {
                     controller.favState.value = FavState.loaded;
                   },
                   child: SizedBox(
-                    width: 65.w,
+                    width: 70.w,
                     child: EraText(
                       textDecoration: TextDecoration.underline,
                       color: Colors.red,
@@ -321,6 +312,31 @@ class Fav extends GetView<FavController> {
         ),
       ],
     );
+  }
+
+  downloadPDF()async{
+    final tempDir = await getTemporaryDirectory();
+    List<File?> listOfFiles = [];
+    for (var sc in controller.screenshotControllers) {
+      var imageFile = File((await sc.captureAndSave(tempDir.path))!);
+    listOfFiles.add(imageFile);
+    }
+    File a = await ImageToPdf.imageList(listOfFiles: listOfFiles);
+    var pdfFileName = '${user!.firstname}_${user!.lastname}_${DateTime.now().microsecondsSinceEpoch}_listing.pdf';
+    var downloadsFolder = Directory('/storage/emulated/0/Download');
+    File pdfFile = await (await File('${downloadsFolder.path}/$pdfFileName').create()).writeAsBytes(await a.readAsBytes());
+    controller.showSuccessDialog(title: "Success",description: "PDF has been downloaded",hitApi: (){
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+            id: Random().nextInt(1000),
+            channelKey: 'download_channel',
+            actionType: ActionType.Default,
+            title: 'File Downloaded',
+            body: 'Pdf file has been downloaded, look at the download folder!',
+          )
+      );
+      Get.back();Get.back();
+    });
   }
 
   Widget preview(){
