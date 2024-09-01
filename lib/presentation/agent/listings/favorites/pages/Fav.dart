@@ -318,6 +318,7 @@ class Fav extends GetView<FavController> {
     File a = await ImageToPdf.imageList(listOfFiles: listOfFiles);
     var pdfFileName = '${user!.firstname}_${user!.lastname}_${DateTime.now().microsecondsSinceEpoch}_listing.pdf';
     var downloadsFolder = Directory('/storage/emulated/0/Download');
+
     File pdfFile = await (await File('${downloadsFolder.path}/$pdfFileName').create()).writeAsBytes(await a.readAsBytes());
     //launchUrl(pdfFile.path); todo missy
     controller.showSuccessDialog(title: "Success",description: "PDF has been downloaded",hitApi: (){
