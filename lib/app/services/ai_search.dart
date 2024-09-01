@@ -139,7 +139,7 @@ class AI{
     amount,downPayment, loanTerm, interest, monthly
   })async
   {
-    var prompt = "Calculate mortgage given this data, property amount = $amount, down payment = $downPayment, loan term = $loanTerm, interest rate = $interest, monthly payment = $monthly, give me the value directly remove unnecessary explanation";
+    var prompt = "Calculate mortgage given this data, property amount = $amount php, down payment = $downPayment, loan term = $loanTerm years, interest rate = $interest%, give me the monthly payment, give the value directly, give the number computed only, remove unnecessary explanation";
     BaseController().showLoading();
     var toReturn;
     await gemini.text(prompt)

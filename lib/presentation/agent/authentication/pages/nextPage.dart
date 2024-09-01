@@ -2,11 +2,12 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
-import 'package:eraphilippines/presentation/agent/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/authentication/controllers/authentication_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../listings/add-edit_listings/pages/addlistings.dart';
 
 class Nextpage extends GetView<LoginPageController> {
   const Nextpage({super.key});

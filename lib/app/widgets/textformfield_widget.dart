@@ -15,6 +15,7 @@ class TextformfieldWidget extends StatelessWidget {
   final double? fontSize;
   final Color? color;
   final String? Function(String?)? validator;
+  final bool? readOnly;
 
   const TextformfieldWidget({
     super.key,
@@ -30,6 +31,7 @@ class TextformfieldWidget extends StatelessWidget {
     this.fontSize,
     this.color,
     this.validator,
+    this.readOnly
   });
 
   @override
@@ -40,6 +42,7 @@ class TextformfieldWidget extends StatelessWidget {
       controller: controller,
       obscureText: obscureText ?? false,
       validator: validator,
+      readOnly: readOnly ?? false,
       decoration: InputDecoration(
         // contentPadding: contentPadding ?? EdgeInsets.zero,
         suffixIcon: suffixIcon,

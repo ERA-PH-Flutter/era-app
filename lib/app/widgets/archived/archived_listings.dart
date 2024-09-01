@@ -1,14 +1,11 @@
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/archived/archivedItems_widgets.dart';
-import 'package:eraphilippines/presentation/agent/archivedlisting/controllers/archived_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import '../../../presentation/agent/utility/controller/base_controller.dart';
+import '../../../presentation/agent/listings/archivedlisting/controllers/archived_controller.dart';
 import '../../services/firebase_database.dart';
 
 class ArchivedListings extends StatelessWidget {

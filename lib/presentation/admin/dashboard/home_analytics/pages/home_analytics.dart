@@ -2,7 +2,6 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/controllers/home_analytics_controller.dart';
-import 'package:eraphilippines/presentation/agent/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

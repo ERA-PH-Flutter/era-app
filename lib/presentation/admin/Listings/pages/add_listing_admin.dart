@@ -1,4 +1,3 @@
-import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -7,12 +6,10 @@ import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/Listings/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
-import 'package:eraphilippines/presentation/agent/add-edit_listings/controllers/addlistings_controller.dart';
-import 'package:eraphilippines/presentation/agent/add-edit_listings/pages/addlistings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
+import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import '../../agents/controllers/agents_controller.dart';
 //todo add text
 

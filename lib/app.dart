@@ -1,5 +1,4 @@
 import 'package:eraphilippines/app/theme.dart';
-import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
 import 'package:eraphilippines/presentation/agent/home/pages/home.dart';
 import 'package:eraphilippines/presentation/agent/splash/controllers/splash_binding.dart';

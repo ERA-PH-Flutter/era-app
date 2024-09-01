@@ -7,26 +7,11 @@ import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
-import 'package:eraphilippines/presentation/agent/archivedlisting/controllers/archived_binding.dart';
-import 'package:eraphilippines/presentation/agent/archivedlisting/pages/archived.dart';
-import 'package:eraphilippines/presentation/agent/contacts/pages/direct-contactus.dart';
-import 'package:eraphilippines/presentation/agent/favorites/controllers/fav_binding.dart';
-import 'package:eraphilippines/presentation/agent/favorites/pages/Fav.dart';
-import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
-import 'package:eraphilippines/presentation/agent/mortageCalculator.dart/pages/MortageCalculator.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/aurelia.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/laya.dart';
-import 'package:eraphilippines/presentation/agent/sellproperty/controllers/sellproperty_binding.dart';
-import 'package:eraphilippines/presentation/agent/sellproperty/pages/sellproperty.dart';
-import 'package:eraphilippines/presentation/agent/soldproperties/controllers/sold_properties_binding.dart';
-import 'package:eraphilippines/presentation/agent/soldproperties/pages/sold_properties.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
-import '../presentation/agent/a/controllers/base_binding.dart';
-import '../presentation/agent/add-edit_listings/controllers/addlistings_bindings.dart';
-import '../presentation/agent/add-edit_listings/pages/addlistings.dart';
-import '../presentation/agent/add-edit_listings/pages/edit_listing.dart';
 import '../presentation/agent/agents/controllers/agents_binding.dart';
 import '../presentation/agent/agents/pages/agentsDashBoard.dart';
 import '../presentation/agent/agents/pages/agentsMyListing.dart';
@@ -34,22 +19,36 @@ import '../presentation/agent/agents/pages/findagents.dart';
 import '../presentation/agent/authentication/controllers/authentication_binding.dart';
 import '../presentation/agent/authentication/pages/createaccount_page.dart';
 import '../presentation/agent/authentication/pages/login_page.dart';
-import '../presentation/agent/companynews/controllers/companynews_binding.dart';
-import '../presentation/agent/companynews/pages/companynews.dart';
-import '../presentation/agent/contacts/controllers/contacts_binding.dart';
-import '../presentation/agent/contacts/pages/aboutus.dart';
-import '../presentation/agent/contacts/pages/contact_us.dart';
-import '../presentation/agent/contacts/pages/help.dart';
+import '../presentation/agent/company_news/controllers/companynews_binding.dart';
+import '../presentation/agent/company_news/pages/companynews.dart';
+import '../presentation/agent/forms/contacts/controllers/contacts_binding.dart';
+import '../presentation/agent/forms/contacts/pages/aboutus.dart';
+import '../presentation/agent/forms/contacts/pages/contact_us.dart';
+import '../presentation/agent/forms/contacts/pages/direct-contactus.dart';
+import '../presentation/agent/forms/contacts/pages/help.dart';
 import '../presentation/agent/home/controllers/home_binding.dart';
 import '../presentation/agent/home/pages/home.dart';
-import '../presentation/agent/listingproperties/controllers/listing_binding.dart';
-import '../presentation/agent/listingproperties/pages/findproperties.dart';
-import '../presentation/agent/listingproperties/pages/property_infomation.dart';
+import '../presentation/agent/listings/add-edit_listings/controllers/addlistings_bindings.dart';
+import '../presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
+import '../presentation/agent/listings/add-edit_listings/pages/edit_listing.dart';
+import '../presentation/agent/listings/archivedlisting/controllers/archived_binding.dart';
+import '../presentation/agent/listings/archivedlisting/pages/archived.dart';
+import '../presentation/agent/listings/favorites/controllers/fav_binding.dart';
+import '../presentation/agent/listings/favorites/pages/Fav.dart';
+import '../presentation/agent/listings/listingproperties/controllers/listing_binding.dart';
+import '../presentation/agent/listings/listingproperties/pages/findproperties.dart';
+import '../presentation/agent/listings/listingproperties/pages/property_infomation.dart';
+import '../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
+import '../presentation/agent/listings/searchresult/pages/searchresult.dart';
+import '../presentation/agent/listings/searchresult/pages/selling_searchresult.dart';
+import '../presentation/agent/listings/sellproperty/controllers/sellproperty_binding.dart';
+import '../presentation/agent/listings/sellproperty/pages/sellproperty.dart';
+import '../presentation/agent/listings/sold_properties/controllers/sold_properties_binding.dart';
+import '../presentation/agent/listings/sold_properties/pages/sold_properties.dart';
 import '../presentation/agent/projects/controllers/projects_binding.dart';
 import '../presentation/agent/projects/pages/projectmain.dart';
-import '../presentation/agent/searchresult/controllers/searchresult_binding.dart';
-import '../presentation/agent/searchresult/pages/searchresult.dart';
-import '../presentation/agent/searchresult/pages/selling_searchresult.dart';
+import '../presentation/agent/tools/mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
+import '../presentation/agent/tools/mortageCalculator.dart/pages/MortageCalculator.dart';
 
 appRoutes() => [
       GetPage(
@@ -63,7 +62,7 @@ appRoutes() => [
       GetPage(
           name: RouteString.loginpage,
           page: () => const LoginPage(),
-          binding: SecondPageBinding()),
+          binding: LoginPageBinding()),
 
       //projects
       GetPage(

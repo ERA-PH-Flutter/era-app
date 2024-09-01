@@ -1,11 +1,15 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Piechart extends StatelessWidget {
-  const Piechart({super.key});
+  var downPayment;
+  var interestAmount;
+  var initialAmount;
+  Piechart({super.key,this.downPayment,this.interestAmount,this.initialAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +33,18 @@ class Piechart extends StatelessWidget {
       AppColors.blue,
       AppColors.hint,
     ];
-    List<String> titles = ['PRINCIPAL', 'INTEREST', 'TAX &\n        INSURANCE'];
+    List<String> titles = ['PRINCIPAL', 'INTEREST', 'DOWNPAYMENT'];
     return List<PieChartSectionData>.generate(3, (i) {
       const radius = 100.0;
       final fontSize = 15.sp;
       double value = 0;
       if (i == 0) {
-        value = 70;
+        value = initialAmount;
       } else if (i == 1) {
-        value = 10;
+        value = interestAmount;
       } else {
-        value = 30;
+        print(downPayment.toString().toDouble());
+        value = downPayment.toString().toDouble();
       }
       return PieChartSectionData(
         value: value,

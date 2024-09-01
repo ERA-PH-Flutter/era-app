@@ -1,17 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_card.dart';
-import 'package:eraphilippines/presentation/agent/listingproperties/pages/auction.dart';
-import 'package:eraphilippines/presentation/agent/listingproperties/pages/commercial.dart';
-import 'package:eraphilippines/presentation/agent/listingproperties/pages/pre_selling.dart';
-import 'package:eraphilippines/presentation/agent/listingproperties/pages/rental.dart';
-import 'package:eraphilippines/presentation/agent/listingproperties/pages/residential.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-
-import '../../services/firebase_database.dart';
 
 class PropertiesWidgets extends StatelessWidget {
   final List listingsModels;
