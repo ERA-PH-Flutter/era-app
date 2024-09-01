@@ -1,6 +1,4 @@
-import 'dart:math';
 
-import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';

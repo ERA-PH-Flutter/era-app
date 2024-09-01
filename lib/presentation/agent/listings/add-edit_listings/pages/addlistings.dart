@@ -170,7 +170,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
         controller.addEditListingsState.value = AddEditListingsState.loaded;
         return Future.value(false);
       },
-      child: Obx(() => Container(
+      child: Obx(() => SizedBox(
           width: Get.width,
           height: Get.height - 212.h,
           child: Stack(

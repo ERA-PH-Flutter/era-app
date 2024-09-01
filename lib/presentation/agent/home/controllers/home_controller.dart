@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/models/propertieslisting.dart';
-import '../../../../app/models/settings.dart';
 import '../../../../app/services/local_storage.dart';
 import '../../../../repository/listing.dart';
 import '../../../../repository/news.dart';

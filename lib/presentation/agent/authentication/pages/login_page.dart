@@ -46,26 +46,24 @@ class LoginPage extends GetView<LoginPageController> {
                         SizedBox(height: 20.h),
                         Column(
                           children: [
-                            Container(
-                              child: TextFormField(
-                                controller: controller.email,
-                                style: TextStyle(
-                                    color: AppColors.black, fontSize: 15.sp),
-                                decoration: InputDecoration(
-                                  hintText: 'Email',
-                                  hintStyle: TextStyle(color: AppColors.hint),
-                                  fillColor: AppColors.white,
-                                  filled: true,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(
-                                      color: AppColors.black,
-                                      width: 1,
-                                    ),
+                            TextFormField(
+                              controller: controller.email,
+                              style: TextStyle(
+                                  color: AppColors.black, fontSize: 15.sp),
+                              decoration: InputDecoration(
+                                hintText: 'Email',
+                                hintStyle: TextStyle(color: AppColors.hint),
+                                fillColor: AppColors.white,
+                                filled: true,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: AppColors.black,
+                                    width: 1,
                                   ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
                             ),

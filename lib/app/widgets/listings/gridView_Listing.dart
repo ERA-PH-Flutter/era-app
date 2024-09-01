@@ -4,7 +4,6 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/user.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,9 +20,9 @@ class ListingProperties extends StatelessWidget {
   Widget build(BuildContext context) {
 
     if(listingModels.isNotEmpty){
-      return Container(
+      return SizedBox(
         height: 500.h,
-        child: GridView.builder(
+        child:GridView.builder(
             scrollDirection: Axis.horizontal,
             physics: const ScrollPhysics(),
             shrinkWrap: true,
@@ -71,7 +70,7 @@ class ListingProperties extends StatelessWidget {
     }else{
       return Column(
         children: [
-          Container(
+          SizedBox(
             height: 100.h,
             child: Center(
               child: EraText(

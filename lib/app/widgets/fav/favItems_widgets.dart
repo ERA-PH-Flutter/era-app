@@ -59,7 +59,7 @@ class FavItems extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
+                              SizedBox(
                                 height: 25.h,
                                 width:Get.width - 200.w,
 
@@ -81,7 +81,7 @@ class FavItems extends StatelessWidget {
                                 textOverflow: TextOverflow.ellipsis,
                               ),
                               SizedBox(height: 5.h),
-                              Container(
+                              SizedBox(
                                 width: 200.w,
                                 child: EraText(
                                   text: listing.description ?? "No Description",

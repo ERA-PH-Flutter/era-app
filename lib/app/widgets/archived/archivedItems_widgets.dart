@@ -84,7 +84,7 @@ class ArchivedItems extends StatelessWidget {
                         textOverflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(height: 5.h),
-                      Container(
+                      SizedBox(
                         width: 200.w,
                         child: EraText(
                           text: listing.description ?? "No Description",

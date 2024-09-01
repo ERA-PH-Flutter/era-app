@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/user.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,7 +11,6 @@ import 'package:intl/intl.dart';
 import '../../constants/colors.dart';
 import '../../constants/assets.dart';
 import '../../widgets/app_text.dart';
-import '../../widgets/custom_corner_image.dart';
 import '../../widgets/listings/listedBy_widget.dart';
 
 class ListingItemss extends StatelessWidget {

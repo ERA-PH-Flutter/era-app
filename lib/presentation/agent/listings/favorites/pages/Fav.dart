@@ -8,9 +8,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_to_pdf_converter/image_to_pdf_converter.dart';
@@ -302,10 +300,10 @@ class Fav extends GetView<FavController> {
           ),
         ),
 
-        Container(
+        SizedBox(
           height: Get.height - 275.h,
           child: preview(),
-        ),
+        )
       ],
     );
   }

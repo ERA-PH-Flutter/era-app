@@ -1,11 +1,8 @@
-import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
-import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../repository/listing.dart';
 import '../../constants/strings.dart';
 import '../../services/firebase_database.dart';
 

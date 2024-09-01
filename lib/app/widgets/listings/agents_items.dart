@@ -112,7 +112,7 @@ class AgentsItems extends StatelessWidget {
                                 height: 30.h,
                               ),
                               SizedBox(width: 8.w),
-                              Container(
+                              SizedBox(
                                 width: 210.w,
                                 child: EraText(
                                   textOverflow: TextOverflow.ellipsis,

@@ -351,7 +351,7 @@ class AgentListings extends GetView<AgentListingsController> {
     );
   }
   _empty() {
-    return Container(
+    return SizedBox(
       height: Get.height - 225.h,
       width:Get.width,
       child: Center(

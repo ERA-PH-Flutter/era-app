@@ -113,6 +113,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 color: AppColors.black,
               ),
               TextformfieldWidget(
+                readOnly: true,
                 hintText: '',
                 maxLines: 1,
                 keyboardType: TextInputType.number,

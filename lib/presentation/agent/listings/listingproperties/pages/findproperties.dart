@@ -114,7 +114,7 @@ class FindProperties extends GetView<ListingController> {
                         ),
                       ),
                       SizedBox(height: 10.h),
-                      Container(
+                      SizedBox(
                         width: Get.width,
                         child: ElevatedButton.icon(
                           style: ButtonStyle(

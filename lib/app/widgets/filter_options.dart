@@ -1,8 +1,5 @@
 import 'dart:ui';
-
-import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
@@ -202,9 +199,7 @@ class RoomsAndBedsFilter extends StatelessWidget {
 
   InkWell _buildCounterButton(IconData icon) {
     return InkWell(
-      child: Container(
-        child: Icon(icon),
-      ),
+      child: Icon(icon),
     );
   }
 }
@@ -315,7 +310,7 @@ Widget _buildFloorAreaFilter() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Container(
+      SizedBox(
         width: 115.w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -330,7 +325,7 @@ Widget _buildFloorAreaFilter() {
           ],
         ),
       ),
-      Container(
+      SizedBox(
         width: 115.w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -346,7 +341,7 @@ Widget _buildFloorAreaFilter() {
           ],
         ),
       ),
-      Container(
+      SizedBox(
         width: 115.w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

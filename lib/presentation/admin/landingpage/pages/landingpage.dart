@@ -83,11 +83,9 @@ class LandingPage extends GetView<LandingPageController> {
 
   _error() {
     //todo add error screen
-    return Container(
-      child: EraText(
-        text: 'errorrrr',
-        color: AppColors.black,
-      ),
+    return EraText(
+      text: 'errorrrr',
+      color: AppColors.black,
     );
   }
 

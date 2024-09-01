@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
@@ -234,7 +233,7 @@ class Home extends GetView<HomeController> {
                       ),
                     ),
                     SizedBox(height: 10.h),
-                    Container(
+                    SizedBox(
                       width: Get.width,
                       child: ElevatedButton.icon(
                         style: ButtonStyle(

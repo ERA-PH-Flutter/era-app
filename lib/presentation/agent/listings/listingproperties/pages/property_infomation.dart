@@ -382,7 +382,7 @@ class PropertyInformation extends GetView<ListingController> {
         ),
         //temporary i dont know how to implemnt the location
         SizedBox(height: 10.h),
-        Container(
+        SizedBox(
           width: Get.width,
           height: 250.h,
           child: GoogleMap(

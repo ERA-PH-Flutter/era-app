@@ -1,6 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/listings/agentlistview.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -10,7 +9,6 @@ import 'package:eraphilippines/presentation/agent/agents/controllers/agents_cont
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../home/controllers/home_controller.dart';
 
 class FindAgents extends GetView<AgentsController> {
   const FindAgents({super.key});

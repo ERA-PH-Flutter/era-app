@@ -132,7 +132,7 @@ class SettingsPage extends GetView<AgentsController> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Container(
+                          SizedBox(
                             width: Get.width,
                             child: ElevatedButton(
                               onPressed: () {
@@ -153,7 +153,7 @@ class SettingsPage extends GetView<AgentsController> {
                             ),
                           ),
                           SizedBox(height: 5.h),
-                          Container(
+                          SizedBox(
                             width: Get.width,
                             child: ElevatedButton(
                               onPressed: () {

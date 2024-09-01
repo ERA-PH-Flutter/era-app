@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import '../../../../../app/services/local_storage.dart';
 
 enum ListingState {

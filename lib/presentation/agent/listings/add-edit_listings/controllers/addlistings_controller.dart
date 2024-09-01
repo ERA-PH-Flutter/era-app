@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
@@ -10,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:map_location_picker/map_location_picker.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../../../app/services/local_storage.dart';
 import '../../../../../repository/listing.dart';

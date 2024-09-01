@@ -3,15 +3,13 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/inbox_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class MessageScreen extends StatelessWidget {
   final Message message;
 
-  MessageScreen({required this.message});
+  const MessageScreen({required this.message});
 
   @override
   Widget build(BuildContext context) {

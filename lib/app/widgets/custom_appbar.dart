@@ -14,7 +14,6 @@ import 'package:get/get.dart';
 
 import '../../presentation/agent/authentication/controllers/authentication_binding.dart';
 import '../../presentation/agent/authentication/pages/login_page.dart';
-import '../models/realestatelisting.dart';
 import '../services/firebase_auth.dart';
 import 'navigation/customenavigationbar.dart';
 
@@ -93,7 +92,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                     count = 0;
                                   }
                                 }
-                                return Container(
+                                return SizedBox(
                                   width: 55.w,
                                   height: 48.w,
                                   child: Stack(

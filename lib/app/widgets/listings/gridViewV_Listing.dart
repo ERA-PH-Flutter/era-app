@@ -3,8 +3,6 @@ import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../../../presentation/agent/utility/controller/base_controller.dart';
-import '../../services/firebase_database.dart';
 
 class FindingProperties extends StatelessWidget {
   final List<RealEstateListing> listingModels;
@@ -13,7 +11,7 @@ class FindingProperties extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: Get.height,
       child: GridView.builder(
         scrollDirection: Axis.vertical,

@@ -17,7 +17,6 @@ import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.da
 import 'package:eraphilippines/presentation/agent/agents/pages/settingAgent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -114,7 +113,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
 
   _loading() {
     return Container(
-      height: Get.height - 200.h,
+      height: 250.h,
       child: Center(
         child: CircularProgressIndicator(),
       ),
@@ -319,8 +318,8 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                   var user =
                       EraUser.fromJSON(snapshot.data!.docs[random].data());
                   children.add(
-                    Container(
-                      //   color: AppColors.kRedColor,
+                    SizedBox(
+                      //   cSizedBoxColors.kRedColor,
                       height: 160.h,
                       child: Padding(
                         padding: EdgeInsets.only(right: 10.w),

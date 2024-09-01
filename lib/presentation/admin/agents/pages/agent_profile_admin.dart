@@ -67,7 +67,7 @@ class AgentProfileAdmin extends GetView<AgentAdminController> {
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                     ),
-                    Container(
+                    SizedBox(
                       height: 200.h,
                       child: EraText(
                         text: 'NO   AVAILABLE',
@@ -107,7 +107,7 @@ Widget FavoritesSection() {
         fontWeight: FontWeight.bold,
         color: AppColors.kRedColor,
       ),
-      Container(
+      SizedBox(
         height: 200.h,
         child: EraText(
           text: 'NO LISTINGS AVAILABLE',
@@ -130,7 +130,7 @@ Widget latestNews() {
         fontWeight: FontWeight.bold,
         color: AppColors.kRedColor,
       ),
-      Container(
+      SizedBox(
         height: 200.h,
         child: EraText(
           text: 'NO NEWS YET',

@@ -22,7 +22,7 @@ class AgentapprovalGridview extends GetView<AgentAdminController> {
       itemCount: listing.length,
       itemBuilder: (context, i) => Column(
         children: [
-          Container(
+          SizedBox(
             height: 360.h,
             child: Card(
               color: AppColors.white,
@@ -173,7 +173,7 @@ class AgentapprovalGridview extends GetView<AgentAdminController> {
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
                               ),
-                              content: Container(
+                              content: SizedBox(
                                 height: 200.h,
                                 child: Column(
                                   children: [
