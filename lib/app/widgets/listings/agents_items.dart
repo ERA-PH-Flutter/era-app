@@ -117,7 +117,7 @@ class AgentsItems extends StatelessWidget {
                                 child: EraText(
                                   textOverflow: TextOverflow.ellipsis,
                                   text: '${agentInfo.email}',
-                                  fontSize: 18.sp,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.black,
                                   textAlign: TextAlign.center,
@@ -196,12 +196,16 @@ class AgentsItems extends StatelessWidget {
                               height: 30.h,
                             ),
                             SizedBox(width: 5.w),
-                            EraText(
-                              textOverflow: TextOverflow.ellipsis,
-                              text: '${agentInfo.email}',
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.black,
+                            SizedBox(
+                              width: 210.w,
+                              child: EraText(
+                                textOverflow: TextOverflow.ellipsis,
+                                text: '${agentInfo.email}',
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.black,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ],
                         ),
@@ -236,9 +240,11 @@ class AgentsItems extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.w),
                       child: FutureBuilder(
-                        future: CloudStorage().getFileDirect(docRef: '${agentInfo.image ?? AppStrings.noUserImageWhite}'),
-                        builder: (context,snapshot){
-                          if(snapshot.hasData){
+                        future: CloudStorage().getFileDirect(
+                            docRef:
+                                '${agentInfo.image ?? AppStrings.noUserImageWhite}'),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
                             return AnimatedContainer(
                               duration: Duration(milliseconds: 500),
                               curve: Curves.easeIn,
@@ -254,7 +260,7 @@ class AgentsItems extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             );
-                          }else{
+                          } else {
                             return Center(
                               child: CircularProgressIndicator(),
                             );
@@ -270,9 +276,11 @@ class AgentsItems extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.w),
                       child: FutureBuilder(
-                        future: CloudStorage().getFileDirect(docRef: '${agentInfo.image ?? AppStrings.noUserImageWhite}'),
-                        builder: (context,snapshot){
-                          if(snapshot.hasData){
+                        future: CloudStorage().getFileDirect(
+                            docRef:
+                                '${agentInfo.image ?? AppStrings.noUserImageWhite}'),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
                             return AnimatedContainer(
                               duration: Duration(milliseconds: 500),
                               curve: Curves.easeIn,
@@ -288,7 +296,7 @@ class AgentsItems extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             );
-                          }else{
+                          } else {
                             return Center(
                               child: CircularProgressIndicator(),
                             );

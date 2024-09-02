@@ -77,24 +77,26 @@ class CompanyItems extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: EraTheme.paddingWidthSmall, vertical: 10.h),
-              child: Wrap(
-
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   EraText(
                     text: companyItems.title,
                     fontSize: EraTheme.paragraph + 4.sp,
                     color: AppColors.kRedColor,
                     fontWeight: FontWeight.bold,
+                    textOverflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
+                  SizedBox(
+                    height: 10.h,
                   ),
                   EraText(
                     text: companyItems.description,
                     fontSize: EraTheme.paragraph,
                     color: Colors.black,
-                    maxLines: 4,
+                    maxLines: 3,
                     textOverflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    height: 20.h,
                   ),
                   Button(
                     text: 'READ MORE',
@@ -102,7 +104,7 @@ class CompanyItems extends StatelessWidget {
                       Get.toNamed("/aboutus");
                     },
                     bgColor: AppColors.kRedColor,
-                    height: 40.h,
+                    height: 30.h,
                     borderRadius: BorderRadius.circular(30.r),
                   ),
                   SizedBox(

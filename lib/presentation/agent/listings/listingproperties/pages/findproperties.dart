@@ -26,7 +26,7 @@ class FindProperties extends GetView<ListingController> {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.all(EraTheme.paddingWidth),
-            child:  Column(
+            child: Column(
               children: [
                 BoxWidget.build(
                   child: Column(
@@ -65,7 +65,7 @@ class FindProperties extends GetView<ListingController> {
                       ),
                       SizedBox(height: 20.h),
                       Obx(
-                            () => Row(
+                        () => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Row(
@@ -119,7 +119,7 @@ class FindProperties extends GetView<ListingController> {
                         child: ElevatedButton.icon(
                           style: ButtonStyle(
                             backgroundColor:
-                            WidgetStateProperty.all(AppColors.white),
+                                WidgetStateProperty.all(AppColors.white),
                             shape: WidgetStateProperty.all(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -156,16 +156,19 @@ class FindProperties extends GetView<ListingController> {
                               location: controller.locationController.text,
                               price: controller.priceController.text,
                               property: controller.propertyController.text);
-                          if(controller.locationController.text != ""){
-                            searchQuery += "Location: ${controller.locationController.text}";
-                          }else if(controller.propertyController.text != ""){
-                            searchQuery += "Property Type: ${controller.locationController.text}";
-                          }else if(controller.priceController.text != ""){
-                            searchQuery += "With price less than: ${controller.priceController.text}";
+                          if (controller.locationController.text != "") {
+                            searchQuery +=
+                                "Location: ${controller.locationController.text}";
+                          } else if (controller.propertyController.text != "") {
+                            searchQuery +=
+                                "Property Type: ${controller.locationController.text}";
+                          } else if (controller.priceController.text != "") {
+                            searchQuery +=
+                                "With price less than: ${controller.priceController.text}";
                           }
                         } else {
-                          data =
-                          await AI(query: controller.aiSearchController.text)
+                          data = await AI(
+                                  query: controller.aiSearchController.text)
                               .search();
                           searchQuery = controller.aiSearchController.text;
                         }
@@ -194,102 +197,103 @@ class FindProperties extends GetView<ListingController> {
                         child: Row(
                           children: [
                             FindProperties.quickSearchIcon(AppEraAssets.condo,
-                                    () async {
-                                  var listings = (await FirebaseFirestore.instance
+                                () async {
+                              var listings = (await FirebaseFirestore.instance
                                       .collection('listings')
                                       .where('type', isEqualTo: 'Condominium')
                                       .get())
-                                      .docs;
-                                  var data = listings.map((listing) {
-                                    return listing.data();
-                                  }).toList();
-                                  Get.toNamed("/searchresult",
-                                      arguments: [data, 'All Condominium']);
-                                }),
+                                  .docs;
+                              var data = listings.map((listing) {
+                                return listing.data();
+                              }).toList();
+                              Get.toNamed("/searchresult",
+                                  arguments: [data, 'All Condominium']);
+                            }),
                             SizedBox(width: 15.w),
-                            FindProperties.quickSearchIcon(AppEraAssets.condotel,
-                                    () async {
-                                  var listings = (await FirebaseFirestore.instance
+                            FindProperties.quickSearchIcon(
+                                AppEraAssets.condotel, () async {
+                              var listings = (await FirebaseFirestore.instance
                                       .collection('listings')
                                       .where('type', isEqualTo: 'Condotel')
                                       .get())
-                                      .docs;
-                                  var data = listings.map((listing) {
-                                    return listing.data();
-                                  }).toList();
-                                  Get.toNamed("/searchresult",
-                                      arguments: [data, 'All Condotel']);
-                                }),
+                                  .docs;
+                              var data = listings.map((listing) {
+                                return listing.data();
+                              }).toList();
+                              Get.toNamed("/searchresult",
+                                  arguments: [data, 'All Condotel']);
+                            }),
                             SizedBox(width: 15.w),
-                            FindProperties.quickSearchIcon(AppEraAssets.commercial,
-                                    () async {
-                                  var listings = (await FirebaseFirestore.instance
+                            FindProperties.quickSearchIcon(
+                                AppEraAssets.commercial, () async {
+                              var listings = (await FirebaseFirestore.instance
                                       .collection('listings')
                                       .where('type', isEqualTo: 'Commercial')
                                       .get())
-                                      .docs;
-                                  var data = listings.map((listing) {
-                                    return listing.data();
-                                  }).toList();
-                                  Get.toNamed("/searchresult",
-                                      arguments: [data, 'All Commercial']);
-                                }),
+                                  .docs;
+                              var data = listings.map((listing) {
+                                return listing.data();
+                              }).toList();
+                              Get.toNamed("/searchresult",
+                                  arguments: [data, 'All Commercial']);
+                            }),
                             SizedBox(width: 15.w),
-                            FindProperties.quickSearchIcon(AppEraAssets.apartment,
-                                    () async {
-                                  var listings = (await FirebaseFirestore.instance
+                            FindProperties.quickSearchIcon(
+                                AppEraAssets.apartment, () async {
+                              var listings = (await FirebaseFirestore.instance
                                       .collection('listings')
-                                      .where('sub_category', isEqualTo: 'Apartment')
+                                      .where('sub_category',
+                                          isEqualTo: 'Apartment')
                                       .get())
-                                      .docs;
-                                  var data = listings.map((listing) {
-                                    return listing.data();
-                                  }).toList();
-                                  Get.toNamed("/searchresult",
-                                      arguments: [data, 'All Apartments']);
-                                }),
+                                  .docs;
+                              var data = listings.map((listing) {
+                                return listing.data();
+                              }).toList();
+                              Get.toNamed("/searchresult",
+                                  arguments: [data, 'All Apartments']);
+                            }),
                             SizedBox(width: 15.w),
                             FindProperties.quickSearchIcon(AppEraAssets.house1,
-                                    () async {
-                                  var listings = (await FirebaseFirestore.instance
+                                () async {
+                              var listings = (await FirebaseFirestore.instance
                                       .collection('listings')
                                       .where('sub_category', isEqualTo: 'House')
                                       .get())
-                                      .docs;
-                                  var data = listings.map((listing) {
-                                    return listing.data();
-                                  }).toList();
-                                  Get.toNamed("/searchresult",
-                                      arguments: [data, 'All Houses']);
-                                }),
+                                  .docs;
+                              var data = listings.map((listing) {
+                                return listing.data();
+                              }).toList();
+                              Get.toNamed("/searchresult",
+                                  arguments: [data, 'All Houses']);
+                            }),
                             SizedBox(width: 15.w),
                             FindProperties.quickSearchIcon(AppEraAssets.land,
-                                    () async {
-                                  var listings = (await FirebaseFirestore.instance
+                                () async {
+                              var listings = (await FirebaseFirestore.instance
                                       .collection('listings')
                                       .where('sub_category', isEqualTo: 'Lot')
                                       .get())
-                                      .docs;
-                                  var data = listings.map((listing) {
-                                    return listing.data();
-                                  }).toList();
-                                  Get.toNamed("/searchresult",
-                                      arguments: [data, 'All Lands']);
-                                }),
+                                  .docs;
+                              var data = listings.map((listing) {
+                                return listing.data();
+                              }).toList();
+                              Get.toNamed("/searchresult",
+                                  arguments: [data, 'All Lands']);
+                            }),
                             SizedBox(width: 15.w),
-                            FindProperties.quickSearchIcon(AppEraAssets.waterfront,
-                                    () async {
-                                  var listings = (await FirebaseFirestore.instance
+                            FindProperties.quickSearchIcon(
+                                AppEraAssets.waterfront, () async {
+                              var listings = (await FirebaseFirestore.instance
                                       .collection('listings')
                                       .where('view', isEqualTo: 'Water Front')
                                       .get())
-                                      .docs;
-                                  var data = listings.map((listing) {
-                                    return listing.data();
-                                  }).toList();
-                                  Get.toNamed("/searchresult",
-                                      arguments: [data, 'All Water Fronts']);
-                                }),
+                                  .docs;
+                              var data = listings.map((listing) {
+                                return listing.data();
+                              }).toList();
+                              Get.toNamed("/searchresult",
+                                  arguments: [data, 'All Water Fronts']);
+                            }),
                           ],
                         ),
                       ),

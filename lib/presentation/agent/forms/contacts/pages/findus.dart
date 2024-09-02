@@ -87,7 +87,9 @@ class FindUs extends GetView<ContactusController> {
                 width: 5.w,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  controller.emailUrl;
+                },
                 child: EraText(
                   text: 'eraphilippines@gmail.com',
                   fontSize: 17.sp,

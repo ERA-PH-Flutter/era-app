@@ -1,25 +1,31 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/presentation/agent/listings/favorites/controllers/fav_controller.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:device_info/device_info.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'dart:ui' as image;
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/fav/fav_listing.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_to_pdf_converter/image_to_pdf_converter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-import '../../../../../app/constants/theme.dart';
-import '../../../../../app/widgets/fav/favItems_widgets.dart';
-import '../../../../../app/widgets/listings/agentInfo-widget.dart';
-import '../../../../../repository/listing.dart';
-import '../../../../global.dart';
-import '../controllers/fav_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../app/constants/strings.dart';
+import '../../../../app/constants/theme.dart';
+import '../../../../app/widgets/fav/favItems_widgets.dart';
+import '../../../../app/widgets/listings/agentInfo-widget.dart';
+import '../../../../repository/listing.dart';
+import '../../../global.dart';
 //todo add text
 
 class Fav extends GetView<FavController> {
@@ -289,10 +295,10 @@ class Fav extends GetView<FavController> {
                     controller.favState.value = FavState.loaded;
                   },
                   child: SizedBox(
-                    width: 75.w,
+                    width: 70.w,
                     child: EraText(
                       textDecoration: TextDecoration.underline,
-                      color: AppColors.kRedColor,
+                      color: Colors.red,
                       text: "Cancel",
                       fontSize: 17.sp,
                     ),
@@ -302,10 +308,10 @@ class Fav extends GetView<FavController> {
             ),
           ),
         ),
-        SizedBox(
+        Container(
           height: Get.height - 275.h,
           child: preview(),
-        )
+        ),
       ],
     );
   }
@@ -321,11 +327,9 @@ class Fav extends GetView<FavController> {
     var pdfFileName =
         '${user!.firstname}_${user!.lastname}_${DateTime.now().microsecondsSinceEpoch}_listing.pdf';
     var downloadsFolder = Directory('/storage/emulated/0/Download');
-
     File pdfFile =
         await (await File('${downloadsFolder.path}/$pdfFileName').create())
             .writeAsBytes(await a.readAsBytes());
-    //launchUrl(pdfFile.path); todo missy
     controller.showSuccessDialog(
         title: "Success",
         description: "PDF has been downloaded",
@@ -336,8 +340,7 @@ class Fav extends GetView<FavController> {
             channelKey: 'download_channel',
             actionType: ActionType.Default,
             title: 'File Downloaded',
-            body:
-                'Pdf file has been downloaded, look for $pdfFileName at the download folder!',
+            body: 'Pdf file has been downloaded, look at the download folder!',
           ));
           Get.back();
           Get.back();
@@ -399,11 +402,6 @@ class Fav extends GetView<FavController> {
                     fromSold: false,
                   ),
                 ),
-                index != 0
-                    ? SizedBox(
-                        height: 130.h,
-                      )
-                    : Container()
               ],
             ),
           );

@@ -195,7 +195,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                     },
                                         Get.currentRoute ==
                                             '/mortageCalculator'),
-                                    _buildMenuCard('CONTACTUS', () {
+                                    _buildMenuCard('CONTACT US', () {
                                       selectedIndex.value = 0;
                                       Get.offAllNamed("/direct-contactus");
                                     }, Get.currentRoute == '/direct-contactus'),

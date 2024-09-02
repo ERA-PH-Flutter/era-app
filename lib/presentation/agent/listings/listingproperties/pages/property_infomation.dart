@@ -43,7 +43,8 @@ class PropertyInformation extends GetView<ListingController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth, vertical: 11.h),
+              padding: EdgeInsets.symmetric(
+                  horizontal: EraTheme.paddingWidth, vertical: 11.h),
               child: EraText(
                 text: 'Property Information'.toUpperCase(),
                 color: AppColors.blue,
@@ -55,7 +56,7 @@ class PropertyInformation extends GetView<ListingController> {
               height: 20.h,
             ),
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               child: EraText(
                 text: listing.name!,
                 color: AppColors.kRedColor,
@@ -64,28 +65,33 @@ class PropertyInformation extends GetView<ListingController> {
               ),
             ),
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   Obx((){
-                     return EraText(
-                       text: controller.price.value == "" ?  NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
-                           .format(listing.price) : controller.price.value,
-                       color: AppColors.black,
-                       fontSize: 23.sp,
-                       fontWeight: FontWeight.bold,
-                     );
-                   }),
+                  Obx(() {
+                    return EraText(
+                      text: controller.price.value == ""
+                          ? NumberFormat.currency(
+                                  locale: 'en_PH', symbol: 'PHP ')
+                              .format(listing.price)
+                          : controller.price.value,
+                      color: AppColors.black,
+                      fontSize: 23.sp,
+                      fontWeight: FontWeight.bold,
+                    );
+                  }),
                   GestureDetector(
-                    onTap: (){
-                      if(controller.symbol == "PHP "){
+                    onTap: () {
+                      if (controller.symbol == "PHP ") {
                         controller.symbol = "USD ";
-                        controller.price.value = NumberFormat.currency(locale: 'en_US', symbol: controller.symbol)
+                        controller.price.value = NumberFormat.currency(
+                                locale: 'en_US', symbol: controller.symbol)
                             .format(listing.price! / settings!.exchangeRate!);
-                      }else{
+                      } else {
                         controller.symbol = "PHP ";
-                        controller.price.value = NumberFormat.currency(locale: 'en_PH', symbol: controller.symbol)
+                        controller.price.value = NumberFormat.currency(
+                                locale: 'en_PH', symbol: controller.symbol)
                             .format(listing.price!);
                       }
                     },
@@ -229,8 +235,12 @@ class PropertyInformation extends GetView<ListingController> {
           ),
           SizedBox(height: 20.h),
           eratexts('Listing ID# ', '${listing.id}'),
-          eratexts('Last Updated: ', DateFormat('MMMM dd, yyyy hh:mm aaa').format(listing.dateUpdated!)),
-          eratexts('Added: ', "Added ${DateTime.now().difference(listing.dateCreated!).inDays.toString()} days ago"),
+          eratexts(
+              'Last Updated: ',
+              DateFormat('MMMM dd, yyyy hh:mm aaa')
+                  .format(listing.dateUpdated!)),
+          eratexts('Added: ',
+              "Added ${DateTime.now().difference(listing.dateCreated!).inDays.toString()} days ago"),
           //SizedBox(height: 20.h),
 
           //featuresWidgets('Features / Amenities', listing.join('\n')),
@@ -296,6 +306,17 @@ class PropertyInformation extends GetView<ListingController> {
                   ],
                 ),
               )),
+          SizedBox(height: 20.h),
+          Button(
+            fontSize: EraTheme.paragraph - 2.sp,
+            width: Get.width,
+            height: 43.h,
+            text: 'MORTGAGE CALCULATOR',
+            bgColor: AppColors.kRedColor,
+            onTap: () {
+              Get.toNamed("/mortageCalculator");
+            },
+          ),
           SizedBox(height: 20.h),
           FutureBuilder(
               future: EraUser().getById(listing.by),
@@ -378,8 +399,7 @@ class PropertyInformation extends GetView<ListingController> {
           fontSize: 18.sp,
         ),
         EraText(
-          text: listing.address ??
-              "No Address Added",
+          text: listing.address ?? "No Address Added",
           color: AppColors.black,
           fontWeight: FontWeight.w500,
           fontSize: 14.sp,
@@ -391,15 +411,25 @@ class PropertyInformation extends GetView<ListingController> {
           height: 250.h,
           child: GoogleMap(
             initialCameraPosition: CameraPosition(
-              target: LatLng(listing.latLng != null ? listing.latLng![0].toString().toDouble() : 0,listing.latLng != null ? listing.latLng![1].toString().toDouble() : 0),
-              zoom: 13.0
-            ),
+                target: LatLng(
+                    listing.latLng != null
+                        ? listing.latLng![0].toString().toDouble()
+                        : 0,
+                    listing.latLng != null
+                        ? listing.latLng![1].toString().toDouble()
+                        : 0),
+                zoom: 13.0),
             markers: {
               Marker(
-                position: LatLng(listing.latLng != null ? listing.latLng![0].toString().toDouble() : 0,listing.latLng != null ? listing.latLng![1].toString().toDouble() : 0),
-                markerId: MarkerId('mainPin'),
-                icon: BitmapDescriptor.defaultMarker
-              )
+                  position: LatLng(
+                      listing.latLng != null
+                          ? listing.latLng![0].toString().toDouble()
+                          : 0,
+                      listing.latLng != null
+                          ? listing.latLng![1].toString().toDouble()
+                          : 0),
+                  markerId: MarkerId('mainPin'),
+                  icon: BitmapDescriptor.defaultMarker)
             },
           ),
         )
@@ -429,7 +459,13 @@ class PropertyInformation extends GetView<ListingController> {
           children: [
             iconsWidgets(AppEraAssets.tub, '${listing.baths}'),
             iconsWidgets(AppEraAssets.car, '${listing.cars}'),
-            listing.view == "SUNRISE" ? iconsWidgets(AppEraAssets.sunrise, '${listing.view}') : Opacity(opacity: 0,child: iconsWidgets(AppEraAssets.sunrise, '${listing.view}'),),
+            listing.view == "SUNRISE"
+                ? iconsWidgets(AppEraAssets.sunrise, '${listing.view}')
+                : Opacity(
+                    opacity: 0,
+                    child:
+                        iconsWidgets(AppEraAssets.sunrise, '${listing.view}'),
+                  ),
           ],
         ),
       ],
@@ -469,7 +505,8 @@ class PropertyInformation extends GetView<ListingController> {
             shorterSummary('Area', '${listing.area} sqm'),
             //shorterSummary('Offer Type', listing.type),
             shorterSummary('View', listing.view ?? "None"),
-            shorterSummary('Location', (listing.location ?? "").toString().capitalize),
+            shorterSummary(
+                'Location', (listing.location ?? "").toString().capitalize),
             shorterSummary('Type', listing.type),
             shorterSummary('Sub Category', listing.subCategory),
           ],
