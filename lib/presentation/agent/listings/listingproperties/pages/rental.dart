@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-
 import '../../searchresult/controllers/searchresult_controller.dart';
 import '../controllers/listing_controller.dart';
 import 'findproperties.dart';
@@ -47,11 +46,13 @@ class Rental extends GetView<ListingController> {
                               searchController
                                   .aiSearchController.text.isNotEmpty;
                         },
-                        onPressed: () {},
                         controller: searchController.aiSearchController,
                         hint: 'AI Search',
-                        svgIcon: AppEraAssets.send,
+                        svgIcon: AppEraAssets.ai,
                         bgColor: AppColors.white,
+                        isSuffix: true,
+                        obscureText: false,
+                        suffixIcons: AppEraAssets.send,
                       ),
                       SizedBox(height: 10.h),
                       Obx(() {
@@ -195,12 +196,10 @@ class Rental extends GetView<ListingController> {
                                                   .aiSearchController.text)
                                           .search();
                                     }
-                                    Get.toNamed("/searchresult",
-                                        arguments: [
-                                          data,
-                                          searchController
-                                              .aiSearchController.text
-                                        ]);
+                                    Get.toNamed("/searchresult", arguments: [
+                                      data,
+                                      searchController.aiSearchController.text
+                                    ]);
                                   }),
                                   SizedBox(height: 10.h),
                                 ],
@@ -220,7 +219,7 @@ class Rental extends GetView<ListingController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextListing(
-                            text:'QUICK SEARCH',
+                            text: 'QUICK LINKS',
                             fontSize: 25.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.kRedColor,

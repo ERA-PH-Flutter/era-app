@@ -14,6 +14,7 @@ class EraText extends StatelessWidget {
   final TextOverflow? textOverflow;
   final TextDecoration? textDecoration;
   final int? maxLines;
+  final TextEditingController? controller;
 
   const EraText({
     required this.text,
@@ -27,6 +28,7 @@ class EraText extends StatelessWidget {
     this.textOverflow,
     this.textDecoration,
     this.maxLines,
+    this.controller,
   });
 
   @override

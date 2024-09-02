@@ -62,6 +62,7 @@ dependencies:
   flutter_typeahead: ^4.8.0
   google_places_flutter: ^2.0.9
   dropdown_search: ^5.0.6
+  photo_view: ^0.15.0
  
 dev_dependencies:
   flutter_test:

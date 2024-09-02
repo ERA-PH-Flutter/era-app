@@ -32,7 +32,7 @@ class Inquiry extends StatelessWidget {
                   color: AppColors.black),
               SizedBox(height: 2.h),
               TextformfieldWidget(
-                hintText: 'Enter your First Name',
+                hintText: 'Enter Your First Name',
                 maxLines: 1,
                 keyboardType: TextInputType.name,
               ),
@@ -45,7 +45,7 @@ class Inquiry extends StatelessWidget {
               ),
               SizedBox(height: 2.h),
               TextformfieldWidget(
-                hintText: 'Enter your Last Name',
+                hintText: 'Enter Your Last Name',
                 maxLines: 1,
                 keyboardType: TextInputType.name,
               ),

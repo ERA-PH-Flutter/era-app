@@ -91,8 +91,9 @@ class AppTextField extends StatelessWidget {
                       child: Image.asset(
                         suffixIcons ?? AppEraAssets.hide,
                         height: 30.h,
-                        color:
-                            obscureText! ? AppColors.hint : AppColors.primary,
+                        color: obscureText!
+                            ? AppColors.primary
+                            : AppColors.kRedColor,
                       )),
                 ),
               )
@@ -105,6 +106,7 @@ class AppTextField extends StatelessWidget {
                     child: Image.asset(
                       svgIcon ?? AppEraAssets.person,
                       height: 30.h,
+                      color: AppColors.kRedColor,
                     ),
                   ),
                   if (countryPicker != null) ...[countryPicker!]

@@ -25,11 +25,10 @@ class SearchResultController extends GetxController {
   var isForSale = 0.obs;
   var isForLease = true.obs;
 
-  var showFullSearch= false.obs;
-  var showQuickSearch= false.obs;
-
-  var focusNode = FocusNode();  
-
+  var showFullSearch = false.obs;
+  var showQuickSearch = false.obs;
+  var showAdvancedSearch = true.obs;
+  var focusNode = FocusNode();
 
   @override
   void onInit() {
@@ -48,6 +47,7 @@ class SearchResultController extends GetxController {
     }
     super.onInit();
   }
+
   @override
   void onClose() {
     Get.delete<SearchResultController>(force: true);
@@ -55,8 +55,8 @@ class SearchResultController extends GetxController {
   }
 
   loadData(List<Map<String, dynamic>> loadedData) {
-    data.value = loadedData.map((d){
-      if(!d['is_sold']){
+    data.value = loadedData.map((d) {
+      if (!d['is_sold']) {
         return d;
       }
     }).toList();
@@ -65,7 +65,6 @@ class SearchResultController extends GetxController {
     if (data.isEmpty) {
       searchResultState.value = SearchResultState.empty;
     } else {
-
       searchResultState.value = SearchResultState.loaded;
     }
   }

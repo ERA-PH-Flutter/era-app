@@ -38,19 +38,22 @@ class Residential extends GetView<ListingController> {
                   child: Column(
                     children: [
                       SizedBox(height: 10.h),
-                      AppTextField(
-                        onChange: (value) {
-                          print('clicked');
-                          searchController.showFullSearch.value =
-                              searchController
-                                  .aiSearchController.text.isNotEmpty;
-                        },
-                        onPressed: () {},
-                        controller: searchController.aiSearchController,
-                        hint: 'AI Search',
-                        svgIcon: AppEraAssets.send,
-                        bgColor: AppColors.white,
-                      ),
+                      if (!searchController.showFullSearch.value)
+                        AppTextField(
+                          onChange: (value) {
+                            print('clicked');
+                            searchController.showFullSearch.value =
+                                searchController
+                                    .aiSearchController.text.isNotEmpty;
+                          },
+                          controller: searchController.aiSearchController,
+                          hint: 'AI Search',
+                          svgIcon: AppEraAssets.ai,
+                          bgColor: AppColors.white,
+                          isSuffix: true,
+                          obscureText: false,
+                          suffixIcons: AppEraAssets.send,
+                        ),
                       SizedBox(height: 10.h),
                       Obx(() {
                         if (searchController.showFullSearch.value) {
@@ -193,12 +196,10 @@ class Residential extends GetView<ListingController> {
                                                   .aiSearchController.text)
                                           .search();
                                     }
-                                    Get.toNamed("/searchresult",
-                                        arguments: [
-                                          data,
-                                          searchController
-                                              .aiSearchController.text
-                                        ]);
+                                    Get.toNamed("/searchresult", arguments: [
+                                      data,
+                                      searchController.aiSearchController.text
+                                    ]);
                                   }),
                                   SizedBox(height: 10.h),
                                 ],
@@ -218,7 +219,7 @@ class Residential extends GetView<ListingController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextListing(
-                            text: 'QUICK SEARCH',
+                            text: 'QUICK LINKS',
                             fontSize: 25.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.kRedColor,

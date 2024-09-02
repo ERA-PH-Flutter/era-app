@@ -57,9 +57,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                           fontWeight: FontWeight.w600,
                         ),
                         settingIcon(() {
-                          Get.to(() => SettingsPage(
-
-                              ));
+                          Get.to(() => SettingsPage());
                         }),
                       ],
                     ),
@@ -302,7 +300,8 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: StreamBuilder(
-              stream: FirebaseFirestore.instance.collection('users').snapshots(),
+              stream:
+                  FirebaseFirestore.instance.collection('users').snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
@@ -311,7 +310,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                 List randomIndex = [];
                 for (int i = 0; i < min(5, snapshot.data!.docs.length); i++) {
                   var random = Random().nextInt(snapshot.data!.docs.length);
-                  while(randomIndex.contains(random)){
+                  while (randomIndex.contains(random)) {
                     random = Random().nextInt(snapshot.data!.docs.length);
                   }
                   randomIndex.add(random);
@@ -449,7 +448,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
           child: EraText(
             text: text,
             color: AppColors.black,
-            fontSize: 14.sp,
+            fontSize: 12.sp,
             fontWeight: FontWeight.w600,
             textOverflow: TextOverflow.ellipsis,
           ),
@@ -465,11 +464,10 @@ Widget iconAgents(String assetPath, Function()? onTap, String name) {
     child: Column(
       children: [
         CloudStorage().imageLoaderProvider(
-          height: 110.h,
-          width: 110.w,
-          ref: assetPath,
-          borderRadius: BorderRadius.circular(10.r)
-        ),
+            height: 110.h,
+            width: 110.w,
+            ref: assetPath,
+            borderRadius: BorderRadius.circular(10.r)),
         ConstrainedBox(
           constraints: BoxConstraints(
             maxWidth: 120.w,

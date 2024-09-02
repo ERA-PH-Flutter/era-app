@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
@@ -15,6 +16,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 import '../../favorites/controllers/fav_controller.dart';
@@ -103,7 +106,6 @@ class PropertyInformation extends GetView<ListingController> {
             ),
             SizedBox(height: 20.h),
 
-            // i dont know why URI is not working here
             Obx(() {
               bool isFav = false;
               return SizedBox(
@@ -139,6 +141,8 @@ class PropertyInformation extends GetView<ListingController> {
                             return GestureDetector(
                               onTap: () {
                                 controller.onSelectedImage(image);
+                                Get.to(() => FullScreenImageViewer(
+                                    imageUrl: image, initialIndex: index));
                               },
                               child: Container(
                                 decoration: isSelected
@@ -162,7 +166,7 @@ class PropertyInformation extends GetView<ListingController> {
                     ),
                     Obx(() {
                       controller.isFav.value;
-                      if(user != null){
+                      if (user != null) {
                         return Positioned(
                           right: 15.w,
                           top: 10.h,
@@ -170,31 +174,34 @@ class PropertyInformation extends GetView<ListingController> {
                             alignment: Alignment.center,
                             child: GestureDetector(
                                 onTap: () {
-                                  controller.isFav.value = !controller.isFav.value;
+                                  controller.isFav.value =
+                                      !controller.isFav.value;
                                   user!.addFavorites(listing.id);
                                   Get.showSnackbar(GetSnackBar(
                                     title: "Success",
-                                    message: "${controller.isFav.value ? "Added" : "Removed"} to favorites",
+                                    message:
+                                        "${controller.isFav.value ? "Added" : "Removed"} to favorites",
                                     backgroundColor: AppColors.kRedColor,
-                                    duration: Duration(milliseconds: 500,seconds: 1),
+                                    duration:
+                                        Duration(milliseconds: 500, seconds: 1),
                                   ));
                                 },
-                                child:Icon(
+                                child: Icon(
                                   shadows: const [
                                     Shadow(
                                         color: Colors.black38,
-                                        offset: Offset(1,1),
-                                        blurRadius: 15
-                                    )
+                                        offset: Offset(1, 1),
+                                        blurRadius: 15)
                                   ],
-                                  user!.favorites!.contains(listing.id) ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                                  user!.favorites!.contains(listing.id)
+                                      ? CupertinoIcons.heart_fill
+                                      : CupertinoIcons.heart,
                                   color: AppColors.kRedColor,
                                   size: 45.sp,
-                                )
-                            ),
+                                )),
                           ),
                         );
-                      }else{
+                      } else {
                         return Container();
                       }
                     })
@@ -597,6 +604,35 @@ class PropertyInformation extends GetView<ListingController> {
           fontWeight: FontWeight.w500,
         ),
       ],
+    );
+  }
+
+  Widget FullScreenImageViewer(
+      {required String imageUrl, final int initialIndex = 0}) {
+    return BaseScaffold(
+      body: GestureDetector(
+        onTap: () => Get.back(),
+        child: PhotoViewGallery.builder(
+          scrollPhysics: const BouncingScrollPhysics(),
+          builder: (BuildContext context, int index) {
+            return PhotoViewGalleryPageOptions(
+              imageProvider: CloudStorage().imageLoader(
+                  ref: imageUrl[index], width: Get.width, height: 350.h),
+              minScale: PhotoViewComputedScale.contained * 0.8,
+              maxScale: PhotoViewComputedScale.covered * 2,
+              heroAttributes: PhotoViewHeroAttributes(tag: imageUrl[index]),
+            );
+          },
+          itemCount: imageUrl.length,
+          pageController: PageController(initialPage: initialIndex),
+          onPageChanged: (int index) {
+            print('Page changed to $index');
+          },
+          backgroundDecoration: const BoxDecoration(
+            color: Colors.black,
+          ),
+        ),
+      ),
     );
   }
 }

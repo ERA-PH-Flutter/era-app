@@ -17,22 +17,21 @@ class TextformfieldWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool? readOnly;
 
-  const TextformfieldWidget({
-    super.key,
-    this.style,
-    this.hintText,
-    this.hintstlye,
-    this.controller,
-    this.contentPadding,
-    this.maxLines,
-    this.suffixIcon,
-    this.obscureText,
-    this.keyboardType,
-    this.fontSize,
-    this.color,
-    this.validator,
-    this.readOnly
-  });
+  const TextformfieldWidget(
+      {super.key,
+      this.style,
+      this.hintText,
+      this.hintstlye,
+      this.controller,
+      this.contentPadding,
+      this.maxLines,
+      this.suffixIcon,
+      this.obscureText,
+      this.keyboardType,
+      this.fontSize,
+      this.color,
+      this.validator,
+      this.readOnly});
 
   @override
   Widget build(BuildContext context) {

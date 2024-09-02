@@ -103,8 +103,7 @@ class PropertylistAdmin extends StatelessWidget {
                                       value: 1,
                                       groupValue: controller.isForSale.value,
                                       onChanged: (value) {
-                                        controller.isForSale.value =
-                                            value ?? 0;
+                                        controller.isForSale.value = value ?? 0;
                                       }),
                                 ),
                                 SizedBox(
@@ -127,8 +126,7 @@ class PropertylistAdmin extends StatelessWidget {
                                       value: 2,
                                       groupValue: controller.isForSale.value,
                                       onChanged: (value) {
-                                        controller.isForSale.value =
-                                            value ?? 0;
+                                        controller.isForSale.value = value ?? 0;
                                       }),
                                 ),
                                 SizedBox(
@@ -196,7 +194,7 @@ class PropertylistAdmin extends StatelessWidget {
                 padding:
                     EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                 child: TextListing(
-                  text: 'QUICK SEARCH',
+                  text: 'QUICK LINKS',
                   fontSize: 25.sp,
                   fontWeight: FontWeight.w600,
                   color: AppColors.kRedColor,

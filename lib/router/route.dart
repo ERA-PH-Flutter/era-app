@@ -1,5 +1,6 @@
 import 'package:eraphilippines/presentation/admin/agents/controllers/agents_bindings.dart';
 import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
+import 'package:eraphilippines/presentation/admin/authentication.dart';
 import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/controllers/home_analytics_binding.dart';
 import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/pages/home_analytics.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_binding.dart';
@@ -189,6 +190,11 @@ appRoutes() => [
           name: RouteString.addAgent,
           page: () => AddAgent(),
           binding: AgentAdminBindings()),
+
+      GetPage(
+        name: RouteString.adminLogin,
+        page: () => AuthenticationPage(),
+      ),
     ];
 
 class MyMiddleware extends GetMiddleware {}

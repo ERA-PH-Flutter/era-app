@@ -28,7 +28,7 @@ class SearchResult extends GetView<SearchResultController> {
 
   @override
   Widget build(BuildContext context) {
-    final FilterController controllers = Get.put(FilterController());
+    // final FilterController controllers = Get.put(FilterController());
 
     return BaseScaffold(
       body: SingleChildScrollView(
@@ -42,29 +42,42 @@ class SearchResult extends GetView<SearchResultController> {
                 child: Column(
                   children: [
                     SizedBox(height: 10.h),
-                    AppTextField(
-                      onPressed: () {},
-                      controller: controller.aiSearchController,
-                      hint: 'AI Search',
-                      svgIcon: AppEraAssets.send,
-                      bgColor: AppColors.white,
-                    ),
+                    Obx(() {
+                      if (!controller.showFullSearch.value) {
+                        return AppTextField(
+                            onPressed: () {},
+                            controller: controller.aiSearchController,
+                            hint: 'Use AI Search',
+                            svgIcon: AppEraAssets.ai3,
+                            bgColor: AppColors.white,
+                            isSuffix: true,
+                            obscureText: false,
+                            suffixIcons: AppEraAssets.send);
+                      }
+                      return Container();
+                    }),
+
                     SizedBox(height: 5.h),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         controller.expanded.value = !controller.expanded.value;
-                        controller.showFullSearch.value = !controller.showFullSearch.value;
+                        controller.showFullSearch.value =
+                            !controller.showFullSearch.value;
                       },
                       child: Padding(
                         padding: EdgeInsets.all(10.0.h),
-                        child: Obx(()=> EraText(
-                          text: controller.expanded.value ? "Hide Search" : "Expand Search",
-                          fontSize: 15.sp,
-                          textDecoration: TextDecoration.underline,
-                        )),
+                        child: Obx(() => EraText(
+                              text: controller.expanded.value
+                                  ? "Back to AI Search"
+                                  : "Filtered Search",
+                              fontSize: 15.sp,
+                              textDecoration: TextDecoration.underline,
+                            )),
                       ),
                     ),
                     SizedBox(height: 0.h),
+
+                    //FILTERED SEARCH
                     Obx(() {
                       if (controller.showFullSearch.value) {
                         return Column(
@@ -174,7 +187,7 @@ class SearchResult extends GetView<SearchResultController> {
                                       openFilterDialog();
                                     },
                                     label: EraText(
-                                      text: 'Filters',
+                                      text: 'More Filters',
                                       color: AppColors.black,
                                       fontSize: 15.sp,
                                       fontWeight: FontWeight.w500,
@@ -195,26 +208,41 @@ class SearchResult extends GetView<SearchResultController> {
                                   } else if (controller.isForSale.value == 2) {
                                     data = await Database().getForRentListing();
                                     searchQuery = "All For Rent Listings";
-                                  } else if (controller.aiSearchController.text == "") {
+                                  } else if (controller
+                                          .aiSearchController.text ==
+                                      "") {
                                     data = await Database().searchListing(
-                                        location: controller.locationController.text,
+                                        location:
+                                            controller.locationController.text,
                                         price: controller.priceController.text,
-                                        property: controller.propertyController.text);
-                                    if(controller.locationController.text != ""){
-                                      searchQuery += "Location: ${controller.locationController.text}";
-                                    }else if(controller.propertyController.text != ""){
-                                      searchQuery += "Property Type: ${controller.locationController.text}";
-                                    }else if(controller.priceController.text != ""){
-                                      searchQuery += "With price less than: ${controller.priceController.text}";
+                                        property:
+                                            controller.propertyController.text);
+                                    if (controller.locationController.text !=
+                                        "") {
+                                      searchQuery +=
+                                          "Location: ${controller.locationController.text}";
+                                    } else if (controller
+                                            .propertyController.text !=
+                                        "") {
+                                      searchQuery +=
+                                          "Property Type: ${controller.locationController.text}";
+                                    } else if (controller
+                                            .priceController.text !=
+                                        "") {
+                                      searchQuery +=
+                                          "With price less than: ${controller.priceController.text}";
                                     }
                                   } else {
-                                    data =
-                                    await AI(query: controller.aiSearchController.text)
+                                    data = await AI(
+                                            query: controller
+                                                .aiSearchController.text)
                                         .search();
-                                    searchQuery = controller.aiSearchController.text;
+                                    searchQuery =
+                                        controller.aiSearchController.text;
                                   }
                                   selectedIndex.value = 2;
-                                  controller.searchResultState.value = SearchResultState.loading;
+                                  controller.searchResultState.value =
+                                      SearchResultState.loading;
                                   controller.searchQuery.value = searchQuery;
                                   controller.expanded.value = false;
                                   controller.showFullSearch.value = false;
@@ -233,12 +261,12 @@ class SearchResult extends GetView<SearchResultController> {
               ),
               SizedBox(height: 10.h),
               Obx(() {
-                if (controller.showFullSearch.value) {
+                if (controller.showFullSearch.value == false) {
                   return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextListing(
-                          text: 'QUICK SEARCH',
+                          text: 'QUICK LINKS',
                           fontSize: 25.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.kRedColor,
@@ -249,102 +277,104 @@ class SearchResult extends GetView<SearchResultController> {
                           child: Row(
                             children: [
                               FindProperties.quickSearchIcon(AppEraAssets.condo,
-                                      () async {
-                                    var listings = (await FirebaseFirestore.instance
+                                  () async {
+                                var listings = (await FirebaseFirestore.instance
                                         .collection('listings')
                                         .where('type', isEqualTo: 'Condominium')
                                         .get())
-                                        .docs;
-                                    var data = listings.map((listing) {
-                                      return listing.data();
-                                    }).toList();
-                                    Get.toNamed("/searchresult",
-                                        arguments: [data, 'All Condominium']);
-                                  }),
+                                    .docs;
+                                var data = listings.map((listing) {
+                                  return listing.data();
+                                }).toList();
+                                Get.toNamed("/searchresult",
+                                    arguments: [data, 'All Condominium']);
+                              }),
                               SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(AppEraAssets.condotel,
-                                      () async {
-                                    var listings = (await FirebaseFirestore.instance
+                              FindProperties.quickSearchIcon(
+                                  AppEraAssets.condotel, () async {
+                                var listings = (await FirebaseFirestore.instance
                                         .collection('listings')
                                         .where('type', isEqualTo: 'Condotel')
                                         .get())
-                                        .docs;
-                                    var data = listings.map((listing) {
-                                      return listing.data();
-                                    }).toList();
-                                    Get.toNamed("/searchresult",
-                                        arguments: [data, 'All Condotel']);
-                                  }),
+                                    .docs;
+                                var data = listings.map((listing) {
+                                  return listing.data();
+                                }).toList();
+                                Get.toNamed("/searchresult",
+                                    arguments: [data, 'All Condotel']);
+                              }),
                               SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(AppEraAssets.commercial,
-                                      () async {
-                                    var listings = (await FirebaseFirestore.instance
+                              FindProperties.quickSearchIcon(
+                                  AppEraAssets.commercial, () async {
+                                var listings = (await FirebaseFirestore.instance
                                         .collection('listings')
                                         .where('type', isEqualTo: 'Commercial')
                                         .get())
-                                        .docs;
-                                    var data = listings.map((listing) {
-                                      return listing.data();
-                                    }).toList();
-                                    Get.toNamed("/searchresult",
-                                        arguments: [data, 'All Commercial']);
-                                  }),
+                                    .docs;
+                                var data = listings.map((listing) {
+                                  return listing.data();
+                                }).toList();
+                                Get.toNamed("/searchresult",
+                                    arguments: [data, 'All Commercial']);
+                              }),
                               SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(AppEraAssets.apartment,
-                                      () async {
-                                    var listings = (await FirebaseFirestore.instance
+                              FindProperties.quickSearchIcon(
+                                  AppEraAssets.apartment, () async {
+                                var listings = (await FirebaseFirestore.instance
                                         .collection('listings')
-                                        .where('sub_category', isEqualTo: 'Apartment')
+                                        .where('sub_category',
+                                            isEqualTo: 'Apartment')
                                         .get())
-                                        .docs;
-                                    var data = listings.map((listing) {
-                                      return listing.data();
-                                    }).toList();
-                                    Get.toNamed("/searchresult",
-                                        arguments: [data, 'All Apartments']);
-                                  }),
+                                    .docs;
+                                var data = listings.map((listing) {
+                                  return listing.data();
+                                }).toList();
+                                Get.toNamed("/searchresult",
+                                    arguments: [data, 'All Apartments']);
+                              }),
                               SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(AppEraAssets.house1,
-                                      () async {
-                                    var listings = (await FirebaseFirestore.instance
+                              FindProperties.quickSearchIcon(
+                                  AppEraAssets.house1, () async {
+                                var listings = (await FirebaseFirestore.instance
                                         .collection('listings')
-                                        .where('sub_category', isEqualTo: 'House')
+                                        .where('sub_category',
+                                            isEqualTo: 'House')
                                         .get())
-                                        .docs;
-                                    var data = listings.map((listing) {
-                                      return listing.data();
-                                    }).toList();
-                                    Get.toNamed("/searchresult",
-                                        arguments: [data, 'All Houses']);
-                                  }),
+                                    .docs;
+                                var data = listings.map((listing) {
+                                  return listing.data();
+                                }).toList();
+                                Get.toNamed("/searchresult",
+                                    arguments: [data, 'All Houses']);
+                              }),
                               SizedBox(width: 15.w),
                               FindProperties.quickSearchIcon(AppEraAssets.land,
-                                      () async {
-                                    var listings = (await FirebaseFirestore.instance
+                                  () async {
+                                var listings = (await FirebaseFirestore.instance
                                         .collection('listings')
                                         .where('sub_category', isEqualTo: 'Lot')
                                         .get())
-                                        .docs;
-                                    var data = listings.map((listing) {
-                                      return listing.data();
-                                    }).toList();
-                                    Get.toNamed("/searchresult",
-                                        arguments: [data, 'All Lands']);
-                                  }),
+                                    .docs;
+                                var data = listings.map((listing) {
+                                  return listing.data();
+                                }).toList();
+                                Get.toNamed("/searchresult",
+                                    arguments: [data, 'All Lands']);
+                              }),
                               SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(AppEraAssets.waterfront,
-                                      () async {
-                                    var listings = (await FirebaseFirestore.instance
+                              FindProperties.quickSearchIcon(
+                                  AppEraAssets.waterfront, () async {
+                                var listings = (await FirebaseFirestore.instance
                                         .collection('listings')
                                         .where('view', isEqualTo: 'Water Front')
                                         .get())
-                                        .docs;
-                                    var data = listings.map((listing) {
-                                      return listing.data();
-                                    }).toList();
-                                    Get.toNamed("/searchresult",
-                                        arguments: [data, 'All Water Fronts']);
-                                  })
+                                    .docs;
+                                var data = listings.map((listing) {
+                                  return listing.data();
+                                }).toList();
+                                Get.toNamed("/searchresult",
+                                    arguments: [data, 'All Water Fronts']);
+                              })
                             ],
                           ),
                         ),
@@ -400,10 +430,10 @@ class SearchResult extends GetView<SearchResultController> {
             itemCount: controller.data.length,
             itemBuilder: (context, index) {
               //print(controller.data[index]);
-              if(controller.data[index] != null){
+              if (controller.data[index] != null) {
                 Listing listing = Listing.fromJSON(controller.data[index]);
                 return GestureDetector(
-                  onTap: ()async{
+                  onTap: () async {
                     await Database().addViews(listing.id);
                     Get.toNamed('/propertyInfo', arguments: listing);
                   },
@@ -430,11 +460,10 @@ class SearchResult extends GetView<SearchResultController> {
                               width: Get.width,
                               ref: listing.photos != null
                                   ? (listing.photos!.isNotEmpty
-                                  ? listing.photos!.first
-                                  : AppStrings.noUserImageWhite)
+                                      ? listing.photos!.first
+                                      : AppStrings.noUserImageWhite)
                                   : AppStrings.noUserImageWhite,
-                            )
-                        ),
+                            )),
                         SizedBox(
                           height: 17.h,
                         ),
@@ -444,7 +473,8 @@ class SearchResult extends GetView<SearchResultController> {
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: EraText(
                             textOverflow: TextOverflow.ellipsis,
-                            text: listing.name! == "" ? "No Name" : listing.name!,
+                            text:
+                                listing.name! == "" ? "No Name" : listing.name!,
                             fontSize: EraTheme.header - 5.sp,
                             color: AppColors.kRedColor,
                             fontWeight: FontWeight.bold,
@@ -558,9 +588,11 @@ class SearchResult extends GetView<SearchResultController> {
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: EraText(
                             text: NumberFormat.currency(
-                                locale: 'en_PH', symbol: 'PHP ')
+                                    locale: 'en_PH', symbol: 'PHP ')
                                 .format(
-                              listing.price.toString() == "" ? 0 : listing.price,
+                              listing.price.toString() == ""
+                                  ? 0
+                                  : listing.price,
                             ),
                             color: AppColors.blue,
                             fontSize: EraTheme.header,
@@ -573,12 +605,13 @@ class SearchResult extends GetView<SearchResultController> {
                               if (snapshot.hasData) {
                                 var user1 = snapshot.data;
                                 return Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 14.w),
                                   child: ListedBy(
                                       image: user1!.image ??
                                           AppStrings.noUserImageWhite,
                                       agentFirstName:
-                                      user1.firstname ?? "No Name",
+                                          user1.firstname ?? "No Name",
                                       agentType: user1.role ?? "Agent",
                                       agentLastName: user1.lastname ?? ""),
                                 );
@@ -597,7 +630,6 @@ class SearchResult extends GetView<SearchResultController> {
                 );
               }
               return Container();
-
             },
           ),
         ],

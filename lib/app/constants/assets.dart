@@ -1,6 +1,15 @@
 String l = "assets/icons/";
 
 class AppEraAssets {
+  //mortgage calculator icons
+  static String currency = "${l}philippine-peso.png";
+  static String percentage = "${l}percentage.png";
+  static String loan = "${l}loan.png";
+
+  static String ai = "${l}artificial-intelligence.png";
+  static String ai3 = "${l}creativity.png";
+  static String sendIcon = "${l}send-icon.svg";
+  //ai-technology.png
   static String hide = "";
   static String person = "";
 
@@ -23,7 +32,13 @@ class AppEraAssets {
   static String house1 = "${l}__House.png";
   static String land = "${l}__Land.png";
   static String waterfront = "${l}__Waterfront.png";
+  static String office = "${l}office.png";
 
+  static String residential = "${l}residential.png";
+  static String retail = "${l}retail.png";
+  static String lotF = "${l}lot.png";
+  static String townhouse = "${l}townhouse.png";
+  static String warehouse = "${l}warehouse.png";
   //appbar
   static String menubar = "${l}menubar.png";
 

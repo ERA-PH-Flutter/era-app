@@ -60,18 +60,9 @@ class SplashController extends GetxController {
     }
     var shortestSide = MediaQuery.of(Get.context!).size.shortestSide;
     kIsWeb
-        ?  Get.toNamed(RouteString.landingPage)
+        ? Get.toNamed(RouteString.landingPage) //admingLogin
         : shortestSide < 600
-        ? Get.toNamed(RouteString.home)
-        : Get.toNamed(RouteString.home);
-    //  Get.toNamed(RouteString.home);
-    //if(kIsWeb ){
-    // //todo show era ads
-
-
-    // if (user != null) {
-    // } else {
-    //   Get.toNamed(RouteString.landingPage);
-    // }
+            ? Get.toNamed(RouteString.home)
+            : Get.toNamed(RouteString.home);
   }
 }

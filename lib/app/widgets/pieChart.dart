@@ -10,7 +10,8 @@ class Piechart extends StatelessWidget {
   var downPayment;
   var interestAmount;
   var initialAmount;
-  Piechart({super.key,this.downPayment,this.interestAmount,this.initialAmount});
+  Piechart(
+      {super.key, this.downPayment, this.interestAmount, this.initialAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +23,15 @@ class Piechart extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _createLegend('PRINCIPAL', AppColors.kRedColor),
-                _createLegend('INTEREST', AppColors.blue),
-                _createLegend('DOWN PAYMENT', AppColors.hint)
+                _createLegend('PRINCIPAL', AppColors.principal),
+                _createLegend('INTEREST', AppColors.interest),
+                _createLegend('DOWN PAYMENT', AppColors.downPayment)
               ],
             ),
           ),
-          SizedBox(height: 21.h,),
+          SizedBox(
+            height: 21.h,
+          ),
           SizedBox(
             width: 200,
             height: 200,
@@ -44,18 +47,18 @@ class Piechart extends StatelessWidget {
     );
   }
 
-  _createLegend(text,color){
+  _createLegend(text, color) {
     return Row(
       children: [
         Container(
           width: 13.w,
           height: 13.w,
           decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(3.r)
-          ),
+              color: color, borderRadius: BorderRadius.circular(3.r)),
         ),
-        SizedBox(width: 5.w,),
+        SizedBox(
+          width: 5.w,
+        ),
         EraText(
           text: text,
           color: Colors.black,
@@ -67,9 +70,9 @@ class Piechart extends StatelessWidget {
 
   List<PieChartSectionData> pieChartSection() {
     List<Color> colors = [
-      AppColors.kRedColor,
-      AppColors.blue,
-      AppColors.hint,
+      AppColors.principal,
+      AppColors.interest,
+      AppColors.downPayment,
     ];
     List<String> titles = ['PRINCIPAL', 'INTEREST', 'DOWNPAYMENT'];
     return List<PieChartSectionData>.generate(3, (i) {

@@ -38,12 +38,12 @@ class FilterController extends GetxController {
   var selectedPropertyType = RxnString();
 
   // Amenities
-  var wifi = false.obs;
-  var kitchen = false.obs;
-  var washer = false.obs;
-  var dryer = false.obs;
-  var airConditioning = false.obs;
-  var tv = false.obs;
+  // var wifi = false.obs;
+  // var kitchen = false.obs;
+  // var washer = false.obs;
+  // var dryer = false.obs;
+  // var airConditioning = false.obs;
+  // var tv = false.obs;
 
   // Location
   var beachfront = false.obs;
@@ -80,12 +80,12 @@ class FilterController extends GetxController {
       'Land',
       'Commercial',
     ];
-    wifi.value = false;
-    kitchen.value = false;
-    washer.value = false;
-    dryer.value = false;
-    airConditioning.value = false;
-    tv.value = false;
+    // wifi.value = false;
+    // kitchen.value = false;
+    // washer.value = false;
+    // dryer.value = false;
+    // airConditioning.value = false;
+    // tv.value = false;
     beachfront.value = false;
     waterfront.value = false;
 
@@ -225,84 +225,84 @@ class PropertyTypeFilter extends StatelessWidget {
   }
 }
 
-// Reusable Amenities Widget
-class AmenitiesFilter extends StatelessWidget {
-  final FilterController controller;
+// // Reusable Amenities Widget
+// class AmenitiesFilter extends StatelessWidget {
+//   final FilterController controller;
 
-  AmenitiesFilter({required this.controller});
+//   AmenitiesFilter({required this.controller});
 
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              _buildAmenityButton('Wifi', controller.wifi),
-              SizedBox(width: 10.w),
-              _buildAmenityButton('Kitchen', controller.kitchen),
-              SizedBox(width: 10.w),
-              _buildAmenityButton('Washer', controller.washer),
-              SizedBox(width: 10.w),
-              _buildAmenityButton('Dryer', controller.dryer),
-              SizedBox(width: 10.w),
-            ],
-          ),
-          SizedBox(height: 10.h),
-          Row(
-            children: [
-              _buildAmenityButton(
-                  'Air conditioning', controller.airConditioning),
-              SizedBox(width: 10.w),
-              _buildAmenityButton('TV', controller.tv),
-              SizedBox(width: 10.w),
-            ],
-          ),
-          SizedBox(height: 10.h),
-          Row(
-            children: [
-              AmenitiesFilter._buildAmenityButton(
-                  'Beachfront', controller.beachfront),
-              SizedBox(width: 10.w),
-              AmenitiesFilter._buildAmenityButton(
-                  'City View', controller.cityView),
-              SizedBox(width: 10.w),
-              AmenitiesFilter._buildAmenityButton(
-                  'Mountain View', controller.mountainView),
-              SizedBox(width: 10.w),
-              AmenitiesFilter._buildAmenityButton('Sunset', controller.sunset),
-              SizedBox(width: 10.w),
-              AmenitiesFilter._buildAmenityButton(
-                  'Sunrise', controller.sunrise),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//       scrollDirection: Axis.horizontal,
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             children: [
+//               _buildAmenityButton('Wifi', controller.wifi),
+//               SizedBox(width: 10.w),
+//               _buildAmenityButton('Kitchen', controller.kitchen),
+//               SizedBox(width: 10.w),
+//               _buildAmenityButton('Washer', controller.washer),
+//               SizedBox(width: 10.w),
+//               _buildAmenityButton('Dryer', controller.dryer),
+//               SizedBox(width: 10.w),
+//             ],
+//           ),
+//           SizedBox(height: 10.h),
+//           Row(
+//             children: [
+//               _buildAmenityButton(
+//                   'Air conditioning', controller.airConditioning),
+//               SizedBox(width: 10.w),
+//               _buildAmenityButton('TV', controller.tv),
+//               SizedBox(width: 10.w),
+//             ],
+//           ),
+//           SizedBox(height: 10.h),
+//           Row(
+//             children: [
+//               AmenitiesFilter._buildAmenityButton(
+//                   'Beachfront', controller.beachfront),
+//               SizedBox(width: 10.w),
+//               AmenitiesFilter._buildAmenityButton(
+//                   'City View', controller.cityView),
+//               SizedBox(width: 10.w),
+//               AmenitiesFilter._buildAmenityButton(
+//                   'Mountain View', controller.mountainView),
+//               SizedBox(width: 10.w),
+//               AmenitiesFilter._buildAmenityButton('Sunset', controller.sunset),
+//               SizedBox(width: 10.w),
+//               AmenitiesFilter._buildAmenityButton(
+//                   'Sunrise', controller.sunrise),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 
-  static Widget _buildAmenityButton(String label, RxBool value) {
-    return Obx(
-      () => ElevatedButton(
-        onPressed: () => value.value = !value.value,
-        style: ElevatedButton.styleFrom(
-          backgroundColor:
-              value.value ? AppColors.hint.withOpacity(0.5) : AppColors.white,
-          side: BorderSide(color: AppColors.black, width: 1.0),
-        ),
-        child: EraText(
-          text: label,
-          style: TextStyle(
-            color: AppColors.black,
-            fontSize: 16.sp,
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   static Widget _buildAmenityButton(String label, RxBool value) {
+//     return Obx(
+//       () => ElevatedButton(
+//         onPressed: () => value.value = !value.value,
+//         style: ElevatedButton.styleFrom(
+//           backgroundColor:
+//               value.value ? AppColors.hint.withOpacity(0.5) : AppColors.white,
+//           side: BorderSide(color: AppColors.black, width: 1.0),
+//         ),
+//         child: EraText(
+//           text: label,
+//           style: TextStyle(
+//             color: AppColors.black,
+//             fontSize: 16.sp,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 Widget _buildFloorAreaFilter() {
   final FilterController controller = Get.put(FilterController());
@@ -443,15 +443,15 @@ void openFilterDialog() {
 
                   //amenites
                   SizedBox(height: 10.h),
-                  EraText(
-                    text: 'Amenities',
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black,
-                  ),
-                  SizedBox(height: 10.h),
-                  AmenitiesFilter(controller: controller),
-                  SizedBox(height: 10),
+                  // EraText(
+                  //   text: 'Amenities',
+                  //   fontSize: 18.sp,
+                  //   fontWeight: FontWeight.bold,
+                  //   color: AppColors.black,
+                  // ),
+                  // SizedBox(height: 10.h),
+                  // AmenitiesFilter(controller: controller),
+                  // SizedBox(height: 10),
                 ],
               )),
         ),

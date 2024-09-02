@@ -9,6 +9,7 @@ import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/admin/agents/pages/agent_profile_admin.dart';
 import 'package:eraphilippines/presentation/admin/agents/pages/approvedagents.dart';
 import 'package:eraphilippines/presentation/admin/agents/pages/roster.dart';
+import 'package:eraphilippines/presentation/admin/content-management/pages/homepage.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
 import 'package:eraphilippines/presentation/admin/listings/pages/add_project_admin.dart';
 import 'package:eraphilippines/presentation/admin/listings/pages/propertylist_admin.dart';
@@ -20,6 +21,7 @@ class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
 
   final List<Widget> _screens = [
+    HomePage(),
     AddPropertyAdmin(),
     ApprovedAgents(),
     AddAgent(),

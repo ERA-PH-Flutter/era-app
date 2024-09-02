@@ -427,12 +427,15 @@ class Fav extends GetView<FavController> {
         fontSize: 15.sp,
       ),
       onSelected: (String result) {
+        DefaultValue:
+        'Category';
         print(result);
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
         PopupMenuItem<String>(
           value: 'Category',
-          child: EraText(text: 'Category', color: AppColors.black),
+          enabled: true,
+          child: EraText(text: 'Category', color: AppColors.hint),
         ),
         PopupMenuItem<String>(
           value: 'date_modified',
