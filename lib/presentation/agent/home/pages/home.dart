@@ -70,7 +70,7 @@ class Home extends GetView<HomeController> {
                         );
                       }).toList(),
                       options: CarouselOptions(
-                        autoPlayInterval: Duration(milliseconds: 3000),
+                        autoPlayInterval: Duration(seconds: 7),
                         autoPlay: true,
                         viewportFraction: 1,
                         aspectRatio: 1.2,

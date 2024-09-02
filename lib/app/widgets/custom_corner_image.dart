@@ -1,5 +1,4 @@
 // import 'package:flutter/cupertino.dart';
-// //todo: nikko small adjustments of the shape 
 
 // class CustomCornerClipPath extends CustomClipper<Path> {
 //   final double cornerR;

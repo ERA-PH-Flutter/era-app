@@ -442,7 +442,6 @@ class ListingItemss extends StatelessWidget {
                         ),
                       ),
                     ),
-                  //todo: nikko im not sure how to put condition that this button will only show in my listing and will only visible to user only.
                   Positioned(
                     top: 10.h,
                     right: 10.w,

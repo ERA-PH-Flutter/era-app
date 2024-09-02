@@ -7,7 +7,6 @@ class Database{
   Database();
   initialize()async{
     try{
-      //todo convert to user equivalent
       return await db.collection("settings").doc('appSettings').get();
     }catch(error){
       return "Error: $error";
@@ -55,7 +54,6 @@ class Database{
   }
   getAllListing()async{
     try{
-      //todo convert to user equivalent
       return await db.collection("listings").get();
     }catch(error){
       return "Error: $error";
@@ -91,7 +89,6 @@ class Database{
   // PROJECTS
   getAllProjects()async{
     try{
-      //todo convert to user equivalent
       return await db.collection("projects").get();
     }catch(error){
       return "Error: $error";

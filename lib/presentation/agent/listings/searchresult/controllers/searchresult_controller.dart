@@ -54,11 +54,18 @@ class SearchResultController extends GetxController {
     super.onClose();
   }
 
-  loadData(loadedData) {
-    data.assignAll(loadedData ?? []);
+  loadData(List<Map<String, dynamic>> loadedData) {
+    data.value = loadedData.map((d){
+      if(!d['is_sold']){
+        return d;
+      }
+    }).toList();
+    print(data.value.last);
+    //data.assignAll(loadedData);
     if (data.isEmpty) {
       searchResultState.value = SearchResultState.empty;
     } else {
+
       searchResultState.value = SearchResultState.loaded;
     }
   }

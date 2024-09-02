@@ -85,7 +85,6 @@ class LoginPageController extends GetxController with BaseController {
   googleLogin() async {
     var googleLogin = await Authentication().signInWithGoogle();
     if (googleLogin != null) {
-      //todo check if user is reg
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
       Get.offAllNamed(RouteString.home);
     } else {

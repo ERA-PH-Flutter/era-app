@@ -19,11 +19,13 @@ class FavController extends GetxController with BaseController {
 
   @override
   void onInit() async {
-    if (user!.favorites!.isNotEmpty) {
-      for (int i = 0; i < user!.favorites!.length; i++) {
-        Listing listingA = await Listing().getListing(user!.favorites![i]);
-        if(!(listingA.isSold ?? true)){
-          favoritesList.add(listingA);
+    if(user != null){
+      if (user!.favorites!.isNotEmpty) {
+        for (int i = 0; i < user!.favorites!.length; i++) {
+          Listing listingA = await Listing().getListing(user!.favorites![i]);
+          if(!(listingA.isSold ?? true)){
+            favoritesList.add(listingA);
+          }
         }
       }
     }

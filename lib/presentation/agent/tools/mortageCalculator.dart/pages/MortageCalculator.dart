@@ -34,7 +34,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
               ),
               SizedBox(height: 15.h),
               Container(
-                height: 330.h,
+                height: 350.h,
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -53,7 +53,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 10.h),
                     Obx(()=>Piechart(downPayment: controller.downPayment.text,interestAmount: controller.interestAmount.value,initialAmount: controller.initialAmount.value))
                   ],
                 ),
@@ -129,19 +129,10 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 onTap: ()async{
                   controller.initialAmount.value = (controller.propertyAmount.text.toInt() - (controller.downPayment.text.toInt())).toDouble();
                   var loanTerms = (controller.loanTerm.text.toInt() * 12);
-                  var interest = (controller.interestRate.text.toInt() / 100) / 12;
+                  var interest = (controller.interestRate.text.toDouble() / 100) / 12;
                   controller.monthlyAmount.value = ( controller.initialAmount.value * interest * pow(1 + interest, loanTerms)) / (pow(1 + interest, loanTerms) - 1);
                   controller.interestAmount.value = (controller.monthlyAmount.value * loanTerms) -  controller.initialAmount.value;
                   controller.monthlyP.text = controller.monthlyAmount.value.toStringAsFixed(2);
-                  /*
-                  controller.showSuccessDialog(
-                    title: "Result",
-                    description: "Calculated value = $mortgage",
-                    hitApi: (){
-                      Get.back();
-                    }
-                  );
-                  */
                 },
               ),
               SizedBox(height: 30.h),

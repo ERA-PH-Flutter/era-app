@@ -15,7 +15,6 @@ class AgentListView extends StatelessWidget {
         return AgentsItems(
           agentInfo: agentsModels[index],
           onTap: () {
-            //todo redirect to agent with his listings
             //Get.toNamed('/agentDashBoard', arguments: agentsModels[index]);
           },
         );

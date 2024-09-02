@@ -100,7 +100,6 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       Positioned.fill(
                                         child: GestureDetector(
                                           onTap: () {
-                                            //todo goto inbox
                                             Get.to(() => InboxScreen(),
                                                 binding: LoginPageBinding());
                                           },

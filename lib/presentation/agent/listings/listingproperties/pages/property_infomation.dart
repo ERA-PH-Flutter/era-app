@@ -156,37 +156,41 @@ class PropertyInformation extends GetView<ListingController> {
                     ),
                     Obx(() {
                       controller.isFav.value;
-                      return Positioned(
-                        right: 15.w,
-                        top: 10.h,
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.isFav.value = !controller.isFav.value;
-                              user!.addFavorites(listing.id);
-                              Get.showSnackbar(GetSnackBar(
-                                title: "Success",
-                                message: "${controller.isFav.value ? "Added" : "Removed"} to favorites",
-                                backgroundColor: AppColors.kRedColor,
-                                duration: Duration(milliseconds: 500,seconds: 1),
-                              ));
-                            },
-                            child:Icon(
-                              shadows: const [
-                                Shadow(
-                                    color: Colors.black38,
-                                    offset: Offset(1,1),
-                                    blurRadius: 15
+                      if(user != null){
+                        return Positioned(
+                          right: 15.w,
+                          top: 10.h,
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: GestureDetector(
+                                onTap: () {
+                                  controller.isFav.value = !controller.isFav.value;
+                                  user!.addFavorites(listing.id);
+                                  Get.showSnackbar(GetSnackBar(
+                                    title: "Success",
+                                    message: "${controller.isFav.value ? "Added" : "Removed"} to favorites",
+                                    backgroundColor: AppColors.kRedColor,
+                                    duration: Duration(milliseconds: 500,seconds: 1),
+                                  ));
+                                },
+                                child:Icon(
+                                  shadows: const [
+                                    Shadow(
+                                        color: Colors.black38,
+                                        offset: Offset(1,1),
+                                        blurRadius: 15
+                                    )
+                                  ],
+                                  user!.favorites!.contains(listing.id) ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                                  color: AppColors.kRedColor,
+                                  size: 45.sp,
                                 )
-                              ],
-                              user!.favorites!.contains(listing.id) ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
-                              color: AppColors.kRedColor,
-                              size: 45.sp,
-                            )
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      }else{
+                        return Container();
+                      }
                     })
                   ],
                 ),

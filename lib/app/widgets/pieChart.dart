@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -14,16 +15,53 @@ class Piechart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SizedBox(
-        width: 200,
-        height: 200,
-        child: PieChart(
-          PieChartData(
-              centerSpaceRadius: 0,
-              sections: pieChartSection(),
-              sectionsSpace: 0),
-        ),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _createLegend('PRINCIPAL', AppColors.kRedColor),
+                _createLegend('INTEREST', AppColors.blue),
+                _createLegend('DOWN PAYMENT', AppColors.hint)
+              ],
+            ),
+          ),
+          SizedBox(height: 21.h,),
+          SizedBox(
+            width: 200,
+            height: 200,
+            child: PieChart(
+              PieChartData(
+                  centerSpaceRadius: 0,
+                  sections: pieChartSection(),
+                  sectionsSpace: 0),
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  _createLegend(text,color){
+    return Row(
+      children: [
+        Container(
+          width: 13.w,
+          height: 13.w,
+          decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(3.r)
+          ),
+        ),
+        SizedBox(width: 5.w,),
+        EraText(
+          text: text,
+          color: Colors.black,
+          fontSize: 13.sp,
+        )
+      ],
     );
   }
 
@@ -55,13 +93,6 @@ class Piechart extends StatelessWidget {
         titleStyle: TextStyle(
           fontSize: fontSize,
           fontWeight: FontWeight.bold,
-        ),
-        badgePositionPercentageOffset: 1.38,
-        badgeWidget: EraText(
-          text: titles[i],
-          fontSize: fontSize,
-          fontWeight: FontWeight.w600,
-          color: AppColors.black,
         ),
       );
     });

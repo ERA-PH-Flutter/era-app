@@ -159,7 +159,7 @@ class CreateAccount extends GetView<LoginPageController> {
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                         onTap: () {
-                                if (controller.firstName.text.isEmpty) {
+                          if (controller.firstName.text.isEmpty) {
                             AddListings.showErroDialogs(
                               title: "Error",
                               description: "All fields are required!",
@@ -175,13 +175,6 @@ class CreateAccount extends GetView<LoginPageController> {
                             return;
                           }
 
-                          if (controller.password.text.isEmpty) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
                           if (controller.passwordC.text.isEmpty) {
                             AddListings.showErroDialogs(
                               title: "Error",
@@ -189,6 +182,7 @@ class CreateAccount extends GetView<LoginPageController> {
                             );
                             return;
                           }
+
                           if (controller.age.text.isEmpty) {
                             AddListings.showErroDialogs(
                               title: "Error",
@@ -196,6 +190,7 @@ class CreateAccount extends GetView<LoginPageController> {
                             );
                             return;
                           }
+
                           if (controller.selectedGender.value == null) {
                             AddListings.showErroDialogs(
                               title: "Error",
@@ -203,6 +198,7 @@ class CreateAccount extends GetView<LoginPageController> {
                             );
                             return;
                           }
+
                           if (controller.contactNo.text.isEmpty) {
                             AddListings.showErroDialogs(
                               title: "Error",
@@ -210,6 +206,7 @@ class CreateAccount extends GetView<LoginPageController> {
                             );
                             return;
                           }
+
                           if (controller.emailAd.text.isEmpty) {
                             AddListings.showErroDialogs(
                               title: "Error",
