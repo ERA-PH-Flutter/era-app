@@ -705,7 +705,6 @@ class Home extends GetView<HomeController> {
                   children: [
                     // TextListing.projectTitle(
                     //     EraTheme.header, FontWeight.w600, AppColors.blue),
-
                     ProjectMain.featuredProject(),
                     // EraText(
                     //     text: 'Featured Projects',
@@ -733,14 +732,7 @@ class Home extends GetView<HomeController> {
                   ],
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 30.0, bottom: 30.0),
-                decoration: BoxDecoration(color: AppColors.carouselBgColor),
-                child: Image.asset(
-                  "assets/images/slider_haraya-project.jpg",
-                  fit: BoxFit.cover,
-                ),
-              ),
+              CarouselSliderWidget(images: CarouselModels.carouselModels),
             ],
           ),
         ),
@@ -1184,35 +1176,55 @@ class Home extends GetView<HomeController> {
         /// All About News
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              EraText(
-                  text: 'Join Us Today',
-                  fontSize: 30.sp,
-                  color: AppColors.kRedColor,
-                  fontWeight: FontWeight.bold),
-              EraText(
-                  text:
-                      'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
-                  fontSize: 15.sp,
-                  color: AppColors.hint,
-                  fontWeight: FontWeight.w500),
-            ],
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20.r)),
+              color: AppColors.blue2,
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      EraText(
+                          text: 'Join Us Today',
+                          fontSize: 30.sp,
+                          color: AppColors.white,
+                          fontWeight: FontWeight.bold),
+                      EraText(
+                          text:
+                              'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
+                          fontSize: 15.sp,
+                          color: AppColors.white,
+                          fontWeight: FontWeight.w500),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                Button(
+                  text: 'BECOME AN ERA AGENT',
+                  onTap: () {
+                    Get.toNamed("/aboutus");
+                  },
+                  bgColor: AppColors.kRedColor,
+                  height: EraTheme.buttonHeightSmall,
+                  width: Get.width - 220.w,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+              ],
+            ),
           ),
-        ),
-        SizedBox(
-          height: 30.h,
-        ),
-        Button(
-          text: 'BECOME AN ERA AGENT',
-          onTap: () {
-            Get.toNamed("/aboutus");
-          },
-          bgColor: AppColors.kRedColor,
-          height: EraTheme.buttonHeightSmall,
-          width: Get.width - 220.w,
-          borderRadius: BorderRadius.circular(30),
         ),
         SizedBox(
           height: 40.h,

@@ -19,4 +19,8 @@ class AppColors {
   static Color principal = const Color(0xFFe23a57);
   static Color interest = const Color(0xFF133562);
   static Color downPayment = const Color(0xFF4aa1d9);
+
+  //
+  static Color blue2 = const Color(0xFF0b3279);
+  static Color blue3 = const Color(0xFF000d4c);
 }
