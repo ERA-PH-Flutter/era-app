@@ -705,6 +705,7 @@ class Home extends GetView<HomeController> {
                   children: [
                     // TextListing.projectTitle(
                     //     EraTheme.header, FontWeight.w600, AppColors.blue),
+
                     ProjectMain.featuredProject(),
                     // EraText(
                     //     text: 'Featured Projects',
@@ -732,7 +733,14 @@ class Home extends GetView<HomeController> {
                   ],
                 ),
               ),
-              CarouselSliderWidget(images: CarouselModels.carouselModels),
+              Container(
+                padding: const EdgeInsets.only(top: 30.0, bottom: 30.0),
+                decoration: BoxDecoration(color: AppColors.carouselBgColor),
+                child: Image.asset(
+                  "assets/images/slider_haraya-project.jpg",
+                  fit: BoxFit.cover,
+                ),
+              ),
             ],
           ),
         ),
@@ -757,7 +765,9 @@ class Home extends GetView<HomeController> {
               SizedBox(
                 height: 30.h,
               ),
-              viewOtherProjects(text: 'View other projects'),
+              viewOtherProjects(
+                  text: 'View other projects',
+                  onTap: () => Get.toNamed("/project-main")),
             ],
           ),
         ),
@@ -1045,7 +1055,9 @@ class Home extends GetView<HomeController> {
                   );
                 },
               ),
-              viewOtherProjects(text: 'View more listings'),
+              viewOtherProjects(
+                text: 'View more listings',
+              ),
             ],
           ),
         ),
@@ -1219,38 +1231,41 @@ class Home extends GetView<HomeController> {
     return Container();
   }
 
-  Widget viewOtherProjects({required String? text}) {
-    return Padding(
-      padding: EdgeInsets.only(left: 20.w),
-      child: Stack(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              EraText(
-                text: text!,
-                fontSize: 15.sp,
-                color: AppColors.hint,
-                fontWeight: FontWeight.w600,
-              ),
-              Icon(
-                Icons.arrow_right,
-                color: AppColors.hint,
-                size: 30.sp,
-              ),
-            ],
-          ),
-          Positioned(
-            top: 30.h,
-            bottom: 0,
-            left: 120.w,
-            right: 150.w,
-            child: Divider(
-              thickness: 2,
-              color: AppColors.hint,
+  Widget viewOtherProjects({required String? text, void Function()? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.only(left: 20.w),
+        child: Stack(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                EraText(
+                  text: text!,
+                  fontSize: 15.sp,
+                  color: AppColors.hint,
+                  fontWeight: FontWeight.w600,
+                ),
+                Icon(
+                  Icons.arrow_right,
+                  color: AppColors.hint,
+                  size: 30.sp,
+                ),
+              ],
             ),
-          ),
-        ],
+            Positioned(
+              top: 30.h,
+              bottom: 0,
+              left: 120.w,
+              right: 150.w,
+              child: Divider(
+                thickness: 2,
+                color: AppColors.hint,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

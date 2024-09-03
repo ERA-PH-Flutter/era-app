@@ -19,7 +19,6 @@ class CarouselSliderWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 30.0, bottom: 30.0),
       decoration: BoxDecoration(color: color ?? AppColors.carouselBgColor),
       child: CarouselSlider(
-
         items: images.map((imageUrl) {
           return Builder(builder: (BuildContext context) {
             return CustomImage(
