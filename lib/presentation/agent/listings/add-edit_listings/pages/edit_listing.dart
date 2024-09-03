@@ -195,9 +195,11 @@ class EditListing extends GetView<AddListingsController> {
                             top: 5,
                             right: 5,
                             child: GestureDetector(
-                              onTap: ()async{
+                              onTap: () async {
                                 //controller.listing?.photos![index];
-                                await FirebaseStorage.instance.ref(controller.listing?.photos![index]).delete();
+                                await FirebaseStorage.instance
+                                    .ref(controller.listing?.photos![index])
+                                    .delete();
                                 controller.listing?.photos?.removeAt(index);
                                 await controller.listing?.updateListing();
                                 controller.removeAt(index);
@@ -443,34 +445,35 @@ class EditListing extends GetView<AddListingsController> {
           ),
         ),
         AddListings.dropDownAddlistings(
-          controller.selectedOfferT,
-          controller.offerT,
-          (value) => controller.selectedOfferT.value = value!,
-          'Offer Type',
-          'Edit Offer Type',
+          selectedItem: controller.selectedOfferT,
+          Types: controller.offerT,
+          onChanged: (value) => controller.selectedOfferT.value = value!,
+          name: 'Offer Type',
+          hintText: 'Edit Offer Type',
         ),
         AddListings.dropDownAddlistings(
-          controller.selectedView,
-          controller.viewL,
-          (value) => controller.selectedView.value = value!,
-          'Sunrise',
-          'Edit View',
-        ),
-
-        AddListings.dropDownAddlistings(
-          controller.selectedPropertyT,
-          controller.propertyT,
-          (value) => controller.selectedPropertyT.value = value!,
-          'Property Type',
-          'Edit Property Type',
+          selectedItem: controller.selectedView,
+          Types: controller.viewL,
+          onChanged: (value) => controller.selectedView.value = value!,
+          name: 'View',
+          hintText: 'Edit View',
         ),
 
         AddListings.dropDownAddlistings(
-          controller.selectedPropertySubCategory,
-          controller.subCategory,
-          (value) => controller.selectedPropertySubCategory.value = value!,
-          'Sub Category',
-          'Edit Sub Category',
+          selectedItem: controller.selectedPropertyT,
+          Types: controller.propertyT,
+          onChanged: (value) => controller.selectedPropertyT.value = value!,
+          name: 'Property Type',
+          hintText: 'Edit Property Type',
+        ),
+
+        AddListings.dropDownAddlistings(
+          selectedItem: controller.selectedPropertySubCategory,
+          Types: controller.subCategory,
+          onChanged: (value) =>
+              controller.selectedPropertySubCategory.value = value!,
+          name: 'Sub Category',
+          hintText: 'Edit Sub Category',
         ),
         AddListings.buildWidget(
           'Description *',
@@ -581,23 +584,29 @@ class EditListing extends GetView<AddListingsController> {
           try {
             print(controller.latLng);
             controller.listing!.name = controller.propertyNameController.text;
-            controller.listing!.price = controller.propertyCostController.text.toDouble();
-            controller.listing!.ppsqm = controller.pricePerSqmController.text.toDouble();
+            controller.listing!.price =
+                controller.propertyCostController.text.toDouble();
+            controller.listing!.ppsqm =
+                controller.pricePerSqmController.text.toDouble();
             controller.listing!.beds = controller.bedsController.text.toInt();
             controller.listing!.baths = controller.bathsController.text.toInt();
             controller.listing!.cars = controller.carsController.text.toInt();
             controller.listing!.area = controller.areaController.text.toInt();
-            controller.listing!.status = controller.selectedOfferT.value.toString();
-            controller.listing!.location = controller.add == null ? controller.locationController.text : controller.add.city;
-            controller.listing!.type = controller.selectedPropertyT.value.toString();
-            controller.listing!.subCategory = controller.selectedPropertySubCategory.value.toString();
+            controller.listing!.status =
+                controller.selectedOfferT.value.toString();
+            controller.listing!.location = controller.add == null
+                ? controller.locationController.text
+                : controller.add.city;
+            controller.listing!.type =
+                controller.selectedPropertyT.value.toString();
+            controller.listing!.subCategory =
+                controller.selectedPropertySubCategory.value.toString();
             controller.listing!.description = controller.descController.text;
             controller.listing!.view = controller.selectedView.value.toString();
             controller.listing!.address = controller.addressController.text;
-            controller.listing!.latLng = controller.latLng != null ?[
-              controller.latLng?.latitude,
-              controller.latLng?.longitude
-            ] : controller.listing!.latLng;
+            controller.listing!.latLng = controller.latLng != null
+                ? [controller.latLng?.latitude, controller.latLng?.longitude]
+                : controller.listing!.latLng;
             await controller.listing!.updateListing();
 
             BaseController().hideLoading();

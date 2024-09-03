@@ -11,6 +11,8 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
+import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -29,7 +31,7 @@ class SearchResult extends GetView<SearchResultController> {
   @override
   Widget build(BuildContext context) {
     // final FilterController controllers = Get.put(FilterController());
-
+    final ProjectsController projectsController = Get.put(ProjectsController());
     return BaseScaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -75,7 +77,6 @@ class SearchResult extends GetView<SearchResultController> {
                             )),
                       ),
                     ),
-                    SizedBox(height: 0.h),
 
                     //FILTERED SEARCH
                     Obx(() {
@@ -85,31 +86,60 @@ class SearchResult extends GetView<SearchResultController> {
                             Column(
                               children: [
                                 SizedBox(height: 10.h),
-                                //Location
-                                AppTextField(
-                                  controller: controller.locationController,
-                                  hint: 'Location',
-                                  svgIcon: AppEraAssets.marker,
-                                  bgColor: AppColors.white,
-                                ),
-                                //property type
-                                SizedBox(height: 20.h),
-                                AppTextField(
-                                  controller: controller.propertyController,
-                                  hint: 'Property Type',
-                                  svgIcon: AppEraAssets.house,
-                                  bgColor: AppColors.white,
-                                ),
-                                //price range
-                                SizedBox(height: 20.h),
-                                AppTextField(
-                                  controller: controller.priceController,
-                                  hint: 'Price Range',
-                                  svgIcon: AppEraAssets.money,
-                                  bgColor: AppColors.white,
-                                ),
+                                //Location same with projects
+                                AddListings.dropDownAddlistings(
+                                    color: AppColors.white,
+                                    selectedItem:
+                                        projectsController.selectedLocation,
+                                    Types: projectsController.location,
+                                    onChanged: (value) => projectsController
+                                        .selectedLocation.value = value!,
+                                    name: 'Location',
+                                    hintText: 'Select Location'),
+
+                                AddListings.dropDownAddlistings(
+                                    color: AppColors.white,
+                                    selectedItem:
+                                        controller.selectedPropertyTypeSearch,
+                                    Types: controller.propertyTypeSearch,
+                                    onChanged: (value) => controller
+                                        .selectedPropertyTypeSearch
+                                        .value = value!,
+                                    name: 'Property Type',
+                                    hintText: 'Select Property Type'),
+                                AddListings.dropDownAddlistings(
+                                    color: AppColors.white,
+                                    selectedItem:
+                                        controller.selectedPriceSearch,
+                                    Types: controller.priceSearch,
+                                    onChanged: (value) => controller
+                                        .selectedPriceSearch.value = value!,
+                                    name: 'Price Range',
+                                    hintText: 'Select Price Range'),
+
+                                // AppTextField(
+                                //   controller: controller.locationController,
+                                //   hint: 'Location',
+                                //   svgIcon: AppEraAssets.marker,
+                                //   bgColor: AppColors.white,
+                                // ),
+                                // //property type
+                                // SizedBox(height: 20.h),
+                                // AppTextField(
+                                //   controller: controller.propertyController,
+                                //   hint: 'Property Type',
+                                //   svgIcon: AppEraAssets.house,
+                                //   bgColor: AppColors.white,
+                                // ),
+                                // //price range
+                                // SizedBox(height: 20.h),
+                                // AppTextField(
+                                //   controller: controller.priceController,
+                                //   hint: 'Price Range',
+                                //   svgIcon: AppEraAssets.money,
+                                //   bgColor: AppColors.white,
+                                // ),
                                 //ai search
-                                SizedBox(height: 20.h),
 
                                 Obx(
                                   () => Row(

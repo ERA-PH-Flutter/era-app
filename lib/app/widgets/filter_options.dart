@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,25 +26,6 @@ class FilterController extends GetxController {
   TextEditingController bedroomsController = TextEditingController();
   TextEditingController bathroomsController = TextEditingController();
   TextEditingController bedsController = TextEditingController();
-
-  // Property Types
-  var propertyType = [
-    'House',
-    'Apartment',
-    'Condominium',
-    'Townhouse',
-    'Land',
-    'Commercial',
-  ];
-  var selectedPropertyType = RxnString();
-
-  // Amenities
-  // var wifi = false.obs;
-  // var kitchen = false.obs;
-  // var washer = false.obs;
-  // var dryer = false.obs;
-  // var airConditioning = false.obs;
-  // var tv = false.obs;
 
   // Location
   var beachfront = false.obs;
@@ -72,20 +54,7 @@ class FilterController extends GetxController {
     bedrooms.value = 1;
     bathrooms.value = 1;
     beds.value = 1;
-    propertyType = [
-      'House',
-      'Apartment',
-      'Condominium',
-      'Townhouse',
-      'Land',
-      'Commercial',
-    ];
-    // wifi.value = false;
-    // kitchen.value = false;
-    // washer.value = false;
-    // dryer.value = false;
-    // airConditioning.value = false;
-    // tv.value = false;
+
     beachfront.value = false;
     waterfront.value = false;
 
@@ -112,46 +81,25 @@ class PriceRangeFilter extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: controller.minPriceController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Min Price'),
-                onChanged: (value) {
-                  controller.minPrice.value = double.tryParse(value) ?? 0.0;
-                },
-              ),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: TextField(
-                controller: controller.maxPriceController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Max Price'),
-                onChanged: (value) {
-                  controller.maxPrice.value = double.tryParse(value) ?? 0.0;
-                },
-              ),
-            ),
-          ],
-        ),
         SizedBox(height: 16.h),
-        Obx(() => RangeSlider(
-              activeColor: AppColors.blue,
-              inactiveColor: AppColors.hint,
-              overlayColor: WidgetStatePropertyAll<Color>(AppColors.hint),
-              values: RangeValues(
-                  controller.minPrice.value, controller.maxPrice.value),
-              min: 0,
-              max: 2000,
-              divisions: 40,
-              labels: RangeLabels(
-                '\$${controller.minPrice.value.round()}',
-                '\$${controller.maxPrice.value.round()}',
+        EraText(text: 'Lot Area', fontSize: 18, color: AppColors.black),
+        Obx(() => Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40.w),
+              child: RangeSlider(
+                activeColor: AppColors.blue,
+                inactiveColor: AppColors.hint,
+                overlayColor: WidgetStatePropertyAll<Color>(AppColors.hint),
+                values: RangeValues(
+                    controller.minPrice.value, controller.maxPrice.value),
+                min: 0,
+                max: 2000,
+                divisions: 50,
+                labels: RangeLabels(
+                  '\$${controller.minPrice.value.round()}',
+                  '\$${controller.maxPrice.value.round()}',
+                ),
+                onChanged: (RangeValues values) {},
               ),
-              onChanged: (RangeValues values) {},
             )),
         SizedBox(height: 16.h),
       ],
@@ -171,9 +119,9 @@ class RoomsAndBedsFilter extends StatelessWidget {
       children: [
         _buildCounterRow('Bedrooms'),
         SizedBox(height: 15.h),
-        _buildCounterRow('Beds'),
-        SizedBox(height: 15.h),
         _buildCounterRow('Bathrooms'),
+        SizedBox(height: 15.h),
+        _buildCounterRow('Garage'),
       ],
     );
   }
@@ -212,149 +160,73 @@ class PropertyTypeFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AddListingsController addListingsController =
+        Get.put(AddListingsController());
+
     return Column(
       children: [
         SharedWidgets.dropDown(
-            controller.selectedPropertyType,
-            controller.propertyType,
-            (value) => controller.selectedPropertyType.value = value!,
-            'Property Type',
-            'Property Type'),
+            addListingsController.selectedPropertySubCategory,
+            addListingsController.subCategory,
+            (value) => addListingsController.selectedPropertySubCategory.value =
+                value!,
+            'Subcategory',
+            'Subcategory'),
       ],
     );
   }
 }
 
-// // Reusable Amenities Widget
-// class AmenitiesFilter extends StatelessWidget {
-//   final FilterController controller;
-
-//   AmenitiesFilter({required this.controller});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       scrollDirection: Axis.horizontal,
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             children: [
-//               _buildAmenityButton('Wifi', controller.wifi),
-//               SizedBox(width: 10.w),
-//               _buildAmenityButton('Kitchen', controller.kitchen),
-//               SizedBox(width: 10.w),
-//               _buildAmenityButton('Washer', controller.washer),
-//               SizedBox(width: 10.w),
-//               _buildAmenityButton('Dryer', controller.dryer),
-//               SizedBox(width: 10.w),
-//             ],
-//           ),
-//           SizedBox(height: 10.h),
-//           Row(
-//             children: [
-//               _buildAmenityButton(
-//                   'Air conditioning', controller.airConditioning),
-//               SizedBox(width: 10.w),
-//               _buildAmenityButton('TV', controller.tv),
-//               SizedBox(width: 10.w),
-//             ],
-//           ),
-//           SizedBox(height: 10.h),
-//           Row(
-//             children: [
-//               AmenitiesFilter._buildAmenityButton(
-//                   'Beachfront', controller.beachfront),
-//               SizedBox(width: 10.w),
-//               AmenitiesFilter._buildAmenityButton(
-//                   'City View', controller.cityView),
-//               SizedBox(width: 10.w),
-//               AmenitiesFilter._buildAmenityButton(
-//                   'Mountain View', controller.mountainView),
-//               SizedBox(width: 10.w),
-//               AmenitiesFilter._buildAmenityButton('Sunset', controller.sunset),
-//               SizedBox(width: 10.w),
-//               AmenitiesFilter._buildAmenityButton(
-//                   'Sunrise', controller.sunrise),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-
-//   static Widget _buildAmenityButton(String label, RxBool value) {
-//     return Obx(
-//       () => ElevatedButton(
-//         onPressed: () => value.value = !value.value,
-//         style: ElevatedButton.styleFrom(
-//           backgroundColor:
-//               value.value ? AppColors.hint.withOpacity(0.5) : AppColors.white,
-//           side: BorderSide(color: AppColors.black, width: 1.0),
-//         ),
-//         child: EraText(
-//           text: label,
-//           style: TextStyle(
-//             color: AppColors.black,
-//             fontSize: 16.sp,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-Widget _buildFloorAreaFilter() {
-  final FilterController controller = Get.put(FilterController());
-
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+Widget _buildFloorAreaFilter({
+  String? title,
+  String? hintText,
+  String? hintText2,
+  final TextEditingController? controller,
+}) {
+  return Column(
     children: [
-      SizedBox(
-        width: 115.w,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(text: 'Lot Area', fontSize: 18.sp, color: AppColors.black),
-            TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              keyboardType: TextInputType.number,
-              controller: controller.lotAreaController,
-              maxLines: 1,
-            ),
-          ],
-        ),
+      EraText(
+        text: title ?? 'Lot Area',
+        fontSize: 18.sp,
+        color: AppColors.black,
       ),
-      SizedBox(
-        width: 115.w,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(
-                text: 'Floor Area', fontSize: 18.sp, color: AppColors.black),
-            TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              keyboardType: TextInputType.number,
-              controller: controller.floorAreaController,
-              maxLines: 1,
-            ),
-          ],
-        ),
-      ),
-      SizedBox(
-        width: 115.w,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(text: 'Price/SQM', fontSize: 18.sp, color: AppColors.black),
-            TextformfieldWidget(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-              keyboardType: TextInputType.number,
-              controller: controller.pricePerSqmController,
-              maxLines: 1,
-            ),
-          ],
-        ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              EraText(text: 'Min.', fontSize: 18.sp, color: AppColors.black),
+              SizedBox(
+                width: 180.w,
+                child: TextformfieldWidget(
+                  hintText: hintText ?? '0 sqm',
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                  keyboardType: TextInputType.number,
+                  controller: controller,
+                  maxLines: 1,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(width: 10.w),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              EraText(text: 'Max.', fontSize: 18.sp, color: AppColors.black),
+              SizedBox(
+                width: 180.w,
+                child: TextformfieldWidget(
+                  hintText: hintText2 ?? '20000 sqm',
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                  keyboardType: TextInputType.number,
+                  controller: controller,
+                  maxLines: 1,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     ],
   );
@@ -397,6 +269,8 @@ void openFilterDialog() {
                       ),
                     ],
                   ),
+                  //PriceRangeFilter(controller: controller),
+
                   SizedBox(height: 10.h),
                   // property type
                   EraText(
@@ -408,50 +282,31 @@ void openFilterDialog() {
                   SizedBox(height: 10.h),
                   PropertyTypeFilter(controller: controller),
                   //
-                  SizedBox(height: 10.h),
-                  //price range
-                  EraText(
-                    text: 'Price Range',
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black,
-                  ),
-                  SizedBox(height: 10.h),
-                  PriceRangeFilter(controller: controller),
-                  //
+
                   SizedBox(height: 10.h),
                   //rooms and beds
-                  EraText(
-                    text: 'Rooms and Beds',
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black,
-                  ),
+
                   SizedBox(height: 10.h),
                   RoomsAndBedsFilter(controller: controller),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  // lot area floor area
-                  // EraText(
-                  //     text: 'Lot Area and Floor Area',
-                  //     fontSize: 18.sp,
-                  //     fontWeight: FontWeight.bold,
-                  //     color: AppColors.black),
-                  SizedBox(height: 10.h),
-                  _buildFloorAreaFilter(),
 
-                  //amenites
-                  SizedBox(height: 10.h),
-                  // EraText(
-                  //   text: 'Amenities',
-                  //   fontSize: 18.sp,
-                  //   fontWeight: FontWeight.bold,
-                  //   color: AppColors.black,
-                  // ),
-                  // SizedBox(height: 10.h),
-                  // AmenitiesFilter(controller: controller),
-                  // SizedBox(height: 10),
+                  SizedBox(height: 20.h),
+                  _buildFloorAreaFilter(),
+                  SizedBox(height: 20.h),
+
+                  _buildFloorAreaFilter(
+                    controller: controller.floorAreaController,
+                    title: 'Floor Area',
+                    hintText: '0',
+                    hintText2: '20000 ',
+                  ),
+                  SizedBox(height: 20.h),
+
+                  _buildFloorAreaFilter(
+                    controller: controller.floorAreaController,
+                    title: 'Price per sqm',
+                    hintText: '0 per sqm',
+                    hintText2: '1M per sqm',
+                  )
                 ],
               )),
         ),

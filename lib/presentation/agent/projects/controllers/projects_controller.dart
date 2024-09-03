@@ -13,6 +13,53 @@ class ProjectsController extends GetxController {
   var store = Get.find<LocalStorageService>();
 
   List<WebViewController> webviews = [];
+  var selectedPropertyType = RxnString();
+  var selectedLocation = RxnString();
+  var selectedDeveloper = RxnString();
+
+  var propertType = [
+    "House and Lot",
+    "Condominium",
+    "Townhouse",
+    "Commercial",
+    "Industrial",
+    "Agricultural",
+    "Land",
+    "Foreclosed",
+    "Pre-selling",
+    "Rent to Own",
+    "Others",
+  ];
+
+  var location = [
+    "Manila",
+    "Quezon City",
+    "Caloocan",
+    "Makati"
+        "Valenzuela",
+    "San Juan",
+    "Parañaque",
+    "Navotas",
+    "Taguig",
+    "Davao",
+    "Las Piñas",
+    "Pasig",
+    "Mandaluyong",
+    "Pateros",
+    "Marikina",
+    "Muntinlupa",
+    "Malabon",
+    "Fort Bonifacio",
+    "Binondo",
+    "Rizal",
+    "Antipolo",
+    "Santa Ana",
+  ];
+  var developerType = [
+    "Aurelia Projects",
+    "Haraya Projects",
+    "Laya Projects",
+  ];
 
   final isLoading = true.obs;
 
@@ -60,11 +107,10 @@ class ProjectsController extends GetxController {
     }).toList();
   }
 }
- 
 
 // class ProjectsController extends GetxController {
 //   var store = Get.find<LocalStorageService>();
- 
+
 //   late WebViewController webview = WebViewController();
 //   var url =
 //       "livetour.istaging.com/1897223f-79f8-4d10-ad66-37bf1126bcf8?index=2";
@@ -121,4 +167,3 @@ class ProjectsController extends GetxController {
 //     }
 //     return [];
 //   }
- 

@@ -5,21 +5,21 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
-import 'package:eraphilippines/app/widgets/app_divider.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
-import 'package:eraphilippines/app/widgets/company/company_grid.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
-import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/searchresult.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
+import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
+import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,6 +57,8 @@ class Home extends GetView<HomeController> {
   _loaded() {
     final SearchResultController searchController =
         Get.put(SearchResultController());
+    final ProjectsController projectsController = Get.put(ProjectsController());
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -149,14 +151,17 @@ class Home extends GetView<HomeController> {
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: Column(
             children: [
+              SizedBox(
+                height: 5.h,
+              ),
               EraText(
-                text: "Find Properties Easier!",
-                fontSize: 25.sp,
+                text: "Property searches made simple.",
+                fontSize: 26.sp,
                 fontWeight: FontWeight.bold,
                 color: AppColors.kRedColor,
               ),
               SizedBox(
-                height: 5.h,
+                height: 10.h,
               ),
               BoxWidget.build(
                 child: Column(
@@ -236,31 +241,39 @@ class Home extends GetView<HomeController> {
                             Column(
                               children: [
                                 SizedBox(height: 10.h),
-                                //Location
-                                AppTextField(
-                                  controller: controller.locationController,
-                                  hint: 'Location',
-                                  svgIcon: AppEraAssets.marker,
-                                  bgColor: AppColors.white,
-                                ),
-                                //property type
-                                SizedBox(height: 20.h),
-                                AppTextField(
-                                  controller: controller.propertyController,
-                                  hint: 'Property Type',
-                                  svgIcon: AppEraAssets.house,
-                                  bgColor: AppColors.white,
-                                ),
-                                //price range
-                                SizedBox(height: 20.h),
-                                AppTextField(
-                                  controller: controller.priceController,
-                                  hint: 'Price Range',
-                                  svgIcon: AppEraAssets.money,
-                                  bgColor: AppColors.white,
-                                ),
+                                //notesfornikkoo
+                                //Location new changes the location has the same properties with the searchresult,projectmain, home, and find agents
+                                //proterty type, price range, >> home, projectmain, searchresult
+                                AddListings.dropDownAddlistings(
+                                    color: AppColors.white,
+                                    selectedItem:
+                                        projectsController.selectedLocation,
+                                    Types: projectsController.location,
+                                    onChanged: (value) => projectsController
+                                        .selectedLocation.value = value!,
+                                    name: 'Location',
+                                    hintText: 'Select Location'),
+
+                                AddListings.dropDownAddlistings(
+                                    color: AppColors.white,
+                                    selectedItem: searchController
+                                        .selectedPropertyTypeSearch,
+                                    Types: searchController.propertyTypeSearch,
+                                    onChanged: (value) => searchController
+                                        .selectedPropertyTypeSearch
+                                        .value = value!,
+                                    name: 'Property Type',
+                                    hintText: 'Select Property Type'),
+                                AddListings.dropDownAddlistings(
+                                    color: AppColors.white,
+                                    selectedItem:
+                                        searchController.selectedPriceSearch,
+                                    Types: searchController.priceSearch,
+                                    onChanged: (value) => searchController
+                                        .selectedPriceSearch.value = value!,
+                                    name: 'Price Range',
+                                    hintText: 'Select Price Range'),
                                 //ai search
-                                SizedBox(height: 20.h),
 
                                 Obx(
                                   () => Row(
@@ -410,12 +423,12 @@ class Home extends GetView<HomeController> {
                   ],
                 ),
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 15.h),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 TextListing(
-                  text: 'QUICK LINKS',
-                  fontSize: 25.sp,
-                  fontWeight: FontWeight.w600,
+                  text: 'Quick Links',
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
                   color: AppColors.kRedColor,
                 ),
                 SizedBox(height: 10.h),
@@ -423,6 +436,50 @@ class Home extends GetView<HomeController> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.apartment,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('sub_category',
+                                    isEqualTo: 'Agricultural')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Apartments']);
+                      }),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.apartment,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('sub_category', isEqualTo: 'Apartment')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Apartments']);
+                      }),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.commercial,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('type', isEqualTo: 'Commercial')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Commercial']);
+                      }),
+                      SizedBox(width: 15.w),
                       FindProperties.quickSearchIcon(AppEraAssets.condo,
                           () async {
                         var listings = (await FirebaseFirestore.instance
@@ -441,7 +498,7 @@ class Home extends GetView<HomeController> {
                           () async {
                         var listings = (await FirebaseFirestore.instance
                                 .collection('listings')
-                                .where('type', isEqualTo: 'Condotel')
+                                .where('type', isEqualTo: 'Factory')
                                 .get())
                             .docs;
                         var data = listings.map((listing) {
@@ -451,34 +508,49 @@ class Home extends GetView<HomeController> {
                             arguments: [data, 'All Condotel']);
                       }),
                       SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.commercial,
+                      FindProperties.quickSearchIcon(AppEraAssets.condotel,
                           () async {
                         var listings = (await FirebaseFirestore.instance
                                 .collection('listings')
-                                .where('type', isEqualTo: 'Commercial')
+                                .where('type', isEqualTo: 'Farm')
                                 .get())
                             .docs;
                         var data = listings.map((listing) {
                           return listing.data();
                         }).toList();
                         Get.toNamed("/searchresult",
-                            arguments: [data, 'All Commercial']);
+                            arguments: [data, 'All Condotel']);
                       }),
                       SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.apartment,
+                      FindProperties.quickSearchIcon(AppEraAssets.house1,
                           () async {
                         var listings = (await FirebaseFirestore.instance
                                 .collection('listings')
-                                .where('sub_category', isEqualTo: 'Apartment')
+                                .where('sub_category', isEqualTo: 'Hotel')
                                 .get())
                             .docs;
                         var data = listings.map((listing) {
                           return listing.data();
                         }).toList();
                         Get.toNamed("/searchresult",
-                            arguments: [data, 'All Apartments']);
+                            arguments: [data, 'All Houses']);
                       }),
                       SizedBox(width: 15.w),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.house1,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('sub_category',
+                                    isEqualTo: 'House and Lot')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Houses']);
+                      }),
                       FindProperties.quickSearchIcon(AppEraAssets.house1,
                           () async {
                         var listings = (await FirebaseFirestore.instance
@@ -507,11 +579,26 @@ class Home extends GetView<HomeController> {
                             arguments: [data, 'All Lands']);
                       }),
                       SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.waterfront,
+                      FindProperties.quickSearchIcon(AppEraAssets.land,
                           () async {
                         var listings = (await FirebaseFirestore.instance
                                 .collection('listings')
-                                .where('view', isEqualTo: 'Water Front')
+                                .where('sub_category',
+                                    isEqualTo: 'Industrial Lot')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Lands']);
+                      }),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.office,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('view', isEqualTo: 'Office')
                                 .get())
                             .docs;
                         var data = listings.map((listing) {
@@ -519,7 +606,77 @@ class Home extends GetView<HomeController> {
                         }).toList();
                         Get.toNamed("/searchresult",
                             arguments: [data, 'All Water Fronts']);
-                      })
+                      }),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.waterfront,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('view', isEqualTo: 'Parking Slot')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Water Fronts']);
+                      }),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.residential,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('view', isEqualTo: 'Residential')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Water Fronts']);
+                      }),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.residential,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('view', isEqualTo: 'Resort')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Water Fronts']);
+                      }),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.townhouse,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('view', isEqualTo: 'Townhouse')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Water Fronts']);
+                      }),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.warehouse,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('view', isEqualTo: 'Warehouse')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Water Fronts']);
+                      }),
                     ],
                   ),
                 ),
@@ -534,9 +691,6 @@ class Home extends GetView<HomeController> {
 
         /// Listings
         PropertiesWidgets(listingsModels: controller.listingImages),
-        SizedBox(
-          height: 10.h,
-        ),
 
         /// Projects
         GestureDetector(
@@ -549,21 +703,29 @@ class Home extends GetView<HomeController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextListing.projectTitle(
-                        EraTheme.header, FontWeight.w600, AppColors.blue),
-                    TextListing.projectSubtitle(
-                        EraTheme.subHeader, FontWeight.w500, AppColors.black),
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    // TextListing.projectTitle(
+                    //     EraTheme.header, FontWeight.w600, AppColors.blue),
+                    ProjectMain.featuredProject(),
+                    // EraText(
+                    //     text: 'Featured Projects',
+                    //     fontSize: EraTheme.header,
+                    //     fontWeight: FontWeight.bold,
+                    //     color: AppColors.kRedColor),
+                    // EraText(
+                    //     text:
+                    //         'Dive into the future of real estate with our spotlight on upcoming innovative projects.',
+                    //     fontSize: EraTheme.small - 2.sp,
+                    //     fontWeight: FontWeight.w600,
+                    //     color: AppColors.hint),
                     TextListing(
-                        text: 'Featured Projects'.toUpperCase(),
+                        text: '',
                         fontSize: EraTheme.header - 4.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.kRedColor),
-                    SizedBox(height: 20.h),
+
                     ProjectDivider(
                         textImage: ProjectTextImageModels.textImageModels),
+
                     SizedBox(
                       height: 20.h,
                     ),
@@ -577,6 +739,7 @@ class Home extends GetView<HomeController> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 height: 40.h,
@@ -591,16 +754,74 @@ class Home extends GetView<HomeController> {
                 width: Get.width - 220.w,
                 borderRadius: BorderRadius.circular(30),
               ),
+              SizedBox(
+                height: 30.h,
+              ),
+              viewOtherProjects(text: 'View other projects'),
             ],
           ),
         ),
         SizedBox(
           height: 50.h,
         ),
-
-        AppDivider(
-          button: true,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+          child: Column(
+            children: [
+              EraText(
+                textAlign: TextAlign.center,
+                text: 'Connect worlds, build dreams with ERA Philippines;',
+                color: AppColors.kRedColor,
+                fontSize: 25.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              EraText(
+                textAlign: TextAlign.center,
+                text: 'You REAL ESTATE agency partner for life!',
+                color: AppColors.kRedColor,
+                fontSize: 25.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Divider(
+                color: AppColors.black,
+                thickness: 2.1,
+                indent: 25.w,
+                endIndent: 25.w,
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              EraText(
+                textAlign: TextAlign.center,
+                text:
+                    'Whether you\'re buying, selling, or investing, we offer unparalleled expertise and commitment to turn your real estate goals into reality.',
+                color: AppColors.black.withOpacity(0.7),
+                fontSize: 15.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              EraText(
+                textAlign: TextAlign.center,
+                text:
+                    'Trust ERA Philippines to guide you through every step of your journey with propessionalism and care.',
+                color: AppColors.black.withOpacity(0.7),
+                fontSize: 15.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ],
+          ),
         ),
+        // AppDivider(
+        //   button: true,
+        // ),
         SizedBox(
           height: 10.h,
         ),
@@ -617,15 +838,6 @@ class Home extends GetView<HomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextListing(
-                  margin: EdgeInsets.symmetric(horizontal: 0.h),
-                  text: 'FEATURED LISTING',
-                  fontSize: EraTheme.header,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blue),
-              SizedBox(
-                height: 25.h,
-              ),
               // ListingProperties(listingModels: controller.listings),
               ListView.builder(
                 physics: const ScrollPhysics(),
@@ -833,11 +1045,128 @@ class Home extends GetView<HomeController> {
                   );
                 },
               ),
+              viewOtherProjects(text: 'View more listings'),
             ],
           ),
         ),
         SizedBox(
           height: 10.h,
+        ),
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+          color: AppColors.white.withOpacity(0.9),
+          clipBehavior: Clip.antiAlias,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    EraText(
+                        text: 'Company News',
+                        fontSize: 25.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.kRedColor),
+                    EraText(
+                        text: 'See all',
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.blue),
+                  ],
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                EraText(
+                  text:
+                      'Stay updated with ERA Philippines\' latest services and innovations in real estate excellence',
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.hint,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                GridView.builder(
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 520.w, //410
+                  ),
+                  itemCount: controller.news.length,
+                  itemBuilder: (context, i) => Stack(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          CloudStorage().imageLoader(
+                            ref: controller.news[i].image,
+                            height: 250.h,
+                          ),
+                          Spacer(),
+                        ],
+                      ),
+                      Positioned(
+                        bottom: 10.h,
+                        left: -3.w,
+                        right: -3.w,
+                        top: 200.h,
+                        child: Card(
+                          color: AppColors.white,
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.r),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: EraTheme.paddingWidthSmall + 15.w,
+                                vertical: 15.h),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                EraText(
+                                  text: controller.news[i].title,
+                                  fontSize: EraTheme.paragraph + 5.sp,
+                                  color: AppColors.kRedColor,
+                                  fontWeight: FontWeight.bold,
+                                  textOverflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                EraText(
+                                  text: controller.news[i].description,
+                                  fontSize: EraTheme.paragraph,
+                                  color: AppColors.hint,
+                                  fontWeight: FontWeight.w600,
+                                  maxLines: 5,
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 20.h,
         ),
 
         /// All About News
@@ -846,41 +1175,35 @@ class Home extends GetView<HomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextListing(
-                  text: 'COMPANY NEWS',
-                  fontSize: EraTheme.header,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blue),
-              TextListing(
-                text: 'Latest News and Events from ERA Philippines',
-                fontSize: EraTheme.subHeader,
-                fontWeight: FontWeight.w500,
-                color: AppColors.black,
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              CompanyGrid(companymodels: controller.news),
-              SizedBox(
-                height: 10.h,
-              ),
-              Button(
-                text: 'MORE NEWS',
-                fontSize: 25.sp,
-                onTap: () {
-                  Get.toNamed("/companynews");
-                },
-                bgColor: AppColors.blue,
-                height: 45.h,
-                width: Get.width - 100.w,
-                fontWeight: FontWeight.w500,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              SizedBox(
-                height: 50.h,
-              ),
+              EraText(
+                  text: 'Join Us Today',
+                  fontSize: 30.sp,
+                  color: AppColors.kRedColor,
+                  fontWeight: FontWeight.bold),
+              EraText(
+                  text:
+                      'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
+                  fontSize: 15.sp,
+                  color: AppColors.hint,
+                  fontWeight: FontWeight.w500),
             ],
           ),
+        ),
+        SizedBox(
+          height: 30.h,
+        ),
+        Button(
+          text: 'BECOME AN ERA AGENT',
+          onTap: () {
+            Get.toNamed("/aboutus");
+          },
+          bgColor: AppColors.kRedColor,
+          height: EraTheme.buttonHeightSmall,
+          width: Get.width - 220.w,
+          borderRadius: BorderRadius.circular(30),
+        ),
+        SizedBox(
+          height: 40.h,
         ),
       ],
     );
@@ -894,5 +1217,41 @@ class Home extends GetView<HomeController> {
 
   _error() {
     return Container();
+  }
+
+  Widget viewOtherProjects({required String? text}) {
+    return Padding(
+      padding: EdgeInsets.only(left: 20.w),
+      child: Stack(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              EraText(
+                text: text!,
+                fontSize: 15.sp,
+                color: AppColors.hint,
+                fontWeight: FontWeight.w600,
+              ),
+              Icon(
+                Icons.arrow_right,
+                color: AppColors.hint,
+                size: 30.sp,
+              ),
+            ],
+          ),
+          Positioned(
+            top: 30.h,
+            bottom: 0,
+            left: 120.w,
+            right: 150.w,
+            child: Divider(
+              thickness: 2,
+              color: AppColors.hint,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

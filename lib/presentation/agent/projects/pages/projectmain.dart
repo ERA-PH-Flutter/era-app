@@ -1,18 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
-import 'package:eraphilippines/app/widgets/app_divider.dart';
-import 'package:eraphilippines/app/widgets/app_text_listing.dart';
+import 'package:eraphilippines/app/services/ai_search.dart';
+import 'package:eraphilippines/app/services/firebase_database.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
+import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/constants/assets.dart';
+import '../../../../app/widgets/app_textfield.dart';
+import '../../../../app/widgets/filter_options.dart';
 import '../controllers/projects_controller.dart';
 
 class ProjectMain extends GetView<ProjectsController> {
@@ -38,23 +47,160 @@ class ProjectMain extends GetView<ProjectsController> {
   }
 
   Widget projectMainContainer(ProjectsModels2 project) {
+    final SearchResultController searchController =
+        Get.put(SearchResultController());
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AppDivider(),
+        //AppDivider(),
+        SizedBox(height: 20.h),
 
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+          child: EraText(
+            text: 'Find Cutting-Edge Real Estate Projects',
+            fontSize: 30.sp,
+            color: AppColors.kRedColor,
+            fontWeight: FontWeight.bold,
+            textAlign: TextAlign.center,
+          ),
+        ),
         SizedBox(height: 20.h),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.header - 8.w),
-          child: TextListing.projectTitle(
-              EraTheme.header, FontWeight.w600, AppColors.blue),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.header - 8.w),
-          child: TextListing.projectSubtitle(
-              EraTheme.subHeader, FontWeight.w500, AppColors.black),
-        ),
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+          child: BoxWidget.build(
+            child: Column(
+              children: [
+                SizedBox(height: 10.h),
+                Obx(() {
+                  if (!searchController.showFullSearch.value) {
+                    return AppTextField(
+                        onPressed: () {},
+                        controller: searchController.aiSearchController,
+                        hint: 'Use AI Search',
+                        svgIcon: AppEraAssets.ai3,
+                        bgColor: AppColors.white,
+                        isSuffix: true,
+                        obscureText: false,
+                        suffixIcons: AppEraAssets.send);
+                  }
+                  return Container();
+                }),
 
+                SizedBox(height: 5.h),
+                GestureDetector(
+                  onTap: () {
+                    searchController.expanded.value =
+                        !searchController.expanded.value;
+                    searchController.showFullSearch.value =
+                        !searchController.showFullSearch.value;
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0.h),
+                    child: Obx(() => EraText(
+                          text: searchController.expanded.value
+                              ? "Back to AI Search"
+                              : "Filtered Search",
+                          fontSize: 15.sp,
+                          textDecoration: TextDecoration.underline,
+                        )),
+                  ),
+                ),
+
+                //FILTERED SEARCH
+                Obx(() {
+                  if (searchController.showFullSearch.value) {
+                    return Column(
+                      children: [
+                        Column(
+                          children: [
+                            //different controller for each dropdown
+                            //Location
+                            AddListings.dropDownAddlistings(
+                                color: AppColors.white,
+                                selectedItem: controller.selectedLocation,
+                                Types: controller.location,
+                                onChanged: (value) =>
+                                    controller.selectedLocation.value = value!,
+                                name: 'Location',
+                                hintText: 'Select Location'),
+
+                            AddListings.dropDownAddlistings(
+                                color: AppColors.white,
+                                selectedItem: controller.selectedPropertyType,
+                                Types: controller.propertType,
+                                onChanged: (value) => controller
+                                    .selectedPropertyType.value = value!,
+                                name: 'Property Type',
+                                hintText: 'Select Property Type'),
+                            AddListings.dropDownAddlistings(
+                                color: AppColors.white,
+                                selectedItem: controller.selectedDeveloper,
+                                Types: controller.developerType,
+                                onChanged: (value) =>
+                                    controller.selectedDeveloper.value = value!,
+                                name: 'Developer Type',
+                                hintText: 'Select Developer Type'),
+
+                            SearchWidget.build(() async {
+                              var data;
+                              var searchQuery = "";
+                              if (searchController.aiSearchController.text ==
+                                  "") {
+                                data = await Database().searchListing(
+                                    location: searchController
+                                        .locationController.text,
+                                    property: searchController
+                                        .propertyController.text);
+                                if (searchController.locationController.text !=
+                                    "") {
+                                  searchQuery +=
+                                      "Location: ${searchController.locationController.text}";
+                                } else if (searchController
+                                        .propertyController.text !=
+                                    "") {
+                                  searchQuery +=
+                                      "Property Type: ${searchController.locationController.text}";
+                                } else if (searchController
+                                        .priceController.text !=
+                                    "") {
+                                  searchQuery +=
+                                      "With price less than: ${searchController.priceController.text}";
+                                }
+                              } else {
+                                data = await AI(
+                                        query: searchController
+                                            .aiSearchController.text)
+                                    .search();
+                                searchQuery =
+                                    searchController.aiSearchController.text;
+                              }
+                              selectedIndex.value = 2;
+                              searchController.searchResultState.value =
+                                  SearchResultState.loading;
+                              searchController.searchQuery.value = searchQuery;
+                              searchController.expanded.value = false;
+                              searchController.showFullSearch.value = false;
+                              searchController.loadData(data);
+                            }),
+                            SizedBox(height: 10.h),
+                          ],
+                        ),
+                      ],
+                    );
+                  }
+                  return Container();
+                }),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 40.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+          child: featuredProject(),
+        ),
         SizedBox(height: 20.h),
         ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 20.h),
@@ -197,6 +343,25 @@ class ProjectMain extends GetView<ProjectsController> {
           ),
         ],
       ),
+    );
+  }
+
+  static Widget featuredProject() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+            text: 'Featured Projects',
+            fontSize: EraTheme.header,
+            fontWeight: FontWeight.bold,
+            color: AppColors.kRedColor),
+        EraText(
+            text:
+                'Dive into the future of real estate with our spotlight on upcoming innovative projects.',
+            fontSize: EraTheme.small - 2.sp,
+            fontWeight: FontWeight.w600,
+            color: AppColors.hint),
+      ],
     );
   }
 }

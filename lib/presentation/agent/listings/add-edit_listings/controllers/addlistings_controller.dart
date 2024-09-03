@@ -51,18 +51,25 @@ class AddListingsController extends GetxController with BaseController {
   ];
 
   var subCategory = [
+    "Agricultural",
     "Apartment",
+    "Commercial",
+    "Condominium",
+    "Factory",
+    "Farm",
+    "Hotel",
+    "House and Lot",
     "House",
     "Lot",
+    "Industrial Lot",
     "Office",
-    "Retail",
-    "Warehouse",
-    "Commercial",
+    "Parking Slot",
     "Residential",
-    "Condominium",
+    "Resort",
     "Townhouse",
-    "Others",
+    "Warehouse",
   ];
+
   var propertyT = [
     "House and Lot",
     "Condominium",
@@ -104,13 +111,13 @@ class AddListingsController extends GetxController with BaseController {
       if (imagePick.isNotEmpty) {
         for (var image in imagePick) {
           images.add(File(image.path));
-          if(Get.currentRoute == '/editListings'){
-            imagePick.forEach((image)async{
-              var a = await CloudStorage().upload(file: File(image.path), target: 'listings/${user!.id}');
+          if (Get.currentRoute == '/editListings') {
+            imagePick.forEach((image) async {
+              var a = await CloudStorage().upload(
+                  file: File(image.path), target: 'listings/${user!.id}');
               listing?.photos!.add(a);
               await listing!.updateListing();
             });
-
           }
         }
       }
@@ -140,7 +147,7 @@ class AddListingsController extends GetxController with BaseController {
     if (Get.currentRoute == '/editListings') {
       id = Get.arguments[0];
       await assignData();
-    }else{
+    } else {
       addEditListingsState.value = AddEditListingsState.loaded;
     }
   }
@@ -170,7 +177,9 @@ class AddListingsController extends GetxController with BaseController {
     selectedPropertyT.value =
         propertyT.contains(listing!.type) ? listing!.type : null;
     selectedPropertySubCategory.value =
-        subCategory.contains(listing!.subCategory) ? listing!.subCategory : null;
+        subCategory.contains(listing!.subCategory)
+            ? listing!.subCategory
+            : null;
     descController.text = listing!.description ?? "";
     addressController.text = listing!.address ?? "";
     addEditListingsState.value = AddEditListingsState.loaded;

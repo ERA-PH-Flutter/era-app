@@ -321,31 +321,33 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           ),
         ),
         dropDownAddlistings(
-          controller.selectedOfferT,
-          controller.offerT,
-          (value) => controller.selectedOfferT.value = value!,
-          'Offer Type',
-          'Select Offer Type',
+          selectedItem: controller.selectedOfferT,
+          Types: controller.offerT,
+          onChanged: (value) => controller.selectedOfferT.value = value!,
+          name: 'Offer Type',
+          hintText: 'Select Offer Type',
         ),
         dropDownAddlistings(
-            controller.selectedView,
-            controller.viewL,
-            (value) => controller.selectedView.value = value!,
-            'View',
-            'Select View'),
-        dropDownAddlistings(
-          controller.selectedPropertyT,
-          controller.propertyT,
-          (value) => controller.selectedPropertyT.value = value!,
-          'Property Type',
-          'Select Property Type',
+          selectedItem: controller.selectedView,
+          Types: controller.viewL,
+          onChanged: (value) => controller.selectedView.value = value!,
+          name: 'View',
+          hintText: 'Select View',
         ),
         dropDownAddlistings(
-          controller.selectedPropertySubCategory,
-          controller.subCategory,
-          (value) => controller.selectedPropertySubCategory.value = value!,
-          'Sub Category',
-          'Select Sub Category',
+          selectedItem: controller.selectedPropertyT,
+          Types: controller.propertyT,
+          onChanged: (value) => controller.selectedPropertyT.value = value!,
+          name: 'Property Type',
+          hintText: 'Select Property Type',
+        ),
+        dropDownAddlistings(
+          selectedItem: controller.selectedPropertySubCategory,
+          Types: controller.subCategory,
+          onChanged: (value) =>
+              controller.selectedPropertySubCategory.value = value!,
+          name: 'Sub Category',
+          hintText: 'Select Sub Category',
         ),
         // SearchLocationWidget(),
         buildWidget(
@@ -473,7 +475,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 latLng: [
                   controller.latLng!.latitude,
                   controller.latLng!.longitude
-                ]).addListing(controller.images,user!.id);
+                ]).addListing(controller.images, user!.id);
             controller.showSuccessDialog(
                 hitApi: () {
                   Get.back();
@@ -527,19 +529,21 @@ class AddListings extends GetView<AddListingsController> with BaseController {
         ));
   }
 
-  static Widget dropDownAddlistings(
-    RxnString selectedItem,
-    List<String> Types,
-    Function(String?) onChanged,
-    String name,
-    String hintText,
-  ) {
+  static Widget dropDownAddlistings({
+    RxnString? selectedItem,
+    List<String>? Types,
+    Function(String?)? onChanged,
+    String? name,
+    String? hintText,
+    Color? color,
+  }) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          EraText(text: name, fontSize: 18.sp, color: AppColors.black),
+          EraText(
+              text: name!, fontSize: 18.sp, color: color ?? AppColors.black),
           SizedBox(height: 5.h),
           Obx(
             () => DropdownButtonFormField<String>(
@@ -561,7 +565,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
               ),
               dropdownColor: AppColors.white,
               focusColor: AppColors.hint,
-              value: selectedItem.value,
+              value: selectedItem!.value,
               style: TextStyle(color: Colors.white),
               iconEnabledColor: Colors.black,
               isExpanded: true,
@@ -569,13 +573,13 @@ class AddListings extends GetView<AddListingsController> with BaseController {
               hint: Align(
                 alignment: Alignment.centerLeft,
                 child: EraText(
-                  text: hintText,
+                  text: hintText!,
                   textAlign: TextAlign.center,
                   color: Colors.grey,
                   fontSize: 20.sp,
                 ),
               ),
-              items: Types.map<DropdownMenuItem<String>>((String value) {
+              items: Types!.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: EraText(
@@ -594,7 +598,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
     );
   }
 
-  static  showErroDialogs({
+  static showErroDialogs({
     VoidCallback? onTap,
     String title = 'Error',
     String? description = 'Something went wrong',

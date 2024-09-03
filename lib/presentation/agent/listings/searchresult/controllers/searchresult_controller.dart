@@ -30,6 +30,28 @@ class SearchResultController extends GetxController {
   var showAdvancedSearch = true.obs;
   var focusNode = FocusNode();
 
+  var selectedPropertyTypeSearch = RxnString();
+  var selectedLocationSearch = RxnString();
+  var selectedPriceSearch = RxnString();
+
+  var propertyTypeSearch = [
+    "Pre-selling",
+    "Residential",
+    "Commercial",
+    "Rental",
+    "Auction",
+  ];
+
+  var priceSearch = [
+    " 1,000 -  100,000",
+    " 100,000 - 500,000",
+    " 100,000 - 1M",
+    " 1M - 5M",
+    " 10M - 50M",
+    " 50M - 100M",
+    " 100>",
+  ];
+
   @override
   void onInit() {
     data.clear();
