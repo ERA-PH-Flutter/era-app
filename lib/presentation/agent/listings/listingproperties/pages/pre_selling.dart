@@ -221,8 +221,8 @@ class PreSelling extends GetView<ListingController> {
                         children: [
                           TextListing(
                             text: 'QUICK LINKS',
-                            fontSize: 25.sp,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w500,
                             color: AppColors.kRedColor,
                           ),
                           SizedBox(height: 10.h),

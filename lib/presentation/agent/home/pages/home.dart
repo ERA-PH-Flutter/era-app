@@ -11,6 +11,7 @@ import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
+import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
@@ -233,7 +234,6 @@ class Home extends GetView<HomeController> {
                             )),
                       ),
                     ),
-                    SizedBox(height: 0.h),
                     Obx(() {
                       if (searchController.showFullSearch.value) {
                         return Column(
@@ -452,20 +452,20 @@ class Home extends GetView<HomeController> {
                             arguments: [data, 'All Apartments']);
                       }),
                       SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.apartment,
-                          () async {
-                        var listings = (await FirebaseFirestore.instance
-                                .collection('listings')
-                                .where('sub_category', isEqualTo: 'Apartment')
-                                .get())
-                            .docs;
-                        var data = listings.map((listing) {
-                          return listing.data();
-                        }).toList();
-                        Get.toNamed("/searchresult",
-                            arguments: [data, 'All Apartments']);
-                      }),
-                      SizedBox(width: 15.w),
+                      // FindProperties.quickSearchIcon(AppEraAssets.apartment,
+                      //     () async {
+                      //   var listings = (await FirebaseFirestore.instance
+                      //           .collection('listings')
+                      //           .where('sub_category', isEqualTo: 'Apartment')
+                      //           .get())
+                      //       .docs;
+                      //   var data = listings.map((listing) {
+                      //     return listing.data();
+                      //   }).toList();
+                      //   Get.toNamed("/searchresult",
+                      //       arguments: [data, 'All Apartments']);
+                      // }),
+                      // SizedBox(width: 15.w),
                       FindProperties.quickSearchIcon(AppEraAssets.commercial,
                           () async {
                         var listings = (await FirebaseFirestore.instance
@@ -494,63 +494,63 @@ class Home extends GetView<HomeController> {
                             arguments: [data, 'All Condominium']);
                       }),
                       SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.condotel,
-                          () async {
-                        var listings = (await FirebaseFirestore.instance
-                                .collection('listings')
-                                .where('type', isEqualTo: 'Factory')
-                                .get())
-                            .docs;
-                        var data = listings.map((listing) {
-                          return listing.data();
-                        }).toList();
-                        Get.toNamed("/searchresult",
-                            arguments: [data, 'All Condotel']);
-                      }),
-                      SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.condotel,
-                          () async {
-                        var listings = (await FirebaseFirestore.instance
-                                .collection('listings')
-                                .where('type', isEqualTo: 'Farm')
-                                .get())
-                            .docs;
-                        var data = listings.map((listing) {
-                          return listing.data();
-                        }).toList();
-                        Get.toNamed("/searchresult",
-                            arguments: [data, 'All Condotel']);
-                      }),
-                      SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.house1,
-                          () async {
-                        var listings = (await FirebaseFirestore.instance
-                                .collection('listings')
-                                .where('sub_category', isEqualTo: 'Hotel')
-                                .get())
-                            .docs;
-                        var data = listings.map((listing) {
-                          return listing.data();
-                        }).toList();
-                        Get.toNamed("/searchresult",
-                            arguments: [data, 'All Houses']);
-                      }),
-                      SizedBox(width: 15.w),
-                      SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.house1,
-                          () async {
-                        var listings = (await FirebaseFirestore.instance
-                                .collection('listings')
-                                .where('sub_category',
-                                    isEqualTo: 'House and Lot')
-                                .get())
-                            .docs;
-                        var data = listings.map((listing) {
-                          return listing.data();
-                        }).toList();
-                        Get.toNamed("/searchresult",
-                            arguments: [data, 'All Houses']);
-                      }),
+                      // FindProperties.quickSearchIcon(AppEraAssets.condotel,
+                      //     () async {
+                      //   var listings = (await FirebaseFirestore.instance
+                      //           .collection('listings')
+                      //           .where('type', isEqualTo: 'Factory')
+                      //           .get())
+                      //       .docs;
+                      //   var data = listings.map((listing) {
+                      //     return listing.data();
+                      //   }).toList();
+                      //   Get.toNamed("/searchresult",
+                      //       arguments: [data, 'All Condotel']);
+                      // }),
+                      // SizedBox(width: 15.w),
+                      // FindProperties.quickSearchIcon(AppEraAssets.condotel,
+                      //     () async {
+                      //   var listings = (await FirebaseFirestore.instance
+                      //           .collection('listings')
+                      //           .where('type', isEqualTo: 'Farm')
+                      //           .get())
+                      //       .docs;
+                      //   var data = listings.map((listing) {
+                      //     return listing.data();
+                      //   }).toList();
+                      //   Get.toNamed("/searchresult",
+                      //       arguments: [data, 'All Condotel']);
+                      // }),
+                      // SizedBox(width: 15.w),
+                      // FindProperties.quickSearchIcon(AppEraAssets.house1,
+                      //     () async {
+                      //   var listings = (await FirebaseFirestore.instance
+                      //           .collection('listings')
+                      //           .where('sub_category', isEqualTo: 'Hotel')
+                      //           .get())
+                      //       .docs;
+                      //   var data = listings.map((listing) {
+                      //     return listing.data();
+                      //   }).toList();
+                      //   Get.toNamed("/searchresult",
+                      //       arguments: [data, 'All Houses']);
+                      // }),
+                      // SizedBox(width: 15.w),
+                      // FindProperties.quickSearchIcon(AppEraAssets.house1,
+                      //     () async {
+                      //   var listings = (await FirebaseFirestore.instance
+                      //           .collection('listings')
+                      //           .where('sub_category',
+                      //               isEqualTo: 'House and Lot')
+                      //           .get())
+                      //       .docs;
+                      //   var data = listings.map((listing) {
+                      //     return listing.data();
+                      //   }).toList();
+                      //   Get.toNamed("/searchresult",
+                      //       arguments: [data, 'All Houses']);
+                      // }),
+                      // SizedBox(width: 15.w),
                       FindProperties.quickSearchIcon(AppEraAssets.house1,
                           () async {
                         var listings = (await FirebaseFirestore.instance
@@ -565,20 +565,20 @@ class Home extends GetView<HomeController> {
                             arguments: [data, 'All Houses']);
                       }),
                       SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.land,
-                          () async {
-                        var listings = (await FirebaseFirestore.instance
-                                .collection('listings')
-                                .where('sub_category', isEqualTo: 'Lot')
-                                .get())
-                            .docs;
-                        var data = listings.map((listing) {
-                          return listing.data();
-                        }).toList();
-                        Get.toNamed("/searchresult",
-                            arguments: [data, 'All Lands']);
-                      }),
-                      SizedBox(width: 15.w),
+                      // FindProperties.quickSearchIcon(AppEraAssets.land,
+                      //     () async {
+                      //   var listings = (await FirebaseFirestore.instance
+                      //           .collection('listings')
+                      //           .where('sub_category', isEqualTo: 'Lot')
+                      //           .get())
+                      //       .docs;
+                      //   var data = listings.map((listing) {
+                      //     return listing.data();
+                      //   }).toList();
+                      //   Get.toNamed("/searchresult",
+                      //       arguments: [data, 'All Lands']);
+                      // }),
+                      // SizedBox(width: 15.w),
                       FindProperties.quickSearchIcon(AppEraAssets.land,
                           () async {
                         var listings = (await FirebaseFirestore.instance
@@ -608,33 +608,33 @@ class Home extends GetView<HomeController> {
                             arguments: [data, 'All Water Fronts']);
                       }),
                       SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.waterfront,
-                          () async {
-                        var listings = (await FirebaseFirestore.instance
-                                .collection('listings')
-                                .where('view', isEqualTo: 'Parking Slot')
-                                .get())
-                            .docs;
-                        var data = listings.map((listing) {
-                          return listing.data();
-                        }).toList();
-                        Get.toNamed("/searchresult",
-                            arguments: [data, 'All Water Fronts']);
-                      }),
-                      SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.residential,
-                          () async {
-                        var listings = (await FirebaseFirestore.instance
-                                .collection('listings')
-                                .where('view', isEqualTo: 'Residential')
-                                .get())
-                            .docs;
-                        var data = listings.map((listing) {
-                          return listing.data();
-                        }).toList();
-                        Get.toNamed("/searchresult",
-                            arguments: [data, 'All Water Fronts']);
-                      }),
+                      // FindProperties.quickSearchIcon(AppEraAssets.waterfront,
+                      //     () async {
+                      //   var listings = (await FirebaseFirestore.instance
+                      //           .collection('listings')
+                      //           .where('view', isEqualTo: 'Parking Slot')
+                      //           .get())
+                      //       .docs;
+                      //   var data = listings.map((listing) {
+                      //     return listing.data();
+                      //   }).toList();
+                      //   Get.toNamed("/searchresult",
+                      //       arguments: [data, 'All Water Fronts']);
+                      // }),
+                      // SizedBox(width: 15.w),
+                      // FindProperties.quickSearchIcon(AppEraAssets.residential,
+                      //     () async {
+                      //   var listings = (await FirebaseFirestore.instance
+                      //           .collection('listings')
+                      //           .where('view', isEqualTo: 'Residential')
+                      //           .get())
+                      //       .docs;
+                      //   var data = listings.map((listing) {
+                      //     return listing.data();
+                      //   }).toList();
+                      //   Get.toNamed("/searchresult",
+                      //       arguments: [data, 'All Water Fronts']);
+                      // }),
                       SizedBox(width: 15.w),
                       FindProperties.quickSearchIcon(AppEraAssets.residential,
                           () async {
@@ -691,50 +691,91 @@ class Home extends GetView<HomeController> {
 
         /// Listings
         PropertiesWidgets(listingsModels: controller.listingImages),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidth, vertical: 15.h),
+          child: ProjectMain.featuredProject(),
+        ),
 
         /// Projects
-        GestureDetector(
-          onTap: () => Get.toNamed("/haraya"),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: EraTheme.paddingWidth, vertical: 15.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // TextListing.projectTitle(
-                    //     EraTheme.header, FontWeight.w600, AppColors.blue),
-                    ProjectMain.featuredProject(),
-                    // EraText(
-                    //     text: 'Featured Projects',
-                    //     fontSize: EraTheme.header,
-                    //     fontWeight: FontWeight.bold,
-                    //     color: AppColors.kRedColor),
-                    // EraText(
-                    //     text:
-                    //         'Dive into the future of real estate with our spotlight on upcoming innovative projects.',
-                    //     fontSize: EraTheme.small - 2.sp,
-                    //     fontWeight: FontWeight.w600,
-                    //     color: AppColors.hint),
-                    TextListing(
-                        text: '',
-                        fontSize: EraTheme.header - 4.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.kRedColor),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextListing(
+                text: '',
+                fontSize: EraTheme.header - 4.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.kRedColor),
+            ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
+            SizedBox(
+              height: 20.h,
+            ),
+            CarouselSliderWidget(images: CarouselModels.carouselModels),
+            SizedBox(
+              height: 30.h,
+            ),
+            Button(
+              text: 'LEARN MORE',
+              onTap: () {
+                Get.toNamed("/haraya");
+              },
+              bgColor: AppColors.kRedColor,
+              height: EraTheme.buttonHeightSmall,
+              width: Get.width - 220.w,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            //laya
+            SizedBox(
+              height: 80.h,
+            ),
+            ProjectDivider(
+                textImage: ProjectTextImageModels.textImageModels2,
+                height: 150.h,
+                width: 430.w,
+                text: ' '),
+            SizedBox(
+              height: 20.h,
+            ),
 
-                    ProjectDivider(
-                        textImage: ProjectTextImageModels.textImageModels),
+            //temporary carousel
+            CarouselSliderWidget(
+                images: CarouselModels.layaCarouselImages,
+                color: AppColors.carouselBgColor),
+            SizedBox(height: 30.h),
+            Button(
+              text: 'LEARN MORE',
+              onTap: () {
+                Get.toNamed("/laya");
+              },
+              bgColor: AppColors.kRedColor,
+              height: EraTheme.buttonHeightSmall,
+              width: Get.width - 220.w,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            //laya
 
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                  ],
-                ),
-              ),
-              CarouselSliderWidget(images: CarouselModels.carouselModels),
-            ],
-          ),
+            SizedBox(height: 100.h),
+            ProjectDivider(
+              textImage: ProjectTextImageModels.textImageModels3,
+              height: 200.h,
+              width: Get.width,
+            ),
+            SizedBox(height: 20.h),
+            CarouselSliderWidget(
+                images: CarouselModels.aureliaCarouselImages,
+                color: AppColors.carouselBgColor),
+            SizedBox(height: 30.h),
+            Button(
+              text: 'LEARN MORE',
+              onTap: () {
+                Get.toNamed("/aurelia");
+              },
+              bgColor: AppColors.kRedColor,
+              height: EraTheme.buttonHeightSmall,
+              width: Get.width - 220.w,
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ],
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
@@ -743,16 +784,6 @@ class Home extends GetView<HomeController> {
             children: [
               SizedBox(
                 height: 40.h,
-              ),
-              Button(
-                text: 'LEARN MORE',
-                onTap: () {
-                  Get.toNamed("/haraya");
-                },
-                bgColor: AppColors.kRedColor,
-                height: EraTheme.buttonHeightSmall,
-                width: Get.width - 220.w,
-                borderRadius: BorderRadius.circular(30),
               ),
               SizedBox(
                 height: 30.h,
@@ -764,7 +795,7 @@ class Home extends GetView<HomeController> {
           ),
         ),
         SizedBox(
-          height: 50.h,
+          height: 30.h,
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
@@ -843,7 +874,7 @@ class Home extends GetView<HomeController> {
               // ListingProperties(listingModels: controller.listings),
               SizedBox(
                 height: Get.height / 1.4,
-                width: 380.w,
+                width: Get.width,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: ListView.builder(
@@ -859,8 +890,8 @@ class Home extends GetView<HomeController> {
                           Get.toNamed('/propertyInfo', arguments: listing);
                         },
                         child: Container(
-                          width: 375.w,
-                          margin: EdgeInsets.only(bottom: 16.h, right: 20.w),
+                          width: 378.w,
+                          margin: EdgeInsets.only(bottom: 16.h, right: 10.w),
                           padding: EdgeInsets.zero,
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -1031,6 +1062,7 @@ class Home extends GetView<HomeController> {
                   ),
                 ),
               ),
+              //TODO: Nikko
               viewOtherProjects(
                 text: 'View more listings',
               ),
@@ -1038,7 +1070,7 @@ class Home extends GetView<HomeController> {
           ),
         ),
         SizedBox(
-          height: 10.h,
+          height: 30.h,
         ),
         Container(
           color: AppColors.hint.withOpacity(0.1),
@@ -1046,14 +1078,14 @@ class Home extends GetView<HomeController> {
           child: Column(
             children: [
               SizedBox(
-                height: 20.h,
+                height: 50.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   EraText(
                       text: 'Company News',
-                      fontSize: 25.sp,
+                      fontSize: EraTheme.header + 5.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColors.kRedColor),
                   GestureDetector(
@@ -1074,12 +1106,12 @@ class Home extends GetView<HomeController> {
               EraText(
                 text:
                     'Stay updated with ERA Philippines\' latest services and innovations in real estate excellence',
-                fontSize: 13.sp,
+                fontSize: EraTheme.subHeader - 2.sp,
                 fontWeight: FontWeight.w500,
                 color: AppColors.hint,
               ),
               SizedBox(
-                height: 20.h,
+                height: 50.h,
               ),
               SizedBox(
                 height: 550.h,
@@ -1093,68 +1125,74 @@ class Home extends GetView<HomeController> {
                     mainAxisExtent: 390.w, //410
                   ),
                   itemCount: controller.news.length,
-                  itemBuilder: (context, i) => Container(
-                    width: Get.width,
-                    margin: EdgeInsets.only(bottom: 16.h, right: 12.w),
-                    child: Stack(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            CloudStorage().imageLoader(
-                              ref: controller.news[i].image,
-                              height: 250.h,
-                            ),
-                            Spacer(),
-                          ],
-                        ),
-                        Positioned(
-                          bottom: 10.h,
-                          left: -3.w,
-                          right: -3.w,
-                          top: 220.h,
-                          child: Card(
-                            color: AppColors.white,
-                            elevation: 3,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.r),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: EraTheme.paddingWidthSmall + 15.w,
-                                  vertical: 15.h),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  EraText(
-                                    text: controller.news[i].title,
-                                    fontSize: EraTheme.paragraph + 5.sp,
-                                    color: AppColors.kRedColor,
-                                    fontWeight: FontWeight.bold,
-                                    textOverflow: TextOverflow.ellipsis,
-                                    maxLines: 3,
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  EraText(
-                                    text: controller.news[i].description,
-                                    fontSize: EraTheme.paragraph,
-                                    color: AppColors.hint,
-                                    fontWeight: FontWeight.w600,
-                                    maxLines: 5,
-                                    textOverflow: TextOverflow.ellipsis,
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                ],
+                  itemBuilder: (context, i) => GestureDetector(
+                    onTap: () {
+                      Get.to(() => CompanyNewsPage(
+                          title: controller.news[i].title,
+                          image: controller.news[i].image,
+                          description: controller.news[i].description));
+                    },
+                    child: Container(
+                      width: Get.width,
+                      margin: EdgeInsets.only(bottom: 15.h, right: 12.w),
+                      child: Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              CloudStorage().imageLoader(
+                                ref: controller.news[i].image,
+                                height: 250.h,
+                              ),
+                              Spacer(),
+                            ],
+                          ),
+                          Positioned(
+                            bottom: 15.h,
+                            left: -4.w,
+                            right: -4.w,
+                            top: 200.h,
+                            child: Card(
+                              color: AppColors.white,
+                              elevation: 3,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        EraTheme.paddingWidthSmall + 15.w,
+                                    vertical: 15.h),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    EraText(
+                                      text: controller.news[i].title,
+                                      fontSize: EraTheme.paragraph + 5.sp,
+                                      color: AppColors.kRedColor,
+                                      fontWeight: FontWeight.bold,
+                                      textOverflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                    ),
+                                    EraText(
+                                      text: controller.news[i].description,
+                                      fontSize: EraTheme.paragraph - 2.sp,
+                                      color: AppColors.hint,
+                                      fontWeight: FontWeight.w500,
+                                      maxLines: 5,
+                                      textOverflow: TextOverflow.ellipsis,
+                                    ),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

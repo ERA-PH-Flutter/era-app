@@ -73,64 +73,66 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 color: AppColors.black,
               ),
               SizedBox(height: 10.h),
-              TextField(
+              TextformfieldWidget(
+                onChanged: (value) {
+                  value = value.replaceAll(',', '');
+                  controller.propertyAmount.text = value.replaceAllMapped(
+                      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                      (Match m) => '${m[1]},');
+                },
+                suffixIcon: Align(
+                  widthFactor: 1.5,
+                  child: Image.asset(
+                    AppEraAssets.currency,
+                    height: 35.h,
+                    color: AppColors.kRedColor,
+                  ),
+                ),
+                hintText: 'eg: 100000.00',
                 keyboardType: TextInputType.number,
                 controller: controller.propertyAmount,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.w, 15.h, 20.w, 15.h),
-                    prefixIcon: Image.asset(
-                      AppEraAssets.currency,
-                      height: 10.h,
-                      width: 10.w,
-                      color: AppColors.kRedColor,
-                    ),
-                    hintStyle:
-                        TextStyle(color: AppColors.hint, fontSize: 18.sp),
-                    hintText: " eg: 100000.00"),
+                maxLines: 1,
               ),
-              SizedBox(height: 10.h),
               EraText(
                 text: 'Down Payment',
                 fontSize: 20.sp,
                 color: AppColors.black,
               ),
               SizedBox(height: 10.h),
-              TextField(
+              TextformfieldWidget(
+                suffixIcon: Align(
+                  widthFactor: 1.5,
+                  child: Image.asset(
+                    AppEraAssets.percentage,
+                    height: 35.h,
+                    color: AppColors.kRedColor,
+                  ),
+                ),
+                hintText: 'eg: 10%',
                 keyboardType: TextInputType.number,
                 controller: controller.downPayment,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.w, 15.h, 20.w, 15.h),
-                    prefixIcon: Image.asset(
-                      AppEraAssets.percentage,
-                      height: 5.h,
-                      width: 5.w,
-                      color: AppColors.kRedColor,
-                    ),
-                    hintStyle:
-                        TextStyle(color: AppColors.hint, fontSize: 18.sp),
-                    hintText: " eg: 100000.00"),
+                maxLines: 1,
               ),
-              SizedBox(height: 10.h),
               EraText(
                 text: 'Loan Term',
                 fontSize: 20.sp,
                 color: AppColors.black,
               ),
               SizedBox(height: 10.h),
-              TextField(
+              TextformfieldWidget(
+                onChanged: (value) {},
+                suffixIcon: Align(
+                  widthFactor: 1.5,
+                  child: Image.asset(
+                    AppEraAssets.loan,
+                    height: 35.h,
+                    color: AppColors.kRedColor,
+                  ),
+                ),
+                hintText: 'eg: 10 years',
                 keyboardType: TextInputType.number,
                 controller: controller.loanTerm,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.w, 15.h, 20.w, 15.h),
-                    prefixIcon: Image.asset(
-                      AppEraAssets.loan,
-                      height: 5.h,
-                      width: 5.w,
-                      color: AppColors.kRedColor,
-                    ),
-                    hintStyle:
-                        TextStyle(color: AppColors.hint, fontSize: 18.sp),
-                    hintText: "eg: 100000.00"),
+                maxLines: 1,
               ),
               SizedBox(height: 10.h),
               EraText(
@@ -139,22 +141,22 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 color: AppColors.black,
               ),
               SizedBox(height: 10.h),
-              TextField(
+              TextformfieldWidget(
+                suffixIcon: Align(
+                  widthFactor: 1.5,
+                  child: Image.asset(
+                    AppEraAssets.percentage,
+                    height: 35.h,
+                    color: AppColors.kRedColor,
+                  ),
+                ),
+                hintText: 'eg: 10%',
                 keyboardType: TextInputType.number,
                 controller: controller.interestRate,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.w, 15.h, 20.w, 15.h),
-                    prefixIcon: Image.asset(
-                      AppEraAssets.percentage,
-                      height: 5.h,
-                      width: 5.w,
-                      color: AppColors.kRedColor,
-                    ),
-                    hintStyle:
-                        TextStyle(color: AppColors.hint, fontSize: 18.sp),
-                    hintText: ' eg: 5.000'),
+                maxLines: 1,
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 30.h),
+              SizedBox(height: 10.h),
               Button(
                 width: Get.width,
                 bgColor: AppColors.kRedColor,
@@ -162,10 +164,14 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w500,
                 onTap: () async {
-                  controller.initialAmount.value =
-                      (controller.propertyAmount.text.toInt() -
-                              (controller.downPayment.text.toInt()))
-                          .toDouble();
+                  controller.initialAmount.value = (controller
+                              .propertyAmount.text
+                              .replaceAll(',', '')
+                              .toInt() -
+                          (controller.downPayment.text.toInt() *
+                              controller.propertyAmount.text.toInt() /
+                              100))
+                      .toDouble();
                   var loanTerms = (controller.loanTerm.text.toInt() * 12);
                   var interest =
                       (controller.interestRate.text.toDouble() / 100) / 12;
@@ -203,7 +209,28 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
               ),
               Center(
                 child: EraText(text: ''),
-              )
+              ),
+              Center(
+                child: TextButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
+                      ),
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.blue),
+                    ),
+                    onPressed: () {
+                      controller.reset();
+                    },
+                    child: EraText(
+                      text: 'RESET',
+                      color: AppColors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
+                    )),
+              ),
             ],
           ),
         ),

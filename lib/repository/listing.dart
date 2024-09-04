@@ -31,68 +31,65 @@ class Listing {
   bool? isSold;
   List? latLng;
   String? address;
-  Listing({
-    this.id,
-    this.name,
-    this.type,
-    this.price,
-    this.baths,
-    this.photos,
-    this.floorArea,
-    this.location,
-    this.status,
-    this.area,
-    this.beds,
-    this.ppsqm,
-    this.subCategory,
-    this.view,
-    this.description,
-    this.by,
-    this.dateUpdated,
-    this.dateCreated,
-    this.leads,
-    this.owner,
-    this.views,
-    this.cars,
-    this.isSold,
-    this.latLng,
-    this.address
-  });
+  Listing(
+      {this.id,
+      this.name,
+      this.type,
+      this.price,
+      this.baths,
+      this.photos,
+      this.floorArea,
+      this.location,
+      this.status,
+      this.area,
+      this.beds,
+      this.ppsqm,
+      this.subCategory,
+      this.view,
+      this.description,
+      this.by,
+      this.dateUpdated,
+      this.dateCreated,
+      this.leads,
+      this.owner,
+      this.views,
+      this.cars,
+      this.isSold,
+      this.latLng,
+      this.address});
   factory Listing.fromJSON(Map<String, dynamic> json) {
     return Listing(
-      id: json["id"],
-      name: json["name"] ?? "",
-      price: json['price'].toString().toDouble(),
-      type: json["type"] ?? "",
-      baths: json["baths"] ?? 0,
-      cars: json["garage"] ?? 0,
-      photos: json["photos"] ?? [],
-      floorArea: json["floor_area"].toString().toDouble(),
-      location: json["location"],
-      status: json["status"],
-      area: json["area"],
-      beds: json["beds"],
-      view: json["view"],
-      ppsqm: json["ppsqm"].toString().toDouble(),
-      subCategory: json["sub_category"],
-      by: json["by"],
-      owner: json["owner"],
-      leads: json["leads"],
-      views: json["views"],
-      dateCreated: (json["date_created"] == null
-          ? DateTime.now()
-          : json["date_created"].toDate()),
-      dateUpdated: (json["date_updated"] == null
-          ? DateTime.now()
-          : json["date_created"].toDate()),
-      description: json["description"],
-      isSold: json["is_sold"],
-      latLng: json['latLng'] ?? [0,0],
-      address: json['address'] ?? ""
-    );
+        id: json["id"],
+        name: json["name"] ?? "",
+        price: json['price'].toString().toDouble(),
+        type: json["type"] ?? "",
+        baths: json["baths"] ?? 0,
+        cars: json["garage"] ?? 0,
+        photos: json["photos"] ?? [],
+        floorArea: json["floor_area"].toString().toDouble(),
+        location: json["location"],
+        status: json["status"],
+        area: json["area"],
+        beds: json["beds"],
+        view: json["view"],
+        ppsqm: json["ppsqm"].toString().toDouble(),
+        subCategory: json["sub_category"],
+        by: json["by"],
+        owner: json["owner"],
+        leads: json["leads"],
+        views: json["views"],
+        dateCreated: (json["date_created"] == null
+            ? DateTime.now()
+            : json["date_created"].toDate()),
+        dateUpdated: (json["date_updated"] == null
+            ? DateTime.now()
+            : json["date_created"].toDate()),
+        description: json["description"],
+        isSold: json["is_sold"],
+        latLng: json['latLng'] ?? [0, 0],
+        address: json['address'] ?? "");
   }
   Map<String, dynamic> toMap() {
-    print(isSold);
     return {
       "name": name,
       "price": price,
@@ -116,8 +113,8 @@ class Listing {
       "date_updated": DateTime.now(),
       "garage": cars,
       "is_sold": isSold ?? false,
-      "latLng" : latLng ?? [0,0],
-      "address" : address ?? ""
+      "latLng": latLng ?? [0, 0],
+      "address": address ?? ""
     };
   }
 
@@ -126,7 +123,7 @@ class Listing {
         (await db.collection('listings').doc(id).get()).data() ?? {});
   }
 
-  addListing(images,userId) async {
+  addListing(images, userId) async {
     /*
     landmarks
     amenities
@@ -134,7 +131,8 @@ class Listing {
     */
     photos = [];
     for (int i = 0; i < images!.length; i++) {
-      photos!.add(await CloudStorage().upload(file: images![i], target: 'listings/$userId'));
+      photos!.add(await CloudStorage()
+          .upload(file: images![i], target: 'listings/$userId'));
     }
     print(photos);
     DocumentReference<Map<String, dynamic>> doc =
@@ -163,9 +161,9 @@ class Listing {
       "description": description,
       "views": 0,
       "date_created": DateTime.now(),
-      "date_updated" : DateTime.now(),
-      "address" : address ?? "",
-      "latLng" : latLng ?? [0,0]
+      "date_updated": DateTime.now(),
+      "address": address ?? "",
+      "latLng": latLng ?? [0, 0]
     });
   }
 

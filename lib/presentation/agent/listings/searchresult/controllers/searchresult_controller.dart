@@ -1,3 +1,5 @@
+import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -58,7 +60,15 @@ class SearchResultController extends GetxController {
     searchResultState.value = SearchResultState.loading;
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {
-        searchResultState.value = SearchResultState.searching;
+        //searchResultState.value = SearchResultState.searching;
+        if (settings!.featuredListings!.isNotEmpty) {
+          var listingsJson = settings!.featuredListings!.map((listing) async {
+            return await Listing().getListing(listing).toMap();
+          }).toList() as List<Map<String, dynamic>>;
+          loadData(listingsJson);
+        } else {
+          loadData([]);
+        }
       } else {
         loadData(Get.arguments[0]);
         searchQuery.value = Get.arguments[1];
@@ -82,7 +92,6 @@ class SearchResultController extends GetxController {
         return d;
       }
     }).toList();
-    print(data.value.last);
     //data.assignAll(loadedData);
     if (data.isEmpty) {
       searchResultState.value = SearchResultState.empty;

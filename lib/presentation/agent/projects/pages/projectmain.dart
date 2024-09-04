@@ -352,14 +352,14 @@ class ProjectMain extends GetView<ProjectsController> {
       children: [
         EraText(
             text: 'Featured Projects',
-            fontSize: EraTheme.header,
+            fontSize: EraTheme.header + 5.sp,
             fontWeight: FontWeight.bold,
             color: AppColors.kRedColor),
         EraText(
             text:
                 'Dive into the future of real estate with our spotlight on upcoming innovative projects.',
-            fontSize: EraTheme.small - 2.sp,
-            fontWeight: FontWeight.w600,
+            fontSize: EraTheme.subHeader - 2.sp,
+            fontWeight: FontWeight.w500,
             color: AppColors.hint),
       ],
     );

@@ -6,41 +6,54 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class CompanyNewsPage extends StatelessWidget {
-  final CompanyModels companymodelss;
-
-  const CompanyNewsPage({super.key, required this.companymodelss});
+  String? title;
+  String? image;
+  String? description;
+  CompanyNewsPage({
+    super.key,
+    this.title,
+    this.image,
+    this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
       body: Padding(
         padding: EdgeInsets.all(EraTheme.paddingWidth),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(
-              text: companymodelss.title,
-              color: AppColors.kRedColor,
-              fontSize: 23.sp,
-              fontWeight: FontWeight.w600,
-            ),
-            SizedBox(height: 10.h),
-            Image.asset(
-              companymodelss.image,
-              height: 250.h,
-              fit: BoxFit.cover,
-            ),
-            SizedBox(height: 20.h),
-            EraText(
-              text: companymodelss.description,
-              color: AppColors.black,
-              fontSize: 16.sp,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20.h),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              EraText(
+                text: title!,
+                color: AppColors.kRedColor,
+                fontSize: 23.sp,
+                fontWeight: FontWeight.bold,
+                textAlign: TextAlign.start,
+              ),
+              SizedBox(height: 10.h),
+              CloudStorage().imageLoader(
+                ref: image!,
+                height: 250.h,
+                width: Get.width,
+              ),
+              SizedBox(height: 20.h),
+              EraText(
+                text: description!,
+                color: AppColors.black.withOpacity(0.8),
+                fontSize: 18.sp,
+                textAlign: TextAlign.justify,
+                maxLines: 100,
+                fontWeight: FontWeight.w400,
+              ),
+              SizedBox(height: 20.h),
+            ],
+          ),
         ),
       ),
     );

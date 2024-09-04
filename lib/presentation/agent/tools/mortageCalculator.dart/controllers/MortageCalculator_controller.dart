@@ -9,7 +9,7 @@ enum MortageCalculatorState {
   error,
 }
 
-class MortageCalculatorController extends GetxController with BaseController{
+class MortageCalculatorController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
   var monthlyAmount = 1.0.obs;
   var initialAmount = 1.0.obs;
@@ -19,4 +19,11 @@ class MortageCalculatorController extends GetxController with BaseController{
   TextEditingController loanTerm = TextEditingController();
   TextEditingController interestRate = TextEditingController();
   TextEditingController monthlyP = TextEditingController();
+  void reset() {
+    propertyAmount.clear();
+    downPayment.clear();
+    loanTerm.clear();
+    interestRate.clear();
+    monthlyP.clear();
+  }
 }
