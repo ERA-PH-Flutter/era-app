@@ -13,11 +13,10 @@ import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:full_screen_image/full_screen_image.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 import '../../favorites/controllers/fav_controller.dart';
@@ -138,25 +137,28 @@ class PropertyInformation extends GetView<ListingController> {
                             final isSelected =
                                 controller.currentImage.value == image;
 
-                            return GestureDetector(
-                              onTap: () {
-                                controller.onSelectedImage(image);
-                                Get.to(() => FullScreenImageViewer(
-                                    imageUrl: image, initialIndex: index));
-                              },
-                              child: Container(
-                                decoration: isSelected
-                                    ? BoxDecoration(
-                                        border: Border.all(
-                                          color: AppColors.hint,
-                                          width: 5,
-                                        ),
-                                      )
-                                    : null,
-                                margin: EdgeInsets.symmetric(horizontal: 7.w),
-                                child: CloudStorage().imageLoader(
-                                  ref: controller.images[index],
-                                  width: Get.width / 6,
+                            return FullScreenWidget(
+                              disposeLevel: DisposeLevel.Low,
+                              child: GestureDetector(
+                                onTap: () {
+                                  controller.onSelectedImage(image);
+                                  //   Get.to(() => FullScreenImageViewer(
+                                  //       imageUrl: image, initialIndex: index));
+                                },
+                                child: Container(
+                                  decoration: isSelected
+                                      ? BoxDecoration(
+                                          border: Border.all(
+                                            color: AppColors.hint,
+                                            width: 5,
+                                          ),
+                                        )
+                                      : null,
+                                  margin: EdgeInsets.symmetric(horizontal: 7.w),
+                                  child: CloudStorage().imageLoader(
+                                    ref: controller.images[index],
+                                    width: Get.width / 6,
+                                  ),
                                 ),
                               ),
                             );
@@ -606,33 +608,30 @@ class PropertyInformation extends GetView<ListingController> {
       ],
     );
   }
-
-  Widget FullScreenImageViewer(
-      {required String imageUrl, final int initialIndex = 0}) {
-    return BaseScaffold(
-      body: GestureDetector(
-        onTap: () => Get.back(),
-        child: PhotoViewGallery.builder(
-          scrollPhysics: const BouncingScrollPhysics(),
-          builder: (BuildContext context, int index) {
-            return PhotoViewGalleryPageOptions(
-              imageProvider: CloudStorage().imageLoader(
-                  ref: imageUrl[index], width: Get.width, height: 350.h),
-              minScale: PhotoViewComputedScale.contained * 0.8,
-              maxScale: PhotoViewComputedScale.covered * 2,
-              heroAttributes: PhotoViewHeroAttributes(tag: imageUrl[index]),
-            );
-          },
-          itemCount: imageUrl.length,
-          pageController: PageController(initialPage: initialIndex),
-          onPageChanged: (int index) {
-            print('Page changed to $index');
-          },
-          backgroundDecoration: const BoxDecoration(
-            color: Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
 }
+  // {required String imageUrl, final int initialIndex = 0}) {
+    // return BaseScaffold(
+    //   body: GestureDetector(
+    //     onTap: () => Get.back(),
+    //     child: PhotoViewGallery.builder(
+    //       scrollPhysics: const BouncingScrollPhysics(),
+    //       builder: (BuildContext context, int index) {
+    //         return PhotoViewGalleryPageOptions(
+    //           imageProvider: CloudStorage().imageLoader(
+    //               ref: imageUrl[index], width: Get.width, height: 350.h),
+    //           minScale: PhotoViewComputedScale.contained * 0.8,
+    //           maxScale: PhotoViewComputedScale.covered * 2,
+    //           heroAttributes: PhotoViewHeroAttributes(tag: imageUrl[index]),
+    //         );
+    //       },
+    //       itemCount: imageUrl.length,
+    //       pageController: PageController(initialPage: initialIndex),
+    //       onPageChanged: (int index) {
+    //         print('Page changed to $index');
+    //       },
+    //       backgroundDecoration: const BoxDecoration(
+    //         color: Colors.black,
+    //       ),
+    //     ),
+    //   ),
+    // );

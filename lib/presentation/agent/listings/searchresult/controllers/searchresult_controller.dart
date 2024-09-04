@@ -1,5 +1,3 @@
-import 'package:eraphilippines/presentation/global.dart';
-import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -60,15 +58,11 @@ class SearchResultController extends GetxController {
     searchResultState.value = SearchResultState.loading;
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {
-        //searchResultState.value = SearchResultState.searching;
-        if (settings!.featuredListings!.isNotEmpty) {
-          var listingsJson = settings!.featuredListings!.map((listing) async {
-            return await Listing().getListing(listing).toMap();
-          }).toList() as List<Map<String, dynamic>>;
-          loadData(listingsJson);
-        } else {
-          loadData([]);
-        }
+        // var tempData = [];
+        // for(int i = 0;i < settings!.featuredListings!.length;i++){
+        //   tempData.add((await Listing().getListing(settings!.featuredListings![i])).toMap());
+        // }
+        // loadData(tempData);
       } else {
         loadData(Get.arguments[0]);
         searchQuery.value = Get.arguments[1];
@@ -86,7 +80,7 @@ class SearchResultController extends GetxController {
     super.onClose();
   }
 
-  loadData(List<Map<String, dynamic>> loadedData) {
+  loadData(loadedData) {
     data.value = loadedData.map((d) {
       if (!d['is_sold']) {
         return d;

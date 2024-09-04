@@ -8,12 +8,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
-void main()async{
+void main() async {
   await initServices();
   runApp(const App());
 }
 
-initServices()async{
+initServices() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -21,7 +21,7 @@ initServices()async{
   await Get.putAsync(() => LocalStorageService().init());
   Gemini.init(apiKey: AppStrings.geminiKey);
   AwesomeNotifications().initialize(
-    // set the icon to null if you want to use the default app icon
+      // set the icon to null if you want to use the default app icon
       'resource://drawable/era_icon_notification',
       [
         NotificationChannel(
@@ -37,6 +37,5 @@ initServices()async{
             channelGroupKey: 'download_channel_group',
             channelGroupName: 'Downloads Group')
       ],
-      debug: true
-  );
+      debug: true);
 }
