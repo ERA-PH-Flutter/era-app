@@ -137,28 +137,26 @@ class PropertyInformation extends GetView<ListingController> {
                             final isSelected =
                                 controller.currentImage.value == image;
 
-                            return FullScreenWidget(
-                              disposeLevel: DisposeLevel.Low,
-                              child: GestureDetector(
-                                onTap: () {
-                                  controller.onSelectedImage(image);
-                                  //   Get.to(() => FullScreenImageViewer(
-                                  //       imageUrl: image, initialIndex: index));
-                                },
-                                child: Container(
-                                  decoration: isSelected
-                                      ? BoxDecoration(
-                                          border: Border.all(
-                                            color: AppColors.hint,
-                                            width: 5,
-                                          ),
-                                        )
-                                      : null,
-                                  margin: EdgeInsets.symmetric(horizontal: 7.w),
-                                  child: CloudStorage().imageLoader(
-                                    ref: controller.images[index],
-                                    width: Get.width / 6,
-                                  ),
+                            return GestureDetector(
+                              onTap: () {
+                                controller.onSelectedImage(image);
+                                //   Get.to(() => FullScreenImageViewer(
+                                //       imageUrl: image, initialIndex: index));
+                              },
+                              child: Container(
+                                decoration: isSelected
+                                    ? BoxDecoration(
+                                        border: Border.all(
+                                          color: AppColors.hint,
+                                          width: 5,
+                                        ),
+                                      )
+                                    : null,
+                                margin: EdgeInsets.symmetric(horizontal: 7.w),
+                                child: CloudStorage().imageLoader(
+                                  ref: controller.images[index],
+                                  width: Get.width / 6,
+                                  height: Get.height,
                                 ),
                               ),
                             );

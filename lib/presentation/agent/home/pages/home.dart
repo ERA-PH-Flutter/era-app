@@ -437,7 +437,7 @@ class Home extends GetView<HomeController> {
                   child: Row(
                     children: [
                       SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.apartment,
+                      FindProperties.quickSearchIcon(AppEraAssets.agricultural,
                           () async {
                         var listings = (await FirebaseFirestore.instance
                                 .collection('listings')
@@ -452,20 +452,20 @@ class Home extends GetView<HomeController> {
                             arguments: [data, 'All Apartments']);
                       }),
                       SizedBox(width: 15.w),
-                      // FindProperties.quickSearchIcon(AppEraAssets.apartment,
-                      //     () async {
-                      //   var listings = (await FirebaseFirestore.instance
-                      //           .collection('listings')
-                      //           .where('sub_category', isEqualTo: 'Apartment')
-                      //           .get())
-                      //       .docs;
-                      //   var data = listings.map((listing) {
-                      //     return listing.data();
-                      //   }).toList();
-                      //   Get.toNamed("/searchresult",
-                      //       arguments: [data, 'All Apartments']);
-                      // }),
-                      // SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.apartment,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('sub_category', isEqualTo: 'Apartment')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Apartments']);
+                      }),
+                      SizedBox(width: 15.w),
                       FindProperties.quickSearchIcon(AppEraAssets.commercial,
                           () async {
                         var listings = (await FirebaseFirestore.instance
@@ -494,21 +494,21 @@ class Home extends GetView<HomeController> {
                             arguments: [data, 'All Condominium']);
                       }),
                       SizedBox(width: 15.w),
-                      // FindProperties.quickSearchIcon(AppEraAssets.condotel,
-                      //     () async {
-                      //   var listings = (await FirebaseFirestore.instance
-                      //           .collection('listings')
-                      //           .where('type', isEqualTo: 'Factory')
-                      //           .get())
-                      //       .docs;
-                      //   var data = listings.map((listing) {
-                      //     return listing.data();
-                      //   }).toList();
-                      //   Get.toNamed("/searchresult",
-                      //       arguments: [data, 'All Condotel']);
-                      // }),
+                      FindProperties.quickSearchIcon(AppEraAssets.factory,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('type', isEqualTo: 'Factory')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Condotel']);
+                      }),
                       // SizedBox(width: 15.w),
-                      // FindProperties.quickSearchIcon(AppEraAssets.condotel,
+                      // FindProperties.quickSearchIcon(AppEraAssets.farm,
                       //     () async {
                       //   var listings = (await FirebaseFirestore.instance
                       //           .collection('listings')
@@ -521,36 +521,36 @@ class Home extends GetView<HomeController> {
                       //   Get.toNamed("/searchresult",
                       //       arguments: [data, 'All Condotel']);
                       // }),
-                      // SizedBox(width: 15.w),
-                      // FindProperties.quickSearchIcon(AppEraAssets.house1,
-                      //     () async {
-                      //   var listings = (await FirebaseFirestore.instance
-                      //           .collection('listings')
-                      //           .where('sub_category', isEqualTo: 'Hotel')
-                      //           .get())
-                      //       .docs;
-                      //   var data = listings.map((listing) {
-                      //     return listing.data();
-                      //   }).toList();
-                      //   Get.toNamed("/searchresult",
-                      //       arguments: [data, 'All Houses']);
-                      // }),
-                      // SizedBox(width: 15.w),
-                      // FindProperties.quickSearchIcon(AppEraAssets.house1,
-                      //     () async {
-                      //   var listings = (await FirebaseFirestore.instance
-                      //           .collection('listings')
-                      //           .where('sub_category',
-                      //               isEqualTo: 'House and Lot')
-                      //           .get())
-                      //       .docs;
-                      //   var data = listings.map((listing) {
-                      //     return listing.data();
-                      //   }).toList();
-                      //   Get.toNamed("/searchresult",
-                      //       arguments: [data, 'All Houses']);
-                      // }),
-                      // SizedBox(width: 15.w),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.hotel,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('sub_category', isEqualTo: 'Hotel')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Houses']);
+                      }),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.housenlot,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('sub_category',
+                                    isEqualTo: 'House and Lot')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Houses']);
+                      }),
+                      SizedBox(width: 15.w),
                       FindProperties.quickSearchIcon(AppEraAssets.house1,
                           () async {
                         var listings = (await FirebaseFirestore.instance
@@ -565,21 +565,21 @@ class Home extends GetView<HomeController> {
                             arguments: [data, 'All Houses']);
                       }),
                       SizedBox(width: 15.w),
-                      // FindProperties.quickSearchIcon(AppEraAssets.land,
-                      //     () async {
-                      //   var listings = (await FirebaseFirestore.instance
-                      //           .collection('listings')
-                      //           .where('sub_category', isEqualTo: 'Lot')
-                      //           .get())
-                      //       .docs;
-                      //   var data = listings.map((listing) {
-                      //     return listing.data();
-                      //   }).toList();
-                      //   Get.toNamed("/searchresult",
-                      //       arguments: [data, 'All Lands']);
-                      // }),
-                      // SizedBox(width: 15.w),
-                      FindProperties.quickSearchIcon(AppEraAssets.land,
+                      FindProperties.quickSearchIcon(AppEraAssets.lot,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('sub_category', isEqualTo: 'Lot')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Lands']);
+                      }),
+                      SizedBox(width: 15.w),
+                      FindProperties.quickSearchIcon(AppEraAssets.industrial,
                           () async {
                         var listings = (await FirebaseFirestore.instance
                                 .collection('listings')
@@ -608,33 +608,19 @@ class Home extends GetView<HomeController> {
                             arguments: [data, 'All Water Fronts']);
                       }),
                       SizedBox(width: 15.w),
-                      // FindProperties.quickSearchIcon(AppEraAssets.waterfront,
-                      //     () async {
-                      //   var listings = (await FirebaseFirestore.instance
-                      //           .collection('listings')
-                      //           .where('view', isEqualTo: 'Parking Slot')
-                      //           .get())
-                      //       .docs;
-                      //   var data = listings.map((listing) {
-                      //     return listing.data();
-                      //   }).toList();
-                      //   Get.toNamed("/searchresult",
-                      //       arguments: [data, 'All Water Fronts']);
-                      // }),
-                      // SizedBox(width: 15.w),
-                      // FindProperties.quickSearchIcon(AppEraAssets.residential,
-                      //     () async {
-                      //   var listings = (await FirebaseFirestore.instance
-                      //           .collection('listings')
-                      //           .where('view', isEqualTo: 'Residential')
-                      //           .get())
-                      //       .docs;
-                      //   var data = listings.map((listing) {
-                      //     return listing.data();
-                      //   }).toList();
-                      //   Get.toNamed("/searchresult",
-                      //       arguments: [data, 'All Water Fronts']);
-                      // }),
+                      FindProperties.quickSearchIcon(AppEraAssets.parkingLot,
+                          () async {
+                        var listings = (await FirebaseFirestore.instance
+                                .collection('listings')
+                                .where('view', isEqualTo: 'Parking Slot')
+                                .get())
+                            .docs;
+                        var data = listings.map((listing) {
+                          return listing.data();
+                        }).toList();
+                        Get.toNamed("/searchresult",
+                            arguments: [data, 'All Water Fronts']);
+                      }),
                       SizedBox(width: 15.w),
                       FindProperties.quickSearchIcon(AppEraAssets.residential,
                           () async {

@@ -33,6 +33,14 @@ class AppEraAssets {
   static String land = "${l}__Land.png";
   static String waterfront = "${l}__Waterfront.png";
   static String office = "${l}office.png";
+  static String agricultural = "${l}agricultural.png";
+  static String factory = "${l}factory.png";
+  static String housenlot = "${l}H&L.png";
+  static String hotel = "${l}hotel.png";
+  static String industrial = "${l}industrialLot.png";
+  static String parkingLot = "${l}parkingLot.png";
+  static String resort = "${l}resort.png";
+  static String lot = "${l}lot.png";
 
   static String residential = "${l}residential.png";
   static String retail = "${l}retail.png";

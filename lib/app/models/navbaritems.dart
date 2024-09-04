@@ -22,8 +22,8 @@ List<AppPngAssets> navBarItems = [
       selectedIcon: AppEraAssets.home1,
       label: "HOME",
       selectedLabel: "HOME",
-      onTap: (){
-        if(Get.currentRoute != "/home"){
+      onTap: () {
+        if (Get.currentRoute != "/home") {
           Get.offAllNamed("/home");
         }
       }),
@@ -32,7 +32,6 @@ List<AppPngAssets> navBarItems = [
       selectedIcon: AppEraAssets.project1,
       label: "PROJECTS",
       selectedLabel: "PROJECTS",
-      
       onTap: () => Get.offAllNamed("/project-main")),
   AppPngAssets(
       defaultIcon: AppEraAssets.search,

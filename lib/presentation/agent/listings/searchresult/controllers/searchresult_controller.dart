@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../../app/services/local_storage.dart';
+import '../../../../../repository/listing.dart';
+import '../../../../global.dart';
 
 enum SearchResultState {
   loading,
@@ -53,16 +55,18 @@ class SearchResultController extends GetxController {
   ];
 
   @override
-  void onInit() {
+  void onInit() async {
     data.clear();
     searchResultState.value = SearchResultState.loading;
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {
-        // var tempData = [];
-        // for(int i = 0;i < settings!.featuredListings!.length;i++){
-        //   tempData.add((await Listing().getListing(settings!.featuredListings![i])).toMap());
-        // }
-        // loadData(tempData);
+        var tempData = [];
+        for (int i = 0; i < settings!.featuredListings!.length; i++) {
+          tempData.add(
+              (await Listing().getListing(settings!.featuredListings![i]))
+                  .toMap());
+        }
+        loadData(tempData);
       } else {
         loadData(Get.arguments[0]);
         searchQuery.value = Get.arguments[1];
