@@ -9,7 +9,10 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
+import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
+import 'package:eraphilippines/repository/project.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,6 +25,7 @@ class FindProperties extends GetView<ListingController> {
 
   @override
   Widget build(BuildContext context) {
+    ProjectsController projectsController = Get.put(ProjectsController());
     SearchResultController searchController = Get.put(SearchResultController());
     return BaseScaffold(
       body: SingleChildScrollView(
@@ -34,16 +38,21 @@ class FindProperties extends GetView<ListingController> {
                   child: Column(
                     children: [
                       SizedBox(height: 10.h),
-                      AppTextField(
-                        onPressed: () {},
-                        controller: controller.aiSearchController,
-                        hint: 'AI Search',
-                        svgIcon: AppEraAssets.ai,
-                        bgColor: AppColors.white,
-                        isSuffix: true,
-                        obscureText: false,
-                        suffixIcons: AppEraAssets.send,
-                      ),
+                      Obx(() {
+                        if (!searchController.showFullSearch.value) {
+                          return AppTextField(
+                            onPressed: () {},
+                            controller: controller.aiSearchController,
+                            hint: 'AI Search',
+                            svgIcon: AppEraAssets.ai,
+                            bgColor: AppColors.white,
+                            isSuffix: true,
+                            obscureText: false,
+                            suffixIcons: AppEraAssets.send,
+                          );
+                        }
+                        return Container();
+                      }),
                       SizedBox(height: 5.h),
                       GestureDetector(
                         onTap: () {
@@ -56,8 +65,8 @@ class FindProperties extends GetView<ListingController> {
                           padding: EdgeInsets.all(10.0.h),
                           child: Obx(() => EraText(
                                 text: searchController.expanded.value
-                                    ? "Hide"
-                                    : "Expand",
+                                    ? "Back to AI Search"
+                                    : "Filtered Search",
                                 fontSize: 15.sp,
                                 textDecoration: TextDecoration.underline,
                               )),
@@ -72,30 +81,60 @@ class FindProperties extends GetView<ListingController> {
                                 children: [
                                   SizedBox(height: 10.h),
                                   //Location
-                                  AppTextField(
-                                    controller: controller.locationController,
-                                    hint: 'Location',
-                                    svgIcon: AppEraAssets.marker,
-                                    bgColor: AppColors.white,
-                                  ),
-                                  //property type
-                                  SizedBox(height: 20.h),
-                                  AppTextField(
-                                    controller: controller.propertyController,
-                                    hint: 'Property Type',
-                                    svgIcon: AppEraAssets.house,
-                                    bgColor: AppColors.white,
-                                  ),
-                                  //price range
-                                  SizedBox(height: 20.h),
-                                  AppTextField(
-                                    controller: controller.priceController,
-                                    hint: 'Price Range',
-                                    svgIcon: AppEraAssets.money,
-                                    bgColor: AppColors.white,
-                                  ),
+                                  // AppTextField(
+                                  //   controller: controller.locationController,
+                                  //   hint: 'Location',
+                                  //   svgIcon: AppEraAssets.marker,
+                                  //   bgColor: AppColors.white,
+                                  // ),
+                                  // //property type
+                                  // SizedBox(height: 20.h),
+                                  // AppTextField(
+                                  //   controller: controller.propertyController,
+                                  //   hint: 'Property Type',
+                                  //   svgIcon: AppEraAssets.house,
+                                  //   bgColor: AppColors.white,
+                                  // ),
+                                  // //price range
+                                  // SizedBox(height: 20.h),
+                                  // AppTextField(
+                                  //   controller: controller.priceController,
+                                  //   hint: 'Price Range',
+                                  //   svgIcon: AppEraAssets.money,
+                                  //   bgColor: AppColors.white,
+                                  // ),
                                   //ai search
-                                  SizedBox(height: 20.h),
+
+                                  AddListings.dropDownAddlistings(
+                                      color: AppColors.white,
+                                      selectedItem:
+                                          projectsController.selectedLocation,
+                                      Types: projectsController.location,
+                                      onChanged: (value) => projectsController
+                                          .selectedLocation.value = value!,
+                                      name: 'Location',
+                                      hintText: 'Select Location'),
+
+                                  AddListings.dropDownAddlistings(
+                                      color: AppColors.white,
+                                      selectedItem: searchController
+                                          .selectedPropertyTypeSearch,
+                                      Types:
+                                          searchController.propertyTypeSearch,
+                                      onChanged: (value) => searchController
+                                          .selectedPropertyTypeSearch
+                                          .value = value!,
+                                      name: 'Property Type',
+                                      hintText: 'Select Property Type'),
+                                  AddListings.dropDownAddlistings(
+                                      color: AppColors.white,
+                                      selectedItem:
+                                          searchController.selectedPriceSearch,
+                                      Types: searchController.priceSearch,
+                                      onChanged: (value) => searchController
+                                          .selectedPriceSearch.value = value!,
+                                      name: 'Price Range',
+                                      hintText: 'Select Price Range'),
 
                                   Obx(
                                     () => Row(

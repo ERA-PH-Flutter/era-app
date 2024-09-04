@@ -44,7 +44,7 @@ class Help extends GetView<ContactusController> {
                 children: [
                   AppTextField(
                     hint: 'AI Search',
-                    svgIcon: AppEraAssets.send,
+                    svgIcon: AppEraAssets.ai3,
                     bgColor: AppColors.white,
                   ),
                   SizedBox(height: 10.h),
@@ -229,7 +229,7 @@ class Help extends GetView<ContactusController> {
             children: [
               GestureDetector(
                 onTap: () async {
-                 launchUrl(controller.whatsappUrl);
+                  launchUrl(controller.whatsappUrl);
                 },
                 child: Container(
                   width: Get.width - 100.w,
