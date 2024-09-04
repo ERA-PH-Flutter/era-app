@@ -23,4 +23,9 @@ class AppColors {
   //
   static Color blue2 = const Color(0xFF0b3279);
   static Color blue3 = const Color(0xFF000d4c);
+
+  //ebebeb
+  static Color yellow = const Color(0xFFf5cf4d);
+  static Color blue4 = const Color(0xFF011e3d);
+  static Color grey = const Color(0xFFebebeb);
 }

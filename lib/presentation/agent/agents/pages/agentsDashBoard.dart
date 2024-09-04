@@ -9,6 +9,7 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/company/company_grid.dart';
+import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/app/widgets/listings/agentInfo-widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
@@ -41,66 +42,71 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                 AgentDashboardState.loading) {
               return _loading();
             } else {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: EraTheme.paddingWidth, vertical: 10.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              return Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: EraTheme.paddingWidth, vertical: 10.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        EraText(
-                          text: 'MY DASHBOARD',
-                          color: AppColors.blue,
-                          fontSize: EraTheme.header,
-                          fontWeight: FontWeight.w600,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            EraText(
+                              text: 'MY DASHBOARD',
+                              color: AppColors.blue,
+                              fontSize: EraTheme.header,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            settingIcon(() {
+                              Get.to(() => SettingsPage());
+                            }),
+                          ],
                         ),
-                        settingIcon(() {
-                          Get.to(() => SettingsPage());
-                        }),
+                        SizedBox(height: 10.h),
+                        AgentInfoWidget.agentInformation(
+                          user!.image != null
+                              ? user!.image!
+                              : AppStrings.noUserImageWhite,
+                          '${user!.firstname}',
+                          '${user!.lastname}',
+                          '${user!.whatsApp}',
+                          '${user!.email}',
+                          '${user!.role}',
+                        ),
+                        SizedBox(height: 25.h),
+                        Button(
+                          fontSize: EraTheme.paragraph - 2.sp,
+                          width: Get.width - 100.w,
+                          height: 43.h,
+                          text: 'MORTGAGE CALCULATOR',
+                          bgColor: AppColors.kRedColor,
+                          onTap: () {
+                            Get.toNamed("/mortageCalculator");
+                          },
+                        ),
+                        SizedBox(height: 25.h),
+                        myListings(),
+                        SizedBox(height: 25.h),
+                        favorites(),
+                        SizedBox(height: 25.h),
+                        archivedListing(),
+                        SizedBox(height: 25.h),
+                        soldProperties(),
+                        SizedBox(height: 25.h),
+                        myTrainings(),
+                        SizedBox(height: 25.h),
+                        findAgentsandOffices(),
+                        SizedBox(height: 25.h),
+
+                        // eraMerch(),
                       ],
                     ),
-                    SizedBox(height: 10.h),
-                    AgentInfoWidget.agentInformation(
-                      user!.image != null
-                          ? user!.image!
-                          : AppStrings.noUserImageWhite,
-                      '${user!.firstname}',
-                      '${user!.lastname}',
-                      '${user!.whatsApp}',
-                      '${user!.email}',
-                      '${user!.role}',
-                    ),
-                    SizedBox(height: 25.h),
-                    Button(
-                      fontSize: EraTheme.paragraph - 2.sp,
-                      width: Get.width - 100.w,
-                      height: 43.h,
-                      text: 'MORTGAGE CALCULATOR',
-                      bgColor: AppColors.kRedColor,
-                      onTap: () {
-                        Get.toNamed("/mortageCalculator");
-                      },
-                    ),
-                    SizedBox(height: 25.h),
-                    myListings(),
-                    SizedBox(height: 25.h),
-                    favorites(),
-                    SizedBox(height: 25.h),
-                    archivedListing(),
-                    SizedBox(height: 25.h),
-                    soldProperties(),
-                    SizedBox(height: 25.h),
-                    myTrainings(),
-                    SizedBox(height: 25.h),
-                    findAgentsandOffices(),
-                    SizedBox(height: 25.h),
-                    latestNews(),
-                    SizedBox(height: 25.h),
-                    // eraMerch(),
-                  ],
-                ),
+                  ),
+                  latestNews(),
+                  SizedBox(height: 25.h),
+                ],
               );
             }
           }),
@@ -249,37 +255,137 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
   }
 
   Widget latestNews() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        EraText(
-            text: 'LATEST NEWS',
-            color: AppColors.kRedColor,
-            fontSize: EraTheme.header - 5.sp,
-            fontWeight: FontWeight.w600),
-        SizedBox(
-          height: 10.h,
+    return Container(
+      color: AppColors.hint.withOpacity(0.1),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 50.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                EraText(
+                    text: 'Company News',
+                    fontSize: EraTheme.header + 5.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.kRedColor),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed("/companynews");
+                  },
+                  child: EraText(
+                      text: 'See all',
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.blue),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            EraText(
+              text:
+                  'Stay updated with ERA Philippines\' latest services and innovations in real estate excellence',
+              fontSize: EraTheme.subHeader - 2.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.hint,
+            ),
+            SizedBox(
+              height: 50.h,
+            ),
+            SizedBox(
+              height: 550.h,
+              width: Get.width,
+              child: GridView.builder(
+                physics: ScrollPhysics(),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisExtent: 390.w, //410
+                ),
+                itemCount: controller.news.length,
+                itemBuilder: (context, i) => GestureDetector(
+                  onTap: () {
+                    Get.to(() => CompanyNewsPage(
+                        title: controller.news[i].title,
+                        image: controller.news[i].image,
+                        description: controller.news[i].description));
+                  },
+                  child: Container(
+                    width: Get.width,
+                    margin: EdgeInsets.only(bottom: 15.h, right: 12.w),
+                    child: Stack(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            CloudStorage().imageLoader(
+                              ref: controller.news[i].image,
+                              height: 250.h,
+                            ),
+                            Spacer(),
+                          ],
+                        ),
+                        Positioned(
+                          bottom: 15.h,
+                          left: -4.w,
+                          right: -4.w,
+                          top: 200.h,
+                          child: Card(
+                            color: AppColors.white,
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: EraTheme.paddingWidthSmall + 15.w,
+                                  vertical: 15.h),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  EraText(
+                                    text: controller.news[i].title,
+                                    fontSize: EraTheme.paragraph + 5.sp,
+                                    color: AppColors.kRedColor,
+                                    fontWeight: FontWeight.bold,
+                                    textOverflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                  ),
+                                  EraText(
+                                    text: controller.news[i].description,
+                                    fontSize: EraTheme.paragraph - 2.sp,
+                                    color: AppColors.hint,
+                                    fontWeight: FontWeight.w500,
+                                    maxLines: 5,
+                                    textOverflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+          ],
         ),
-        CompanyGrid(companymodels: controller.news),
-        SizedBox(
-          height: 20.h,
-        ),
-        Button(
-          text: 'MORE NEWS',
-          fontSize: 25.sp,
-          onTap: () {
-            Get.toNamed("/companynews");
-          },
-          bgColor: AppColors.blue,
-          height: 50.h,
-          width: 350.w,
-          fontWeight: FontWeight.w500,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        SizedBox(
-          height: 10.h,
-        ),
-      ],
+      ),
     );
   }
 
@@ -431,7 +537,8 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
   static Widget agentText(String text, Color color, double fontSize,
       FontWeight fontWeight, double lineHeight) {
     return EraText(
-      text: text.capitalize!,
+      //i change it temporarily
+      text: text,
       color: color,
       fontSize: fontSize,
       fontWeight: fontWeight,

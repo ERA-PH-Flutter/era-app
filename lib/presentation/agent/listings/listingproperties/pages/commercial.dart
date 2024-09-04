@@ -307,20 +307,21 @@ class Commercial extends GetView<ListingController> {
                                   Get.toNamed("/searchresult",
                                       arguments: [data, 'All Condotel']);
                                 }),
-                                // SizedBox(width: 15.w),
-                                // FindProperties.quickSearchIcon(AppEraAssets.farm,
-                                //     () async {
-                                //   var listings = (await FirebaseFirestore.instance
-                                //           .collection('listings')
-                                //           .where('type', isEqualTo: 'Farm')
-                                //           .get())
-                                //       .docs;
-                                //   var data = listings.map((listing) {
-                                //     return listing.data();
-                                //   }).toList();
-                                //   Get.toNamed("/searchresult",
-                                //       arguments: [data, 'All Condotel']);
-                                // }),
+                                SizedBox(width: 15.w),
+                                FindProperties.quickSearchIcon(
+                                    AppEraAssets.farm, () async {
+                                  var listings = (await FirebaseFirestore
+                                          .instance
+                                          .collection('listings')
+                                          .where('type', isEqualTo: 'Farm')
+                                          .get())
+                                      .docs;
+                                  var data = listings.map((listing) {
+                                    return listing.data();
+                                  }).toList();
+                                  Get.toNamed("/searchresult",
+                                      arguments: [data, 'All Condotel']);
+                                }),
                                 SizedBox(width: 15.w),
                                 FindProperties.quickSearchIcon(
                                     AppEraAssets.hotel, () async {

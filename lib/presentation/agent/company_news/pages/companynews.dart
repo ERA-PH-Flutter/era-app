@@ -17,7 +17,7 @@ class CompanyNews extends GetView<CompanyNewsController> {
 
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = Get.find<HomeController>();
+    HomeController homeController = Get.put(HomeController());
     return BaseScaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -25,6 +25,9 @@ class CompanyNews extends GetView<CompanyNewsController> {
             padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
             child: Column(
               children: [
+                SizedBox(
+                  height: 40.h,
+                ),
                 EraText(
                   text: 'Latest News',
                   color: AppColors.blue,

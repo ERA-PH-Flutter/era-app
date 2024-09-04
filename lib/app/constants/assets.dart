@@ -41,6 +41,7 @@ class AppEraAssets {
   static String parkingLot = "${l}parkingLot.png";
   static String resort = "${l}resort.png";
   static String lot = "${l}lot.png";
+  static String farm = "${l}farm.png";
 
   static String residential = "${l}residential.png";
   static String retail = "${l}retail.png";

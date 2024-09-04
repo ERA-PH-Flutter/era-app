@@ -23,9 +23,9 @@ class Piechart extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _createLegend('PRINCIPAL', AppColors.principal),
-                _createLegend('INTEREST', AppColors.interest),
-                _createLegend('DOWN PAYMENT', AppColors.downPayment)
+                _createLegend('PRINCIPAL', AppColors.yellow),
+                _createLegend('INTEREST', AppColors.blue4),
+                _createLegend('DOWN PAYMENT', AppColors.grey)
               ],
             ),
           ),
@@ -70,9 +70,9 @@ class Piechart extends StatelessWidget {
 
   List<PieChartSectionData> pieChartSection() {
     List<Color> colors = [
-      AppColors.principal,
-      AppColors.interest,
-      AppColors.downPayment,
+      AppColors.yellow,
+      AppColors.blue4,
+      AppColors.grey,
     ];
     List<String> titles = ['PRINCIPAL', 'INTEREST', 'DOWNPAYMENT'];
     return List<PieChartSectionData>.generate(3, (i) {
