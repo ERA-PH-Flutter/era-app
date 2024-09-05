@@ -59,15 +59,44 @@ class LayaProject extends GetView<ProjectsController> {
             images: CarouselModels.layaCarouselImages,
             color: AppColors.carouselBgColor),
         SizedBox(height: 30.h),
-        //virtual
-        SizedBox(
-          height: 400.h,
-          child: GestureDetector(
-            child: WebViewWidget(
-              controller: controller.webviews[0],
+
+        Builder(builder: (context) {
+          var webViewController = WebViewController();
+          var params = const PlatformWebViewControllerCreationParams();
+          var webview = WebViewController.fromPlatformCreationParams(
+            params,
+            onPermissionRequest: (WebViewPermissionRequest request) {
+              request.grant();
+            },
+          );
+
+          webViewController
+            //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
+            ..setJavaScriptMode(JavaScriptMode.unrestricted)
+            ..setBackgroundColor(const Color(0x00000000))
+            ..setNavigationDelegate(
+              NavigationDelegate(
+                onPageStarted: (String url) {
+                  controller.isLoading.value = true;
+                },
+                onPageFinished: (String url) {
+                  controller.isLoading.value = false;
+                },
+                onWebResourceError: (WebResourceError error) {},
+              ),
+            )
+            ..loadRequest(Uri.parse(
+                'https://livetour.istaging.com/1897223f-79f8-4d10-ad66-37bf1126bcf8?index=2'));
+          return SizedBox(
+            height: 400.h,
+            child: GestureDetector(
+              child: WebViewWidget(
+                controller: webViewController,
+              ),
             ),
-          ),
-        ),
+          );
+        }),
+        //virtual
 
         SizedBox(width: 20),
 
@@ -114,14 +143,42 @@ class LayaProject extends GetView<ProjectsController> {
         discoverOurSpaces(
           layaprojects,
         ),
-        SizedBox(
-          height: 400.h,
-          child: GestureDetector(
-            child: WebViewWidget(
-              controller: controller.webviews[1],
+        Builder(builder: (context) {
+          var webViewController = WebViewController();
+          var params = const PlatformWebViewControllerCreationParams();
+          // var webview = WebViewController.fromPlatformCreationParams(
+          //   params,
+          //   onPermissionRequest: (WebViewPermissionRequest request) {
+          //     request.grant();
+          //   },
+          // );
+
+          webViewController
+            //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
+            ..setJavaScriptMode(JavaScriptMode.unrestricted)
+            ..setBackgroundColor(const Color(0x00000000))
+            ..setNavigationDelegate(
+              NavigationDelegate(
+                onPageStarted: (String url) {
+                  controller.isLoading.value = true;
+                },
+                onPageFinished: (String url) {
+                  controller.isLoading.value = false;
+                },
+                onWebResourceError: (WebResourceError error) {},
+              ),
+            )
+            ..loadRequest(Uri.parse(
+                'https://my.matterport.com/show/?m=Nfso9YhjtJA&play=1'));
+          return SizedBox(
+            height: 400.h,
+            child: GestureDetector(
+              child: WebViewWidget(
+                controller: webViewController,
+              ),
             ),
-          ),
-        ),
+          );
+        }),
 
         SizedBox(height: 30.h),
         Inquiry(),

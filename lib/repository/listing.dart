@@ -81,10 +81,14 @@ class Listing {
         views: json["views"],
         dateCreated: (json["date_created"] == null)
             ? DateTime.now()
-            : json["date_created"].runtimeType == Timestamp ? json["date_created"].toDate() : json["date_created"],
+            : json["date_created"].runtimeType == Timestamp
+                ? json["date_created"].toDate()
+                : json["date_created"],
         dateUpdated: (json["date_updated"] == null)
             ? DateTime.now()
-        : json["date_updated"].runtimeType == Timestamp ? json["date_updated"].toDate() : json["date_updated"],
+            : json["date_updated"].runtimeType == Timestamp
+                ? json["date_updated"].toDate()
+                : json["date_updated"],
         description: json["description"],
         isSold: json["is_sold"],
         latLng: json['latLng'] ?? [0, 0],

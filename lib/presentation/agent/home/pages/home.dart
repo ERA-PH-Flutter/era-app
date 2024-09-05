@@ -32,6 +32,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
+import '../../../../app/widgets/filteredsearch_box.dart';
 import '../../forms/contacts/pages/join_era.dart';
 import '../../listings/listingproperties/pages/findproperties.dart';
 import '../../listings/searchresult/controllers/searchresult_controller.dart';
@@ -58,10 +59,6 @@ class Home extends GetView<HomeController> {
   }
 
   _loaded() {
-    final SearchResultController searchController =
-        Get.put(SearchResultController());
-    final ProjectsController projectsController = Get.put(ProjectsController());
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -166,227 +163,230 @@ class Home extends GetView<HomeController> {
               SizedBox(
                 height: 10.h,
               ),
-              BoxWidget.build(
-                child: Column(
-                  children: [
-                    SizedBox(height: 10.h),
-                    if (!searchController.showFullSearch.value)
-                      AppTextField(
-                          onPressed: () {},
-                          controller: controller.aiSearchController,
-                          hint: 'Use AI Search',
-                          svgIcon: AppEraAssets.ai3,
-                          bgColor: AppColors.white,
-                          isSuffix: true,
-                          obscureText: false,
-                          suffixIcons: AppEraAssets.send,
-                          onSuffixTap: () async {
-                            var data;
-                            var searchQuery = "";
-                            data = await AI(query: controller.aiSearchController.text).search();
-                            searchQuery = controller.aiSearchController.text;
-                            selectedIndex.value = 2;
-                            print(data);
-                            Get.offAllNamed("/searchresult",
-                                 arguments: [data, searchQuery]);
-                          }),
-                    SizedBox(height: 5.h),
-                    GestureDetector(
-                      onTap: () {
-                        searchController.expanded.value =
-                            !searchController.expanded.value;
-                        searchController.showFullSearch.value =
-                            !searchController.showFullSearch.value;
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(10.0.h),
-                        child: Obx(() => EraText(
-                              text: searchController.expanded.value
-                                  ? "Back to AI Search"
-                                  : "Filtered Search",
-                              fontSize: 15.sp,
-                              textDecoration: TextDecoration.underline,
-                            )),
-                      ),
-                    ),
-                    Obx(() {
-                      if (searchController.showFullSearch.value) {
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal:10.w),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 10.h),
-                                  //notesfornikkoo
-                                  //Location new changes the location has the same properties with the searchresult,projectmain, home, and find agents
-                                  //proterty type, price range, >> home, projectmain, searchresult
-                                  AddListings.dropDownAddlistings1(
-                                      color: AppColors.white,
-                                      selectedItem:
-                                          projectsController.selectedLocation,
-                                      Types: projectsController.location,
-                                      onChanged: (value) => projectsController
-                                          .selectedLocation.value = value!,
-                                      name: 'Location',
-                                      hintText: 'Select Location'),
-                                  AddListings.dropDownAddlistings1(
-                                      color: AppColors.white,
-                                      selectedItem: searchController
-                                          .selectedPropertyTypeSearch,
-                                      Types: searchController.propertyTypeSearch,
-                                      onChanged: (value) => searchController
-                                          .selectedPropertyTypeSearch
-                                          .value = value!,
-                                      name: 'Property Type',
-                                      hintText: 'Select Property Type'),
-                                  AddListings.dropDownAddlistings1(
-                                      color: AppColors.white,
-                                      selectedItem:
-                                          searchController.selectedPriceSearch,
-                                      Types: searchController.priceSearch,
-                                      onChanged: (value) => searchController
-                                          .selectedPriceSearch.value = value!,
-                                      name: 'Price Range',
-                                      hintText: 'Select Price Range'),
-                                  Obx(
-                                    () => Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Transform.scale(
-                                              scale: 1.9,
-                                              child: Radio(
-                                                  toggleable: true,
-                                                  fillColor:
-                                                      WidgetStateProperty.all(
-                                                          AppColors.white
-                                                              .withOpacity(0.6)),
-                                                  value: 1,
-                                                  groupValue:
-                                                      controller.isForSale.value,
-                                                  onChanged: (value) {
-                                                    controller.isForSale.value =
-                                                        value ?? 0;
-                                                  }),
-                                            ),
-                                            EraText(
-                                                text: 'BUY',
-                                                color: AppColors.white
-                                                    .withOpacity(0.6),
-                                                fontSize: 15.0.sp,
-                                                fontWeight: FontWeight.w500),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Transform.scale(
-                                              scale: 1.9,
-                                              child: Radio(
-                                                  toggleable: true,
-                                                  fillColor:
-                                                      WidgetStateProperty.all(
-                                                          AppColors.white
-                                                              .withOpacity(0.6)),
-                                                  value: 2,
-                                                  groupValue:
-                                                      controller.isForSale.value,
-                                                  onChanged: (value) {
-                                                    controller.isForSale.value =
-                                                        value ?? 0;
-                                                  }),
-                                            ),
-                                            EraText(
-                                                text: 'RENT',
-                                                color: AppColors.white
-                                                    .withOpacity(0.6),
-                                                fontSize: 15.0.sp,
-                                                fontWeight: FontWeight.w500),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  SizedBox(
-                                    width: Get.width,
-                                    child: ElevatedButton.icon(
-                                      style: ButtonStyle(
-                                        backgroundColor: WidgetStateProperty.all(
-                                            AppColors.white),
-                                        shape: WidgetStateProperty.all(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        openFilterDialog();
-                                      },
-                                      label: EraText(
-                                        text: 'More Filters',
-                                        color: AppColors.black,
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      icon: Icon(
-                                        Icons.filter_alt,
-                                        color: AppColors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 20.h),
-                                  SearchWidget.build(() async {
-                                    var data;
-                                    var searchQuery = "";
-                                    if (controller.isForSale.value == 1) {
-                                      data = await Database().getForSaleListing();
-                                      searchQuery = "All For Sale Listings";
-                                    }
-                                    else if (controller.isForSale.value == 2) {
-                                      data = await Database().getForRentListing();
-                                      searchQuery = "All For Rent Listings";
-                                    }
-                                    else{
-                                      data = await Database().searchListing(
-                                          location: controller.selectedLocation.value,
-                                          price: controller.selectedPriceRange.value,
-                                          property: controller.selectedPropertyType.value);
-                                      if (controller.locationController.text !=
-                                          "") {
-                                        searchQuery +=
-                                            "Location: ${controller.selectedLocation.value}";
-                                      } else if (controller
-                                              .propertyController.text !=
-                                          "") {
-                                        searchQuery +=
-                                            "Property Type: ${controller.selectedPropertyType.value}";
-                                      } else if (controller
-                                              .priceController.text !=
-                                          "") {
-                                        searchQuery +=
-                                            "With price less than: ${controller.selectedPriceRange.value}";
-                                      }
-                                    }
-                                    selectedIndex.value = 2;
-                                    Get.offAllNamed("/searchresult",
-                                        arguments: [data, searchQuery]);
-                                  }),
-                                  SizedBox(height: 20.h),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      }
-                      return Container();
-                    }),
-                  ],
-                ),
-              ),
+              // BoxWidget.build(
+              //   child: Column(
+              //     children: [
+              //       SizedBox(height: 10.h),
+              //       if (!searchController.showFullSearch.value)
+              //         AppTextField(
+              //             onPressed: () {},
+              //             controller: controller.aiSearchController,
+              //             hint: 'Use AI Search',
+              //             svgIcon: AppEraAssets.ai3,
+              //             bgColor: AppColors.white,
+              //             isSuffix: true,
+              //             obscureText: false,
+              //             suffixIcons: AppEraAssets.send,
+              //             onSuffixTap: () async {
+              //               var data;
+              //               var searchQuery = "";
+              //               data = await AI(query: controller.aiSearchController.text).search();
+              //               searchQuery = controller.aiSearchController.text;
+              //               selectedIndex.value = 2;
+              //               print(data);
+              //               Get.offAllNamed("/searchresult",
+              //                    arguments: [data, searchQuery]);
+              //             }),
+              //       SizedBox(height: 5.h),
+              //       GestureDetector(
+              //         onTap: () {
+              //           searchController.expanded.value =
+              //               !searchController.expanded.value;
+              //           searchController.showFullSearch.value =
+              //               !searchController.showFullSearch.value;
+              //         },
+              //         child: Padding(
+              //           padding: EdgeInsets.all(10.0.h),
+              //           child: Obx(() => EraText(
+              //                 text: searchController.expanded.value
+              //                     ? "Back to AI Search"
+              //                     : "Filtered Search",
+              //                 fontSize: 15.sp,
+              //                 textDecoration: TextDecoration.underline,
+              //               )),
+              //         ),
+              //       ),
+              //       Obx(() {
+              //         if (searchController.showFullSearch.value) {
+              //           return Column(
+              //             children: [
+              //               Padding(
+              //                 padding: EdgeInsets.symmetric(horizontal:10.w),
+              //                 child: Column(
+              //                   children: [
+              //                     SizedBox(height: 10.h),
+              //                     //notesfornikkoo
+              //                     //Location new changes the location has the same properties with the searchresult,projectmain, home, and find agents
+              //                     //proterty type, price range, >> home, projectmain, searchresult
+              //                     AddListings.dropDownAddlistings1(
+              //                         color: AppColors.white,
+              //                         selectedItem:
+              //                             projectsController.selectedLocation,
+              //                         Types: projectsController.location,
+              //                         onChanged: (value) => projectsController
+              //                             .selectedLocation.value = value!,
+              //                         name: 'Location',
+              //                         hintText: 'Select Location'),
+              //                     AddListings.dropDownAddlistings1(
+              //                         color: AppColors.white,
+              //                         selectedItem: searchController
+              //                             .selectedPropertyTypeSearch,
+              //                         Types: searchController.propertyTypeSearch,
+              //                         onChanged: (value) => searchController
+              //                             .selectedPropertyTypeSearch
+              //                             .value = value!,
+              //                         name: 'Property Type',
+              //                         hintText: 'Select Property Type'),
+              //                     AddListings.dropDownAddlistings1(
+              //                         color: AppColors.white,
+              //                         selectedItem:
+              //                             searchController.selectedPriceSearch,
+              //                         Types: searchController.priceSearch,
+              //                         onChanged: (value) => searchController
+              //                             .selectedPriceSearch.value = value!,
+              //                         name: 'Price Range',
+              //                         hintText: 'Select Price Range'),
+              //                     Obx(
+              //                       () => Row(
+              //                         mainAxisAlignment:
+              //                             MainAxisAlignment.spaceEvenly,
+              //                         children: [
+              //                           Row(
+              //                             children: [
+              //                               Transform.scale(
+              //                                 scale: 1.9,
+              //                                 child: Radio(
+              //                                     toggleable: true,
+              //                                     fillColor:
+              //                                         WidgetStateProperty.all(
+              //                                             AppColors.white
+              //                                                 .withOpacity(0.6)),
+              //                                     value: 1,
+              //                                     groupValue:
+              //                                         controller.isForSale.value,
+              //                                     onChanged: (value) {
+              //                                       controller.isForSale.value =
+              //                                           value ?? 0;
+              //                                     }),
+              //                               ),
+              //                               EraText(
+              //                                   text: 'BUY',
+              //                                   color: AppColors.white
+              //                                       .withOpacity(0.6),
+              //                                   fontSize: 15.0.sp,
+              //                                   fontWeight: FontWeight.w500),
+              //                             ],
+              //                           ),
+              //                           Row(
+              //                             children: [
+              //                               Transform.scale(
+              //                                 scale: 1.9,
+              //                                 child: Radio(
+              //                                     toggleable: true,
+              //                                     fillColor:
+              //                                         WidgetStateProperty.all(
+              //                                             AppColors.white
+              //                                                 .withOpacity(0.6)),
+              //                                     value: 2,
+              //                                     groupValue:
+              //                                         controller.isForSale.value,
+              //                                     onChanged: (value) {
+              //                                       controller.isForSale.value =
+              //                                           value ?? 0;
+              //                                     }),
+              //                               ),
+              //                               EraText(
+              //                                   text: 'RENT',
+              //                                   color: AppColors.white
+              //                                       .withOpacity(0.6),
+              //                                   fontSize: 15.0.sp,
+              //                                   fontWeight: FontWeight.w500),
+              //                             ],
+              //                           ),
+              //                         ],
+              //                       ),
+              //                     ),
+              //                     SizedBox(height: 10.h),
+              //                     SizedBox(
+              //                       width: Get.width,
+              //                       child: ElevatedButton.icon(
+              //                         style: ButtonStyle(
+              //                           backgroundColor: WidgetStateProperty.all(
+              //                               AppColors.white),
+              //                           shape: WidgetStateProperty.all(
+              //                             RoundedRectangleBorder(
+              //                               borderRadius:
+              //                                   BorderRadius.circular(20),
+              //                             ),
+              //                           ),
+              //                         ),
+              //                         onPressed: () {
+              //                           openFilterDialog();
+              //                         },
+              //                         label: EraText(
+              //                           text: 'More Filters',
+              //                           color: AppColors.black,
+              //                           fontSize: 15.sp,
+              //                           fontWeight: FontWeight.w500,
+              //                         ),
+              //                         icon: Icon(
+              //                           Icons.filter_alt,
+              //                           color: AppColors.black,
+              //                         ),
+              //                       ),
+              //                     ),
+              //                     SizedBox(height: 20.h),
+              //                     SearchWidget.build(() async {
+              //                       var data;
+              //                       var searchQuery = "";
+              //                       if (controller.isForSale.value == 1) {
+              //                         data = await Database().getForSaleListing();
+              //                         searchQuery = "All For Sale Listings";
+              //                       }
+              //                       else if (controller.isForSale.value == 2) {
+              //                         data = await Database().getForRentListing();
+              //                         searchQuery = "All For Rent Listings";
+              //                       }
+              //                       else{
+              //                         data = await Database().searchListing(
+              //                             location: controller.selectedLocation.value,
+              //                             price: controller.selectedPriceRange.value,
+              //                             property: controller.selectedPropertyType.value);
+              //                         if (controller.locationController.text !=
+              //                             "") {
+              //                           searchQuery +=
+              //                               "Location: ${controller.selectedLocation.value}";
+              //                         } else if (controller
+              //                                 .propertyController.text !=
+              //                             "") {
+              //                           searchQuery +=
+              //                               "Property Type: ${controller.selectedPropertyType.value}";
+              //                         } else if (controller
+              //                                 .priceController.text !=
+              //                             "") {
+              //                           searchQuery +=
+              //                               "With price less than: ${controller.selectedPriceRange.value}";
+              //                         }
+              //                       }
+              //                       selectedIndex.value = 2;
+              //                       Get.offAllNamed("/searchresult",
+              //                           arguments: [data, searchQuery]);
+              //                     }),
+              //                     SizedBox(height: 20.h),
+              //                   ],
+              //                 ),
+              //               ),
+              //             ],
+              //           );
+              //         }
+              //         return Container();
+              //       }),
+              //     ],
+              //   ),
+              // ),
+
+              FilteredSearchBox(),
+
               SizedBox(height: 15.h),
               QuickLinks()
             ],
@@ -779,6 +779,7 @@ class Home extends GetView<HomeController> {
         SizedBox(
           height: 30.h,
         ),
+        // same widget as the oone in the my dashboard will change it later
         Container(
           color: AppColors.hint.withOpacity(0.1),
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),

@@ -68,7 +68,7 @@ class Button extends StatelessWidget {
         height: height,
         width: width, //272.w,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(20),
           color: AppColors.kRedColor,
         ),
         child: Center(
@@ -83,7 +83,8 @@ class Button extends StatelessWidget {
   }
 
   static Widget button3(
-      double width, double height, Function() onTap, String text, Color color,{fontSize,fontWeight}) {
+      double width, double height, Function() onTap, String text, Color color,
+      {fontSize, fontWeight}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(

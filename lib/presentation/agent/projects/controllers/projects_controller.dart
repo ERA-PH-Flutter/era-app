@@ -70,43 +70,18 @@ class ProjectsController extends GetxController {
     "https://livetour.istaging.com/ba0d3366-5267-4209-af73-a8841381dc44",
   ];
 
-  @override
-  void onInit() {
-    super.onInit();
-    //_initializeWebViews();
-    isLoading.value = false;
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   //_initializeWebViews();
+  //   isLoading.value = false;
+  // }
 
-  void _initializeWebViews() {
-    webviews = urlList.map((url) {
-      var params = const PlatformWebViewControllerCreationParams();
-      var webview = WebViewController.fromPlatformCreationParams(
-        params,
-        onPermissionRequest: (WebViewPermissionRequest request) {
-          request.grant();
-        },
-      );
+  // void _initializeWebViews() {
 
-      webview
-        //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
-        ..setJavaScriptMode(JavaScriptMode.unrestricted)
-        ..setBackgroundColor(const Color(0x00000000))
-        ..setNavigationDelegate(
-          NavigationDelegate(
-            onPageStarted: (String url) {
-              isLoading.value = true;
-            },
-            onPageFinished: (String url) {
-              isLoading.value = false;
-            },
-            onWebResourceError: (WebResourceError error) {},
-          ),
-        )
-        ..loadRequest(Uri.parse(url));
-
-      return webview;
-    }).toList();
-  }
+  //     return webview;
+  //   }).toList();
+  // }
 }
 
 // class ProjectsController extends GetxController {

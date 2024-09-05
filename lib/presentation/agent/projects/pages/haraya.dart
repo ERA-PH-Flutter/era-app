@@ -72,14 +72,42 @@ class HarayaProject extends GetView<ProjectsController> {
           45,
         ),
         SizedBox(height: 10.h),
-        // SizedBox(
-        //   height: 400.h,
-        //   child: GestureDetector(
-        //     child: WebViewWidget(
-        //       controller: controller.webviews[3],
-        //     ),
-        //   ),
-        // ),
+        Builder(builder: (context) {
+          var webViewController = WebViewController();
+          var params = const PlatformWebViewControllerCreationParams();
+          var webview = WebViewController.fromPlatformCreationParams(
+            params,
+            onPermissionRequest: (WebViewPermissionRequest request) {
+              request.grant();
+            },
+          );
+
+          webViewController
+            //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
+            ..setJavaScriptMode(JavaScriptMode.unrestricted)
+            ..setBackgroundColor(const Color(0x00000000))
+            ..setNavigationDelegate(
+              NavigationDelegate(
+                onPageStarted: (String url) {
+                  controller.isLoading.value = true;
+                },
+                onPageFinished: (String url) {
+                  controller.isLoading.value = false;
+                },
+                onWebResourceError: (WebResourceError error) {},
+              ),
+            )
+            ..loadRequest(Uri.parse(
+                'https://livetour.istaging.com/ba0d3366-5267-4209-af73-a8841381dc44'));
+          return SizedBox(
+            height: 400.h,
+            child: GestureDetector(
+              child: WebViewWidget(
+                controller: webViewController,
+              ),
+            ),
+          );
+        }),
         SizedBox(height: 15.h),
         Inquiry(),
         SizedBox(height: 40.h),
@@ -122,14 +150,42 @@ class HarayaProject extends GetView<ProjectsController> {
             20,
           ),
           SizedBox(height: 10.h),
-          // SizedBox(
-          //   height: 400.h,
-          //   child: GestureDetector(
-          //     child: WebViewWidget(
-          //       controller: controller.webviews[2],
-          //     ),
-          //   ),
-          // ),
+          Builder(builder: (context) {
+            var webViewController = WebViewController();
+            var params = const PlatformWebViewControllerCreationParams();
+            var webview = WebViewController.fromPlatformCreationParams(
+              params,
+              onPermissionRequest: (WebViewPermissionRequest request) {
+                request.grant();
+              },
+            );
+
+            webViewController
+              //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
+              ..setJavaScriptMode(JavaScriptMode.unrestricted)
+              ..setBackgroundColor(const Color(0x00000000))
+              ..setNavigationDelegate(
+                NavigationDelegate(
+                  onPageStarted: (String url) {
+                    controller.isLoading.value = true;
+                  },
+                  onPageFinished: (String url) {
+                    controller.isLoading.value = false;
+                  },
+                  onWebResourceError: (WebResourceError error) {},
+                ),
+              )
+              ..loadRequest(Uri.parse(
+                  'https://livetour.istaging.com/d648d3c2-86bb-4f1d-9224-ff37d99c6d69'));
+            return SizedBox(
+              height: 400.h,
+              child: GestureDetector(
+                child: WebViewWidget(
+                  controller: webViewController,
+                ),
+              ),
+            );
+          }),
         ],
       ),
     );
@@ -442,7 +498,7 @@ class HarayaProject extends GetView<ProjectsController> {
         fontWeight: fontWeight,
         color: color,
         maxLines: 50,
-       ),
+      ),
     );
   }
 

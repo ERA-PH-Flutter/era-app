@@ -1,4 +1,3 @@
-
 class ProjectsModels1 {
   final String? heroImage;
 
@@ -219,7 +218,7 @@ class ProjectsModels1 {
       text1: 'Newport Boulevard',
       text2: 'Pasay, Philippines',
       text3:
-          'One of the most coveted addresses in the Philippines. A location defined by the extraordinary cosmopolitan skyline views and the lush greens of Manila Golf Club, Manila Polo Club, and Forbes Park. An unparalleled collaboration of architects, designers, and artisans who represent the pinnacle of their respective fields. A meticulously-curated vision inspired by sprezzatura - an effortless and understated sense of classic Italian elegance. A limited collection of 285 bespoke residences at the heart of Bonifacio Global City, the fastest-growing central business district in the Philippines.',
+          'One of the most coveted addresses in the Philippines.\nA location defined by the extraordinary cosmopolitan skyline views and the lush greens of Manila Golf Club, Manila Polo Club, and Forbes Park. An unparalleled collaboration of architects, designers, and artisans who represent the pinnacle of their respective fields.\nA meticulously-curated vision inspired by sprezzatura - an effortless and understated sense of classic Italian elegance. A limited collection of 285 bespoke residences at the heart of Bonifacio Global City, the fastest-growing central business district in the Philippines.',
       image2: 'assets/images/aurelia_image2.jpg',
       text4: 'THE ART OF ELEGANCE',
       text5:

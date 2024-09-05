@@ -124,27 +124,36 @@ class FindAgents extends GetView<AgentsController> {
                                             color: AppColors.white),
                                         SizedBox(height: 5.h),
                                         Container(
-                                          height:50.h,
+                                          height: 50.h,
                                           child: TextformfieldWidget(
                                             style: TextStyle(
                                               fontSize: 20.sp,
                                               color: AppColors.hint,
                                               height: 0.0,
-                                              fontFamily:
-                                              GoogleFonts.lato(fontWeight: FontWeight.w400).fontFamily,
+                                              fontFamily: GoogleFonts.lato(
+                                                      fontWeight:
+                                                          FontWeight.w400)
+                                                  .fontFamily,
                                             ),
-                                            contentPadding: EdgeInsets.symmetric(horizontal:EraTheme.paddingWidth),
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        EraTheme.paddingWidth),
                                             radius: 99,
                                             controller: controller.agentName,
-                                            hintText: 'Find Agent by Name',
+                                            hintText: '  Find Agent by Name',
                                             maxLines: 1,
                                             keyboardType: TextInputType.text,
                                             hintstlye: TextStyle(
+                                              textBaseline:
+                                                  TextBaseline.alphabetic,
                                               fontSize: 20.sp,
                                               color: AppColors.hint,
                                               height: 0.0,
-                                              fontFamily:
-                                              GoogleFonts.lato(fontWeight: FontWeight.w400).fontFamily,
+                                              fontFamily: GoogleFonts.lato(
+                                                      fontWeight:
+                                                          FontWeight.w400)
+                                                  .fontFamily,
                                             ),
                                           ),
                                         ),
@@ -155,7 +164,7 @@ class FindAgents extends GetView<AgentsController> {
                                     SearchWidget.build(() {
                                       controller.search();
                                     }),
-                                    SizedBox(height: 10.h),
+                                    SizedBox(height: 20.h),
                                   ],
                                 ),
                               ],
@@ -232,9 +241,12 @@ class FindAgents extends GetView<AgentsController> {
                   //controller.agentCount.toString()} to count the number of agents
                   SizedBox(height: 20.h),
                   FutureBuilder(
-                    future: FirebaseFirestore.instance.collection('users').count().get(),
-                    builder: (data,snapshot){
-                      if(snapshot.hasData){
+                    future: FirebaseFirestore.instance
+                        .collection('users')
+                        .count()
+                        .get(),
+                    builder: (data, snapshot) {
+                      if (snapshot.hasData) {
                         return EraText(
                           text: "${snapshot.data!.count} ERA Agents",
                           fontSize: EraTheme.small + 6.sp,
@@ -242,7 +254,7 @@ class FindAgents extends GetView<AgentsController> {
                           color: AppColors.kRedColor,
                           textAlign: TextAlign.center,
                         );
-                      }else{
+                      } else {
                         return CircularProgressIndicator();
                       }
                     },

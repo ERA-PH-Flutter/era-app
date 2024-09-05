@@ -34,7 +34,8 @@ class Help extends GetView<ContactusController> {
               ),
               SizedBox(height: 10.h),
               EraText(
-                text: '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
+                text:
+                    '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
                 fontSize: 20.sp,
                 color: AppColors.black,
                 fontWeight: FontWeight.w600,
@@ -46,18 +47,19 @@ class Help extends GetView<ContactusController> {
                 color: AppColors.kRedColor,
                 fontWeight: FontWeight.w600,
               ),
-
               SizedBox(height: 10.h),
               BoxWidget.build(
                   child: Column(
                 children: [
+                  SizedBox(height: 20.h),
                   AppTextField(
                     hint: 'AI Search',
                     svgIcon: AppEraAssets.ai3,
                     bgColor: AppColors.white,
                   ),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 40.h),
                   SearchWidget.build(() {}),
+                  SizedBox(height: 20.h),
                 ],
               )),
               SizedBox(height: 20.h),
@@ -76,7 +78,7 @@ class Help extends GetView<ContactusController> {
               SizedBox(height: 15.h),
               expansionTile(
                   'How can I sign up for the ERA Philippines web app?',
-                  'You can sign up by clicking the "Sign Up" button on the homepage and filling in the required information, such as your name, email, and contact number.'),
+                  'You can sign up by clicking the "BECOME AN ERA" button on the homepage and filling in the required information, such as your name, email, and contact number.'),
               SizedBox(height: 15.h),
               expansionTile('Is the ERA Philippines app free to use?',
                   'Yes, the basic features of the ERA Philippines web app are free to use.'),
@@ -112,7 +114,7 @@ class Help extends GetView<ContactusController> {
                   'Use the search bar on the homepage to enter your criteria, such as location, price range, and property type. You can also use advanced filters for more specific searches.'),
               SizedBox(height: 15.h),
               expansionTile('How can I list my property for sale or rent?',
-                  'Go to the "List Property" section in the menu, fill in the necessary details about your property, and upload high-quality images. Your listing will be reviewed and published within 24-48 hours.'),
+                  'Go to the "Sell Property" section in the menu, fill in the necessary details about your property, and upload high-quality images. Your listing will be reviewed and published within 24-48 hours.'),
               SizedBox(height: 15.h),
               expansionTile(
                   'How can I contact a seller or agent for a property I\'m interested in?',
@@ -130,7 +132,7 @@ class Help extends GetView<ContactusController> {
               SizedBox(height: 15.h),
               expansionTile(
                   'What should I do if I encounter a technical issue on the web app?',
-                  'Please report any technical issues via the "___________" section or contact our support team. Provide as much detail as possible for a quicker resolution.'),
+                  'Please report any technical issues via the "contact us" section or contact our support team. Provide as much detail as possible for a quicker resolution.'),
               SizedBox(height: 20.h),
               EraText(
                 text: 'Property Viewing',

@@ -100,7 +100,12 @@ class DirectContactUs extends GetView<ContactusController> {
           keyboardType: TextInputType.text,
         ),
         SizedBox(height: 20.h),
-        Button.button2(Get.width, 43.h, () {}, 'Send'),
+        Button.button2(
+          Get.width,
+          43.h,
+          () {},
+          'Send',
+        ),
         SizedBox(height: 20.h),
       ],
     );

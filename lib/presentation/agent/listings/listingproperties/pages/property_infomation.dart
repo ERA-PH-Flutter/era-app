@@ -250,14 +250,6 @@ class PropertyInformation extends GetView<ListingController> {
               "Added ${DateTime.now().difference(listing.dateCreated!).inDays.toString()} days ago"),
           //SizedBox(height: 20.h),
 
-          //featuresWidgets('Features / Amenities', listing.join('\n')),
-          //SizedBox(height: 20.h),
-          //featuresWidgets(
-          //'Rooms & Interior', listing.roomsAndInterior.join('\n')),
-          //SizedBox(height: 20.h),
-          //featuresWidgets(
-          // 'Location & School', listing.locationAndSchools.join('\n')),
-
           SizedBox(height: 20.h),
           //widget location
           location(),
@@ -319,6 +311,7 @@ class PropertyInformation extends GetView<ListingController> {
             width: Get.width,
             height: 43.h,
             text: 'MORTGAGE CALCULATOR',
+            borderRadius: BorderRadius.circular(20),
             bgColor: AppColors.kRedColor,
             onTap: () {
               Get.toNamed("/mortageCalculator");
@@ -380,8 +373,9 @@ class PropertyInformation extends GetView<ListingController> {
             bgColor: AppColors.blue,
             fontSize: 20.sp,
             fontWeight: FontWeight.bold,
-            width: 320.w,
-            margin: EdgeInsets.symmetric(horizontal: 0.w),
+            width: Get.width,
+            height: 43.h,
+            borderRadius: BorderRadius.circular(20),
           ),
         ],
       ),
@@ -607,29 +601,3 @@ class PropertyInformation extends GetView<ListingController> {
     );
   }
 }
-  // {required String imageUrl, final int initialIndex = 0}) {
-    // return BaseScaffold(
-    //   body: GestureDetector(
-    //     onTap: () => Get.back(),
-    //     child: PhotoViewGallery.builder(
-    //       scrollPhysics: const BouncingScrollPhysics(),
-    //       builder: (BuildContext context, int index) {
-    //         return PhotoViewGalleryPageOptions(
-    //           imageProvider: CloudStorage().imageLoader(
-    //               ref: imageUrl[index], width: Get.width, height: 350.h),
-    //           minScale: PhotoViewComputedScale.contained * 0.8,
-    //           maxScale: PhotoViewComputedScale.covered * 2,
-    //           heroAttributes: PhotoViewHeroAttributes(tag: imageUrl[index]),
-    //         );
-    //       },
-    //       itemCount: imageUrl.length,
-    //       pageController: PageController(initialPage: initialIndex),
-    //       onPageChanged: (int index) {
-    //         print('Page changed to $index');
-    //       },
-    //       backgroundDecoration: const BoxDecoration(
-    //         color: Colors.black,
-    //       ),
-    //     ),
-    //   ),
-    // );

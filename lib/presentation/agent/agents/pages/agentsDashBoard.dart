@@ -82,6 +82,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                           width: Get.width - 100.w,
                           height: 43.h,
                           text: 'MORTGAGE CALCULATOR',
+                          borderRadius: BorderRadius.circular(20),
                           bgColor: AppColors.kRedColor,
                           onTap: () {
                             Get.toNamed("/mortageCalculator");
@@ -211,60 +212,60 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                 height: 100.w,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: controller.favorites.length > 4 ? 4 : controller.favorites.length,
+                  itemCount: controller.favorites.length > 4
+                      ? 4
+                      : controller.favorites.length,
                   shrinkWrap: true,
-                  itemBuilder: (context,index){
+                  itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: (){
-                        Get.toNamed('/propertyInfo', arguments: controller.favorites[index]);
+                      onTap: () {
+                        Get.toNamed('/propertyInfo',
+                            arguments: controller.favorites[index]);
                       },
                       child: Container(
-                        height: 100.w,
-                        width: 100.w,
-                        decoration: BoxDecoration(
-                          boxShadow: [
+                          height: 100.w,
+                          width: 100.w,
+                          decoration: BoxDecoration(boxShadow: [
                             BoxShadow(
-                              offset: Offset(0,0),
-                              blurRadius: 1,
-                              spreadRadius: 0.5,
-                              color: Colors.black38
-                            )
-                          ],
-                            borderRadius: BorderRadius.circular(10.r)
-                        ),
-                        margin: EdgeInsets.symmetric(horizontal: 5.w),
-                        child:  Stack(
-                          children: [
-                            Positioned.fill(
-                              child: CloudStorage().imageLoaderProvider(ref: controller.favorites[index].photos.first,height: 100.w,width: 100.w,borderRadius: BorderRadius.circular(10.r)),
-                            ),
-                            Positioned(
-                              bottom:0,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10.r),
-                                    bottomRight: Radius.circular(10.r)
-                                  )
-                                ),
-                                width: 100.w,
-                                height: 20.h,
-
-                                child: EraText(
-                                  textAlign: TextAlign.center,
-                                  text: controller.favorites[index].name,
-                                  color: Colors.black,
-                                  fontSize: 12.sp,
-                                  textOverflow: TextOverflow.ellipsis,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                offset: Offset(0, 0),
+                                blurRadius: 1,
+                                spreadRadius: 0.5,
+                                color: Colors.black38)
+                          ], borderRadius: BorderRadius.circular(10.r)),
+                          margin: EdgeInsets.symmetric(horizontal: 5.w),
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                child: CloudStorage().imageLoaderProvider(
+                                    ref: controller
+                                        .favorites[index].photos.first,
+                                    height: 100.w,
+                                    width: 100.w,
+                                    borderRadius: BorderRadius.circular(10.r)),
                               ),
-                            )
-                          ],
-                        )
-                      ),
+                              Positioned(
+                                bottom: 0,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10.r),
+                                          bottomRight: Radius.circular(10.r))),
+                                  width: 100.w,
+                                  height: 20.h,
+                                  child: EraText(
+                                    textAlign: TextAlign.center,
+                                    text: controller.favorites[index].name,
+                                    color: Colors.black,
+                                    fontSize: 12.sp,
+                                    textOverflow: TextOverflow.ellipsis,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
                     );
                   },
                 ),
@@ -574,47 +575,48 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                 height: 100.w,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: controller.listings.length > 5 ? 5 : controller.listings.length,
+                  itemCount: controller.listings.length > 5
+                      ? 5
+                      : controller.listings.length,
                   shrinkWrap: true,
-                  itemBuilder: (context,index){
+                  itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: (){
-                        Get.toNamed('/propertyInfo', arguments: controller.listings[index]);
+                      onTap: () {
+                        Get.toNamed('/propertyInfo',
+                            arguments: controller.listings[index]);
                       },
                       child: Container(
                           height: 100.w,
                           width: 100.w,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: Offset(0,0),
-                                    blurRadius: 1,
-                                    spreadRadius: 0.5,
-                                    color: Colors.black38
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10.r)
-                          ),
+                          decoration: BoxDecoration(boxShadow: [
+                            BoxShadow(
+                                offset: Offset(0, 0),
+                                blurRadius: 1,
+                                spreadRadius: 0.5,
+                                color: Colors.black38)
+                          ], borderRadius: BorderRadius.circular(10.r)),
                           margin: EdgeInsets.symmetric(horizontal: 5.w),
-                          child:  Stack(
+                          child: Stack(
                             children: [
                               Positioned.fill(
-                                child: CloudStorage().imageLoaderProvider(ref: controller.listings[index].photos.first,height: 100.w,width: 100.w,borderRadius: BorderRadius.circular(10.r)),
+                                child: CloudStorage().imageLoaderProvider(
+                                    ref:
+                                        controller.listings[index].photos.first,
+                                    height: 100.w,
+                                    width: 100.w,
+                                    borderRadius: BorderRadius.circular(10.r)),
                               ),
                               Positioned(
-                                bottom:0,
+                                bottom: 0,
                                 child: Container(
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(10.r),
-                                          bottomRight: Radius.circular(10.r)
-                                      )
-                                  ),
+                                          bottomRight: Radius.circular(10.r))),
                                   width: 100.w,
                                   height: 20.h,
-
                                   child: EraText(
                                     textAlign: TextAlign.center,
                                     text: controller.listings[index].name,
@@ -626,8 +628,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                                 ),
                               )
                             ],
-                          )
-                      ),
+                          )),
                     );
                   },
                 ),

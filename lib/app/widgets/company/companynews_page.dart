@@ -47,7 +47,7 @@ class CompanyNewsPage extends StatelessWidget {
                 text: description!,
                 color: AppColors.black.withOpacity(0.8),
                 fontSize: 18.sp,
-                textAlign: TextAlign.justify,
+                textAlign: TextAlign.start,
                 maxLines: 100,
                 fontWeight: FontWeight.w400,
               ),

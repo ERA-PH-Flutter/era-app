@@ -110,7 +110,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                   ),
                 ),
                 hintText: 'eg: 10%',
-                onChanged: (value){
+                onChanged: (value) {
                   //controller.downP.value = value == "" ? "0" : (controller.propertyAmount.text.toDouble() * value.toInt() /100).toString();
                 },
                 keyboardType: TextInputType.number,
@@ -162,26 +162,28 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
               SizedBox(height: 30.h),
               SizedBox(height: 10.h),
               Button(
+                borderRadius: BorderRadius.circular(20.r),
                 width: Get.width,
                 bgColor: AppColors.kRedColor,
                 text: 'CALCULATE',
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w500,
                 onTap: () async {
-                  controller.scrollController.animateTo(controller.scrollController.position.maxScrollExtent, duration: Duration(seconds: 1), curve: Curves.easeInOut);
-                  var initial = controller
-                      .propertyAmount.text
+                  controller.scrollController.animateTo(
+                      controller.scrollController.position.maxScrollExtent,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.easeInOut);
+                  var initial = controller.propertyAmount.text
                       .replaceAll(',', '')
                       .toInt();
-                  controller.downP.value = (controller.downPayment.text.toInt() *
-                          initial /
-                          100).toString().replaceAllMapped(
-                      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                          (Match m) => '${m[1]},');
+                  controller.downP.value =
+                      (controller.downPayment.text.toInt() * initial / 100)
+                          .toString()
+                          .replaceAllMapped(
+                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              (Match m) => '${m[1]},');
                   controller.initialAmount.value = (initial -
-                          (controller.downPayment.text.toInt() *
-                              initial /
-                              100))
+                          (controller.downPayment.text.toInt() * initial / 100))
                       .toDouble();
                   var loanTerms = (controller.loanTerm.text.toInt() * 12);
                   var interest =
@@ -208,8 +210,9 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                   color: AppColors.black,
                 ),
               ),
-              Obx(()=>Center(
-                child: EraText(
+              Obx(
+                () => Center(
+                  child: EraText(
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 50.sp,
@@ -217,7 +220,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                         fontWeight: FontWeight.bold),
                     text: controller.downP.value,
                   ),
-              ),
+                ),
               ),
               SizedBox(height: 20.h),
               Center(
@@ -245,7 +248,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.r),
+                          borderRadius: BorderRadius.circular(20.r),
                         ),
                       ),
                       backgroundColor:
