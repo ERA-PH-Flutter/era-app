@@ -536,9 +536,11 @@ class AddListings extends GetView<AddListingsController> with BaseController {
     String? name,
     String? hintText,
     Color? color,
+    EdgeInsets? padding,
   }) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+      padding:
+          padding ?? EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -546,7 +548,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
               text: name!, fontSize: 18.sp, color: color ?? AppColors.black),
           SizedBox(height: 5.h),
           Obx(
-                () => DropdownButtonFormField<String>(
+            () => DropdownButtonFormField<String>(
               alignment: Alignment.centerLeft,
               decoration: InputDecoration(
                 hintText: hintText,
@@ -609,18 +611,16 @@ class AddListings extends GetView<AddListingsController> with BaseController {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        EraText(
-            text: name!, fontSize: 18.sp, color: color ?? AppColors.black),
+        EraText(text: name!, fontSize: 18.sp, color: color ?? AppColors.black),
         SizedBox(height: 5.h),
         Obx(
-              () => Container(
+          () => Container(
             height: 50.h,
             alignment: Alignment.center,
             padding: EdgeInsets.symmetric(horizontal: 21.w),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(99),
-
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(

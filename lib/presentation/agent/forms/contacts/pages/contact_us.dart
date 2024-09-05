@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,7 @@ class ContactUs extends GetView<ContactusController> {
                   color: AppColors.kRedColor,
                 ),
                 SizedBox(height: 20.h),
-                contacts()
+                contacts(),
               ],
             ),
           ),
@@ -45,7 +46,7 @@ class ContactUs extends GetView<ContactusController> {
     );
   }
 
-  static Widget contacts() {
+  Widget contacts() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../app/constants/sized_box.dart';
+import '../../../listings/add-edit_listings/pages/addlistings.dart';
 import '../controllers/contacts_controller.dart';
 import 'findus.dart';
 
@@ -21,7 +22,7 @@ class DirectContactUs extends GetView<ContactusController> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -49,7 +50,7 @@ class DirectContactUs extends GetView<ContactusController> {
     );
   }
 
-  static Widget contacts() {
+  Widget contacts() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -88,7 +89,16 @@ class DirectContactUs extends GetView<ContactusController> {
           maxLines: 1,
           keyboardType: TextInputType.emailAddress,
         ),
-        SizedBox(height: 20.h),
+        sb20(),
+        AddListings.dropDownAddlistings(
+          selectedItem: controller.selectedSubj,
+          Types: controller.subject,
+          onChanged: (value) => controller.selectedSubj.value = value!,
+          name: 'Subject Type',
+          hintText: 'Select Subject Type',
+          color: AppColors.black,
+          padding: EdgeInsets.zero,
+        ),
         EraText(
           text: 'Message',
           fontSize: 18.sp,

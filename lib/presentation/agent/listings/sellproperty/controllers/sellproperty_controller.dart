@@ -13,8 +13,14 @@ class SellPropertyController extends GetxController {
     super.onInit();
   }
 
-   var selectedProperty = RxnString();
-  var propertyTypes = ['Pre-Selling', 'Residential', 'Commercial', 'Rental', 'Auction'];
+  var selectedProperty = RxnString();
+  var propertyTypes = [
+    'Pre-Selling',
+    'Residential',
+    'Commercial',
+    'Rental',
+    'Auction'
+  ];
   TextEditingController name = TextEditingController();
   TextEditingController phoneNum = TextEditingController();
   TextEditingController emailAd = TextEditingController();
@@ -22,4 +28,6 @@ class SellPropertyController extends GetxController {
   TextEditingController propertyLocation = TextEditingController();
   TextEditingController price = TextEditingController();
   TextEditingController desc = TextEditingController();
+
+  var images = [].obs;
 }

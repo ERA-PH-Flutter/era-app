@@ -588,16 +588,13 @@ class SearchResult extends GetView<SearchResultController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 200.h,
-          child: Center(
-            child: EraText(
-              text: "No results found! for ${Get.arguments[1]}",
-              color: Colors.black,
-              fontSize: 20.sp,
-            ),
-          ),
-        )
+        EraText(
+          text: 'No results found!',
+          fontSize: 23.sp,
+          color: AppColors.blue,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: 10.h),
       ],
     );
   }

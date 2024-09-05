@@ -15,4 +15,12 @@ class ContactusController extends GetxController {
       'mailto:sales@eraphilippines.com?subject=Your%20Subject&body=Your%20Message');
 
   final Uri whatsappUrl = Uri.parse('https://wa.me/639177710572');
+
+  var selectedSubj = RxnString();
+
+  var subject = [
+    'General Inquiry',
+    'Sales',
+    'Tech Support',
+  ];
 }

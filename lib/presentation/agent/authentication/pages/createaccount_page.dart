@@ -26,7 +26,7 @@ class CreateAccount extends GetView<LoginPageController> {
               SharedWidgets.backgroundColumn(),
               SharedWidgets.paddingText('CREATE AN ACCOUNT', FontWeight.bold),
               Container(
-                height: Get.height - 150.h,
+                height: Get.height - 100.h,
                 margin: EdgeInsets.only(top: 50.h),
                 decoration: BoxDecoration(
                   color: AppColors.white,
@@ -147,7 +147,7 @@ class CreateAccount extends GetView<LoginPageController> {
                           textInputType: TextInputType.text,
                           hintText: 'Email Address',
                           controller: controller.emailAd),
-                      SizedBox(height: 20.h),
+                      sb30(),
                       Button(
                         margin: EdgeInsets.zero,
                         width: Get.width,
@@ -214,8 +214,9 @@ class CreateAccount extends GetView<LoginPageController> {
                           }
                           Get.to(() => Nextpage());
                         },
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(20),
                       ),
+                      sb20(),
                     ],
                   ),
                 ),

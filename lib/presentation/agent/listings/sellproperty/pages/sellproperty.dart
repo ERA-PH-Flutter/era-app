@@ -1,10 +1,12 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,16 +70,34 @@ class SellProperty extends GetView<SellPropertyController> {
                   hintText: 'Price',
                   controller: controller.price),
               SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  EraText(
+                      text: 'Upload Photo',
+                      fontSize: 18.sp,
+                      color: AppColors.black),
+                  Obx(() => AddListings.textBuild(
+                      '${controller.images.length}/1',
+                      22.sp,
+                      FontWeight.w600,
+                      Colors.black)),
+                ],
+              ),
+              uploadPhoto(),
+              sb20(),
               EraText(
-                  text: 'Description', fontSize: 18.sp, color: AppColors.black),
-              SizedBox(height: 5.h),
+                text: 'Description',
+                fontSize: 18.sp,
+                color: AppColors.black,
+              ),
               TextformfieldWidget(
                 hintText: 'Enter Description',
                 maxLines: 10,
                 color: AppColors.hint,
                 keyboardType: TextInputType.text,
               ),
-              SizedBox(height: 20.h),
+              sb30(),
               Button(
                   text: 'SEND',
                   onTap: () {},
@@ -86,7 +106,7 @@ class SellProperty extends GetView<SellPropertyController> {
                   height: 43.h,
                   fontSize: 18.sp,
                   width: Get.width),
-              SizedBox(height: 30.h),
+              sb40(),
             ],
           ),
         ),
@@ -100,6 +120,18 @@ class SellProperty extends GetView<SellPropertyController> {
       color: AppColors.kRedColor,
       fontSize: EraTheme.header,
       fontWeight: FontWeight.bold,
+    );
+  }
+
+  Widget uploadPhoto() {
+    return GestureDetector(
+      onTap: () {
+        //todo add upload photo
+        //todo NIKO
+      },
+      child: Image.asset(
+        'assets/icons/uploadphoto.png',
+      ),
     );
   }
 }

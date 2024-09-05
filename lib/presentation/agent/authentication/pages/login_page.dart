@@ -35,8 +35,8 @@ class LoginPage extends GetView<LoginPageController> {
                 Column(
                   children: [
                     AspectRatio(
-                     aspectRatio: 6/5,
-                       child: Image.asset(
+                      aspectRatio: 6 / 5,
+                      child: Image.asset(
                         'assets/images/eraph_logo.png',
                       ),
                     ),
@@ -68,20 +68,19 @@ class LoginPage extends GetView<LoginPageController> {
                               ),
                             ),
                             SizedBox(height: 20.h),
-                            Obx(() => TextFormField(
+                            Obx(
+                              () => TextFormField(
                                 controller: controller.password,
                                 obscureText: !controller.passwordVisible.value,
                                 style: TextStyle(
-                                    color: AppColors.black,
-                                    fontSize: 15.sp),
+                                    color: AppColors.black, fontSize: 15.sp),
                                 decoration: InputDecoration(
                                   hintText: 'Password',
                                   hintStyle: TextStyle(color: AppColors.hint),
                                   fillColor: AppColors.white,
                                   filled: true,
                                   suffixIcon: IconButton(
-                                    icon: Icon(controller
-                                            .passwordVisible.value
+                                    icon: Icon(controller.passwordVisible.value
                                         ? CupertinoIcons.eye_fill
                                         : CupertinoIcons.eye_slash_fill),
                                     onPressed: () {
@@ -104,20 +103,19 @@ class LoginPage extends GetView<LoginPageController> {
                             ),
                             SizedBox(height: 30.h),
                             SizedBox(
-
                               child: Column(
                                 children: [
                                   Button(
-                                    width: Get.width,
-                                    onTap: () {
-                                      controller.login();
-                                    },
-                                    text: "L O G I N",
-                                    bgColor: AppColors.kRedColor,
-                                    fontSize: 25.sp,
-                                    fontWeight: FontWeight.w600,
-                                    height: 48.h
-                                  ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      width: Get.width,
+                                      onTap: () {
+                                        controller.login();
+                                      },
+                                      text: "L O G I N",
+                                      bgColor: AppColors.kRedColor,
+                                      fontSize: 25.sp,
+                                      fontWeight: FontWeight.w600,
+                                      height: 48.h),
                                   SizedBox(height: 20.h),
                                   GestureDetector(
                                     onTap: () {
@@ -204,7 +202,7 @@ class LoginPage extends GetView<LoginPageController> {
                   onTap: () {
                     controller.googleLogin();
                   },
-                  //maybe insert logo here "G"
+                  borderRadius: BorderRadius.circular(20),
                   text: "Sign in with Google",
                   bgColor: AppColors.blue,
                   fontSize: 25.sp,
@@ -217,6 +215,7 @@ class LoginPage extends GetView<LoginPageController> {
                   onTap: () {
                     Get.toNamed("/createaccount");
                   },
+                  borderRadius: BorderRadius.circular(20),
                   text: "CREATE ACCOUNT",
                   bgColor: AppColors.kRedColor,
                   fontSize: 25.sp,

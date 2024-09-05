@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
@@ -23,7 +24,7 @@ class Nextpage extends GetView<LoginPageController> {
             children: [
               SharedWidgets.backgroundColumn(),
               SharedWidgets.paddingText('CREATE AN ACCOUNT', FontWeight.w500),
-              Padding(
+              Container(
                 padding: EdgeInsets.symmetric(horizontal: 30.w),
                 child: EraText(
                   text: 'You\'re almost there!',
@@ -33,6 +34,7 @@ class Nextpage extends GetView<LoginPageController> {
                 ),
               ),
               Container(
+                height: Get.height * 1.1,
                 margin: EdgeInsets.only(top: 50.h),
                 decoration: BoxDecoration(
                   color: AppColors.white,
@@ -70,7 +72,7 @@ class Nextpage extends GetView<LoginPageController> {
                       ),
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
-                          name: '',
+                          name: 'Years of Experience',
                           textInputType: TextInputType.number,
                           hintText: 'Years of Experience',
                           controller: controller.experience),
@@ -100,7 +102,7 @@ class Nextpage extends GetView<LoginPageController> {
                         'Specialization',
                         'Specialization',
                       ),
-                      SizedBox(height: 20.h),
+                      sb30(),
                       Button(
                         margin: EdgeInsets.zero,
                         width: Get.width,
@@ -167,8 +169,9 @@ class Nextpage extends GetView<LoginPageController> {
                           }
                           controller.signUp();
                         },
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(20),
                       ),
+                      sb20(),
                     ],
                   ),
                 ),
