@@ -35,14 +35,24 @@ class SearchResult extends GetView<SearchResultController> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: EdgeInsets.all(EraTheme.paddingWidth),
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 10.h,),
+              EraText(
+                text: "Property searches made simple.",
+                fontSize: 26.sp,
+                fontWeight: FontWeight.bold,
+                color: AppColors.kRedColor,
+              ),
+              SizedBox(height: 10.h,),
               BoxWidget.build(
                 child: Column(
                   children: [
-                    SizedBox(height: 10.h),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Obx(() {
                       if (!controller.showFullSearch.value) {
                         return AppTextField(
@@ -57,7 +67,6 @@ class SearchResult extends GetView<SearchResultController> {
                       }
                       return Container();
                     }),
-
                     SizedBox(height: 5.h),
                     GestureDetector(
                       onTap: () {
@@ -298,7 +307,7 @@ class SearchResult extends GetView<SearchResultController> {
                           text: 'QUICK LINKS',
                           fontSize: 25.sp,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.kRedColor,
+                          color: AppColors.black,
                         ),
                         SizedBox(height: 10.h),
                         SingleChildScrollView(
@@ -570,17 +579,23 @@ class SearchResult extends GetView<SearchResultController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10.h),
+          SizedBox(height: 5.h),
           Obx((){
             if(controller.searchQuery.value == ""){
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   EraText(
-                    text: 'Showcased Listing'.toUpperCase(),
+                    text: 'Showcased Listing',
                     fontSize: 23.sp,
-                    color: AppColors.blue,
-                    fontWeight: FontWeight.w600,
+                    color: AppColors.kRedColor,
+                    fontWeight: FontWeight.w800,
+                  ),
+                  EraText(
+                    text: 'Explore Our Top Picks',
+                    fontSize: 17.sp,
+                    color: AppColors.black,
+                    fontWeight: FontWeight.w300,
                   ),
                   SizedBox(height: 10.h,)
                 ],

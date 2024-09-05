@@ -59,6 +59,7 @@ class SearchResultController extends GetxController {
     data.clear();
     searchResultState.value = SearchResultState.loading;
     try {
+      print(Get.arguments);
       if (Get.arguments == null || Get.arguments.isEmpty) {
         var tempData = [];
         for (int i = 0; i < settings!.featuredListings!.length; i++) {
@@ -68,8 +69,10 @@ class SearchResultController extends GetxController {
         }
         loadData(tempData);
       } else {
+
         loadData(Get.arguments[0]);
         searchQuery.value = Get.arguments[1];
+
       }
     } catch (e, ex) {
       print(ex);

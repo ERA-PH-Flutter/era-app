@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../global.dart';
 import '../controllers/contacts_controller.dart';
 
 class Help extends GetView<ContactusController> {
@@ -33,7 +34,7 @@ class Help extends GetView<ContactusController> {
               ),
               SizedBox(height: 10.h),
               EraText(
-                text: 'Account Name,\nWhat do you want to know?',
+                text: '${user != null ? '${user!.firstname} ${user!.lastname},\n'.capitalize : ''}What do you want to know?',
                 fontSize: 25.sp,
                 color: AppColors.kRedColor,
                 fontWeight: FontWeight.w600,

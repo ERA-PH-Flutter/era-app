@@ -197,7 +197,7 @@ class PropertylistAdmin extends StatelessWidget {
                   text: 'QUICK LINKS',
                   fontSize: 25.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.kRedColor,
+                  color: AppColors.black,
                 ),
               ),
               SizedBox(height: 10.h),

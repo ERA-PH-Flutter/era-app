@@ -181,36 +181,10 @@ class Home extends GetView<HomeController> {
                           onSuffixTap: () async {
                             var data;
                             var searchQuery = "";
-                            if (controller.isForSale.value == 1) {
-                              data = await Database().getForSaleListing();
-                              searchQuery = "All For Sale Listings";
-                            } else if (controller.isForSale.value == 2) {
-                              data = await Database().getForRentListing();
-                              searchQuery = "All For Rent Listings";
-                            } else if (controller.aiSearchController.text ==
-                                "") {
-                              data = await Database().searchListing(
-                                  location: controller.locationController.text,
-                                  price: controller.priceController.text,
-                                  property: controller.propertyController.text);
-                              if (controller.locationController.text != "") {
-                                searchQuery +=
-                                    "Location: ${controller.locationController.text}";
-                              } else if (controller.propertyController.text !=
-                                  "") {
-                                searchQuery +=
-                                    "Property Type: ${controller.locationController.text}";
-                              } else if (controller.priceController.text !=
-                                  "") {
-                                searchQuery +=
-                                    "With price less than: ${controller.priceController.text}";
-                              }
-                            } else {
-                              data = await AI(
-                                      query: controller.aiSearchController.text)
-                                  .search();
-                              searchQuery = controller.aiSearchController.text;
-                            }
+                            await AI(
+                                query: controller.aiSearchController.text)
+                                .search();
+                            searchQuery = controller.aiSearchController.text;
                             selectedIndex.value = 2;
                             Get.toNamed("/searchresult",
                                 arguments: [data, searchQuery]);
@@ -429,7 +403,7 @@ class Home extends GetView<HomeController> {
                   text: 'Quick Links',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.kRedColor,
+                  color: AppColors.black,
                 ),
                 SizedBox(height: 10.h),
                 SingleChildScrollView(
@@ -769,14 +743,14 @@ class Home extends GetView<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 40.h,
-              ),
-              SizedBox(
                 height: 30.h,
               ),
               viewOtherProjects(
                   text: 'View other projects',
                   onTap: () => Get.toNamed("/project-main")),
+              SizedBox(
+                height: 20.h,
+              ),
             ],
           ),
         ),

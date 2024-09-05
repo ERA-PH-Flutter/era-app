@@ -299,7 +299,7 @@ class FindProperties extends GetView<ListingController> {
                             text: 'QUICK LINKS',
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w500,
-                            color: AppColors.kRedColor,
+                            color: AppColors.black,
                           ),
                           SizedBox(height: 10.h),
                           SingleChildScrollView(
