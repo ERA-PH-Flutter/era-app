@@ -41,19 +41,23 @@ class SearchResult extends GetView<SearchResultController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10.h,),
+              SizedBox(
+                height: 10.h,
+              ),
               EraText(
                 text: "Property searches made simple.",
                 fontSize: 26.sp,
                 fontWeight: FontWeight.bold,
                 color: AppColors.kRedColor,
               ),
-              SizedBox(height: 10.h,),
+              SizedBox(
+                height: 10.h,
+              ),
               BoxWidget.build(
                 child: Column(
                   children: [
                     SizedBox(height: 10.h),
-                    Obx((){
+                    Obx(() {
                       if (!controller.showFullSearch.value) {
                         return Column(
                           children: [
@@ -69,38 +73,39 @@ class SearchResult extends GetView<SearchResultController> {
                                 onSuffixTap: () async {
                                   var data;
                                   var searchQuery = "";
-                                  data = await AI(query: controller.aiSearchController.text).search();
-                                  searchQuery = controller.aiSearchController.text;
+                                  data = await AI(
+                                          query: controller
+                                              .aiSearchController.text)
+                                      .search();
+                                  searchQuery =
+                                      controller.aiSearchController.text;
                                   selectedIndex.value = 2;
                                   print(data);
                                   Get.offAllNamed("/searchresult",
                                       arguments: [data, searchQuery]);
                                 }),
                             SizedBox(height: 5.h),
-
                           ],
                         );
-                      }else{
+                      } else {
                         return Container();
                       }
-
                     }),
                     GestureDetector(
                       onTap: () {
-                        controller.expanded.value =
-                        !controller.expanded.value;
+                        controller.expanded.value = !controller.expanded.value;
                         controller.showFullSearch.value =
-                        !controller.showFullSearch.value;
+                            !controller.showFullSearch.value;
                       },
                       child: Padding(
                         padding: EdgeInsets.all(10.0.h),
                         child: Obx(() => EraText(
-                          text: controller.expanded.value
-                              ? "Back to AI Search"
-                              : "Filtered Search",
-                          fontSize: 15.sp,
-                          textDecoration: TextDecoration.underline,
-                        )),
+                              text: controller.expanded.value
+                                  ? "Back to AI Search"
+                                  : "Filtered Search",
+                              fontSize: 15.sp,
+                              textDecoration: TextDecoration.underline,
+                            )),
                       ),
                     ),
                     Obx(() {
@@ -108,7 +113,7 @@ class SearchResult extends GetView<SearchResultController> {
                         return Column(
                           children: [
                             Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
                               child: Column(
                                 children: [
                                   SizedBox(height: 10.h),
@@ -118,7 +123,7 @@ class SearchResult extends GetView<SearchResultController> {
                                   AddListings.dropDownAddlistings1(
                                       color: AppColors.white,
                                       selectedItem:
-                                      projectsController.selectedLocation,
+                                          projectsController.selectedLocation,
                                       Types: projectsController.location,
                                       onChanged: (value) => projectsController
                                           .selectedLocation.value = value!,
@@ -126,8 +131,8 @@ class SearchResult extends GetView<SearchResultController> {
                                       hintText: 'Select Location'),
                                   AddListings.dropDownAddlistings1(
                                       color: AppColors.white,
-                                      selectedItem: controller
-                                          .selectedPropertyTypeSearch,
+                                      selectedItem:
+                                          controller.selectedPropertyTypeSearch,
                                       Types: controller.propertyTypeSearch,
                                       onChanged: (value) => controller
                                           .selectedPropertyTypeSearch
@@ -137,16 +142,16 @@ class SearchResult extends GetView<SearchResultController> {
                                   AddListings.dropDownAddlistings1(
                                       color: AppColors.white,
                                       selectedItem:
-                                      controller.selectedPriceSearch,
+                                          controller.selectedPriceSearch,
                                       Types: controller.priceSearch,
                                       onChanged: (value) => controller
                                           .selectedPriceSearch.value = value!,
                                       name: 'Price Range',
                                       hintText: 'Select Price Range'),
                                   Obx(
-                                        () => Row(
+                                    () => Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Row(
                                           children: [
@@ -154,13 +159,12 @@ class SearchResult extends GetView<SearchResultController> {
                                               scale: 1.9,
                                               child: Radio(
                                                   toggleable: true,
-                                                  fillColor:
-                                                  WidgetStateProperty.all(
-                                                      AppColors.white
+                                                  fillColor: WidgetStateProperty
+                                                      .all(AppColors.white
                                                           .withOpacity(0.6)),
                                                   value: 1,
-                                                  groupValue:
-                                                  controller.isForSale.value,
+                                                  groupValue: controller
+                                                      .isForSale.value,
                                                   onChanged: (value) {
                                                     controller.isForSale.value =
                                                         value ?? 0;
@@ -180,13 +184,12 @@ class SearchResult extends GetView<SearchResultController> {
                                               scale: 1.9,
                                               child: Radio(
                                                   toggleable: true,
-                                                  fillColor:
-                                                  WidgetStateProperty.all(
-                                                      AppColors.white
+                                                  fillColor: WidgetStateProperty
+                                                      .all(AppColors.white
                                                           .withOpacity(0.6)),
                                                   value: 2,
-                                                  groupValue:
-                                                  controller.isForSale.value,
+                                                  groupValue: controller
+                                                      .isForSale.value,
                                                   onChanged: (value) {
                                                     controller.isForSale.value =
                                                         value ?? 0;
@@ -208,12 +211,13 @@ class SearchResult extends GetView<SearchResultController> {
                                     width: Get.width,
                                     child: ElevatedButton.icon(
                                       style: ButtonStyle(
-                                        backgroundColor: WidgetStateProperty.all(
-                                            AppColors.white),
+                                        backgroundColor:
+                                            WidgetStateProperty.all(
+                                                AppColors.white),
                                         shape: WidgetStateProperty.all(
                                           RoundedRectangleBorder(
                                             borderRadius:
-                                            BorderRadius.circular(20),
+                                                BorderRadius.circular(20),
                                           ),
                                         ),
                                       ),
@@ -237,32 +241,39 @@ class SearchResult extends GetView<SearchResultController> {
                                     var data;
                                     var searchQuery = "";
                                     if (controller.isForSale.value == 1) {
-                                      data = await Database().getForSaleListing();
+                                      data =
+                                          await Database().getForSaleListing();
                                       searchQuery = "All For Sale Listings";
-                                    }
-                                    else if (controller.isForSale.value == 2) {
-                                      data = await Database().getForRentListing();
+                                    } else if (controller.isForSale.value ==
+                                        2) {
+                                      data =
+                                          await Database().getForRentListing();
                                       searchQuery = "All For Rent Listings";
-                                    }
-                                    else{
+                                    } else {
                                       data = await Database().searchListing(
-                                          location: Get.find<HomeController>().selectedLocation.value,
-                                          price: Get.find<HomeController>().selectedPriceRange.value,
-                                          property: Get.find<HomeController>().selectedPropertyType.value);
+                                          location: Get.find<HomeController>()
+                                              .selectedLocation
+                                              .value,
+                                          price: Get.find<HomeController>()
+                                              .selectedPriceRange
+                                              .value,
+                                          property: Get.find<HomeController>()
+                                              .selectedPropertyType
+                                              .value);
                                       if (controller.locationController.text !=
                                           "") {
                                         searchQuery +=
-                                        "Location: ${Get.find<HomeController>().selectedLocation.value}";
+                                            "Location: ${Get.find<HomeController>().selectedLocation.value}";
                                       } else if (controller
-                                          .propertyController.text !=
+                                              .propertyController.text !=
                                           "") {
                                         searchQuery +=
-                                        "Property Type: ${Get.find<HomeController>().selectedPropertyType.value}";
+                                            "Property Type: ${Get.find<HomeController>().selectedPropertyType.value}";
                                       } else if (controller
-                                          .priceController.text !=
+                                              .priceController.text !=
                                           "") {
                                         searchQuery +=
-                                        "With price less than: ${Get.find<HomeController>().selectedPriceRange.value}";
+                                            "With price less than: ${Get.find<HomeController>().selectedPriceRange.value}";
                                       }
                                     }
                                     selectedIndex.value = 2;
@@ -284,7 +295,7 @@ class SearchResult extends GetView<SearchResultController> {
               SizedBox(height: 10.h),
               Obx(() {
                 if (controller.showFullSearch.value == false) {
-                  return QuickLinks(origin:'search');
+                  return QuickLinks(origin: 'search');
                 }
                 return Container();
               }),
@@ -315,8 +326,8 @@ class SearchResult extends GetView<SearchResultController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 5.h),
-          Obx((){
-            if(controller.searchQuery.value == ""){
+          Obx(() {
+            if (controller.searchQuery.value == "") {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -332,10 +343,12 @@ class SearchResult extends GetView<SearchResultController> {
                     color: AppColors.black,
                     fontWeight: FontWeight.w300,
                   ),
-                  SizedBox(height: 10.h,)
+                  SizedBox(
+                    height: 10.h,
+                  )
                 ],
               );
-            }else{
+            } else {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -362,7 +375,7 @@ class SearchResult extends GetView<SearchResultController> {
                 return GestureDetector(
                   onTap: () async {
                     await Database().addViews(listing.id);
-                    Get.toNamed('/propertyInfo', arguments: listing);
+                    Get.offAllNamed('/propertyInfo', arguments: listing);
                   },
                   child: Container(
                     margin: EdgeInsets.only(bottom: 16.h),

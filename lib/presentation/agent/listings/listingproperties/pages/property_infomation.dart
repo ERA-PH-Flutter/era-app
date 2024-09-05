@@ -189,14 +189,16 @@ class PropertyInformation extends GetView<ListingController> {
                                 child: Icon(
                                   shadows: const [
                                     Shadow(
-                                        color: Colors.black38,
-                                        offset: Offset(1, 1),
-                                        blurRadius: 15)
+                                        color: Colors.black,
+                                        offset: Offset(0, 0),
+                                        blurRadius: 20)
                                   ],
                                   user!.favorites!.contains(listing.id)
                                       ? CupertinoIcons.heart_fill
-                                      : CupertinoIcons.heart,
-                                  color: AppColors.kRedColor,
+                                      : CupertinoIcons.heart_fill,
+                                  color: user!.favorites!.contains(listing.id)
+                                      ? AppColors.kRedColor
+                                      : AppColors.white,
                                   size: 45.sp,
                                 )),
                           ),
