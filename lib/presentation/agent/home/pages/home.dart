@@ -29,6 +29,7 @@ import 'package:get/get.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
@@ -142,27 +143,21 @@ class Home extends GetView<HomeController> {
                 ),
               ],
             )),
-        SizedBox(
-          height: 20.h,
-        ),
+        sb20(),
 
         /// Search Engine Box
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: Column(
             children: [
-              SizedBox(
-                height: 5.h,
-              ),
+              sb5(),
               EraText(
                 text: "Property searches made simple.",
                 fontSize: 26.sp,
                 fontWeight: FontWeight.bold,
                 color: AppColors.kRedColor,
               ),
-              SizedBox(
-                height: 10.h,
-              ),
+              sb10(),
               // BoxWidget.build(
               //   child: Column(
               //     children: [
@@ -384,17 +379,13 @@ class Home extends GetView<HomeController> {
               //     ],
               //   ),
               // ),
-
               FilteredSearchBox(),
-
-              SizedBox(height: 15.h),
+              sb15(),
               QuickLinks()
             ],
           ),
         ),
-        SizedBox(
-          height: 30.h,
-        ),
+        sb30(),
 
         /// Listings
         PropertiesWidgets(listingsModels: controller.listingImages),
@@ -414,13 +405,9 @@ class Home extends GetView<HomeController> {
                 fontWeight: FontWeight.w600,
                 color: AppColors.kRedColor),
             ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
-            SizedBox(
-              height: 20.h,
-            ),
+            sb20(),
             CarouselSliderWidget(images: CarouselModels.carouselModels),
-            SizedBox(
-              height: 30.h,
-            ),
+            sb40(),
             Button(
               text: 'LEARN MORE',
               onTap: () {
@@ -432,23 +419,18 @@ class Home extends GetView<HomeController> {
               borderRadius: BorderRadius.circular(30),
             ),
             //laya
-            SizedBox(
-              height: 80.h,
-            ),
+            sb90(),
             ProjectDivider(
                 textImage: ProjectTextImageModels.textImageModels2,
                 height: 150.h,
                 width: 430.w,
                 text: ' '),
-            SizedBox(
-              height: 20.h,
-            ),
-
+            sb20(),
             //temporary carousel
             CarouselSliderWidget(
                 images: CarouselModels.layaCarouselImages,
                 color: AppColors.carouselBgColor),
-            SizedBox(height: 30.h),
+            sb40(),
             Button(
               text: 'LEARN MORE',
               onTap: () {
@@ -461,17 +443,17 @@ class Home extends GetView<HomeController> {
             ),
             //laya
 
-            SizedBox(height: 100.h),
+            sb90(),
             ProjectDivider(
               textImage: ProjectTextImageModels.textImageModels3,
               height: 200.h,
               width: Get.width,
             ),
-            SizedBox(height: 20.h),
+            sb20(),
             CarouselSliderWidget(
                 images: CarouselModels.aureliaCarouselImages,
                 color: AppColors.carouselBgColor),
-            SizedBox(height: 30.h),
+            sb40(),
             Button(
               text: 'LEARN MORE',
               onTap: () {
@@ -482,6 +464,7 @@ class Home extends GetView<HomeController> {
               width: Get.width - 220.w,
               borderRadius: BorderRadius.circular(30),
             ),
+            sb10(),
           ],
         ),
         Padding(
@@ -489,21 +472,16 @@ class Home extends GetView<HomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 30.h,
-              ),
+              sb30(),
               viewOtherProjects(
                   text: 'View other projects',
                   onTap: () => Get.toNamed("/project-main")),
-              SizedBox(
-                height: 20.h,
-              ),
+              sb20(),
             ],
           ),
         ),
-        SizedBox(
-          height: 30.h,
-        ),
+        sb30(),
+
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: Column(
@@ -515,9 +493,7 @@ class Home extends GetView<HomeController> {
                 fontSize: 25.sp,
                 fontWeight: FontWeight.bold,
               ),
-              SizedBox(
-                height: 15.h,
-              ),
+              sb15(),
               EraText(
                 textAlign: TextAlign.center,
                 text: 'You REAL ESTATE agency partner for life!',
@@ -525,18 +501,14 @@ class Home extends GetView<HomeController> {
                 fontSize: 25.sp,
                 fontWeight: FontWeight.bold,
               ),
-              SizedBox(
-                height: 5.h,
-              ),
+              sb5(),
               Divider(
                 color: AppColors.black,
                 thickness: 2.1,
                 indent: 25.w,
                 endIndent: 25.w,
               ),
-              SizedBox(
-                height: 5.h,
-              ),
+              sb5(),
               EraText(
                 textAlign: TextAlign.center,
                 text:
@@ -545,9 +517,7 @@ class Home extends GetView<HomeController> {
                 fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
               ),
-              SizedBox(
-                height: 15.h,
-              ),
+              sb15(),
               EraText(
                 textAlign: TextAlign.center,
                 text:
@@ -559,18 +529,8 @@ class Home extends GetView<HomeController> {
             ],
           ),
         ),
-        // AppDivider(
-        //   button: true,
-        // ),
-        SizedBox(
-          height: 10.h,
-        ),
-        SizedBox(
-          height: 20.h,
-        ),
-        SizedBox(
-          height: 10.h,
-        ),
+
+        sb40(),
 
         /// Featured Listings
         Padding(
@@ -625,9 +585,7 @@ class Home extends GetView<HomeController> {
                                   height: 300.h,
                                 ),
                               ),
-                              SizedBox(
-                                height: 17.h,
-                              ),
+                              sb17(),
                               Container(
                                 width: Get.width,
                                 height: 30.h,
@@ -652,9 +610,7 @@ class Home extends GetView<HomeController> {
                                   lineHeight: 1,
                                 ),
                               ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
+                              sb5(),
                               Row(
                                 //crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -674,7 +630,7 @@ class Home extends GetView<HomeController> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(width: 10.w),
+                                  sbw10(),
                                   Image.asset(
                                     AppEraAssets.bed,
                                     width: 55.w,
@@ -686,7 +642,7 @@ class Home extends GetView<HomeController> {
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.black,
                                   ),
-                                  SizedBox(width: 10.w),
+                                  sbw10(),
                                   Image.asset(
                                     AppEraAssets.tub,
                                     width: 55.w,
@@ -698,7 +654,7 @@ class Home extends GetView<HomeController> {
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.black,
                                   ),
-                                  SizedBox(width: 10.w),
+                                  sbw10(),
                                   Image.asset(
                                     AppEraAssets.car,
                                     width: 55.w,
@@ -712,9 +668,7 @@ class Home extends GetView<HomeController> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
+                              sb5(),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: EraText(
@@ -944,29 +898,23 @@ class Home extends GetView<HomeController> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 30.h,
-                ),
+                sb30(),
                 Button(
                   text: 'BECOME AN ERA AGENT',
                   onTap: () {
                     Get.to(JoinEra());
                   },
                   bgColor: AppColors.kRedColor,
-                  height: EraTheme.buttonHeightSmall,
-                  width: Get.width - 220.w,
+                  height: EraTheme.buttonHeightSmall + 10.h,
+                  width: Get.width - 205.w,
                   borderRadius: BorderRadius.circular(30),
                 ),
-                SizedBox(
-                  height: 40.h,
-                ),
+                sb40(),
               ],
             ),
           ),
         ),
-        SizedBox(
-          height: 40.h,
-        ),
+        sb40(),
       ],
     );
   }

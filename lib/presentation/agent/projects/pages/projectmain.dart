@@ -20,6 +20,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/constants/assets.dart';
+import '../../../../app/constants/sized_box.dart';
 import '../../../../app/widgets/app_textfield.dart';
 import '../../../../app/widgets/filter_options.dart';
 import '../controllers/projects_controller.dart';
@@ -126,8 +127,8 @@ class ProjectMain extends GetView<ProjectsController> {
                                   color: AppColors.white,
                                   selectedItem: controller.selectedLocation,
                                   Types: controller.location,
-                                  onChanged: (value) =>
-                                      controller.selectedLocation.value = value!,
+                                  onChanged: (value) => controller
+                                      .selectedLocation.value = value!,
                                   name: 'Location',
                                   hintText: 'Select Location'),
 
@@ -143,8 +144,8 @@ class ProjectMain extends GetView<ProjectsController> {
                                   color: AppColors.white,
                                   selectedItem: controller.selectedDeveloper,
                                   Types: controller.developerType,
-                                  onChanged: (value) =>
-                                      controller.selectedDeveloper.value = value!,
+                                  onChanged: (value) => controller
+                                      .selectedDeveloper.value = value!,
                                   name: 'Developer Type',
                                   hintText: 'Select Developer Type'),
 
@@ -158,7 +159,8 @@ class ProjectMain extends GetView<ProjectsController> {
                                           .locationController.text,
                                       property: searchController
                                           .propertyController.text);
-                                  if (searchController.locationController.text !=
+                                  if (searchController
+                                          .locationController.text !=
                                       "") {
                                     searchQuery +=
                                         "Location: ${searchController.locationController.text}";
@@ -184,7 +186,8 @@ class ProjectMain extends GetView<ProjectsController> {
                                 selectedIndex.value = 2;
                                 searchController.searchResultState.value =
                                     SearchResultState.loading;
-                                searchController.searchQuery.value = searchQuery;
+                                searchController.searchQuery.value =
+                                    searchQuery;
                                 searchController.expanded.value = false;
                                 searchController.showFullSearch.value = false;
                                 searchController.loadData(data);
@@ -213,7 +216,7 @@ class ProjectMain extends GetView<ProjectsController> {
         CarouselSliderWidget(images: CarouselModels.carouselModels),
         SizedBox(height: 20.h),
         projectContent1(project),
-        SizedBox(height: 20.h),
+        sb60(),
         // //buttons
         Button(
             text: 'VIEW MORE',
@@ -224,7 +227,7 @@ class ProjectMain extends GetView<ProjectsController> {
             borderRadius: BorderRadius.circular(30),
             height: 40.h,
             width: 240.w),
-        SizedBox(height: 80.h),
+        sb90(),
         ProjectDivider(
             textImage: ProjectTextImageModels.textImageModels2,
             height: 150.h,
@@ -236,7 +239,7 @@ class ProjectMain extends GetView<ProjectsController> {
             color: AppColors.carouselBgColor),
         SizedBox(height: 20.h),
         projectContent2(project),
-        SizedBox(height: 60.h),
+        sb60(),
         Button(
           text: 'VIEW MORE',
           onTap: () {
@@ -247,7 +250,8 @@ class ProjectMain extends GetView<ProjectsController> {
           height: 40.h,
           width: 240.w,
         ),
-        SizedBox(height: 80.h),
+        sb90(),
+
         ProjectDivider(
           textImage: ProjectTextImageModels.textImageModels3,
           height: 200.h,
@@ -259,7 +263,8 @@ class ProjectMain extends GetView<ProjectsController> {
             color: AppColors.carouselBgColor),
         SizedBox(height: 30.h),
         projectContent3(project),
-        SizedBox(height: 20.h),
+        sb60(),
+
         Button(
           text: 'VIEW MORE',
           onTap: () {
@@ -270,7 +275,7 @@ class ProjectMain extends GetView<ProjectsController> {
           height: 40.h,
           width: 240.w,
         ),
-        SizedBox(height: 50.h),
+        sb60(),
       ],
     );
   }

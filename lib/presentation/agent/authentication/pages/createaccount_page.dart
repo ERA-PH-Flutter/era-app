@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import '../../../../app/constants/sized_box.dart';
 import '../../listings/add-edit_listings/pages/addlistings.dart';
 import '../controllers/authentication_controller.dart';
 import 'nextPage.dart';
@@ -61,7 +62,7 @@ class CreateAccount extends GetView<LoginPageController> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20.h),
+                      sb20(),
                       EraText(
                           text: 'Password',
                           fontSize: 18.sp,
@@ -99,7 +100,7 @@ class CreateAccount extends GetView<LoginPageController> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20.h),
+                      sb20(),
                       SharedWidgets.textFormfield(
                         name: 'Age',
                         textInputType: TextInputType.number,
@@ -116,9 +117,7 @@ class CreateAccount extends GetView<LoginPageController> {
                       SizedBox(height: 30.h),
                       IntlPhoneField(
                         pickerDialogStyle: PickerDialogStyle(
-                            backgroundColor: Colors.white,
-                            width: Get.width
-                        ),
+                            backgroundColor: Colors.white, width: Get.width),
                         focusNode: FocusNode(),
                         style: TextStyle(
                           color: AppColors.black,
@@ -143,7 +142,6 @@ class CreateAccount extends GetView<LoginPageController> {
                               '${phone.countryCode}${phone.number}';
                         },
                       ),
-
                       SharedWidgets.textFormfield(
                           name: 'example@mail.com',
                           textInputType: TextInputType.text,

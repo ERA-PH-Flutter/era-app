@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../../app/constants/sized_box.dart';
+
 class Inquiry extends StatelessWidget {
   const Inquiry({super.key});
 
@@ -16,7 +18,7 @@ class Inquiry extends StatelessWidget {
       child: Column(
         children: [
           EraText(
-            text: 'INQUIRE NOW FOR DETAILS ON AVAILABILITY AND PRICING',
+            text: 'Inquire now for details on availability and pricing',
             fontSize: 25.sp,
             color: AppColors.kRedColor,
             fontWeight: FontWeight.bold,
@@ -88,10 +90,11 @@ class Inquiry extends StatelessWidget {
                 maxLines: 10,
                 keyboardType: TextInputType.text,
               ),
-              SizedBox(height: 20.h),
+              sb30(),
               Button.button2(Get.width, 48.h, () {
                 // test print('Send');
               }, 'Send'),
+              sb10(),
             ],
           )
         ],

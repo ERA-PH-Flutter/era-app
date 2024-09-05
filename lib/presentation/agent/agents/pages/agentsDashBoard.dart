@@ -588,7 +588,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                       child: Container(
                           height: 100.w,
                           width: 100.w,
-                          decoration: BoxDecoration(boxShadow: [
+                          decoration: BoxDecoration(boxShadow: const [
                             BoxShadow(
                                 offset: Offset(0, 0),
                                 blurRadius: 1,

@@ -6,6 +6,7 @@ import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../app/constants/sized_box.dart';
 import '../controllers/contacts_controller.dart';
 import 'findus.dart';
 
@@ -99,14 +100,14 @@ class DirectContactUs extends GetView<ContactusController> {
           maxLines: 15,
           keyboardType: TextInputType.text,
         ),
-        SizedBox(height: 20.h),
+        sb30(),
         Button.button2(
           Get.width,
           43.h,
           () {},
           'Send',
         ),
-        SizedBox(height: 20.h),
+        sb30(),
       ],
     );
   }
