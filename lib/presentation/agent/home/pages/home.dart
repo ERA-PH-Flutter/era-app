@@ -830,7 +830,7 @@ class Home extends GetView<HomeController> {
               EraText(
                 textAlign: TextAlign.center,
                 text:
-                    'Trust ERA Philippines to guide you through every step of your journey with propessionalism and care.',
+                    'Trust ERA Philippines to guide you through every step of your journey with professionalism and care.',
                 color: AppColors.black.withOpacity(0.7),
                 fontSize: 15.sp,
                 fontWeight: FontWeight.bold,

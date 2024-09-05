@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
+import 'package:eraphilippines/repository/user.dart';
 
 import '../presentation/global.dart';
 
@@ -78,12 +79,12 @@ class Listing {
         owner: json["owner"],
         leads: json["leads"],
         views: json["views"],
-        dateCreated: (json["date_created"] == null
+        dateCreated: (json["date_created"] == null)
             ? DateTime.now()
-            : json["date_created"].toDate()),
-        dateUpdated: (json["date_updated"] == null
+            : json["date_created"].runtimeType == Timestamp ? json["date_created"].toDate() : json["date_created"],
+        dateUpdated: (json["date_updated"] == null)
             ? DateTime.now()
-            : json["date_created"].toDate()),
+        : json["date_updated"].runtimeType == Timestamp ? json["date_updated"].toDate() : json["date_updated"],
         description: json["description"],
         isSold: json["is_sold"],
         latLng: json['latLng'] ?? [0, 0],
@@ -105,7 +106,7 @@ class Listing {
       "type": type,
       "sub_category": subCategory,
       "leads": leads,
-      "by": user!.id,
+      "by": (user ?? EraUser.empty()).id,
       "owner": "admin", //todo change to owner field
       "description": description,
       "views": 0,

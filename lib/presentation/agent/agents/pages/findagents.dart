@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -218,12 +219,21 @@ class FindAgents extends GetView<AgentsController> {
 
                   //controller.agentCount.toString()} to count the number of agents
                   SizedBox(height: 20.h),
-                  EraText(
-                    text: "120 ERA Agents",
-                    fontSize: EraTheme.small + 5.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.kRedColor,
-                    textAlign: TextAlign.center,
+                  FutureBuilder(
+                    future: FirebaseFirestore.instance.collection('listings').count().get(),
+                    builder: (data,snapshot){
+                      if(snapshot.hasData){
+                        return EraText(
+                          text: "${snapshot.data!.count} ERA Agents",
+                          fontSize: EraTheme.small + 6.sp,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.kRedColor,
+                          textAlign: TextAlign.center,
+                        );
+                      }else{
+                        return CircularProgressIndicator();
+                      }
+                    },
                   ),
                   EraText(
                     text:
@@ -304,7 +314,7 @@ class FindAgents extends GetView<AgentsController> {
           ),
           EraText(
             fontSize: EraTheme.paragraph,
-            text: "No Agent was Found!",
+            text: "",
             color: Colors.black,
           ),
         ],

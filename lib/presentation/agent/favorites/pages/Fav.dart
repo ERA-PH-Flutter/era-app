@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:eraphilippines/presentation/agent/listings/favorites/controllers/fav_controller.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:device_info/device_info.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'dart:ui' as image;
 import 'package:eraphilippines/app/widgets/app_text.dart';

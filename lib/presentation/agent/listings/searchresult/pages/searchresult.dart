@@ -30,7 +30,6 @@ class SearchResult extends GetView<SearchResultController> {
 
   @override
   Widget build(BuildContext context) {
-    // final FilterController controllers = Get.put(FilterController());
     final ProjectsController projectsController = Get.put(ProjectsController());
     return BaseScaffold(
       body: SingleChildScrollView(
@@ -572,19 +571,41 @@ class SearchResult extends GetView<SearchResultController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 10.h),
-          EraText(
-            text: 'SEARCH RESULTS FOR',
-            fontSize: 23.sp,
-            color: AppColors.blue,
-            fontWeight: FontWeight.w600,
-          ),
-          SizedBox(height: 10.h),
-          EraText(
-            text: '“${controller.searchQuery}”',
-            fontSize: 22.sp,
-            color: AppColors.black,
-            fontWeight: FontWeight.w500,
-          ),
+          Obx((){
+            if(controller.searchQuery.value == ""){
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  EraText(
+                    text: 'Showcased Listing'.toUpperCase(),
+                    fontSize: 23.sp,
+                    color: AppColors.blue,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  SizedBox(height: 10.h,)
+                ],
+              );
+            }else{
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  EraText(
+                    text: 'SEARCH RESULTS FOR',
+                    fontSize: 23.sp,
+                    color: AppColors.blue,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  SizedBox(height: 10.h),
+                  EraText(
+                    text: '“${controller.searchQuery}”',
+                    fontSize: 22.sp,
+                    color: AppColors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ],
+              );
+            }
+          }),
           SizedBox(height: 10.h),
           ListView.builder(
             physics: const ScrollPhysics(),

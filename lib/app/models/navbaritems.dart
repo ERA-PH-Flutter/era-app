@@ -38,7 +38,7 @@ List<AppPngAssets> navBarItems = [
       selectedIcon: AppEraAssets.search1,
       label: "SEARCH",
       selectedLabel: "SEARCH",
-      onTap: () => Get.offAllNamed("/searchresult")),
+      onTap: () => Get.toNamed("/searchresult")),
   AppPngAssets(
       defaultIcon: AppEraAssets.findagents,
       selectedIcon: AppEraAssets.findagents1,
