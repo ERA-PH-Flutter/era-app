@@ -25,6 +25,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
   Widget build(BuildContext context) {
     return BaseScaffold(
       body: SingleChildScrollView(
+        controller: controller.scrollController,
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: EraTheme.paddingWidth, vertical: 16.h),
@@ -109,6 +110,9 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                   ),
                 ),
                 hintText: 'eg: 10%',
+                onChanged: (value){
+                  //controller.downP.value = value == "" ? "0" : (controller.propertyAmount.text.toDouble() * value.toInt() /100).toString();
+                },
                 keyboardType: TextInputType.number,
                 controller: controller.downPayment,
                 maxLines: 1,
@@ -164,12 +168,19 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w500,
                 onTap: () async {
-                  controller.initialAmount.value = (controller
-                              .propertyAmount.text
-                              .replaceAll(',', '')
-                              .toInt() -
+                  controller.scrollController.animateTo(controller.scrollController.position.maxScrollExtent, duration: Duration(seconds: 1), curve: Curves.easeInOut);
+                  var initial = controller
+                      .propertyAmount.text
+                      .replaceAll(',', '')
+                      .toInt();
+                  controller.downP.value = (controller.downPayment.text.toInt() *
+                          initial /
+                          100).toString().replaceAllMapped(
+                      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                          (Match m) => '${m[1]},');
+                  controller.initialAmount.value = (initial -
                           (controller.downPayment.text.toInt() *
-                              controller.propertyAmount.text.toInt() /
+                              initial /
                               100))
                       .toDouble();
                   var loanTerms = (controller.loanTerm.text.toInt() * 12);
@@ -188,6 +199,25 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                     symbol: 'Php ',
                   ).format(controller.monthlyAmount.value);
                 },
+              ),
+              SizedBox(height: 20.h),
+              Center(
+                child: EraText(
+                  text: 'Downpayment',
+                  fontSize: 20.sp,
+                  color: AppColors.black,
+                ),
+              ),
+              Obx(()=>Center(
+                child: EraText(
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 50.sp,
+                        color: AppColors.downPayment,
+                        fontWeight: FontWeight.bold),
+                    text: controller.downP.value,
+                  ),
+              ),
               ),
               SizedBox(height: 20.h),
               Center(

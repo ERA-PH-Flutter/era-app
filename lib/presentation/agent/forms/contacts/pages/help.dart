@@ -34,11 +34,19 @@ class Help extends GetView<ContactusController> {
               ),
               SizedBox(height: 10.h),
               EraText(
-                text: '${user != null ? '${user!.firstname} ${user!.lastname},\n'.capitalize : ''}What do you want to know?',
+                text: '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
+                fontSize: 20.sp,
+                color: AppColors.black,
+                fontWeight: FontWeight.w600,
+              ),
+              SizedBox(height: 10.h),
+              EraText(
+                text: 'What do you want to know?',
                 fontSize: 25.sp,
                 color: AppColors.kRedColor,
                 fontWeight: FontWeight.w600,
               ),
+
               SizedBox(height: 10.h),
               BoxWidget.build(
                   child: Column(
@@ -204,11 +212,11 @@ class Help extends GetView<ContactusController> {
                   //launchUrl(controller.whatsappUrl);
                 },
                 child: Container(
-                  width: Get.width - 100.w,
+                  width: Get.width - (EraTheme.paddingWidth * 2),
                   height: 45.h,
                   decoration: BoxDecoration(
                     color: AppColors.kRedColor,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(99),
                   ),
                   child: Center(
                     child: EraText(
@@ -233,11 +241,11 @@ class Help extends GetView<ContactusController> {
                   launchUrl(controller.whatsappUrl);
                 },
                 child: Container(
-                  width: Get.width - 100.w,
+                  width: Get.width - (EraTheme.paddingWidth * 2),
                   height: 45.h,
                   decoration: BoxDecoration(
                     color: AppColors.green,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(99),
                   ),
                   child: Center(
                     child: EraText(

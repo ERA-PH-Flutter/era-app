@@ -38,9 +38,9 @@ class BaseScaffold extends StatelessWidget {
     super.key,
     required this.body,
   });
-
   @override
   Widget build(BuildContext context) {
+    //changeIndex(['/home','/project-main', '/searchresult','/findagents','/help'].contains(Get.currentRoute) ? ['/home','/project-main','/searchresult','/findagents','/help'].indexOf(Get.currentRoute) : 0);
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: CustomAppbar(),

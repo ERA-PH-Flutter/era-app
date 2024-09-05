@@ -14,11 +14,13 @@ class MortageCalculatorController extends GetxController with BaseController {
   var monthlyAmount = 1.0.obs;
   var initialAmount = 1.0.obs;
   var interestAmount = 1.0.obs;
+  var scrollController = ScrollController();
   TextEditingController propertyAmount = TextEditingController();
   TextEditingController downPayment = TextEditingController();
   TextEditingController loanTerm = TextEditingController();
   TextEditingController interestRate = TextEditingController();
   TextEditingController monthlyP = TextEditingController();
+  var downP = "".obs;
   void reset() {
     propertyAmount.clear();
     downPayment.clear();

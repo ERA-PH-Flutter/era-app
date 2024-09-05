@@ -16,6 +16,7 @@ import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/settingAgent.dart';
+import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -206,6 +207,68 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
+              SizedBox(
+                height: 100.w,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.favorites.length > 4 ? 4 : controller.favorites.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context,index){
+                    return GestureDetector(
+                      onTap: (){
+                        Get.toNamed('/propertyInfo', arguments: controller.favorites[index]);
+                      },
+                      child: Container(
+                        height: 100.w,
+                        width: 100.w,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0,0),
+                              blurRadius: 1,
+                              spreadRadius: 0.5,
+                              color: Colors.black38
+                            )
+                          ],
+                            borderRadius: BorderRadius.circular(10.r)
+                        ),
+                        margin: EdgeInsets.symmetric(horizontal: 5.w),
+                        child:  Stack(
+                          children: [
+                            Positioned.fill(
+                              child: CloudStorage().imageLoaderProvider(ref: controller.favorites[index].photos.first,height: 100.w,width: 100.w,borderRadius: BorderRadius.circular(10.r)),
+                            ),
+                            Positioned(
+                              bottom:0,
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10.r),
+                                    bottomRight: Radius.circular(10.r)
+                                  )
+                                ),
+                                width: 100.w,
+                                height: 20.h,
+
+                                child: EraText(
+                                  textAlign: TextAlign.center,
+                                  text: controller.favorites[index].name,
+                                  color: Colors.black,
+                                  fontSize: 12.sp,
+                                  textOverflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ),
+                    );
+                  },
+                ),
+              ),
               GestureDetector(
                 onTap: () {
                   Get.toNamed("/fav");
@@ -504,6 +567,69 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                   AppEraAssets.addIcon,
                   height: 110.h,
                   width: 110.w,
+                ),
+              ),
+              //todo insert random
+              SizedBox(
+                height: 100.w,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.listings.length > 5 ? 5 : controller.listings.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context,index){
+                    return GestureDetector(
+                      onTap: (){
+                        Get.toNamed('/propertyInfo', arguments: controller.listings[index]);
+                      },
+                      child: Container(
+                          height: 100.w,
+                          width: 100.w,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: Offset(0,0),
+                                    blurRadius: 1,
+                                    spreadRadius: 0.5,
+                                    color: Colors.black38
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(10.r)
+                          ),
+                          margin: EdgeInsets.symmetric(horizontal: 5.w),
+                          child:  Stack(
+                            children: [
+                              Positioned.fill(
+                                child: CloudStorage().imageLoaderProvider(ref: controller.listings[index].photos.first,height: 100.w,width: 100.w,borderRadius: BorderRadius.circular(10.r)),
+                              ),
+                              Positioned(
+                                bottom:0,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10.r),
+                                          bottomRight: Radius.circular(10.r)
+                                      )
+                                  ),
+                                  width: 100.w,
+                                  height: 20.h,
+
+                                  child: EraText(
+                                    textAlign: TextAlign.center,
+                                    text: controller.listings[index].name,
+                                    color: Colors.black,
+                                    fontSize: 12.sp,
+                                    textOverflow: TextOverflow.ellipsis,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                      ),
+                    );
+                  },
                 ),
               ),
               GestureDetector(

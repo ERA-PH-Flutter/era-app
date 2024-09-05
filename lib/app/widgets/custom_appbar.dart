@@ -161,6 +161,14 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                 ),
                                 child: Column(
                                   children: [
+                                    user != null
+                                        ? _buildMenuCard('MY DASHBOARD', () {
+                                      changeIndex(0);
+                                      Get.offAllNamed("/agentDashBoard");
+                                    },
+                                        Get.currentRoute ==
+                                            '/agentDashBoard')
+                                        : Container(),
                                     _buildMenuCard('FIND PROPERTIES', () {
                                       selectedIndex.value = 0;
                                       Get.offAllNamed("/findproperties");
@@ -177,28 +185,24 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       selectedIndex.value = 0;
                                       Get.offAllNamed("/aboutus");
                                     }, Get.currentRoute == '/aboutus'),
-                                    user != null
-                                        ? _buildMenuCard('MY DASHBOARD', () {
-                                            changeIndex(0);
-                                            Get.offAllNamed("/agentDashBoard");
-                                          },
-                                            Get.currentRoute ==
-                                                '/agentDashBoard')
-                                        : Container(),
+                                    _buildMenuCard('JOIN ERA', () {
+                                      selectedIndex.value = 0;
+                                      Get.offAllNamed("/joinEra");
+                                    }, Get.currentRoute == '/joinEra'),
                                     _buildMenuCard('SELL PROPERTY', () {
                                       selectedIndex.value = 0;
                                       Get.offAllNamed("/sellProperty");
                                     }, Get.currentRoute == '/sellProperty'),
+                                    _buildMenuCard('CONTACT US', () {
+                                      selectedIndex.value = 0;
+                                      Get.offAllNamed("/direct-contactus");
+                                    }, Get.currentRoute == '/direct-contactus'),
                                     _buildMenuCard('MORTGAGE CALCULATOR', () {
                                       selectedIndex.value = 0;
                                       Get.offAllNamed("/mortageCalculator");
                                     },
                                         Get.currentRoute ==
                                             '/mortageCalculator'),
-                                    _buildMenuCard('CONTACT US', () {
-                                      selectedIndex.value = 0;
-                                      Get.offAllNamed("/direct-contactus");
-                                    }, Get.currentRoute == '/direct-contactus'),
                                     Divider(
                                       thickness: 1,
                                       color: Colors.grey,

@@ -22,6 +22,7 @@ class RouteString {
   static String sellingsearchresult = "/selling-search-result";
   static String rentsearchresult = "/rent-search-result";
   static String help = "/help";
+  static String joinEra = "/joinEra";
   static String findagents = "/findagents";
   static String companynews = "/companynews";
   static String propertyInfo = "/propertyInfo";

@@ -546,7 +546,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
               text: name!, fontSize: 18.sp, color: color ?? AppColors.black),
           SizedBox(height: 5.h),
           Obx(
-            () => DropdownButtonFormField<String>(
+                () => DropdownButtonFormField<String>(
               alignment: Alignment.centerLeft,
               decoration: InputDecoration(
                 hintText: hintText,
@@ -595,6 +595,70 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           SizedBox(height: 20.h),
         ],
       ),
+    );
+  }
+
+  static Widget dropDownAddlistings1({
+    RxnString? selectedItem,
+    List<String>? Types,
+    Function(String?)? onChanged,
+    String? name,
+    String? hintText,
+    Color? color,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+            text: name!, fontSize: 18.sp, color: color ?? AppColors.black),
+        SizedBox(height: 5.h),
+        Obx(
+              () => Container(
+            height: 50.h,
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(horizontal: 21.w),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(99),
+
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                //borderRadius: BorderRadius.circular(99),
+                alignment: Alignment.centerLeft,
+                dropdownColor: AppColors.white,
+                focusColor: AppColors.hint,
+                value: selectedItem!.value,
+                style: TextStyle(color: Colors.white),
+                iconEnabledColor: Colors.black,
+                isExpanded: true,
+                isDense: true,
+                hint: Align(
+                  alignment: Alignment.centerLeft,
+                  child: EraText(
+                    text: hintText!,
+                    textAlign: TextAlign.center,
+                    color: Colors.grey,
+                    fontSize: 20.sp,
+                  ),
+                ),
+                items: Types!.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: EraText(
+                      text: value,
+                      color: AppColors.black,
+                      fontSize: 20.sp,
+                    ),
+                  );
+                }).toList(),
+                onChanged: onChanged,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 20.h),
+      ],
     );
   }
 

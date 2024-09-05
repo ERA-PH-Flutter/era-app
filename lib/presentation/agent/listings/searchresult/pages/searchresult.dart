@@ -20,8 +20,10 @@ import 'package:intl/intl.dart';
 import '../../../../../app/services/ai_search.dart';
 import '../../../../../app/services/firebase_database.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
+import '../../../../../app/widgets/quick_links.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
+import '../../../home/controllers/home_controller.dart';
 import '../../listingproperties/pages/findproperties.dart';
 import '../controllers/searchresult_controller.dart';
 
@@ -50,244 +52,226 @@ class SearchResult extends GetView<SearchResultController> {
               BoxWidget.build(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Obx(() {
+                    SizedBox(height: 10.h),
+                    Obx((){
                       if (!controller.showFullSearch.value) {
-                        return AppTextField(
-                            onPressed: () {},
-                            controller: controller.aiSearchController,
-                            hint: 'Use AI Search',
-                            svgIcon: AppEraAssets.ai3,
-                            bgColor: AppColors.white,
-                            isSuffix: true,
-                            obscureText: false,
-                            suffixIcons: AppEraAssets.send);
+                        return Column(
+                          children: [
+                            AppTextField(
+                                onPressed: () {},
+                                controller: controller.aiSearchController,
+                                hint: 'Use AI Search',
+                                svgIcon: AppEraAssets.ai3,
+                                bgColor: AppColors.white,
+                                isSuffix: true,
+                                obscureText: false,
+                                suffixIcons: AppEraAssets.send,
+                                onSuffixTap: () async {
+                                  var data;
+                                  var searchQuery = "";
+                                  data = await AI(query: controller.aiSearchController.text).search();
+                                  searchQuery = controller.aiSearchController.text;
+                                  selectedIndex.value = 2;
+                                  print(data);
+                                  Get.offAllNamed("/searchresult",
+                                      arguments: [data, searchQuery]);
+                                }),
+                            SizedBox(height: 5.h),
+
+                          ],
+                        );
+                      }else{
+                        return Container();
                       }
-                      return Container();
+
                     }),
-                    SizedBox(height: 5.h),
                     GestureDetector(
                       onTap: () {
-                        controller.expanded.value = !controller.expanded.value;
+                        controller.expanded.value =
+                        !controller.expanded.value;
                         controller.showFullSearch.value =
-                            !controller.showFullSearch.value;
+                        !controller.showFullSearch.value;
                       },
                       child: Padding(
                         padding: EdgeInsets.all(10.0.h),
                         child: Obx(() => EraText(
-                              text: controller.expanded.value
-                                  ? "Back to AI Search"
-                                  : "Filtered Search",
-                              fontSize: 15.sp,
-                              textDecoration: TextDecoration.underline,
-                            )),
+                          text: controller.expanded.value
+                              ? "Back to AI Search"
+                              : "Filtered Search",
+                          fontSize: 15.sp,
+                          textDecoration: TextDecoration.underline,
+                        )),
                       ),
                     ),
-
-                    //FILTERED SEARCH
                     Obx(() {
                       if (controller.showFullSearch.value) {
                         return Column(
                           children: [
-                            Column(
-                              children: [
-                                SizedBox(height: 10.h),
-                                //Location same with projects
-                                AddListings.dropDownAddlistings(
-                                    color: AppColors.white,
-                                    selectedItem:
-                                        projectsController.selectedLocation,
-                                    Types: projectsController.location,
-                                    onChanged: (value) => projectsController
-                                        .selectedLocation.value = value!,
-                                    name: 'Location',
-                                    hintText: 'Select Location'),
-
-                                AddListings.dropDownAddlistings(
-                                    color: AppColors.white,
-                                    selectedItem:
-                                        controller.selectedPropertyTypeSearch,
-                                    Types: controller.propertyTypeSearch,
-                                    onChanged: (value) => controller
-                                        .selectedPropertyTypeSearch
-                                        .value = value!,
-                                    name: 'Property Type',
-                                    hintText: 'Select Property Type'),
-                                AddListings.dropDownAddlistings(
-                                    color: AppColors.white,
-                                    selectedItem:
-                                        controller.selectedPriceSearch,
-                                    Types: controller.priceSearch,
-                                    onChanged: (value) => controller
-                                        .selectedPriceSearch.value = value!,
-                                    name: 'Price Range',
-                                    hintText: 'Select Price Range'),
-
-                                // AppTextField(
-                                //   controller: controller.locationController,
-                                //   hint: 'Location',
-                                //   svgIcon: AppEraAssets.marker,
-                                //   bgColor: AppColors.white,
-                                // ),
-                                // //property type
-                                // SizedBox(height: 20.h),
-                                // AppTextField(
-                                //   controller: controller.propertyController,
-                                //   hint: 'Property Type',
-                                //   svgIcon: AppEraAssets.house,
-                                //   bgColor: AppColors.white,
-                                // ),
-                                // //price range
-                                // SizedBox(height: 20.h),
-                                // AppTextField(
-                                //   controller: controller.priceController,
-                                //   hint: 'Price Range',
-                                //   svgIcon: AppEraAssets.money,
-                                //   bgColor: AppColors.white,
-                                // ),
-                                //ai search
-
-                                Obx(
-                                  () => Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Transform.scale(
-                                            scale: 1.9,
-                                            child: Radio(
-                                                fillColor:
-                                                    WidgetStateProperty.all(
-                                                        AppColors.white
-                                                            .withOpacity(0.6)),
-                                                value: 1,
-                                                groupValue:
-                                                    controller.isForSale.value,
-                                                onChanged: (value) {
-                                                  controller.isForSale.value =
-                                                      value ?? 0;
-                                                }),
-                                          ),
-                                          EraText(
-                                              text: 'BUY',
-                                              color: AppColors.white
-                                                  .withOpacity(0.6),
-                                              fontSize: 15.0.sp,
-                                              fontWeight: FontWeight.w500),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Transform.scale(
-                                            scale: 1.9,
-                                            child: Radio(
-                                                fillColor:
-                                                    WidgetStateProperty.all(
-                                                        AppColors.white
-                                                            .withOpacity(0.6)),
-                                                value: 2,
-                                                groupValue:
-                                                    controller.isForSale.value,
-                                                onChanged: (value) {
-                                                  controller.isForSale.value =
-                                                      value ?? 0;
-                                                }),
-                                          ),
-                                          EraText(
-                                              text: 'RENT',
-                                              color: AppColors.white
-                                                  .withOpacity(0.6),
-                                              fontSize: 15.0.sp,
-                                              fontWeight: FontWeight.w500),
-                                        ],
-                                      ),
-                                    ],
+                            Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 10.h),
+                                  //notesfornikkoo
+                                  //Location new changes the location has the same properties with the searchresult,projectmain, home, and find agents
+                                  //proterty type, price range, >> home, projectmain, searchresult
+                                  AddListings.dropDownAddlistings1(
+                                      color: AppColors.white,
+                                      selectedItem:
+                                      projectsController.selectedLocation,
+                                      Types: projectsController.location,
+                                      onChanged: (value) => projectsController
+                                          .selectedLocation.value = value!,
+                                      name: 'Location',
+                                      hintText: 'Select Location'),
+                                  AddListings.dropDownAddlistings1(
+                                      color: AppColors.white,
+                                      selectedItem: controller
+                                          .selectedPropertyTypeSearch,
+                                      Types: controller.propertyTypeSearch,
+                                      onChanged: (value) => controller
+                                          .selectedPropertyTypeSearch
+                                          .value = value!,
+                                      name: 'Property Type',
+                                      hintText: 'Select Property Type'),
+                                  AddListings.dropDownAddlistings1(
+                                      color: AppColors.white,
+                                      selectedItem:
+                                      controller.selectedPriceSearch,
+                                      Types: controller.priceSearch,
+                                      onChanged: (value) => controller
+                                          .selectedPriceSearch.value = value!,
+                                      name: 'Price Range',
+                                      hintText: 'Select Price Range'),
+                                  Obx(
+                                        () => Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Transform.scale(
+                                              scale: 1.9,
+                                              child: Radio(
+                                                  toggleable: true,
+                                                  fillColor:
+                                                  WidgetStateProperty.all(
+                                                      AppColors.white
+                                                          .withOpacity(0.6)),
+                                                  value: 1,
+                                                  groupValue:
+                                                  controller.isForSale.value,
+                                                  onChanged: (value) {
+                                                    controller.isForSale.value =
+                                                        value ?? 0;
+                                                  }),
+                                            ),
+                                            EraText(
+                                                text: 'BUY',
+                                                color: AppColors.white
+                                                    .withOpacity(0.6),
+                                                fontSize: 15.0.sp,
+                                                fontWeight: FontWeight.w500),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Transform.scale(
+                                              scale: 1.9,
+                                              child: Radio(
+                                                  toggleable: true,
+                                                  fillColor:
+                                                  WidgetStateProperty.all(
+                                                      AppColors.white
+                                                          .withOpacity(0.6)),
+                                                  value: 2,
+                                                  groupValue:
+                                                  controller.isForSale.value,
+                                                  onChanged: (value) {
+                                                    controller.isForSale.value =
+                                                        value ?? 0;
+                                                  }),
+                                            ),
+                                            EraText(
+                                                text: 'RENT',
+                                                color: AppColors.white
+                                                    .withOpacity(0.6),
+                                                fontSize: 15.0.sp,
+                                                fontWeight: FontWeight.w500),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 10.h),
-                                SizedBox(
-                                  width: Get.width,
-                                  child: ElevatedButton.icon(
-                                    style: ButtonStyle(
-                                      backgroundColor: WidgetStateProperty.all(
-                                          AppColors.white),
-                                      shape: WidgetStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                  SizedBox(height: 10.h),
+                                  SizedBox(
+                                    width: Get.width,
+                                    child: ElevatedButton.icon(
+                                      style: ButtonStyle(
+                                        backgroundColor: WidgetStateProperty.all(
+                                            AppColors.white),
+                                        shape: WidgetStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(20),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    onPressed: () {
-                                      openFilterDialog();
-                                    },
-                                    label: EraText(
-                                      text: 'More Filters',
-                                      color: AppColors.black,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    icon: Icon(
-                                      Icons.filter_alt,
-                                      color: AppColors.black,
+                                      onPressed: () {
+                                        openFilterDialog();
+                                      },
+                                      label: EraText(
+                                        text: 'More Filters',
+                                        color: AppColors.black,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      icon: Icon(
+                                        Icons.filter_alt,
+                                        color: AppColors.black,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(height: 20.h),
-                                SearchWidget.build(() async {
-                                  var data;
-                                  var searchQuery = "";
-                                  if (controller.isForSale.value == 1) {
-                                    data = await Database().getForSaleListing();
-                                    searchQuery = "All For Sale Listings";
-                                  } else if (controller.isForSale.value == 2) {
-                                    data = await Database().getForRentListing();
-                                    searchQuery = "All For Rent Listings";
-                                  } else if (controller
-                                          .aiSearchController.text ==
-                                      "") {
-                                    data = await Database().searchListing(
-                                        location:
-                                            controller.locationController.text,
-                                        price: controller.priceController.text,
-                                        property:
-                                            controller.propertyController.text);
-                                    if (controller.locationController.text !=
-                                        "") {
-                                      searchQuery +=
-                                          "Location: ${controller.locationController.text}";
-                                    } else if (controller
-                                            .propertyController.text !=
-                                        "") {
-                                      searchQuery +=
-                                          "Property Type: ${controller.locationController.text}";
-                                    } else if (controller
-                                            .priceController.text !=
-                                        "") {
-                                      searchQuery +=
-                                          "With price less than: ${controller.priceController.text}";
+                                  SizedBox(height: 20.h),
+                                  SearchWidget.build(() async {
+                                    var data;
+                                    var searchQuery = "";
+                                    if (controller.isForSale.value == 1) {
+                                      data = await Database().getForSaleListing();
+                                      searchQuery = "All For Sale Listings";
                                     }
-                                  } else {
-                                    data = await AI(
-                                            query: controller
-                                                .aiSearchController.text)
-                                        .search();
-                                    searchQuery =
-                                        controller.aiSearchController.text;
-                                  }
-                                  selectedIndex.value = 2;
-                                  controller.searchResultState.value =
-                                      SearchResultState.loading;
-                                  controller.searchQuery.value = searchQuery;
-                                  controller.expanded.value = false;
-                                  controller.showFullSearch.value = false;
-                                  controller.loadData(data);
-                                }),
-                                SizedBox(height: 10.h),
-                              ],
+                                    else if (controller.isForSale.value == 2) {
+                                      data = await Database().getForRentListing();
+                                      searchQuery = "All For Rent Listings";
+                                    }
+                                    else{
+                                      data = await Database().searchListing(
+                                          location: Get.find<HomeController>().selectedLocation.value,
+                                          price: Get.find<HomeController>().selectedPriceRange.value,
+                                          property: Get.find<HomeController>().selectedPropertyType.value);
+                                      if (controller.locationController.text !=
+                                          "") {
+                                        searchQuery +=
+                                        "Location: ${Get.find<HomeController>().selectedLocation.value}";
+                                      } else if (controller
+                                          .propertyController.text !=
+                                          "") {
+                                        searchQuery +=
+                                        "Property Type: ${Get.find<HomeController>().selectedPropertyType.value}";
+                                      } else if (controller
+                                          .priceController.text !=
+                                          "") {
+                                        searchQuery +=
+                                        "With price less than: ${Get.find<HomeController>().selectedPriceRange.value}";
+                                      }
+                                    }
+                                    selectedIndex.value = 2;
+                                    Get.offAllNamed("/searchresult",
+                                        arguments: [data, searchQuery]);
+                                  }),
+                                  SizedBox(height: 20.h),
+                                ],
+                              ),
                             ),
                           ],
                         );
@@ -300,256 +284,7 @@ class SearchResult extends GetView<SearchResultController> {
               SizedBox(height: 10.h),
               Obx(() {
                 if (controller.showFullSearch.value == false) {
-                  return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextListing(
-                          text: 'QUICK LINKS',
-                          fontSize: 25.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.black,
-                        ),
-                        SizedBox(height: 10.h),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.agricultural, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('sub_category',
-                                            isEqualTo: 'Agricultural')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Apartments']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.apartment, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('sub_category',
-                                            isEqualTo: 'Apartment')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Apartments']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.commercial, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('type', isEqualTo: 'Commercial')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Commercial']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(AppEraAssets.condo,
-                                  () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('type', isEqualTo: 'Condominium')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Condominium']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.factory, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('type', isEqualTo: 'Factory')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Condotel']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(AppEraAssets.farm,
-                                  () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('type', isEqualTo: 'Farm')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Condotel']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(AppEraAssets.hotel,
-                                  () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('sub_category',
-                                            isEqualTo: 'Hotel')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Houses']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.housenlot, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('sub_category',
-                                            isEqualTo: 'House and Lot')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Houses']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.house1, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('sub_category',
-                                            isEqualTo: 'House')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Houses']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(AppEraAssets.lot,
-                                  () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('sub_category', isEqualTo: 'Lot')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Lands']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.industrial, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('sub_category',
-                                            isEqualTo: 'Industrial Lot')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Lands']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.office, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('view', isEqualTo: 'Office')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Water Fronts']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.parkingLot, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('view',
-                                            isEqualTo: 'Parking Slot')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Water Fronts']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.residential, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('view', isEqualTo: 'Resort')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Water Fronts']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.townhouse, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('view', isEqualTo: 'Townhouse')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Water Fronts']);
-                              }),
-                              SizedBox(width: 15.w),
-                              FindProperties.quickSearchIcon(
-                                  AppEraAssets.warehouse, () async {
-                                var listings = (await FirebaseFirestore.instance
-                                        .collection('listings')
-                                        .where('view', isEqualTo: 'Warehouse')
-                                        .get())
-                                    .docs;
-                                var data = listings.map((listing) {
-                                  return listing.data();
-                                }).toList();
-                                Get.toNamed("/searchresult",
-                                    arguments: [data, 'All Water Fronts']);
-                              }),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 10.h),
-                      ]);
+                  return QuickLinks(origin:'search');
                 }
                 return Container();
               }),
@@ -605,18 +340,12 @@ class SearchResult extends GetView<SearchResultController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   EraText(
-                    text: 'SEARCH RESULTS FOR',
+                    text: 'Here\'s what I found for you!',
                     fontSize: 23.sp,
                     color: AppColors.blue,
                     fontWeight: FontWeight.w600,
                   ),
                   SizedBox(height: 10.h),
-                  EraText(
-                    text: '“${controller.searchQuery}”',
-                    fontSize: 22.sp,
-                    color: AppColors.black,
-                    fontWeight: FontWeight.w500,
-                  ),
                 ],
               );
             }

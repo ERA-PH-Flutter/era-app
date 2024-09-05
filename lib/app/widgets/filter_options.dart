@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -111,43 +112,51 @@ class PriceRangeFilter extends StatelessWidget {
 class RoomsAndBedsFilter extends StatelessWidget {
   final FilterController controller;
 
-  const RoomsAndBedsFilter({super.key, required this.controller});
+  RoomsAndBedsFilter({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildCounterRow('Bedrooms'),
+        _buildCounterRow('Bedrooms',controller.bedrooms),
         SizedBox(height: 15.h),
-        _buildCounterRow('Bathrooms'),
+        _buildCounterRow('Bathrooms',controller.bathrooms),
         SizedBox(height: 15.h),
-        _buildCounterRow('Garage'),
+        _buildCounterRow('Garage',controller.beds),
       ],
     );
   }
 
-  Widget _buildCounterRow(String label) {
+
+  Widget _buildCounterRow(String label,bedrooms) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         EraText(text: label, fontSize: 18, color: AppColors.black),
         Row(
           children: [
-            _buildCounterButton(CupertinoIcons.minus),
+            _buildCounterButton(CupertinoIcons.minus,(){
+              bedrooms--;
+            }),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: EraText(text: '0', fontSize: 18, color: AppColors.black),
+              child: Obx(()=>EraText(text: bedrooms.value.toString(), fontSize: 18, color: AppColors.black),)
             ),
-            _buildCounterButton(CupertinoIcons.add),
+            _buildCounterButton(CupertinoIcons.add,(){
+              bedrooms++;
+            }),
           ],
         ),
       ],
     );
   }
 
-  InkWell _buildCounterButton(IconData icon) {
+  InkWell _buildCounterButton(IconData icon,onpressed) {
     return InkWell(
-      child: Icon(icon),
+      child: IconButton(
+        onPressed: onpressed,
+        icon: Icon(icon)
+      ),
     );
   }
 }
@@ -200,7 +209,7 @@ Widget _buildFloorAreaFilter({
               SizedBox(
                 width: 180.w,
                 child: TextformfieldWidget(
-                  hintText: hintText ?? '0 sqm',
+                  hintText: hintText ?? 'sqm',
                   contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
                   keyboardType: TextInputType.number,
                   controller: controller,
@@ -217,7 +226,7 @@ Widget _buildFloorAreaFilter({
               SizedBox(
                 width: 180.w,
                 child: TextformfieldWidget(
-                  hintText: hintText2 ?? '20000 sqm',
+                  hintText: hintText2 ?? 'sqm',
                   contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
                   keyboardType: TextInputType.number,
                   controller: controller,
@@ -296,16 +305,16 @@ void openFilterDialog() {
                   _buildFloorAreaFilter(
                     controller: controller.floorAreaController,
                     title: 'Floor Area',
-                    hintText: '0',
-                    hintText2: '20000 ',
+                    hintText: 'sqm',
+                    hintText2: 'sqm ',
                   ),
                   SizedBox(height: 20.h),
 
                   _buildFloorAreaFilter(
                     controller: controller.floorAreaController,
                     title: 'Price per sqm',
-                    hintText: '0 per sqm',
-                    hintText2: '1M per sqm',
+                    hintText: 'php',
+                    hintText2: 'php',
                   )
                 ],
               )),

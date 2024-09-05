@@ -17,6 +17,7 @@ import 'package:eraphilippines/presentation/agent/projects/controllers/projects_
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FindAgents extends GetView<AgentsController> {
   const FindAgents({super.key});
@@ -103,7 +104,7 @@ class FindAgents extends GetView<AgentsController> {
                                 Column(
                                   children: [
                                     SizedBox(height: 10.h),
-                                    AddListings.dropDownAddlistings(
+                                    AddListings.dropDownAddlistings1(
                                         color: AppColors.white,
                                         selectedItem:
                                             projectsController.selectedLocation,
@@ -112,32 +113,43 @@ class FindAgents extends GetView<AgentsController> {
                                             .selectedLocation.value = value!,
                                         name: 'Location',
                                         hintText: 'Select Location'),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: EraTheme.paddingWidth),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          EraText(
-                                              text: 'Name',
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        EraText(
+                                            text: 'Name',
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.white),
+                                        SizedBox(height: 5.h),
+                                        Container(
+                                          height:50.h,
+                                          child: TextformfieldWidget(
+                                            style: TextStyle(
                                               fontSize: 20.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: AppColors.white),
-                                          SizedBox(height: 5.h),
-                                          TextformfieldWidget(
+                                              color: AppColors.hint,
+                                              height: 0.0,
+                                              fontFamily:
+                                              GoogleFonts.lato(fontWeight: FontWeight.w400).fontFamily,
+                                            ),
+                                            contentPadding: EdgeInsets.symmetric(horizontal:EraTheme.paddingWidth),
+                                            radius: 99,
                                             controller: controller.agentName,
                                             hintText: 'Find Agent by Name',
                                             maxLines: 1,
                                             keyboardType: TextInputType.text,
                                             hintstlye: TextStyle(
-                                                color: AppColors.hint,
-                                                fontSize:
-                                                    EraTheme.paragraph + 2.sp),
+                                              fontSize: 20.sp,
+                                              color: AppColors.hint,
+                                              height: 0.0,
+                                              fontFamily:
+                                              GoogleFonts.lato(fontWeight: FontWeight.w400).fontFamily,
+                                            ),
                                           ),
-                                          SizedBox(height: 20.h),
-                                        ],
-                                      ),
+                                        ),
+                                        SizedBox(height: 20.h),
+                                      ],
                                     ),
                                     SizedBox(height: 20.h),
                                     SearchWidget.build(() {
@@ -220,7 +232,7 @@ class FindAgents extends GetView<AgentsController> {
                   //controller.agentCount.toString()} to count the number of agents
                   SizedBox(height: 20.h),
                   FutureBuilder(
-                    future: FirebaseFirestore.instance.collection('listings').count().get(),
+                    future: FirebaseFirestore.instance.collection('users').count().get(),
                     builder: (data,snapshot){
                       if(snapshot.hasData){
                         return EraText(

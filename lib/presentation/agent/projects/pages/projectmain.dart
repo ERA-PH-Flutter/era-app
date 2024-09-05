@@ -75,15 +75,18 @@ class ProjectMain extends GetView<ProjectsController> {
                 SizedBox(height: 10.h),
                 Obx(() {
                   if (!searchController.showFullSearch.value) {
-                    return AppTextField(
-                        onPressed: () {},
-                        controller: searchController.aiSearchController,
-                        hint: 'Use AI Search',
-                        svgIcon: AppEraAssets.ai3,
-                        bgColor: AppColors.white,
-                        isSuffix: true,
-                        obscureText: false,
-                        suffixIcons: AppEraAssets.send);
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: AppTextField(
+                          onPressed: () {},
+                          controller: searchController.aiSearchController,
+                          hint: 'Use AI Search',
+                          svgIcon: AppEraAssets.ai3,
+                          bgColor: AppColors.white,
+                          isSuffix: true,
+                          obscureText: false,
+                          suffixIcons: AppEraAssets.send),
+                    );
                   }
                   return Container();
                 }),
@@ -113,79 +116,82 @@ class ProjectMain extends GetView<ProjectsController> {
                   if (searchController.showFullSearch.value) {
                     return Column(
                       children: [
-                        Column(
-                          children: [
-                            //different controller for each dropdown
-                            //Location
-                            AddListings.dropDownAddlistings(
-                                color: AppColors.white,
-                                selectedItem: controller.selectedLocation,
-                                Types: controller.location,
-                                onChanged: (value) =>
-                                    controller.selectedLocation.value = value!,
-                                name: 'Location',
-                                hintText: 'Select Location'),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          child: Column(
+                            children: [
+                              //different controller for each dropdown
+                              //Location
+                              AddListings.dropDownAddlistings1(
+                                  color: AppColors.white,
+                                  selectedItem: controller.selectedLocation,
+                                  Types: controller.location,
+                                  onChanged: (value) =>
+                                      controller.selectedLocation.value = value!,
+                                  name: 'Location',
+                                  hintText: 'Select Location'),
 
-                            AddListings.dropDownAddlistings(
-                                color: AppColors.white,
-                                selectedItem: controller.selectedPropertyType,
-                                Types: controller.propertType,
-                                onChanged: (value) => controller
-                                    .selectedPropertyType.value = value!,
-                                name: 'Property Type',
-                                hintText: 'Select Property Type'),
-                            AddListings.dropDownAddlistings(
-                                color: AppColors.white,
-                                selectedItem: controller.selectedDeveloper,
-                                Types: controller.developerType,
-                                onChanged: (value) =>
-                                    controller.selectedDeveloper.value = value!,
-                                name: 'Developer Type',
-                                hintText: 'Select Developer Type'),
+                              AddListings.dropDownAddlistings1(
+                                  color: AppColors.white,
+                                  selectedItem: controller.selectedPropertyType,
+                                  Types: controller.propertType,
+                                  onChanged: (value) => controller
+                                      .selectedPropertyType.value = value!,
+                                  name: 'Property Type',
+                                  hintText: 'Select Property Type'),
+                              AddListings.dropDownAddlistings1(
+                                  color: AppColors.white,
+                                  selectedItem: controller.selectedDeveloper,
+                                  Types: controller.developerType,
+                                  onChanged: (value) =>
+                                      controller.selectedDeveloper.value = value!,
+                                  name: 'Developer Type',
+                                  hintText: 'Select Developer Type'),
 
-                            SearchWidget.build(() async {
-                              var data;
-                              var searchQuery = "";
-                              if (searchController.aiSearchController.text ==
-                                  "") {
-                                data = await Database().searchListing(
-                                    location: searchController
-                                        .locationController.text,
-                                    property: searchController
-                                        .propertyController.text);
-                                if (searchController.locationController.text !=
+                              SearchWidget.build(() async {
+                                var data;
+                                var searchQuery = "";
+                                if (searchController.aiSearchController.text ==
                                     "") {
-                                  searchQuery +=
-                                      "Location: ${searchController.locationController.text}";
-                                } else if (searchController
-                                        .propertyController.text !=
-                                    "") {
-                                  searchQuery +=
-                                      "Property Type: ${searchController.locationController.text}";
-                                } else if (searchController
-                                        .priceController.text !=
-                                    "") {
-                                  searchQuery +=
-                                      "With price less than: ${searchController.priceController.text}";
+                                  data = await Database().searchListing(
+                                      location: searchController
+                                          .locationController.text,
+                                      property: searchController
+                                          .propertyController.text);
+                                  if (searchController.locationController.text !=
+                                      "") {
+                                    searchQuery +=
+                                        "Location: ${searchController.locationController.text}";
+                                  } else if (searchController
+                                          .propertyController.text !=
+                                      "") {
+                                    searchQuery +=
+                                        "Property Type: ${searchController.locationController.text}";
+                                  } else if (searchController
+                                          .priceController.text !=
+                                      "") {
+                                    searchQuery +=
+                                        "With price less than: ${searchController.priceController.text}";
+                                  }
+                                } else {
+                                  data = await AI(
+                                          query: searchController
+                                              .aiSearchController.text)
+                                      .search();
+                                  searchQuery =
+                                      searchController.aiSearchController.text;
                                 }
-                              } else {
-                                data = await AI(
-                                        query: searchController
-                                            .aiSearchController.text)
-                                    .search();
-                                searchQuery =
-                                    searchController.aiSearchController.text;
-                              }
-                              selectedIndex.value = 2;
-                              searchController.searchResultState.value =
-                                  SearchResultState.loading;
-                              searchController.searchQuery.value = searchQuery;
-                              searchController.expanded.value = false;
-                              searchController.showFullSearch.value = false;
-                              searchController.loadData(data);
-                            }),
-                            SizedBox(height: 10.h),
-                          ],
+                                selectedIndex.value = 2;
+                                searchController.searchResultState.value =
+                                    SearchResultState.loading;
+                                searchController.searchQuery.value = searchQuery;
+                                searchController.expanded.value = false;
+                                searchController.showFullSearch.value = false;
+                                searchController.loadData(data);
+                              }),
+                              SizedBox(height: 10.h),
+                            ],
+                          ),
                         ),
                       ],
                     );

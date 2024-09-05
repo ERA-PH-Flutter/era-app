@@ -59,7 +59,6 @@ class SearchResultController extends GetxController {
     data.clear();
     searchResultState.value = SearchResultState.loading;
     try {
-      print(Get.arguments);
       if (Get.arguments == null || Get.arguments.isEmpty) {
         var tempData = [];
         for (int i = 0; i < settings!.featuredListings!.length; i++) {

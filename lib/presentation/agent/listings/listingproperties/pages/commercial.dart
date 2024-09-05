@@ -488,7 +488,7 @@ class Commercial extends GetView<ListingController> {
                 }),
                 SizedBox(height: 10.h),
                 EraText(
-                  text: 'SEARCH RESULTS FOR',
+                  text: 'Heres What I Found For You',
                   fontSize: 23.sp,
                   color: AppColors.blue,
                   fontWeight: FontWeight.w600,

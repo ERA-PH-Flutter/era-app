@@ -73,7 +73,7 @@ class ProjectsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _initializeWebViews();
+    //_initializeWebViews();
     isLoading.value = false;
   }
 

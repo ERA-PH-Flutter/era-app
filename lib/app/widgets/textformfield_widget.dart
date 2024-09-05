@@ -16,6 +16,7 @@ class TextformfieldWidget extends StatelessWidget {
   final Color? color;
   final String? Function(String?)? validator;
   final bool? readOnly;
+  final double? radius;
   final void Function(String)? onChanged;
 
   const TextformfieldWidget({
@@ -34,6 +35,7 @@ class TextformfieldWidget extends StatelessWidget {
     this.validator,
     this.readOnly,
     this.onChanged,
+    this.radius
   });
 
   @override
@@ -56,14 +58,14 @@ class TextformfieldWidget extends StatelessWidget {
         fillColor: AppColors.white,
         filled: true,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(radius ?? 10),
           borderSide: BorderSide(
             color: color ?? AppColors.black,
             width: 1.5,
           ),
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(radius ?? 10),
         ),
       ),
     );

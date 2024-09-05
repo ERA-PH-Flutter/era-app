@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -5,7 +7,9 @@ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../../../../app/widgets/button.dart';
 import 'contact_us.dart';
 
 class AboutUs extends StatelessWidget {
@@ -19,56 +23,69 @@ class AboutUs extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                child: EraText(
-                    text: 'ABOUT US',
-                    fontSize: EraTheme.header,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blue),
-              ),
-              SizedBox(height: 5.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                child: EraText(
-                    text: 'Why join ERA Philippines?',
-                    fontSize: EraTheme.subHeader,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.kRedColor),
-              ),
-              SizedBox(height: 15.h),
               Image.asset(
                 'assets/images/aboutuspic.png',
                 fit: BoxFit.contain,
                 width: 500.w,
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 15.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                 child: EraText(
-                    text:
-                        'At ERA Philippines, we take great pride in our sterling brand reputation. As an integral part of the largest international real estate network in the Asia-Pacific region, we provide our agents with abundant opportunities for personal and professional growth.\n\nWhat sets us apart is our commitment to fostering a supportive environment. Through mentorship programs and comprehensive training initiatives, we ensure that our agents are not just equipped with the necessary knowledge, but also receive the guidance and encouragement they need to thrive.\n\nWe understand that success is built on the dedication and hard work of individuals. That\'s why we strive to provide a warm and welcoming community where everyone feels valued. Moreover, we provide a favorable commission structure as we believe in recognizing and rewarding excellence.\n\nAt ERA Philippines, we\'re not just in the business of real estate; we\'re in the business of empowering people to achieve their dreams.\n\nStill searching for the ideal job position?\n\nWe are actively looking for talented individuals to join our team and contribute to our success. Join us in shaping the future of real estate! Start a fulfilling career with ERA Philippines by sending your resume to careers@eraphilippines.com. We\'ll reach out if your skillset aligns with our requirements.',
-                    maxLines: 50,
-                    fontSize: EraTheme.paragraph,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black),
+                    text: 'About Us',
+                    fontSize: EraTheme.header - 4.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.kRedColor),
+              ),
+              SizedBox(height: 10.h),
+              _buildDescription('Welcome to a new ERA of property discovery and management.'),
+              SizedBox(height: 20.h,),
+              _buildDescription('ERA Philippines is a proud member of ERA Real Estate, the largest real estate network in the Asia-Pacific region with more than 23,400 trusted advisers in over 640 offices across 13 countries. We provide exceptional real estate services, guiding you through buying, selling, and investing.'),
+              SizedBox(height: 20.h,),
+              _buildDescription('We are committed to revolutionizing your real estate experience through innovative technology and unparalleled service. Our mission is to make property transactions seamless, transparent, and tailored to your unique needs.'),
+              SizedBox(height: 20.h,),
+              _buildDescription('We envision a world where searching for and managing real estate is as simple as a few taps on your phone. With the ERA Philippines app, we aim to redefine the property landscape in the Philippines by providing cutting-edge tools and resources that enable you to make informed decisions with confidence.'),
+              SizedBox(height: 20.h,),
+              _buildDescription('At ERA Philippines, we empower you to achieve your real estate dreams. Discover the ERA difference today!'),
+              SizedBox(height: 20.h),
+              _buildDescription('What We Do',fontWeight: FontWeight.w600,fontSize: EraTheme.header - 4.sp,color:AppColors.kRedColor),
+              SizedBox(height: 20.h),
+              Wrap(
+                children: [
+                  _buildDescription('Real Estate Brokerage Services:',fontWeight: FontWeight.w600),
+                  _buildDescription('Discover unparalleled expertise and personalized guidance with our premier real estate brokerage services. Whether you’re buying, selling, or investing, our seasoned professionals are committed to guiding you through every step of the process.'),
+                ],
               ),
               SizedBox(height: 20.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                child: EraText(
-                  text: 'Want to know more?',
-                  fontSize: EraTheme.paragraph + 3.sp,
-                  color: AppColors.kRedColor,
-                  fontWeight: FontWeight.w600,
-                ),
+              Wrap(
+                children: [
+                  _buildDescription('Agent & Broker Training:',fontWeight: FontWeight.w600),
+                  _buildDescription('Elevate the careers of our agents and brokers with our comprehensive training and development programs. Our courses are designed to enhance their skills and boost their success, covering everything from mastering market trends and effective client communication to advanced negotiation tactics and cutting-edge technology.'),
+                ],
               ),
               SizedBox(height: 20.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                child: ContactUs.contacts(),
+              Wrap(
+                children: [
+                  _buildDescription('Franchise Arrangements:',fontWeight: FontWeight.w600),
+                  _buildDescription('Explore limitless possibilities of real estate franchising through our dynamic franchise arrangements. As part of our network, you’ll benefit from a proven business model, robust marketing support, and extensive operational resources tailored to maximize your growth and profitability.'),
+                ],
               ),
+              SizedBox(height: 20.h),
+              Wrap(
+                children: [
+                  _buildDescription('Property Valuation: ',fontWeight: FontWeight.w600),
+                  _buildDescription('Accurate property valuation is the cornerstone of successful real estate transactions. At ERA Philippines, we offer meticulous property valuation services designed to provide clarity and confidence to buyers, sellers, and investors alike. Backed by comprehensive market analysis and expert insights, our valuation process ensures you receive an informed and fair assessment of your property’s worth.'),
+                ],
+              ),
+              SizedBox(height: 40.h,)
+              // SizedBox(
+              //   width: Get.width,
+              //   child: Button(
+              //     text: "Get Started",
+              //     bgColor: AppColors.kRedColor,
+              //
+              //   ),
+              // )
             ],
           ),
         ),
@@ -76,15 +93,32 @@ class AboutUs extends StatelessWidget {
     );
   }
 
-  Widget text(String text) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 30.w),
-        child: EraText(
+  _buildDescription(text,{fontWeight,fontSize,color}){
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+      child: EraText(
           text: text,
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w500,
-          color: AppColors.black,
           maxLines: 50,
-        ));
+          fontSize: fontSize ?? EraTheme.paragraph,
+          fontWeight: fontWeight ?? FontWeight.w500 ,
+          color: color ?? AppColors.black),
+    );
+  }
+
+  Widget text(String text) {
+    return Column(
+      children: [
+        Container(
+            padding: EdgeInsets.symmetric(horizontal: 30.w),
+            child: EraText(
+              text: text,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.black,
+              maxLines: 50,
+            )),
+
+      ],
+    );
   }
 }
