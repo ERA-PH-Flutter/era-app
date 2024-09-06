@@ -2,10 +2,13 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../app/widgets/navigation/customenavigationbar.dart';
+import '../../../global.dart';
 import '../controllers/authentication_controller.dart';
 
 class LoginPage extends GetView<LoginPageController> {
@@ -25,7 +28,9 @@ class LoginPage extends GetView<LoginPageController> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed("/home");
+                    pageViewController = PageController(initialPage: 0);
+                    currentRoute = '/home';
+                    Get.offAll(BaseScaffold(),binding: HomeBinding());
                   },
                   child: Icon(
                     CupertinoIcons.forward,
