@@ -68,6 +68,7 @@ class PropertiesWidgets extends StatelessWidget {
       searchQuery = "Auction Listings";
     }
     selectedIndex.value = 2;
+    pageViewController = PageController(initialPage: 2);
     currentRoute = '/searchresult';
     Get.offAll(BaseScaffold(),
         arguments: [data, searchQuery]);
