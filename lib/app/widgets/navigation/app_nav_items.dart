@@ -73,7 +73,7 @@ class AppNavItems extends StatelessWidget {
             pageViewController = PageController(initialPage: 4);
             Get.offAll(BaseScaffold());
           }
-        } : (){},
+        } : null,
         child: Container(
           height: 70.h < 75 ? 70.h : 75,
           alignment: Alignment.center,
