@@ -20,15 +20,18 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
     AwesomeNotifications().setListeners(
-        onActionReceivedMethod:         NotificationServices.onActionReceivedMethod,
-        onNotificationCreatedMethod:    NotificationServices.onNotificationCreatedMethod,
-        onNotificationDisplayedMethod:  NotificationServices.onNotificationDisplayedMethod,
-        onDismissActionReceivedMethod:  NotificationServices.onDismissActionReceivedMethod
-    );
+        onActionReceivedMethod: NotificationServices.onActionReceivedMethod,
+        onNotificationCreatedMethod:
+            NotificationServices.onNotificationCreatedMethod,
+        onNotificationDisplayedMethod:
+            NotificationServices.onNotificationDisplayedMethod,
+        onDismissActionReceivedMethod:
+            NotificationServices.onDismissActionReceivedMethod);
   }
+//    Size designSize = kIsWeb ? Size(1920, 1080) : Size(768, 1024);
 
   @override
   Widget build(BuildContext context) {

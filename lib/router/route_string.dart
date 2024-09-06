@@ -37,6 +37,7 @@ class RouteString {
   static String soldP = "/soldP";
   static String sellProperty = "/sellProperty";
   static String directContactUs = "/direct-contactus";
+  static String nextPage = "/nextPage";
 
   //admin
   static String landingPage = "/landingPage";

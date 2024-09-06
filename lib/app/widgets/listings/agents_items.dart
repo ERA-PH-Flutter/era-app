@@ -44,7 +44,7 @@ class AgentsItems extends StatelessWidget {
             () => AnimatedContainer(
               duration: Duration(milliseconds: 2000),
               curve: Curves.fastEaseInToSlowEaseOut,
-              height: selected.value ? 340.h : 280.h,
+              height: selected.value ? 350.h : 300.h,
               width: 500.w,
               // margin: EdgeInsets.only(top: 120.h, left: 60.w, right: 60.w),
               margin: selected.value
@@ -149,7 +149,6 @@ class AgentsItems extends StatelessWidget {
                                 arguments: [agentInfo.id]);
                           },
                           bgColor: AppColors.kRedColor,
-                          height: 30.h,
                           width: 200.w,
                           fontWeight: FontWeight.w400,
                           margin: EdgeInsets.symmetric(horizontal: 35),
@@ -248,7 +247,6 @@ class AgentsItems extends StatelessWidget {
                                 binding: AgentListingsBinding());
                           },
                           bgColor: AppColors.kRedColor,
-                          height: 38.h,
                           width: 200.w,
                           fontWeight: FontWeight.w400,
                           margin: EdgeInsets.symmetric(horizontal: 35),

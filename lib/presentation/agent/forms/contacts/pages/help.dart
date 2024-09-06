@@ -216,7 +216,7 @@ class Help extends GetView<ContactusController> {
                 },
                 child: Container(
                   width: Get.width - (EraTheme.paddingWidth * 2),
-                  height: 45.h,
+                  height: EraTheme.buttonHeightSmall,
                   decoration: BoxDecoration(
                     color: AppColors.kRedColor,
                     borderRadius: BorderRadius.circular(99),
@@ -245,7 +245,7 @@ class Help extends GetView<ContactusController> {
                 },
                 child: Container(
                   width: Get.width - (EraTheme.paddingWidth * 2),
-                  height: 45.h,
+                  height: EraTheme.buttonHeightSmall,
                   decoration: BoxDecoration(
                     color: AppColors.green,
                     borderRadius: BorderRadius.circular(99),

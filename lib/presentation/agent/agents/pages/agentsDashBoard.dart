@@ -45,112 +45,112 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(),
-      body: SingleChildScrollView(
-        controller: controller.scrollController,
-        scrollDirection: Axis.vertical,
-        child: SafeArea(
-          child: Obx(() {
-            if (controller.agentDashboardState.value ==
-                AgentDashboardState.loading) {
-              return _loading();
-            } else {
-              return Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: EraTheme.paddingWidth, vertical: 10.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            EraText(
-                              text: 'MY DASHBOARD',
-                              color: AppColors.blue,
-                              fontSize: EraTheme.header,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            settingIcon(() {
-                              Get.to(() => SettingsPage());
-                            }),
-                          ],
-                        ),
-                        SizedBox(height: 10.h),
-                        AgentInfoWidget.agentInformation(
-                          user!.image != null
-                              ? user!.image!
-                              : AppStrings.noUserImageWhite,
-                          '${user!.firstname}',
-                          '${user!.lastname}',
-                          '${user!.whatsApp}',
-                          '${user!.email}',
-                          '${user!.role}',
-                        ),
-                        SizedBox(height: 25.h),
-                        Button(
-                          fontSize: EraTheme.paragraph - 2.sp,
-                          width: Get.width - 100.w,
-                          height: 43.h,
-                          text: 'MORTGAGE CALCULATOR',
-                          borderRadius: BorderRadius.circular(20),
-                          bgColor: AppColors.kRedColor,
-                          onTap: () {
-                            Get.toNamed("/mortageCalculator");
-                          },
-                        ),
-                        SizedBox(height: 25.h),
-                        myListings(),
-                        SizedBox(height: 25.h),
-                        favorites(),
-                        SizedBox(height: 25.h),
-                        archivedListing(),
-                        SizedBox(height: 25.h),
-                        soldProperties(),
-                        SizedBox(height: 25.h),
-                        myTrainings(),
-                        SizedBox(height: 25.h),
-                        findAgentsandOffices(),
-                        SizedBox(height: 25.h),
+        appBar: CustomAppbar(),
+        body: SingleChildScrollView(
+          controller: controller.scrollController,
+          scrollDirection: Axis.vertical,
+          child: SafeArea(
+            child: Obx(() {
+              if (controller.agentDashboardState.value ==
+                  AgentDashboardState.loading) {
+                return _loading();
+              } else {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: EraTheme.paddingWidth, vertical: 10.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              EraText(
+                                text: 'MY DASHBOARD',
+                                color: AppColors.blue,
+                                fontSize: EraTheme.header,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              settingIcon(() {
+                                Get.to(() => SettingsPage());
+                              }),
+                            ],
+                          ),
+                          SizedBox(height: 10.h),
+                          AgentInfoWidget.agentInformation(
+                            user!.image != null
+                                ? user!.image!
+                                : AppStrings.noUserImageWhite,
+                            '${user!.firstname}',
+                            '${user!.lastname}',
+                            '${user!.whatsApp}',
+                            '${user!.email}',
+                            '${user!.role}',
+                          ),
+                          SizedBox(height: 25.h),
+                          Button(
+                            fontSize: EraTheme.paragraph - 2.sp,
+                            width: Get.width - 100.w,
+                            text: 'MORTGAGE CALCULATOR',
+                            borderRadius: BorderRadius.circular(20),
+                            bgColor: AppColors.kRedColor,
+                            onTap: () {
+                              Get.toNamed("/mortageCalculator");
+                            },
+                          ),
+                          SizedBox(height: 25.h),
+                          myListings(),
+                          SizedBox(height: 25.h),
+                          favorites(),
+                          SizedBox(height: 25.h),
+                          archivedListing(),
+                          SizedBox(height: 25.h),
+                          soldProperties(),
+                          SizedBox(height: 25.h),
+                          myTrainings(),
+                          SizedBox(height: 25.h),
+                          findAgentsandOffices(),
+                          SizedBox(height: 25.h),
 
-                        // eraMerch(),
-                      ],
+                          // eraMerch(),
+                        ],
+                      ),
                     ),
-                  ),
-                  latestNews(),
-                  SizedBox(height: 25.h),
-                ],
-              );
-            }
-          }),
+                    latestNews(),
+                    SizedBox(height: 25.h),
+                  ],
+                );
+              }
+            }),
+          ),
         ),
-      ),
-      bottomNavigationBar: Obx((){
+        bottomNavigationBar: Obx(() {
           controller.scrolling.value;
           var index = 0;
           return AnimatedContainer(
-              duration: Duration(milliseconds: 500),
-              //transform: !controller.scrolling.value ? Matrix4.translationValues(0,  (70.h < 75 ? 70.h : 75), 0) : Matrix4.translationValues(0, 0, 0),
-              alignment: Alignment.center,
-              height: controller.scrolling.value ? (70.h < 75 ? 70.h : 75) : 0,
-              color:AppColors.blue,
-              width: Get.width,
-              child: controller.scrolling.value ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: navBarItems.map((item) {
-                  String iconPath = item.defaultIcon;
-                  index++;
-                  return AppNavItems(
-                      index: index,
-                      iconPath: iconPath,
-                      label: item.label,
-                      isActive: false);
-                }).toList(),
-              ) : Row(),
+            duration: Duration(milliseconds: 500),
+            //transform: !controller.scrolling.value ? Matrix4.translationValues(0,  (70.h < 75 ? 70.h : 75), 0) : Matrix4.translationValues(0, 0, 0),
+            alignment: Alignment.center,
+            height: controller.scrolling.value ? (70.h < 75 ? 70.h : 75) : 0,
+            color: AppColors.blue,
+            width: Get.width,
+            child: controller.scrolling.value
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: navBarItems.map((item) {
+                      String iconPath = item.defaultIcon;
+                      index++;
+                      return AppNavItems(
+                          index: index,
+                          iconPath: iconPath,
+                          label: item.label,
+                          isActive: false);
+                    }).toList(),
+                  )
+                : Row(),
           );
-        })
-    );
+        }));
   }
 
   _loading() {
@@ -261,7 +261,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                       child: Container(
                           height: 100.w,
                           width: 100.w,
-                          decoration: BoxDecoration(boxShadow: [
+                          decoration: BoxDecoration(boxShadow: const [
                             BoxShadow(
                                 offset: Offset(0, 0),
                                 blurRadius: 1,

@@ -11,9 +11,9 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 
 void main() async {
   await initServices();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  // ]);
   runApp(const App());
 }
 

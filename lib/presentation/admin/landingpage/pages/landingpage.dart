@@ -21,12 +21,18 @@ class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
 
   final List<Widget> _screens = [
-    HomePage(),
-    AddPropertyAdmin(),
+    //user management
+    //Add option to delete/update and agen
+    AgentProfileAdmin(),
+    //
     ApprovedAgents(),
     AddAgent(),
     Roster(),
-    AgentProfileAdmin(),
+
+    //content management
+    HomePage(),
+    AddPropertyAdmin(),
+
     PropertylistAdmin(),
     AddPropertyAdmin(),
     EditPropertyAdmin(),
@@ -164,16 +170,22 @@ class LandingPage extends GetView<LandingPageController> {
   Widget _buildSidebarMenu() => ListView(
         children: [
           _buildExpansionTile(
-            text: "DASHBOARD",
+            text: "USER MANAGEMENT",
             image: AppEraAssets.dashboard,
             children: [
-              _buildMenuItem('HOME', 0),
-              _buildMenuItem('PROPERTIES & AGENTS', 1),
-              _buildMenuItem('REVIEWS', 2),
+              _buildMenuItem('VIEW ALL AGENTS/BROKERS', 0),
+
+              _buildMenuItem('ADD AGENT', 4),
+              _buildMenuItem('APPROVAL NEW AGENT', 3),
+              _buildMenuItem('ROSTER', 5),
+              _buildMenuItem('AGENT PROFILE', 6),
+              // _buildMenuItem('HOME', 0),
+              // _buildMenuItem('PROPERTIES & AGENTS', 1),
+              // _buildMenuItem('REVIEWS', 2),
             ],
           ),
           _buildExpansionTile(
-            text: "AGENTS",
+            text: "PROPERTY MANAGEMENT",
             image: AppEraAssets.agentDash,
             children: [
               _buildMenuItem('APPROVAL NEW AGENT', 3),
@@ -183,7 +195,7 @@ class LandingPage extends GetView<LandingPageController> {
             ],
           ),
           _buildExpansionTile(
-            text: "LISTINGS",
+            text: "CONTENT MANAGEMENT",
             image: AppEraAssets.listingDash,
             children: [
               _buildMenuItem('PROPERTY LIST', 7),
@@ -203,13 +215,43 @@ class LandingPage extends GetView<LandingPageController> {
             ],
           ),
           _buildExpansionTile(
-            text: "MESSAGING",
+            text: "NEWS",
             image: AppEraAssets.messagingDash,
             children: [
               _buildMenuItem('APPROVAL NEW AGENT', 15),
               _buildMenuItem('ADD AGENT', 16),
               _buildMenuItem('ROSTER', 17),
               _buildMenuItem('AGENT PROFILE', 18),
+            ],
+          ),
+          _buildExpansionTile(
+            text: "HELP",
+            image: AppEraAssets.settingDash,
+            children: [
+              _buildMenuItem('APPROVAL NEW AGENT', 19),
+              _buildMenuItem('ADD AGENT', 20),
+              _buildMenuItem('ROSTER', 21),
+              _buildMenuItem('AGENT PROFILE', 22),
+            ],
+          ),
+          _buildExpansionTile(
+            text: "MESSAGE/REPORTS",
+            image: AppEraAssets.settingDash,
+            children: [
+              _buildMenuItem('APPROVAL NEW AGENT', 19),
+              _buildMenuItem('ADD AGENT', 20),
+              _buildMenuItem('ROSTER', 21),
+              _buildMenuItem('AGENT PROFILE', 22),
+            ],
+          ),
+          _buildExpansionTile(
+            text: "ANALYTICS",
+            image: AppEraAssets.settingDash,
+            children: [
+              _buildMenuItem('APPROVAL NEW AGENT', 19),
+              _buildMenuItem('ADD AGENT', 20),
+              _buildMenuItem('ROSTER', 21),
+              _buildMenuItem('AGENT PROFILE', 22),
             ],
           ),
           _buildExpansionTile(
@@ -228,12 +270,14 @@ class LandingPage extends GetView<LandingPageController> {
   Widget _buildMenuItem(String title, int pageIndex) => Obx(() {
         final bool isSelected = controller.selectedIndex.value == pageIndex;
         return ListTile(
-          title: Center(
+          title: Container(
+            height: 40.h,
             child: EraText(
+              textAlign: TextAlign.center,
               text: title,
-              lineHeight: 0.2.h,
               fontSize: 12.sp,
               color: isSelected ? AppColors.kRedColor : AppColors.black,
+              maxLines: 2,
             ),
           ),
           onTap: () => controller.onItemTapped(pageIndex),
@@ -252,13 +296,16 @@ class LandingPage extends GetView<LandingPageController> {
           SizedBox(height: 20.h),
           Image.asset(image, height: 80.h),
           SizedBox(height: 5.h),
-          EraText(
-              textOverflow: TextOverflow.ellipsis,
-              text: text,
-              fontSize: 12.sp,
-              maxLines: 1,
-              color: AppColors.blue,
-              fontWeight: FontWeight.w700),
+          Container(
+            height: 40.h,
+            child: EraText(
+                textAlign: TextAlign.center,
+                text: text,
+                fontSize: 12.sp,
+                maxLines: 2,
+                color: AppColors.blue,
+                fontWeight: FontWeight.w700),
+          ),
         ],
       ),
       trailing: const SizedBox(),

@@ -21,7 +21,7 @@ class AgentsController extends GetxController with BaseController {
   var filterName = ''.obs;
   var date = DateTime.now().obs;
   var agentState = AgentsState.loading.obs;
-  var resultText = "FEATURED AGENTS".obs;
+  var resultText = "".obs;
   var results = [].obs;
   var agentCount = [].obs;
   var selectedLocation = RxnString();
@@ -39,11 +39,14 @@ class AgentsController extends GetxController with BaseController {
   }
 
   @override
-  void onInit()async{
+  void onInit() async {
     try {
-      var randomUser = (await FirebaseFirestore.instance.collection('users').get()).docs;
+      var randomUser =
+          (await FirebaseFirestore.instance.collection('users').get()).docs;
       randomUser.shuffle();
-      for(int i = 0;i < (randomUser.length > 6 ? 6 : randomUser.length);i++){
+      for (int i = 0;
+          i < (randomUser.length > 6 ? 6 : randomUser.length);
+          i++) {
         results.add(EraUser.fromJSON(randomUser[i].data()));
       }
       agentState.value = AgentsState.loaded;

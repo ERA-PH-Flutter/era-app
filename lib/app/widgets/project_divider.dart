@@ -35,9 +35,9 @@ class ProjectDivider extends StatelessWidget {
                       height: height ?? 91.h,
                     ),
                     EraText(
-                      text: text ?? item.text ?? '',
+                      text: item.text ?? '',
                       fontSize: fontSize ?? 15.sp,
-                      color: color ?? AppColors.black,
+                      color: color ?? AppColors.hint,
                     ),
                   ],
                 ),

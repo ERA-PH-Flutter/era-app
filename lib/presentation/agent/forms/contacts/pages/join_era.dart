@@ -80,7 +80,7 @@ class JoinEra extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(RouteString.createaccount);
                   },
-                  height: 43.h,
+                  height: 53.h,
                   width: Get.width,
                   text: "Get Started",
                   fontSize: EraTheme.paragraph,

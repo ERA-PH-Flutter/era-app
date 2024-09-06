@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -30,7 +31,7 @@ class LoginPage extends GetView<LoginPageController> {
                   onTap: () {
                     pageViewController = PageController(initialPage: 0);
                     currentRoute = '/home';
-                    Get.offAll(BaseScaffold(),binding: HomeBinding());
+                    Get.offAll(BaseScaffold(), binding: HomeBinding());
                   },
                   child: Icon(
                     CupertinoIcons.forward,
@@ -111,16 +112,16 @@ class LoginPage extends GetView<LoginPageController> {
                               child: Column(
                                 children: [
                                   Button(
-                                      borderRadius: BorderRadius.circular(20),
-                                      width: Get.width,
-                                      onTap: () {
-                                        controller.login();
-                                      },
-                                      text: "L O G I N",
-                                      bgColor: AppColors.kRedColor,
-                                      fontSize: 25.sp,
-                                      fontWeight: FontWeight.w600,
-                                      height: 48.h),
+                                    borderRadius: BorderRadius.circular(20),
+                                    width: Get.width,
+                                    onTap: () {
+                                      controller.login();
+                                    },
+                                    text: "L O G I N",
+                                    bgColor: AppColors.kRedColor,
+                                    fontSize: 25.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                   SizedBox(height: 20.h),
                                   GestureDetector(
                                     onTap: () {
@@ -130,6 +131,25 @@ class LoginPage extends GetView<LoginPageController> {
                                       text: 'Forgot Password?',
                                       color: AppColors.black,
                                       fontSize: 18.sp,
+                                    ),
+                                  ),
+                                  sb80(),
+                                  EraText(
+                                    text: 'Don\'t have an account yet?',
+                                    color: AppColors.black,
+                                    fontSize: 22.sp,
+                                  ),
+                                  sb10(),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed("/joinEra");
+                                    },
+                                    child: EraText(
+                                      text: 'Sign Up',
+                                      color: AppColors.blue,
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.bold,
+                                      textDecoration: TextDecoration.underline,
                                     ),
                                   ),
                                 ],
@@ -142,92 +162,53 @@ class LoginPage extends GetView<LoginPageController> {
                   ],
                 ),
                 SizedBox(height: 10.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(
-                        child: Container(
-                      margin: const EdgeInsets.only(left: 40.0, right: 10.0),
-                      child: Divider(
-                        color: Colors.black,
-                        height: 36,
-                      ),
-                    )),
-                    EraText(
-                      text: 'or',
-                      color: AppColors.black,
-                      fontSize: 18.sp,
-                    ),
-                    Expanded(
-                        child: Container(
-                      margin: const EdgeInsets.only(left: 10.0, right: 40.0),
-                      child: Divider(
-                        color: Colors.black,
-                        height: 36,
-                      ),
-                    )),
+                    // Expanded(
+                    //     child: Container(
+                    //   margin: const EdgeInsets.only(left: 40.0, right: 10.0),
+                    //   child: Divider(
+                    //     color: Colors.black,
+                    //     height: 36,
+                    //   ),
+                    // )),
+
+                    // Expanded(
+                    //     child: Container(
+                    //   margin: const EdgeInsets.only(left: 10.0, right: 40.0),
+                    //   child: Divider(
+                    //     color: Colors.black,
+                    //     height: 36,
+                    //   ),
+                    // )),
                   ],
                 ),
+
                 SizedBox(height: 20.h),
-                //not final
-                // GestureDetector(
+                // Button(
                 //   onTap: () {
-                //     // Get.toNamed("");
+                //     controller.googleLogin();
                 //   },
-                //   child: Container(
-                //     margin: EdgeInsets.symmetric(
-                //       horizontal: 40,
-                //     ),
-                //     height: 40.h,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(10),
-                //       color: AppColors.blue,
-                //     ),
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       children: [
-                //         EraText(
-                //           text: 'G',
-                //           color: AppColors.white,
-                //           fontSize: 30.sp,
-                //           fontWeight: FontWeight.bold,
-                //         ),
-                //         SizedBox(width: 10.w),
-                //         EraText(
-                //           text: 'Sign in with Google',
-                //           color: AppColors.white,
-                //           fontSize: 15.sp,
-                //           fontWeight: FontWeight.w400,
-                //         ),
-                //       ],
-                //     ),
-                //   ),
+                //   borderRadius: BorderRadius.circular(20),
+                //   text: "Sign in with Google",
+                //   bgColor: AppColors.blue,
+                //   fontSize: 25.sp,
+                //   fontWeight: FontWeight.w500,
+                //   width: Get.width,
                 // ),
-                Button(
-                  onTap: () {
-                    controller.googleLogin();
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  text: "Sign in with Google",
-                  bgColor: AppColors.blue,
-                  fontSize: 25.sp,
-                  fontWeight: FontWeight.w500,
-                  width: Get.width,
-                  height: 48.h,
-                ),
-                SizedBox(height: 30.h),
-                Button(
-                  onTap: () {
-                    Get.toNamed("/createaccount");
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  text: "CREATE ACCOUNT",
-                  bgColor: AppColors.kRedColor,
-                  fontSize: 25.sp,
-                  fontWeight: FontWeight.w500,
-                  width: Get.width,
-                  height: 48.h,
-                ),
+                // SizedBox(height: 30.h),
+                // Button(
+                //   onTap: () {
+                //     Get.toNamed("/createaccount");
+                //   },
+                //   borderRadius: BorderRadius.circular(20),
+                //   text: "Create Account",
+                //   bgColor: AppColors.kRedColor,
+                //   fontSize: 25.sp,
+                //   fontWeight: FontWeight.w500,
+                //   width: Get.width,
+                // ),
               ],
             ),
           ),
