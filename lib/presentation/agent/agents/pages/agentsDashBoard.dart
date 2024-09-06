@@ -13,9 +13,13 @@ import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/app/widgets/listings/agentInfo-widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
+import 'package:eraphilippines/presentation/agent/agents/controllers/agents_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/settingAgent.dart';
+import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
+import 'package:eraphilippines/presentation/agent/projects/controllers/projects_binding.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +31,9 @@ import '../../../../app/widgets/custom_appbar.dart';
 import '../../../../app/widgets/navigation/app_nav_items.dart';
 import '../../../../repository/user.dart';
 import '../../../global.dart';
+import '../../home/controllers/home_controller.dart';
+import '../../listings/searchresult/controllers/searchresult_controller.dart';
+import '../../projects/controllers/projects_controller.dart';
 import '../controllers/agent_dashboard_controller.dart';
 
 class AgentDashBoard extends GetView<AgentDashboardController> {
@@ -121,6 +128,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
       ),
       bottomNavigationBar: Obx((){
           controller.scrolling.value;
+          var index = 0;
           return AnimatedContainer(
               duration: Duration(milliseconds: 500),
               //transform: !controller.scrolling.value ? Matrix4.translationValues(0,  (70.h < 75 ? 70.h : 75), 0) : Matrix4.translationValues(0, 0, 0),
@@ -128,16 +136,18 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
               height: controller.scrolling.value ? (70.h < 75 ? 70.h : 75) : 0,
               color:AppColors.blue,
               width: Get.width,
-              child: Row(
+              child: controller.scrolling.value ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: navBarItems.map((item) {
                   String iconPath = item.defaultIcon;
+                  index++;
                   return AppNavItems(
+                      index: index,
                       iconPath: iconPath,
                       label: item.label,
                       isActive: false);
                 }).toList(),
-              )
+              ) : Row(),
           );
         })
     );

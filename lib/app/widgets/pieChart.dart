@@ -85,7 +85,7 @@ class Piechart extends StatelessWidget {
         value = interestAmount;
       } else {
         print(downPayment.toString().toDouble());
-        value = downPayment.toString().toDouble();
+        value = downPayment.toString().replaceAll(',', '').toDouble();
       }
       return PieChartSectionData(
         value: value,

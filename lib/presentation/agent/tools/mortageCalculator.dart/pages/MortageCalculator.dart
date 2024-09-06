@@ -63,7 +63,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                     ),
                     SizedBox(height: 10.h),
                     Obx(() => Piechart(
-                        downPayment: controller.downPayment.text,
+                        downPayment: controller.downP.value,
                         interestAmount: controller.interestAmount.value,
                         initialAmount: controller.initialAmount.value))
                   ],
