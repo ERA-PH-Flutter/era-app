@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/user.dart';
@@ -23,6 +24,7 @@ class AgentsController extends GetxController with BaseController {
   var resultText = "FEATURED AGENTS".obs;
   var results = [].obs;
   var agentCount = [].obs;
+  var selectedLocation = RxnString();
   TextEditingController agentId = TextEditingController();
   TextEditingController agentLocation = TextEditingController();
   TextEditingController agentName = TextEditingController();
@@ -37,18 +39,14 @@ class AgentsController extends GetxController with BaseController {
   }
 
   @override
-  void onInit() {
+  void onInit()async{
     try {
-      var agents = settings!.featuredAgents ?? [];
-
-      if (agents.isNotEmpty) {
-        agents.forEach((agent) async {
-          results.add(await EraUser().getById(agent));
-        });
-        agentState.value = AgentsState.loaded;
-      } else {
-        agentState.value = AgentsState.noFeaturedAgent;
+      var randomUser = (await FirebaseFirestore.instance.collection('users').get()).docs;
+      randomUser.shuffle();
+      for(int i = 0;i < (randomUser.length > 6 ? 6 : randomUser.length);i++){
+        results.add(EraUser.fromJSON(randomUser[i].data()));
       }
+      agentState.value = AgentsState.loaded;
     } catch (e) {
       agentState.value = AgentsState.error;
     }
@@ -61,6 +59,7 @@ class AgentsController extends GetxController with BaseController {
     agentState.value = AgentsState.loading;
     showLoading();
     if (agentName.text != "") {
+      print("aaaaaaaaaaaaaaaaaaaa");
       results.value = (await Database().searchUser(
               searchParam: 'full_name', searchQuery: agentName.text)) ??
           [];
@@ -70,9 +69,9 @@ class AgentsController extends GetxController with BaseController {
               .searchUser(searchParam: 'era_id', searchQuery: agentId.text)) ??
           [];
       hideLoading();
-    } else if (agentLocation.text != "") {
+    } else if (selectedLocation.value != "") {
       results.value = (await Database().searchUser(
-              searchParam: 'location', searchQuery: agentLocation.text)) ??
+              searchParam: 'location', searchQuery: selectedLocation.value)) ??
           [];
       hideLoading();
     } else {

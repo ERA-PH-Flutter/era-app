@@ -106,10 +106,9 @@ class FindAgents extends GetView<AgentsController> {
                                     SizedBox(height: 10.h),
                                     AddListings.dropDownAddlistings1(
                                         color: AppColors.white,
-                                        selectedItem:
-                                            projectsController.selectedLocation,
+                                        selectedItem: controller.selectedLocation,
                                         Types: projectsController.location,
-                                        onChanged: (value) => projectsController
+                                        onChanged: (value) => controller
                                             .selectedLocation.value = value!,
                                         name: 'Location',
                                         hintText: 'Select Location'),
@@ -267,7 +266,7 @@ class FindAgents extends GetView<AgentsController> {
                     color: AppColors.hint,
                     textAlign: TextAlign.start,
                   ),
-                  SizedBox(height: 100.h),
+                  SizedBox(height: 20.h),
                   Obx(() => switch (controller.agentState.value) {
                         AgentsState.loading => _loading(),
                         AgentsState.loaded => _loaded(),
