@@ -4,6 +4,7 @@ import 'package:eraphilippines/presentation/agent/agents/controllers/agent_listi
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/searchresult.dart';
 import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
@@ -113,7 +114,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             }else if(index == 2){
               currentRoute = '/searchresult';
               Get.deleteAll();
-              Get.put(SearchResultController());
+              SearchResultBinding().dependencies();
             }else if(index == 3){
               currentRoute = '/findagents';
               Get.deleteAll();

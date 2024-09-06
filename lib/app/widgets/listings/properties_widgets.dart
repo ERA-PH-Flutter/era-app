@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_card.dart';
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+
+import '../../../presentation/global.dart';
 
 class PropertiesWidgets extends StatelessWidget {
   final List listingsModels;
@@ -64,7 +67,9 @@ class PropertiesWidgets extends StatelessWidget {
       }).toList();
       searchQuery = "Auction Listings";
     }
-    Get.toNamed("/searchresult",
+    selectedIndex.value = 2;
+    currentRoute = '/searchresult';
+    Get.offAll(BaseScaffold(),
         arguments: [data, searchQuery]);
   }
 

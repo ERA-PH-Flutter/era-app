@@ -53,7 +53,6 @@ class SearchResultController extends GetxController {
     " 50M - 100M",
     " 100>",
   ];
-
   @override
   void onInit() async {
     data.clear();
@@ -82,6 +81,7 @@ class SearchResultController extends GetxController {
 
   @override
   void onClose() {
+    //arguments = null;
     Get.delete<SearchResultController>(force: true);
     super.onClose();
   }

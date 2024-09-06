@@ -6,6 +6,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/inbox_widget.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_binding.dart';
+import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
 import 'package:eraphilippines/presentation/agent/projects/controllers/projects_binding.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
@@ -71,7 +72,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                               'assets/images/eraph_logo.png',
                             ),
                             onPressed: () {
-                              Get.toNamed('/home');
+                              selectedIndex.value = 0;
+                              currentRoute = '/home';
+                              Get.offAll(BaseScaffold(),binding: HomeBinding());
                             },
                           )),
                 ],
