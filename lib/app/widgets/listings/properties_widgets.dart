@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_card.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -71,7 +72,7 @@ class PropertiesWidgets extends StatelessWidget {
     pageViewController = PageController(initialPage: 2);
     currentRoute = '/searchresult';
     Get.offAll(BaseScaffold(),
-        arguments: [data, searchQuery]);
+        arguments: [data, searchQuery],binding: SearchResultBinding());
   }
 
   @override
