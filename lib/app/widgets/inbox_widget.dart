@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../presentation/global.dart';
+import 'custom_appbar.dart';
 
 class InboxWidget extends StatelessWidget {
   @override
@@ -117,7 +118,8 @@ class InboxScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: InboxWidget(),
     );
   }

@@ -32,11 +32,11 @@ class MainScreen extends StatelessWidget {
               selectedIndex.value = index;
             },
             children: [
-              BaseScaffold(body: Home()),
-              BaseScaffold(body: ProjectMain()),
-              BaseScaffold(body: SearchResult()),
-              BaseScaffold(body: FindAgents()),
-              BaseScaffold(body: Help()),
+              Scaffold(body: Home()),
+              Scaffold(body: ProjectMain()),
+              Scaffold(body: SearchResult()),
+              Scaffold(body: FindAgents()),
+              Scaffold(body: Help()),
             ],
           ),
           Obx(

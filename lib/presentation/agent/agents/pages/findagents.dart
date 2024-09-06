@@ -27,7 +27,7 @@ class FindAgents extends GetView<AgentsController> {
     SearchResultController searchResultController =
         Get.put(SearchResultController());
     ProjectsController projectsController = Get.put(ProjectsController());
-    return BaseScaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

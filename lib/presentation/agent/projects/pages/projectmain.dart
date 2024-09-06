@@ -30,7 +30,7 @@ class ProjectMain extends GetView<ProjectsController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SafeArea(

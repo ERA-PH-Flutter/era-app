@@ -6,6 +6,8 @@ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../app/widgets/custom_appbar.dart';
+
 class MessageScreen extends StatelessWidget {
   final Message message;
 
@@ -13,7 +15,8 @@ class MessageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.sp),

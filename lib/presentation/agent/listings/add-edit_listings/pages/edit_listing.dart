@@ -14,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 import '../../../../../app/models/geocode.dart';
+import '../../../../../app/widgets/custom_appbar.dart';
 import '../controllers/addlistings_controller.dart';
 import 'addlistings.dart';
 
@@ -22,7 +23,8 @@ class EditListing extends GetView<AddListingsController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+        appBar: CustomAppbar(),
         body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: SafeArea(

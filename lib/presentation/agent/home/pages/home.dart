@@ -44,7 +44,7 @@ class Home extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
       //todo for later
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

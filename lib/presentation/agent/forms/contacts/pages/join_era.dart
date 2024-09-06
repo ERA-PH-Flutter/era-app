@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../../app/widgets/button.dart';
+import '../../../../../app/widgets/custom_appbar.dart';
 import 'contact_us.dart';
 
 class JoinEra extends StatelessWidget {
@@ -20,7 +21,8 @@ class JoinEra extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(

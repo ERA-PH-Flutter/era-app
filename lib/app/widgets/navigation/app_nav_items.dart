@@ -36,7 +36,7 @@ class AppNavItems extends StatelessWidget {
         height: 70.h < 75 ? 70.h : 75,
         alignment: Alignment.center,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(

@@ -8,10 +8,11 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_text_listing.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
+import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
-import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,8 @@ class Residential extends GetView<ListingController> {
     final SearchResultController searchController =
         Get.put(SearchResultController());
 
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

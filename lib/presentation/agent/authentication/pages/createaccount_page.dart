@@ -18,6 +18,7 @@ class CreateAccount extends GetView<LoginPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       backgroundColor: AppColors.kRedColor,
       body: SafeArea(
         child: SingleChildScrollView(

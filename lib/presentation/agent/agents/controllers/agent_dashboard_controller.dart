@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/services/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../app/services/local_storage.dart';
 import '../../../../repository/listing.dart';
@@ -16,6 +17,14 @@ class AgentDashboardController extends GetxController{
     var listings = [].obs;
     var favorites = [].obs;
     var news = [];
+    ScrollController scrollController = ScrollController();
+    RxBool scrolling = false.obs;
+  @override
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
+  }
+
   @override
   void onInit()async{
     listings.value = await Database().searchListingsByUserId(user!.id!);
@@ -25,6 +34,15 @@ class AgentDashboardController extends GetxController{
     listings.shuffle();
     favorites.shuffle();
     await getNews();
+    scrollController.addListener(()async{
+      print(scrolling);
+      if(!scrolling.value){
+        scrolling.value = true;
+        await Future.delayed(Duration(seconds: 4)).then((val){
+          scrolling.value = false;
+        });
+      }
+    });
     super.onInit();
   }
     getNews() async {

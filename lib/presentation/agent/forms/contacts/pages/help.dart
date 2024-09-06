@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../global.dart';
 import '../controllers/contacts_controller.dart';
 
@@ -19,7 +20,7 @@ class Help extends GetView<ContactusController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(EraTheme.paddingWidth),

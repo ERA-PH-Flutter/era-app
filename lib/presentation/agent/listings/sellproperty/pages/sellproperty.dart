@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../../app/widgets/custom_appbar.dart';
 import '../controllers/sellproperty_controller.dart';
 //todo add text
 
@@ -20,7 +21,8 @@ class SellProperty extends GetView<SellPropertyController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+        appBar: CustomAppbar(),
         body: SafeArea(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,

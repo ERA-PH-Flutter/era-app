@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../app/widgets/filteredsearch_box.dart';
 import '../../../../../app/widgets/quick_links.dart';
 import '../../searchresult/controllers/searchresult_controller.dart';
@@ -18,7 +19,8 @@ class Auction extends GetView<ListingController> {
     final SearchResultController searchController =
         Get.put(SearchResultController());
 
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

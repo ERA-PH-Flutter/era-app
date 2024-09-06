@@ -19,6 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../app/services/ai_search.dart';
 import '../../../../../app/services/firebase_database.dart';
+import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../app/widgets/filteredsearch_box.dart';
 import '../controllers/listing_controller.dart';
 
@@ -29,7 +30,8 @@ class FindProperties extends GetView<ListingController> {
   Widget build(BuildContext context) {
     ProjectsController projectsController = Get.put(ProjectsController());
     SearchResultController searchController = Get.put(SearchResultController());
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(

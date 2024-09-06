@@ -5,6 +5,8 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/inbox_widget.dart';
+import 'package:eraphilippines/presentation/agent/agents/controllers/agents_binding.dart';
+import 'package:eraphilippines/presentation/agent/projects/controllers/projects_binding.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/cupertino.dart';
@@ -163,42 +165,46 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                   children: [
                                     user != null
                                         ? _buildMenuCard('MY DASHBOARD', () {
-                                      changeIndex(0);
+                                      currentRoute = '/agentDashBoard';
                                       Get.offAllNamed("/agentDashBoard");
                                     },
                                         Get.currentRoute ==
                                             '/agentDashBoard')
                                         : Container(),
                                     _buildMenuCard('FIND PROPERTIES', () {
-                                      selectedIndex.value = 0;
+                                      currentRoute = '/findproperties';
                                       Get.offAllNamed("/findproperties");
                                     }, Get.currentRoute == '/findproperties'),
                                     _buildMenuCard('PROJECTS', () {
-                                      changeIndex(1);
-                                      Get.offAllNamed("/project-main");
-                                    }, Get.currentRoute == '/project-main'),
+                                      selectedIndex.value = 1;
+                                      pageViewController = PageController(initialPage: 1);
+                                      currentRoute = '/project-main';
+                                      Get.offAll(BaseScaffold(),binding: ProjectsBinding());
+                                    }, currentRoute == '/project-main' || Get.currentRoute == '/project-main'),
                                     _buildMenuCard('FIND AGENTS', () {
-                                      changeIndex(3);
-                                      Get.offAllNamed("/findagents");
-                                    }, Get.currentRoute == '/findagents'),
+                                      selectedIndex.value = 3;
+                                      pageViewController = PageController(initialPage: 3);
+                                      currentRoute = '/findagents';
+                                      Get.offAll(BaseScaffold(),binding: AgentsBinding());
+                                    }, Get.currentRoute == '/findagents' || currentRoute == '/findagents'),
                                     _buildMenuCard('ABOUT US', () {
-                                      selectedIndex.value = 0;
+                                      currentRoute = '/aboutus';
                                       Get.offAllNamed("/aboutus");
                                     }, Get.currentRoute == '/aboutus'),
                                     _buildMenuCard('JOIN ERA', () {
-                                      selectedIndex.value = 0;
+                                      currentRoute = '/joinEra';
                                       Get.offAllNamed("/joinEra");
                                     }, Get.currentRoute == '/joinEra'),
                                     _buildMenuCard('SELL PROPERTY', () {
-                                      selectedIndex.value = 0;
+                                      currentRoute = '/sellProperty';
                                       Get.offAllNamed("/sellProperty");
                                     }, Get.currentRoute == '/sellProperty'),
                                     _buildMenuCard('CONTACT US', () {
-                                      selectedIndex.value = 0;
+                                      currentRoute = '/direct-contactus';
                                       Get.offAllNamed("/direct-contactus");
                                     }, Get.currentRoute == '/direct-contactus'),
                                     _buildMenuCard('MORTGAGE CALCULATOR', () {
-                                      selectedIndex.value = 0;
+                                      currentRoute = '/mortageCalculator';
                                       Get.offAllNamed("/mortageCalculator");
                                     },
                                         Get.currentRoute ==

@@ -10,6 +10,7 @@ import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../app/widgets/custom_appbar.dart';
 import '../controllers/searchresult_controller.dart';
  
 class RentSearchresult extends  GetView<SearchResultController>  {
@@ -17,7 +18,8 @@ class RentSearchresult extends  GetView<SearchResultController>  {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(

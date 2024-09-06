@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../app/widgets/custom_appbar.dart';
 import '../controllers/archived_controller.dart';
 
 class Archived extends GetView<ArchivedController> {
@@ -14,7 +15,8 @@ class Archived extends GetView<ArchivedController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Obx(()=>switch(controller.archiveState.value){

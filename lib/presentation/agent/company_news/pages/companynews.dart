@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/widgets/custom_appbar.dart';
 import '../controllers/companynews_controller.dart';
 
 class CompanyNews extends GetView<CompanyNewsController> {
@@ -18,7 +19,8 @@ class CompanyNews extends GetView<CompanyNewsController> {
   @override
   Widget build(BuildContext context) {
     HomeController homeController = Get.put(HomeController());
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(

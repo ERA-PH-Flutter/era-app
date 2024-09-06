@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:map_location_picker/map_location_picker.dart';
+import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 import '../../../utility/controller/base_controller.dart';
@@ -22,7 +23,8 @@ class AddListings extends GetView<AddListingsController> with BaseController {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+        appBar: CustomAppbar(),
         body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Obx(() => switch (controller.addEditListingsState.value) {

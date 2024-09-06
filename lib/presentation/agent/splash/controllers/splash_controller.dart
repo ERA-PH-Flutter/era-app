@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -62,7 +63,7 @@ class SplashController extends GetxController {
     kIsWeb
         ? Get.toNamed(RouteString.adminLogin) //admingLogin
         : shortestSide < 600
-            ? Get.toNamed(RouteString.home)
-            : Get.toNamed(RouteString.home);
+            ? Get.to(BaseScaffold())
+            : Get.to(BaseScaffold());
   }
 }

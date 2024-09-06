@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../app/constants/assets.dart';
 import '../../../../app/services/firebase_database.dart';
+import '../../../../app/widgets/custom_appbar.dart';
 import '../controllers/agent_listings_controller.dart';
 
 class AgentsMyListing extends GetView<AgentListingsController> {
@@ -24,7 +25,8 @@ class AgentsMyListing extends GetView<AgentListingsController> {
   @override
   Widget build(BuildContext context) {
     print(controller.user);
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         child: Column(
           children: [

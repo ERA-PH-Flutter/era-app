@@ -5,9 +5,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../presentation/agent/listings/listingproperties/pages/findproperties.dart';
+import '../../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
+import '../../presentation/global.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import 'app_text_listing.dart';
+import 'navigation/customenavigationbar.dart';
 
 class QuickLinks extends StatelessWidget {
   String? origin;
@@ -38,8 +41,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult",
-                  arguments: [data, 'All Agricultural Listings']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
               // if(origin == null){
               //
               // }else{
@@ -58,7 +63,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.commercial, () async {
@@ -70,7 +78,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.condo, () async {
@@ -82,7 +93,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.factory, () async {
@@ -94,7 +108,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.farm, () async {
@@ -106,7 +123,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.hotel, () async {
@@ -118,7 +138,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.housenlot, () async {
@@ -130,7 +153,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.toNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.house1, () async {
@@ -142,7 +168,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.lot, () async {
@@ -154,7 +183,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.industrial, () async {
@@ -166,7 +198,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.office, () async {
@@ -178,7 +213,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.parkingLot, () async {
@@ -190,7 +228,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.residential, () async {
@@ -202,7 +243,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.townhouse, () async {
@@ -214,7 +258,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.warehouse, () async {
@@ -226,7 +273,10 @@ class QuickLinks extends StatelessWidget {
               var data = listings.map((listing) {
                 return listing.data();
               }).toList();
-              Get.offAllNamed("/searchresult", arguments: [data, '']);
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
             }),
           ],
         ),

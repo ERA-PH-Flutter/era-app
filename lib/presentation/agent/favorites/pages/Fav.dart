@@ -22,6 +22,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../app/constants/strings.dart';
 import '../../../../app/constants/theme.dart';
+import '../../../../app/widgets/custom_appbar.dart';
 import '../../../../app/widgets/fav/favItems_widgets.dart';
 import '../../../../app/widgets/listings/agentInfo-widget.dart';
 import '../../../../repository/listing.dart';
@@ -33,7 +34,8 @@ class Fav extends GetView<FavController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: WillPopScope(
         onWillPop: () {
           Get.back();

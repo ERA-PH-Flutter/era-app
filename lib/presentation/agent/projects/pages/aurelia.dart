@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../app/widgets/custom_appbar.dart';
 import '../../forms/contacts/controllers/contacts_controller.dart';
 import '../../forms/contacts/pages/findus.dart';
 import '../../forms/contacts/pages/inquiry.dart';
@@ -23,7 +24,8 @@ class AureliaProject extends GetView<ProjectsController> {
   Widget build(BuildContext context) {
     ContactusController contactusController = Get.put(ContactusController());
 
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SafeArea(

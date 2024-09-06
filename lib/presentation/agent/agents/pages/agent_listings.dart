@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../app/constants/assets.dart';
 import '../../../../app/services/firebase_database.dart';
+import '../../../../app/widgets/custom_appbar.dart';
 import '../controllers/agent_listings_controller.dart';
 import 'agentsDashBoard.dart';
 
@@ -21,7 +22,8 @@ class AgentListings extends GetView<AgentListingsController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         child: Column(
           children: [

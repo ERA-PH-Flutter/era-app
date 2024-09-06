@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,6 +11,8 @@ import '../repository/user.dart';
 
 Settings? settings;
 EraUser? user;
+PageController pageViewController = PageController();
+String? currentRoute = '/home';
 
 urlToFile(url)async{
   var rng = Random();

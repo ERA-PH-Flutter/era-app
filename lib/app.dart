@@ -43,18 +43,6 @@ class _AppState extends State<App> {
       minTextAdapt: true,
       splitScreenMode: true,
       child: GetMaterialApp(
-        onGenerateRoute: (settings){
-          switch (settings.name) {
-            case '/':
-              return MaterialPageRoute(builder: (context){
-                Get.put(HomeController());
-                return Home();
-              });
-            default:
-              assert(false, 'Page ${settings.name} not found');
-              return null;
-          }
-        },
         debugShowCheckedModeBanner: false,
         theme: MyTheme.getDefault(),
         initialRoute: "/",
@@ -62,13 +50,6 @@ class _AppState extends State<App> {
         initialBinding: SplashBinding(),
         home: const Splash(),
       ),
-      builder: (context, child) =>
-          NotificationListener<OverscrollIndicatorNotification>(
-              onNotification: (OverscrollIndicatorNotification overscroll) {
-                overscroll.disallowIndicator();
-                return true;
-              },
-              child: child!),
     );
   }
 }

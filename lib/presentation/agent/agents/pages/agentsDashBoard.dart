@@ -22,6 +22,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/models/navbaritems.dart';
+import '../../../../app/widgets/custom_appbar.dart';
+import '../../../../app/widgets/navigation/app_nav_items.dart';
 import '../../../../repository/user.dart';
 import '../../../global.dart';
 import '../controllers/agent_dashboard_controller.dart';
@@ -34,8 +37,10 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
+        controller: controller.scrollController,
         scrollDirection: Axis.vertical,
         child: SafeArea(
           child: Obx(() {
@@ -114,6 +119,27 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
           }),
         ),
       ),
+      bottomNavigationBar: Obx((){
+          controller.scrolling.value;
+          return AnimatedContainer(
+              duration: Duration(milliseconds: 500),
+              //transform: !controller.scrolling.value ? Matrix4.translationValues(0,  (70.h < 75 ? 70.h : 75), 0) : Matrix4.translationValues(0, 0, 0),
+              alignment: Alignment.center,
+              height: controller.scrolling.value ? (70.h < 75 ? 70.h : 75) : 0,
+              color:AppColors.blue,
+              width: Get.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: navBarItems.map((item) {
+                  String iconPath = item.defaultIcon;
+                  return AppNavItems(
+                      iconPath: iconPath,
+                      label: item.label,
+                      isActive: false);
+                }).toList(),
+              )
+          );
+        })
     );
   }
 

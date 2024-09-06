@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
+import '../../../../../app/widgets/custom_appbar.dart';
 import '../controllers/MortageCalculator_controller.dart';
 
 class MortageCalculator extends GetView<MortageCalculatorController> {
@@ -23,7 +24,8 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         controller: controller.scrollController,
         child: Padding(

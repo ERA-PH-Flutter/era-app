@@ -17,6 +17,7 @@ import 'package:full_screen_image/full_screen_image.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 import '../../favorites/controllers/fav_controller.dart';
@@ -38,7 +39,8 @@ class PropertyInformation extends GetView<ListingController> {
         controller.images.add(photo);
       }
     });
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

@@ -9,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../custom_appbar.dart';
+
 class CompanyNewsPage extends StatelessWidget {
   String? title;
   String? image;
@@ -22,7 +24,8 @@ class CompanyNewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return Scaffold(
+      appBar: CustomAppbar(),
       body: Padding(
         padding: EdgeInsets.all(EraTheme.paddingWidth),
         child: SingleChildScrollView(

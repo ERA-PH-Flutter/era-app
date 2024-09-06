@@ -33,7 +33,7 @@ class SearchResult extends GetView<SearchResultController> {
   @override
   Widget build(BuildContext context) {
     final ProjectsController projectsController = Get.put(ProjectsController());
-    return BaseScaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
