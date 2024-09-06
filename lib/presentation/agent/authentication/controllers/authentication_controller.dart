@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -70,7 +72,9 @@ class LoginPageController extends GetxController with BaseController {
       var id = FirebaseAuth.instance.currentUser!.uid;
       user = await EraUser().getById(id);
       Get.find<LocalStorageService>().userID = id;
-      Get.offAllNamed(RouteString.home);
+      selectedIndex.value = 0;
+      pageViewController = PageController(initialPage: 0);
+      Get.offAll(BaseScaffold(),binding: HomeBinding());
     } else {
       showSuccessDialog(
           hitApi: () {
