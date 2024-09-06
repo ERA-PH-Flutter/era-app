@@ -6,12 +6,15 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../../app/constants/assets.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../controllers/sellproperty_controller.dart';
 //todo add text
@@ -21,6 +24,7 @@ class SellProperty extends GetView<SellPropertyController> {
 
   @override
   Widget build(BuildContext context) {
+    final AddListingsController addListingsC = Get.put(AddListingsController());
     return Scaffold(
         appBar: CustomAppbar(),
         body: SafeArea(
@@ -71,22 +75,95 @@ class SellProperty extends GetView<SellPropertyController> {
                       textInputType: TextInputType.number,
                       hintText: 'Price',
                       controller: controller.price),
-                  SizedBox(height: 20.h),
+                  sb30(),
+                  // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       EraText(
-                          text: 'Upload Photo',
-                          fontSize: 18.sp,
-                          color: AppColors.black),
-                      Obx(() => AddListings.textBuild(
-                          '${controller.images.length}/1',
-                          22.sp,
-                          FontWeight.w600,
-                          Colors.black)),
+                        text: 'UPLOAD PHOTOS',
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.kRedColor,
+                      ),
+                      Obx(() => EraText(
+                            text: '${controller.images.length}/15',
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          )),
                     ],
                   ),
-                  uploadPhoto(),
+                  SizedBox(height: 10.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.blue,
+                          shadowColor: Colors.transparent,
+                          side: BorderSide(
+                              color: AppColors.hint.withOpacity(0.1), width: 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          addListingsC.getImageGallery();
+                        },
+                        icon: Icon(
+                          CupertinoIcons.photo_fill_on_rectangle_fill,
+                          color: AppColors.white,
+                        ),
+                        label: EraText(
+                          text: 'Select Photos',
+                          color: AppColors.white,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10.h),
+                  Obx(() {
+                    if (controller.images.isEmpty) {
+                      return Image.asset(
+                        AppEraAssets.uploadphoto,
+                      );
+                    } else {
+                      return GridView.builder(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10.h,
+                            crossAxisSpacing: 10.h,
+                          ),
+                          itemCount: controller.images.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: FileImage(controller.images[index]),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          });
+                    }
+                  }),
+
+                  SizedBox(height: 5.h),
+
+                  EraText(
+                      text: 'Photo must be at least 300px X 300px',
+                      fontSize: 15.sp,
+                      color: AppColors.hint),
+
                   sb20(),
                   EraText(
                     text: 'Description',
@@ -124,17 +201,17 @@ class SellProperty extends GetView<SellPropertyController> {
     );
   }
 
-  Widget uploadPhoto() {
-    return GestureDetector(
-      onTap: () {
-        //todo add upload photo
-        //todo NIKO
-      },
-      child: Image.asset(
-        'assets/icons/uploadphoto.png',
-      ),
-    );
-  }
+  // Widget uploadPhoto() {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       //todo add upload photo
+  //       //todo NIKO
+  //     },
+  //     child: Image.asset(
+  //       'assets/icons/uploadphoto.png',
+  //     ),
+  //   );
+  // }
 }
 //   return Scaffold(
 //     body: WillPopScope(

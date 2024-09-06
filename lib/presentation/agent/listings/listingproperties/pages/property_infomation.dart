@@ -371,7 +371,7 @@ class PropertyInformation extends GetView<ListingController> {
           Button(
             text: 'MORE LISTINGS',
             onTap: () {
-              Get.toNamed('/findproperties');
+              Get.toNamed('/searchresult');
             },
             bgColor: AppColors.blue,
             fontSize: 20.sp,
