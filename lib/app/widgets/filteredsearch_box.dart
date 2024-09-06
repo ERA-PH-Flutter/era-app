@@ -22,21 +22,71 @@ import '../services/ai_search.dart';
 
 class FilteredSearchBox extends StatelessWidget {
   FilteredSearchBox({super.key});
-
+  var showFullSearch = false.obs;
+  var expanded = false.obs;
+  var aiSearchController = TextEditingController();
+  var locationController = TextEditingController();
+  var priceController = TextEditingController();
+  var propertyController = TextEditingController();
+  var projectsController = TextEditingController();
+  var isForSale = 0.obs;
+  var selectedPriRceange = "".obs;
+  var selectedLocation = RxnString();
+  var selectedPriceRange = "".obs;
+  var selectedPriceSearch = RxnString();
+  var selectedPropertyTypeSearch = RxnString();
+  var selectedPropertyType = "".obs;
+  var propertyTypeSearch = [
+    "Pre-selling",
+    "Residential",
+    "Commercial",
+    "Rental",
+    "Auction",
+  ];
+  var location = [
+  "Manila",
+  "Quezon City",
+  "Caloocan",
+  "Makati"
+  "Valenzuela",
+  "San Juan",
+  "Parañaque",
+  "Navotas",
+  "Taguig",
+  "Davao",
+  "Las Piñas",
+  "Pasig",
+  "Mandaluyong",
+  "Pateros",
+  "Marikina",
+  "Muntinlupa",
+  "Malabon",
+  "Fort Bonifacio",
+  "Binondo",
+  "Rizal",
+  "Antipolo",
+  "Santa Ana",
+  ];
+  var priceSearch = [
+    " 1,000 -  100,000",
+    " 100,000 - 500,000",
+    " 100,000 - 1M",
+    " 1M - 5M",
+    " 10M - 50M",
+    " 50M - 100M",
+    " 100>",
+  ];
   @override
   Widget build(BuildContext context) {
-    final SearchResultController searchController =
-        Get.put(SearchResultController());
-    final ProjectsController projectsController = Get.put(ProjectsController());
-    final HomeController controller = Get.put(HomeController());
+
     return BoxWidget.build(
       child: Column(
         children: [
           SizedBox(height: 10.h),
-          if (!searchController.showFullSearch.value)
+          if (!showFullSearch.value)
             AppTextField(
                 onPressed: () {},
-                controller: searchController.aiSearchController,
+                controller: aiSearchController,
                 hint: 'Use AI Search',
                 svgIcon: AppEraAssets.ai3,
                 bgColor: AppColors.white,
@@ -47,9 +97,9 @@ class FilteredSearchBox extends StatelessWidget {
                   var data;
                   var searchQuery = "";
                   data =
-                      await AI(query: searchController.aiSearchController.text)
+                      await AI(query: aiSearchController.text)
                           .search();
-                  searchQuery = searchController.aiSearchController.text;
+                  searchQuery = aiSearchController.text;
                   selectedIndex.value = 2;
                   pageViewController = PageController(initialPage: 2);
                   currentRoute = '/searchresult';
@@ -58,15 +108,15 @@ class FilteredSearchBox extends StatelessWidget {
           SizedBox(height: 5.h),
           GestureDetector(
             onTap: () {
-              searchController.expanded.value =
-                  !searchController.expanded.value;
-              searchController.showFullSearch.value =
-                  !searchController.showFullSearch.value;
+              expanded.value =
+                  !expanded.value;
+              showFullSearch.value =
+                  !showFullSearch.value;
             },
             child: Padding(
               padding: EdgeInsets.all(10.0.h),
               child: Obx(() => EraText(
-                    text: searchController.expanded.value
+                    text: expanded.value
                         ? "Back to AI Search"
                         : "Filtered Search",
                     fontSize: 15.sp,
@@ -75,7 +125,7 @@ class FilteredSearchBox extends StatelessWidget {
             ),
           ),
           Obx(() {
-            if (searchController.showFullSearch.value) {
+            if (showFullSearch.value) {
               return Column(
                 children: [
                   Padding(
@@ -88,27 +138,26 @@ class FilteredSearchBox extends StatelessWidget {
                         //proterty type, price range, >> home, projectmain, searchresult
                         AddListings.dropDownAddlistings1(
                             color: AppColors.white,
-                            selectedItem: projectsController.selectedLocation,
-                            Types: projectsController.location,
-                            onChanged: (value) => projectsController
-                                .selectedLocation.value = value!,
+                            selectedItem: selectedLocation,
+                            Types: location,
+                            onChanged: (value) => selectedLocation.value = value!,
                             name: 'Location',
                             hintText: 'Select Location'),
                         AddListings.dropDownAddlistings1(
                             color: AppColors.white,
                             selectedItem:
-                                searchController.selectedPropertyTypeSearch,
-                            Types: searchController.propertyTypeSearch,
-                            onChanged: (value) => searchController
-                                .selectedPropertyTypeSearch.value = value!,
+                                selectedPropertyTypeSearch,
+                            Types: propertyTypeSearch,
+                            onChanged: (value) =>
+                                selectedPropertyTypeSearch.value = value!,
                             name: 'Property Type',
                             hintText: 'Select Property Type'),
                         AddListings.dropDownAddlistings1(
                             color: AppColors.white,
-                            selectedItem: searchController.selectedPriceSearch,
-                            Types: searchController.priceSearch,
-                            onChanged: (value) => searchController
-                                .selectedPriceSearch.value = value!,
+                            selectedItem: selectedPriceSearch,
+                            Types: priceSearch,
+                            onChanged: (value) =>
+                                selectedPriceSearch.value = value!,
                             name: 'Price Range',
                             hintText: 'Select Price Range'),
                         Obx(
@@ -124,9 +173,9 @@ class FilteredSearchBox extends StatelessWidget {
                                         fillColor: WidgetStateProperty.all(
                                             AppColors.white.withOpacity(0.6)),
                                         value: 1,
-                                        groupValue: controller.isForSale.value,
+                                        groupValue: isForSale.value,
                                         onChanged: (value) {
-                                          controller.isForSale.value =
+                                          isForSale.value =
                                               value ?? 0;
                                         }),
                                   ),
@@ -146,9 +195,9 @@ class FilteredSearchBox extends StatelessWidget {
                                         fillColor: WidgetStateProperty.all(
                                             AppColors.white.withOpacity(0.6)),
                                         value: 2,
-                                        groupValue: controller.isForSale.value,
+                                        groupValue: isForSale.value,
                                         onChanged: (value) {
-                                          controller.isForSale.value =
+                                          isForSale.value =
                                               value ?? 0;
                                         }),
                                   ),
@@ -194,28 +243,27 @@ class FilteredSearchBox extends StatelessWidget {
                         SearchWidget.build(() async {
                           var data;
                           var searchQuery = "";
-                          if (controller.isForSale.value == 1) {
+                          if (isForSale.value == 1) {
                             data = await Database().getForSaleListing();
                             searchQuery = "All For Sale Listings";
-                          } else if (controller.isForSale.value == 2) {
+                          } else if (isForSale.value == 2) {
                             data = await Database().getForRentListing();
                             searchQuery = "All For Rent Listings";
                           } else {
                             data = await Database().searchListing(
-                                location: controller.selectedLocation.value,
-                                price: controller.selectedPriceRange.value,
-                                property:
-                                    controller.selectedPropertyType.value);
-                            if (controller.locationController.text != "") {
+                                location: selectedLocation.value,
+                                price: selectedPriRceange.value,
+                                property: selectedPropertyType.value);
+                            if (locationController.text != "") {
                               searchQuery +=
-                                  "Location: ${controller.selectedLocation.value}";
-                            } else if (controller.propertyController.text !=
+                                  "Location: ${selectedLocation.value}";
+                            } else if (propertyController.text !=
                                 "") {
                               searchQuery +=
-                                  "Property Type: ${controller.selectedPropertyType.value}";
-                            } else if (controller.priceController.text != "") {
+                                  "Property Type: ${selectedPropertyType.value}";
+                            } else if (priceController.text != "") {
                               searchQuery +=
-                                  "With price less than: ${controller.selectedPriceRange.value}";
+                                  "With price less than: ${selectedPriceRange.value}";
                             }
                           }
                           selectedIndex.value = 2;
