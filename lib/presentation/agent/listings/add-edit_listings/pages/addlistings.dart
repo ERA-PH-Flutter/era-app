@@ -7,6 +7,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -478,11 +479,11 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                   controller.latLng!.latitude,
                   controller.latLng!.longitude
                 ]).addListing(controller.images, user!.id);
+
             controller.showSuccessDialog(
                 hitApi: () {
-                  Get.back();
-                  Get.back();
-                  Get.back();
+                  //todo trigger referesh in dashboard
+                  Get.offAllNamed(RouteString.agentDashBoard);
                 },
                 title: "Add Listing Success",
                 description: "Listing has been uploaded to the database.");

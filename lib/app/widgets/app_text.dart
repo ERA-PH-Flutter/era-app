@@ -37,6 +37,7 @@ class EraText extends StatelessWidget {
       maxLines: maxLines ?? 3,
       text,
       textAlign: textAlign,
+      textScaler: TextScaler.linear( ScreenUtil().textScaleFactor),
       style: style ??
           TextStyle(
             decoration: textDecoration ?? TextDecoration.none,
@@ -44,7 +45,7 @@ class EraText extends StatelessWidget {
             fontFamily:
                 GoogleFonts.lato(fontWeight: fontWeight ?? FontWeight.w500)
                     .fontFamily,
-            fontSize: fontSize ?? 13.sp,
+            fontSize: (fontSize ?? 13.sp) > 25.sp ? fontSize! - 4.sp : fontSize,
             fontWeight: fontWeight ?? FontWeight.w500,
             color: color ?? AppColors.white,
             overflow: textOverflow ?? TextOverflow.visible,

@@ -62,6 +62,7 @@ dependencies:
   google_places_flutter: ^2.0.9
   dropdown_search: ^5.0.6
   full_screen_image: ^2.0.0
+  circle_nav_bar: ^2.1.0+1
  
 dev_dependencies:
   flutter_test:

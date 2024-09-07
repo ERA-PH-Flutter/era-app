@@ -90,7 +90,7 @@ class Listing {
                 ? json["date_updated"].toDate()
                 : json["date_updated"],
         description: json["description"],
-        isSold: json["is_sold"],
+        isSold: json["is_sold"] ?? false,
         latLng: json['latLng'] ?? [0, 0],
         address: json['address'] ?? "");
   }
@@ -168,7 +168,8 @@ class Listing {
       "date_created": DateTime.now(),
       "date_updated": DateTime.now(),
       "address": address ?? "",
-      "latLng": latLng ?? [0, 0]
+      "latLng": latLng ?? [0, 0],
+      "is_sold" : isSold ?? false
     });
   }
 

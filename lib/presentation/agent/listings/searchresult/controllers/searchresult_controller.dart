@@ -88,7 +88,7 @@ class SearchResultController extends GetxController {
 
   loadData(loadedData) {
     data.value = loadedData.map((d) {
-      if (!d['is_sold']) {
+      if (!(d['is_sold'] ?? true)) {
         return d;
       }
     }).toList();

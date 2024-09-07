@@ -37,8 +37,8 @@ class AppNavItems extends StatelessWidget {
           children: [
             Image.asset(
               iconPath,
-              width: 50.w,
-              height: 50.h,
+              width: 55.w,
+              height: 55.h,
             ),
           ],
         ),
@@ -75,10 +75,9 @@ class AppNavItems extends StatelessWidget {
           }
         } : null,
         child: Container(
-          height: 70.h < 75 ? 70.h : 75,
           alignment: Alignment.center,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
@@ -88,8 +87,9 @@ class AppNavItems extends StatelessWidget {
               ),
               Text(
                 label,
-                style: TextStyle(fontSize: 12.sp, color: CupertinoColors.white),
+                style: TextStyle(fontSize: 11.sp, color: CupertinoColors.white),
               ),
+              SizedBox(height: 7.5.h,)
             ],
           ),
         ),

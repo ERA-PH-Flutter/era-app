@@ -21,7 +21,6 @@ class AgentDashboardController extends GetxController{
     RxBool scrolling = false.obs;
   @override
   void onClose() {
-    scrollController.dispose();
     super.onClose();
   }
 
