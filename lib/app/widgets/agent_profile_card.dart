@@ -162,7 +162,6 @@ class AgentProfileCard extends StatelessWidget {
           Button(
             margin: EdgeInsets.symmetric(horizontal: 5),
             width: 150.w,
-            height: 35.h,
             text: 'EDIT',
             bgColor: AppColors.blue,
             borderRadius: BorderRadius.circular(30),
@@ -170,7 +169,6 @@ class AgentProfileCard extends StatelessWidget {
           Button(
             margin: EdgeInsets.symmetric(horizontal: 5),
             width: 150.w,
-            height: 35.h,
             text: 'DELETE',
             bgColor: AppColors.kRedColor,
             borderRadius: BorderRadius.circular(30),

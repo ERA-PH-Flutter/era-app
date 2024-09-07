@@ -68,6 +68,14 @@ class AddListingsController extends GetxController with BaseController {
     "Resort",
     "Townhouse",
     "Warehouse",
+    "Penthouse",
+    "Beach House",
+    "Loft",
+    "Bedspace",
+    "Room",
+    "Memorial",
+    "Coworking Space",
+    "Studio",
   ];
 
   var propertyT = [

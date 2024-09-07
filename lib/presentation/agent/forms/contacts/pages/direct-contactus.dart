@@ -106,9 +106,11 @@ class DirectContactUs extends GetView<ContactusController> {
           color: AppColors.black,
         ),
         TextformfieldWidget(
-          hintText: 'Your Message',
+          hintText: 'Type your message here',
           maxLines: 15,
-          keyboardType: TextInputType.text,
+          color: AppColors.hint,
+          keyboardType: TextInputType.multiline,
+          textInputAction: TextInputAction.newline,
         ),
         sb30(),
         Button.button2(

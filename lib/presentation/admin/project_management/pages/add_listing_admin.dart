@@ -4,16 +4,13 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/admin/Listings/controllers/listingsAdmin_controller.dart';
-import 'package:eraphilippines/presentation/admin/agents/controllers/agents_controller.dart';
-import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
-import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
+import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_controller.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import '../../../../../app/constants/sized_box.dart';
-
+import '../../../../app/constants/sized_box.dart';
+import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 //todo add text
 
 class AddPropertyAdmin extends GetView<ListingsAdminController> {
@@ -22,7 +19,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
   @override
   Widget build(BuildContext context) {
     //temporary
-    AgentAdminController controllers = Get.put(AgentAdminController());
+    //AgentAdminController controllers = Get.put(AgentAdminController());
     AddListingsController controller = Get.put(AddListingsController());
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -51,22 +48,22 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
             ),
             AddAgent.buildTextFormField2(
               'Property Name *',
-              controllers.fNameA,
+              controller.propertyNameController,
               'Property Cost *',
-              controllers.lNameA,
+              controller.propertyCostController,
             ),
             SizedBox(
               height: 10.h,
             ),
             AddAgent.buildTextFormField4(
                 text: 'Price per sqm *',
-                controller: controllers.phoneNA,
+                controller: controller.pricePerSqmController,
                 text2: 'Area*',
-                controller2: controllers.positionA,
+                controller2: controller.areaController,
                 text3: 'Rooms *',
-                controller3: controllers.passwordA,
+                controller3: controller.bedsController,
                 text4: 'Bathrooms *',
-                controller4: controllers.confirmPA),
+                controller4: controller.bathsController),
             SizedBox(
               height: 10.h,
             ),
@@ -149,11 +146,11 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                           height: 95.h,
                           width: Get.width / 5.1 - 3.w,
                           child: SharedWidgets.dropDown(
-                              controller.selectedOfferT,
-                              controller.offerT,
+                              controller.selectedPropertySubCategory,
+                              controller.subCategory,
                               (value) => controller.selectedOfferT,
-                              'Offer Type *',
-                              'Selected Offer Type'),
+                              'Subcategory *',
+                              'Selected Subcategory'),
                         ),
                         SizedBox(width: 20.w),
                         Column(
@@ -186,9 +183,8 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
               ),
             ),
             sb30(),
-
             AddAgent.buildTextFieldFormDesc(
-                'Description *', controllers.descriptionA),
+                'Description *', controller.descController),
             SizedBox(
               height: 10.h,
             ),
@@ -202,7 +198,6 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                 Button(
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   width: 150.w,
-                  height: 35.h,
                   text: 'SUBMIT',
                   bgColor: AppColors.blue,
                   borderRadius: BorderRadius.circular(30),
@@ -210,7 +205,6 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                 Button(
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   width: 150.w,
-                  height: 35.h,
                   text: 'CANCEL',
                   bgColor: AppColors.hint,
                   borderRadius: BorderRadius.circular(30),

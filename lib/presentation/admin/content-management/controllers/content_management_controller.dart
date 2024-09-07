@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../../app/services/local_storage.dart';
 
-class HomePageController extends GetxController with BaseController {
+class ContentManagementController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
   RxList images = [].obs;
   final picker = ImagePicker();

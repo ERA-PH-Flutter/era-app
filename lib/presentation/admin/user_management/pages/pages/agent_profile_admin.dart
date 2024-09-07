@@ -3,11 +3,10 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/agent_profile_card.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/presentation/admin/agents/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 
 class AgentProfileAdmin extends GetView<AgentAdminController> {
   const AgentProfileAdmin({super.key});
@@ -46,9 +45,7 @@ class AgentProfileAdmin extends GetView<AgentAdminController> {
                   SizedBox(height: 20.h),
                   FavoritesSection(),
                   SizedBox(height: 20.h),
-
                   latestNews(),
-               
                 ],
               ),
             ),

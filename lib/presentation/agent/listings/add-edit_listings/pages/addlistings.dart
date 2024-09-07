@@ -359,8 +359,9 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             controller: controller.descController,
             hintText: '',
-            maxLines: 10,
-            keyboardType: TextInputType.text,
+            keyboardType: TextInputType.multiline,
+            textInputAction: TextInputAction.newline,
+            maxLines: 15,
           ),
         ),
 

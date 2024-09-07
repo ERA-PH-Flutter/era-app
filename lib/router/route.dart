@@ -1,10 +1,11 @@
-import 'package:eraphilippines/presentation/admin/agents/controllers/agents_bindings.dart';
-import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/admin/authentication.dart';
 import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/controllers/home_analytics_binding.dart';
 import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/pages/home_analytics.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_binding.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.dart';
+import 'package:eraphilippines/presentation/admin/project_management/pages/add_project_admin.dart';
+import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_bindings.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
@@ -26,7 +27,6 @@ import '../presentation/agent/company_news/controllers/companynews_binding.dart'
 import '../presentation/agent/company_news/pages/companynews.dart';
 import '../presentation/agent/forms/contacts/controllers/contacts_binding.dart';
 import '../presentation/agent/forms/contacts/pages/aboutus.dart';
-import '../presentation/agent/forms/contacts/pages/contact_us.dart';
 import '../presentation/agent/forms/contacts/pages/direct-contactus.dart';
 import '../presentation/agent/forms/contacts/pages/help.dart';
 import '../presentation/agent/home/controllers/home_binding.dart';
@@ -88,10 +88,10 @@ appRoutes() => [
         page: () => const ProjectMain(),
         binding: ProjectsBinding(),
       ),
-      GetPage(
-          name: RouteString.contactus,
-          page: () => const ContactUs(),
-          binding: ContactUsBinding()),
+      // GetPage(
+      //     name: RouteString.contactus,
+      //     page: () => const ContactUs(),
+      //     binding: ContactUsBinding()),
       GetPage(
           name: RouteString.aboutus,
           page: () => const AboutUs(),
@@ -205,6 +205,11 @@ appRoutes() => [
       GetPage(
         name: RouteString.adminLogin,
         page: () => AuthenticationPage(),
+      ),
+      GetPage(
+        name: RouteString.agentProfileAdmin,
+        page: () => AddProjectAdmin(),
+        binding: AgentAdminBindings(),
       ),
     ];
 
