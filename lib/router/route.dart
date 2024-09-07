@@ -8,6 +8,7 @@ import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
+import 'package:eraphilippines/presentation/agent/authentication/pages/nextPage.dart';
 import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/aurelia.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
@@ -120,8 +121,8 @@ appRoutes() => [
           page: () => Help(),
           binding: ContactUsBinding()),
       GetPage(
-          name: RouteString.joinEra,
-          page: () => JoinEra(),
+        name: RouteString.joinEra,
+        page: () => JoinEra(),
       ),
       GetPage(
           name: RouteString.findagents,
@@ -180,6 +181,11 @@ appRoutes() => [
         name: RouteString.sellProperty,
         page: () => SellProperty(),
         binding: SellPropertyBinding(),
+      ),
+      GetPage(
+        name: RouteString.nextPage,
+        page: () => Nextpage(),
+        binding: LoginPageBinding(),
       ),
 //admin
       GetPage(

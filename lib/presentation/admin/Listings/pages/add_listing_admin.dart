@@ -9,6 +9,7 @@ import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../app/constants/sized_box.dart';
 import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import '../../agents/controllers/agents_controller.dart';
 //todo add text
@@ -74,14 +75,15 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     EraText(
-                      text: 'Location *',
+                      text: '  Location *',
                       fontSize: 18.sp,
                       color: AppColors.black,
                       fontWeight: FontWeight.w500,
                     ),
-                    SizedBox(
+                    Container(
+                      padding: EdgeInsets.only(left: 10.w),
                       height: 60.h,
-                      width: Get.width / 2.5,
+                      width: Get.width / 2.5 + 9.w,
                       child: TextformfieldWidget(
                         controller: controller.locationController,
                         fontSize: 12.sp,
@@ -93,9 +95,10 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                 SizedBox(
                   width: 25.w,
                 ),
-                SizedBox(
+                Container(
+                  padding: EdgeInsets.only(right: 5.w),
                   height: 95.h,
-                  width: Get.width / 2.5,
+                  width: Get.width / 2.5.w,
                   child: SharedWidgets.dropDown(
                       controller.selectedPropertyT,
                       controller.propertyT,
@@ -109,46 +112,79 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
             SizedBox(
               height: 10.h,
             ),
-            Row(
-              children: [
-                SizedBox(
-                  height: 95.h,
-                  width: Get.width / 5.1 - 3.w,
-                  child: SharedWidgets.dropDown(
-                      controller.selectedOfferT,
-                      controller.offerT,
-                      (value) => controller.selectedOfferT,
-                      'Offer Type *',
-                      'Selected Offer Type'),
-                ),
-                SizedBox(width: 20.w),
-                SizedBox(
-                  height: 95.h,
-                  width: Get.width / 5.1 - 3.w,
-                  child: SharedWidgets.dropDown(
-                      controller.selectedOfferT,
-                      controller.offerT,
-                      (value) => controller.selectedOfferT,
-                      'Offer Type *',
-                      'Selected Offer Type'),
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.only(left: 10.w),
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 95.h,
+                    width: Get.width / 5.1 - 3.w,
+                    child: SharedWidgets.dropDown(
+                        controller.selectedOfferT,
+                        controller.offerT,
+                        (value) => controller.selectedOfferT,
+                        'Offer Type *',
+                        'Selected Offer Type'),
+                  ),
+                  SizedBox(width: 20.w),
+                  SizedBox(
+                    height: 95.h,
+                    width: Get.width / 5.1 - 3.w,
+                    child: SharedWidgets.dropDown(
+                        controller.selectedView,
+                        controller.viewL,
+                        (value) => controller.selectedOfferT,
+                        'View *',
+                        'Selected View'),
+                  ),
+                  sb10(),
+                  sbw15(),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.w),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 95.h,
+                          width: Get.width / 5.1 - 3.w,
+                          child: SharedWidgets.dropDown(
+                              controller.selectedOfferT,
+                              controller.offerT,
+                              (value) => controller.selectedOfferT,
+                              'Offer Type *',
+                              'Selected Offer Type'),
+                        ),
+                        SizedBox(width: 20.w),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            EraText(
+                              text: 'Parking *',
+                              fontSize: 18.sp,
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            sb10(),
+                            Container(
+                              margin: EdgeInsets.only(bottom: 15.w),
+                              height: 50.h,
+                              width: Get.width / 5.1 - 3.w,
+                              child: TextformfieldWidget(
+                                controller: controller.carsController,
+                                fontSize: 12.sp,
+                                maxLines: 1,
+                                keyboardType: TextInputType.number,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(
-              height: 20.h,
-            ),
-            AddAgent.buildTextFormField4(
-                text: 'Offer Type *',
-                controller: controllers.phoneNA,
-                text2: 'View *',
-                controller2: controllers.positionA,
-                text3: 'Sub Category *',
-                controller3: controllers.passwordA,
-                text4: 'Parking *',
-                controller4: controllers.confirmPA),
-            SizedBox(
-              height: 10.h,
-            ),
+            sb30(),
+
             AddAgent.buildTextFieldFormDesc(
                 'Description *', controllers.descriptionA),
             SizedBox(

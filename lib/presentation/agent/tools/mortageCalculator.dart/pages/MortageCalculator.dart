@@ -246,26 +246,40 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 child: EraText(text: ''),
               ),
               Center(
-                child: TextButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.r),
-                        ),
-                      ),
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.blue),
-                    ),
-                    onPressed: () {
-                      controller.reset();
-                    },
-                    child: EraText(
-                      text: 'RESET',
-                      color: AppColors.white,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w500,
-                    )),
+                child: IconButton(
+                  alignment: Alignment.center,
+                  onPressed: () {
+                    controller.reset();
+                  },
+                  icon: Image.asset(
+                    AppEraAssets.reset,
+                    height: 50.h,
+                    color: AppColors.blue,
+                    width: 50.w,
+                  ),
+                ),
               ),
+              // Center(
+              //   child: TextButton(
+              //       style: ButtonStyle(
+              //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              //           RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(20.r),
+              //           ),
+              //         ),
+              //         backgroundColor:
+              //             MaterialStateProperty.all(AppColors.blue),
+              //       ),
+              //       onPressed: () {
+              //         controller.reset();
+              //       },
+              //       child: EraText(
+              //         text: 'RESET',
+              //         color: AppColors.white,
+              //         fontSize: 20.sp,
+              //         fontWeight: FontWeight.w500,
+              //       )),
+              // ),
             ],
           ),
         ),

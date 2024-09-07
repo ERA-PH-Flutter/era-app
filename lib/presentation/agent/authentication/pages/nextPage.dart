@@ -106,7 +106,6 @@ class Nextpage extends GetView<LoginPageController> {
                       Button(
                         margin: EdgeInsets.zero,
                         width: Get.width,
-                        height: 50.h,
                         bgColor: AppColors.kRedColor,
                         text: 'CREATE',
                         fontSize: 18.sp,

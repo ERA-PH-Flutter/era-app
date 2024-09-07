@@ -1,6 +1,7 @@
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class CustomImage extends StatelessWidget {
   final String url;
@@ -28,7 +29,8 @@ class CustomImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderradius ?? 0),
         child: CloudStorage().imageLoader(
           ref: url,
-          width: 500.w,
+          width: Get.width,
+          height: Get.height,
         ),
       ),
     );

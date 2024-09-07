@@ -281,18 +281,19 @@ class ProjectTextImageModels {
 
   static List<ProjectTextImageModels> textImageModels = [
     ProjectTextImageModels(
-      imageText: 'assets/images/haraya.jpeg',
+      imageText: 'assets/images/HARAYA.jpg',
       text: 'by Shang Properties',
     ),
   ];
   static List<ProjectTextImageModels> textImageModels2 = [
     ProjectTextImageModels(
-      imageText: 'assets/images/laya_logo.jpg',
+      imageText: 'assets/images/LAYA.jpg',
+      text: 'by Shang Properties',
     ),
   ];
   static List<ProjectTextImageModels> textImageModels3 = [
     ProjectTextImageModels(
-      imageText: 'assets/images/aurelia_logo.jpg',
+      imageText: 'assets/images/AURELIA.jpg',
       text: 'by Shang Properties',
     ),
   ];

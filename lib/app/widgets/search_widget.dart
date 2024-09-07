@@ -10,7 +10,7 @@ class SearchWidget {
     return GestureDetector(
       onTap: searchFunction,
       child: Container(
-        height: 43.h,
+        height: 53.h,
         decoration: BoxDecoration(
           color: AppColors.kRedColor,
           borderRadius: BorderRadius.circular(20.0),
@@ -23,7 +23,9 @@ class SearchWidget {
               height: 34.h,
               width: 33.w,
             ),
-            SizedBox(width: 11.w,),
+            SizedBox(
+              width: 11.w,
+            ),
             EraText(
               text: 'SEARCH',
               fontSize: 20.sp,

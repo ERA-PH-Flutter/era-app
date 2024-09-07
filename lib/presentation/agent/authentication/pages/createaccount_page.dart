@@ -18,7 +18,6 @@ class CreateAccount extends GetView<LoginPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: AppColors.kRedColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -152,7 +151,6 @@ class CreateAccount extends GetView<LoginPageController> {
                       Button(
                         margin: EdgeInsets.zero,
                         width: Get.width,
-                        height: 50.h,
                         bgColor: AppColors.kRedColor,
                         text: 'CONTINUE',
                         fontSize: 18.sp,
@@ -213,7 +211,7 @@ class CreateAccount extends GetView<LoginPageController> {
                             );
                             return;
                           }
-                          Get.to(() => Nextpage());
+                          Get.toNamed('/nextPage');
                         },
                         borderRadius: BorderRadius.circular(20),
                       ),

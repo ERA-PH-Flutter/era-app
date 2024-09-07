@@ -35,8 +35,8 @@ class ProjectsController extends GetxController {
     "Manila",
     "Quezon City",
     "Caloocan",
-    "Makati"
-        "Valenzuela",
+    "Makati",
+    "Valenzuela",
     "San Juan",
     "Parañaque",
     "Navotas",

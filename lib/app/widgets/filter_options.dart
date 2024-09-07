@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:ui';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -118,31 +117,34 @@ class RoomsAndBedsFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildCounterRow('Bedrooms',controller.bedrooms),
+        _buildCounterRow('Bedrooms', controller.bedrooms),
         SizedBox(height: 15.h),
-        _buildCounterRow('Bathrooms',controller.bathrooms),
+        _buildCounterRow('Bathrooms', controller.bathrooms),
         SizedBox(height: 15.h),
-        _buildCounterRow('Garage',controller.beds),
+        _buildCounterRow('Garage', controller.beds),
       ],
     );
   }
 
-
-  Widget _buildCounterRow(String label,bedrooms) {
+  Widget _buildCounterRow(String label, bedrooms) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         EraText(text: label, fontSize: 18, color: AppColors.black),
         Row(
           children: [
-            _buildCounterButton(CupertinoIcons.minus,(){
+            _buildCounterButton(CupertinoIcons.minus, () {
               bedrooms--;
             }),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Obx(()=>EraText(text: bedrooms.value.toString(), fontSize: 18, color: AppColors.black),)
-            ),
-            _buildCounterButton(CupertinoIcons.add,(){
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Obx(
+                  () => EraText(
+                      text: bedrooms.value.toString(),
+                      fontSize: 18,
+                      color: AppColors.black),
+                )),
+            _buildCounterButton(CupertinoIcons.add, () {
               bedrooms++;
             }),
           ],
@@ -151,12 +153,9 @@ class RoomsAndBedsFilter extends StatelessWidget {
     );
   }
 
-  InkWell _buildCounterButton(IconData icon,onpressed) {
+  InkWell _buildCounterButton(IconData icon, onpressed) {
     return InkWell(
-      child: IconButton(
-        onPressed: onpressed,
-        icon: Icon(icon)
-      ),
+      child: IconButton(onPressed: onpressed, icon: Icon(icon)),
     );
   }
 }

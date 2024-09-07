@@ -36,7 +36,6 @@ class FindAgents extends GetView<AgentsController> {
               imageUrl:
                   'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
               fit: BoxFit.cover,
-              height: 250.h,
               width: Get.width,
             ),
             Padding(
@@ -106,7 +105,8 @@ class FindAgents extends GetView<AgentsController> {
                                     SizedBox(height: 10.h),
                                     AddListings.dropDownAddlistings1(
                                         color: AppColors.white,
-                                        selectedItem: controller.selectedLocation,
+                                        selectedItem:
+                                            controller.selectedLocation,
                                         Types: projectsController.location,
                                         onChanged: (value) => controller
                                             .selectedLocation.value = value!,

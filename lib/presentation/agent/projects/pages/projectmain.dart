@@ -210,7 +210,7 @@ class ProjectMain extends GetView<ProjectsController> {
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: featuredProject(),
         ),
-        SizedBox(height: 20.h),
+        sb20(),
         ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
         SizedBox(height: 20.h),
         CarouselSliderWidget(images: CarouselModels.carouselModels),
@@ -219,14 +219,13 @@ class ProjectMain extends GetView<ProjectsController> {
         sb60(),
         // //buttons
         Button(
-            text: 'VIEW MORE',
-            onTap: () {
-              Get.toNamed("/haraya");
-            },
-            bgColor: AppColors.blue,
-            borderRadius: BorderRadius.circular(30),
-            height: 40.h,
-            width: 240.w),
+          text: 'VIEW MORE',
+          onTap: () {
+            Get.toNamed("/haraya");
+          },
+          bgColor: AppColors.blue,
+          borderRadius: BorderRadius.circular(30),
+        ),
         sb90(),
         ProjectDivider(
             textImage: ProjectTextImageModels.textImageModels2,
@@ -234,6 +233,8 @@ class ProjectMain extends GetView<ProjectsController> {
             width: 430.w,
             text: ' '),
         //temporary carousel
+        sb20(),
+
         CarouselSliderWidget(
             images: CarouselModels.layaCarouselImages,
             color: AppColors.carouselBgColor),
@@ -247,8 +248,6 @@ class ProjectMain extends GetView<ProjectsController> {
           },
           bgColor: AppColors.blue,
           borderRadius: BorderRadius.circular(30),
-          height: 40.h,
-          width: 240.w,
         ),
         sb90(),
 
@@ -257,7 +256,8 @@ class ProjectMain extends GetView<ProjectsController> {
           height: 200.h,
           width: Get.width,
         ),
-        SizedBox(height: 20.h),
+        sb20(),
+
         CarouselSliderWidget(
             images: CarouselModels.aureliaCarouselImages,
             color: AppColors.carouselBgColor),
@@ -272,8 +272,6 @@ class ProjectMain extends GetView<ProjectsController> {
           },
           bgColor: AppColors.blue,
           borderRadius: BorderRadius.circular(30),
-          height: 40.h,
-          width: 240.w,
         ),
         sb60(),
       ],

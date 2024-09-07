@@ -2,6 +2,9 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../constants/theme.dart';
 
 class Button extends StatelessWidget {
   final VoidCallback? onTap;
@@ -38,8 +41,8 @@ class Button extends StatelessWidget {
       child: Center(
         child: Container(
           margin: margin ?? EdgeInsets.zero,
-          height: height ?? 50.h,
-          width: width ?? 184.w,
+          height: height ?? EraTheme.buttonHeightSmall,
+          width: width ?? Get.width - 220.w,
           decoration: BoxDecoration(
             borderRadius: borderRadius ?? BorderRadius.circular(10),
             color: bgColor,
@@ -65,7 +68,7 @@ class Button extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: height,
+        height: EraTheme.buttonHeightSmall,
         width: width, //272.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),

@@ -64,7 +64,7 @@ class Home extends GetView<HomeController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-            height: 320.h, //height: (Get.height - 100.h) / 2,
+            height: 320.h,
             child: Stack(
               children: [
                 Positioned.fill(
@@ -158,227 +158,6 @@ class Home extends GetView<HomeController> {
                 color: AppColors.kRedColor,
               ),
               sb10(),
-              // BoxWidget.build(
-              //   child: Column(
-              //     children: [
-              //       SizedBox(height: 10.h),
-              //       if (!searchController.showFullSearch.value)
-              //         AppTextField(
-              //             onPressed: () {},
-              //             controller: controller.aiSearchController,
-              //             hint: 'Use AI Search',
-              //             svgIcon: AppEraAssets.ai3,
-              //             bgColor: AppColors.white,
-              //             isSuffix: true,
-              //             obscureText: false,
-              //             suffixIcons: AppEraAssets.send,
-              //             onSuffixTap: () async {
-              //               var data;
-              //               var searchQuery = "";
-              //               data = await AI(query: controller.aiSearchController.text).search();
-              //               searchQuery = controller.aiSearchController.text;
-              //               selectedIndex.value = 2;
-              //               print(data);
-              //               Get.offAllNamed("/searchresult",
-              //                    arguments: [data, searchQuery]);
-              //             }),
-              //       SizedBox(height: 5.h),
-              //       GestureDetector(
-              //         onTap: () {
-              //           searchController.expanded.value =
-              //               !searchController.expanded.value;
-              //           searchController.showFullSearch.value =
-              //               !searchController.showFullSearch.value;
-              //         },
-              //         child: Padding(
-              //           padding: EdgeInsets.all(10.0.h),
-              //           child: Obx(() => EraText(
-              //                 text: searchController.expanded.value
-              //                     ? "Back to AI Search"
-              //                     : "Filtered Search",
-              //                 fontSize: 15.sp,
-              //                 textDecoration: TextDecoration.underline,
-              //               )),
-              //         ),
-              //       ),
-              //       Obx(() {
-              //         if (searchController.showFullSearch.value) {
-              //           return Column(
-              //             children: [
-              //               Padding(
-              //                 padding: EdgeInsets.symmetric(horizontal:10.w),
-              //                 child: Column(
-              //                   children: [
-              //                     SizedBox(height: 10.h),
-              //                     //notesfornikkoo
-              //                     //Location new changes the location has the same properties with the searchresult,projectmain, home, and find agents
-              //                     //proterty type, price range, >> home, projectmain, searchresult
-              //                     AddListings.dropDownAddlistings1(
-              //                         color: AppColors.white,
-              //                         selectedItem:
-              //                             projectsController.selectedLocation,
-              //                         Types: projectsController.location,
-              //                         onChanged: (value) => projectsController
-              //                             .selectedLocation.value = value!,
-              //                         name: 'Location',
-              //                         hintText: 'Select Location'),
-              //                     AddListings.dropDownAddlistings1(
-              //                         color: AppColors.white,
-              //                         selectedItem: searchController
-              //                             .selectedPropertyTypeSearch,
-              //                         Types: searchController.propertyTypeSearch,
-              //                         onChanged: (value) => searchController
-              //                             .selectedPropertyTypeSearch
-              //                             .value = value!,
-              //                         name: 'Property Type',
-              //                         hintText: 'Select Property Type'),
-              //                     AddListings.dropDownAddlistings1(
-              //                         color: AppColors.white,
-              //                         selectedItem:
-              //                             searchController.selectedPriceSearch,
-              //                         Types: searchController.priceSearch,
-              //                         onChanged: (value) => searchController
-              //                             .selectedPriceSearch.value = value!,
-              //                         name: 'Price Range',
-              //                         hintText: 'Select Price Range'),
-              //                     Obx(
-              //                       () => Row(
-              //                         mainAxisAlignment:
-              //                             MainAxisAlignment.spaceEvenly,
-              //                         children: [
-              //                           Row(
-              //                             children: [
-              //                               Transform.scale(
-              //                                 scale: 1.9,
-              //                                 child: Radio(
-              //                                     toggleable: true,
-              //                                     fillColor:
-              //                                         WidgetStateProperty.all(
-              //                                             AppColors.white
-              //                                                 .withOpacity(0.6)),
-              //                                     value: 1,
-              //                                     groupValue:
-              //                                         controller.isForSale.value,
-              //                                     onChanged: (value) {
-              //                                       controller.isForSale.value =
-              //                                           value ?? 0;
-              //                                     }),
-              //                               ),
-              //                               EraText(
-              //                                   text: 'BUY',
-              //                                   color: AppColors.white
-              //                                       .withOpacity(0.6),
-              //                                   fontSize: 15.0.sp,
-              //                                   fontWeight: FontWeight.w500),
-              //                             ],
-              //                           ),
-              //                           Row(
-              //                             children: [
-              //                               Transform.scale(
-              //                                 scale: 1.9,
-              //                                 child: Radio(
-              //                                     toggleable: true,
-              //                                     fillColor:
-              //                                         WidgetStateProperty.all(
-              //                                             AppColors.white
-              //                                                 .withOpacity(0.6)),
-              //                                     value: 2,
-              //                                     groupValue:
-              //                                         controller.isForSale.value,
-              //                                     onChanged: (value) {
-              //                                       controller.isForSale.value =
-              //                                           value ?? 0;
-              //                                     }),
-              //                               ),
-              //                               EraText(
-              //                                   text: 'RENT',
-              //                                   color: AppColors.white
-              //                                       .withOpacity(0.6),
-              //                                   fontSize: 15.0.sp,
-              //                                   fontWeight: FontWeight.w500),
-              //                             ],
-              //                           ),
-              //                         ],
-              //                       ),
-              //                     ),
-              //                     SizedBox(height: 10.h),
-              //                     SizedBox(
-              //                       width: Get.width,
-              //                       child: ElevatedButton.icon(
-              //                         style: ButtonStyle(
-              //                           backgroundColor: WidgetStateProperty.all(
-              //                               AppColors.white),
-              //                           shape: WidgetStateProperty.all(
-              //                             RoundedRectangleBorder(
-              //                               borderRadius:
-              //                                   BorderRadius.circular(20),
-              //                             ),
-              //                           ),
-              //                         ),
-              //                         onPressed: () {
-              //                           openFilterDialog();
-              //                         },
-              //                         label: EraText(
-              //                           text: 'More Filters',
-              //                           color: AppColors.black,
-              //                           fontSize: 15.sp,
-              //                           fontWeight: FontWeight.w500,
-              //                         ),
-              //                         icon: Icon(
-              //                           Icons.filter_alt,
-              //                           color: AppColors.black,
-              //                         ),
-              //                       ),
-              //                     ),
-              //                     SizedBox(height: 20.h),
-              //                     SearchWidget.build(() async {
-              //                       var data;
-              //                       var searchQuery = "";
-              //                       if (controller.isForSale.value == 1) {
-              //                         data = await Database().getForSaleListing();
-              //                         searchQuery = "All For Sale Listings";
-              //                       }
-              //                       else if (controller.isForSale.value == 2) {
-              //                         data = await Database().getForRentListing();
-              //                         searchQuery = "All For Rent Listings";
-              //                       }
-              //                       else{
-              //                         data = await Database().searchListing(
-              //                             location: controller.selectedLocation.value,
-              //                             price: controller.selectedPriceRange.value,
-              //                             property: controller.selectedPropertyType.value);
-              //                         if (controller.locationController.text !=
-              //                             "") {
-              //                           searchQuery +=
-              //                               "Location: ${controller.selectedLocation.value}";
-              //                         } else if (controller
-              //                                 .propertyController.text !=
-              //                             "") {
-              //                           searchQuery +=
-              //                               "Property Type: ${controller.selectedPropertyType.value}";
-              //                         } else if (controller
-              //                                 .priceController.text !=
-              //                             "") {
-              //                           searchQuery +=
-              //                               "With price less than: ${controller.selectedPriceRange.value}";
-              //                         }
-              //                       }
-              //                       selectedIndex.value = 2;
-              //                       Get.offAllNamed("/searchresult",
-              //                           arguments: [data, searchQuery]);
-              //                     }),
-              //                     SizedBox(height: 20.h),
-              //                   ],
-              //                 ),
-              //               ),
-              //             ],
-              //           );
-              //         }
-              //         return Container();
-              //       }),
-              //     ],
-              //   ),
-              // ),
               FilteredSearchBox(),
               sb15(),
               QuickLinks()
@@ -399,11 +178,7 @@ class Home extends GetView<HomeController> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextListing(
-                text: '',
-                fontSize: EraTheme.header - 4.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.kRedColor),
+            sb20(),
             ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
             sb20(),
             CarouselSliderWidget(images: CarouselModels.carouselModels),
@@ -414,17 +189,13 @@ class Home extends GetView<HomeController> {
                 Get.toNamed("/haraya");
               },
               bgColor: AppColors.kRedColor,
-              height: EraTheme.buttonHeightSmall,
-              width: Get.width - 220.w,
               borderRadius: BorderRadius.circular(30),
             ),
             //laya
             sb90(),
             ProjectDivider(
-                textImage: ProjectTextImageModels.textImageModels2,
-                height: 150.h,
-                width: 430.w,
-                text: ' '),
+              textImage: ProjectTextImageModels.textImageModels2,
+            ),
             sb20(),
             //temporary carousel
             CarouselSliderWidget(
@@ -437,8 +208,6 @@ class Home extends GetView<HomeController> {
                 Get.toNamed("/laya");
               },
               bgColor: AppColors.kRedColor,
-              height: EraTheme.buttonHeightSmall,
-              width: Get.width - 220.w,
               borderRadius: BorderRadius.circular(30),
             ),
             //laya
@@ -446,8 +215,6 @@ class Home extends GetView<HomeController> {
             sb90(),
             ProjectDivider(
               textImage: ProjectTextImageModels.textImageModels3,
-              height: 200.h,
-              width: Get.width,
             ),
             sb20(),
             CarouselSliderWidget(
@@ -460,8 +227,6 @@ class Home extends GetView<HomeController> {
                 Get.toNamed("/aurelia");
               },
               bgColor: AppColors.kRedColor,
-              height: EraTheme.buttonHeightSmall,
-              width: Get.width - 220.w,
               borderRadius: BorderRadius.circular(30),
             ),
             sb10(),
@@ -724,8 +489,13 @@ class Home extends GetView<HomeController> {
                 ),
               ),
               //TODO: Nikko
-              viewOtherProjects(
-                text: 'View more listings',
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed("/searchresult");
+                },
+                child: viewOtherProjects(
+                  text: 'View more listings',
+                ),
               ),
             ],
           ),
@@ -789,7 +559,7 @@ class Home extends GetView<HomeController> {
                   itemCount: controller.news.length,
                   itemBuilder: (context, i) => GestureDetector(
                     onTap: () {
-                      Get.to(() => CompanyNewsPage(
+                      Get.offAll(() => CompanyNewsPage(
                           title: controller.news[i].title,
                           image: controller.news[i].image,
                           description: controller.news[i].description));
@@ -905,8 +675,7 @@ class Home extends GetView<HomeController> {
                     Get.to(JoinEra());
                   },
                   bgColor: AppColors.kRedColor,
-                  height: EraTheme.buttonHeightSmall + 10.h,
-                  width: Get.width - 205.w,
+                  width: Get.width - 195.w,
                   borderRadius: BorderRadius.circular(30),
                 ),
                 sb40(),

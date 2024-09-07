@@ -5,6 +5,7 @@ class AppEraAssets {
   static String currency = "${l}philippine-peso.png";
   static String percentage = "${l}percentage.png";
   static String loan = "${l}loan.png";
+  static String reset = "${l}undo.png";
 
   static String ai = "${l}artificial-intelligence.png";
   static String ai3 = "${l}creativity.png";

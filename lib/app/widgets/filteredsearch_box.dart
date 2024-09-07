@@ -44,28 +44,28 @@ class FilteredSearchBox extends StatelessWidget {
     "Auction",
   ];
   var location = [
-  "Manila",
-  "Quezon City",
-  "Caloocan",
-  "Makati"
-  "Valenzuela",
-  "San Juan",
-  "Parañaque",
-  "Navotas",
-  "Taguig",
-  "Davao",
-  "Las Piñas",
-  "Pasig",
-  "Mandaluyong",
-  "Pateros",
-  "Marikina",
-  "Muntinlupa",
-  "Malabon",
-  "Fort Bonifacio",
-  "Binondo",
-  "Rizal",
-  "Antipolo",
-  "Santa Ana",
+    "Manila",
+    "Quezon City",
+    "Caloocan",
+    "Makati"
+        "Valenzuela",
+    "San Juan",
+    "Parañaque",
+    "Navotas",
+    "Taguig",
+    "Davao",
+    "Las Piñas",
+    "Pasig",
+    "Mandaluyong",
+    "Pateros",
+    "Marikina",
+    "Muntinlupa",
+    "Malabon",
+    "Fort Bonifacio",
+    "Binondo",
+    "Rizal",
+    "Antipolo",
+    "Santa Ana",
   ];
   var priceSearch = [
     " 1,000 -  100,000",
@@ -78,7 +78,6 @@ class FilteredSearchBox extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-
     return BoxWidget.build(
       child: Column(
         children: [
@@ -96,22 +95,20 @@ class FilteredSearchBox extends StatelessWidget {
                 onSuffixTap: () async {
                   var data;
                   var searchQuery = "";
-                  data =
-                      await AI(query: aiSearchController.text)
-                          .search();
+                  data = await AI(query: aiSearchController.text).search();
                   searchQuery = aiSearchController.text;
                   selectedIndex.value = 2;
                   pageViewController = PageController(initialPage: 2);
                   currentRoute = '/searchresult';
-                  Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,searchQuery]);
+                  Get.offAll(BaseScaffold(),
+                      binding: SearchResultBinding(),
+                      arguments: [data, searchQuery]);
                 }),
           SizedBox(height: 5.h),
           GestureDetector(
             onTap: () {
-              expanded.value =
-                  !expanded.value;
-              showFullSearch.value =
-                  !showFullSearch.value;
+              expanded.value = !expanded.value;
+              showFullSearch.value = !showFullSearch.value;
             },
             child: Padding(
               padding: EdgeInsets.all(10.0.h),
@@ -140,13 +137,13 @@ class FilteredSearchBox extends StatelessWidget {
                             color: AppColors.white,
                             selectedItem: selectedLocation,
                             Types: location,
-                            onChanged: (value) => selectedLocation.value = value!,
+                            onChanged: (value) =>
+                                selectedLocation.value = value!,
                             name: 'Location',
                             hintText: 'Select Location'),
                         AddListings.dropDownAddlistings1(
                             color: AppColors.white,
-                            selectedItem:
-                                selectedPropertyTypeSearch,
+                            selectedItem: selectedPropertyTypeSearch,
                             Types: propertyTypeSearch,
                             onChanged: (value) =>
                                 selectedPropertyTypeSearch.value = value!,
@@ -175,8 +172,7 @@ class FilteredSearchBox extends StatelessWidget {
                                         value: 1,
                                         groupValue: isForSale.value,
                                         onChanged: (value) {
-                                          isForSale.value =
-                                              value ?? 0;
+                                          isForSale.value = value ?? 0;
                                         }),
                                   ),
                                   EraText(
@@ -197,8 +193,7 @@ class FilteredSearchBox extends StatelessWidget {
                                         value: 2,
                                         groupValue: isForSale.value,
                                         onChanged: (value) {
-                                          isForSale.value =
-                                              value ?? 0;
+                                          isForSale.value = value ?? 0;
                                         }),
                                   ),
                                   EraText(
@@ -214,6 +209,7 @@ class FilteredSearchBox extends StatelessWidget {
                         SizedBox(height: 10.h),
                         SizedBox(
                           width: Get.width,
+                          height: 53.h,
                           child: ElevatedButton.icon(
                             style: ButtonStyle(
                               backgroundColor:
@@ -257,8 +253,7 @@ class FilteredSearchBox extends StatelessWidget {
                             if (locationController.text != "") {
                               searchQuery +=
                                   "Location: ${selectedLocation.value}";
-                            } else if (propertyController.text !=
-                                "") {
+                            } else if (propertyController.text != "") {
                               searchQuery +=
                                   "Property Type: ${selectedPropertyType.value}";
                             } else if (priceController.text != "") {
@@ -269,7 +264,9 @@ class FilteredSearchBox extends StatelessWidget {
                           selectedIndex.value = 2;
                           pageViewController = PageController(initialPage: 2);
                           currentRoute = '/searchresult';
-                          Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,searchQuery]);
+                          Get.offAll(BaseScaffold(),
+                              binding: SearchResultBinding(),
+                              arguments: [data, searchQuery]);
                         }),
                         SizedBox(height: 20.h),
                       ],

@@ -1,31 +1,20 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/app_text_listing.dart';
-import 'package:eraphilippines/app/widgets/app_textfield.dart';
-import 'package:eraphilippines/app/widgets/box_widget.dart';
-import 'package:eraphilippines/app/widgets/filter_options.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
-import 'package:eraphilippines/app/widgets/search_widget.dart';
-import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
-import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../../../../app/services/ai_search.dart';
 import '../../../../../app/services/firebase_database.dart';
 import '../../../../../app/widgets/filteredsearch_box.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../app/widgets/quick_links.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
-import '../../../home/controllers/home_controller.dart';
-import '../../listingproperties/pages/findproperties.dart';
+
 import '../controllers/searchresult_controller.dart';
 
 class SearchResult extends GetView<SearchResultController> {
@@ -33,7 +22,7 @@ class SearchResult extends GetView<SearchResultController> {
 
   @override
   Widget build(BuildContext context) {
-    final ProjectsController projectsController = Get.put(ProjectsController());
+    //final ProjectsController projectsController = Get.put(ProjectsController());
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

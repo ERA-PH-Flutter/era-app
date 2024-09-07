@@ -313,7 +313,6 @@ class PropertyInformation extends GetView<ListingController> {
           Button(
             fontSize: EraTheme.paragraph - 2.sp,
             width: Get.width,
-            height: 43.h,
             text: 'MORTGAGE CALCULATOR',
             borderRadius: BorderRadius.circular(20),
             bgColor: AppColors.kRedColor,
@@ -372,13 +371,12 @@ class PropertyInformation extends GetView<ListingController> {
           Button(
             text: 'MORE LISTINGS',
             onTap: () {
-              Get.toNamed('/findproperties');
+              Get.toNamed('/searchresult');
             },
             bgColor: AppColors.blue,
             fontSize: 20.sp,
             fontWeight: FontWeight.bold,
             width: Get.width,
-            height: 43.h,
             borderRadius: BorderRadius.circular(20),
           ),
         ],

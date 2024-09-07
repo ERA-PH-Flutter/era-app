@@ -27,7 +27,7 @@ class DirectContactUs extends GetView<ContactusController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 EraText(
-                  text: "CONTACT US",
+                  text: "Contact Us",
                   fontSize: 30,
                   fontWeight: FontWeight.w600,
                   color: AppColors.blue,
@@ -113,7 +113,7 @@ class DirectContactUs extends GetView<ContactusController> {
         sb30(),
         Button.button2(
           Get.width,
-          43.h,
+          53.h,
           () {},
           'Send',
         ),

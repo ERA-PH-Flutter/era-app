@@ -18,107 +18,128 @@ class CompanyNews extends GetView<CompanyNewsController> {
 
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = Get.put(HomeController());
     return Scaffold(
       appBar: CustomAppbar(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 40.h,
-                ),
-                EraText(
-                  text: 'Latest News',
-                  color: AppColors.blue,
-                  fontSize: EraTheme.header.sp + 5.sp,
-                  fontWeight: FontWeight.w600,
-                  textAlign: TextAlign.right,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: homeController.news.length,
-                  itemBuilder: (context, i) => GestureDetector(
-                    onTap: () {
-                      Get.to(() => CompanyNewsPage(
-                          title: homeController.news[i].title,
-                          image: homeController.news[i].image,
-                          description: homeController.news[i].description));
-                    },
-                    child: Container(
-                      height: 600.h,
-                      child: Stack(
+      //todo for later
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: SafeArea(
+          child: Obx(() => switch (controller.companyNewsState.value) {
+                CompanyNewsState.loading => _loading(),
+                CompanyNewsState.loaded => _loaded(),
+              }),
+        ),
+      ),
+    );
+  }
+
+  _loading() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  _loaded() {
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40.h,
+            ),
+            EraText(
+              text: 'Latest News',
+              color: AppColors.blue,
+              fontSize: EraTheme.header.sp + 5.sp,
+              fontWeight: FontWeight.w600,
+              textAlign: TextAlign.right,
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: controller.news.length,
+              itemBuilder: (context, i) => GestureDetector(
+                onTap: () {
+                  Get.to(() => CompanyNewsPage(
+                      title: controller.news[i].title,
+                      image: controller.news[i].image,
+                      description: controller.news[i].description));
+                },
+                child: Container(
+                  height: 600.h,
+                  child: Stack(
+                    children: [
+                      Column(
                         children: [
-                          Column(
-                            children: [
-                              CloudStorage().imageLoader(
-                                ref: homeController.news[i].image,
-                                height: 250.h,
-                                width: Get.width,
-                              ),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                            ],
+                          CloudStorage().imageLoader(
+                            ref: controller.news[i].image,
+                            height: 250.h,
+                            width: Get.width,
                           ),
-                          Positioned(
-                            bottom: 70.h,
-                            left: -4.w,
-                            right: -4.w,
-                            top: 200.h,
-                            child: Card(
-                              elevation: 3,
-                              color: Colors.white,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        EraTheme.paddingWidthSmall + 15.w,
-                                    vertical: 15.h),
-                                child: Column(
-                                  children: [
-                                    EraText(
-                                      text: homeController.news[i].title,
-                                      fontSize: EraTheme.paragraph + 5.sp,
-                                      color: AppColors.kRedColor,
-                                      fontWeight: FontWeight.bold,
-                                      textOverflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                    ),
-                                    SizedBox(
-                                      height: 35.h,
-                                    ),
-                                    EraText(
-                                      text: homeController.news[i].description,
-                                      fontSize: EraTheme.paragraph - 2.sp,
-                                      color: AppColors.hint,
-                                      fontWeight: FontWeight.w500,
-                                      maxLines: 5,
-                                      textOverflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                          SizedBox(
+                            height: 20.h,
                           ),
                         ],
                       ),
-                    ),
+                      Positioned(
+                        bottom: 70.h,
+                        left: -4.w,
+                        right: -4.w,
+                        top: 200.h,
+                        child: Card(
+                          elevation: 3,
+                          color: Colors.white,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: EraTheme.paddingWidthSmall + 15.w,
+                                vertical: 15.h),
+                            child: Column(
+                              children: [
+                                EraText(
+                                  text: controller.news[i].title,
+                                  fontSize: EraTheme.paragraph + 5.sp,
+                                  color: AppColors.kRedColor,
+                                  fontWeight: FontWeight.bold,
+                                  textOverflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                ),
+                                SizedBox(
+                                  height: 35.h,
+                                ),
+                                EraText(
+                                  text: controller.news[i].description,
+                                  fontSize: EraTheme.paragraph - 2.sp,
+                                  color: AppColors.hint,
+                                  fontWeight: FontWeight.w500,
+                                  maxLines: 5,
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 20.h,
-                ),
-              ],
+              ),
             ),
-          ),
+            SizedBox(
+              height: 20.h,
+            ),
+          ],
         ),
       ),
     );
   }
 }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+
+//       body: Saf
+ 

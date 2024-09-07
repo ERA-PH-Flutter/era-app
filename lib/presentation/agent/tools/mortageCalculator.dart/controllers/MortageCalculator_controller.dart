@@ -27,5 +27,8 @@ class MortageCalculatorController extends GetxController with BaseController {
     loanTerm.clear();
     interestRate.clear();
     monthlyP.clear();
+    monthlyP.text = "0.0";
+    downPayment.text = "0.0";
+    downP.value = "0.0";
   }
 }
