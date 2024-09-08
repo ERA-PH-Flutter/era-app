@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:map_location_picker/map_location_picker.dart';
-
+import 'package:eraphilippines/app/services/functions.dart';
 import '../../../../../app/services/local_storage.dart';
 import '../../../../../repository/listing.dart';
 
@@ -164,7 +164,7 @@ class AddListingsController extends GetxController with BaseController {
     propertyCostController.text =
         listing!.price == null ? "0" : listing!.price.toString();
     for (int i = 0; i < listing!.photos!.length; i++) {
-      images.add(await urlToFile(listing!.photos![i]));
+      images.add(await EraFunctions.urlToFile(listing!.photos![i]));
     }
     pricePerSqmController.text = listing!.ppsqm.toString();
     bedsController.text = listing!.beds.toString();

@@ -174,12 +174,6 @@ class Listing {
   }
 
   updateListing() async {
-    //var images = [];
-    /*
-    for (int i = 0; i < photos!.length; i++) {
-      images.add(await CloudStorage().uploadImage(image: photos![i]));
-    }
-    */
     await db.collection("listings").doc(id).update(toMap());
   }
 
@@ -190,6 +184,5 @@ class Listing {
   deleteListingsById(listingId) async {
     await db.collection("listings").doc(listingId).delete();
   }
-
   //todo build widgets
 }

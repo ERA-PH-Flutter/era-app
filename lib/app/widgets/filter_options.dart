@@ -109,19 +109,21 @@ class PriceRangeFilter extends StatelessWidget {
 
 // Reusable Rooms and Beds Widget
 class RoomsAndBedsFilter extends StatelessWidget {
-  final FilterController controller;
+  final RxInt bedrooms;
+  final RxInt bathrooms;
+  final RxInt garage;
 
-  RoomsAndBedsFilter({super.key, required this.controller});
+  RoomsAndBedsFilter({super.key, required this.bedrooms,required this.bathrooms,required this.garage});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildCounterRow('Bedrooms', controller.bedrooms),
+        _buildCounterRow('Bedrooms', bedrooms),
         SizedBox(height: 15.h),
-        _buildCounterRow('Bathrooms', controller.bathrooms),
+        _buildCounterRow('Bathrooms', bathrooms),
         SizedBox(height: 15.h),
-        _buildCounterRow('Garage', controller.beds),
+        _buildCounterRow('Garage', garage),
       ],
     );
   }
@@ -162,9 +164,9 @@ class RoomsAndBedsFilter extends StatelessWidget {
 
 // Reusable Property Type Widget
 class PropertyTypeFilter extends StatelessWidget {
-  final FilterController controller;
-
-  const PropertyTypeFilter({super.key, required this.controller});
+  //final FilterController controller;
+  final subCategory;
+  const PropertyTypeFilter({super.key,required this.subCategory});
 
   @override
   Widget build(BuildContext context) {
@@ -176,8 +178,8 @@ class PropertyTypeFilter extends StatelessWidget {
         SharedWidgets.dropDown(
             addListingsController.selectedPropertySubCategory,
             addListingsController.subCategory,
-            (value) => addListingsController.selectedPropertySubCategory.value =
-                value!,
+            (value) => subCategory.value =
+            value!,
             'Subcategory',
             'Subcategory'),
       ],
@@ -189,7 +191,8 @@ Widget _buildFloorAreaFilter({
   String? title,
   String? hintText,
   String? hintText2,
-  final TextEditingController? controller,
+  required TextEditingController min,
+  required TextEditingController max,
 }) {
   return Column(
     children: [
@@ -211,7 +214,7 @@ Widget _buildFloorAreaFilter({
                   hintText: hintText ?? 'sqm',
                   contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
                   keyboardType: TextInputType.number,
-                  controller: controller,
+                  controller: min,
                   maxLines: 1,
                 ),
               ),
@@ -228,7 +231,7 @@ Widget _buildFloorAreaFilter({
                   hintText: hintText2 ?? 'sqm',
                   contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
                   keyboardType: TextInputType.number,
-                  controller: controller,
+                  controller: max,
                   maxLines: 1,
                 ),
               ),
@@ -240,8 +243,18 @@ Widget _buildFloorAreaFilter({
   );
 }
 
-void openFilterDialog() {
-  final FilterController controller = Get.put(FilterController());
+void openFilterDialog({
+  required subcategory,
+  required bedrooms,
+  required bathrooms,
+  required garage,
+  required floorAreaMin,
+  required floorAreaMax,
+  required ppsqmMin,
+  required ppsqmMax,
+  required areaMin,
+  required areaMax,
+}) {
   Get.dialog(
     BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
@@ -288,32 +301,34 @@ void openFilterDialog() {
                     color: AppColors.black,
                   ),
                   SizedBox(height: 10.h),
-                  PropertyTypeFilter(controller: controller),
+                  PropertyTypeFilter(
+                    subCategory: subcategory,
+                  ),
                   //
-
                   SizedBox(height: 10.h),
                   //rooms and beds
-
                   SizedBox(height: 10.h),
-                  RoomsAndBedsFilter(controller: controller),
-
+                  RoomsAndBedsFilter(bedrooms: bedrooms,bathrooms: bathrooms,garage: garage,),
                   SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(),
-                  SizedBox(height: 20.h),
-
                   _buildFloorAreaFilter(
-                    controller: controller.floorAreaController,
+                    min: areaMin,
+                    max: areaMax
+                  ),
+                  SizedBox(height: 20.h),
+                  _buildFloorAreaFilter(
                     title: 'Floor Area',
                     hintText: 'sqm',
                     hintText2: 'sqm ',
+                    min: floorAreaMin,
+                    max: floorAreaMax
                   ),
                   SizedBox(height: 20.h),
-
                   _buildFloorAreaFilter(
-                    controller: controller.floorAreaController,
                     title: 'Price per sqm',
                     hintText: 'php',
                     hintText2: 'php',
+                    min: ppsqmMin,
+                    max: ppsqmMax
                   )
                 ],
               )),

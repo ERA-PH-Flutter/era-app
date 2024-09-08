@@ -1,4 +1,10 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/models/listing_filters.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
+import 'package:eraphilippines/app/services/functions.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
@@ -9,6 +15,7 @@ import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/contr
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,6 +23,7 @@ import 'package:get/get.dart';
 import '../../presentation/agent/home/controllers/home_controller.dart';
 import '../../presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import '../../presentation/global.dart';
+import '../../repository/listing.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../services/ai_search.dart';
@@ -29,13 +37,23 @@ class FilteredSearchBox extends StatelessWidget {
   var priceController = TextEditingController();
   var propertyController = TextEditingController();
   var projectsController = TextEditingController();
+
+  var bedrooms = 0.obs;
+  var bathrooms = 0.obs;
+  var garage = 0.obs;
+  var selectedSubProperty = "".obs;
+  var areaMin = TextEditingController();
+  var areaMax = TextEditingController();
+  var floorAreaMin = TextEditingController();
+  var floorAreaMax = TextEditingController();
+  var ppsqmMin = TextEditingController();
+  var ppsqmMax = TextEditingController();
+
   var isForSale = 0.obs;
-  var selectedPriRceange = "".obs;
   var selectedLocation = RxnString();
   var selectedPriceRange = "".obs;
   var selectedPriceSearch = RxnString();
   var selectedPropertyTypeSearch = RxnString();
-  var selectedPropertyType = "".obs;
   var propertyTypeSearch = [
     "Pre-selling",
     "Residential",
@@ -221,7 +239,18 @@ class FilteredSearchBox extends StatelessWidget {
                               ),
                             ),
                             onPressed: () {
-                              openFilterDialog();
+                              openFilterDialog(
+                                subcategory: selectedSubProperty,
+                                bathrooms: bathrooms,
+                                bedrooms: bedrooms,
+                                garage: garage,
+                                floorAreaMax: floorAreaMax,
+                                floorAreaMin: floorAreaMin,
+                                ppsqmMin: ppsqmMin,
+                                ppsqmMax: ppsqmMax,
+                                areaMax: areaMax,
+                                areaMin: areaMin
+                              );
                             },
                             label: EraText(
                               text: 'More Filters',
@@ -237,29 +266,106 @@ class FilteredSearchBox extends StatelessWidget {
                         ),
                         SizedBox(height: 20.h),
                         SearchWidget.build(() async {
+                          BaseController().showLoading();
                           var data;
-                          var searchQuery = "";
+                          var searchQuery = "aaaa";
                           if (isForSale.value == 1) {
                             data = await Database().getForSaleListing();
                             searchQuery = "All For Sale Listings";
                           } else if (isForSale.value == 2) {
                             data = await Database().getForRentListing();
                             searchQuery = "All For Rent Listings";
-                          } else {
-                            data = await Database().searchListing(
-                                location: selectedLocation.value,
-                                price: selectedPriRceange.value,
-                                property: selectedPropertyType.value);
-                            if (locationController.text != "") {
-                              searchQuery +=
-                                  "Location: ${selectedLocation.value}";
-                            } else if (propertyController.text != "") {
-                              searchQuery +=
-                                  "Property Type: ${selectedPropertyType.value}";
-                            } else if (priceController.text != "") {
-                              searchQuery +=
-                                  "With price less than: ${selectedPriceRange.value}";
+                          }
+                          List listings = [];
+                          List<ListingFilters> filters = <ListingFilters>[];
+                          dynamic query = FirebaseFirestore.instance.collection('listings');
+                          //filtered search
+                          if(selectedLocation.value != null){
+                            query = query.where('location',isEqualTo: selectedLocation.value?.toLowerCase());
+                            if(selectedPropertyTypeSearch.value == null){
+                              listings.assignAll((await query.get()).docs.map((properties){
+                                return properties.data();
+                              }).toList());
                             }
+                          }
+                          if(selectedPropertyTypeSearch.value != null){
+                            query = query.where('type',isEqualTo: selectedPropertyTypeSearch.value?.toLowerCase());
+                            listings = (await query.get()).docs.map((properties){
+                              return properties.data();
+                            }).toList();
+                          }
+                          if(selectedPriceRange.value != ""){
+                            var price = selectedPriceRange.value.split(" - ");
+                            if(selectedPropertyTypeSearch.value == null && selectedLocation.value == null){
+                              query = query.where('price',isGreaterThanOrEqualTo: price[0].contains('M') ? price[0].toInt() * 1000000 : price[0].toInt());
+                              query = query.where('price',isLessThanOrEqualTo: price[1].contains('M') ? price[1].toInt() * 1000000 : price[1].toInt());
+                              listings = (await query.get()).docs.map((properties){
+                                return properties.data();
+                              }).toList();
+                            }else{
+                              filters.add(
+                                  ListingFilters(
+                                    name: 'price',
+                                    type: 'number',
+                                    valueMin: price[0].contains('M') ? price[0].toInt() * 1000000 : price[0].toInt(),
+                                    valueMax:  price[1].contains('M') ? price[1].toInt() * 1000000 : price[1].toInt(),
+                                  )
+                              );
+                            }
+                          }
+                          if(selectedSubProperty.value != ""){
+                            filters.add(ListingFilters(name: 'sub_category',value: selectedSubProperty.value.toLowerCase()));
+                          }
+                          if(bedrooms.value != 0){
+                            filters.add(ListingFilters(name: 'beds',value: bedrooms.value));
+                          }
+                          if(bathrooms.value != 0){
+                            filters.add(ListingFilters(name: 'baths',value: bedrooms.value));
+                          }
+                          if(garage.value != 0){
+                            filters.add(ListingFilters(name: 'garage',value: garage.value));
+                          }
+                          if(ppsqmMin.text.isNotEmpty && ppsqmMax.text.isNotEmpty){
+                            filters.add(
+                                ListingFilters(
+                                  name: 'price',
+                                  type: 'number',
+                                  valueMin: ppsqmMin.text.toInt(),
+                                  valueMax:  ppsqmMax.text.toInt(),
+                                )
+                            );
+                          }
+                          if(floorAreaMax.text.isNotEmpty && floorAreaMin.text.isNotEmpty){
+                            filters.add(
+                                ListingFilters(
+                                  name: 'price',
+                                  type: 'number',
+                                  valueMin: floorAreaMin.text.toInt(),
+                                  valueMax:  floorAreaMax.text.toInt(),
+                                )
+                            );
+                          }
+                          if(areaMin.text.isNotEmpty && areaMax.text.isNotEmpty){
+                            filters.add(
+                                ListingFilters(
+                                  name: 'price',
+                                  type: 'number',
+                                  valueMin: areaMin.text.toInt(),
+                                  valueMax:  areaMax.text.toInt(),
+                                )
+                            );
+                          }
+
+                          if(listings.isNotEmpty && isForSale.value == 0){
+                            data = await EraFunctions.filter(listings, filters);
+                          }else if(isForSale.value == 0){
+                            BaseController().showSuccessDialog(
+                              title: "Error",
+                              description: "No results found or invalid filter/s!",
+                              hitApi: (){
+                                Get.back();Get.back();
+                              }
+                            );
                           }
                           selectedIndex.value = 2;
                           pageViewController = PageController(initialPage: 2);
