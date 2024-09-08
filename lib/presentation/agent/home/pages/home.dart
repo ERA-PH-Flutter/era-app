@@ -6,21 +6,14 @@ import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/app_text_listing.dart';
-import 'package:eraphilippines/app/widgets/app_textfield.dart';
-import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
-import 'package:eraphilippines/app/widgets/filter_options.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
-import 'package:eraphilippines/app/widgets/search_widget.dart';
-import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
-import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
+
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
@@ -31,12 +24,10 @@ import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/theme.dart';
-import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
 import '../../forms/contacts/pages/join_era.dart';
-import '../../listings/listingproperties/pages/findproperties.dart';
-import '../../listings/searchresult/controllers/searchresult_controller.dart';
+
 import '../controllers/home_controller.dart';
 
 class Home extends GetView<HomeController> {

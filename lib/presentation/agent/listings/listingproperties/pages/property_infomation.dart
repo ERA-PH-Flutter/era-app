@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
@@ -344,32 +346,22 @@ class PropertyInformation extends GetView<ListingController> {
                 }
               }),
           SizedBox(height: 10.h),
-          /*
-          ListedBy(
-            text: 'Listed By',
-            image: listing.user.image!,
-            agentFirstName: listing.user.firstname!,
-            agentLastName: listing.user.lastname!,
-            agentType: listing.user.role!,
-            whatsapp: listing.user.whatsApp,
-            whatsappIcon: AppEraAssets.whatsappIcon,
-            email: listing.user.email,
-            emailIcon: AppEraAssets.emailIcon,
-          ),
-          */
 
           SizedBox(height: 20.h),
-          // EraText(
-          //   text: 'SIMILAR LISTINGS',
-          //   color: AppColors.kRedColor,
-          //   fontSize: 20.sp,
-          //   fontWeight: FontWeight.bold,
-          // ),
+          EraText(
+            text: 'SIMILAR LISTINGS',
+            color: AppColors.kRedColor,
+            fontSize: EraTheme.subHeader + 5.sp,
+            fontWeight: FontWeight.bold,
+          ),
           // SizedBox(height: 10.h),
+          SizedBox(
+            height: 30.h,
+          ),
 
           //ListingProperties(listingModels: RealEstateListing.listingsModels),
           Button(
-            text: 'MORE LISTINGS',
+            text: 'SEE ALL',
             onTap: () {
               Get.toNamed('/searchresult');
             },

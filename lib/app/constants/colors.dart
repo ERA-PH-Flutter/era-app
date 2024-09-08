@@ -15,6 +15,8 @@ class AppColors {
   static Color laya_1 = const Color(0xFF404f59);
   static Color laya_2 = const Color(0xFF70858A);
   static Color green = const Color(0xFF075E54);
+
+  static Color subtle = Color(0xFFfdf9fa);
   //pie chart color
   static Color principal = const Color(0xFFe23a57);
   static Color interest = const Color(0xFF133562);

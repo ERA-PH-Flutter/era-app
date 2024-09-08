@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 sb() => SizedBox();
+sb3() => SizedBox(height: 3.h);
+sb4() => SizedBox(height: 4.h);
 
 sb5() => SizedBox(height: 5.h);
 sb10() => SizedBox(height: 10.h);
@@ -24,6 +26,8 @@ sb85() => SizedBox(height: 85.h);
 sb90() => SizedBox(height: 90.h);
 sb95() => SizedBox(height: 95.h);
 sb100() => SizedBox(height: 100.h);
+
+sbw5() => SizedBox(width: 5.h);
 
 sbw10() => SizedBox(width: 10.h);
 sbw15() => SizedBox(width: 15.h);
