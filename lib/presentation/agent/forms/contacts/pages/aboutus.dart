@@ -4,15 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
-import '../../../../../app/widgets/button.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
-import 'contact_us.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});

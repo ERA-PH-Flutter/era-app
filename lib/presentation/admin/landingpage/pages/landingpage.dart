@@ -2,17 +2,19 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
-import 'package:eraphilippines/presentation/admin/Listings/pages/add_listing_admin.dart';
-import 'package:eraphilippines/presentation/admin/Listings/pages/edit_listing_admin.dart';
-import 'package:eraphilippines/presentation/admin/agents/controllers/agents_controller.dart';
-import 'package:eraphilippines/presentation/admin/agents/pages/add-agent.dart';
-import 'package:eraphilippines/presentation/admin/agents/pages/agent_profile_admin.dart';
-import 'package:eraphilippines/presentation/admin/agents/pages/approvedagents.dart';
-import 'package:eraphilippines/presentation/admin/agents/pages/roster.dart';
+import 'package:eraphilippines/presentation/admin/content-management/pages/about_us.dart';
+import 'package:eraphilippines/presentation/admin/project_management/pages/add_listing_admin.dart';
+import 'package:eraphilippines/presentation/admin/project_management/pages/add_project_admin.dart';
+import 'package:eraphilippines/presentation/admin/project_management/pages/edit_listing_admin.dart';
+import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/homepage.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
-import 'package:eraphilippines/presentation/admin/listings/pages/add_project_admin.dart';
-import 'package:eraphilippines/presentation/admin/listings/pages/propertylist_admin.dart';
+import 'package:eraphilippines/presentation/admin/project_management/pages/propertylist_admin.dart';
+import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/approvedagents.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/roster.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,46 +22,41 @@ import 'package:get/get.dart';
 class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
 
-  final List<Widget> _screens = [
-    //user management
-    //Add option to delete/update and agen
-    AgentProfileAdmin(),
-    //
-    ApprovedAgents(),
-    AddAgent(),
-    Roster(),
-
-    //content management
-    HomePage(),
-    AddPropertyAdmin(),
-
-    PropertylistAdmin(),
-    AddPropertyAdmin(),
-    EditPropertyAdmin(),
-    AddProjectAdmin(),
-  ];
+  final Map<AdminSection, Widget> _screens = {
+    AdminSection.agentProfile: AgentProfileAdmin(),
+    AdminSection.addAgent: AddAgent(),
+    AdminSection.approvedAgents: ApprovedAgents(),
+    AdminSection.roster: Roster(),
+    AdminSection.addProject: AddProjectAdmin(),
+    AdminSection.propertyList: PropertylistAdmin(),
+    AdminSection.addProperty: AddPropertyAdmin(),
+    AdminSection.editProperty: EditPropertyAdmin(),
+    AdminSection.homepage: HomePage(),
+    AdminSection.aboutUs: AboutUsPage(),
+  };
 
   @override
   Widget build(BuildContext context) {
     Get.put(AgentAdminController());
-
+    Get.put(ContentManagementController());
     return Scaffold(
-        backgroundColor: AppColors.white,
-        appBar: CustomAppBar(
-          height: 150.h,
-          child: _buildAppBarContent(),
+      backgroundColor: AppColors.white,
+      appBar: CustomAppBar(
+        height: 150.h,
+        child: _buildAppBarContent(),
+      ),
+      body: WillPopScope(
+        onWillPop: () => _onWillPop(),
+        child: SafeArea(
+          child: Obx(() => switch (controller.landingState.value) {
+                LandingState.loading => _loading(),
+                LandingState.loaded => _loaded(),
+                LandingState.error => _error(),
+                LandingState.empty => _empty()
+              }),
         ),
-        body: WillPopScope(
-          onWillPop: () => _onWillPop(),
-          child: SafeArea(
-            child: Obx(() => switch (controller.landingState.value) {
-                  LandingState.loading => _loading(),
-                  LandingState.loaded => _loaded(),
-                  LandingState.error => _error(),
-                  LandingState.empty => _empty()
-                }),
-          ),
-        ));
+      ),
+    );
   }
 
   Future<bool> _onWillPop() {
@@ -76,7 +73,6 @@ class LandingPage extends GetView<LandingPageController> {
   }
 
   _loaded() {
-    //
     return Row(
       children: [
         Container(
@@ -84,13 +80,14 @@ class LandingPage extends GetView<LandingPageController> {
           color: AppColors.hint.withOpacity(0.3),
           child: _buildSidebarMenu(),
         ),
-        Expanded(child: _screens[controller.selectedIndex.value]),
+        Expanded(
+          child: _screens[controller.selectedSection.value] ?? Container(),
+        ),
       ],
     );
   }
 
   _error() {
-    //todo add error screen
     return EraText(
       text: 'errorrrr',
       color: AppColors.black,
@@ -100,11 +97,10 @@ class LandingPage extends GetView<LandingPageController> {
   _empty() {
     return Container(
       child: EraText(
-        text: 'errorrrr',
+        text: 'No content available',
         color: AppColors.black,
       ),
     );
-    //todo add empty screen
   }
 
   Widget _buildAppBarContent() => Row(
@@ -143,10 +139,15 @@ class LandingPage extends GetView<LandingPageController> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               EraText(
-                  text: 'FirstName LastName',
-                  color: AppColors.white,
-                  fontSize: 12.sp),
-              EraText(text: 'Status', color: AppColors.white, fontSize: 12.sp),
+                text: 'FirstName LastName',
+                color: AppColors.white,
+                fontSize: 12.sp,
+              ),
+              EraText(
+                text: 'Status',
+                color: AppColors.white,
+                fontSize: 12.sp,
+              ),
             ],
           ),
         ),
@@ -159,7 +160,7 @@ class LandingPage extends GetView<LandingPageController> {
         child: Padding(
           padding: EdgeInsets.only(left: 5.w),
           child: EraText(
-            text: ' Dashboard',
+            text: 'Dashboard',
             color: AppColors.black,
             fontSize: 28.sp,
             fontWeight: FontWeight.w500,
@@ -173,102 +174,35 @@ class LandingPage extends GetView<LandingPageController> {
             text: "USER MANAGEMENT",
             image: AppEraAssets.dashboard,
             children: [
-              _buildMenuItem('VIEW ALL AGENTS/BROKERS', 0),
-
-              _buildMenuItem('ADD AGENT', 4),
-              _buildMenuItem('APPROVAL NEW AGENT', 3),
-              _buildMenuItem('ROSTER', 5),
-              _buildMenuItem('AGENT PROFILE', 6),
-              // _buildMenuItem('HOME', 0),
-              // _buildMenuItem('PROPERTIES & AGENTS', 1),
-              // _buildMenuItem('REVIEWS', 2),
+              _buildMenuItem('VIEW AGENTS/BROKERS', AdminSection.agentProfile),
+              _buildMenuItem('ADD AGENT', AdminSection.addAgent),
+              _buildMenuItem('APPROVAL NEW AGENT', AdminSection.approvedAgents),
+              _buildMenuItem('ROSTER', AdminSection.roster),
             ],
           ),
           _buildExpansionTile(
             text: "PROPERTY MANAGEMENT",
             image: AppEraAssets.agentDash,
             children: [
-              _buildMenuItem('APPROVAL NEW AGENT', 3),
-              _buildMenuItem('ADD AGENT', 4),
-              _buildMenuItem('ROSTER', 5),
-              _buildMenuItem('AGENT PROFILE', 6),
+              _buildMenuItem('ADD PROJECTS', AdminSection.addProject),
+              _buildMenuItem('PROPERTY LISTINGS', AdminSection.propertyList),
+              _buildMenuItem('ADD LISTINGS', AdminSection.addProperty),
+              _buildMenuItem('EDIT LISTINGS', AdminSection.editProperty),
             ],
           ),
           _buildExpansionTile(
             text: "CONTENT MANAGEMENT",
             image: AppEraAssets.listingDash,
             children: [
-              _buildMenuItem('PROPERTY LIST', 7),
-              _buildMenuItem('ADD PROPERTY', 8),
-              _buildMenuItem('EDIT PROPERTY', 9),
-              _buildMenuItem('PROPERTY DETAILS', 10),
-              Divider(
-                  height: 20,
-                  thickness: 1,
-                  indent: 20,
-                  endIndent: 20,
-                  color: AppColors.blue),
-              _buildMenuItem('PROJECT LIST', 11),
-              _buildMenuItem('ADD PROJECT', 12),
-              _buildMenuItem('EDIT PROJECT', 13),
-              _buildMenuItem('PROJECT DETAILS', 14),
-            ],
-          ),
-          _buildExpansionTile(
-            text: "NEWS",
-            image: AppEraAssets.messagingDash,
-            children: [
-              _buildMenuItem('APPROVAL NEW AGENT', 15),
-              _buildMenuItem('ADD AGENT', 16),
-              _buildMenuItem('ROSTER', 17),
-              _buildMenuItem('AGENT PROFILE', 18),
-            ],
-          ),
-          _buildExpansionTile(
-            text: "HELP",
-            image: AppEraAssets.settingDash,
-            children: [
-              _buildMenuItem('APPROVAL NEW AGENT', 19),
-              _buildMenuItem('ADD AGENT', 20),
-              _buildMenuItem('ROSTER', 21),
-              _buildMenuItem('AGENT PROFILE', 22),
-            ],
-          ),
-          _buildExpansionTile(
-            text: "MESSAGE/REPORTS",
-            image: AppEraAssets.settingDash,
-            children: [
-              _buildMenuItem('APPROVAL NEW AGENT', 19),
-              _buildMenuItem('ADD AGENT', 20),
-              _buildMenuItem('ROSTER', 21),
-              _buildMenuItem('AGENT PROFILE', 22),
-            ],
-          ),
-          _buildExpansionTile(
-            text: "ANALYTICS",
-            image: AppEraAssets.settingDash,
-            children: [
-              _buildMenuItem('APPROVAL NEW AGENT', 19),
-              _buildMenuItem('ADD AGENT', 20),
-              _buildMenuItem('ROSTER', 21),
-              _buildMenuItem('AGENT PROFILE', 22),
-            ],
-          ),
-          _buildExpansionTile(
-            text: "SETTINGS",
-            image: AppEraAssets.settingDash,
-            children: [
-              _buildMenuItem('APPROVAL NEW AGENT', 19),
-              _buildMenuItem('ADD AGENT', 20),
-              _buildMenuItem('ROSTER', 21),
-              _buildMenuItem('AGENT PROFILE', 22),
+              _buildMenuItem('HOMEPAGE', AdminSection.homepage),
+              _buildMenuItem('ABOUT US', AdminSection.aboutUs),
             ],
           ),
         ],
       );
 
-  Widget _buildMenuItem(String title, int pageIndex) => Obx(() {
-        final bool isSelected = controller.selectedIndex.value == pageIndex;
+  Widget _buildMenuItem(String title, AdminSection section) => Obx(() {
+        final bool isSelected = controller.selectedSection.value == section;
         return ListTile(
           title: Container(
             height: 40.h,
@@ -280,7 +214,7 @@ class LandingPage extends GetView<LandingPageController> {
               maxLines: 2,
             ),
           ),
-          onTap: () => controller.onItemTapped(pageIndex),
+          onTap: () => controller.onSectionSelected(section),
         );
       });
 
@@ -313,3 +247,102 @@ class LandingPage extends GetView<LandingPageController> {
     );
   }
 }
+
+  // Widget _buildSidebarMenu() => ListView(
+  //       children: [
+  //         _buildExpansionTile(
+  //           text: "USER MANAGEMENT",
+  //           image: AppEraAssets.dashboard,
+  //           children: [
+  //             _buildMenuItem('VIEW AGENTS/BROKERS', 0),
+
+  //             _buildMenuItem('ADD AGENT', 1),
+  //             _buildMenuItem('APPROVAL NEW AGENT', 2),
+  //             _buildMenuItem('ROSTER', 3),
+
+  //             // _buildMenuItem('HOME', 0),
+  //             // _buildMenuItem('PROPERTIES & AGENTS', 1),
+  //             // _buildMenuItem('REVIEWS', 2),
+  //           ],
+  //         ),
+  //         _buildExpansionTile(
+  //           text: "PROPERTY MANAGEMENT",
+  //           image: AppEraAssets.agentDash,
+  //           children: [
+  //             _buildMenuItem('ADD PROJECTS', 4),
+  //             _buildMenuItem('PROPERTY LISTINGS', 5),
+  //             _buildMenuItem('ADD LISTINGS', 6),
+  //             _buildMenuItem('EDIT LISTINGS', 7),
+  //           ],
+  //         ),
+  //         _buildExpansionTile(
+  //           text: "CONTENT MANAGEMENT",
+  //           image: AppEraAssets.listingDash,
+  //           children: [
+  //             _buildMenuItem('HOMEPAGE', 8),
+  //             _buildMenuItem('ABOUT US', 9),
+  //             // Divider(
+  //             //     height: 20,
+  //             //     thickness: 1,
+  //             //     indent: 20,
+  //             //     endIndent: 20,
+  //             //     color: AppColors.blue),
+  //             // _buildMenuItem('PROJECT LIST', 11),
+  //             // _buildMenuItem('ADD PROJECT', 12),
+  //             // _buildMenuItem('EDIT PROJECT', 13),
+  //             // _buildMenuItem('PROJECT DETAILS', 14),
+  //           ],
+  //         ),
+  //         _buildExpansionTile(
+  //           text: "NEWS",
+  //           image: AppEraAssets.messagingDash,
+  //           children: [
+  //             _buildMenuItem('APPROVAL NEW AGENT', 15),
+  //             _buildMenuItem('ADD AGENT', 16),
+  //             _buildMenuItem('ROSTER', 17),
+  //             _buildMenuItem('AGENT PROFILE', 18),
+  //           ],
+  //         ),
+  //         _buildExpansionTile(
+  //           text: "HELP",
+  //           image: AppEraAssets.settingDash,
+  //           children: [
+  //             _buildMenuItem('APPROVAL NEW AGENT', 19),
+  //             _buildMenuItem('ADD AGENT', 20),
+  //             _buildMenuItem('ROSTER', 21),
+  //             _buildMenuItem('AGENT PROFILE', 22),
+  //           ],
+  //         ),
+  //         _buildExpansionTile(
+  //           text: "MESSAGE/REPORTS",
+  //           image: AppEraAssets.settingDash,
+  //           children: [
+  //             _buildMenuItem('APPROVAL NEW AGENT', 19),
+  //             _buildMenuItem('ADD AGENT', 20),
+  //             _buildMenuItem('ROSTER', 21),
+  //             _buildMenuItem('AGENT PROFILE', 22),
+  //           ],
+  //         ),
+  //         _buildExpansionTile(
+  //           text: "ANALYTICS",
+  //           image: AppEraAssets.settingDash,
+  //           children: [
+  //             _buildMenuItem('APPROVAL NEW AGENT', 19),
+  //             _buildMenuItem('ADD AGENT', 20),
+  //             _buildMenuItem('ROSTER', 21),
+  //             _buildMenuItem('AGENT PROFILE', 22),
+  //           ],
+  //         ),
+  //         _buildExpansionTile(
+  //           text: "SETTINGS",
+  //           image: AppEraAssets.settingDash,
+  //           children: [
+  //             _buildMenuItem('APPROVAL NEW AGENT', 19),
+  //             _buildMenuItem('ADD AGENT', 20),
+  //             _buildMenuItem('ROSTER', 21),
+  //             _buildMenuItem('AGENT PROFILE', 22),
+  //           ],
+  //         ),
+  //       ],
+  //     );
+

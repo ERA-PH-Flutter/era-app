@@ -1,20 +1,33 @@
- import 'package:get/get.dart';
+import 'package:get/get.dart';
 import '../../../../../app/services/local_storage.dart';
 
 enum LandingState { loading, loaded, error, empty }
 
+enum AdminSection {
+  agentProfile,
+  addAgent,
+  approvedAgents,
+  roster,
+  addProject,
+  propertyList,
+  addProperty,
+  editProperty,
+  homepage,
+  aboutUs,
+}
+
 class LandingPageController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var landingState = LandingState.loading.obs;
+  var selectedSection = AdminSection.agentProfile.obs;
+
   @override
   void onInit() {
     landingState.value = LandingState.loaded;
     super.onInit();
   }
-   var selectedIndex = 0.obs;
 
-void onItemTapped(int index) {
-  selectedIndex.value = index;
-}
-
+  void onSectionSelected(AdminSection section) {
+    selectedSection.value = section;
+  }
 }

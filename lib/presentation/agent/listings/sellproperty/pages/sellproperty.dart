@@ -172,9 +172,10 @@ class SellProperty extends GetView<SellPropertyController> {
                   ),
                   TextformfieldWidget(
                     hintText: 'Enter Description',
-                    maxLines: 10,
+                    maxLines: 15,
                     color: AppColors.hint,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
                   ),
                   sb30(),
                   Button(

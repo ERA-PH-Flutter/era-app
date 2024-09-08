@@ -14,7 +14,6 @@ import 'package:get/get.dart';
 
 import '../../../../../app/widgets/button.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
-import 'contact_us.dart';
 
 class JoinEra extends StatelessWidget {
   const JoinEra({super.key});

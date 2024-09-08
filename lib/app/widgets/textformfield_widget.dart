@@ -18,36 +18,38 @@ class TextformfieldWidget extends StatelessWidget {
   final bool? readOnly;
   final double? radius;
   final void Function(String)? onChanged;
+  final TextInputAction? textInputAction;
 
-  const TextformfieldWidget({
-    super.key,
-    this.style,
-    this.hintText,
-    this.hintstlye,
-    this.controller,
-    this.contentPadding,
-    this.maxLines,
-    this.suffixIcon,
-    this.obscureText,
-    this.keyboardType,
-    this.fontSize,
-    this.color,
-    this.validator,
-    this.readOnly,
-    this.onChanged,
-    this.radius
-  });
+  const TextformfieldWidget(
+      {super.key,
+      this.style,
+      this.hintText,
+      this.hintstlye,
+      this.controller,
+      this.contentPadding,
+      this.maxLines,
+      this.suffixIcon,
+      this.obscureText,
+      this.keyboardType,
+      this.fontSize,
+      this.color,
+      this.validator,
+      this.readOnly,
+      this.onChanged,
+      this.radius,
+      this.textInputAction});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onChanged: onChanged,
-      keyboardType: keyboardType ?? TextInputType.text,
+      keyboardType: keyboardType ?? TextInputType.multiline,
       maxLines: maxLines ?? 18,
       controller: controller,
       obscureText: obscureText ?? false,
       validator: validator,
       readOnly: readOnly ?? false,
+      textInputAction: textInputAction ?? TextInputAction.none,
       decoration: InputDecoration(
         // contentPadding: contentPadding ?? EdgeInsets.zero,
         suffixIcon: suffixIcon,

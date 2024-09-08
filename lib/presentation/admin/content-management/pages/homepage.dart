@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,11 +8,10 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/presentation/admin/content-management/controllers/homepage_controller.dart';
+import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
+import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/repository/listing.dart';
-import 'package:eraphilippines/repository/user.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,7 +19,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../app/constants/sized_box.dart';
 
-class HomePage extends GetView<HomePageController> {
+class HomePage extends GetView<ContentManagementController> {
   HomePage({super.key});
 
   @override
@@ -30,223 +28,18 @@ class HomePage extends GetView<HomePageController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _uploadBanners(),
-          _uploadProjectMainBanner(),
+          UploadBannersWidget(controller: controller, maxImages: 15),
+          sb20(),
+          // preview photos
+          _uploadPreviewPhotos(),
+          sb20(),
+          UploadBannersWidget(
+              controller: controller,
+              maxImages: 15,
+              text: 'UPLOAD PROJECT-MAIN BANNER'),
           _featuredProjects(),
         ],
       ),
-    );
-  }
-
-  Widget _uploadBanners() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AddListings.textBuild(
-                'UPLOAD BANNERS', 22.sp, FontWeight.w600, AppColors.kRedColor),
-            Obx(() => AddListings.textBuild('${controller.images.length}/2',
-                22.sp, FontWeight.w600, Colors.black)),
-          ],
-        ),
-        SizedBox(height: 10.h),
-        // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.blue,
-                  shadowColor: Colors.transparent,
-                  side: BorderSide(
-                      color: AppColors.hint.withOpacity(0.1), width: 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () {
-                  controller.getImageGallery();
-                },
-                icon: Icon(
-                  CupertinoIcons.photo_fill_on_rectangle_fill,
-                  color: AppColors.white,
-                ),
-                label: EraText(
-                  text: 'Select Photos',
-                  color: AppColors.white,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        SizedBox(height: 10.h),
-        Obx(() {
-          if (controller.images.isEmpty) {
-            return _buildUploadPhoto();
-          } else {
-            return GridView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 10.h,
-                  crossAxisSpacing: 10.h,
-                ),
-                itemCount: controller.images.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: FileImage(controller.images[index]),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                });
-          }
-        }),
-
-        SizedBox(height: 5.h),
-
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: EraText(
-              text: 'Photo must be at least 300px X 300px',
-              fontSize: 15.sp,
-              color: AppColors.hint),
-        ),
-      ],
-    );
-  }
-
-  Widget _uploadProjectMainBanner() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AddListings.textBuild('UPLOAD PROJECT-MAIN BANNER', 22.sp,
-                FontWeight.w600, AppColors.kRedColor),
-            Obx(() => AddListings.textBuild('${controller.images.length}/1',
-                22.sp, FontWeight.w600, Colors.black)),
-          ],
-        ),
-        SizedBox(height: 10.h),
-        // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.blue,
-                  shadowColor: Colors.transparent,
-                  side: BorderSide(
-                      color: AppColors.hint.withOpacity(0.1), width: 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () {
-                  controller.getImageGallery();
-                },
-                icon: Icon(
-                  CupertinoIcons.photo_fill_on_rectangle_fill,
-                  color: AppColors.white,
-                ),
-                label: EraText(
-                  text: 'Select Photos',
-                  color: AppColors.white,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 10.h),
-        Obx(() {
-          if (controller.images.isEmpty) {
-            return _buildUploadPhoto();
-          } else {
-            return GridView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 10.h,
-                  crossAxisSpacing: 10.h,
-                ),
-                itemCount: controller.images.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: FileImage(controller.images[index]),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                });
-          }
-        }),
-
-        SizedBox(height: 5.h),
-
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: EraText(
-              text: 'Photo must be at least 300px X 300px',
-              fontSize: 15.sp,
-              color: AppColors.hint),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildUploadPhoto() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        EraText(
-          text: 'Upload Photo *',
-          fontSize: 18.sp,
-          color: AppColors.black,
-          fontWeight: FontWeight.w500,
-        ),
-        SizedBox(
-          height: 10.h,
-        ),
-        Container(
-          width: Get.width / 1.2 - 45.w,
-          height: 250.h,
-          decoration: BoxDecoration(
-            color: AppColors.hint.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: AppColors.hint.withOpacity(0.9),
-              width: 2,
-            ),
-          ),
-          child: Center(
-            child: Image.asset(AppEraAssets.uploadAdmin),
-          ),
-        ),
-        SizedBox(
-          height: 20.h,
-        ),
-      ],
     );
   }
 
@@ -290,8 +83,7 @@ class HomePage extends GetView<HomePageController> {
                 itemCount: randomIndex.length,
                 itemBuilder: (context, index) {
                   var docIndex = randomIndex[index];
-                  var user =
-                      EraUser.fromJSON(snapshot.data!.docs[docIndex].data());
+
                   var listing =
                       Listing.fromJSON(snapshot.data!.docs[docIndex].data());
                   print('Number of children: ${randomIndex.length}');
@@ -472,97 +264,47 @@ class HomePage extends GetView<HomePageController> {
     );
   }
 
-  Widget _featuredNews() {
+  Widget _uploadPreviewPhotos() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildUploadPhoto(
+          text: 'Preselling Preview Photo',
+        ),
+        _buildUploadPhoto(
+          text: 'Residential Preview Photo',
+        ),
+        _buildUploadPhoto(
+          text: 'Commercial Preview Photo',
+        ),
+        _buildUploadPhoto(
+          text: 'Rental Preview Photo',
+        ),
+        _buildUploadPhoto(
+          text: 'Auction Preview Photo',
+        ),
+      ],
+    );
+  }
+
+  Widget _buildUploadPhoto({String? text}) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AddListings.textBuild('UPLOAD FEATURED LISTINGS', 22.sp,
-                FontWeight.w600, AppColors.kRedColor),
-            Obx(() => AddListings.textBuild('${controller.images.length}/2',
-                22.sp, FontWeight.w600, Colors.black)),
-          ],
-        ),
-        SizedBox(height: 10.h),
-        // textBuild('Uploads', 20.sp, FontWeight.w500, AppColors.black),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.blue,
-                  shadowColor: Colors.transparent,
-                  side: BorderSide(
-                      color: AppColors.hint.withOpacity(0.1), width: 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () {
-                  controller.getImageGallery();
-                },
-                icon: Icon(
-                  CupertinoIcons.photo_fill_on_rectangle_fill,
-                  color: AppColors.white,
-                ),
-                label: EraText(
-                  text: 'Select Photos',
-                  color: AppColors.white,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
+        AddListings.textBuild(
+            text ?? ' ', 22.sp, FontWeight.w600, AppColors.kRedColor),
+        Container(
+          width: 250.w,
+          height: 250.h,
+          decoration: BoxDecoration(
+            color: AppColors.hint.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: AppColors.hint.withOpacity(0.9),
+              width: 2,
+            ),
           ),
-        ),
-        SizedBox(height: 10.h),
-        Obx(() {
-          if (controller.images.isEmpty) {
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: SizedBox(
-                width: 300.w,
-                child: Image.asset(
-                  AppEraAssets.uploadphoto,
-                ),
-              ),
-            );
-          } else {
-            return GridView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 10.h,
-                  crossAxisSpacing: 10.h,
-                ),
-                itemCount: controller.images.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: FileImage(controller.images[index]),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                });
-          }
-        }),
-
-        SizedBox(height: 5.h),
-
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: EraText(
-              text: 'Photo must be at least 300px X 300px',
-              fontSize: 15.sp,
-              color: AppColors.hint),
+          child: GestureDetector(
+              onTap: () {}, child: Image.asset(AppEraAssets.uploadAdmin)),
         ),
       ],
     );
