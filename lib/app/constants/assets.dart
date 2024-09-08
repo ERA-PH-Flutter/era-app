@@ -62,9 +62,11 @@ class AppEraAssets {
   static String convertusd = "${l}money.png";
 
   //social media icons
-  static String emailIcon = "${l}mail.png";
-  static String whatsappIcon = "${l}whatsapp.png";
+  static String emailIcon = "${l}2.png";
+  static String whatsappIcon = "${l}1.png";
   static String markerIcon = "${l}marker2.png";
+  // static String whatsAppIcon = "${l}1.png";
+  //   static String emaiLIcon = "${l}1.png";
 
   //navigation bar icons
   static String home = "${l}home-navi_white.png";

@@ -29,6 +29,7 @@ class ListingController extends GetxController {
   var searchQuery = ''.obs;
   var data = [].obs;
   var showFullSearch = false.obs;
+  List<Listing> listings = [];
 
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();

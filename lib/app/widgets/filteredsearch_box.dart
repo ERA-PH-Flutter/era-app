@@ -92,7 +92,7 @@ class FilteredSearchBox extends StatelessWidget {
     " 1M - 5M",
     " 10M - 50M",
     " 50M - 100M",
-    " 100>",
+    " 100M - 1B",
   ];
   @override
   Widget build(BuildContext context) {
@@ -240,17 +240,16 @@ class FilteredSearchBox extends StatelessWidget {
                             ),
                             onPressed: () {
                               openFilterDialog(
-                                subcategory: selectedSubProperty,
-                                bathrooms: bathrooms,
-                                bedrooms: bedrooms,
-                                garage: garage,
-                                floorAreaMax: floorAreaMax,
-                                floorAreaMin: floorAreaMin,
-                                ppsqmMin: ppsqmMin,
-                                ppsqmMax: ppsqmMax,
-                                areaMax: areaMax,
-                                areaMin: areaMin
-                              );
+                                  subcategory: selectedSubProperty,
+                                  bathrooms: bathrooms,
+                                  bedrooms: bedrooms,
+                                  garage: garage,
+                                  floorAreaMax: floorAreaMax,
+                                  floorAreaMin: floorAreaMin,
+                                  ppsqmMin: ppsqmMin,
+                                  ppsqmMax: ppsqmMax,
+                                  areaMax: areaMax,
+                                  areaMin: areaMin);
                             },
                             label: EraText(
                               text: 'More Filters',
@@ -278,95 +277,115 @@ class FilteredSearchBox extends StatelessWidget {
                           }
                           List listings = [];
                           List<ListingFilters> filters = <ListingFilters>[];
-                          dynamic query = FirebaseFirestore.instance.collection('listings');
+                          dynamic query =
+                              FirebaseFirestore.instance.collection('listings');
                           //filtered search
-                          if(selectedLocation.value != null){
-                            query = query.where('location',isEqualTo: selectedLocation.value?.toLowerCase());
-                            if(selectedPropertyTypeSearch.value == null){
-                              listings.assignAll((await query.get()).docs.map((properties){
+                          if (selectedLocation.value != null) {
+                            query = query.where('location',
+                                isEqualTo:
+                                    selectedLocation.value?.toLowerCase());
+                            if (selectedPropertyTypeSearch.value == null) {
+                              listings.assignAll(
+                                  (await query.get()).docs.map((properties) {
                                 return properties.data();
                               }).toList());
                             }
                           }
-                          if(selectedPropertyTypeSearch.value != null){
-                            query = query.where('type',isEqualTo: selectedPropertyTypeSearch.value?.toLowerCase());
-                            listings = (await query.get()).docs.map((properties){
+                          if (selectedPropertyTypeSearch.value != null) {
+                            query = query.where('type',
+                                isEqualTo: selectedPropertyTypeSearch.value
+                                    ?.toLowerCase());
+                            listings =
+                                (await query.get()).docs.map((properties) {
                               return properties.data();
                             }).toList();
                           }
-                          if(selectedPriceSearch.value != null){
-
-                            var price = selectedPriceSearch.value!.split(" - ");
-                            if(selectedPropertyTypeSearch.value == null && selectedLocation.value == null){
-                              query = query.where('price',isGreaterThanOrEqualTo: price[0].contains('M') ? price[0].replaceAll('M', '').toInt() * 1000000 : price[0].toInt());
-                              query = query.where('price',isLessThanOrEqualTo: price[1].contains('M') ? price[1].replaceAll('M', '').toInt() * 1000000 : price[1].toInt());
-                              listings = (await query.get()).docs.map((properties){
+                          if (selectedPriceRange.value != "") {
+                            var price = selectedPriceRange.value.split(" - ");
+                            if (selectedPropertyTypeSearch.value == null &&
+                                selectedLocation.value == null) {
+                              query = query.where('price',
+                                  isGreaterThanOrEqualTo: price[0].contains('M')
+                                      ? price[0].toInt() * 1000000
+                                      : price[0].toInt());
+                              query = query.where('price',
+                                  isLessThanOrEqualTo: price[1].contains('M')
+                                      ? price[1].toInt() * 1000000
+                                      : price[1].toInt());
+                              listings =
+                                  (await query.get()).docs.map((properties) {
                                 return properties.data();
                               }).toList();
-                            }else{
-                              filters.add(
-                                  ListingFilters(
-                                    name: 'price',
-                                    type: 'number',
-                                    valueMin: price[0].contains('M') ? price[0].toInt() * 1000000 : price[0].toInt(),
-                                    valueMax:  price[1].contains('M') ? price[1].toInt() * 1000000 : price[1].toInt(),
-                                  )
-                              );
+                            } else {
+                              filters.add(ListingFilters(
+                                name: 'price',
+                                type: 'number',
+                                valueMin: price[0].contains('M')
+                                    ? price[0].toInt() * 1000000
+                                    : price[0].toInt(),
+                                valueMax: price[1].contains('M')
+                                    ? price[1].toInt() * 1000000
+                                    : price[1].toInt(),
+                              ));
                             }
                           }
-                          if(selectedSubProperty.value != ""){
-                            filters.add(ListingFilters(name: 'sub_category',value: selectedSubProperty.value.toLowerCase()));
+                          if (selectedSubProperty.value != "") {
+                            filters.add(ListingFilters(
+                                name: 'sub_category',
+                                value:
+                                    selectedSubProperty.value.toLowerCase()));
                           }
-                          if(bedrooms.value != 0){
-                            filters.add(ListingFilters(name: 'beds',value: bedrooms.value));
+                          if (bedrooms.value != 0) {
+                            filters.add(ListingFilters(
+                                name: 'beds', value: bedrooms.value));
                           }
-                          if(bathrooms.value != 0){
-                            filters.add(ListingFilters(name: 'baths',value: bathrooms.value));
+                          if (bathrooms.value != 0) {
+                            filters.add(ListingFilters(
+                                name: 'baths', value: bedrooms.value));
                           }
-                          if(garage.value != 0){
-                            filters.add(ListingFilters(name: 'garage',value: garage.value));
+                          if (garage.value != 0) {
+                            filters.add(ListingFilters(
+                                name: 'garage', value: garage.value));
                           }
-                          if(ppsqmMin.text.isNotEmpty && ppsqmMax.text.isNotEmpty){
-                            filters.add(
-                                ListingFilters(
-                                  name: 'price',
-                                  type: 'number',
-                                  valueMin: ppsqmMin.text.toInt(),
-                                  valueMax:  ppsqmMax.text.toInt(),
-                                )
-                            );
+                          if (ppsqmMin.text.isNotEmpty &&
+                              ppsqmMax.text.isNotEmpty) {
+                            filters.add(ListingFilters(
+                              name: 'price',
+                              type: 'number',
+                              valueMin: ppsqmMin.text.toInt(),
+                              valueMax: ppsqmMax.text.toInt(),
+                            ));
                           }
-                          if(floorAreaMax.text.isNotEmpty && floorAreaMin.text.isNotEmpty){
-                            filters.add(
-                                ListingFilters(
-                                  name: 'price',
-                                  type: 'number',
-                                  valueMin: floorAreaMin.text.toInt(),
-                                  valueMax:  floorAreaMax.text.toInt(),
-                                )
-                            );
+                          if (floorAreaMax.text.isNotEmpty &&
+                              floorAreaMin.text.isNotEmpty) {
+                            filters.add(ListingFilters(
+                              name: 'price',
+                              type: 'number',
+                              valueMin: floorAreaMin.text.toInt(),
+                              valueMax: floorAreaMax.text.toInt(),
+                            ));
                           }
-                          if(areaMin.text.isNotEmpty && areaMax.text.isNotEmpty){
-                            filters.add(
-                                ListingFilters(
-                                  name: 'price',
-                                  type: 'number',
-                                  valueMin: areaMin.text.toInt(),
-                                  valueMax:  areaMax.text.toInt(),
-                                )
-                            );
+                          if (areaMin.text.isNotEmpty &&
+                              areaMax.text.isNotEmpty) {
+                            filters.add(ListingFilters(
+                              name: 'price',
+                              type: 'number',
+                              valueMin: areaMin.text.toInt(),
+                              valueMax: areaMax.text.toInt(),
+                            ));
                           }
 
-                          if(listings.isNotEmpty && isForSale.value == 0){
+                          if (listings.isNotEmpty && isForSale.value == 0) {
                             data = await EraFunctions.filter(listings, filters);
-                          }else if(isForSale.value == 0){
+                          } else if (isForSale.value == 0) {
                             BaseController().showSuccessDialog(
-                              title: "Error",
-                              description: "No results found or invalid filter/s!",
-                              hitApi: (){
-                                Get.back();Get.back();
-                              }
-                            );
+                                title: "Error",
+                                description:
+                                    "No results found or invalid filter/s!",
+                                hitApi: () {
+                                  Get.back();
+                                  Get.back();
+                                });
                           }
                           selectedIndex.value = 2;
                           pageViewController = PageController(initialPage: 2);

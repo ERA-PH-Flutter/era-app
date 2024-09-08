@@ -8,32 +8,22 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/company/company_grid.dart';
 import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/app/widgets/listings/agentInfo-widget.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agents_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/settingAgent.dart';
-import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
-import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
-import 'package:eraphilippines/presentation/agent/projects/controllers/projects_binding.dart';
-import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../../app/models/navbaritems.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../../../../app/widgets/navigation/app_nav_items.dart';
 import '../../../../repository/user.dart';
 import '../../../global.dart';
-import '../../home/controllers/home_controller.dart';
-import '../../listings/searchresult/controllers/searchresult_controller.dart';
-import '../../projects/controllers/projects_controller.dart';
+
 import '../controllers/agent_dashboard_controller.dart';
 
 class AgentDashBoard extends GetView<AgentDashboardController> {
@@ -79,14 +69,14 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                           ),
                           SizedBox(height: 10.h),
                           AgentInfoWidget.agentInformation(
-                            user!.image != null
+                            imageProvider: user!.image != null
                                 ? user!.image!
                                 : AppStrings.noUserImageWhite,
-                            '${user!.firstname}',
-                            '${user!.lastname}',
-                            '${user!.whatsApp}',
-                            '${user!.email}',
-                            '${user!.role}',
+                            firstName: '${user!.firstname}',
+                            lastName: '${user!.lastname}',
+                            whatsApp: '${user!.whatsApp}',
+                            email: '${user!.email}',
+                            role: '${user!.role}',
                           ),
                           SizedBox(height: 25.h),
                           Button(
@@ -694,36 +684,6 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
         height: 110.h,
         width: 110.w,
       ),
-    );
-  }
-
-  static Widget agentText(String text, Color color, double fontSize,
-      FontWeight fontWeight, double lineHeight) {
-    return EraText(
-      //i change it temporarily
-      text: text,
-      color: color,
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      lineHeight: lineHeight,
-    );
-  }
-
-  static Widget agentContact(String iconPath, String text) {
-    return Row(
-      children: [
-        Image.asset(iconPath, width: 35.w, height: 28.h),
-        SizedBox(
-          width: 200.w,
-          child: EraText(
-            text: text,
-            color: AppColors.black,
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w600,
-            textOverflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ],
     );
   }
 }

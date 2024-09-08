@@ -3,19 +3,17 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/sold_properties/custom_sort.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../../app/constants/assets.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/custom_appbar.dart';
+import '../../../../app/widgets/listings/agentInfo-widget.dart';
 import '../controllers/agent_listings_controller.dart';
-import 'agentsDashBoard.dart';
 
 class AgentListings extends GetView<AgentListingsController> {
   AgentListings({super.key});
@@ -41,14 +39,6 @@ class AgentListings extends GetView<AgentListingsController> {
   }
 
   _loaded() {
-    final Uri whatsAppUrl2 = controller.user.whatsApp != null
-        ? Uri.parse('https://wa.me/${controller.user.whatsApp}')
-        : Uri.parse('https://wa.me/null');
-    final Uri emailUrl = controller.user.email != null
-        ? Uri.parse(
-            'mailto:${controller.user.email}?subject=Your%20Subject&body=Your%20Message')
-        : Uri.parse('https://mail.google.com/');
-
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
       child: Column(
@@ -107,42 +97,19 @@ class AgentListings extends GetView<AgentListingsController> {
           ),
           Row(
             children: [
-              CloudStorage().imageLoader(
-                ref: '${controller.user.image == null || controller.user.image == "" ? AppStrings.noUserImageWhite : controller.user.image}',
-                width: 100.w,
-                height: 110.h,
-              ),
               Padding(
                 padding: EdgeInsets.only(top: 10.w, left: 10.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AgentDashBoard.agentText(
-                        '${controller.user.firstname} ${controller.user.lastname}',
-                        AppColors.blue,
-                        18.sp,
-                        FontWeight.bold,
-                        1.2),
-                    AgentDashBoard.agentText(
-                        '${controller.user.role ?? 'Agent'}',
-                        AppColors.black,
-                        12.sp,
-                        FontWeight.w400,
-                        0.9),
-                    GestureDetector(
-                      onTap: () {
-                        launchUrl(whatsAppUrl2);
-                      },
-                      child: AgentDashBoard.agentContact(
-                          AppEraAssets.whatsappIcon,
-                          '${controller.user.whatsApp}'),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        launchUrl(emailUrl);
-                      },
-                      child: AgentDashBoard.agentContact(
-                          AppEraAssets.emailIcon, '${controller.user.email}'),
+                    AgentInfoWidget.agentInformation(
+                      imageProvider:
+                          '${controller.user.image == null || controller.user.image == "" ? AppStrings.noUserImageWhite : controller.user.image}',
+                      firstName: '${controller.user!.firstname}',
+                      lastName: '${controller.user!.lastname}',
+                      whatsApp: '${controller.user!.whatsApp}',
+                      email: '${controller.user!.email}',
+                      role: '${controller.user!.role}',
                     ),
                   ],
                 ),
@@ -160,7 +127,7 @@ class AgentListings extends GetView<AgentListingsController> {
             itemBuilder: (context, index) {
               Listing listing = controller.listings[index];
               return GestureDetector(
-                onTap: ()async{
+                onTap: () async {
                   await Database().addViews(listing.id);
                   Get.toNamed('/propertyInfo', arguments: listing);
                 },
@@ -352,10 +319,11 @@ class AgentListings extends GetView<AgentListingsController> {
       ),
     );
   }
+
   _empty() {
     return SizedBox(
       height: Get.height - 225.h,
-      width:Get.width,
+      width: Get.width,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

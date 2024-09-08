@@ -1,9 +1,13 @@
 import 'dart:ui';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
+
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -113,7 +117,11 @@ class RoomsAndBedsFilter extends StatelessWidget {
   final RxInt bathrooms;
   final RxInt garage;
 
-  RoomsAndBedsFilter({super.key, required this.bedrooms,required this.bathrooms,required this.garage});
+  RoomsAndBedsFilter(
+      {super.key,
+      required this.bedrooms,
+      required this.bathrooms,
+      required this.garage});
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +174,7 @@ class RoomsAndBedsFilter extends StatelessWidget {
 class PropertyTypeFilter extends StatelessWidget {
   //final FilterController controller;
   final subCategory;
-  const PropertyTypeFilter({super.key,required this.subCategory});
+  const PropertyTypeFilter({super.key, required this.subCategory});
 
   @override
   Widget build(BuildContext context) {
@@ -178,8 +186,7 @@ class PropertyTypeFilter extends StatelessWidget {
         SharedWidgets.dropDown(
             addListingsController.selectedPropertySubCategory,
             addListingsController.subCategory,
-            (value) => subCategory.value =
-            value!,
+            (value) => subCategory.value = value!,
             'Subcategory',
             'Subcategory'),
       ],
@@ -308,28 +315,34 @@ void openFilterDialog({
                   SizedBox(height: 10.h),
                   //rooms and beds
                   SizedBox(height: 10.h),
-                  RoomsAndBedsFilter(bedrooms: bedrooms,bathrooms: bathrooms,garage: garage,),
-                  SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(
-                    min: areaMin,
-                    max: areaMax
+                  RoomsAndBedsFilter(
+                    bedrooms: bedrooms,
+                    bathrooms: bathrooms,
+                    garage: garage,
                   ),
                   SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(
-                    title: 'Floor Area',
-                    hintText: 'sqm',
-                    hintText2: 'sqm ',
-                    min: floorAreaMin,
-                    max: floorAreaMax
-                  ),
+                  _buildFloorAreaFilter(min: areaMin, max: areaMax),
                   SizedBox(height: 20.h),
                   _buildFloorAreaFilter(
-                    title: 'Price per sqm',
-                    hintText: 'php',
-                    hintText2: 'php',
-                    min: ppsqmMin,
-                    max: ppsqmMax
-                  )
+                      title: 'Floor Area',
+                      hintText: 'sqm',
+                      hintText2: 'sqm ',
+                      min: floorAreaMin,
+                      max: floorAreaMax),
+                  SizedBox(height: 20.h),
+                  _buildFloorAreaFilter(
+                      title: 'Price per sqm',
+                      hintText: 'php',
+                      hintText2: 'php',
+                      min: ppsqmMin,
+                      max: ppsqmMax),
+                  sb20(),
+                  Button(
+                    onTap: () {},
+                    text: 'Apply Filters',
+                    bgColor: AppColors.blue,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ],
               )),
         ),

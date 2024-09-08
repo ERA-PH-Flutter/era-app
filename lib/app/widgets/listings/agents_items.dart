@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../constants/sized_box.dart';
+
 class AgentsItems extends StatelessWidget {
   final agentInfo;
   final Function()? onTap;
@@ -44,14 +46,14 @@ class AgentsItems extends StatelessWidget {
             () => AnimatedContainer(
               duration: Duration(milliseconds: 2000),
               curve: Curves.fastEaseInToSlowEaseOut,
-              height: selected.value ? 350.h : 300.h,
-              width: 500.w,
-              // margin: EdgeInsets.only(top: 120.h, left: 60.w, right: 60.w),
+              height: selected.value ? 350.h : 335.h,
+              width: 500
+                  .w, // margin: EdgeInsets.only(top: 120.h, left: 60.w, right: 60.w),
               margin: selected.value
                   ? EdgeInsets.only(top: 250.h, left: 40.w, right: 40.w)
                   : EdgeInsets.only(top: 200.h, left: 40.w, right: 40.w),
 
-              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              padding: EdgeInsets.only(left: 15.w, right: 15.w),
               decoration: BoxDecoration(
                   border: Border.all(
                       color: AppColors.hint.withOpacity(0.5), width: 3.w),
@@ -59,7 +61,7 @@ class AgentsItems extends StatelessWidget {
               child: selected.value
                   ? Column(
                       children: [
-                        SizedBox(height: 50.h),
+                        SizedBox(height: 70.h),
                         EraText(
                           text: '${agentInfo.firstname} ${agentInfo.lastname}',
                           fontSize: 25.sp,
@@ -67,6 +69,7 @@ class AgentsItems extends StatelessWidget {
                           lineHeight: 1.0,
                           textOverflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
+                          color: AppColors.blue,
                         ),
                         EraText(
                           text: '${agentInfo.role ?? 'Agent'}',
@@ -76,10 +79,9 @@ class AgentsItems extends StatelessWidget {
                           textOverflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 10.h),
+
                         Container(
-                          margin: EdgeInsets.only(left: 5.w),
-                          height: 100.h,
+                          height: 150.h,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -87,58 +89,74 @@ class AgentsItems extends StatelessWidget {
                                 onTap: () {
                                   launchUrl(whatsAppUrl2);
                                 },
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      AppEraAssets.whatsappIcon,
-                                      width: 30.w,
-                                      height: 30.h,
-                                    ),
-                                    EraText(
-                                      text: '${agentInfo.whatsApp}',
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.black,
-                                      textOverflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () => launchUrl(emailUrl),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Image.asset(
-                                          AppEraAssets.emailIcon,
-                                          width: 30.w,
-                                          height: 30.h,
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      width: 200.w,
-                                      child: EraText(
-                                        textOverflow: TextOverflow.ellipsis,
-                                        text: '${agentInfo.email}',
-                                        fontSize: 18.sp,
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      left: 12.w,
+                                      right: 12.w,
+                                      top: 12.h,
+                                      bottom: 12.h),
+                                  decoration: BoxDecoration(
+                                      color: AppColors.subtle,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                        AppEraAssets.whatsappIcon,
+                                        width: 40.w,
+                                        height: 40.h,
+                                      ),
+                                      sbw5(),
+                                      EraText(
+                                        text: '${agentInfo.whatsApp}',
+                                        fontSize: 12.sp,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.black,
-                                        textAlign: TextAlign.start,
+                                        textOverflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              sb10(),
+                              GestureDetector(
+                                onTap: () => launchUrl(emailUrl),
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      left: 12.w,
+                                      right: 12.w,
+                                      top: 12.h,
+                                      bottom: 12.h),
+                                  decoration: BoxDecoration(
+                                      color: AppColors.subtle,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                        color: AppColors.kRedColor,
+                                        AppEraAssets.emailIcon,
+                                        width: 40.w,
+                                        height: 40.h,
+                                      ),
+                                      sbw5(),
+                                      Container(
+                                        width: 190.w,
+                                        child: EraText(
+                                          text: '${agentInfo.email}',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.black,
+                                          textOverflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 15.h),
                         //????
                         Button(
                           text: 'VIEW LISTING',
@@ -158,10 +176,10 @@ class AgentsItems extends StatelessWidget {
                     )
                   : Column(
                       children: [
-                        SizedBox(height: 50.h),
+                        SizedBox(height: 44.h),
                         EraText(
                           text: '${agentInfo.firstname} ${agentInfo.lastname}',
-                          fontSize: 22.sp,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blue,
                           textOverflow: TextOverflow.ellipsis,
@@ -175,69 +193,91 @@ class AgentsItems extends StatelessWidget {
                           textOverflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 10.h),
+                        sb20(),
                         Container(
-                          margin: EdgeInsets.only(left: 5.w),
-                          height: 100.h,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  launchUrl(whatsAppUrl2);
-                                },
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      AppEraAssets.whatsappIcon,
-                                      width: 30.w,
-                                      height: 30.h,
-                                    ),
-                                    EraText(
-                                      text: '${agentInfo.whatsApp}',
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.black,
-                                      textOverflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () => launchUrl(emailUrl),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Image.asset(
-                                          AppEraAssets.emailIcon,
-                                          width: 30.w,
-                                          height: 30.h,
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      width: 200.w,
-                                      child: EraText(
-                                        textOverflow: TextOverflow.ellipsis,
-                                        text: '${agentInfo.email}',
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.black,
-                                        textAlign: TextAlign.start,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      launchUrl(whatsAppUrl2);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          left: 12.w,
+                                          right: 12.w,
+                                          top: 12.h,
+                                          bottom: 12.h),
+                                      decoration: BoxDecoration(
+                                          color: AppColors.subtle,
+                                          borderRadius:
+                                              BorderRadius.circular(30)),
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            AppEraAssets.whatsappIcon,
+                                            width: 40.w,
+                                            height: 40.h,
+                                          ),
+                                          sbw5(),
+                                          EraText(
+                                            text: '${agentInfo.whatsApp}',
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.black,
+                                            textOverflow: TextOverflow.ellipsis,
+                                            maxLines: 3,
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  sb10(),
+                                  GestureDetector(
+                                    onTap: () => launchUrl(emailUrl),
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          left: 12.w,
+                                          right: 12.w,
+                                          top: 12.h,
+                                          bottom: 12.h),
+                                      decoration: BoxDecoration(
+                                          color: AppColors.subtle,
+                                          borderRadius:
+                                              BorderRadius.circular(30)),
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            color: AppColors.kRedColor,
+                                            AppEraAssets.emailIcon,
+                                            width: 40.w,
+                                            height: 40.h,
+                                          ),
+                                          sbw5(),
+                                          Container(
+                                            width: 190.w,
+                                            child: EraText(
+                                              text: '${agentInfo.email}',
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.black,
+                                              textOverflow:
+                                                  TextOverflow.ellipsis,
+                                              maxLines: 3,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 10.h),
+                        sb10(),
                         Button(
                           text: 'VIEW LISTINGS',
                           fontSize: 15.sp,

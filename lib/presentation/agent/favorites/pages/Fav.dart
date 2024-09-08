@@ -370,14 +370,14 @@ class Fav extends GetView<FavController> {
                           padding: EdgeInsets.symmetric(
                               horizontal: EraTheme.paddingWidth),
                           child: AgentInfoWidget.agentInformation(
-                            user!.image != null
+                            imageProvider: user!.image != null
                                 ? user!.image!
                                 : AppStrings.noUserImageWhite,
-                            '${user!.firstname}',
-                            '${user!.lastname}',
-                            '${user!.whatsApp}',
-                            '${user!.email}',
-                            '${user!.role}',
+                            firstName: '${user!.firstname}',
+                            lastName: '${user!.lastname}',
+                            whatsApp: '${user!.whatsApp}',
+                            email: '${user!.email}',
+                            role: '${user!.role}',
                           ),
                         ),
                         SizedBox(

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../app/constants/sized_box.dart';
 import '../controllers/contacts_controller.dart';
 
 class FindUs extends GetView<ContactusController> {
@@ -27,48 +28,28 @@ class FindUs extends GetView<ContactusController> {
             color: AppColors.kRedColor,
           ),
           SizedBox(height: 20.h),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                AppEraAssets.markerIcon,
-                width: 38.w,
-                height: 45.h,
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              EraText(
-                text:
-                    '1212 Century Spire Bldg. Century City,\nKalayaan Ave. Makati City',
-                fontSize: 17.sp,
-                color: AppColors.black,
-                maxLines: 2,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          GestureDetector(
-            onTap: () async {
-              launchUrl(controller.whatsappUrl);
-            },
+          Container(
+            padding: EdgeInsets.only(
+              left: 8.w,
+            ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(
-                  AppEraAssets.whatsappIcon,
-                  width: 38.w,
-                  height: 45.h,
+                  AppEraAssets.markerIcon,
+                  width: 50.w,
+                  height: 50.h,
                 ),
                 SizedBox(
                   width: 5.w,
                 ),
                 EraText(
-                  text: '+639177710572',
+                  text:
+                      '1212 Century Spire Bldg. Century City,\nKalayaan Ave. Makati City',
                   fontSize: 17.sp,
                   color: AppColors.black,
-                  maxLines: 4,
+                  maxLines: 2,
+                  fontWeight: FontWeight.bold,
                 ),
               ],
             ),
@@ -76,28 +57,73 @@ class FindUs extends GetView<ContactusController> {
           SizedBox(
             height: 10.h,
           ),
-          Row(
-            children: [
-              Image.asset(
-                AppEraAssets.emailIcon,
-                width: 38.w,
-                height: 45.h,
+          GestureDetector(
+            onTap: () {
+              launchUrl(controller.whatsappUrl);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: AppColors.subtle,
+                  borderRadius: BorderRadius.circular(30)),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: 12.w, right: 12.w, top: 12.h, bottom: 12.h),
+                    child: Image.asset(
+                      AppEraAssets.whatsappIcon,
+                      width: 40.w,
+                      height: 40.h,
+                    ),
+                  ),
+                  Container(
+                    width: 250.w,
+                    child: EraText(
+                      text: '+639177710572',
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.black,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 5.w,
+            ),
+          ),
+          sb10(),
+          GestureDetector(
+            onTap: () {
+              launchUrl(controller.emailUrl);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: AppColors.subtle,
+                  borderRadius: BorderRadius.circular(30)),
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: 12.w, right: 12.w, top: 12.h, bottom: 12.h),
+                    child: Image.asset(
+                      color: AppColors.kRedColor,
+                      AppEraAssets.emailIcon,
+                      width: 40.w,
+                      height: 40.h,
+                    ),
+                  ),
+                  Container(
+                    width: 250.w,
+                    child: EraText(
+                      text: 'eraphilippines@gmail.com',
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.black,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
               ),
-              GestureDetector(
-                onTap: () {
-                  controller.emailUrl;
-                },
-                child: EraText(
-                  text: 'eraphilippines@gmail.com',
-                  fontSize: 17.sp,
-                  color: AppColors.black,
-                  maxLines: 4,
-                ),
-              ),
-            ],
+            ),
           ),
           SizedBox(
             height: 20.h,

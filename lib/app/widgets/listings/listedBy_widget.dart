@@ -1,5 +1,5 @@
-
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
@@ -7,6 +7,8 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../constants/assets.dart';
 
 class ListedBy extends StatelessWidget {
   final String? text;
@@ -62,7 +64,7 @@ class ListedBy extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle, color: AppColors.hint),
-                child:CloudStorage().imageLoader(
+                child: CloudStorage().imageLoader(
                   ref: image,
                   width: 55.w,
                   height: 55.w,
@@ -99,61 +101,80 @@ class ListedBy extends StatelessWidget {
         SizedBox(height: 10.h),
         if (whatsapp != null && whatsappIcon != null)
           GestureDetector(
-            onTap: ()async{
-              if(listingId != null){
+            onTap: () async {
+              if (listingId != null) {
                 await Database().addLeads(listingId);
               }
               launchUrl(whatsAppUrl2);
             },
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Container(
+              padding: EdgeInsets.only(
+                  left: 12.w, right: 12.w, top: 12.h, bottom: 12.h),
+              decoration: BoxDecoration(
+                  color: AppColors.subtle,
+                  borderRadius: BorderRadius.circular(30)),
               child: Row(
                 children: [
                   Image.asset(
-                    whatsappIcon!,
-                    width: 35.w,
-                    height: 35.h,
+                    AppEraAssets.whatsappIcon,
+                    width: 40.w,
+                    height: 40.h,
                   ),
-                  SizedBox(width: 8.w),
-                  EraText(
-                    text: whatsapp!,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black,
+                  sbw10(),
+                  Container(
+                    width: 250.w,
+                    child: EraText(
+                      text: whatsapp!,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.black,
+                      textOverflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    ),
                   ),
                 ],
               ),
             ),
           ),
+        sb10(),
         if (email != null && emailIcon != null)
           GestureDetector(
-            onTap: ()async{
-              if(listingId != null){
+            onTap: () async {
+              if (listingId != null) {
                 await Database().addLeads(listingId);
               }
               launchUrl(emailUrl);
             },
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Container(
+              padding: EdgeInsets.only(
+                  left: 12.w, right: 12.w, top: 12.h, bottom: 12.h),
+              decoration: BoxDecoration(
+                  color: AppColors.subtle,
+                  borderRadius: BorderRadius.circular(30)),
               child: Row(
                 children: [
                   Image.asset(
-                    emailIcon!,
-                    width: 35.w,
-                    height: 35.h,
+                    color: AppColors.kRedColor,
+                    AppEraAssets.emailIcon,
+                    width: 40.w,
+                    height: 40.h,
                   ),
-                  SizedBox(width: 8.w),
-                  EraText(
-                    text: email!,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black,
-                    textOverflow: TextOverflow.ellipsis,
+                  sbw10(),
+                  Container(
+                    width: 250.w,
+                    child: EraText(
+                      text: email!,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.black,
+                      textOverflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    ),
                   ),
                 ],
               ),
             ),
-          )
+          ),
       ],
     );
   }
