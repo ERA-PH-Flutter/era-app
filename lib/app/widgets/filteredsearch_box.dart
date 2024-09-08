@@ -294,11 +294,12 @@ class FilteredSearchBox extends StatelessWidget {
                               return properties.data();
                             }).toList();
                           }
-                          if(selectedPriceRange.value != ""){
-                            var price = selectedPriceRange.value.split(" - ");
+                          if(selectedPriceSearch.value != null){
+
+                            var price = selectedPriceSearch.value!.split(" - ");
                             if(selectedPropertyTypeSearch.value == null && selectedLocation.value == null){
-                              query = query.where('price',isGreaterThanOrEqualTo: price[0].contains('M') ? price[0].toInt() * 1000000 : price[0].toInt());
-                              query = query.where('price',isLessThanOrEqualTo: price[1].contains('M') ? price[1].toInt() * 1000000 : price[1].toInt());
+                              query = query.where('price',isGreaterThanOrEqualTo: price[0].contains('M') ? price[0].replaceAll('M', '').toInt() * 1000000 : price[0].toInt());
+                              query = query.where('price',isLessThanOrEqualTo: price[1].contains('M') ? price[1].replaceAll('M', '').toInt() * 1000000 : price[1].toInt());
                               listings = (await query.get()).docs.map((properties){
                                 return properties.data();
                               }).toList();
@@ -320,7 +321,7 @@ class FilteredSearchBox extends StatelessWidget {
                             filters.add(ListingFilters(name: 'beds',value: bedrooms.value));
                           }
                           if(bathrooms.value != 0){
-                            filters.add(ListingFilters(name: 'baths',value: bedrooms.value));
+                            filters.add(ListingFilters(name: 'baths',value: bathrooms.value));
                           }
                           if(garage.value != 0){
                             filters.add(ListingFilters(name: 'garage',value: garage.value));

@@ -73,6 +73,7 @@ class SearchResultController extends GetxController {
 
       }
     } catch (e, ex) {
+      print(e);
       print(ex);
       searchResultState.value = SearchResultState.error;
     }
@@ -87,12 +88,14 @@ class SearchResultController extends GetxController {
   }
 
   loadData(loadedData) {
+    loadedData = loadedData ?? [];
     data.value = loadedData.map((d) {
-      print(d);
-      return d;
-      // if (!(d['is_sold'] ?? true)) {
-      //   return d;
-      // }
+      if(d != null){
+        if (!(d['is_sold'] ?? true)) {
+          return d;
+        }
+      }
+
     }).toList();
     //data.assignAll(loadedData);
     if (data.isEmpty) {
