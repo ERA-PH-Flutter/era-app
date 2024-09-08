@@ -96,6 +96,8 @@ class _BaseScaffoldState extends State<BaseScaffold> {
           ],
         ),
         bottomNavigationBar: Obx(()=>CircleNavBar(
+          tabCurve: Curves.linear,
+          tabDurationMillSec: 300,
           onTap: (index){
             selectedIndex.value = index;
             if(index == 0){
