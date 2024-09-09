@@ -75,15 +75,14 @@ class _BaseScaffoldState extends State<BaseScaffold> {
     Get.put(HomeController());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-
     //changeIndex(['/home','/project-main', '/searchresult','/findagents','/help'].contains(Get.currentRoute) ? ['/home','/project-main','/searchresult','/findagents','/help'].indexOf(Get.currentRoute) : 0);
     return Scaffold(
         extendBody: true,
         backgroundColor: AppColors.white,
         appBar: CustomAppbar(),
-
         body: PageView(
           controller: pageViewController,
           physics: NeverScrollableScrollPhysics(),
@@ -95,116 +94,114 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             Help(),
           ],
         ),
-        bottomNavigationBar: Obx(()=>CircleNavBar(
-          tabCurve: Curves.linear,
-          tabDurationMillSec: 300,
-          onTap: (index){
-            selectedIndex.value = index;
-            if(index == 0){
-              currentRoute = '/home';
-              Get.deleteAll();
-              Get.put(HomeController());
-            }else if(index == 1){
-              currentRoute = '/project-main';
-              Get.deleteAll();
-              Get.put(ProjectsController());
-            }else if(index == 2){
-              currentRoute = '/searchresult';
-              Get.deleteAll();
-              SearchResultBinding().dependencies();
-            }else if(index == 3){
-              currentRoute = '/findagents';
-              Get.deleteAll();
-              Get.put(AgentsController());
-            }else if(index == 4){
-              currentRoute = '/about';
-            }
-            pageViewController.animateToPage(
-                index,
-                duration: Duration(milliseconds: 500),
-                curve: Curves.easeInOut
-            );
-          },
-          activeIndex: selectedIndex.value,
-          height: 75.h,
-          activeIcons: navBarItems.map((item){
-            return Image.asset(
-              item.selectedIcon,
-              width: 55.w,
-              height: 55.h,
-            );
-          }).toList(),
-          inactiveIcons: navBarItems.map((item){
-            return Container(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    item.defaultIcon,
-                    width: 40.w,
-                    height: 40.h,
+        bottomNavigationBar: Obx(() => CircleNavBar(
+              tabCurve: Curves.linear,
+              tabDurationMillSec: 300,
+              onTap: (index) {
+                selectedIndex.value = index;
+                if (index == 0) {
+                  currentRoute = '/home';
+                  Get.deleteAll();
+                  Get.put(HomeController());
+                } else if (index == 1) {
+                  currentRoute = '/project-main';
+                  Get.deleteAll();
+                  Get.put(ProjectsController());
+                } else if (index == 2) {
+                  currentRoute = '/searchresult';
+                  Get.deleteAll();
+                  SearchResultBinding().dependencies();
+                } else if (index == 3) {
+                  currentRoute = '/findagents';
+                  Get.deleteAll();
+                  Get.put(AgentsController());
+                } else if (index == 4) {
+                  currentRoute = '/about';
+                }
+                pageViewController.animateToPage(index,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut);
+              },
+              activeIndex: selectedIndex.value,
+              height: 75.h,
+              activeIcons: navBarItems.map((item) {
+                return Image.asset(
+                  item.selectedIcon,
+                  width: 55.w,
+                  height: 55.h,
+                );
+              }).toList(),
+              inactiveIcons: navBarItems.map((item) {
+                return Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        item.defaultIcon,
+                        width: 40.w,
+                        height: 40.h,
+                      ),
+                      Text(
+                        item.label,
+                        style: TextStyle(
+                            fontSize: 11.sp, color: CupertinoColors.white),
+                      ),
+                    ],
                   ),
-                  Text(
-                    item.label,
-                    style: TextStyle(fontSize: 11.sp, color: CupertinoColors.white),
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-          color: AppColors.blue,
-        ))
-      );
-        // bottomNavigationBar:Obx(()=> CurvedNavigationBar(
-        //   animationCurve: Curves.linear ,
-        //   height: 70.h < 75 ? 70.h : 75,
-        //   color: AppColors.blue,
-        //   backgroundColor: Colors.white.withOpacity(0),
-        //   buttonBackgroundColor: Colors.white.withOpacity(0),
-        //
-        //   // buttonBackgroundColor: AppColors.maroon,
-        //   index: selectedIndex.value,
-        //   onTap: (index) {
-        //     selectedIndex.value = index;
-        //     if(index == 0){
-        //       currentRoute = '/home';
-        //       Get.deleteAll();
-        //       Get.put(HomeController());
-        //     }else if(index == 1){
-        //       currentRoute = '/project-main';
-        //       Get.deleteAll();
-        //       Get.put(ProjectsController());
-        //     }else if(index == 2){
-        //       currentRoute = '/searchresult';
-        //       Get.deleteAll();
-        //       SearchResultBinding().dependencies();
-        //     }else if(index == 3){
-        //       currentRoute = '/findagents';
-        //       Get.deleteAll();
-        //       Get.put(AgentsController());
-        //     }else if(index == 4){
-        //       currentRoute = '/about';
-        //     }
-        //     pageViewController.animateToPage(
-        //         index,
-        //         duration: Duration(milliseconds: 500),
-        //         curve: Curves.easeInOut
-        //     );
-        //   },
-        //   items: navBarItems.map((item) {
-        //     int currentIndex = navBarItems.indexOf(item);
-        //     String iconPath = selectedIndex.value == currentIndex
-        //         ? item.selectedIcon
-        //         : item.defaultIcon;
-        //
-        //     return AppNavItems(
-        //
-        //         iconPath: iconPath,
-        //         label: item.label,
-        //         isActive: selectedIndex.value == currentIndex);
-        //   }).toList(),
-        // )));
+                );
+              }).toList(),
+              color: AppColors.blue,
+            )));
+    // bottomNavigationBar:Obx(()=> CurvedNavigationBar(
+    //   animationCurve: Curves.linear ,
+    //   height: 70.h < 75 ? 70.h : 75,
+    //   color: AppColors.blue,
+    //   backgroundColor: Colors.white.withOpacity(0),
+    //   buttonBackgroundColor: Colors.white.withOpacity(0),
+    //
+    //   // buttonBackgroundColor: AppColors.maroon,
+    //   index: selectedIndex.value,
+    //   onTap: (index) {
+    //     selectedIndex.value = index;
+    //     if(index == 0){
+    //       currentRoute = '/home';
+    //       Get.deleteAll();
+    //       Get.put(HomeController());
+    //     }else if(index == 1){
+    //       currentRoute = '/project-main';
+    //       Get.deleteAll();
+    //       Get.put(ProjectsController());
+    //     }else if(index == 2){
+    //       currentRoute = '/searchresult';
+    //       Get.deleteAll();
+    //       SearchResultBinding().dependencies();
+    //     }else if(index == 3){
+    //       currentRoute = '/findagents';
+    //       Get.deleteAll();
+    //       Get.put(AgentsController());
+    //     }else if(index == 4){
+    //       currentRoute = '/about';
+    //     }
+    //     pageViewController.animateToPage(
+    //         index,
+    //         duration: Duration(milliseconds: 500),
+    //         curve: Curves.easeInOut
+    //     );
+    //   },
+    //   items: navBarItems.map((item) {
+    //     int currentIndex = navBarItems.indexOf(item);
+    //     String iconPath = selectedIndex.value == currentIndex
+    //         ? item.selectedIcon
+    //         : item.defaultIcon;
+    //
+    //     return AppNavItems(
+    //
+    //         iconPath: iconPath,
+    //         label: item.label,
+    //         isActive: selectedIndex.value == currentIndex);
+    //   }).toList(),
+    // )));
   }
 }

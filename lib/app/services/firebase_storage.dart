@@ -36,7 +36,7 @@ class CloudStorage {
     }
   }
 
-  imageLoader({ref, height, width}) {
+  imageLoader({ref, height, width, BoxFit? fit}) {
     return FutureBuilder(
       future: getFileDirect(docRef: ref),
       builder: (context, snapshot) {
@@ -46,7 +46,7 @@ class CloudStorage {
                 Center(child: CircularProgressIndicator()),
             errorWidget: (context, url, error) => Icon(Icons.error),
             imageUrl: snapshot.data!,
-            fit: BoxFit.cover,
+            fit: fit ?? BoxFit.cover,
             width: width,
             height: height,
           );

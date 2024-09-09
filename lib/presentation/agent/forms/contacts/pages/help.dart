@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../app/constants/sized_box.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../global.dart';
 import '../controllers/contacts_controller.dart';
@@ -189,6 +190,7 @@ class Help extends GetView<ContactusController> {
                 icon: AppEraAssets.whatsappIcon,
                 icon2: AppEraAssets.emailIcon,
               ),
+              sb90(),
             ],
           ),
         ),

@@ -126,7 +126,7 @@ class SearchResult extends GetView<SearchResultController> {
                 Listing listing = Listing.fromJSON(controller.data[index]);
                 return GestureDetector(
                   onTap: () async {
-                    await Database().addViews(listing.id);
+                    // await Database().addViews(listing.id);
                     Get.offAllNamed('/propertyInfo', arguments: listing);
                   },
                   child: Container(

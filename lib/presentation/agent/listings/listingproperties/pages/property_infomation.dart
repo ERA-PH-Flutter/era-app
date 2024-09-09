@@ -110,21 +110,32 @@ class PropertyInformation extends GetView<ListingController> {
             SizedBox(height: 20.h),
 
             Obx(() {
-              bool isFav = false;
               return SizedBox(
                 height: 350.h,
                 child: Stack(
                   children: [
                     Positioned(
-                        child: SizedBox(
-                      width: Get.width,
-                      height: 320.h,
-                      child: CloudStorage().imageLoader(
-                        ref: controller.currentImage.value == ''
-                            ? (controller.images.isNotEmpty
-                                ? controller.images.first
-                                : AppStrings.noUserImageWhite)
-                            : controller.currentImage.value,
+                        child: GestureDetector(
+                      onTap: () {
+                        showFullScreenImage(
+                            context,
+                            controller.images.indexOf(
+                                controller.currentImage.value == ''
+                                    ? (controller.images.isNotEmpty
+                                        ? controller.images.first
+                                        : AppStrings.noUserImageWhite)
+                                    : controller.currentImage.value));
+                      },
+                      child: SizedBox(
+                        width: Get.width,
+                        height: 320.h,
+                        child: CloudStorage().imageLoader(
+                          ref: controller.currentImage.value == ''
+                              ? (controller.images.isNotEmpty
+                                  ? controller.images.first
+                                  : AppStrings.noUserImageWhite)
+                              : controller.currentImage.value,
+                        ),
                       ),
                     )),
                     Positioned(
@@ -143,9 +154,7 @@ class PropertyInformation extends GetView<ListingController> {
 
                             return GestureDetector(
                               onTap: () {
-                                controller.onSelectedImage(image);
-                                //   Get.to(() => FullScreenImageViewer(
-                                //       imageUrl: image, initialIndex: index));
+                                controller.currentImage.value = image;
                               },
                               child: Container(
                                 decoration: isSelected
@@ -592,6 +601,97 @@ class PropertyInformation extends GetView<ListingController> {
           fontWeight: FontWeight.w500,
         ),
       ],
+    );
+  }
+
+  void showFullScreenImage(BuildContext context, int initialIndex) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        final PageController pageController =
+            PageController(initialPage: initialIndex);
+
+        final RxInt currentPage = RxInt(initialIndex);
+
+        return Dialog(
+          insetPadding: EdgeInsets.symmetric(horizontal: 7.w),
+          backgroundColor: Colors.black,
+          child: Stack(
+            children: [
+              PageView.builder(
+                controller: pageController,
+                itemCount: controller.images.length,
+                onPageChanged: (index) {
+                  currentPage.value = index;
+                },
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: Get.width,
+                    height: Get.height,
+                    child: CloudStorage().imageLoader(
+                        ref: controller.images[index],
+                        width: Get.width,
+                        height: Get.height,
+                        fit: BoxFit.contain),
+                  );
+                },
+              ),
+              Positioned(
+                top: 40.h,
+                right: 20.w,
+                child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 40.sp,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 50.h,
+                left: 0,
+                right: 0,
+                child: Obx(() {
+                  return EraText(
+                    text:
+                        "${currentPage.value + 1} / ${controller.images.length}",
+                    textAlign: TextAlign.center,
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  );
+                }),
+              ),
+              Positioned(
+                bottom: 20.h,
+                left: 0,
+                right: 0,
+                child: Obx(() {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(controller.images.length, (index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: 3.w),
+                        width: currentPage.value == index ? 12.w : 8.w,
+                        height: currentPage.value == index ? 12.h : 8.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: currentPage.value == index
+                              ? Colors.white
+                              : Colors.white.withOpacity(0.5),
+                        ),
+                      );
+                    }),
+                  );
+                }),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

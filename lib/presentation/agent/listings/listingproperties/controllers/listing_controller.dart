@@ -75,7 +75,7 @@ class ListingController extends GetxController {
     currentImage.value = newImage;
   }
 
-  var images = [];
+  var images = [].obs;
   var isFav = false.obs;
 
   @override
