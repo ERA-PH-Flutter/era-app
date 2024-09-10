@@ -275,7 +275,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 height: 60.h,
                 width: Get.width / 2.5,
                 child: TextformfieldWidget(
-                  controller: controller,
+                  controller: controller2,
                   fontSize: 12.sp,
                   maxLines: 1,
                 ),
@@ -334,7 +334,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 height: 60.h,
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
-                  controller: controller,
+                  controller: controller2,
                   fontSize: 12.sp,
                   maxLines: 1,
                 ),
@@ -357,7 +357,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 height: 60.h,
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
-                  controller: controller,
+                  controller: controller3,
                   fontSize: 12.sp,
                   maxLines: 1,
                 ),
@@ -421,7 +421,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 height: 60.h,
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
-                  controller: controller,
+                  controller: controller2,
                   fontSize: 12.sp,
                   maxLines: 1,
                   keyboardType: keyboardType ?? TextInputType.text,
@@ -445,7 +445,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 height: 60.h,
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
-                  controller: controller,
+                  controller: controller3,
                   fontSize: 12.sp,
                   maxLines: 1,
                   keyboardType: keyboardType ?? TextInputType.text,
@@ -469,7 +469,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 height: 60.h,
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
-                  controller: controller,
+                  controller: controller4,
                   fontSize: 12.sp,
                   maxLines: 1,
                   keyboardType: keyboardType ?? TextInputType.text,

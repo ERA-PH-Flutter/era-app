@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -6,6 +7,9 @@ import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -38,7 +42,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
               fontWeight: FontWeight.w500,
             ),
             EraText(
-              text: 'CREATE LISTING',
+              text: 'CREATE LISTINGs',
               color: AppColors.black,
               fontSize: EraTheme.header,
               fontWeight: FontWeight.w600,
@@ -188,7 +192,9 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
             SizedBox(
               height: 10.h,
             ),
-            AddAgent.buildUploadPhoto(),
+            AddAgent.buildUploadPhoto(
+              onTap: () => controller.getImageGallery(),
+            ),
             SizedBox(
               height: 10.h,
             ),
@@ -196,6 +202,48 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
               padding: EdgeInsets.all(8.sp),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Button(
+                  onTap: () async {
+                    BaseController().showLoading();
+                    try {
+                      await Listing(
+                          name: controller.propertyNameController.text,
+                          price: controller.propertyCostController.text
+                              .replaceAll(',', '')
+                              .toDouble(),
+                          ppsqm:
+                              controller.pricePerSqmController.text.toDouble(),
+                          beds: controller.bedsController.text.toInt(),
+                          baths: controller.bathsController.text.toInt(),
+                          cars: controller.carsController.text.toInt(),
+                          area: controller.areaController.text.toInt(),
+                          status: controller.selectedOfferT.value.toString(),
+                          // view: controller.selectedView.value.toString(),
+                          location: controller.add.city,
+                          type: controller.selectedPropertyT.value.toString(),
+                          subCategory: controller
+                              .selectedPropertySubCategory.value
+                              .toString(),
+                          description: controller.descController.text,
+                          view: controller.selectedView.value.toString(),
+                          address: controller.addressController.text,
+                          latLng: [
+                            controller.latLng!.latitude,
+                            controller.latLng!.longitude
+                          ]).addListing(controller.images, user!.id);
+
+                      controller.showSuccessDialog(
+                          hitApi: () {
+                            //todo trigger referesh in dashboard
+                            // Get.offAllNamed(RouteString.agentDashBoard);
+                          },
+                          title: "Add Listing Success",
+                          description:
+                              "Listing has been uploaded to the database.");
+                    } catch (e, ex) {
+                      print(e);
+                      print(ex);
+                    }
+                  },
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   width: 150.w,
                   text: 'SUBMIT',

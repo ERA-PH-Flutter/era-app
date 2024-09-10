@@ -243,6 +243,10 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Button(
+                                    onTap: () {
+                                      Get.toNamed('/editListingsAd',
+                                          arguments: [controller.listing?.id]);
+                                    },
                                     margin: EdgeInsets.symmetric(horizontal: 5),
                                     width: 150.w,
                                     text: 'EDIT',
