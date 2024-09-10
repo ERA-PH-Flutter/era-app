@@ -110,7 +110,7 @@ class Listing {
       "type": type,
       "sub_category": subCategory,
       "leads": leads,
-      "by": (user ?? EraUser.empty()).id,
+      "by": by ?? user!.id,
       "owner": "admin", //todo change to owner field
       "description": description,
       "views": 0,
