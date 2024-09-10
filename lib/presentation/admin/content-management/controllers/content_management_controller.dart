@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,6 +13,7 @@ class ContentManagementController extends GetxController with BaseController {
   final picker = ImagePicker();
   var listings = [].obs;
 
+  TextEditingController titleController = TextEditingController();
   Future getImageGallery() async {
     try {
       final imagePick = await picker.pickMultiImage();

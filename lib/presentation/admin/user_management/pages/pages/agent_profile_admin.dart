@@ -9,10 +9,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AgentProfileAdmin extends GetView<AgentAdminController> {
-  const AgentProfileAdmin({super.key});
+  final RealEstateListing? agentListing;
+
+  AgentProfileAdmin({super.key, this.agentListing});
 
   @override
   Widget build(BuildContext context) {
+    final RealEstateListing? agentData =
+        agentListing ?? Get.arguments; // Ensure argument is received
+
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
@@ -37,7 +42,12 @@ class AgentProfileAdmin extends GetView<AgentAdminController> {
                           fontWeight: FontWeight.w600,
                         ),
                         AgentProfileCard(
-                          listing: RealEstateListing.listingsModels[0],
+                          image: agentData?.image,
+                          fname: agentData?.user.firstname,
+                          lname: agentData?.user.lastname,
+                          role: agentData?.user.role,
+                          whatsApp: agentData?.user.whatsApp,
+                          email: agentData?.user.email,
                         ),
                       ],
                     ),

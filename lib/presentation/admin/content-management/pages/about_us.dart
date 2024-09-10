@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
@@ -22,10 +23,13 @@ class AboutUsPage extends GetView<ContentManagementController> {
     final AddListingsController addListingsController =
         Get.put(AddListingsController());
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         sb30(),
         UploadBannersWidget(
             controller: controller, text: 'UPLOAD ABOUT-US', maxImages: 1),
+        sb10(),
+        title(),
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth + 43.sp),
@@ -51,6 +55,24 @@ class AboutUsPage extends GetView<ContentManagementController> {
               borderRadius: BorderRadius.circular(30),
             ),
           ]),
+        ),
+      ],
+    );
+  }
+
+  Widget title() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(text: 'Title:', color: AppColors.black, fontSize: 18.sp),
+        SizedBox(
+          height: 70.h,
+          width: Get.width / 1.2 - 45.w,
+          child: TextformfieldWidget(
+            controller: controller.titleController,
+            hintText: 'Title *',
+            maxLines: 1,
+          ),
         ),
       ],
     );

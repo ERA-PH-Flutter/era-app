@@ -30,7 +30,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               fontWeight: FontWeight.w500,
             ),
             EraText(
-              text: 'CREATE LISTING',
+              text: 'ADD PROJECTS',
               color: AppColors.black,
               fontSize: EraTheme.header,
               fontWeight: FontWeight.w600,
