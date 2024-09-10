@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -216,7 +217,7 @@ Widget _buildFloorAreaFilter({
             children: [
               EraText(text: 'Min.', fontSize: 18.sp, color: AppColors.black),
               SizedBox(
-                width: 180.w,
+                width: Get.width / 2 - 25.w,
                 child: TextformfieldWidget(
                   hintText: hintText ?? 'sqm',
                   contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -233,7 +234,7 @@ Widget _buildFloorAreaFilter({
             children: [
               EraText(text: 'Max.', fontSize: 18.sp, color: AppColors.black),
               SizedBox(
-                width: 180.w,
+                width: Get.width / 2 - 25.w,
                 child: TextformfieldWidget(
                   hintText: hintText2 ?? 'sqm',
                   contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -338,9 +339,21 @@ void openFilterDialog({
                       max: ppsqmMax),
                   sb20(),
                   Button(
-                    onTap: () {},
+                    width: Get.width,
+                    onTap: () {
+                      Get.back();
+                      Get.showSnackbar(GetSnackBar(
+                        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 10.h),
+                        backgroundColor: AppColors.kRedColor,
+                        title: 'Success',
+                        message: 'Filter Applied',
+                        duration: Duration(seconds: 2),
+                      ));
+
+                    },
                     text: 'Apply Filters',
                     bgColor: AppColors.blue,
+                    fontSize: 20.sp,
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ],

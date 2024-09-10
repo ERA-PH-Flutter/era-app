@@ -63,7 +63,7 @@ class SplashController extends GetxController {
     kIsWeb
         ? Get.toNamed(RouteString.landingPage) //admingLogin
         : shortestSide < 600
-            ? Get.to(BaseScaffold())
-            : Get.to(BaseScaffold());
+            ? Get.off(BaseScaffold())
+            : Get.off(BaseScaffold());
   }
 }
