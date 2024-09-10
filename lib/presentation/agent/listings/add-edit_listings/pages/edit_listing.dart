@@ -330,6 +330,12 @@ class EditListing extends GetView<AddListingsController> {
             controller: controller.pricePerSqmController,
             hintText: 'Php 100,000',
             maxLines: 1,
+            onChanged: (value) {
+              value = value.replaceAll(',', '');
+              controller.pricePerSqmController.text = value.replaceAllMapped(
+                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                  (Match m) => '${m[1]},');
+            },
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Price per sqm is required';
@@ -595,8 +601,9 @@ class EditListing extends GetView<AddListingsController> {
             controller.listing!.price = controller.propertyCostController.text
                 .replaceAll(',', '')
                 .toDouble();
-            controller.listing!.ppsqm =
-                controller.pricePerSqmController.text.toDouble();
+            controller.listing!.ppsqm = controller.pricePerSqmController.text
+                .replaceAll(',', '')
+                .toDouble();
             controller.listing!.beds = controller.bedsController.text.toInt();
             controller.listing!.baths = controller.bathsController.text.toInt();
             controller.listing!.cars = controller.carsController.text.toInt();

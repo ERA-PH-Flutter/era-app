@@ -252,7 +252,7 @@ class Home extends GetView<HomeController> {
               sb15(),
               EraText(
                 textAlign: TextAlign.center,
-                text: 'You REAL ESTATE agency partner for life!',
+                text: 'Your REAL ESTATE agency partner for life!',
                 color: AppColors.kRedColor,
                 fontSize: 25.sp,
                 fontWeight: FontWeight.bold,

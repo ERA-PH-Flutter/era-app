@@ -262,8 +262,14 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             keyboardType: TextInputType.number,
             controller: controller.pricePerSqmController,
-            hintText: '100',
+            hintText: '100,000',
             maxLines: 1,
+            onChanged: (value) {
+              value = value.replaceAll(',', '');
+              controller.pricePerSqmController.text = value.replaceAllMapped(
+                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                  (Match m) => '${m[1]},');
+            },
           ),
         ),
         buildWidget(
@@ -470,7 +476,9 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 price: controller.propertyCostController.text
                     .replaceAll(',', '')
                     .toDouble(),
-                ppsqm: controller.pricePerSqmController.text.toDouble(),
+                ppsqm: controller.pricePerSqmController.text
+                    .replaceAll(',', '')
+                    .toDouble(),
                 beds: controller.bedsController.text.toInt(),
                 baths: controller.bathsController.text.toInt(),
                 cars: controller.carsController.text.toInt(),

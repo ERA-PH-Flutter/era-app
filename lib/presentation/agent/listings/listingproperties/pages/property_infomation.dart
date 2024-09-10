@@ -836,19 +836,44 @@ class PropertyInformation extends GetView<ListingController> {
                 },
               ),
               Positioned(
-                top: 40.h,
-                right: 20.w,
+                top: 15.h,
+                right: 15.w,
                 child: GestureDetector(
                   onTap: () {
                     Get.back();
                   },
-                  child: Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 40.sp,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    alignment: Alignment.center,
+                    child: Icon(
+                      CupertinoIcons.clear,
+                      color: Colors.white,
+                      size: 40.sp,
+                    ),
                   ),
                 ),
               ),
+              // Positioned(
+              //   top: 10.h,
+              //   right: 10.w,
+              //   child: IconButton(
+              //     onPressed: () {
+              //       Get.back();
+              //     },
+              //     icon: Icon(
+              //       CupertinoIcons.clear,
+              //       color: Colors.white,
+              //       size: 40.sp,
+              //     ),
+
+              //     constraints: BoxConstraints(
+              //       minWidth: 55,
+              //       minHeight: 55,
+              //     ),
+              //   ),
+              // ),
+
               Positioned(
                 top: 50.h,
                 left: 0,
