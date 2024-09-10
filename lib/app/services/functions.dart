@@ -29,6 +29,10 @@ class EraFunctions {
       }
     }).toList();
   }
+  static sort(target,order,List list){
+    list.sort((a, b) => a[target].compareTo(b[target]));
+    return order == 'asc' ? list : list.reversed;
+  }
   static urlToFile(url)async{
     var rng = Random();
     Directory tempDir = await getTemporaryDirectory();

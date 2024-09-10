@@ -15,6 +15,8 @@ class FavController extends GetxController with BaseController {
   var selectedListings = [].obs;
   var selectionModeActive = false.obs;
   var favState = FavState.loading.obs;
+  var sortBy = 'date'.obs;
+  var sortOrder = 'asc'.obs;
   var listing = [];
 
   @override

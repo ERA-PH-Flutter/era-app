@@ -18,6 +18,7 @@ import '../../../../../app/constants/theme.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../app/widgets/fav/favItems_widgets.dart';
 import '../../../../../app/widgets/listings/agentInfo-widget.dart';
+import '../../../../../app/widgets/sold_properties/custom_sort.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 import '../controllers/fav_controller.dart';
@@ -68,11 +69,15 @@ class Fav extends GetView<FavController> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                EraText(
-                  text: 'MY FAVORITES',
-                  fontSize: 25.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blue,
+                Padding(
+                  padding:
+                  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  child: EraText(
+                    text: 'MY FAVORITES',
+                    fontSize: 25.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.blue,
+                  ),
                 ),
                 Padding(
                   padding:
@@ -80,7 +85,51 @@ class Fav extends GetView<FavController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      _sortByButton(),
+                      CustomSortPopup(
+                        title: 'Sort by',
+                        onSelected: (String result) {
+                          print(result);
+                        },
+                        menuItems: [
+                          popMenu(text: 'Category',isActive: controller.sortBy.value == 'category',onTap: (){
+                            controller.sortBy.value = 'category';
+                            controller.favState.value = FavState.loading;
+                            controller.favoritesList.sort((a,b)=> a.type!.compareTo(b.type!));
+                            controller.favState.value = FavState.loaded;
+                          }),
+                          popMenu(text: 'Date',isActive: controller.sortBy.value == 'date',onTap: (){
+                            controller.sortBy.value = 'date';
+                            controller.favState.value = FavState.loading;
+                            controller.favoritesList.sort((a,b)=> a.dateCreated!.compareTo(b.dateCreated!));
+                            controller.favState.value = FavState.loaded;
+                          }),
+                          popMenu(text: 'Location',isActive: controller.sortBy.value == 'location',onTap: (){
+                            controller.sortBy.value = 'location';
+                            controller.favState.value = FavState.loading;
+                            controller.favoritesList.sort((a,b)=> a.location!.compareTo(b.location!));
+                            controller.favState.value = FavState.loaded;
+                          }),
+                          popMenu(text: 'Price',isActive: controller.sortBy.value == 'price',onTap: (){
+                            controller.sortBy.value = 'price';
+                            controller.favState.value = FavState.loading;
+                            controller.favoritesList.sort((a,b)=> a.price!.compareTo(b.price!));
+                            controller.favState.value = FavState.loaded;
+                          }),
+                          PopupMenuDivider(),
+                          popMenu(text: 'Ascending',isActive: controller.sortOrder.value == 'asc',onTap: (){
+                            controller.sortOrder.value = 'asc';
+                            controller.favState.value = FavState.loading;
+                            controller.favoritesList.value = controller.favoritesList.reversed.toList();
+                            controller.favState.value = FavState.loaded;
+                          }),
+                          popMenu(text: 'Descending',isActive: controller.sortOrder.value == 'desc',onTap: (){
+                            controller.sortOrder.value = 'desc';
+                            controller.favState.value = FavState.loading;
+                            controller.favoritesList.value = controller.favoritesList.reversed.toList();
+                            controller.favState.value = FavState.loaded;
+                          }),
+                        ],
+                      ),
                       SizedBox(
                         width: 10.w,
                       ),
@@ -145,7 +194,7 @@ class Fav extends GetView<FavController> {
                     SizedBox(
                       child: GridView.builder(
                         scrollDirection: Axis.vertical,
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                         physics: const ScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate:
@@ -460,6 +509,35 @@ class Fav extends GetView<FavController> {
           child: Text('Descending'),
         ),
       ],
+    );
+  }
+  popMenu({
+    required String text,
+    isActive = false,
+    required onTap,
+    style
+  }){
+    return PopupMenuItem<String>(
+      onTap: onTap,
+      value: text.toString().toLowerCase(),
+      child: Obx((){
+        controller.sortBy.value;
+        controller.sortOrder.value;
+        return Row(
+          children: [
+            isActive ? Row(
+              children: [
+                Icon(Icons.check,color: AppColors.blue,),
+                SizedBox(width: 5.w,)
+              ],
+            ) : Container(),
+            Text(
+              text,
+              style: style ?? TextStyle(),
+            )
+          ],
+        );
+      }),
     );
   }
 

@@ -20,7 +20,7 @@ import '../controllers/agent_listings_controller.dart';
 class AgentsMyListing extends GetView<AgentListingsController> {
   final String? by;
 
-  const AgentsMyListing({super.key, this.by});
+  AgentsMyListing({super.key, this.by});
 
   @override
   Widget build(BuildContext context) {
@@ -67,35 +67,44 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                 onSelected: (String result) {
                   print(result);
                 },
-                menuItems: const [
-                  PopupMenuItem<String>(
-                    value: 'Category',
-                    child:
-                        Text('Category', style: TextStyle(color: Colors.black)),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'date_modified',
-                    child: Text('Date', style: TextStyle(color: Colors.black)),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'Location',
-                    child:
-                        Text('Location', style: TextStyle(color: Colors.black)),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'Amount',
-                    child:
-                        Text('Amount', style: TextStyle(color: Colors.black)),
-                  ),
+                menuItems: [
+                  popMenu(text: 'Category',isActive: controller.sortBy.value == 'category',onTap: (){
+                    controller.sortBy.value = 'category';
+                    controller.agentListingsState.value = AgentListingsState.loading;
+                    controller.listings.sort((a,b)=> a.type!.compareTo(b.type!));
+                    controller.agentListingsState.value = AgentListingsState.loaded;
+                  }),
+                  popMenu(text: 'Date',isActive: controller.sortBy.value == 'date',onTap: (){
+                    controller.sortBy.value = 'date';
+                    controller.agentListingsState.value = AgentListingsState.loading;
+                    controller.listings.sort((a,b)=> a.dateCreated!.compareTo(b.dateCreated!));
+                    controller.agentListingsState.value = AgentListingsState.loaded;
+                  }),
+                  popMenu(text: 'Location',isActive: controller.sortBy.value == 'location',onTap: (){
+                    controller.sortBy.value = 'location';
+                    controller.agentListingsState.value = AgentListingsState.loading;
+                    controller.listings.sort((a,b)=> a.location!.compareTo(b.location!));
+                    controller.agentListingsState.value = AgentListingsState.loaded;
+                  }),
+                  popMenu(text: 'Price',isActive: controller.sortBy.value == 'price',onTap: (){
+                    controller.sortBy.value = 'price';
+                    controller.agentListingsState.value = AgentListingsState.loading;
+                    controller.listings.sort((a,b)=> a.price!.compareTo(b.price!));
+                    controller.agentListingsState.value = AgentListingsState.loaded;
+                  }),
                   PopupMenuDivider(),
-                  PopupMenuItem<String>(
-                    value: 'ascending',
-                    child: Text('Ascending'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'descending',
-                    child: Text('Descending'),
-                  ),
+                  popMenu(text: 'Ascending',isActive: controller.sortOrder.value == 'asc',onTap: (){
+                    controller.sortOrder.value = 'asc';
+                    controller.agentListingsState.value = AgentListingsState.loading;
+                    controller.listings = controller.listings.reversed.toList();
+                    controller.agentListingsState.value = AgentListingsState.loaded;
+                  }),
+                  popMenu(text: 'Descending',isActive: controller.sortOrder.value == 'desc',onTap: (){
+                    controller.sortOrder.value = 'desc';
+                    controller.agentListingsState.value = AgentListingsState.loading;
+                    controller.listings = controller.listings.reversed.toList();
+                    controller.agentListingsState.value = AgentListingsState.loaded;
+                  }),
                 ],
               ),
             ],
@@ -464,6 +473,36 @@ class AgentsMyListing extends GetView<AgentListingsController> {
         text: "Something went Wrong!",
         color: Colors.black,
       ),
+    );
+  }
+
+  popMenu({
+    required String text,
+    isActive = false,
+    required onTap,
+    style
+  }){
+    return PopupMenuItem<String>(
+      onTap: onTap,
+      value: text.toString().toLowerCase(),
+      child: Obx((){
+        controller.sortBy.value;
+        controller.sortOrder.value;
+        return Row(
+          children: [
+            isActive ? Row(
+              children: [
+                Icon(Icons.check,color: AppColors.blue,),
+                SizedBox(width: 5.w,)
+              ],
+            ) : Container(),
+            Text(
+              text,
+              style: style ?? TextStyle(),
+            )
+          ],
+        );
+      }),
     );
   }
 }

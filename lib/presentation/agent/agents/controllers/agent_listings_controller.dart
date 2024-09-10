@@ -13,6 +13,8 @@ enum AgentListingsState{
 class AgentListingsController extends GetxController{
   var store = Get.find<LocalStorageService>();
   var agentListingsState = AgentListingsState.loading.obs;
+  var sortBy = 'date'.obs;
+  var sortOrder = 'asc'.obs;
   var user;
   List<Listing> listings = [];
   var data = [].obs;

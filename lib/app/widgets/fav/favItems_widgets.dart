@@ -61,7 +61,7 @@ class FavItems extends StatelessWidget {
                             children: [
                               SizedBox(
                                 height: 25.h,
-                                width:Get.width - 200.w,
+                                width:Get.width - 220.w,
 
                                 child: EraText(
                                   textOverflow: TextOverflow.ellipsis,
