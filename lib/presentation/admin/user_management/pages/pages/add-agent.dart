@@ -173,7 +173,7 @@ class AddAgent extends GetView<AgentAdminController> {
             SizedBox(
               height: 10.h,
             ),
-            buildUploadPhoto(),
+            buildUploadPhoto(onTap: () {}),
             Padding(
               padding: EdgeInsets.all(8.sp),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -516,40 +516,43 @@ class AddAgent extends GetView<AgentAdminController> {
     );
   }
 
-  static Widget buildUploadPhoto() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: ' Upload Photo *',
-            fontSize: 18.sp,
-            color: AppColors.black,
-            fontWeight: FontWeight.w500,
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Container(
-            width: Get.width,
-            height: 250.h,
-            decoration: BoxDecoration(
-              color: AppColors.hint.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: AppColors.hint.withOpacity(0.9),
-                width: 2,
+  static Widget buildUploadPhoto({void Function()? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            EraText(
+              text: ' Upload Photo *',
+              fontSize: 18.sp,
+              color: AppColors.black,
+              fontWeight: FontWeight.w500,
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Container(
+              width: Get.width,
+              height: 250.h,
+              decoration: BoxDecoration(
+                color: AppColors.hint.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: AppColors.hint.withOpacity(0.9),
+                  width: 2,
+                ),
+              ),
+              child: Center(
+                child: Image.asset(AppEraAssets.uploadAdmin),
               ),
             ),
-            child: Center(
-              child: Image.asset(AppEraAssets.uploadAdmin),
+            SizedBox(
+              height: 20.h,
             ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

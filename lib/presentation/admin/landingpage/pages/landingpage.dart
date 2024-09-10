@@ -23,19 +23,19 @@ import 'package:get/get.dart';
 class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
 
-  final Map<AdminSection, Widget> _screens = {
-    AdminSection.agentProfile: AgentProfileAdmin(agentListing: Get.arguments),
-    AdminSection.addAgent: AddAgent(),
-    AdminSection.approvedAgents: ApprovedAgents(),
-    AdminSection.roster: Roster(),
-    AdminSection.addProject: AddProjectAdmin(),
-    AdminSection.propertyList: PropertylistAdmin(),
-    AdminSection.propertyInfo: PropertyInformationAdmin(),
-    AdminSection.addProperty: AddPropertyAdmin(),
-    //  AdminSection.editProperty: EditPropertyAdmin(),
-    AdminSection.homepage: HomePage(),
-    AdminSection.aboutUs: AboutUsPage(),
-  };
+  final List<Widget> _screens = [
+    AgentProfileAdmin(),
+    AddAgent(),
+    ApprovedAgents(),
+    Roster(),
+    AddProjectAdmin(),
+    PropertylistAdmin(),
+    PropertyInformationAdmin(),
+    AddPropertyAdmin(),
+    EditPropertyAdmin(),
+    HomePage(),
+    AboutUsPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +82,7 @@ class LandingPage extends GetView<LandingPageController> {
           child: _buildSidebarMenu(),
         ),
         Expanded(
-          child: _screens[controller.selectedSection.value] ?? Container(),
+          child: _screens[controller.selectedSectionIndex.value] ?? Container(),
         ),
       ],
     );
@@ -175,36 +175,36 @@ class LandingPage extends GetView<LandingPageController> {
             text: "USER MANAGEMENT",
             image: AppEraAssets.dashboard,
             children: [
-              _buildMenuItem('VIEW AGENTS/BROKERS', AdminSection.agentProfile),
-              _buildMenuItem('ADD AGENT', AdminSection.addAgent),
-              _buildMenuItem('APPROVAL NEW AGENT', AdminSection.approvedAgents),
-              _buildMenuItem('ROSTER', AdminSection.roster),
+              _buildMenuItem('VIEW AGENTS/BROKERS', 0),
+              _buildMenuItem('ADD AGENT', 1),
+              _buildMenuItem('APPROVAL NEW AGENT', 2),
+              _buildMenuItem('ROSTER', 3),
             ],
           ),
           _buildExpansionTile(
             text: "PROPERTY MANAGEMENT",
             image: AppEraAssets.agentDash,
             children: [
-              _buildMenuItem('ADD PROJECTS', AdminSection.addProject),
-              _buildMenuItem('PROPERTY LISTINGS', AdminSection.propertyList),
-              _buildMenuItem('PROPERTY INFORMATION', AdminSection.propertyInfo),
-              _buildMenuItem('ADD LISTINGS', AdminSection.addProperty),
-              //  _buildMenuItem('EDIT LISTINGS', AdminSection.editProperty),
+              _buildMenuItem('ADD PROJECTS', 4),
+              _buildMenuItem('PROPERTY LISTINGS', 5),
+              _buildMenuItem('PROPERTY INFORMATION', 6),
+              _buildMenuItem('ADD LISTINGS', 7),
             ],
           ),
           _buildExpansionTile(
             text: "CONTENT MANAGEMENT",
             image: AppEraAssets.listingDash,
             children: [
-              _buildMenuItem('HOMEPAGE', AdminSection.homepage),
-              _buildMenuItem('ABOUT US', AdminSection.aboutUs),
+              _buildMenuItem('HOMEPAGE', 8),
+              _buildMenuItem('ABOUT US', 9),
             ],
           ),
         ],
       );
 
-  Widget _buildMenuItem(String title, AdminSection section) => Obx(() {
-        final bool isSelected = controller.selectedSection.value == section;
+  Widget _buildMenuItem(String title, int section) => Obx(() {
+        final bool isSelected =
+            controller.selectedSectionIndex.value == section;
         return ListTile(
           title: Container(
             height: 40.h,

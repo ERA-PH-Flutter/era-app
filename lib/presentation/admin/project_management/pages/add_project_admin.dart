@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -35,6 +36,13 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               fontSize: EraTheme.header,
               fontWeight: FontWeight.w600,
             ),
+            EraText(
+              text: 'BANNER PHOTO ',
+              color: AppColors.black,
+              fontSize: EraTheme.header - 10.sp,
+              fontWeight: FontWeight.w600,
+            ),
+            AddAgent.buildUploadPhoto(onTap: () {}),
             SizedBox(height: 20.h),
             buildUploadSection(
               title: 'Upload Cover Photo *',
