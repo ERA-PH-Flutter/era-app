@@ -62,6 +62,12 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             maxLines: 1,
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             keyboardType: TextInputType.number,
+            onChanged: (value) {
+              value = value.replaceAll(',', '');
+              controller.propertyCostController.text = value.replaceAllMapped(
+                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                  (Match m) => '${m[1]},');
+            },
           ),
         ),
 
@@ -461,7 +467,9 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           try {
             await Listing(
                 name: controller.propertyNameController.text,
-                price: controller.propertyCostController.text.toDouble(),
+                price: controller.propertyCostController.text
+                    .replaceAll(',', '')
+                    .toDouble(),
                 ppsqm: controller.pricePerSqmController.text.toDouble(),
                 beds: controller.bedsController.text.toInt(),
                 baths: controller.bathsController.text.toInt(),

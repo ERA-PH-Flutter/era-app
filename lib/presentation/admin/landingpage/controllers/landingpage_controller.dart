@@ -12,7 +12,7 @@ enum AdminSection {
   propertyList,
   propertyInfo,
   addProperty,
-  editProperty,
+//    editProperty,
   homepage,
   aboutUs,
 }

@@ -63,7 +63,7 @@ class AddListingsController extends GetxController with BaseController {
     "Lot",
     "Industrial Lot",
     "Office",
-    "Parking Slot",
+    "Parking Lot",
     "Residential",
     "Resort",
     "Townhouse",

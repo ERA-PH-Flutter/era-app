@@ -26,29 +26,36 @@ class AppEraAssets {
   static String money = "${l}money.png";
 
   // properties icons
-  static String condo = "${l}__Condominium.png";
-  static String condotel = "${l}__Condotel.png";
-  static String commercial = "${l}__Commercial.png";
-  static String apartment = "${l}__Apartment.png";
-  static String house1 = "${l}__House.png";
-  static String land = "${l}__Land.png";
-  static String waterfront = "${l}__Waterfront.png";
-  static String office = "${l}office.png";
-  static String agricultural = "${l}agricultural.png";
-  static String factory = "${l}factory.png";
-  static String housenlot = "${l}H&L.png";
-  static String hotel = "${l}hotel.png";
-  static String industrial = "${l}industrialLot.png";
-  static String parkingLot = "${l}parkingLot.png";
-  static String resort = "${l}resort.png";
-  static String lot = "${l}lot.png";
-  static String farm = "${l}farm.png";
+  static String agricultural = "${l}4_agricultural.png";
+  static String apartment = "${l}4_apartment.png";
+  static String commercial = "${l}4_commercial.png";
+  static String condo = "${l}4_condominium.png";
+  static String factory = "${l}4_factory.png";
+  static String farm = "${l}4_farm.png";
+  static String hotel = "${l}4_hotel.png";
+  static String housenlot = "${l}4_house and lot.png";
+  static String house1 = "${l}4_house.png";
+  static String lot = "${l}4_lot.png";
+  static String industrial = "${l}4_insdustrial lot.png";
+  static String office = "${l}4_office.png";
+  static String parkingLot = "${l}4_parking lot.png";
+  static String residential = "${l}4_residential.png";
+  static String townhouse = "${l}4_townhouse.png";
+  static String resort = "${l}4_resort.png";
+  static String warehouse = "${l}4_warehouse.png";
+  static String penthouse = "${l}4_penthouse.png";
+  static String beachHouse = "${l}4_beach house.png";
+  static String loft = "${l}loft.jpg";
+  static String bedspace = "${l}4_bedspace.png";
+  static String room = "${l}4_room.png";
+  static String memorial = "${l}4_memorial.png";
+  static String coworking = "${l}4_coworking space.png";
+  static String studio = "${l}4_studio.png";
 
-  static String residential = "${l}residential.png";
-  static String retail = "${l}retail.png";
-  static String lotF = "${l}lot.png";
-  static String townhouse = "${l}townhouse.png";
-  static String warehouse = "${l}warehouse.png";
+  // static String land = "${l}__Land.png";
+  // static String waterfront = "${l}__Waterfront.png";
+  // static String retail = "${l}4_retail.png";
+  // static String lotF = "${l}lot.png";
   //appbar
   static String menubar = "${l}menubar.png";
 

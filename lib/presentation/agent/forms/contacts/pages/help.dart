@@ -28,12 +28,6 @@ class Help extends GetView<ContactusController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              EraText(
-                text: 'FAQs',
-                fontSize: 25.sp,
-                color: AppColors.blue,
-                fontWeight: FontWeight.w600,
-              ),
               SizedBox(height: 10.h),
               EraText(
                 text:

@@ -70,9 +70,20 @@ class PropertyInformationAdmin extends StatelessWidget {
         ),
         SizedBox(height: 10.h),
         Container(
-          height: 200.h,
-          color: AppColors.black,
-          width: double.infinity,
+          height: 250.h,
+          width: Get.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: AppColors.hint.withOpacity(0.3),
+            border: Border.all(
+              color: AppColors.hint.withOpacity(0.9),
+              width: 2.w,
+            ),
+          ),
+          child: Image.asset(
+            'assets/images/no_image_listing.png',
+            fit: BoxFit.contain,
+          ),
         ),
         SizedBox(height: 10.h),
         EraText(

@@ -52,7 +52,7 @@ class HomePage extends GetView<ContentManagementController> {
           Row(
             children: [
               EraText(
-                text: 'FIND LISTINGS TO BE FEATURED',
+                text: 'FEATURED LISTINGS',
                 color: AppColors.kRedColor,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
@@ -64,7 +64,7 @@ class HomePage extends GetView<ContentManagementController> {
                   hintText: 'Find Listings',
                   maxLines: 1,
                 ),
-              )
+              ),
             ],
           ),
           SizedBox(height: 10.h),
@@ -274,11 +274,17 @@ class HomePage extends GetView<ContentManagementController> {
                             ),
                           ),
                           Positioned(
-                            top: 0,
+                            top: 10,
                             right: 0,
-                            child: IconButton(
-                              icon: Icon(CupertinoIcons.heart),
-                              onPressed: () {},
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Button(
+                                margin: EdgeInsets.symmetric(horizontal: 5),
+                                width: 150.w,
+                                text: 'ADD',
+                                bgColor: AppColors.blue,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                             ),
                           ),
                         ],

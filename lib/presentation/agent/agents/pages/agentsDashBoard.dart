@@ -18,6 +18,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../app/constants/sized_box.dart';
 import '../../../../app/models/navbaritems.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../../../../app/widgets/navigation/app_nav_items.dart';
@@ -53,22 +54,25 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              EraText(
-                                text: 'MY DASHBOARD',
-                                color: AppColors.blue,
-                                fontSize: EraTheme.header,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              settingIcon(() {
-                                Get.to(() => SettingsPage());
-                              }),
-                            ],
+                          EraText(
+                            text:
+                                '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
+                            fontSize: 20.sp,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w600,
                           ),
                           SizedBox(height: 10.h),
+                          EraText(
+                            text: 'Welcome to your Dashboard!',
+                            fontSize: 25.sp,
+                            color: AppColors.kRedColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          sb10(),
+
+                          SizedBox(height: 10.h),
                           AgentInfoWidget.agentInformation(
+                            issettings: true,
                             imageProvider: user!.image != null
                                 ? user!.image!
                                 : AppStrings.noUserImageWhite,
@@ -79,9 +83,10 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                             role: '${user!.role}',
                           ),
                           SizedBox(height: 25.h),
+
                           Button(
                             fontSize: EraTheme.paragraph - 2.sp,
-                            width: Get.width - 100.w,
+                            width: Get.width,
                             text: 'MORTGAGE CALCULATOR',
                             borderRadius: BorderRadius.circular(20),
                             bgColor: AppColors.kRedColor,
@@ -736,31 +741,12 @@ Widget latestNewIcon(String assetPath, Function()? onTap) {
 Widget settingIcon(Function()? onTap) {
   return GestureDetector(
     onTap: onTap,
-    child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.blue,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: AppColors.blue, width: 2.w),
-        ),
-        child: Padding(
-          padding:
-              EdgeInsets.only(right: 8.w, left: 8.w, top: 3.h, bottom: 3.h),
-          child: Row(
-            children: [
-              Icon(
-                CupertinoIcons.settings,
-                color: AppColors.white,
-                size: 25.sp,
-              ),
-              SizedBox(width: 5.w),
-              EraText(
-                text: 'Setting',
-                color: AppColors.white,
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w600,
-              ),
-            ],
-          ),
-        )),
+    child: Center(
+      child: Icon(
+        CupertinoIcons.settings,
+        color: AppColors.blue,
+        size: 25.sp,
+      ),
+    ),
   );
 }

@@ -44,7 +44,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
               // if(origin == null){
               //
               // }else{
@@ -66,7 +68,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.commercial, () async {
@@ -81,7 +85,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.condo, () async {
@@ -96,7 +102,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.factory, () async {
@@ -111,7 +119,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.farm, () async {
@@ -126,7 +136,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.hotel, () async {
@@ -141,7 +153,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.housenlot, () async {
@@ -156,7 +170,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.house1, () async {
@@ -171,7 +187,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.lot, () async {
@@ -186,7 +204,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.industrial, () async {
@@ -201,7 +221,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.office, () async {
@@ -216,13 +238,15 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.parkingLot, () async {
               var listings = (await FirebaseFirestore.instance
                       .collection('listings')
-                      .where('view', isEqualTo: 'Parking Slot')
+                      .where('view', isEqualTo: 'Parking Lot')
                       .get())
                   .docs;
               var data = listings.map((listing) {
@@ -231,7 +255,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.residential, () async {
@@ -246,7 +272,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.townhouse, () async {
@@ -261,7 +289,9 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
             SizedBox(width: 15.w),
             FindProperties.quickSearchIcon(AppEraAssets.warehouse, () async {
@@ -276,8 +306,147 @@ class QuickLinks extends StatelessWidget {
               selectedIndex.value = 2;
               pageViewController = PageController(initialPage: 2);
               currentRoute = '/searchresult';
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding(),arguments: [data,'All Apartment']);
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
             }),
+            SizedBox(width: 15.w),
+            FindProperties.quickSearchIcon(AppEraAssets.penthouse, () async {
+              var listings = (await FirebaseFirestore.instance
+                      .collection('listings')
+                      .where('view', isEqualTo: 'Penthouse')
+                      .get())
+                  .docs;
+              var data = listings.map((listing) {
+                return listing.data();
+              }).toList();
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
+            }),
+            SizedBox(width: 15.w),
+            FindProperties.quickSearchIcon(AppEraAssets.beachHouse, () async {
+              var listings = (await FirebaseFirestore.instance
+                      .collection('listings')
+                      .where('view', isEqualTo: 'Beach House')
+                      .get())
+                  .docs;
+              var data = listings.map((listing) {
+                return listing.data();
+              }).toList();
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
+            }),
+            SizedBox(width: 15.w),
+            FindProperties.quickSearchIcon(AppEraAssets.loft, () async {
+              var listings = (await FirebaseFirestore.instance
+                      .collection('listings')
+                      .where('view', isEqualTo: 'Loft')
+                      .get())
+                  .docs;
+              var data = listings.map((listing) {
+                return listing.data();
+              }).toList();
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
+            }),
+            SizedBox(width: 15.w),
+            FindProperties.quickSearchIcon(AppEraAssets.bedspace, () async {
+              var listings = (await FirebaseFirestore.instance
+                      .collection('listings')
+                      .where('view', isEqualTo: 'Bedspace')
+                      .get())
+                  .docs;
+              var data = listings.map((listing) {
+                return listing.data();
+              }).toList();
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
+            }),
+            SizedBox(width: 15.w),
+            FindProperties.quickSearchIcon(AppEraAssets.room, () async {
+              var listings = (await FirebaseFirestore.instance
+                      .collection('listings')
+                      .where('view', isEqualTo: 'Room')
+                      .get())
+                  .docs;
+              var data = listings.map((listing) {
+                return listing.data();
+              }).toList();
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
+            }),
+            SizedBox(width: 15.w),
+            FindProperties.quickSearchIcon(AppEraAssets.memorial, () async {
+              var listings = (await FirebaseFirestore.instance
+                      .collection('listings')
+                      .where('view', isEqualTo: 'Memorial')
+                      .get())
+                  .docs;
+              var data = listings.map((listing) {
+                return listing.data();
+              }).toList();
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
+            }),
+            SizedBox(width: 15.w),
+            FindProperties.quickSearchIcon(AppEraAssets.coworking, () async {
+              var listings = (await FirebaseFirestore.instance
+                      .collection('listings')
+                      .where('view', isEqualTo: 'Coworking Space')
+                      .get())
+                  .docs;
+              var data = listings.map((listing) {
+                return listing.data();
+              }).toList();
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
+            }),
+            SizedBox(width: 15.w),
+            FindProperties.quickSearchIcon(AppEraAssets.studio, () async {
+              var listings = (await FirebaseFirestore.instance
+                      .collection('listings')
+                      .where('view', isEqualTo: 'Studio')
+                      .get())
+                  .docs;
+              var data = listings.map((listing) {
+                return listing.data();
+              }).toList();
+              selectedIndex.value = 2;
+              pageViewController = PageController(initialPage: 2);
+              currentRoute = '/searchresult';
+              Get.offAll(BaseScaffold(),
+                  binding: SearchResultBinding(),
+                  arguments: [data, 'All Apartment']);
+            }),
+            SizedBox(width: 15.w),
           ],
         ),
       ),

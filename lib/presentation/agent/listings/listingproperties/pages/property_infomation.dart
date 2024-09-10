@@ -369,19 +369,22 @@ class PropertyInformation extends GetView<ListingController> {
             height: 30.h,
           ),
 
-          //ListingProperties(listingModels: RealEstateListing.listingsModels),
           Container(
             height: Get.height / 1.4,
             width: Get.width,
             child: FutureBuilder(
-              future: FirebaseFirestore.instance.collection('listings').where('location',isEqualTo: listing.location).where('type',isEqualTo: listing.type).get(),
-              builder: (context,snapshot){
+              future: FirebaseFirestore.instance
+                  .collection('listings')
+                  .where('location', isEqualTo: listing.location)
+                  .where('type', isEqualTo: listing.type)
+                  .get(),
+              builder: (context, snapshot) {
                 var docs = snapshot.data!.docs;
-                var newDocs= [];
-                for(int i = 0;i < (docs.length < 3 ? docs.length : 4);i++){
+                var newDocs = [];
+                for (int i = 0; i < (docs.length < 3 ? docs.length : 4); i++) {
                   newDocs.add(Listing.fromJSON(docs[i].data()));
                 }
-                if(snapshot.hasData){
+                if (snapshot.hasData) {
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
@@ -415,8 +418,8 @@ class PropertyInformation extends GetView<ListingController> {
                                 child: CloudStorage().imageLoader(
                                   ref: listing.photos != null
                                       ? (listing.photos!.isNotEmpty
-                                      ? listing.photos!.first
-                                      : AppStrings.noUserImageWhite)
+                                          ? listing.photos!.first
+                                          : AppStrings.noUserImageWhite)
                                       : AppStrings.noUserImageWhite,
                                   width: Get.width,
                                   height: 300.h,
@@ -541,7 +544,7 @@ class PropertyInformation extends GetView<ListingController> {
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: EraText(
                                   text: NumberFormat.currency(
-                                      locale: 'en_PH', symbol: 'PHP ')
+                                          locale: 'en_PH', symbol: 'PHP ')
                                       .format(
                                     listing.price.toString() == ""
                                         ? 0
@@ -558,8 +561,7 @@ class PropertyInformation extends GetView<ListingController> {
                       );
                     },
                   );
-                }
-                else{
+                } else {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
@@ -567,7 +569,7 @@ class PropertyInformation extends GetView<ListingController> {
               },
             ),
           ),
-          
+
           Button(
             text: 'SEE ALL',
             onTap: () {

@@ -77,6 +77,12 @@ class EditListing extends GetView<AddListingsController> {
             maxLines: 1,
             controller: controller.propertyCostController,
             keyboardType: TextInputType.number,
+            onChanged: (value) {
+              value = value.replaceAll(',', '');
+              controller.propertyCostController.text = value.replaceAllMapped(
+                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                  (Match m) => '${m[1]},');
+            },
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Property Cost is required';
@@ -586,8 +592,9 @@ class EditListing extends GetView<AddListingsController> {
           try {
             print(controller.latLng);
             controller.listing!.name = controller.propertyNameController.text;
-            controller.listing!.price =
-                controller.propertyCostController.text.toDouble();
+            controller.listing!.price = controller.propertyCostController.text
+                .replaceAll(',', '')
+                .toDouble();
             controller.listing!.ppsqm =
                 controller.pricePerSqmController.text.toDouble();
             controller.listing!.beds = controller.bedsController.text.toInt();
