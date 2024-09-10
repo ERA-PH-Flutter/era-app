@@ -67,12 +67,14 @@ class RealEstateListing {
   static List<RealEstateListing> listingsModels = [
     RealEstateListing(
       type: 'BGC Luxury Condo',
-      image: 'listings/1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg',
+      image:
+          'listings/1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg',
       areas: 900,
       baths: 2,
       beds: 3,
       cars: 1,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.sssLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum',
       price: 100000,
       listingBy: 'Era Philippines',
       user: EraUser(
@@ -82,7 +84,8 @@ class RealEstateListing {
         role: 'Agent',
         email: 'name@mail.com',
         whatsApp: '1234-123-1234',
-        image: 'assets/images/agentpfp.png',
+        image:
+            'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/users%2Fimages%2FMIo72yQDoOcxHBhUYKNYjgEhcMb2.png?alt=media&token=5f903c0f-0669-4e64-87aa-2343d15d62a4',
       ),
       listingId: 24005341,
       lastUpdated: DateTime.parse('2024-06-26T08:02:00'),
@@ -121,7 +124,8 @@ class RealEstateListing {
     ),
     RealEstateListing(
       type: 'BGC Luxury Condo',
-      image: 'listings/1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg',
+      image:
+          'listings/1724412195589654_WhatsApp%20Image%202024-08-01%20at%2019.55.49_60aadad8.jpg',
       areas: 900,
       baths: 2,
       beds: 3,
@@ -137,7 +141,8 @@ class RealEstateListing {
         role: 'Agent',
         email: 'name@mail.com',
         whatsApp: '1234-123-1234',
-        image: 'assets/images/agentpfp.png',
+        image:
+            'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/users%2Fimages%2FMIo72yQDoOcxHBhUYKNYjgEhcMb2.png?alt=media&token=5f903c0f-0669-4e64-87aa-2343d15d62a4',
       ),
       listingId: 24005341,
       lastUpdated: DateTime.parse('2024-06-26T08:02:00'),
@@ -193,7 +198,8 @@ class RealEstateListing {
         role: 'Agent',
         email: 'maria@mail.com',
         whatsApp: '1234-123-1234',
-        image: 'assets/images/agentpfp.png',
+        image:
+            'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/users%2Fimages%2FMIo72yQDoOcxHBhUYKNYjgEhcMb2.png?alt=media&token=5f903c0f-0669-4e64-87aa-2343d15d62a4',
       ),
       listingId: 24005341,
       lastUpdated: DateTime.parse('2024-06-26T08:02:00'),
@@ -249,7 +255,8 @@ class RealEstateListing {
         role: 'Broker',
         email: 'maria@mail.com',
         whatsApp: '1234-123-1234',
-        image: 'assets/images/agentpfp.png',
+        image:
+            'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/users%2Fimages%2FMIo72yQDoOcxHBhUYKNYjgEhcMb2.png?alt=media&token=5f903c0f-0669-4e64-87aa-2343d15d62a4',
       ),
       listingId: 24005341,
       lastUpdated: DateTime.parse('2024-06-26T08:02:00'),

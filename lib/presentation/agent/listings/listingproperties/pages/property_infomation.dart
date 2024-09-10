@@ -491,28 +491,29 @@ class PropertyInformation extends GetView<ListingController> {
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 5.h),
-            shorterSummary('Property ID', '${listing.id}'),
+            shorterSummary(text: 'Property ID', text2: '${listing.id}'),
             shorterSummary(
-                'Price',
-                NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
+                text: 'Price',
+                text2: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
                     .format(listing.price)),
             shorterSummary(
-                'Price per sqm',
-                listing.ppsqm! >= 1000000
+                text: 'Price per sqm',
+                text2: listing.ppsqm! >= 1000000
                     ? '${listing.ppsqm! / 1000000}M'
                     : listing.ppsqm! >= 1000
                         ? '${listing.ppsqm! / 1000}K'
                         : '${listing.ppsqm}'),
-            shorterSummary('Beds', '${listing.beds}'),
-            shorterSummary('Baths', '${listing.baths}'),
-            shorterSummary('Garage', '${listing.cars}'),
-            shorterSummary('Area', '${listing.area} sqm'),
+            shorterSummary(text: 'Beds', text2: '${listing.beds}'),
+            shorterSummary(text: 'Baths', text2: '${listing.baths}'),
+            shorterSummary(text: 'Garage', text2: '${listing.cars}'),
+            shorterSummary(text: 'Area', text2: '${listing.area} sqm'),
             //shorterSummary('Offer Type', listing.type),
-            shorterSummary('View', listing.view ?? "None"),
+            shorterSummary(text: 'View', text2: listing.view ?? "None"),
             shorterSummary(
-                'Location', (listing.location ?? "").toString().capitalize),
-            shorterSummary('Type', listing.type),
-            shorterSummary('Sub Category', listing.subCategory),
+                text: 'Location',
+                text2: (listing.location ?? "").toString().capitalize),
+            shorterSummary(text: 'Type', text2: listing.type),
+            shorterSummary(text: 'Sub Category', text2: listing.subCategory),
           ],
         ),
       ),
@@ -560,14 +561,14 @@ class PropertyInformation extends GetView<ListingController> {
     );
   }
 
-  Widget shorterSummary(String text, text2) {
+  static Widget shorterSummary({String? text, text2}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5.h),
       child: Row(
         children: [
           Expanded(
             child: EraText(
-              text: text,
+              text: text!,
               color: AppColors.black,
               fontSize: 16.sp,
             ),

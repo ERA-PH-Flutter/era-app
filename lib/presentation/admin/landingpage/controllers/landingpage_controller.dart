@@ -10,6 +10,7 @@ enum AdminSection {
   roster,
   addProject,
   propertyList,
+  propertyInfo,
   addProperty,
   editProperty,
   homepage,
@@ -19,7 +20,7 @@ enum AdminSection {
 class LandingPageController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var landingState = LandingState.loading.obs;
-  var selectedSection = AdminSection.agentProfile.obs;
+  var selectedSection = AdminSection.homepage.obs;
 
   @override
   void onInit() {

@@ -1,11 +1,13 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,7 +55,7 @@ class Roster extends GetView<AgentAdminController> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            RosterGridview(listingModels: RealEstateListing.listingsModels),
+            rosterGridview(listingModels: RealEstateListing.listingsModels),
             SizedBox(height: 30.h),
           ],
         ),
@@ -61,7 +63,7 @@ class Roster extends GetView<AgentAdminController> {
     );
   }
 
-  Widget RosterGridview({required List<RealEstateListing> listingModels}) {
+  Widget rosterGridview({required List<RealEstateListing> listingModels}) {
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.only(
@@ -71,7 +73,7 @@ class Roster extends GetView<AgentAdminController> {
       ),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisExtent: 430.h,
+          mainAxisExtent: 440.h,
           crossAxisCount: 3,
           crossAxisSpacing: 40.w,
           mainAxisSpacing: 30.h),
@@ -85,12 +87,18 @@ class Roster extends GetView<AgentAdminController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListedBy(
-              text: '',
-              image: "${listingModels[i].user.image}",
-              agentFirstName: "${listingModels[i].user.firstname}",
-              agentLastName: "${listingModels[i].user.lastname}",
-              agentType: "${listingModels[i].user.role}",
+            Container(
+              color: AppColors.hint.withOpacity(0.5),
+              child: GestureDetector(
+                onTap: () {},
+                child: ListedBy(
+                  text: '',
+                  image: "${listingModels[i].user.image}",
+                  agentFirstName: "${listingModels[i].user.firstname}",
+                  agentLastName: "${listingModels[i].user.lastname}",
+                  agentType: "${listingModels[i].user.role}",
+                ),
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(left: 20.w, top: 20.h),
@@ -113,7 +121,7 @@ class Roster extends GetView<AgentAdminController> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 15.w, top: 10.h),
+              padding: EdgeInsets.only(left: 15.w, top: 20.h),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -121,8 +129,8 @@ class Roster extends GetView<AgentAdminController> {
                     listingModels[i].user.whatsApp == null
                         ? AppEraAssets.whatsappIcon
                         : AppEraAssets.whatsappIcon,
-                    width: 45.w,
-                    height: 45.h,
+                    width: 40.w,
+                    height: 40.h,
                   ),
                   EraText(
                     text: "${listingModels[i].user.whatsApp}",
@@ -134,6 +142,7 @@ class Roster extends GetView<AgentAdminController> {
                 ],
               ),
             ),
+            sb10(),
             Padding(
               padding: EdgeInsets.only(left: 15.w),
               child: Row(
@@ -143,8 +152,8 @@ class Roster extends GetView<AgentAdminController> {
                     listingModels[i].user.email == null
                         ? AppEraAssets.emailIcon
                         : AppEraAssets.emailIcon,
-                    width: 45.w,
-                    height: 45.h,
+                    width: 40.w,
+                    height: 40.h,
                   ),
                   EraText(
                     text: "${listingModels[i].user.email}",

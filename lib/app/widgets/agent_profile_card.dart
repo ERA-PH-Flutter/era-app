@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +10,21 @@ import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 
 class AgentProfileCard extends StatelessWidget {
-  final RealEstateListing listing;
+  String? image;
+  String? fname;
+  String? lname;
+  String? role;
+  String? whatsApp;
+  String? email;
 
-  const AgentProfileCard({super.key, required this.listing});
+  AgentProfileCard(
+      {super.key,
+      this.image,
+      this.fname,
+      this.lname,
+      this.role,
+      this.whatsApp,
+      this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +37,8 @@ class AgentProfileCard extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               decoration:
                   BoxDecoration(shape: BoxShape.circle, color: AppColors.hint),
-              child: Image.network(
-                listing.user.image ?? '',
+              child: CachedNetworkImage(
+                imageUrl: image ?? '',
                 width: 55.w,
                 height: 55.w,
               ),
@@ -36,13 +50,13 @@ class AgentProfileCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 EraText(
-                  text: '${listing.user.firstname} ${listing.user.lastname}',
+                  text: '$fname $lname',
                   fontSize: EraTheme.paragraph,
                   fontWeight: FontWeight.bold,
                   color: AppColors.black,
                 ),
                 EraText(
-                  text: listing.user.role ?? '',
+                  text: role ?? '',
                   fontSize: EraTheme.paragraph - 4.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.black,
@@ -75,18 +89,19 @@ class AgentProfileCard extends StatelessWidget {
           fontWeight: FontWeight.w500,
           maxLines: 3,
         ),
+        sb10(),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              listing.user.whatsApp != null
+              whatsApp != null
                   ? AppEraAssets.whatsappIcon
                   : AppEraAssets.whatsappIcon,
-              width: 45.w,
-              height: 45.h,
+              width: 40.w,
+              height: 40.h,
             ),
             EraText(
-              text: "${listing.user.whatsApp}",
+              text: "$whatsApp",
               fontSize: 16.sp,
               fontWeight: FontWeight.bold,
               color: AppColors.black,
@@ -94,18 +109,17 @@ class AgentProfileCard extends StatelessWidget {
             ),
           ],
         ),
+        sb5(),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              listing.user.email != null
-                  ? AppEraAssets.emailIcon
-                  : AppEraAssets.emailIcon,
-              width: 45.w,
-              height: 45.h,
+              email != null ? AppEraAssets.emailIcon : AppEraAssets.emailIcon,
+              width: 40.w,
+              height: 40.h,
             ),
             EraText(
-              text: "${listing.user.email}",
+              text: "$email",
               fontSize: 16.sp,
               fontWeight: FontWeight.bold,
               color: AppColors.black,
@@ -113,15 +127,15 @@ class AgentProfileCard extends StatelessWidget {
             ),
           ],
         ),
+        sb5(),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              listing.user.email != null
-                  ? AppEraAssets.emailIcon
-                  : AppEraAssets.emailIcon,
-              width: 45.w,
-              height: 45.h,
+              color: AppColors.kRedColor,
+              email != null ? AppEraAssets.marker : AppEraAssets.marker,
+              width: 40.w,
+              height: 40.h,
             ),
             EraText(
               text: "City Location",
@@ -132,6 +146,7 @@ class AgentProfileCard extends StatelessWidget {
             ),
           ],
         ),
+        sb10(),
         EraText(
           text: "ERA RANKING",
           fontSize: 14.sp,

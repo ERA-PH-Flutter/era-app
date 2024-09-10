@@ -9,6 +9,7 @@ import 'package:eraphilippines/presentation/admin/project_management/pages/edit_
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/homepage.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
+import 'package:eraphilippines/presentation/admin/project_management/pages/propertyinformation.dart';
 import 'package:eraphilippines/presentation/admin/project_management/pages/propertylist_admin.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
@@ -23,12 +24,13 @@ class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
 
   final Map<AdminSection, Widget> _screens = {
-    AdminSection.agentProfile: AgentProfileAdmin(),
+    AdminSection.agentProfile: AgentProfileAdmin(agentListing: Get.arguments),
     AdminSection.addAgent: AddAgent(),
     AdminSection.approvedAgents: ApprovedAgents(),
     AdminSection.roster: Roster(),
     AdminSection.addProject: AddProjectAdmin(),
     AdminSection.propertyList: PropertylistAdmin(),
+    AdminSection.propertyInfo: PropertyInformationAdmin(),
     AdminSection.addProperty: AddPropertyAdmin(),
     AdminSection.editProperty: EditPropertyAdmin(),
     AdminSection.homepage: HomePage(),
@@ -186,6 +188,7 @@ class LandingPage extends GetView<LandingPageController> {
             children: [
               _buildMenuItem('ADD PROJECTS', AdminSection.addProject),
               _buildMenuItem('PROPERTY LISTINGS', AdminSection.propertyList),
+              _buildMenuItem('PROPERTY INFORMATION', AdminSection.propertyInfo),
               _buildMenuItem('ADD LISTINGS', AdminSection.addProperty),
               _buildMenuItem('EDIT LISTINGS', AdminSection.editProperty),
             ],
