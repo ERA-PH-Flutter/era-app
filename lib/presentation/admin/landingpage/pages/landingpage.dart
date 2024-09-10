@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/about_us.dart';
+import 'package:eraphilippines/presentation/admin/custom_scaffold.dart';
 import 'package:eraphilippines/presentation/admin/project_management/pages/add_listing_admin.dart';
 import 'package:eraphilippines/presentation/admin/project_management/pages/add_project_admin.dart';
 import 'package:eraphilippines/presentation/admin/project_management/pages/edit_listing_admin.dart';
@@ -41,11 +42,7 @@ class LandingPage extends GetView<LandingPageController> {
   Widget build(BuildContext context) {
     Get.put(AgentAdminController());
     Get.put(ContentManagementController());
-    return Scaffold(
-      appBar: CustomAppBar(
-        height: 150.h,
-        child: _buildAppBarContent(),
-      ),
+    return CustomScaffold(
       body: WillPopScope(
         onWillPop: () => _onWillPop(),
         child: SafeArea(

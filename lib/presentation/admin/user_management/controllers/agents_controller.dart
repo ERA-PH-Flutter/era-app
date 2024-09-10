@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/listing.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -11,18 +14,36 @@ enum AgentAdminState {
   loading,
   loaded,
   error,
-  empty,
 }
 
 class AgentAdminController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
+  var results = [].obs;
+  var resultText = "".obs;
 
   var agentState = AgentAdminState.loading.obs;
   @override
-  void onInit() {
-    agentState.value = AgentAdminState.loaded;
+  void onInit() async {
+    try {
+      var randomUser =
+          (await FirebaseFirestore.instance.collection('users').get()).docs;
+
+      randomUser.shuffle();
+      for (int i = 0;
+          i < (randomUser.length > 6 ? 6 : randomUser.length);
+          i++) {
+        results.add(EraUser.fromJSON(randomUser[i].data()));
+      }
+      agentState.value = AgentAdminState.loaded;
+    } catch (e) {
+      agentState.value = AgentAdminState.error;
+    }
     super.onInit();
   }
+
+  RealEstateListing? agentListings;
+
+  EraUser? agentListingssss;
 
   List<Listing> listings = [];
 

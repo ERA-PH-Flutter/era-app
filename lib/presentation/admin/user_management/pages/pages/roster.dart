@@ -7,8 +7,11 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
+import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.dart';
 
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -64,6 +67,7 @@ class Roster extends GetView<AgentAdminController> {
   }
 
   Widget rosterGridview({required List<RealEstateListing> listingModels}) {
+    LandingPageController controllers = Get.put(LandingPageController());
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.only(
@@ -90,7 +94,12 @@ class Roster extends GetView<AgentAdminController> {
             Container(
               color: AppColors.hint.withOpacity(0.5),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  // Get.toNamed('/agentProfileAdmin');
+                  controller.agentListings = listingModels[i];
+
+                  controllers.onSectionSelected(0);
+                },
                 child: ListedBy(
                   text: '',
                   image: "${listingModels[i].user.image}",

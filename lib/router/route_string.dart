@@ -46,7 +46,8 @@ class RouteString {
   static String addlistingsAdmin = "/addlistings-admin";
 
   static String addAgent = "/agent-admin";
-
   static String adminLogin = "/adminLogin";
   static String agentProfileAdmin = "/agentProfileAdmin";
+
+  static String editListingsAd = "/editListingsAd";
 }

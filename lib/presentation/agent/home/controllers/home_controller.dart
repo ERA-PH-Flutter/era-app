@@ -35,6 +35,8 @@ class HomeController extends GetxController {
   var listingImages = [];
   final List<String> images = [];
 
+  var data = [].obs;
+
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();
   TextEditingController priceController = TextEditingController();

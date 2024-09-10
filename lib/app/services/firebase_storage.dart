@@ -41,6 +41,7 @@ class CloudStorage {
       future: getFileDirect(docRef: ref),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          print(snapshot.data);
           return CachedNetworkImage(
             placeholder: (context, url) =>
                 Center(child: CircularProgressIndicator()),

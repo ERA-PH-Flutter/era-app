@@ -9,14 +9,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AgentProfileAdmin extends GetView<AgentAdminController> {
-  final RealEstateListing? agentListing;
-
-  AgentProfileAdmin({super.key, this.agentListing});
+  AgentProfileAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
     final RealEstateListing? agentData =
-        agentListing ?? Get.arguments; // Ensure argument is received
+        controller.agentListings ?? Get.arguments;
 
     return SingleChildScrollView(
       child: Padding(
@@ -149,63 +147,3 @@ Widget latestNews() {
     ],
   );
 }
-// @override
-// Widget build(BuildContext context) {
-//   return Card(
-//     child: Padding(
-//       padding: const EdgeInsets.all(8.0),
-//       child: Column(
-//         children: [
-//           // Profile Image and Info
-//           Row(
-//             children: [
-//               CircleAvatar(radius: 40), // Replace with actual image
-//               SizedBox(width: 8),
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text('FirstName LastName',
-//                       style: TextStyle(
-//                           fontSize: 18, fontWeight: FontWeight.bold)),
-//                   Text('Agent/Broker'),
-//                   Text('Status'),
-//                 ],
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: 8),
-//           // Contact Information
-//           Row(children: [
-//             Icon(Icons.phone),
-//             SizedBox(width: 8),
-//             Text('0000-000-0000')
-//           ]),
-//           Row(children: [
-//             Icon(Icons.email),
-//             SizedBox(width: 8),
-//             Text('name@mail.com')
-//           ]),
-//           Row(children: [
-//             Icon(Icons.location_on),
-//             SizedBox(width: 8),
-//             Text('City Location')
-//           ]),
-//           Row(children: [
-//             Icon(Icons.business),
-//             SizedBox(width: 8),
-//             Text('ERA Ranking: PRC LICH 0000000')
-//           ]),
-//           SizedBox(height: 8),
-//           // Edit and Delete Buttons
-//           Row(
-//             children: [
-//               ElevatedButton(onPressed: () {}, child: Text('EDIT')),
-//               SizedBox(width: 8),
-//               ElevatedButton(onPressed: () {}, child: Text('DELETE')),
-//             ],
-//           ),
-//         ],
-//       ),
-//     ),
-//   );
-// }

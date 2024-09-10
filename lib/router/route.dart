@@ -3,9 +3,11 @@ import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/contr
 import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/pages/home_analytics.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_binding.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.dart';
-import 'package:eraphilippines/presentation/admin/project_management/pages/add_project_admin.dart';
+import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_bindings.dart';
+import 'package:eraphilippines/presentation/admin/project_management/pages/edit_listing_admin.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_bindings.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
@@ -208,8 +210,14 @@ appRoutes() => [
       ),
       GetPage(
         name: RouteString.agentProfileAdmin,
-        page: () => AddProjectAdmin(),
+        page: () => AgentProfileAdmin(),
         binding: AgentAdminBindings(),
+      ),
+
+      GetPage(
+        name: RouteString.editListingsAd,
+        page: () => EditPropertyAdmin(),
+        binding: ListingsAdminBindings(),
       ),
     ];
 

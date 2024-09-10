@@ -14,9 +14,7 @@ class AgentListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return AgentsItems(
           agentInfo: agentsModels[index],
-          onTap: () {
-            //Get.toNamed('/agentDashBoard', arguments: agentsModels[index]);
-          },
+          onTap: () {},
         );
       },
     );

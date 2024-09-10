@@ -41,6 +41,7 @@ class AgentProfileCard extends StatelessWidget {
                 imageUrl: image ?? '',
                 width: 55.w,
                 height: 55.w,
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
             SizedBox(

@@ -102,7 +102,7 @@ class HomePage extends GetView<ContentManagementController> {
 
                   return GestureDetector(
                       onTap: () async {
-                        await Database().addViews(listing.id);
+                        // await Database().addViews(listing.id);
                         Get.toNamed('/propertyInfo', arguments: listing);
                       },
                       child: Stack(

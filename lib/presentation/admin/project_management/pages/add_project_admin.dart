@@ -1,6 +1,7 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
@@ -42,7 +43,9 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               fontSize: EraTheme.header - 10.sp,
               fontWeight: FontWeight.w600,
             ),
-            AddAgent.buildUploadPhoto(onTap: () {}),
+            AddAgent.buildUploadPhoto(onTap: () {
+              controller.getImageGallery();
+            }),
             SizedBox(height: 20.h),
             buildUploadSection(
               title: 'Upload Cover Photo *',
@@ -82,6 +85,25 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               text: '',
               controller: controller.fNameA,
               maxLines: 10,
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.sp),
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                Button(
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  width: 150.w,
+                  text: 'SUBMIT',
+                  bgColor: AppColors.blue,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                Button(
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  width: 150.w,
+                  text: 'CANCEL',
+                  bgColor: AppColors.hint,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ]),
             ),
           ],
         ),
