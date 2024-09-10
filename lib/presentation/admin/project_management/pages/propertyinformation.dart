@@ -244,8 +244,8 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                 children: [
                                   Button(
                                     onTap: () {
-                                      Get.toNamed('/editListingsAd',
-                                          arguments: [controller.listing?.id]);
+                                      // Get.toNamed('/editListingsAd',
+                                      //     arguments: [controller.listing?.id]);
                                     },
                                     margin: EdgeInsets.symmetric(horizontal: 5),
                                     width: 150.w,

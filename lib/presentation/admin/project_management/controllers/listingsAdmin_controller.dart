@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/services/functions.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
-import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/user.dart';
@@ -17,7 +16,7 @@ enum ListingsAState { loading, loaded, error, empty }
 
 enum AddEditListingsStateAd { loading, loaded, location_pick }
 
-class ListingsAdminController extends GetxController with BaseController {
+class ListingsAdminController extends GetxController {
   AddListingsController addListingsController =
       Get.put(AddListingsController());
   var addEditListingsStateAd = AddEditListingsStateAd.loading.obs;
@@ -34,7 +33,9 @@ class ListingsAdminController extends GetxController with BaseController {
   var isForSale = 0.obs;
   var isForLease = true.obs;
   Listing? listing;
+  List<Listing> listings = [];
 
+  //EraUser? user;
   //EraUser? user;
 
   TextEditingController locationController = TextEditingController();
@@ -49,6 +50,9 @@ class ListingsAdminController extends GetxController with BaseController {
 
   TextEditingController addFeaturedDesc1 = TextEditingController();
   TextEditingController addFeaturedDesc2 = TextEditingController();
+  TextEditingController addFeaturedDesc3 = TextEditingController();
+  TextEditingController addFeaturedDesc4 = TextEditingController();
+
   TextEditingController outdoorAmenitiesController = TextEditingController();
   TextEditingController indoorAmenitiesController = TextEditingController();
 
@@ -63,12 +67,24 @@ class ListingsAdminController extends GetxController with BaseController {
   TextEditingController areaController4 = TextEditingController();
   TextEditingController roomController5 = TextEditingController();
   TextEditingController balconyController6 = TextEditingController();
-  TextEditingController vrUploadController = TextEditingController();
 
   TextEditingController carouselDesc = TextEditingController();
   TextEditingController carouselDesc2 = TextEditingController();
   TextEditingController carouselDesc3 = TextEditingController();
 
+//
+  TextEditingController vrUploadController = TextEditingController();
+  TextEditingController vrUploadController2 = TextEditingController();
+
+  // TextEditingController locationController = TextEditingController();
+  // TextEditingController propertyController = TextEditingController();
+  // TextEditingController priceController = TextEditingController();
+  TextEditingController propertyNameC = TextEditingController();
+  TextEditingController descriptionTitleC = TextEditingController();
+  TextEditingController descriptionC = TextEditingController();
+  TextEditingController carouselTitleC = TextEditingController();
+  TextEditingController carouselFooterC = TextEditingController();
+  TextEditingController allDescriptionC = TextEditingController();
   var currentImage = ''.obs;
 
   var images = [].obs;
@@ -118,6 +134,12 @@ class ListingsAdminController extends GetxController with BaseController {
       listingState.value = ListingsAState.error;
     }
     super.onInit();
+    if (Get.currentRoute == '/editListingsAd') {
+      id = Get.arguments[0];
+      await assignData();
+    } else {
+      addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
+    }
   }
 
   @override
@@ -142,5 +164,40 @@ class ListingsAdminController extends GetxController with BaseController {
     } else {
       listingState.value = ListingsAState.loaded;
     }
+  }
+
+  assignData() async {
+    listing = await Listing().getListing(Get.arguments[0]);
+    addListingsController.propertyNameController.text = listing!.name ?? "";
+    addListingsController.propertyCostController.text =
+        listing!.price == null ? "0" : listing!.price.toString();
+    for (int i = 0; i < listing!.photos!.length; i++) {
+      images.add(await EraFunctions.urlToFile(listing!.photos![i]));
+    }
+    addListingsController.pricePerSqmController.text =
+        listing!.ppsqm.toString();
+    addListingsController.bedsController.text = listing!.beds.toString();
+    addListingsController.bathsController.text = listing!.baths.toString();
+    addListingsController.carsController.text = listing!.cars.toString();
+    addListingsController.areaController.text = listing!.area.toString();
+    addListingsController.selectedOfferT.value =
+        addListingsController.offerT.contains(listing!.status)
+            ? listing!.status
+            : null;
+    addListingsController.locationController.text = listing!.location ?? "";
+    addListingsController.selectedPropertyT.value =
+        addListingsController.propertyT.contains(listing!.type)
+            ? listing!.type
+            : null;
+    addListingsController.selectedPropertySubCategory.value =
+        addListingsController.subCategory.contains(listing!.subCategory)
+            ? listing!.subCategory
+            : null;
+    addListingsController.descController.text = listing!.description ?? "";
+    addListingsController.addressController.text = listing!.address ?? "";
+    addListingsController.addEditListingsState.value =
+        AddEditListingsState.loaded;
+    addListingsController.selectedView.value = listing!.view ?? "SUNRISE";
+    addListingsController.addListingsState.value = AddListingsState.loaded;
   }
 }

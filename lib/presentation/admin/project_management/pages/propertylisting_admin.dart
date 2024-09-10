@@ -71,7 +71,8 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
 
   _loaded() {
     LandingPageController controllers = Get.put(LandingPageController());
-
+    AddListingsController addlistingcontroller =
+        Get.put(AddListingsController());
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(

@@ -40,122 +40,169 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               fontSize: EraTheme.header,
               fontWeight: FontWeight.w600,
             ),
-            EraText(
-              text: 'BANNER PHOTO ',
-              color: AppColors.black,
-              fontSize: EraTheme.header - 10.sp,
-              fontWeight: FontWeight.w600,
-            ),
-            AddAgent.buildUploadPhoto(onTap: () {
-              controller.getImageGallery();
-            }),
-            SizedBox(height: 20.h),
-            Row(
+            _buildCollapsibleSection(
+              title: 'BANNER PHOTO',
               children: [
+                AddAgent.buildUploadPhoto(onTap: () {
+                  controller.getImageGallery();
+                }),
+              ],
+            ),
+            _buildCollapsibleSection(
+              title: 'PROJECT DETAILS',
+              children: [
+                sb10(),
                 _buildTextField(
                   controller: controller.propertyNameController,
                   label: 'Property Name *',
                 ),
-                sbw20(),
+                sb10(),
                 _buildTextField(
                   controller: controller.developerController,
                   label: 'Developer *',
                 ),
-                sbw20(),
+                sb10(),
                 _buildTextField(
-                  controller: controller.developerController,
+                  controller: controller.vrUploadController,
                   label: '3D Virtual Tour Link *',
                 ),
-                sbw20(),
+                sb10(),
                 _buildTextField(
                   controller: controller.locationControllers,
                   label: 'Location *',
                 ),
+                sb10(),
+                SizedBox(
+                  width: Get.width,
+                  child: TextformfieldWidget(
+                    controller: controller.descriptionController,
+                    hintText: 'Description *',
+                    maxLines: 8,
+                    textInputAction: TextInputAction.newline,
+                    keyboardType: TextInputType.multiline,
+                  ),
+                ),
+                sb10(),
+                //options
+                _buildTextField(
+                  controller: controller.vrUploadController2,
+                  label: '3D Virtual Tour Link *',
+                ),
+                sb10(),
               ],
             ),
             sb20(),
-            SizedBox(
-              width: Get.width,
-              child: TextformfieldWidget(
-                controller: controller.descriptionController,
-                hintText: 'Description *',
-                maxLines: 8,
-                textInputAction: TextInputAction.newline,
-                keyboardType: TextInputType.multiline,
-              ),
+            _buildCollapsibleSection(
+              title: 'FEATURED DETAILS',
+              children: [
+                Row(
+                  children: [
+                    buildFeautredPhoto(onTap: () {
+                      controller.getImageGallery();
+                    }),
+                    sbw10(),
+                    SizedBox(
+                      width: Get.width / 4.2,
+                      child: TextformfieldWidget(
+                        controller: controller.addFeaturedDesc1,
+                        hintText: 'Description *',
+                        maxLines: 8,
+                        textInputAction: TextInputAction.newline,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                    ),
+                    buildFeautredPhoto(onTap: () {
+                      controller.getImageGallery();
+                    }),
+                    sbw10(),
+                    SizedBox(
+                      width: Get.width / 4.2,
+                      child: TextformfieldWidget(
+                        controller: controller.addFeaturedDesc2,
+                        hintText: 'Description *',
+                        maxLines: 8,
+                        textInputAction: TextInputAction.newline,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    buildFeautredPhoto(onTap: () {
+                      controller.getImageGallery();
+                    }),
+                    sbw10(),
+                    SizedBox(
+                      width: Get.width / 4.2,
+                      child: TextformfieldWidget(
+                        controller: controller.addFeaturedDesc3,
+                        hintText: 'Description *',
+                        maxLines: 8,
+                        textInputAction: TextInputAction.newline,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                    ),
+                    buildFeautredPhoto(onTap: () {
+                      controller.getImageGallery();
+                    }),
+                    sbw10(),
+                    SizedBox(
+                      width: Get.width / 4.2,
+                      child: TextformfieldWidget(
+                        controller: controller.addFeaturedDesc4,
+                        hintText: 'Description *',
+                        maxLines: 8,
+                        textInputAction: TextInputAction.newline,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
             sb20(),
-            Row(
+            _buildCollapsibleSection(
+              title: 'AMENITIES PROJECT DETAILS',
               children: [
-                buildFeautredPhoto(onTap: () {
-                  controller.getImageGallery();
-                }),
-                sbw10(),
-                SizedBox(
-                  width: Get.width / 4.2,
-                  child: TextformfieldWidget(
-                    controller: controller.addFeaturedDesc1,
-                    hintText: 'Description *',
-                    maxLines: 8,
-                    textInputAction: TextInputAction.newline,
-                    keyboardType: TextInputType.multiline,
-                  ),
-                ),
-                buildFeautredPhoto(onTap: () {
-                  controller.getImageGallery();
-                }),
-                sbw10(),
-                SizedBox(
-                  width: Get.width / 4.2,
-                  child: TextformfieldWidget(
-                    controller: controller.addFeaturedDesc2,
-                    hintText: 'Description *',
-                    maxLines: 8,
-                    textInputAction: TextInputAction.newline,
-                    keyboardType: TextInputType.multiline,
-                  ),
+                Row(
+                  children: [
+                    buildFeautredPhoto(
+                        title: 'Outdoor Amenities',
+                        onTap: () {
+                          controller.getImageGallery();
+                        }),
+                    sbw10(),
+                    SizedBox(
+                      width: Get.width / 4.2,
+                      child: TextformfieldWidget(
+                        controller: controller.outdoorAmenitiesController,
+                        hintText: 'Description *',
+                        maxLines: 8,
+                        textInputAction: TextInputAction.newline,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                    ),
+                    buildFeautredPhoto(
+                        title: 'Indoor Amenities',
+                        onTap: () {
+                          controller.getImageGallery();
+                        }),
+                    sbw10(),
+                    SizedBox(
+                      width: Get.width / 4.2,
+                      child: TextformfieldWidget(
+                        controller: controller.indoorAmenitiesController,
+                        hintText: 'Description *',
+                        maxLines: 8,
+                        textInputAction: TextInputAction.newline,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-            Row(
-              children: [
-                buildFeautredPhoto(
-                    title: 'Outdoor Amenities',
-                    onTap: () {
-                      controller.getImageGallery();
-                    }),
-                sbw10(),
-                SizedBox(
-                  width: Get.width / 4.2,
-                  child: TextformfieldWidget(
-                    controller: controller.outdoorAmenitiesController,
-                    hintText: 'Description *',
-                    maxLines: 8,
-                    textInputAction: TextInputAction.newline,
-                    keyboardType: TextInputType.multiline,
-                  ),
-                ),
-                buildFeautredPhoto(
-                    title: 'Indoor Amenities',
-                    onTap: () {
-                      controller.getImageGallery();
-                    }),
-                sbw10(),
-                SizedBox(
-                  width: Get.width / 4.2,
-                  child: TextformfieldWidget(
-                    controller: controller.indoorAmenitiesController,
-                    hintText: 'Description *',
-                    maxLines: 8,
-                    textInputAction: TextInputAction.newline,
-                    keyboardType: TextInputType.multiline,
-                  ),
-                ),
-              ],
-            ),
-
-            //3 options to put carousel
-
             buildCarouselOption(
               controller: controller,
               title: 'CAROUSEL 1',
@@ -164,7 +211,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               controller3: controller.balconyController,
               controller4: controller.carouselDesc,
             ),
-
             buildCarouselOption(
               controller: controller,
               title: 'CAROUSEL 2',
@@ -173,14 +219,13 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               controller3: controller.balconyController3,
               controller4: controller.carouselDesc2,
             ),
-
             buildCarouselOption(
               controller: controller,
               title: 'CAROUSEL 3',
               controller1: controller.areaController4,
-              controller2: controller.roomController5,
-              controller3: controller.balconyController6,
-              controller4: controller.carouselDesc3,
+              controller2: controller.roomController,
+              controller3: controller.balconyController3,
+              controller4: controller.carouselDesc2,
             ),
             Padding(
               padding: EdgeInsets.all(8.sp),
@@ -210,9 +255,10 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
   Widget _buildTextField(
       {TextEditingController? controller,
       String? label,
-      TextInputType? keyboardType}) {
+      TextInputType? keyboardType,
+      width}) {
     return SizedBox(
-      width: Get.width / 5.1,
+      width: width,
       child: TextFormField(
         keyboardType: keyboardType ?? TextInputType.text,
         controller: controller,
@@ -310,16 +356,19 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
         Row(
           children: [
             _buildTextField(
+              width: Get.width / 4,
               controller: controller1,
               label: 'Area *',
             ),
             sbw20(),
             _buildTextField(
+              width: Get.width / 4,
               controller: controller2,
               label: 'Number of Rooms *',
             ),
             sbw20(),
             _buildTextField(
+              width: Get.width / 4,
               controller: controller3,
               label: 'Balcony Size *',
             ),
@@ -337,4 +386,113 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
       ],
     );
   }
+
+  Widget _buildCollapsibleSection({
+    required String title,
+    required List<Widget> children,
+  }) {
+    return ExpansionTile(
+      title: EraText(
+        text: title,
+        fontSize: EraTheme.header - 5.sp,
+        fontWeight: FontWeight.w500,
+        color: AppColors.black,
+      ),
+      children: children,
+    );
+  }
+  // Widget buildUploadSection({
+  //   required String title,
+  //   required TextEditingController controller1,
+  //   required String text1,
+  //   TextEditingController? controller2,
+  //   String? text2,
+  //   int maxLines1 = 1,
+  //   int? maxLines2,
+  // }) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           EraText(
+  //             text: title,
+  //             color: AppColors.black,
+  //             fontSize: 18.sp,
+  //             fontWeight: FontWeight.w500,
+  //           ),
+  //           SizedBox(height: 10.h),
+  //           Container(
+  //             height: 300.h,
+  //             width: 500.w,
+  //             decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.circular(20),
+  //               color: AppColors.hint,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       SizedBox(width: 20.w),
+  //       Expanded(
+  //         child: Column(
+  //           children: [
+  //             buildTextFormField2(
+  //               text: text1,
+  //               controller: controller1,
+  //               maxLines: maxLines1,
+  //             ),
+  //             if (text2 != null && controller2 != null) ...[
+  //               SizedBox(height: 20.h),
+  //               buildTextFormField2(
+  //                 text: text2,
+  //                 controller: controller2,
+  //                 maxLines: maxLines2 ?? 1,
+  //               ),
+  //             ],
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  // static Widget buildTextFormField2({
+  //   required String text,
+  //   required TextEditingController controller,
+  //   int maxLines = 1,
+  // }) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       if (text.isNotEmpty)
+  //         EraText(
+  //           text: text,
+  //           fontSize: 18.sp,
+  //           color: AppColors.black,
+  //           fontWeight: FontWeight.w500,
+  //         ),
+  //       SizedBox(height: 10.h),
+  //       TextFormField(
+  //         controller: controller,
+  //         maxLines: maxLines,
+  //         decoration: InputDecoration(
+  //           filled: true,
+  //           fillColor: AppColors.white,
+  //           enabledBorder: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(10),
+  //             borderSide: BorderSide(
+  //               color: AppColors.black,
+  //               width: 1.5,
+  //             ),
+  //           ),
+  //           border: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(10),
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 }

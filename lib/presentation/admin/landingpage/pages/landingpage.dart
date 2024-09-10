@@ -24,11 +24,11 @@ class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
 
   final List<Widget> _screens = [
-    AddProjectAdmin(),
     AgentProfileAdmin(),
     AddAgent(),
     ApprovedAgents(),
     Roster(),
+    AddProjectAdmin(),
     PropertylistAdmin(),
     PropertyInformationAdmin(),
     AddPropertyAdmin(),
