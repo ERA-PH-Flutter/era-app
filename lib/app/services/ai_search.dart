@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +15,55 @@ class AI{
   AI({
     required this.query
   });
+  userSearch()async{
+    String t1 = "write an mysql string text using this text search ${query.toLowerCase()} here are the available properties for mysql ";
+    String t2 = " dont use LIKE but use equals instead also it is okay to be null if its not specified in the prompt if its null never mind it make it simple, give me mysql only, don't add any other text, no new lines'";
+    String prompt = "$t1(location (location is valid location in philippines leave blank if not in input) , full_name(do not separate by space use comma)$t2 example: SELECT * FROM users WHERE full_name='john' AND location='manila'";
+
+    BaseController().showLoading();
+    var toReturn;
+    await gemini.text(prompt).then((value)async{
+      String results = value!.output!;
+      print(results);
+      results = results.replaceAll('`', "");
+      var res = results.split("WHERE")[1].replaceAll("'","").replaceAll(" ","").replaceAll(',',' ').split("AND");
+      print("res : " + res.toString());
+      Query query = FirebaseFirestore.instance.collection('users');
+      // for(int i = 0;i<res.length;i++){
+      //
+      // }
+      if(res.length == 1){
+        if(res.first.contains('full_name')){
+          query = query.where('full_name', isGreaterThanOrEqualTo: res.first.split('=')[1])
+              .where('full_name', isLessThanOrEqualTo:  '${res.first.split('=')[1]}\uf8ff');
+        }else if (res.first.contains('location')) {
+          query = query.where('location', isGreaterThanOrEqualTo: res.first.split('=')[1]);
+        }
+        toReturn = (await query.get()).docs;
+        print(toReturn);
+      }else if(res.length == 2){
+        var list = [];
+        if(res.first.contains('full_name')){
+          query = query.where('full_name', isGreaterThanOrEqualTo: res.first.split('=')[1])
+              .where('full_name', isLessThanOrEqualTo:  '${res.first.split('=')[1]}\uf8ff');
+        }
+        var docs = (await query.get()).docs;
+        docs.forEach((doc){
+          Map<String,dynamic> a = doc.data() as Map<String,dynamic>;
+          if(a['location'] == res[1].split('=')[1]){
+            print(doc);
+            list.add(doc);
+          }
+        });
+        toReturn = list;
+      }else{
+        toReturn = [];
+      }
+      //print(toReturn);
+    }).catchError((e,ex) => print(ex));
+    BaseController().hideLoading();
+    return toReturn;
+  }
   search()async{
     String t1 = "write an mysql string text using this text search ${query.toLowerCase()} here are the available properties for mysql ";
     String t2 = " dont use LIKE but use equals instead also it is okay to be null if its not specified in the prompt if its null never mind it make it simple, give me mysql only, don't add any other text, no new lines, example: SELECT * FROM properties WHERE location = 'makati'";

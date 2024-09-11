@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../global.dart';
 
@@ -55,7 +56,23 @@ class AgentsController extends GetxController with BaseController {
     }
     super.onInit();
   }
+  aiSearch(query)async{
+    results.clear();
+    resultText.value = "SEARCH RESULTS";
+    agentState.value = AgentsState.loading;
+    var aiSearchResult = await AI(query: query).userSearch();
+    if(aiSearchResult.isNotEmpty){
+      results.value = aiSearchResult.map((user){
+        return EraUser.fromJSON(user.data());
+      }).toList();
+    }
 
+    if (results.isNotEmpty) {
+      agentState.value = AgentsState.loaded;
+    } else {
+      agentState.value = AgentsState.empty;
+    }
+  }
   search() async {
     results.clear();
     resultText.value = "SEARCH RESULTS";

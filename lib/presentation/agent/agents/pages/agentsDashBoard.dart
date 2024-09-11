@@ -606,9 +606,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                 height: 100.w,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: controller.listings.length > 5
-                      ? 5
-                      : controller.listings.length,
+                  itemCount: controller.listings.length >= 5 ? 5 : controller.listings.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -631,8 +629,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                             children: [
                               Positioned.fill(
                                 child: CloudStorage().imageLoaderProvider(
-                                    ref:
-                                        controller.listings[index].photos.first,
+                                    ref: controller.listings[index].photos.first ,
                                     height: 100.w,
                                     width: 100.w,
                                     borderRadius: BorderRadius.circular(10.r)),
