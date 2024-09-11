@@ -27,17 +27,41 @@ class HomePage extends GetView<ContentManagementController> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          UploadBannersWidget(controller: controller, maxImages: 15),
-          sb20(),
-          // preview photos
-          _uploadPreviewPhotos(),
-          sb20(),
+      scrollDirection: Axis.vertical,
+      child: SafeArea(
+        child: Obx(() => switch (controller.homepageState.value) {
+              HomepageState.loading => _loading(),
+              HomepageState.loaded => _loaded(),
+              HomepageState.error => _error(),
+            }),
+      ),
+    );
+  }
 
-          _featuredProjects(),
-        ],
+  _loading() {
+    return Center(child: CircularProgressIndicator());
+  }
+
+  _loaded() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        UploadBannersWidget(controller: controller, maxImages: 15),
+        sb20(),
+        // preview photos
+        _uploadPreviewPhotos(),
+        sb20(),
+
+        _featuredProjects(),
+      ],
+    );
+  }
+
+  _error() {
+    return Container(
+      child: EraText(
+        text: 'erorr',
+        color: AppColors.black,
       ),
     );
   }
