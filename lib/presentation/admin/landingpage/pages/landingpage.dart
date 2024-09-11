@@ -24,17 +24,17 @@ class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
 
   final List<Widget> _screens = [
-    AddAgent(),
-    AgentProfileAdmin(),
-    AddAgent(),
-    ApprovedAgents(),
-    Roster(),
-    AddProjectAdmin(),
-    PropertylistAdmin(),
-    PropertyInformationAdmin(),
-    AddPropertyAdmin(),
-    HomePage(),
-    AboutUsPage(),
+    AgentProfileAdmin(), //0
+    AddAgent(), //1
+    ApprovedAgents(), //2
+    Roster(), //3
+    AddProjectAdmin(), //4
+    PropertylistAdmin(), //5
+    PropertyInformationAdmin(), //6
+    AddPropertyAdmin(), //7
+    EditPropertyAdmin(), //8
+    HomePage(), //9
+    AboutUsPage(), //10
   ];
 
   @override
@@ -189,14 +189,15 @@ class LandingPage extends GetView<LandingPageController> {
               _buildMenuItem('PROPERTY LISTINGS', 5),
               _buildMenuItem('PROPERTY INFORMATION', 6),
               _buildMenuItem('ADD LISTINGS', 7),
+              _buildMenuItem('EDIT LISTINGS', 8),
             ],
           ),
           _buildExpansionTile(
             text: "CONTENT",
             image: AppEraAssets.listingDash,
             children: [
-              _buildMenuItem('HOMEPAGE', 8),
-              _buildMenuItem('ABOUT US', 9),
+              _buildMenuItem('HOMEPAGE', 9),
+              _buildMenuItem('ABOUT US', 10),
             ],
           ),
         ],

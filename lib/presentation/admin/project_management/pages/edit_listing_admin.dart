@@ -3,10 +3,9 @@ import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
-import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_controller.dart';
+import 'package:eraphilippines/presentation/admin/project_management/controllers/listing_admin_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
@@ -15,13 +14,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 //todo add new controller
-class EditPropertyAdmin extends GetView {
+//done
+class EditPropertyAdmin extends GetView<ListingsController> {
   const EditPropertyAdmin({super.key});
   @override
   Widget build(BuildContext context) {
     AddListingsController addListingsController =
         Get.put(AddListingsController());
-    //print(Get.find<LandingPageController>().arguments);
+    //  Get.find<LandingPageController>().arguments;
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
@@ -84,7 +84,7 @@ class EditPropertyAdmin extends GetView {
                       height: 60.h,
                       width: Get.width / 2.5 + 9.w,
                       child: TextformfieldWidget(
-                        controller: controller.locationController,
+                        controller: addListingsController.locationController,
                         fontSize: 12.sp,
                         maxLines: 1,
                       ),
@@ -97,9 +97,10 @@ class EditPropertyAdmin extends GetView {
                   width: Get.width / 2.5,
                   child: AddListings.dropDownAddlistings(
                       padding: EdgeInsets.zero,
-                      selectedItem: controller.selectedPropertyT,
-                      Types: controller.propertyT,
-                      onChanged: (value) => controller.selectedPropertyT,
+                      selectedItem: addListingsController.selectedPropertyT,
+                      Types: addListingsController.propertyT,
+                      onChanged: (value) =>
+                          addListingsController.selectedPropertyT,
                       name: 'Property Type *',
                       hintText: 'Edit Property Type'),
                 ),
@@ -122,9 +123,10 @@ class EditPropertyAdmin extends GetView {
                         width: Get.width / 5.1 - 4.w,
                         child: AddListings.dropDownAddlistings(
                             padding: EdgeInsets.zero,
-                            selectedItem: controller.selectedOfferT,
-                            Types: controller.offerT,
-                            onChanged: (value) => controller.selectedOfferT,
+                            selectedItem: addListingsController.selectedOfferT,
+                            Types: addListingsController.offerT,
+                            onChanged: (value) =>
+                                addListingsController.selectedOfferT,
                             name: 'Offer Type *',
                             hintText: 'Edit Offer Type'),
                       ),
@@ -136,9 +138,10 @@ class EditPropertyAdmin extends GetView {
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
-                        selectedItem: controller.selectedView,
-                        Types: controller.viewL,
-                        onChanged: (value) => controller.selectedView,
+                        selectedItem: addListingsController.selectedView,
+                        Types: addListingsController.viewL,
+                        onChanged: (value) =>
+                            addListingsController.selectedView,
                         name: 'View *',
                         hintText: 'Edit View'),
                   ),
@@ -148,10 +151,11 @@ class EditPropertyAdmin extends GetView {
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
-                        selectedItem: controller.selectedPropertySubCategory,
-                        Types: controller.subCategory,
+                        selectedItem:
+                            addListingsController.selectedPropertySubCategory,
+                        Types: addListingsController.subCategory,
                         onChanged: (value) =>
-                            controller.selectedPropertySubCategory,
+                            addListingsController.selectedPropertySubCategory,
                         name: 'Subcategory Type *',
                         hintText: 'Edit Subcategory Type'),
                   ),
@@ -174,7 +178,7 @@ class EditPropertyAdmin extends GetView {
                           height: 60.h,
                           width: Get.width / 5.1 - 4.w,
                           child: TextformfieldWidget(
-                            controller: controller.carsController,
+                            controller: addListingsController.carsController,
                             fontSize: 12.sp,
                             maxLines: 1,
                             keyboardType: TextInputType.number,

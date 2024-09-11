@@ -249,8 +249,11 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                     onTap: () {
                                       //Get.to(EditPropertyAdmin(), arguments: [controller.listing?.id],binding: ListingsAdminBindings());
                                       //Get.put(LandingPageController());
-                                      Get.find<LandingPageController>().arguments = [controller.listing!.id];
-                                      Get.find<LandingPageController>().onSectionSelected(8);
+
+                                      Get.find<LandingPageController>()
+                                          .arguments = [controller.listing!.id];
+                                      Get.find<LandingPageController>()
+                                          .onSectionSelected(8);
                                     },
                                     margin: EdgeInsets.symmetric(horizontal: 5),
                                     width: 150.w,

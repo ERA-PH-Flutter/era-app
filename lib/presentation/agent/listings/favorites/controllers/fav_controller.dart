@@ -5,7 +5,7 @@ import 'package:screenshot/screenshot.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 
-enum FavState { loading, loaded, error, empty , preview}
+enum FavState { loading, loaded, error, empty, preview }
 
 class FavController extends GetxController with BaseController {
   var favoritesList = [].obs;
@@ -21,11 +21,11 @@ class FavController extends GetxController with BaseController {
 
   @override
   void onInit() async {
-    if(user != null){
+    if (user != null) {
       if (user!.favorites!.isNotEmpty) {
         for (int i = 0; i < user!.favorites!.length; i++) {
           Listing listingA = await Listing().getListing(user!.favorites![i]);
-          if(!(listingA.isSold ?? true)){
+          if (!(listingA.isSold ?? true)) {
             favoritesList.add(listingA);
           }
         }

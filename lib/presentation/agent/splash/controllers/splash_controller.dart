@@ -55,7 +55,7 @@ class SplashController extends GetxController {
     }
     _typeWrittingAnimation();
     await isReady.future;
-    // await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     if (FirebaseAuth.instance.currentUser != null) {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
