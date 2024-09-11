@@ -57,45 +57,44 @@ class AddAgent extends GetView<AgentAdminController> {
               controller.licensedNumA,
             ),
             SizedBox(
-              height: 10.h,
+              height: 20.h,
             ),
             Padding(
               padding: EdgeInsets.only(left: 10.w),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          EraText(
-                            text: 'Phone Number *',
+                  Padding(
+                    padding: EdgeInsets.only(top: 15.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        EraText(
+                          text: 'Phone Number *',
+                          fontSize: 18.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w500,
+                          lineHeight: 0.5,
+                        ),
+                        sb10(),
+                        Container(
+                          height: 125.h,
+                          width: Get.width / 5.1 - 4.w,
+                          child: TextformfieldWidget(
+                            controller: controller.phoneNA,
                             fontSize: 18.sp,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w500,
-                            lineHeight: 0.5,
+                            maxLines: 1,
+                            keyboardType: TextInputType.number,
                           ),
-                          sb10(),
-                          Container(
-                            margin: EdgeInsets.only(bottom: 15.w),
-                            height: 60.h,
-                            width: Get.width / 5.1 - 3.w,
-                            child: TextformfieldWidget(
-                              controller: controller.phoneNA,
-                              fontSize: 12.sp,
-                              maxLines: 1,
-                              keyboardType: TextInputType.number,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(width: 20.w),
+                  sbw25(),
                   Container(
                     height: 125.h,
-                    width: Get.width / 5.1 - 3.w,
+                    width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
                         selectedItem: controller.selectedAgentType,
@@ -105,59 +104,58 @@ class AddAgent extends GetView<AgentAdminController> {
                         name: 'Position *',
                         hintText: 'Select Position'),
                   ),
-                  sbw15(),
+                  sbw25(),
                   Padding(
-                    padding: EdgeInsets.only(left: 10.w),
-                    child: Row(
+                    padding: EdgeInsets.only(top: 15.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            EraText(
-                              text: 'Password *',
-                              fontSize: 18.sp,
-                              color: AppColors.black,
-                              fontWeight: FontWeight.w500,
-                              lineHeight: 0.5,
-                            ),
-                            sb10(),
-                            Container(
-                              margin: EdgeInsets.only(bottom: 15.w),
-                              height: 60.h,
-                              width: Get.width / 5.1 - 3.w,
-                              child: TextformfieldWidget(
-                                controller: controller.passwordA,
-                                fontSize: 12.sp,
-                                maxLines: 1,
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ],
+                        EraText(
+                          text: 'Password *',
+                          fontSize: 18.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w500,
+                          lineHeight: 0.5,
                         ),
-                        SizedBox(width: 20.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            EraText(
-                              text: 'Confirm Password *',
-                              fontSize: 18.sp,
-                              color: AppColors.black,
-                              fontWeight: FontWeight.w500,
-                              lineHeight: 0.5,
-                            ),
-                            sb10(),
-                            Container(
-                              margin: EdgeInsets.only(bottom: 15.w),
-                              height: 60.h,
-                              width: Get.width / 5.1 - 3.w,
-                              child: TextformfieldWidget(
-                                controller: controller.confirmPA,
-                                fontSize: 12.sp,
-                                maxLines: 1,
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ],
+                        sb10(),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 15.w),
+                          height: 120.h,
+                          width: Get.width / 5.1 - 4.w,
+                          child: TextformfieldWidget(
+                            controller: controller.passwordA,
+                            fontSize: 12.sp,
+                            maxLines: 1,
+                            keyboardType: TextInputType.text,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 20.w),
+                  Padding(
+                    padding: EdgeInsets.only(top: 15.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        EraText(
+                          text: 'Confirm Password *',
+                          fontSize: 18.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w500,
+                          lineHeight: 0.5,
+                        ),
+                        sb10(),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 15.w),
+                          height: 120.h,
+                          width: Get.width / 5.1 - 4.w,
+                          child: TextformfieldWidget(
+                            controller: controller.confirmPA,
+                            fontSize: 18.sp,
+                            maxLines: 1,
+                            keyboardType: TextInputType.text,
+                          ),
                         ),
                       ],
                     ),
@@ -249,7 +247,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 width: Get.width / 2.5,
                 child: TextformfieldWidget(
                   controller: controller,
-                  fontSize: 12.sp,
+                  fontSize: 18.sp,
                   maxLines: 1,
                 ),
               ),
@@ -272,7 +270,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 width: Get.width / 2.5,
                 child: TextformfieldWidget(
                   controller: controller2,
-                  fontSize: 12.sp,
+                  fontSize: 18.sp,
                   maxLines: 1,
                 ),
               ),
@@ -308,7 +306,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 width: Get.width / 2.5,
                 child: TextformfieldWidget(
                   controller: controller,
-                  fontSize: 12.sp,
+                  fontSize: 18.sp,
                   maxLines: 1,
                 ),
               ),
@@ -331,7 +329,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
                   controller: controller2,
-                  fontSize: 12.sp,
+                  fontSize: 18.sp,
                   maxLines: 1,
                 ),
               ),
@@ -354,7 +352,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
                   controller: controller3,
-                  fontSize: 12.sp,
+                  fontSize: 18.sp,
                   maxLines: 1,
                 ),
               ),
@@ -394,7 +392,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
                   controller: controller,
-                  fontSize: 12.sp,
+                  fontSize: 18.sp,
                   maxLines: 1,
                   keyboardType: keyboardType ?? TextInputType.text,
                 ),
@@ -418,7 +416,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
                   controller: controller2,
-                  fontSize: 12.sp,
+                  fontSize: 18.sp,
                   maxLines: 1,
                   keyboardType: keyboardType ?? TextInputType.text,
                 ),
@@ -442,7 +440,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
                   controller: controller3,
-                  fontSize: 12.sp,
+                  fontSize: 18.sp,
                   maxLines: 1,
                   keyboardType: keyboardType ?? TextInputType.text,
                 ),
@@ -466,7 +464,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
                   controller: controller4,
-                  fontSize: 12.sp,
+                  fontSize: 18.sp,
                   maxLines: 1,
                   keyboardType: keyboardType ?? TextInputType.text,
                 ),

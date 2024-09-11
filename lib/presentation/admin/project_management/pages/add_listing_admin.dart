@@ -140,11 +140,11 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
-                        selectedItem: controller.selectedOfferT,
-                        Types: controller.offerT,
-                        onChanged: (value) => controller.selectedOfferT,
-                        name: 'Offer Type *',
-                        hintText: 'Select Offer Type'),
+                        selectedItem: controller.selectedView,
+                        Types: controller.viewL,
+                        onChanged: (value) => controller.selectedView,
+                        name: 'View *',
+                        hintText: 'Select View'),
                   ),
                   sbw25(),
                   Container(
@@ -152,11 +152,12 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
-                        selectedItem: controller.selectedOfferT,
-                        Types: controller.offerT,
-                        onChanged: (value) => controller.selectedOfferT,
-                        name: 'Offer Type *',
-                        hintText: 'Select Offer Type'),
+                        selectedItem: controller.selectedPropertySubCategory,
+                        Types: controller.subCategory,
+                        onChanged: (value) =>
+                            controller.selectedPropertySubCategory,
+                        name: 'Subcategory Type *',
+                        hintText: 'Select Subcategory Type'),
                   ),
                   sbw25(),
                   Padding(
@@ -174,7 +175,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                         sb10(),
                         Container(
                           margin: EdgeInsets.only(bottom: 15.w),
-                          height: 60.h,
+                          height: 120.h,
                           width: Get.width / 5.1 - 4.w,
                           child: TextformfieldWidget(
                             controller: controller.carsController,
