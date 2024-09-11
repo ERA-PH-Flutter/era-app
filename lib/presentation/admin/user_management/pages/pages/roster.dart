@@ -51,7 +51,6 @@ class Roster extends GetView<AgentAdminController> {
               child: Button(
                 margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 150.w,
-                height: 35.h,
                 text: 'SEARCH',
                 fontSize: EraTheme.buttonFontSizeSmall,
                 bgColor: AppColors.kRedColor,
@@ -77,7 +76,7 @@ class Roster extends GetView<AgentAdminController> {
       ),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisExtent: 440.h,
+          mainAxisExtent: 480.h,
           crossAxisCount: 3,
           crossAxisSpacing: 40.w,
           mainAxisSpacing: 30.h),
@@ -181,13 +180,13 @@ class Roster extends GetView<AgentAdminController> {
               padding: EdgeInsets.only(left: 250.w),
               child: Button(
                 width: 150.w,
-                height: 35.h,
                 fontSize: EraTheme.buttonFontSizeSmall,
                 text: 'MESSAGE',
                 bgColor: AppColors.blue,
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
+            sb20(),
           ],
         ),
       ),

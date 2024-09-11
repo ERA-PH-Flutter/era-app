@@ -34,7 +34,7 @@ class Splash extends GetView<SplashController> {
         width: Get.width,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/icons/bgSplash.png'),
+            image: AssetImage('assets/images/erasplashbg.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -44,7 +44,7 @@ class Splash extends GetView<SplashController> {
           children: [
             SizedBox(height: 120.h),
             Image.asset(
-              'assets/images/eraph_logo.png',
+              'assets/images/erasplashlogo.png',
               height: Get.width / 1.4,
             ),
             SizedBox(height: 35.h),
@@ -52,7 +52,7 @@ class Splash extends GetView<SplashController> {
               () => EraText(
                 text: controller.strings[controller.currentIndex]
                     .substring(0, controller.currentCharIndex.value),
-                color: AppColors.kRedColor,
+                color: AppColors.white,
                 textAlign: TextAlign.center,
                 fontSize: 25.sp,
                 maxLines: 20,

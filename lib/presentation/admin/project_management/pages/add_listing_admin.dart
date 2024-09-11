@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -7,6 +8,7 @@ import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/listing.dart';
@@ -72,7 +74,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
               height: 10.h,
             ),
             //with dropdown
-            Row(
+            Wrap(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +86,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                       fontWeight: FontWeight.w500,
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 10.w),
+                      padding: EdgeInsets.only(left: 10.w, top: 5.h),
                       height: 60.h,
                       width: Get.width / 2.5 + 9.w,
                       child: TextformfieldWidget(
@@ -95,90 +97,91 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  width: 25.w,
-                ),
+                sbw25(),
                 Container(
-                  padding: EdgeInsets.only(right: 5.w),
-                  height: 95.h,
-                  width: Get.width / 2.5.w,
-                  child: SharedWidgets.dropDown(
-                      controller.selectedPropertyT,
-                      controller.propertyT,
-                      (value) => controller.selectedPropertyT,
-                      'Property Type',
-                      'Select Property Type'),
+                  height: 125.h,
+                  width: Get.width / 2.5,
+                  child: AddListings.dropDownAddlistings(
+                      padding: EdgeInsets.zero,
+                      selectedItem: controller.selectedPropertyT,
+                      Types: controller.propertyT,
+                      onChanged: (value) => controller.selectedPropertyT,
+                      name: 'Property Type *',
+                      hintText: 'Select Property Type'),
                 ),
               ],
             ),
 
-            SizedBox(
-              height: 10.h,
-            ),
             Padding(
               padding: EdgeInsets.only(left: 10.w),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 95.h,
-                    width: Get.width / 5.1 - 3.w,
-                    child: SharedWidgets.dropDown(
-                        controller.selectedOfferT,
-                        controller.offerT,
-                        (value) => controller.selectedOfferT,
-                        'Offer Type *',
-                        'Selected Offer Type'),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 125.h,
+                        width: Get.width / 5.1 - 4.w,
+                        child: AddListings.dropDownAddlistings(
+                            padding: EdgeInsets.zero,
+                            selectedItem: controller.selectedOfferT,
+                            Types: controller.offerT,
+                            onChanged: (value) => controller.selectedOfferT,
+                            name: 'Offer Type *',
+                            hintText: 'Select Offer Type'),
+                      ),
+                    ],
                   ),
-                  SizedBox(width: 20.w),
-                  SizedBox(
-                    height: 95.h,
-                    width: Get.width / 5.1 - 3.w,
-                    child: SharedWidgets.dropDown(
-                        controller.selectedView,
-                        controller.viewL,
-                        (value) => controller.selectedOfferT,
-                        'View *',
-                        'Selected View'),
+                  sbw25(),
+                  Container(
+                    height: 125.h,
+                    width: Get.width / 5.1 - 4.w,
+                    child: AddListings.dropDownAddlistings(
+                        padding: EdgeInsets.zero,
+                        selectedItem: controller.selectedOfferT,
+                        Types: controller.offerT,
+                        onChanged: (value) => controller.selectedOfferT,
+                        name: 'Offer Type *',
+                        hintText: 'Select Offer Type'),
                   ),
-                  sb10(),
-                  sbw15(),
+                  sbw25(),
+                  Container(
+                    height: 125.h,
+                    width: Get.width / 5.1 - 4.w,
+                    child: AddListings.dropDownAddlistings(
+                        padding: EdgeInsets.zero,
+                        selectedItem: controller.selectedOfferT,
+                        Types: controller.offerT,
+                        onChanged: (value) => controller.selectedOfferT,
+                        name: 'Offer Type *',
+                        hintText: 'Select Offer Type'),
+                  ),
+                  sbw25(),
                   Padding(
-                    padding: EdgeInsets.only(left: 10.w),
-                    child: Row(
+                    padding: EdgeInsets.only(top: 10.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 95.h,
-                          width: Get.width / 5.1 - 3.w,
-                          child: SharedWidgets.dropDown(
-                              controller.selectedPropertySubCategory,
-                              controller.subCategory,
-                              (value) => controller.selectedOfferT,
-                              'Subcategory *',
-                              'Selected Subcategory'),
+                        EraText(
+                          text: 'Parking *',
+                          fontSize: 18.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w500,
+                          lineHeight: 0.5,
                         ),
-                        SizedBox(width: 20.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            EraText(
-                              text: 'Parking *',
-                              fontSize: 18.sp,
-                              color: AppColors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            sb10(),
-                            Container(
-                              margin: EdgeInsets.only(bottom: 15.w),
-                              height: 50.h,
-                              width: Get.width / 5.1 - 3.w,
-                              child: TextformfieldWidget(
-                                controller: controller.carsController,
-                                fontSize: 12.sp,
-                                maxLines: 1,
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ],
+                        sb10(),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 15.w),
+                          height: 60.h,
+                          width: Get.width / 5.1 - 4.w,
+                          child: TextformfieldWidget(
+                            controller: controller.carsController,
+                            fontSize: 12.sp,
+                            maxLines: 1,
+                            keyboardType: TextInputType.number,
+                          ),
                         ),
                       ],
                     ),
@@ -186,6 +189,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                 ],
               ),
             ),
+
             sb30(),
             AddAgent.buildTextFieldFormDesc(
                 'Description *', controller.descController),

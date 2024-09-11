@@ -39,7 +39,7 @@ class ApprovedAgents extends GetView<AgentAdminController> {
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisExtent: 370.h, crossAxisCount: 3, crossAxisSpacing: 10.w),
+          mainAxisExtent: 400.h, crossAxisCount: 3, crossAxisSpacing: 10.w),
       itemCount: listingModels.length,
       itemBuilder: (context, i) => Wrap(
         children: [
@@ -255,7 +255,7 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                       ),
                     ],
                   ),
-
+                  sb20(),
                 ],
               ),
             ),

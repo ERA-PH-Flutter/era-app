@@ -60,7 +60,7 @@ class Inquiry extends StatelessWidget {
               ),
               SizedBox(height: 2.h),
               TextformfieldWidget(
-                hintText: 'Enter EmaiL',
+                hintText: 'Enter Email',
                 maxLines: 1,
                 keyboardType: TextInputType.emailAddress,
               ),

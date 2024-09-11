@@ -24,6 +24,7 @@ class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
 
   final List<Widget> _screens = [
+    AddAgent(),
     AgentProfileAdmin(),
     AddAgent(),
     ApprovedAgents(),
@@ -32,7 +33,6 @@ class LandingPage extends GetView<LandingPageController> {
     PropertylistAdmin(),
     PropertyInformationAdmin(),
     AddPropertyAdmin(),
-    EditPropertyAdmin(),
     HomePage(),
     AboutUsPage(),
   ];
@@ -172,7 +172,7 @@ class LandingPage extends GetView<LandingPageController> {
   Widget _buildSidebarMenu() => ListView(
         children: [
           _buildExpansionTile(
-            text: "USER MANAGEMENT",
+            text: "USER",
             image: AppEraAssets.dashboard,
             children: [
               _buildMenuItem('VIEW AGENTS/BROKERS', 0),
@@ -182,7 +182,7 @@ class LandingPage extends GetView<LandingPageController> {
             ],
           ),
           _buildExpansionTile(
-            text: "PROPERTY MANAGEMENT",
+            text: "PROPERTY",
             image: AppEraAssets.agentDash,
             children: [
               _buildMenuItem('ADD PROJECTS', 4),
@@ -192,7 +192,7 @@ class LandingPage extends GetView<LandingPageController> {
             ],
           ),
           _buildExpansionTile(
-            text: "CONTENT MANAGEMENT",
+            text: "CONTENT",
             image: AppEraAssets.listingDash,
             children: [
               _buildMenuItem('HOMEPAGE', 8),

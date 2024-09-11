@@ -66,38 +66,35 @@ class AddAgent extends GetView<AgentAdminController> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      EraText(
-                        text: 'Phone Number *',
-                        fontSize: 18.sp,
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w500,
-                        lineHeight: 0.5,
-                      ),
-                      sb10(),
-                      Container(
-                        margin: EdgeInsets.only(bottom: 15.w),
-                        height: 50.h,
-                        width: Get.width / 5.1 - 3.w,
-                        child: TextformfieldWidget(
-                          controller: controller.phoneNA,
-                          fontSize: 12.sp,
-                          maxLines: 1,
-                          keyboardType: TextInputType.number,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          EraText(
+                            text: 'Phone Number *',
+                            fontSize: 18.sp,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w500,
+                            lineHeight: 0.5,
+                          ),
+                          sb10(),
+                          Container(
+                            margin: EdgeInsets.only(bottom: 15.w),
+                            height: 60.h,
+                            width: Get.width / 5.1 - 3.w,
+                            child: TextformfieldWidget(
+                              controller: controller.phoneNA,
+                              fontSize: 12.sp,
+                              maxLines: 1,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  //
-                  //   child: SharedWidgets.dropDown(
-                  //       controller.selectedAgentType,
-                  //       controller.agentType,
-                  //       (value) => controller.selectedAgentType.value,
-                  //       'Position *',
-                  //       'Selected Position'),
                   SizedBox(width: 20.w),
                   Container(
-                    margin: EdgeInsets.only(bottom: 15.h),
-                    height: 110.h,
+                    height: 125.h,
                     width: Get.width / 5.1 - 3.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
@@ -106,9 +103,8 @@ class AddAgent extends GetView<AgentAdminController> {
                         onChanged: (value) =>
                             controller.selectedAgentType.value,
                         name: 'Position *',
-                        hintText: 'Selected Position'),
+                        hintText: 'Select Position'),
                   ),
-
                   sbw15(),
                   Padding(
                     padding: EdgeInsets.only(left: 10.w),
@@ -127,7 +123,7 @@ class AddAgent extends GetView<AgentAdminController> {
                             sb10(),
                             Container(
                               margin: EdgeInsets.only(bottom: 15.w),
-                              height: 50.h,
+                              height: 60.h,
                               width: Get.width / 5.1 - 3.w,
                               child: TextformfieldWidget(
                                 controller: controller.passwordA,
@@ -152,7 +148,7 @@ class AddAgent extends GetView<AgentAdminController> {
                             sb10(),
                             Container(
                               margin: EdgeInsets.only(bottom: 15.w),
-                              height: 50.h,
+                              height: 60.h,
                               width: Get.width / 5.1 - 3.w,
                               child: TextformfieldWidget(
                                 controller: controller.confirmPA,

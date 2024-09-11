@@ -55,15 +55,17 @@ class SplashController extends GetxController {
     }
     _typeWrittingAnimation();
     await isReady.future;
-    await Future.delayed(const Duration(seconds: 1));
+    // await Future.delayed(const Duration(seconds: 1));
     if (FirebaseAuth.instance.currentUser != null) {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
     var shortestSide = MediaQuery.of(Get.context!).size.shortestSide;
     kIsWeb && user != null
-        ? Get.toNamed(RouteString.landingPage) : kIsWeb ? Get.toNamed(RouteString.landingPage)//admingLogin
-        : shortestSide < 600
-            ? Get.off(BaseScaffold())
-            : Get.off(BaseScaffold());
+        ? Get.toNamed(RouteString.landingPage)
+        : kIsWeb
+            ? Get.toNamed(RouteString.landingPage) //admingLogin
+            : shortestSide < 600
+                ? Get.off(BaseScaffold())
+                : Get.off(BaseScaffold());
   }
 }
