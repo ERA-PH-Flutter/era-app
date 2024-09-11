@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -9,6 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../../app/widgets/createaccount_widget.dart';
+import '../../../../../repository/listing.dart';
+import '../../../../../repository/user.dart';
 
 class ApprovedAgents extends GetView<AgentAdminController> {
   ApprovedAgents({super.key});
@@ -26,17 +29,32 @@ class ApprovedAgents extends GetView<AgentAdminController> {
             color: AppColors.black,
             fontSize: 25.sp,
           ),
-          agentApproval(
-            listingModels: RealEstateListing.listingsModels,
-          ),
+          Container(
+            height: 800.h,
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance.collection('users').where('status',isEqualTo: 'disabled').snapshots(),
+              builder: (context,snapshot){
+                if(snapshot.hasData){
+                  return agentApproval(
+                    listingModels: snapshot.data!.docs.map((doc){
+                      return EraUser.fromJSON(doc.data());
+                    }).toList(),
+                  );
+                }else{
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }
+            ),
+          )
         ],
       ),
     );
   }
 
-  Widget agentApproval({required List<RealEstateListing> listingModels}) {
+  Widget agentApproval({required List<EraUser> listingModels}) {
     return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisExtent: 400.h, crossAxisCount: 3, crossAxisSpacing: 10.w),
@@ -54,10 +72,10 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
-                    leading: listingModels[i].user.image != null
+                    leading: listingModels[i].image != null
                         ? CircleAvatar(
                             backgroundImage:
-                                NetworkImage(listingModels[i].user.image!),
+                                NetworkImage(listingModels[i].image!),
                           )
                         : CircleAvatar(
                             child: Icon(Icons.person),
@@ -69,15 +87,15 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                     ),
                     subtitle: EraText(
                       text:
-                          "${listingModels[i].user.firstname!} ${listingModels[i].user.lastname!}",
+                          "${listingModels[i].firstname!} ${listingModels[i].lastname!}",
                       color: AppColors.black,
                       fontSize: 20.sp,
                     ),
-                    trailing: EraText(
-                      text: 'AGENT ID: ${listingModels[i].user.id}',
-                      color: AppColors.black,
-                      fontSize: 20.sp,
-                    ),
+                    // trailing: EraText(
+                    //   text: 'AGENT ID: ${listingModels[i].id}',
+                    //   color: AppColors.black,
+                    //   fontSize: 20.sp,
+                    // ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -92,13 +110,16 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                   color: AppColors.hint,
                                   fontSize: 14.sp),
                               EraText(
-                                text: '${listingModels[i].user.whatsApp}',
+                                text: '${listingModels[i].whatsApp}',
                                 color: AppColors.black,
                                 fontSize: 20.sp,
                               ),
                             ],
                           ),
-                          Padding(
+                          Container(
+                            constraints: BoxConstraints(
+                              maxWidth: 350.h,
+                            ),
                             padding: EdgeInsets.symmetric(horizontal: 12.w),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,9 +127,10 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                 EraText(
                                     text: 'E-MAIL',
                                     color: AppColors.hint,
+                                    textOverflow: TextOverflow.fade,
                                     fontSize: 14.sp),
                                 EraText(
-                                  text: '${listingModels[i].user.email}',
+                                  text: '${listingModels[i].email}',
                                   color: AppColors.black,
                                   fontSize: 20.sp,
                                 ),
@@ -120,7 +142,7 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                   SizedBox(height: 10.h),
                   _buildRow(
                     text: 'Status:',
-                    listing: '${listingModels[i].user.role}',
+                    listing: '${listingModels[i].role}',
                   ),
                   _buildRow(
                     text: 'Recruiter:',
@@ -159,7 +181,11 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                             backgroundColor:
                                 WidgetStateProperty.all(AppColors.white),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            //todo record decline by
+                            listingModels[i].status = "declined";
+                            listingModels[i].update();
+                          },
                           icon: Icon(
                             Icons.cancel,
                             color: AppColors.black,
@@ -231,6 +257,10 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
+                                    //todo record approve by
+                                    listingModels[i].position = controller.selectedAgentType.value;
+                                    listingModels[i].status = "approved";
+                                    listingModels[i].update();
                                     Get.back();
                                   },
                                   child: EraText(

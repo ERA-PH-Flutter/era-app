@@ -47,7 +47,7 @@ class AgentAdminController extends GetxController with BaseController {
 
   List<Listing> listings = [];
 
-  RxList images = [].obs;
+  var images;
   final picker = ImagePicker();
   final removeImage = false.obs;
 
@@ -76,11 +76,9 @@ class AgentAdminController extends GetxController with BaseController {
 
   Future getImageGallery() async {
     try {
-      final imagePick = await picker.pickMultiImage();
-      if (imagePick.isNotEmpty) {
-        for (var image in imagePick) {
-          images.add(File(image.path));
-        }
+      final imagePick = await picker.pickImage(source: ImageSource.gallery);
+      if (imagePick != null) {
+        images = File(imagePick.path);
       }
     } on PlatformException catch (e) {
       return e;

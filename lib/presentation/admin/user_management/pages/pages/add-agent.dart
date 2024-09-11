@@ -2,15 +2,20 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_auth.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../../../../repository/user.dart';
 
 class AddAgent extends GetView<AgentAdminController> {
   const AddAgent({super.key});
@@ -93,7 +98,7 @@ class AddAgent extends GetView<AgentAdminController> {
                   ),
                   sbw25(),
                   Container(
-                    height: 125.h,
+                    height: 126.h,
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
@@ -172,6 +177,34 @@ class AddAgent extends GetView<AgentAdminController> {
               padding: EdgeInsets.all(8.sp),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Button(
+                  onTap: ()async{
+                    try{
+                      var id = await EraUser(
+                        firstname: controller.fNameA.text,
+                        lastname: controller.lNameA.text,
+                        email: controller.emailAdressA.text,
+                        //todo birthday
+                        gender: controller.sexA.text,
+                        location: controller.officeLA.text,
+                        licence: controller.licensedNumA.text,
+                        //todo number
+                        position: controller.selectedAgentType.value,
+                        //todo add password
+                        description: controller.descriptionA.text,
+                      ).add();
+                      await Authentication().signup(email: controller.emailAdressA.text,password: controller.passwordA.text);
+                      await CloudStorage().upload(file: controller.images, target: 'users/$id/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}.png');
+                      //todo showSuccess
+                    }catch(e){
+                      BaseController().showSuccessDialog(
+                        title: "Error!",
+                        description: "$e",
+                        hitApi:(){
+                          Get.back();
+                        }
+                      );
+                    }
+                  },
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   width: 150.w,
                   text: 'SUBMIT',
@@ -181,7 +214,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 Button(
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   width: 150.w,
-                  text: 'CANCEL',
+                  text: 'CLEAR FIELDS',
                   bgColor: AppColors.hint,
                   borderRadius: BorderRadius.circular(30),
                 ),

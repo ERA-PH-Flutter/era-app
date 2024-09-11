@@ -14,6 +14,10 @@ class EraUser {
   String? lastLogin;
   String? status;
   String? eraId;
+  String? location;
+  String? licence;
+  String? position;
+  String? description;
   int? age;
   String? gender;
   List? favorites;
@@ -32,6 +36,10 @@ class EraUser {
       this.eraId,
       this.age,
       this.gender,
+      this.location,
+      this.licence,
+      this.description,
+      this.position,
       this.favorites,
       this.archives});
 
@@ -51,7 +59,13 @@ class EraUser {
         age: json['age'],
         gender: json['gender'],
         favorites: json['favorites'],
-        archives: json['archives']);
+        archives: json['archives'],
+        location: json['location'],
+        position: json['position'],
+        description: json['description'],
+        licence: json['licence'],
+    );
+
   }
   factory EraUser.empty() {
     return EraUser(
@@ -69,9 +83,15 @@ class EraUser {
   }
 
   add() async {
-    id != null
-        ? await db.collection('users').doc(id).set(toMap())
-        : await db.collection('users').add(toMap());
+    if(id!=null){
+      await db.collection('users').doc(id).set(toMap());
+
+    }else{
+      var doc = db.collection('users').doc();
+      doc.set(toMap());
+      id = doc.id;
+    }
+    return id;
   }
 
   update() async {
@@ -100,7 +120,11 @@ class EraUser {
       'gender': gender ?? 'male',
       'favorites': favorites ?? [],
       'archives': archives ?? [],
-      'full_name': "${firstname?.toLowerCase()} ${lastname?.toLowerCase()}"
+      'full_name': "${firstname?.toLowerCase()} ${lastname?.toLowerCase()}",
+      'location' : location ?? "",
+      'position' : position ?? "ASC",
+      'description' : description ?? "",
+      'license' : licence ?? ""
     };
   }
 

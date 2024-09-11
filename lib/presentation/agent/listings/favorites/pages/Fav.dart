@@ -364,9 +364,14 @@ class Fav extends GetView<FavController> {
   downloadPDF() async {
     final tempDir = await getTemporaryDirectory();
     List<File?> listOfFiles = [];
+    print(controller.screenshotControllers.length);
     for (var sc in controller.screenshotControllers) {
-      var imageFile = File((await sc.captureAndSave(tempDir.path))!);
-      listOfFiles.add(imageFile);
+      var a = await sc.capture();
+      if(a != null){
+        var file = await File("${tempDir.path}/${DateTime.now().microsecondsSinceEpoch}.png").writeAsBytes(a);
+        listOfFiles.add(file);
+      }
+      //print(listOfFiles);
     }
     File a = await ImageToPdf.imageList(listOfFiles: listOfFiles);
     var pdfFileName =
@@ -396,6 +401,7 @@ class Fav extends GetView<FavController> {
   }
 
   Widget preview() {
+    controller.screenshotControllers.clear();
     return SizedBox(
       height: Get.height - 400.h,
       child: ListView.builder(
