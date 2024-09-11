@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
 import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_controller.dart';
 
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/button.dart';
+import '../controllers/listing_admin_bindings.dart';
+import 'edit_listing_admin.dart';
 
 class PropertyInformationAdmin extends GetView<ListingsAdminController> {
   const PropertyInformationAdmin({super.key});
@@ -244,8 +247,10 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                 children: [
                                   Button(
                                     onTap: () {
-                                      // Get.toNamed('/editListingsAd',
-                                      //     arguments: [controller.listing?.id]);
+                                      //Get.to(EditPropertyAdmin(), arguments: [controller.listing?.id],binding: ListingsAdminBindings());
+                                      //Get.put(LandingPageController());
+                                      Get.find<LandingPageController>().arguments = [controller.listing!.id];
+                                      Get.find<LandingPageController>().onSectionSelected(8);
                                     },
                                     margin: EdgeInsets.symmetric(horizontal: 5),
                                     width: 150.w,

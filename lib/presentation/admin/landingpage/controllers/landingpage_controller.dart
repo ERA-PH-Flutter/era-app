@@ -20,6 +20,7 @@ enum LandingState { loading, loaded, error, empty }
 class LandingPageController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var landingState = LandingState.loading.obs;
+  var arguments = [];
   // var selectedSection = AdminSection.homepage.obs;
   var selectedSectionIndex = 0.obs;
   @override

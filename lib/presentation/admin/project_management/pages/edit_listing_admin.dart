@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
 import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
@@ -12,14 +13,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class EditPropertyAdmin extends GetView<ListingsAdminController> {
+//todo add new controller
+class EditPropertyAdmin extends GetView {
   const EditPropertyAdmin({super.key});
-
   @override
   Widget build(BuildContext context) {
     AddListingsController addListingsController =
         Get.put(AddListingsController());
-
+    //print(Get.find<LandingPageController>().arguments);
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(

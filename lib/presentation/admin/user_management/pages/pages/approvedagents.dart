@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -40,10 +41,9 @@ class ApprovedAgents extends GetView<AgentAdminController> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisExtent: 370.h, crossAxisCount: 3, crossAxisSpacing: 10.w),
       itemCount: listingModels.length,
-      itemBuilder: (context, i) => Column(
+      itemBuilder: (context, i) => Wrap(
         children: [
-          SizedBox(
-            height: 360.h,
+          Container(
             child: Card(
               color: AppColors.white,
               shape: RoundedRectangleBorder(
@@ -254,7 +254,8 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                         ),
                       ),
                     ],
-                  )
+                  ),
+
                 ],
               ),
             ),
