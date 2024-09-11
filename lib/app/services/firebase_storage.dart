@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CloudStorage {
@@ -114,8 +115,9 @@ class CloudStorage {
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putFile(file);
       return '$target/${customName ?? uploadFilename}';
-    } catch (e) {
-      return "error";
+    } catch (e,ex) {
+      print(ex);
+      return "error $e";
     }
   }
 

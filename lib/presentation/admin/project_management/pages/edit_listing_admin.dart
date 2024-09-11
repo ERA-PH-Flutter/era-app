@@ -12,6 +12,9 @@ import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pag
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../../../../app/models/geocode.dart';
 
 //todo add new controller
 //done
@@ -19,9 +22,23 @@ class EditPropertyAdmin extends GetView<ListingsController> {
   const EditPropertyAdmin({super.key});
   @override
   Widget build(BuildContext context) {
-    AddListingsController addListingsController =
-        Get.put(AddListingsController());
+
     //  Get.find<LandingPageController>().arguments;
+    return Obx(()=>switch(controller.state.value){
+      AdminEditState.loading => _loading(),
+      AdminEditState.loaded => _loaded(),
+      AdminEditState.picker => _picker(),
+    });
+  }
+  _loading(){
+    //controller.loadData();
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+  _loaded(){
+    Get.put(AddListingsController());
+    AddListingsController addListingsController = Get.find<AddListingsController>();
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
@@ -73,20 +90,18 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    EraText(
-                      text: '  Location *',
-                      fontSize: 18.sp,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10.w, top: 5.h),
-                      height: 60.h,
-                      width: Get.width / 2.5 + 9.w,
-                      child: TextformfieldWidget(
-                        controller: addListingsController.locationController,
-                        fontSize: 12.sp,
-                        maxLines: 1,
+                    SizedBox(
+                      height: 48.h,
+                      width: Get.width,
+                      child: Button(
+                        width: 500.w,
+                        margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                        bgColor: Colors.red,
+                        text: 'Pick Address',
+                        onTap: () {
+                          controller.state.value =
+                              AdminEditState.picker;
+                        },
                       ),
                     ),
                   ],
@@ -100,7 +115,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                       selectedItem: addListingsController.selectedPropertyT,
                       Types: addListingsController.propertyT,
                       onChanged: (value) =>
-                          addListingsController.selectedPropertyT,
+                      addListingsController.selectedPropertyT,
                       name: 'Property Type *',
                       hintText: 'Edit Property Type'),
                 ),
@@ -126,7 +141,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                             selectedItem: addListingsController.selectedOfferT,
                             Types: addListingsController.offerT,
                             onChanged: (value) =>
-                                addListingsController.selectedOfferT,
+                            addListingsController.selectedOfferT,
                             name: 'Offer Type *',
                             hintText: 'Edit Offer Type'),
                       ),
@@ -141,7 +156,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                         selectedItem: addListingsController.selectedView,
                         Types: addListingsController.viewL,
                         onChanged: (value) =>
-                            addListingsController.selectedView,
+                        addListingsController.selectedView,
                         name: 'View *',
                         hintText: 'Edit View'),
                   ),
@@ -152,10 +167,10 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
                         selectedItem:
-                            addListingsController.selectedPropertySubCategory,
+                        addListingsController.selectedPropertySubCategory,
                         Types: addListingsController.subCategory,
                         onChanged: (value) =>
-                            addListingsController.selectedPropertySubCategory,
+                        addListingsController.selectedPropertySubCategory,
                         name: 'Subcategory Type *',
                         hintText: 'Edit Subcategory Type'),
                   ),
@@ -227,6 +242,85 @@ class EditPropertyAdmin extends GetView<ListingsController> {
           ],
         ),
       ),
+    );
+  }
+  _picker() {
+    AddListingsController c = Get.find<AddListingsController>();
+    return WillPopScope(
+      onWillPop: () async {
+        controller.state.value = AdminEditState.loaded;
+        return Future.value(false);
+      },
+      child: Obx(() => SizedBox(
+          width: Get.width,
+          height: Get.height - 212.h,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: GoogleMap(
+                  zoomControlsEnabled: false,
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(14.599512, 120.984222), zoom: 12),
+                  markers: c.marker.value,
+                  mapToolbarEnabled: false,
+                  myLocationButtonEnabled: true,
+                  onTap: (position) async {
+                    c.generateMarker(position);
+                    c.latLng = position;
+                    c.add = (await GeoCode(
+                        apiKey: "65d99e660931a611004109ogd35593a",
+                        lat: position.latitude,
+                        lng: position.longitude)
+                        .reverse());
+                    c.address.value = c.add.displayName!;
+                    c.addressController.text =
+                        c.address.value;
+                    //search for location
+                  },
+                ),
+              ),
+              Positioned(
+                bottom: 75.h,
+                child: Container(
+                  width: Get.width - EraTheme.paddingWidth * 2,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: EraTheme.paddingWidthSmall, vertical: 10.h),
+                  margin:
+                  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: Obx(() => EraText(
+                    text: "Address: ${c.address.value}",
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  )),
+                ),
+              ),
+
+              Positioned(
+                bottom: 21.w,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: Get.width - (EraTheme.paddingWidth * 2),
+                  margin:
+                  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  height: 35.h,
+                  child: Button(
+                    width: Get.width - (EraTheme.paddingWidth * 2),
+                    onTap: () {
+                      c.addEditListingsState.value =
+                          AddEditListingsState.loaded;
+                    },
+                    bgColor: AppColors.kRedColor,
+                    text: "Select Location",
+                  ),
+                ),
+              ),
+              //widget that display location text
+            ],
+          ))),
     );
   }
 }

@@ -14,6 +14,7 @@ import 'package:eraphilippines/presentation/agent/utility/controller/base_contro
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../repository/user.dart';
 
@@ -51,7 +52,10 @@ class AddAgent extends GetView<AgentAdminController> {
                 'Date of Birth *',
                 controller.dateBirthA,
                 'Gender *',
-                controller.sexA),
+                controller.sexA,onTap: ()async{
+                  var date = await showDatePicker(context: Get.context!, firstDate: DateTime(1930), lastDate: DateTime(2005),currentDate: DateTime(2000));
+                  controller.dateBirthA.text = DateFormat('MM dd, yyyy').format(date!);
+                }),
             SizedBox(
               height: 10.h,
             ),
@@ -172,14 +176,21 @@ class AddAgent extends GetView<AgentAdminController> {
             SizedBox(
               height: 10.h,
             ),
-            buildUploadPhoto(onTap: () {}),
+            // buildUploadPhoto(onTap: () async{
+            //   controller.getImageGallery();
+            // }),
             Padding(
               padding: EdgeInsets.all(8.sp),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Button(
                   onTap: ()async{
                     try{
-                      var id = await EraUser(
+                      await Authentication().signup(email: controller.emailAdressA.text,password: controller.passwordA.text);
+                      var id = await Authentication().login(email: controller.emailAdressA.text,password: controller.passwordA.text);
+                      //var image = await CloudStorage().upload(file: controller.images, target: 'users/test/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}');
+                      await EraUser(
+                        id: id,
+                        //image: image,
                         firstname: controller.fNameA.text,
                         lastname: controller.lNameA.text,
                         email: controller.emailAdressA.text,
@@ -189,12 +200,15 @@ class AddAgent extends GetView<AgentAdminController> {
                         licence: controller.licensedNumA.text,
                         //todo number
                         position: controller.selectedAgentType.value,
-                        //todo add password
                         description: controller.descriptionA.text,
                       ).add();
-                      await Authentication().signup(email: controller.emailAdressA.text,password: controller.passwordA.text);
-                      await CloudStorage().upload(file: controller.images, target: 'users/$id/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}.png');
-                      //todo showSuccess
+                      BaseController().showSuccessDialog(
+                        title: "Add Agent Success",
+                        description: "Agent added successfully!",
+                        hitApi: (){
+                          Get.back();
+                        }
+                      );
                     }catch(e){
                       BaseController().showSuccessDialog(
                         title: "Error!",
@@ -320,7 +334,7 @@ class AddAgent extends GetView<AgentAdminController> {
       String text2,
       TextEditingController controller2,
       String text3,
-      TextEditingController controller3) {
+      TextEditingController controller3,{onTap}) {
     return Padding(
       padding: EdgeInsets.only(left: 10.w),
       child: Row(
@@ -361,6 +375,9 @@ class AddAgent extends GetView<AgentAdminController> {
                 height: 60.h,
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
+                  onTap: onTap ?? (){
+
+                  },
                   controller: controller2,
                   fontSize: 18.sp,
                   maxLines: 1,

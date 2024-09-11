@@ -18,6 +18,7 @@ class TextformfieldWidget extends StatelessWidget {
   final bool? readOnly;
   final double? radius;
   final void Function(String)? onChanged;
+  final void Function()? onTap;
   final TextInputAction? textInputAction;
 
   const TextformfieldWidget(
@@ -36,12 +37,14 @@ class TextformfieldWidget extends StatelessWidget {
       this.validator,
       this.readOnly,
       this.onChanged,
+      this.onTap,
       this.radius,
       this.textInputAction});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
       onChanged: onChanged,
       keyboardType: keyboardType ?? TextInputType.multiline,
       maxLines: maxLines ?? 18,

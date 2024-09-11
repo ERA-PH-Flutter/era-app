@@ -14,7 +14,9 @@ import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/button.dart';
+import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import '../controllers/listing_admin_bindings.dart';
+import '../controllers/listing_admin_controller.dart';
 import 'edit_listing_admin.dart';
 
 class PropertyInformationAdmin extends GetView<ListingsAdminController> {
@@ -247,11 +249,21 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                 children: [
                                   Button(
                                     onTap: () {
-                                      //Get.to(EditPropertyAdmin(), arguments: [controller.listing?.id],binding: ListingsAdminBindings());
-                                      //Get.put(LandingPageController());
-
-                                      Get.find<LandingPageController>()
-                                          .arguments = [controller.listing!.id];
+                                      Get.put(ListingsController());
+                                      var c = Get.find<AddListingsController>();
+                                      c.propertyNameController.text =  controller.listing!.name!;
+                                      c.propertyCostController.text =  controller.listing!.price!.toString();
+                                      c.pricePerSqmController.text =  controller.listing!.ppsqm!.toString();
+                                      c.areaController.text =  controller.listing!.area!.toString();
+                                      c.bedsController.text =  controller.listing!.beds!.toString();
+                                      c.bathsController.text =  controller.listing!.baths!.toString();
+                                      c.selectedPropertyT.value =  controller.listing!.type!;
+                                      c.selectedOfferT.value =  controller.listing!.status!;
+                                      c.selectedView.value =  controller.listing!.view!;
+                                      c.selectedPropertySubCategory.value =  controller.listing!.subCategory!;
+                                      c.carsController.text = controller.listing!.cars.toString();
+                                      //c.propertyNameController.text = listing!.name!;
+                                      c.descController.text = controller.listing!.description!;
                                       Get.find<LandingPageController>()
                                           .onSectionSelected(8);
                                     },
