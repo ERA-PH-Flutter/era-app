@@ -231,207 +231,196 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                 mainAxisExtent: 700.h,
               ),
               itemBuilder: (context, index) {
-                //print(controller.data[index]);
-                if (controller.data[index] != null) {
-                  Listing listing = Listing.fromJSON(controller.data[index]);
-                  return GestureDetector(
-                    onTap: () async {
-                      // await Database().addViews(listing.id);
-                      controller.listing = listing;
-                      controllers.onSectionSelected(6);
-                      //Get.offAllNamed('/propertyInfo', arguments: listing);
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 16.h),
-                      padding: EdgeInsets.zero,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.r),
-                          boxShadow: const [
-                            BoxShadow(
-                                offset: Offset(0, 0),
-                                spreadRadius: 1,
-                                blurRadius: 10,
-                                color: Colors.black12)
-                          ]),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(10.r),
-                              child: CloudStorage().imageLoader(
-                                height: 200.h,
-                                width: Get.width - 400.w,
-                                ref: listing.photos != null
-                                    ? (listing.photos!.isNotEmpty
-                                        ? listing.photos!.first
-                                        : AppStrings.noUserImageWhite)
-                                    : AppStrings.noUserImageWhite,
-                              )),
-                          SizedBox(
-                            height: 17.h,
+                Listing listing = Listing.fromJSON(controller.data[index]);
+                //print("aaaa : ${listing.photos!.first}");
+                return GestureDetector(
+                  onTap: () async {
+                    controller.listing = listing;
+                    controllers.onSectionSelected(6);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 16.h),
+                    padding: EdgeInsets.zero,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10.r),
+                        boxShadow: const [
+                          BoxShadow(
+                              offset: Offset(0, 0),
+                              spreadRadius: 1,
+                              blurRadius: 10,
+                              color: Colors.black12)
+                        ]),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CloudStorage().imageLoader(
+                          height: 200.h,
+                          width: Get.width - 400.w,
+                          ref: listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite,
+                        ),
+                        SizedBox(
+                          height: 17.h,
+                        ),
+                        Container(
+                          width: Get.width,
+                          height: 30.h,
+                          padding: EdgeInsets.symmetric(horizontal: 14.w),
+                          child: EraText(
+                            textOverflow: TextOverflow.ellipsis,
+                            text: listing.name! == ""
+                                ? "No Name"
+                                : listing.name!,
+                            fontSize: EraTheme.header - 5.sp,
+                            color: AppColors.kRedColor,
+                            fontWeight: FontWeight.bold,
                           ),
-                          Container(
-                            width: Get.width,
-                            height: 30.h,
-                            padding: EdgeInsets.symmetric(horizontal: 14.w),
-                            child: EraText(
-                              textOverflow: TextOverflow.ellipsis,
-                              text: listing.name! == ""
-                                  ? "No Name"
-                                  : listing.name!,
-                              fontSize: EraTheme.header - 5.sp,
-                              color: AppColors.kRedColor,
-                              fontWeight: FontWeight.bold,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 14.w),
+                          child: EraText(
+                            text: listing.type!,
+                            fontSize: EraTheme.header - 12.sp,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.bold,
+                            lineHeight: 1,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Row(
+                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  AppEraAssets.area,
+                                  width: 55.w,
+                                  height: 55.w,
+                                ),
+                                SizedBox(width: 2.w),
+                                EraText(
+                                  text: '${listing.area} sqm',
+                                  fontSize: EraTheme.paragraph - 1.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.black,
+                                ),
+                              ],
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 14.w),
-                            child: EraText(
-                              text: listing.type!,
-                              fontSize: EraTheme.header - 12.sp,
+                            SizedBox(width: 10.w),
+                            Image.asset(
+                              AppEraAssets.bed,
+                              width: 55.w,
+                              height: 55.w,
+                            ),
+                            EraText(
+                              text: '${listing.beds}',
+                              fontSize: EraTheme.paragraph - 1.sp,
+                              fontWeight: FontWeight.w500,
                               color: AppColors.black,
-                              fontWeight: FontWeight.bold,
-                              lineHeight: 1,
                             ),
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Row(
-                            //crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    AppEraAssets.area,
-                                    width: 55.w,
-                                    height: 55.w,
-                                  ),
-                                  SizedBox(width: 2.w),
-                                  EraText(
-                                    text: '${listing.area} sqm',
-                                    fontSize: EraTheme.paragraph - 1.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.black,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 10.w),
-                              Image.asset(
-                                AppEraAssets.bed,
-                                width: 55.w,
-                                height: 55.w,
-                              ),
-                              EraText(
-                                text: '${listing.beds}',
-                                fontSize: EraTheme.paragraph - 1.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.black,
-                              ),
-                              SizedBox(width: 10.w),
-                              Image.asset(
-                                AppEraAssets.tub,
-                                width: 55.w,
-                                height: 55.w,
-                              ),
-                              EraText(
-                                text: '${listing.baths}',
-                                fontSize: EraTheme.paragraph - 1.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.black,
-                              ),
-                              SizedBox(width: 10.w),
-                              Image.asset(
-                                AppEraAssets.car,
-                                width: 55.w,
-                                height: 55.w,
-                              ),
-                              EraText(
-                                text: '${listing.cars}',
-                                fontSize: EraTheme.paragraph - 1.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.black,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 14.w),
-                            child: EraText(
-                              text: 'Description:',
-                              fontSize: EraTheme.header - 8.sp,
+                            SizedBox(width: 10.w),
+                            Image.asset(
+                              AppEraAssets.tub,
+                              width: 55.w,
+                              height: 55.w,
+                            ),
+                            EraText(
+                              text: '${listing.baths}',
+                              fontSize: EraTheme.paragraph - 1.sp,
+                              fontWeight: FontWeight.w500,
                               color: AppColors.black,
-                              fontWeight: FontWeight.w600,
-                              lineHeight: 1,
                             ),
-                          ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 14.w),
-                            child: Text(
-                              listing.description == ""
-                                  ? "No description."
-                                  : listing.description!,
-                              style: TextStyle(
-                                fontSize: EraTheme.paragraph - 4.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.black,
-                              ),
-                              maxLines: 5,
-                              overflow: TextOverflow.ellipsis,
+                            SizedBox(width: 10.w),
+                            Image.asset(
+                              AppEraAssets.car,
+                              width: 55.w,
+                              height: 55.w,
                             ),
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 14.w),
-                            child: EraText(
-                              text: NumberFormat.currency(
-                                      locale: 'en_PH', symbol: 'PHP ')
-                                  .format(
-                                listing.price.toString() == ""
-                                    ? 0
-                                    : listing.price,
-                              ),
-                              color: AppColors.blue,
-                              fontSize: EraTheme.header,
-                              fontWeight: FontWeight.bold,
+                            EraText(
+                              text: '${listing.cars}',
+                              fontSize: EraTheme.paragraph - 1.sp,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.black,
                             ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 14.w),
+                          child: EraText(
+                            text: 'Description:',
+                            fontSize: EraTheme.header - 8.sp,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w600,
+                            lineHeight: 1,
                           ),
-                          FutureBuilder(
-                              future: EraUser().getById(listing.by),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  var user1 = snapshot.data;
-                                  return Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 14.w),
-                                    child: ListedBy(
-                                        image: user1!.image ??
-                                            AppStrings.noUserImageWhite,
-                                        agentFirstName:
-                                            user1.firstname ?? "No Name",
-                                        agentType: user1.role ?? "Agent",
-                                        agentLastName: user1.lastname ?? ""),
-                                  );
-                                } else {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-                              }),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 14.w),
+                          child: Text(
+                            listing.description == ""
+                                ? "No description."
+                                : listing.description!,
+                            style: TextStyle(
+                              fontSize: EraTheme.paragraph - 4.sp,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.black,
+                            ),
+                            maxLines: 5,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 14.w),
+                          child: EraText(
+                            text: NumberFormat.currency(
+                                locale: 'en_PH', symbol: 'PHP ')
+                                .format(
+                              listing.price.toString() == ""
+                                  ? 0
+                                  : listing.price,
+                            ),
+                            color: AppColors.blue,
+                            fontSize: EraTheme.header,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        FutureBuilder(
+                            future: EraUser().getById(listing.by),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                var user1 = snapshot.data;
+                                return Padding(
+                                  padding:
+                                  EdgeInsets.symmetric(horizontal: 14.w),
+                                  child: ListedBy(
+                                      image: user1!.image ??
+                                          AppStrings.noUserImageWhite,
+                                      agentFirstName:
+                                      user1.firstname ?? "No Name",
+                                      agentType: user1.role ?? "Agent",
+                                      agentLastName: user1.lastname ?? ""),
+                                );
+                              } else {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            }),
+                      ],
                     ),
-                  );
-                }
-                return Container();
+                  ),
+                );
               },
             ),
           ),

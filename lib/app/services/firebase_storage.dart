@@ -36,15 +36,14 @@ class CloudStorage {
     }
   }
 
-  imageLoader({ref, height, width, BoxFit? fit}) {
+  imageLoader({ref, height, width, BoxFit? fit}){
     return FutureBuilder(
       future: getFileDirect(docRef: ref),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          print(snapshot.data);
+          print("aaaaaaaaa" + snapshot.data!.toString());
           return CachedNetworkImage(
-            placeholder: (context, url) =>
-                Center(child: CircularProgressIndicator()),
+            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
             errorWidget: (context, url, error) => Icon(Icons.error),
             imageUrl: snapshot.data!,
             fit: fit ?? BoxFit.cover,

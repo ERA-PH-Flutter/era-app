@@ -129,17 +129,11 @@ class Listing {
   }
 
   addListing(images, userId) async {
-    /*
-    landmarks
-    amenities
-    balcony,
-    */
     photos = [];
     for (int i = 0; i < images!.length; i++) {
       photos!.add(await CloudStorage()
           .upload(file: images![i], target: 'listings/$userId'));
     }
-    print(photos);
     DocumentReference<Map<String, dynamic>> doc =
         db.collection('listings').doc();
     await doc.set({

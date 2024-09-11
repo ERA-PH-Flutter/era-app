@@ -19,6 +19,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../app/services/ai_search.dart';
+
 class FindAgents extends GetView<AgentsController> {
   const FindAgents({super.key});
 
@@ -67,8 +69,8 @@ class FindAgents extends GetView<AgentsController> {
                                 bgColor: AppColors.white,
                                 isSuffix: true,
                                 obscureText: false,
-                                onSuffixTap: () {
-                                  controller.search();
+                                onSuffixTap: ()async{
+                                  await controller.aiSearch( searchResultController.aiSearchController.text);
                                 },
                                 suffixIcons: AppEraAssets.send);
                           }
@@ -316,12 +318,15 @@ class FindAgents extends GetView<AgentsController> {
       child: Column(
         children: [
           SizedBox(
-            height: 100.h,
+            height: 20.h,
           ),
           EraText(
             fontSize: EraTheme.paragraph,
             text: "No User Found!",
             color: Colors.black,
+          ),
+          SizedBox(
+            height: 20.h,
           ),
         ],
       ),

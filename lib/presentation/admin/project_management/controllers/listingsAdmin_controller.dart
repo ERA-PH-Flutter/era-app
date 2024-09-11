@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/services/functions.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
@@ -116,15 +117,15 @@ class ListingsAdminController extends GetxController {
     data.clear();
     listingState.value = ListingsAState.loaded;
     try {
-      if (Get.arguments == null || Get.arguments.isEmpty) {
+      if (Get.arguments == null) {
         var tempData = [];
-        for (int i = 0; i < settings!.featuredListings!.length; i++) {
-          tempData.add(
-              (await Listing().getListing(settings!.featuredListings![i]))
-                  .toMap());
-        }
+        tempData = (await FirebaseFirestore.instance.collection('listings').limit(10).get()).docs.map((doc){
+          return doc.data();
+        }).toList();
+        print(tempData);
         loadData(tempData);
-      } else {
+      }
+      else {
         loadData(Get.arguments[0]);
         searchQuery.value = Get.arguments[1];
       }
@@ -151,13 +152,13 @@ class ListingsAdminController extends GetxController {
 
   loadData(loadedData) {
     loadedData = loadedData ?? [];
-    data.value = loadedData.map((d) {
+    loadedData.forEach((d) {
       if (d != null) {
         if (!(d['is_sold'] ?? true)) {
-          return d;
+          data.add(d);
         }
       }
-    }).toList();
+    });
     //data.assignAll(loadedData);
     if (data.isEmpty) {
       listingState.value = ListingsAState.empty;

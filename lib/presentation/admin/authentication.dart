@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/agent/authentication/controllers/authentication_controller.dart';
@@ -8,9 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class AuthenticationPage extends StatelessWidget {
-  const AuthenticationPage({super.key});
+import '../agent/utility/controller/base_controller.dart';
 
+class AuthenticationPage extends GetView {
+  AuthenticationPage({super.key});
+  var email = TextEditingController();
+  var pass = TextEditingController();
+  RxBool isPasswordNotVisible = true.obs;
   @override
   Widget build(BuildContext context) {
     LoginPageController controller = Get.put(LoginPageController());
@@ -48,7 +53,7 @@ class AuthenticationPage extends StatelessWidget {
                             SizedBox(
                               width: 300.w,
                               child: TextFormField(
-                                controller: controller.email,
+                                controller: email,
                                 style: TextStyle(
                                     color: AppColors.black, fontSize: 15.sp),
                                 decoration: InputDecoration(
@@ -74,9 +79,9 @@ class AuthenticationPage extends StatelessWidget {
                               () => SizedBox(
                                 width: 300.w,
                                 child: TextFormField(
-                                  controller: controller.password,
+                                  controller: pass,
                                   obscureText:
-                                      !controller.passwordVisible.value,
+                                      isPasswordNotVisible.value,
                                   style: TextStyle(
                                       color: AppColors.black, fontSize: 15.sp),
                                   decoration: InputDecoration(
@@ -114,8 +119,11 @@ class AuthenticationPage extends StatelessWidget {
                                 children: [
                                   Button(
                                       width: 300.w,
-                                      onTap: () {
+                                      onTap: ()async{
                                         Get.toNamed("/landingPage");
+                                        // BaseController().showLoading();
+                                        // await Authentication().login(email: email.text,password: pass.text);
+                                        // BaseController().hideLoading();
                                       },
                                       text: "L O G I N",
                                       bgColor: AppColors.kRedColor,

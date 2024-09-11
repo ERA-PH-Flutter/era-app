@@ -60,8 +60,8 @@ class SplashController extends GetxController {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
     var shortestSide = MediaQuery.of(Get.context!).size.shortestSide;
-    kIsWeb
-        ? Get.toNamed(RouteString.landingPage) //admingLogin
+    kIsWeb && user != null
+        ? Get.toNamed(RouteString.landingPage) : kIsWeb ? Get.toNamed(RouteString.landingPage)//admingLogin
         : shortestSide < 600
             ? Get.off(BaseScaffold())
             : Get.off(BaseScaffold());
