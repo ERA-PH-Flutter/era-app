@@ -18,6 +18,7 @@ enum SplashState {
   loaded,
   loading,
   error,
+  web,
 }
 
 class SplashController extends GetxController {
@@ -49,6 +50,7 @@ class SplashController extends GetxController {
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
     });
+    splashState.value = kIsWeb ? SplashState.web : SplashState.loading;
     settings = Settings.fromJSON(await Database().getSettings());
     if (user != null) {
       user = await EraUser().getById(user!.id);

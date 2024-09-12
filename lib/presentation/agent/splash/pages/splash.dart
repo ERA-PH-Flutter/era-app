@@ -21,7 +21,9 @@ class Splash extends GetView<SplashController> {
             return _loading();
           } else if (controller.splashState.value == SplashState.loaded) {
             return _loaded();
-          } else {
+          }else if(controller.splashState.value == SplashState.web){
+            return _web();
+          }else {
             return _error();
           }
         }),
@@ -115,6 +117,10 @@ class Splash extends GetView<SplashController> {
                     ),
     );
   }
-
+  _web(){
+    return Center(
+      child: Container(),
+    );
+  }
   _error() {}
 }

@@ -19,20 +19,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
+import '../controllers/listing_admin_controller.dart';
 //todo add text
 
-class AddPropertyAdmin extends GetView<ListingsAdminController> {
+class AddPropertyAdmin extends GetView<ListingsController> {
   const AddPropertyAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
     //temporary
     //AgentAdminController controllers = Get.put(AgentAdminController());
-    AddListingsController controller = Get.put(AddListingsController());
+    AddListingsController addListingsController = Get.put(AddListingsController());
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
+        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -56,62 +57,64 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
             ),
             AddAgent.buildTextFormField2(
               'Property Name *',
-              controller.propertyNameController,
+              addListingsController.propertyNameController,
               'Property Cost *',
-              controller.propertyCostController,
+              addListingsController.propertyCostController,
             ),
             SizedBox(
               height: 10.h,
             ),
             AddAgent.buildTextFormField4(
                 text: 'Price per sqm *',
-                controller: controller.pricePerSqmController,
+                controller: addListingsController.pricePerSqmController,
                 text2: 'Area*',
-                controller2: controller.areaController,
+                controller2: addListingsController.areaController,
                 text3: 'Rooms *',
-                controller3: controller.bedsController,
+                controller3: addListingsController.bedsController,
                 text4: 'Bathrooms *',
-                controller4: controller.bathsController),
+                controller4: addListingsController.bathsController),
             SizedBox(
               height: 10.h,
             ),
             //with dropdown
-            Wrap(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    EraText(
-                      text: '  Location *',
-                      fontSize: 18.sp,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w500,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: Row(
+                children: [
+                  Container(
+                    height: 126.h,
+                    width: Get.width / 2.5,
+                    child: AddListings.dropDownAddlistings(
+                        padding: EdgeInsets.zero,
+                        selectedItem: addListingsController.selectedPropertyT,
+                        Types: addListingsController.propertyT,
+                        onChanged: (value) =>
+                        addListingsController.selectedPropertyT,
+                        name: 'Property Type *',
+                        hintText: 'Edit Property Type'),
+                  ),
+                  SizedBox(
+                    height: 126.h,
+                    width: Get.width / 2.46,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 37.h,),
+                        Button(
+                          height: 65.h,
+                          width: Get.width / 2.2,
+                          margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                          fontSize: 20.sp,
+                          bgColor: Colors.red,
+                          text: 'Pick Address',
+                          onTap: () {
+                            controller.state.value = AdminEditState.picker;
+                          },
+                        ),
+                      ],
                     ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10.w, top: 5.h),
-                      height: 60.h,
-                      width: Get.width / 2.5 + 9.w,
-                      child: TextformfieldWidget(
-                        controller: controller.locationController,
-                        fontSize: 12.sp,
-                        maxLines: 1,
-                      ),
-                    ),
-                  ],
-                ),
-                sbw25(),
-                Container(
-                  height: 126.h,
-                  width: Get.width / 2.5,
-                  child: AddListings.dropDownAddlistings(
-                      padding: EdgeInsets.zero,
-                      selectedItem: controller.selectedPropertyT,
-                      Types: controller.propertyT,
-                      onChanged: (value) => controller.selectedPropertyT,
-                      name: 'Property Type *',
-                      hintText: 'Select Property Type'),
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
 
             Padding(
@@ -128,9 +131,9 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                         width: Get.width / 5.1 - 4.w,
                         child: AddListings.dropDownAddlistings(
                             padding: EdgeInsets.zero,
-                            selectedItem: controller.selectedOfferT,
-                            Types: controller.offerT,
-                            onChanged: (value) => controller.selectedOfferT,
+                            selectedItem: addListingsController.selectedOfferT,
+                            Types: addListingsController.offerT,
+                            onChanged: (value) => addListingsController.selectedOfferT,
                             name: 'Offer Type *',
                             hintText: 'Select Offer Type'),
                       ),
@@ -142,9 +145,9 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
-                        selectedItem: controller.selectedView,
-                        Types: controller.viewL,
-                        onChanged: (value) => controller.selectedView,
+                        selectedItem: addListingsController.selectedView,
+                        Types: addListingsController.viewL,
+                        onChanged: (value) => addListingsController.selectedView,
                         name: 'View *',
                         hintText: 'Select View'),
                   ),
@@ -154,10 +157,10 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
-                        selectedItem: controller.selectedPropertySubCategory,
-                        Types: controller.subCategory,
+                        selectedItem: addListingsController.selectedPropertySubCategory,
+                        Types: addListingsController.subCategory,
                         onChanged: (value) =>
-                            controller.selectedPropertySubCategory,
+                        addListingsController.selectedPropertySubCategory,
                         name: 'Subcategory Type *',
                         hintText: 'Select Subcategory Type'),
                   ),
@@ -180,7 +183,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                           height: 120.h,
                           width: Get.width / 5.1 - 4.w,
                           child: TextformfieldWidget(
-                            controller: controller.carsController,
+                            controller: addListingsController.carsController,
                             fontSize: 12.sp,
                             maxLines: 1,
                             keyboardType: TextInputType.number,
@@ -195,7 +198,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
 
             sb30(),
             AddAgent.buildTextFieldFormDesc(
-                'Description *', controller.descController),
+                'Description *', addListingsController.descController),
             SizedBox(
               height: 10.h,
             ),
@@ -215,8 +218,8 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () {
-                      controller.getImageGallery();
+                    onPressed: ()async{
+                      await addListingsController.pickImageFromWeb();
                     },
                     icon: Icon(
                       CupertinoIcons.photo_fill_on_rectangle_fill,
@@ -235,30 +238,45 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
 
             SizedBox(height: 10.h),
             Obx(() {
-              if (controller.images.isEmpty) {
+              if (addListingsController.images.isEmpty) {
                 return AddAgent.buildUploadPhoto();
               } else {
-                return GridView.builder(
+                return Container(
+                  height: 100.h,
+                  child: ListView.builder(
                     shrinkWrap: true,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10.h,
-                      crossAxisSpacing: 10.h,
-                    ),
-                    itemCount: controller.images.length,
+                    itemCount: addListingsController.images.length,
                     itemBuilder: (context, index) {
                       return Container(
+                        alignment: Alignment.center,
+                          height: 400.h,
+                        width: 100.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: FileImage(controller.images[index]),
-                            fit: BoxFit.cover,
-                          ),
+
                         ),
+                       child: Image.memory(addListingsController.images[index])
+
                       );
-                    });
+                    }
+                  )
+                );
+                //return Image.memory(addListingsController.images.first);
+                // return GridView.builder(
+                //     shrinkWrap: true,
+                //     padding: EdgeInsets.symmetric(horizontal: 20.w),
+                //     physics: NeverScrollableScrollPhysics(),
+                //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                //       crossAxisCount: 3,
+                //       mainAxisSpacing: 10.h,
+                //       crossAxisSpacing: 10.h,
+                //     ),
+                //     itemCount: addListingsController.images.length,
+                //     itemBuilder: (context, index) {
+                //       return Container(
+                //
+                //       );
+                //     });
               }
             }),
 
@@ -273,32 +291,31 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                     BaseController().showLoading();
                     try {
                       await Listing(
-                          name: controller.propertyNameController.text,
-                          price: controller.propertyCostController.text
+                          name: addListingsController.propertyNameController.text,
+                          price: addListingsController.propertyCostController.text
                               .replaceAll(',', '')
                               .toDouble(),
                           ppsqm:
-                              controller.pricePerSqmController.text.toDouble(),
-                          beds: controller.bedsController.text.toInt(),
-                          baths: controller.bathsController.text.toInt(),
-                          cars: controller.carsController.text.toInt(),
-                          area: controller.areaController.text.toInt(),
-                          status: controller.selectedOfferT.value.toString(),
+                          addListingsController.pricePerSqmController.text.toDouble(),
+                          beds: addListingsController.bedsController.text.toInt(),
+                          baths: addListingsController.bathsController.text.toInt(),
+                          cars: addListingsController.carsController.text.toInt(),
+                          area: addListingsController.areaController.text.toInt(),
+                          status: addListingsController.selectedOfferT.value.toString(),
                           // view: controller.selectedView.value.toString(),
-                          location: controller.add.city,
-                          type: controller.selectedPropertyT.value.toString(),
-                          subCategory: controller
+                          location: addListingsController.add.city,
+                          type: addListingsController.selectedPropertyT.value.toString(),
+                          subCategory: addListingsController
                               .selectedPropertySubCategory.value
                               .toString(),
-                          description: controller.descController.text,
-                          view: controller.selectedView.value.toString(),
-                          address: controller.addressController.text,
+                          description: addListingsController.descController.text,
+                          view: addListingsController.selectedView.value.toString(),
+                          address: addListingsController.addressController.text,
                           latLng: [
-                            controller.latLng!.latitude,
-                            controller.latLng!.longitude
-                          ]).addListing(controller.images, user!.id);
-
-                      controller.showSuccessDialog(
+                            addListingsController.latLng!.latitude,
+                            addListingsController.latLng!.longitude
+                          ]).addListing(addListingsController.images, user!.id);
+                      addListingsController.showSuccessDialog(
                           hitApi: () {
                             //todo trigger referesh in dashboard
                             // Get.offAllNamed(RouteString.agentDashBoard);
