@@ -44,7 +44,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
               fontWeight: FontWeight.w500,
             ),
             EraText(
-              text: 'CREATE LISTINGs',
+              text: 'CREATE LISTING',
               color: AppColors.black,
               fontSize: EraTheme.header,
               fontWeight: FontWeight.w600,
@@ -99,7 +99,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                 ),
                 sbw25(),
                 Container(
-                  height: 125.h,
+                  height: 126.h,
                   width: Get.width / 2.5,
                   child: AddListings.dropDownAddlistings(
                       padding: EdgeInsets.zero,
@@ -122,7 +122,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        height: 125.h,
+                        height: 126.h,
                         width: Get.width / 5.1 - 4.w,
                         child: AddListings.dropDownAddlistings(
                             padding: EdgeInsets.zero,
@@ -136,7 +136,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                   ),
                   sbw25(),
                   Container(
-                    height: 125.h,
+                    height: 126.h,
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
@@ -148,7 +148,7 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
                   ),
                   sbw25(),
                   Container(
-                    height: 125.h,
+                    height: 126.h,
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,

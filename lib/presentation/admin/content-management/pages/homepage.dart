@@ -113,8 +113,8 @@ class HomePage extends GetView<ContentManagementController> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     mainAxisExtent: 200,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 15,
+                    crossAxisSpacing: 15,
                   ),
                   itemCount: randomIndex.length,
                   itemBuilder: (context, index) {

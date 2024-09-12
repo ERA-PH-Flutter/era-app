@@ -114,7 +114,7 @@ class FindUs extends GetView<ContactusController> {
                   Container(
                     width: 250.w,
                     child: EraText(
-                      text: 'eraphilippines@gmail.com',
+                      text: 'sales@eraphilippines.com',
                       fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,

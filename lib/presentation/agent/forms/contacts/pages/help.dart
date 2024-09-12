@@ -124,7 +124,7 @@ class Help extends GetView<ContactusController> {
               ),
               SizedBox(height: 20.h),
               expansionTile('How can I contact customer support?',
-                  'You can reach our customer support team via the "Contact Us" page, through email at eraph@gmail.com, or by calling our hotline at +639177710572'),
+                  'You can reach our customer support team via the "Contact Us" page, through email at sales@eraphilippines.com, or by calling our hotline at +639177710572'),
               SizedBox(height: 15.h),
               expansionTile(
                   'What should I do if I encounter a technical issue on the web app?',

@@ -78,7 +78,7 @@ class LandingPage extends GetView<LandingPageController> {
     return Row(
       children: [
         Container(
-          width: 200.w,
+          width: 210.w,
           color: AppColors.hint.withOpacity(0.3),
           child: _buildSidebarMenu(),
         ),
@@ -229,22 +229,17 @@ class LandingPage extends GetView<LandingPageController> {
   }) {
     return ExpansionTile(
       leading: SizedBox(),
-      title: Column(
-        children: [
-          SizedBox(height: 20.h),
-          Image.asset(image, height: 80.h),
-          SizedBox(height: 5.h),
-          Container(
-            height: 40.h,
-            child: EraText(
-                textAlign: TextAlign.center,
-                text: text,
-                fontSize: 12.sp,
-                maxLines: 2,
-                color: AppColors.blue,
-                fontWeight: FontWeight.w700),
-          ),
-        ],
+      title: Image.asset(image, height: 80.h),
+      subtitle: Container(
+        height: 40.h,
+        width: Get.width,
+        child: EraText(
+            textAlign: TextAlign.center,
+            text: text,
+            fontSize: 12.sp,
+            maxLines: 1,
+            color: AppColors.blue,
+            fontWeight: FontWeight.w700),
       ),
       trailing: const SizedBox(),
       children: children,
