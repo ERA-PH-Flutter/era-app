@@ -213,10 +213,10 @@ class EditPropertyAdmin extends GetView<ListingsController> {
             SizedBox(
               height: 10.h,
             ),
-            AddAgent.buildUploadPhoto(),
-            SizedBox(
-              height: 10.h,
-            ),
+            // AddAgent.buildUploadPhoto(),
+            // SizedBox(
+            //   height: 10.h,
+            // ),
             Padding(
               padding: EdgeInsets.all(8.sp),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [

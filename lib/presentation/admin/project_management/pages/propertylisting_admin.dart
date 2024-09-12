@@ -228,7 +228,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
                 crossAxisSpacing: 20.w,
-                mainAxisExtent: 700.h,
+                mainAxisExtent: 875.h,
               ),
               itemBuilder: (context, index) {
                 Listing listing = Listing.fromJSON(controller.data[index]);
@@ -254,8 +254,12 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CloudStorage().imageLoader(
-                          height: 200.h,
+                        CloudStorage().imageLoaderProvider(
+                          height: 400.h,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10.r),
+                            topRight: Radius.circular(10.r)
+                          ),
                           width: Get.width - 400.w,
                           ref: listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite,
                         ),

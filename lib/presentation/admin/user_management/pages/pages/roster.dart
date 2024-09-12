@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -15,6 +16,8 @@ import 'package:eraphilippines/presentation/admin/user_management/pages/pages/ag
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../../../../repository/user.dart';
 
 class Roster extends GetView<AgentAdminController> {
   const Roster({super.key});
@@ -57,7 +60,21 @@ class Roster extends GetView<AgentAdminController> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            rosterGridview(listingModels: RealEstateListing.listingsModels),
+            StreamBuilder(
+              stream: FirebaseFirestore.instance.collection('users').snapshots(),
+              builder: (context,snapshot){
+                if(snapshot.hasData){
+                  List<EraUser> users = snapshot.data!.docs.map((doc){
+                    return EraUser.fromJSON(doc.data());
+                  }).toList();
+                  return rosterGridview(listingModels: users);
+                }else{
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
             SizedBox(height: 30.h),
           ],
         ),
@@ -65,12 +82,12 @@ class Roster extends GetView<AgentAdminController> {
     );
   }
 
-  Widget rosterGridview({required List<RealEstateListing> listingModels}) {
+  Widget rosterGridview({required List<EraUser> listingModels}) {
     LandingPageController controllers = Get.put(LandingPageController());
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.only(
-        top: 90.h,
+        top: 20.w,
         left: 10.w,
         right: 10.w,
       ),
@@ -95,16 +112,15 @@ class Roster extends GetView<AgentAdminController> {
               child: GestureDetector(
                 onTap: () {
                   // Get.toNamed('/agentProfileAdmin');
-                  controller.agentListings = listingModels[i];
-
+                  //controller.agentListingssss = listingModels[i];
                   controllers.onSectionSelected(0);
                 },
                 child: ListedBy(
                   text: '',
-                  image: "${listingModels[i].user.image}",
-                  agentFirstName: "${listingModels[i].user.firstname}",
-                  agentLastName: "${listingModels[i].user.lastname}",
-                  agentType: "${listingModels[i].user.role}",
+                  image: "${listingModels[i].image}",
+                  agentFirstName: "${listingModels[i].firstname}",
+                  agentLastName: "${listingModels[i].lastname}",
+                  agentType: "${listingModels[i].role}",
                 ),
               ),
             ),
@@ -134,14 +150,14 @@ class Roster extends GetView<AgentAdminController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    listingModels[i].user.whatsApp == null
+                    listingModels[i].whatsApp == null
                         ? AppEraAssets.whatsappIcon
                         : AppEraAssets.whatsappIcon,
                     width: 40.w,
                     height: 40.h,
                   ),
                   EraText(
-                    text: "${listingModels[i].user.whatsApp}",
+                    text: "${listingModels[i].whatsApp}",
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                     color: AppColors.black,
@@ -157,14 +173,14 @@ class Roster extends GetView<AgentAdminController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    listingModels[i].user.email == null
+                    listingModels[i].email == null
                         ? AppEraAssets.emailIcon
                         : AppEraAssets.emailIcon,
                     width: 40.w,
                     height: 40.h,
                   ),
                   EraText(
-                    text: "${listingModels[i].user.email}",
+                    text: "${listingModels[i].email}",
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                     color: AppColors.black,
