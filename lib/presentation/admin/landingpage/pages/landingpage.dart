@@ -20,6 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../project_management/controllers/listing_admin_controller.dart';
+
 class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
 
@@ -218,7 +220,12 @@ class LandingPage extends GetView<LandingPageController> {
               maxLines: 2,
             ),
           ),
-          onTap: () => controller.onSectionSelected(section),
+          onTap: ()async{
+            if(section == 7){
+              Get.put(ListingsController());
+            }
+            controller.onSectionSelected(section);
+          },
         );
       });
 

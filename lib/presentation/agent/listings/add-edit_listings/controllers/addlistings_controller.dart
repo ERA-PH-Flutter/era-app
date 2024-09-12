@@ -138,6 +138,7 @@ class AddListingsController extends GetxController with BaseController {
   }
   Future pickImageFromWeb() async {
     //var webImages;
+    images.clear();
     try {
       final imagePick = await picker.pickMultiImage();
       if (imagePick.isNotEmpty) {
