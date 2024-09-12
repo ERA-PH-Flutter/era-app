@@ -275,7 +275,6 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                     c.address.value = c.add.displayName!;
                     c.addressController.text =
                         c.address.value;
-                    //search for location
                   },
                 ),
               ),
@@ -310,8 +309,8 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                   child: Button(
                     width: Get.width - (EraTheme.paddingWidth * 2),
                     onTap: () {
-                      c.addEditListingsState.value =
-                          AddEditListingsState.loaded;
+                      controller.state.value =
+                          AdminEditState.loaded;
                     },
                     bgColor: AppColors.kRedColor,
                     text: "Select Location",
