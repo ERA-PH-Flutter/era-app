@@ -248,22 +248,23 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Button(
-                                    onTap: () {
+                                    onTap: ()async{
                                       Get.put(ListingsController());
                                       var c = Get.find<AddListingsController>();
-                                      c.propertyNameController.text =  controller.listing!.name!;
-                                      c.propertyCostController.text =  controller.listing!.price!.toString();
-                                      c.pricePerSqmController.text =  controller.listing!.ppsqm!.toString();
-                                      c.areaController.text =  controller.listing!.area!.toString();
-                                      c.bedsController.text =  controller.listing!.beds!.toString();
-                                      c.bathsController.text =  controller.listing!.baths!.toString();
-                                      c.selectedPropertyT.value =  controller.listing!.type!;
-                                      c.selectedOfferT.value =  controller.listing!.status!;
-                                      c.selectedView.value =  controller.listing!.view!;
-                                      c.selectedPropertySubCategory.value =  controller.listing!.subCategory!;
-                                      c.carsController.text = controller.listing!.cars.toString();
-                                      //c.propertyNameController.text = listing!.name!;
-                                      c.descController.text = controller.listing!.description!;
+                                      await c.assignData(controller.listing!.id,isWeb: true);
+                                      // c.propertyNameController.text =  controller.listing!.name!;
+                                      // c.propertyCostController.text =  controller.listing!.price!.toString();
+                                      // c.pricePerSqmController.text =  controller.listing!.ppsqm!.toString();
+                                      // c.areaController.text =  controller.listing!.area!.toString();
+                                      // c.bedsController.text =  controller.listing!.beds!.toString();
+                                      // c.bathsController.text =  controller.listing!.baths!.toString();
+                                      // c.selectedPropertyT.value =  controller.listing!.type!;
+                                      // c.selectedOfferT.value =  controller.listing!.status!;
+                                      // c.selectedView.value =  controller.listing!.view!;
+                                      // c.selectedPropertySubCategory.value =  controller.listing!.subCategory!;
+                                      // c.carsController.text = controller.listing!.cars.toString();
+                                      // //c.propertyNameController.text = listing!.name!;
+                                      // c.descController.text = controller.listing!.description!;
                                       Get.find<LandingPageController>()
                                           .onSectionSelected(8);
                                     },

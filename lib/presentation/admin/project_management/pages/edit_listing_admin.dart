@@ -42,7 +42,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
+        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -85,41 +85,45 @@ class EditPropertyAdmin extends GetView<ListingsController> {
             SizedBox(
               height: 10.h,
             ),
-            Wrap(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 48.h,
-                      width: Get.width,
-                      child: Button(
-                        width: 500.w,
-                        margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                        bgColor: Colors.red,
-                        text: 'Pick Address',
-                        onTap: () {
-                          controller.state.value =
-                              AdminEditState.picker;
-                        },
-                      ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: Row(
+                children: [
+                  Container(
+                    height: 126.h,
+                    width: Get.width / 2.5,
+                    child: AddListings.dropDownAddlistings(
+                        padding: EdgeInsets.zero,
+                        selectedItem: addListingsController.selectedPropertyT,
+                        Types: addListingsController.propertyT,
+                        onChanged: (value) =>
+                        addListingsController.selectedPropertyT,
+                        name: 'Property Type *',
+                        hintText: 'Edit Property Type'),
+                  ),
+                  SizedBox(
+                    height: 126.h,
+                    width: Get.width / 2.46,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 37.h,),
+                        Button(
+                          height: 65.h,
+                          width: Get.width / 2.2,
+                          margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                          fontSize: 20.sp,
+                          bgColor: Colors.red,
+                          text: 'Pick Address',
+                          onTap: () {
+                            controller.state.value =
+                                AdminEditState.picker;
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                sbw25(),
-                Container(
-                  height: 125.h,
-                  width: Get.width / 2.5,
-                  child: AddListings.dropDownAddlistings(
-                      padding: EdgeInsets.zero,
-                      selectedItem: addListingsController.selectedPropertyT,
-                      Types: addListingsController.propertyT,
-                      onChanged: (value) =>
-                      addListingsController.selectedPropertyT,
-                      name: 'Property Type *',
-                      hintText: 'Edit Property Type'),
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: 10.h,
@@ -134,7 +138,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        height: 125.h,
+                        height: 126.h,
                         width: Get.width / 5.1 - 4.w,
                         child: AddListings.dropDownAddlistings(
                             padding: EdgeInsets.zero,
@@ -149,7 +153,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                   ),
                   sbw25(),
                   Container(
-                    height: 125.h,
+                    height: 126.h,
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
@@ -162,7 +166,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                   ),
                   sbw25(),
                   Container(
-                    height: 125.h,
+                    height: 126.h,
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
@@ -221,6 +225,15 @@ class EditPropertyAdmin extends GetView<ListingsController> {
               padding: EdgeInsets.all(8.sp),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Button(
+                  onTap:()async{
+                    try{
+                      await addListingsController.updateListing();
+                      Get.delete<AddListingsController>();
+                      Get.find<LandingPageController>().onSectionSelected(5);
+                    }catch(e){
+
+                    }
+                  },
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   width: 150.w,
                   text: 'SUBMIT',
@@ -252,12 +265,13 @@ class EditPropertyAdmin extends GetView<ListingsController> {
         return Future.value(false);
       },
       child: Obx(() => SizedBox(
-          width: Get.width,
-          height: Get.height - 212.h,
+          width: 100.w,
+          height: Get.height - 112.h,
           child: Stack(
             children: [
               Positioned.fill(
                 child: GoogleMap(
+                  buildingsEnabled: false,
                   zoomControlsEnabled: false,
                   initialCameraPosition: CameraPosition(
                       target: LatLng(14.599512, 120.984222), zoom: 12),
@@ -279,9 +293,9 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                 ),
               ),
               Positioned(
-                bottom: 75.h,
+                bottom: 100.h,
                 child: Container(
-                  width: Get.width - EraTheme.paddingWidth * 2,
+                  width: Get.width - 270.w,
                   padding: EdgeInsets.symmetric(
                       horizontal: EraTheme.paddingWidthSmall, vertical: 10.h),
                   margin:
@@ -291,21 +305,20 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Obx(() => EraText(
                     text: "Address: ${c.address.value}",
-                    fontSize: 15.sp,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w400,
                     color: Colors.black,
                   )),
                 ),
               ),
-
               Positioned(
                 bottom: 21.w,
                 child: Container(
                   alignment: Alignment.center,
-                  width: Get.width - (EraTheme.paddingWidth * 2),
+                  width: Get.width  - 270.w,
                   margin:
                   EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                  height: 35.h,
+                  height: 50.h,
                   child: Button(
                     width: Get.width - (EraTheme.paddingWidth * 2),
                     onTap: () {
