@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -12,6 +13,7 @@ import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pag
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/listing.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -197,9 +199,69 @@ class AddPropertyAdmin extends GetView<ListingsAdminController> {
             SizedBox(
               height: 10.h,
             ),
-            AddAgent.buildUploadPhoto(
-              onTap: () => controller.getImageGallery(),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.blue,
+                      shadowColor: Colors.transparent,
+                      side: BorderSide(
+                          color: AppColors.hint.withOpacity(0.1), width: 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      controller.getImageGallery();
+                    },
+                    icon: Icon(
+                      CupertinoIcons.photo_fill_on_rectangle_fill,
+                      color: AppColors.white,
+                    ),
+                    label: EraText(
+                      text: 'Select Photos',
+                      color: AppColors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
             ),
+
+            SizedBox(height: 10.h),
+            Obx(() {
+              if (controller.images.isEmpty) {
+                return AddAgent.buildUploadPhoto();
+              } else {
+                return GridView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10.h,
+                      crossAxisSpacing: 10.h,
+                    ),
+                    itemCount: controller.images.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: FileImage(controller.images[index]),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    });
+              }
+            }),
+
             SizedBox(
               height: 10.h,
             ),
