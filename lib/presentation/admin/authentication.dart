@@ -4,12 +4,16 @@ import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/agent/authentication/controllers/authentication_controller.dart';
+import 'package:eraphilippines/router/route_string.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../repository/user.dart';
 import '../agent/utility/controller/base_controller.dart';
+import '../global.dart';
 
 class AuthenticationPage extends GetView {
   AuthenticationPage({super.key});
@@ -29,15 +33,6 @@ class AuthenticationPage extends GetView {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed("/landingPage");
-                  },
-                  child: Icon(
-                    CupertinoIcons.forward,
-                    color: AppColors.black,
-                  ),
-                ),
                 Column(
                   children: [
                     AspectRatio(
@@ -91,12 +86,12 @@ class AuthenticationPage extends GetView {
                                     filled: true,
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                          controller.passwordVisible.value
+                                          isPasswordNotVisible.value
                                               ? CupertinoIcons.eye_fill
                                               : CupertinoIcons.eye_slash_fill),
                                       onPressed: () {
-                                        controller.passwordVisible.value =
-                                            !controller.passwordVisible.value;
+                                       isPasswordNotVisible.value =
+                                            !isPasswordNotVisible.value;
                                       },
                                     ),
                                     enabledBorder: OutlineInputBorder(
@@ -120,10 +115,25 @@ class AuthenticationPage extends GetView {
                                   Button(
                                       width: 300.w,
                                       onTap: ()async{
-                                        Get.toNamed("/landingPage");
-                                        // BaseController().showLoading();
-                                        // await Authentication().login(email: email.text,password: pass.text);
-                                        // BaseController().hideLoading();
+                                        BaseController().showLoading();
+                                        var login = await Authentication().login(email: email.text,password: pass.text);
+                                        if(FirebaseAuth.instance.currentUser != null){
+                                          BaseController().hideLoading();
+                                          user = await EraUser().getById( FirebaseAuth.instance.currentUser!.uid);
+                                          if(user!.role!.toLowerCase() != "admin"){
+                                            user = null;
+                                            Authentication().logout();
+                                            BaseController().showSuccessDialog(title: "ERROR",description: "Please use admin account to have access!",hitApi: (){
+                                              Get.back();Get.back();
+                                            });
+                                          }else{
+                                            Get.toNamed(RouteString.landingPage);
+                                          }
+                                        }else{
+                                          BaseController().showSuccessDialog(title: "ERROR",description: "Password or email incorrect",hitApi: (){
+                                            Get.back();Get.back();
+                                          });
+                                        }
                                       },
                                       text: "L O G I N",
                                       bgColor: AppColors.kRedColor,
