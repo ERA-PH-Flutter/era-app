@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../global.dart';
 import '../../project_management/controllers/listing_admin_controller.dart';
 
 class LandingPage extends GetView<LandingPageController> {
@@ -142,10 +143,22 @@ class LandingPage extends GetView<LandingPageController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              EraText(
-                text: 'FirstName LastName',
-                color: AppColors.white,
-                fontSize: 12.sp,
+              Builder(
+                builder: (context){
+                  if(user != null){
+                    return  EraText(
+                      text: '${user!.firstname ?? "Firstname"} ${user!.lastname ?? "Lastname"}',
+                      color: AppColors.white,
+                      fontSize: 12.sp,
+                    );
+                  }else{
+                    return  EraText(
+                      text: 'No Name',
+                      color: AppColors.white,
+                      fontSize: 12.sp,
+                    );
+                  }
+                },
               ),
               EraText(
                 text: 'Status',

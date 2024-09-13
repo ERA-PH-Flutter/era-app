@@ -454,7 +454,8 @@ class AddPropertyAdmin extends GetView<ListingsController> {
             ),
           ),
         );
-      }else if(controller.state.value == AdminEditState.loaded){
+      }
+      else if(controller.state.value == AdminEditState.picker){
         return _picker();
       }else{
         return _loading();

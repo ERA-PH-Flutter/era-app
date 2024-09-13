@@ -122,9 +122,9 @@ class AuthenticationPage extends GetView {
                                           user = await EraUser().getById( FirebaseAuth.instance.currentUser!.uid);
                                           if(user!.role!.toLowerCase() != "admin"){
                                             user = null;
-                                            Authentication().logout();
+                                            await Authentication().logout();
                                             BaseController().showSuccessDialog(title: "ERROR",description: "Please use admin account to have access!",hitApi: (){
-                                              Get.back();Get.back();
+                                              Get.back();
                                             });
                                           }else{
                                             Get.toNamed(RouteString.landingPage);
