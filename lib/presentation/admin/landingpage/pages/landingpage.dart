@@ -235,7 +235,11 @@ class LandingPage extends GetView<LandingPageController> {
           ),
           onTap: ()async{
             if(section == 7){
+              Get.delete<ListingsController>();
               Get.put(ListingsController());
+            }
+            if(section == 9){
+              //Get.put(ContentManagementController());
             }
             controller.onSectionSelected(section);
           },

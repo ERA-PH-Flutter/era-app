@@ -30,36 +30,21 @@ class ContentManagementController extends GetxController with BaseController {
   @override
   void onInit() async {
     try {
-      if (settings!.banners != null) {
-        for (int i = 0; i < settings!.banners!.length; i++) {
-          bannersImages.add(settings!.banners![i]);
+      if(settings != null){
+        if (settings!.banners != null) {
+          for (int i = 0; i < settings!.banners!.length; i++) {
+            bannersImages.add(settings!.banners![i]);
+          }
         }
       }
-      print(bannersImages);
-      print('Homepage state changed to:sss ${homepageState.value}');
-
-      await getImages();
-      //await Future.delayed(Duration(seconds: 1,milliseconds: 500));
+      //await getImages();
       homepageState.value = HomepageState.loaded;
     } catch (e) {
       print(e);
-      print('Error in onInit: $e');
-
       homepageState.value = HomepageState.error;
     }
     super.onInit();
   }
-
-  // getListings() async {
-  //   if (settings!.featuredListings!.isNotEmpty) {
-  //     for (int i = 0; i < settings!.featuredListings!.length; i++) {
-  //       settings!.featuredListings![i] != ''
-  //           ? listings
-  //               .add(await Listing().getListing(settings!.featuredListings![i]))
-  //           : null;
-  //     }
-  //   }
-  // }
 
   getImages() async {
     listingImages.add(PropertiesModels(
