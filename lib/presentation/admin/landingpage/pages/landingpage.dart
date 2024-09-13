@@ -3,14 +3,16 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/about_us.dart';
+import 'package:eraphilippines/presentation/admin/news/pages/view_all_news.dart';
 import 'package:eraphilippines/presentation/admin/project_management/pages/add_listing_admin.dart';
-import 'package:eraphilippines/presentation/admin/project_management/pages/add_project_admin.dart';
-import 'package:eraphilippines/presentation/admin/project_management/pages/edit_listing_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/homepage.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
-import 'package:eraphilippines/presentation/admin/project_management/pages/propertyinformation.dart';
-import 'package:eraphilippines/presentation/admin/project_management/pages/propertylisting_admin.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/listing_admin_controller.dart';
+import 'package:eraphilippines/presentation/admin/properties/pages/add_project_admin.dart';
+import 'package:eraphilippines/presentation/admin/properties/pages/edit_listing_admin.dart';
+import 'package:eraphilippines/presentation/admin/properties/pages/propertyinformation.dart';
+import 'package:eraphilippines/presentation/admin/properties/pages/propertylisting_admin.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
@@ -21,7 +23,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../global.dart';
-import '../../project_management/controllers/listing_admin_controller.dart';
 
 class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
@@ -39,6 +40,8 @@ class LandingPage extends GetView<LandingPageController> {
     EditPropertyAdmin(), //8
     HomePage(), //9
     AboutUsPage(), //10
+    ViewAllNews(), //11
+    HomePage(), //12
   ];
 
   @override
@@ -144,15 +147,16 @@ class LandingPage extends GetView<LandingPageController> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Builder(
-                builder: (context){
-                  if(user != null){
-                    return  EraText(
-                      text: '${user!.firstname ?? "Firstname"} ${user!.lastname ?? "Lastname"}',
+                builder: (context) {
+                  if (user != null) {
+                    return EraText(
+                      text:
+                          '${user!.firstname ?? "Firstname"} ${user!.lastname ?? "Lastname"}',
                       color: AppColors.white,
                       fontSize: 12.sp,
                     );
-                  }else{
-                    return  EraText(
+                  } else {
+                    return EraText(
                       text: 'No Name',
                       color: AppColors.white,
                       fontSize: 12.sp,
@@ -216,6 +220,14 @@ class LandingPage extends GetView<LandingPageController> {
               _buildMenuItem('ABOUT US', 10),
             ],
           ),
+          _buildExpansionTile(
+            text: "NEWS",
+            image: AppEraAssets.listingDash,
+            children: [
+              _buildMenuItem('HOMEPAGE', 11),
+              _buildMenuItem('ABOUT US', 12),
+            ],
+          ),
         ],
       );
 
@@ -233,13 +245,9 @@ class LandingPage extends GetView<LandingPageController> {
               maxLines: 2,
             ),
           ),
-          onTap: ()async{
-            if(section == 7){
-              Get.delete<ListingsController>();
+          onTap: () async {
+            if (section == 7) {
               Get.put(ListingsController());
-            }
-            if(section == 9){
-              //Get.put(ContentManagementController());
             }
             controller.onSectionSelected(section);
           },

@@ -3,7 +3,7 @@ import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
-import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_controller.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,9 +15,7 @@ import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/button.dart';
 import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
-import '../controllers/listing_admin_bindings.dart';
 import '../controllers/listing_admin_controller.dart';
-import 'edit_listing_admin.dart';
 
 class PropertyInformationAdmin extends GetView<ListingsAdminController> {
   const PropertyInformationAdmin({super.key});
@@ -248,10 +246,11 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Button(
-                                    onTap: ()async{
+                                    onTap: () async {
                                       Get.put(ListingsController());
                                       var c = Get.find<AddListingsController>();
-                                      await c.assignData(controller.listing!.id,isWeb: true);
+                                      await c.assignData(controller.listing!.id,
+                                          isWeb: true);
                                       // c.propertyNameController.text =  controller.listing!.name!;
                                       // c.propertyCostController.text =  controller.listing!.price!.toString();
                                       // c.pricePerSqmController.text =  controller.listing!.ppsqm!.toString();

@@ -44,7 +44,7 @@ class AboutUs extends StatelessWidget {
                 height: 20.h,
               ),
               _buildDescription(
-                  'ERA Philippines is a proud member of ERA Real Estate, the largest real estate network in the Asia-Pacific region with more than 23,400 trusted advisers in over 640 offices across 13 countries. We provide exceptional real estate services, guiding you through buying, selling, and investing.'),
+                  'ERA Real Estate Philippines is a proud member of ERA Real Estate, the largest real estate network in the Asia-Pacific region with more than 23,400 trusted advisers in over 640 offices across 13 countries. We provide exceptional real estate services, guiding you through buying, selling, and investing.'),
               SizedBox(
                 height: 20.h,
               ),
@@ -54,12 +54,12 @@ class AboutUs extends StatelessWidget {
                 height: 20.h,
               ),
               _buildDescription(
-                  'We envision a world where searching for and managing real estate is as simple as a few taps on your phone. With the ERA Philippines app, we aim to redefine the property landscape in the Philippines by providing cutting-edge tools and resources that enable you to make informed decisions with confidence.'),
+                  'We envision a world where searching for and managing real estate is as simple as a few taps on your phone. With the ERA Real Estate Philippines app, we aim to redefine the property landscape in the Philippines by providing cutting-edge tools and resources that enable you to make informed decisions with confidence.'),
               SizedBox(
                 height: 20.h,
               ),
               _buildDescription(
-                  'At ERA Philippines, we empower you to achieve your real estate dreams. Discover the ERA difference today!'),
+                  'At ERA Real Estate Philippines, we empower you to achieve your real estate dreams. Discover the ERA difference today!'),
               SizedBox(height: 20.h),
               _buildDescription('What We Do',
                   fontWeight: FontWeight.w600,
@@ -98,7 +98,7 @@ class AboutUs extends StatelessWidget {
                   _buildDescription('Property Valuation: ',
                       fontWeight: FontWeight.w600),
                   _buildDescription(
-                      'Accurate property valuation is the cornerstone of successful real estate transactions. At ERA Philippines, we offer meticulous property valuation services designed to provide clarity and confidence to buyers, sellers, and investors alike. Backed by comprehensive market analysis and expert insights, our valuation process ensures you receive an informed and fair assessment of your property’s worth.'),
+                      'Accurate property valuation is the cornerstone of successful real estate transactions. At ERA Real Estate Philippines, we offer meticulous property valuation services designed to provide clarity and confidence to buyers, sellers, and investors alike. Backed by comprehensive market analysis and expert insights, our valuation process ensures you receive an informed and fair assessment of your property’s worth.'),
                 ],
               ),
               SizedBox(

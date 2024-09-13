@@ -10,7 +10,7 @@ import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
-import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_controller.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/user.dart';
@@ -38,10 +38,14 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
 
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+        padding:
+            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: 20.h,
+            ),
             EraText(
               text: 'PROPERTY LIST',
               fontSize: EraTheme.header,
@@ -257,11 +261,14 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                         CloudStorage().imageLoaderProvider(
                           height: 400.h,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10.r),
-                            topRight: Radius.circular(10.r)
-                          ),
+                              topLeft: Radius.circular(10.r),
+                              topRight: Radius.circular(10.r)),
                           width: Get.width - 400.w,
-                          ref: listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite,
+                          ref: listing.photos != null
+                              ? (listing.photos!.isNotEmpty
+                                  ? listing.photos!.first
+                                  : AppStrings.noUserImageWhite)
+                              : AppStrings.noUserImageWhite,
                         ),
                         SizedBox(
                           height: 17.h,
@@ -272,9 +279,8 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: EraText(
                             textOverflow: TextOverflow.ellipsis,
-                            text: listing.name! == ""
-                                ? "No Name"
-                                : listing.name!,
+                            text:
+                                listing.name! == "" ? "No Name" : listing.name!,
                             fontSize: EraTheme.header - 5.sp,
                             color: AppColors.kRedColor,
                             fontWeight: FontWeight.bold,
@@ -388,7 +394,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: EraText(
                             text: NumberFormat.currency(
-                                locale: 'en_PH', symbol: 'PHP ')
+                                    locale: 'en_PH', symbol: 'PHP ')
                                 .format(
                               listing.price.toString() == ""
                                   ? 0
@@ -406,12 +412,12 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                 var user1 = snapshot.data;
                                 return Padding(
                                   padding:
-                                  EdgeInsets.symmetric(horizontal: 14.w),
+                                      EdgeInsets.symmetric(horizontal: 14.w),
                                   child: ListedBy(
                                       image: user1!.image ??
                                           AppStrings.noUserImageWhite,
                                       agentFirstName:
-                                      user1.firstname ?? "No Name",
+                                          user1.firstname ?? "No Name",
                                       agentType: user1.role ?? "Agent",
                                       agentLastName: user1.lastname ?? ""),
                                 );
