@@ -99,6 +99,27 @@ class AddListingsController extends GetxController with BaseController {
     "For Sale",
     "For Rent",
   ];
+
+  clearFields() async {
+    propertyNameController.clear();
+    propertyCostController.clear();
+    pricePerSqmController.clear();
+    bedsController.clear();
+    bathsController.clear();
+    carsController.clear();
+    addressController.clear();
+    selectedOfferT.value = null;
+    selectedPropertyT.value = null;
+    selectedPropertySubCategory.value = null;
+    areaController.clear();
+    viewController.clear();
+    locationController.clear();
+    descController.clear();
+    selectedView.value = null;
+    latLng = null;
+    images.clear();
+  }
+
   //addController
   LatLng? latLng;
   TextEditingController propertyNameController = TextEditingController();
@@ -136,9 +157,10 @@ class AddListingsController extends GetxController with BaseController {
       return e;
     }
   }
+
   Future pickImageFromWeb() async {
     //var webImages;
-    images.clear();
+//    images.clear();
     try {
       final imagePick = await picker.pickMultiImage();
       if (imagePick.isNotEmpty) {
@@ -184,12 +206,12 @@ class AddListingsController extends GetxController with BaseController {
     super.onClose;
   }
 
-  assignData(listingId,{isWeb = false}) async {
+  assignData(listingId, {isWeb = false}) async {
     listing = await Listing().getListing(listingId);
     propertyNameController.text = listing!.name ?? "";
     propertyCostController.text =
         listing!.price == null ? "0" : listing!.price.toString();
-    if(!isWeb){
+    if (!isWeb) {
       for (int i = 0; i < listing!.photos!.length; i++) {
         images.add(await EraFunctions.urlToFile(listing!.photos![i]));
       }
@@ -215,12 +237,11 @@ class AddListingsController extends GetxController with BaseController {
     addListingsState.value = AddListingsState.loaded;
   }
 
-  updateListing()async{
+  updateListing() async {
     if (propertyNameController.text.isEmpty) {
       AddListings.showErroDialogs(
         title: "Error",
-        description:
-        "All fields are required! Only Description is optional 1",
+        description: "All fields are required! Only Description is optional 1",
       );
       return;
     }
@@ -259,7 +280,7 @@ class AddListingsController extends GetxController with BaseController {
       );
       return;
     }
-    if (areaController.text.isEmpty)  {
+    if (areaController.text.isEmpty) {
       AddListings.showErroDialogs(
         title: "Error",
         description: "All fields are required! 7",
@@ -290,27 +311,22 @@ class AddListingsController extends GetxController with BaseController {
     if (selectedPropertySubCategory.value == null) {
       AddListings.showErroDialogs(
         title: "Error",
-        description:
-        "All fields are required! Only Description is optional 11",
+        description: "All fields are required! Only Description is optional 11",
       );
       return;
     }
     try {
       listing!.name = propertyNameController.text;
-      listing!.price = propertyCostController.text
-          .replaceAll(',', '')
-          .toDouble();
-      listing!.ppsqm = pricePerSqmController.text
-          .replaceAll(',', '')
-          .toDouble();
+      listing!.price =
+          propertyCostController.text.replaceAll(',', '').toDouble();
+      listing!.ppsqm =
+          pricePerSqmController.text.replaceAll(',', '').toDouble();
       listing!.beds = bedsController.text.toInt();
       listing!.baths = bathsController.text.toInt();
       listing!.cars = carsController.text.toInt();
       listing!.area = areaController.text.toInt();
       listing!.status = selectedOfferT.value.toString();
-      listing!.location = add == null
-          ? locationController.text
-          : add.city;
+      listing!.location = add == null ? locationController.text : add.city;
       listing!.type = selectedPropertyT.value.toString();
       listing!.subCategory = selectedPropertySubCategory.value.toString();
       listing!.description = descController.text;
@@ -325,7 +341,7 @@ class AddListingsController extends GetxController with BaseController {
       showSuccessDialog(
         title: "Success",
         description:
-        "Listing update success!, note that changing image doesn't work. Do you want to exit?",
+            "Listing update success!, note that changing image doesn't work. Do you want to exit?",
         hitApi: () {
           Get.back();
         },

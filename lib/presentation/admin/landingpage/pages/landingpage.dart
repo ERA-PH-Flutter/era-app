@@ -4,11 +4,11 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/about_us.dart';
 import 'package:eraphilippines/presentation/admin/news/pages/view_all_news.dart';
-import 'package:eraphilippines/presentation/admin/project_management/pages/add_listing_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/homepage.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listing_admin_controller.dart';
+import 'package:eraphilippines/presentation/admin/properties/pages/add_listing_admin.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/add_project_admin.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/edit_listing_admin.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/propertyinformation.dart';
@@ -115,7 +115,7 @@ class LandingPage extends GetView<LandingPageController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: 200.w,
+            width: 210.w,
             height: 200.h,
             color: AppColors.blue,
             child: Image.asset(AppEraAssets.eraPhLogo),
@@ -261,7 +261,11 @@ class LandingPage extends GetView<LandingPageController> {
   }) {
     return ExpansionTile(
       leading: SizedBox(),
-      title: Image.asset(image, height: 80.h),
+      title: Image.asset(
+        image,
+        height: 80.h,
+        color: AppColors.blue,
+      ),
       subtitle: Container(
         height: 40.h,
         width: Get.width,

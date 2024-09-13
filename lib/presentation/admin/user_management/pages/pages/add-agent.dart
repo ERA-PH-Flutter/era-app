@@ -203,6 +203,7 @@ class AddAgent extends GetView<AgentAdminController> {
                         lastname: controller.lNameA.text,
                         email: controller.emailAdressA.text,
                         //todo birthday
+                        whatsApp: controller.phoneNA.text,
                         gender: controller.sexA.text,
                         location: controller.officeLA.text,
                         licence: controller.licensedNumA.text,
@@ -232,6 +233,9 @@ class AddAgent extends GetView<AgentAdminController> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 Button(
+                  onTap: () {
+                    controller.clearfield();
+                  },
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   width: 150.w,
                   text: 'CLEAR FIELDS',

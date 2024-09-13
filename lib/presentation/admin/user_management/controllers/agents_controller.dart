@@ -70,6 +70,24 @@ class AgentAdminController extends GetxController with BaseController {
   TextEditingController licensedNumA = TextEditingController();
   TextEditingController parking = TextEditingController();
 
+  clearfield() {
+    fNameA.clear();
+    lNameA.clear();
+    emailAdressA.clear();
+    dateBirthA.clear();
+    sexA.clear();
+    locationA.clear();
+    licenseNA.clear();
+    phoneNA.clear();
+    passwordA.clear();
+    confirmPA.clear();
+    positionA.clear();
+    descriptionA.clear();
+    officeLA.clear();
+    licensedNumA.clear();
+    parking.clear();
+    selectedAgentType.value = null;
+  }
 //create listing controller
 
   // TextEditingController officeLA = TextEditingController();

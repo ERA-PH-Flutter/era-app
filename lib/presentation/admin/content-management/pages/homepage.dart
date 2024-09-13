@@ -89,6 +89,17 @@ class HomePage extends GetView<ContentManagementController> {
                   maxLines: 1,
                 ),
               ),
+              sbw15(),
+              Button(
+                onTap: () {
+                  //todo change picture
+                },
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                width: 80.w,
+                text: 'UPDATE',
+                bgColor: AppColors.blue,
+                borderRadius: BorderRadius.circular(30),
+              ),
             ],
           ),
           SizedBox(height: 10.h),
@@ -268,23 +279,33 @@ class HomePage extends GetView<ContentManagementController> {
       children: [
         _buildUploadPhoto(
           text: 'Preselling Preview Photo',
-          image: settings!.preSellingPicture != null ? CloudStorage().imageLoader(ref: settings!.preSellingPicture) : null,
+          image: settings!.preSellingPicture != null
+              ? CloudStorage().imageLoader(ref: settings!.preSellingPicture)
+              : null,
         ),
         _buildUploadPhoto(
           text: 'Residential Preview Photo',
-          image: settings!.residentialPicture != null ? CloudStorage().imageLoader(ref: settings!.residentialPicture) : null,
+          image: settings!.residentialPicture != null
+              ? CloudStorage().imageLoader(ref: settings!.residentialPicture)
+              : null,
         ),
         _buildUploadPhoto(
           text: 'Commercial Preview Photo',
-          image: settings!.commercialPicture != null ? CloudStorage().imageLoader(ref: settings!.commercialPicture) : null,
+          image: settings!.commercialPicture != null
+              ? CloudStorage().imageLoader(ref: settings!.commercialPicture)
+              : null,
         ),
         _buildUploadPhoto(
           text: 'Rental Preview Photo',
-          image: settings!.rentalPicture != null ? CloudStorage().imageLoader(ref: settings!.rentalPicture) : null,
+          image: settings!.rentalPicture != null
+              ? CloudStorage().imageLoader(ref: settings!.rentalPicture)
+              : null,
         ),
         _buildUploadPhoto(
           text: 'Auction Preview Photo',
-          image: settings!.auctionPicture != null ? CloudStorage().imageLoader(ref: settings!.auctionPicture) : null,
+          image: settings!.auctionPicture != null
+              ? CloudStorage().imageLoader(ref: settings!.auctionPicture)
+              : null,
         ),
       ],
     );
@@ -301,20 +322,16 @@ class HomePage extends GetView<ContentManagementController> {
           decoration: BoxDecoration(
             color: AppColors.hint.withOpacity(0.3),
             borderRadius: BorderRadius.circular(20),
-
           ),
           child: GestureDetector(
-              onTap: () {
-
-              },
-              child: image ?? Image.asset(AppEraAssets.uploadAdmin)
-          ),
+              onTap: () {},
+              child: image ?? Image.asset(AppEraAssets.uploadAdmin)),
         ),
         Padding(
           padding: EdgeInsets.all(8.sp),
           child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Button(
-              onTap: (){
+              onTap: () {
                 //todo change picture
               },
               margin: EdgeInsets.symmetric(horizontal: 5),
@@ -324,7 +341,7 @@ class HomePage extends GetView<ContentManagementController> {
               borderRadius: BorderRadius.circular(30),
             ),
             Button(
-              onTap: (){
+              onTap: () {
                 //todo delete picture ( delete in db too )
               },
               margin: EdgeInsets.symmetric(horizontal: 5),

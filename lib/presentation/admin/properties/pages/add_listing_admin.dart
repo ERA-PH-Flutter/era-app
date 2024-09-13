@@ -1,13 +1,10 @@
-import 'package:eraphilippines/app.dart';
-import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/listing_admin_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
@@ -21,7 +18,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/models/geocode.dart';
 import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
-import '../controllers/listing_admin_controller.dart';
 //todo add text
 
 class AddPropertyAdmin extends GetView<ListingsController> {
@@ -29,6 +25,8 @@ class AddPropertyAdmin extends GetView<ListingsController> {
 
   @override
   Widget build(BuildContext context) {
+    //temporary
+    //AgentAdminController controllers = Get.put(AgentAdminController());
     AddListingsController addListingsController =
         Get.put(AddListingsController());
     return Obx(() {
@@ -93,8 +91,8 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                             selectedItem:
                                 addListingsController.selectedPropertyT,
                             Types: addListingsController.propertyT,
-                            onChanged: (value) =>
-                                addListingsController.selectedPropertyT,
+                            onChanged: (value) => addListingsController
+                                .selectedPropertyT.value = value!,
                             name: 'Property Type *',
                             hintText: 'Edit Property Type'),
                       ),
@@ -124,40 +122,39 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                     ],
                   ),
                 ),
-
-                // AddListings.buildWidget(
-                //   'Address',
-                //   TextformfieldWidget(
-                //     controller: addListingsController.addressController,
-                //     hintText: 'Address',
-                //     maxLines: 1,
-                //     keyboardType: TextInputType.text,
-                //   ),
-                // ),
+                AddListings.buildWidget(
+                  'Address',
+                  TextformfieldWidget(
+                    controller: addListingsController.addressController,
+                    hintText: 'Address',
+                    maxLines: 1,
+                    keyboardType: TextInputType.text,
+                  ),
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     Container(
-                      //       height: 126.h,
-                      //       width: Get.width / 5.1 - 4.w,
-                      //       child: AddListings.dropDownAddlistings(
-                      //           padding: EdgeInsets.zero,
-                      //           selectedItem:
-                      //               addListingsController.selectedOfferT,
-                      //           Types: addListingsController.offerT,
-                      //           onChanged: (value) =>
-                      //               addListingsController.selectedOfferT,
-                      //           name: 'Offer Types *',
-                      //           hintText: 'Select Offer Types'),
-                      //     ),
-                      //   ],
-                      // ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 126.h,
+                            width: Get.width / 5.1 - 4.w,
+                            child: AddListings.dropDownAddlistings(
+                                padding: EdgeInsets.zero,
+                                selectedItem:
+                                    addListingsController.selectedOfferT,
+                                Types: addListingsController.offerT,
+                                onChanged: (value) => addListingsController
+                                    .selectedOfferT.value = value!,
+                                name: 'Offer Type *',
+                                hintText: 'Select Offer Type'),
+                          ),
+                        ],
+                      ),
                       sbw25(),
                       Container(
                         height: 126.h,
@@ -166,8 +163,8 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                             padding: EdgeInsets.zero,
                             selectedItem: addListingsController.selectedView,
                             Types: addListingsController.viewL,
-                            onChanged: (value) =>
-                                addListingsController.selectedView,
+                            onChanged: (value) => addListingsController
+                                .selectedView.value = value!,
                             name: 'View *',
                             hintText: 'Select View'),
                       ),
@@ -181,7 +178,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                 .selectedPropertySubCategory,
                             Types: addListingsController.subCategory,
                             onChanged: (value) => addListingsController
-                                .selectedPropertySubCategory,
+                                .selectedPropertySubCategory.value = value!,
                             name: 'Subcategory Type *',
                             hintText: 'Select Subcategory Type'),
                       ),
@@ -273,19 +270,35 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                             //scrollDirection: Axis.horizontal,
                             itemCount: addListingsController.images.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                margin:
-                                    EdgeInsets.only(right: 10.w, bottom: 10.w),
-                                alignment: Alignment.center,
-                                height: 400.h,
-                                width: 400.w,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: MemoryImage(
-                                          addListingsController.images[index],
-                                        ))),
+                              return Stack(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        right: 10.w, bottom: 10.w),
+                                    alignment: Alignment.center,
+                                    height: 400.h,
+                                    width: 400.w,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: MemoryImage(
+                                              addListingsController
+                                                  .images[index],
+                                            ))),
+                                  ),
+                                  Positioned(
+                                    top: 5.h,
+                                    right: 0,
+                                    child: IconButton(
+                                      icon: Icon(Icons.cancel),
+                                      onPressed: () {
+                                        addListingsController.images
+                                            .removeAt(index);
+                                      },
+                                    ),
+                                  ),
+                                ],
                               );
                             }));
                     //return Image.memory(addListingsController.images.first);
@@ -312,181 +325,187 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.sp),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Button(
-                          onTap: () async {
-                            BaseController().showLoading();
-                            if (addListingsController
-                                .propertyNameController.text.isEmpty) {
-                              showErroDialogs(
-                                title: "Error",
-                                description:
-                                    "All fields are required! Only Description is optional",
-                              );
-                              return;
-                            }
+                  child:
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    Button(
+                      onTap: () async {
+                        BaseController().showLoading();
+                        if (addListingsController
+                            .propertyNameController.text.isEmpty) {
+                          showErroDialogs(
+                            title: "Error",
+                            description:
+                                "All fields are required! Only Description is optional property name",
+                          );
+                          return;
+                        }
 
-                            if (addListingsController
-                                .propertyCostController.text.isEmpty) {
-                              showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
+                        if (addListingsController
+                            .propertyCostController.text.isEmpty) {
+                          showErroDialogs(
+                            title: "Error",
+                            description:
+                                "All fields are required! property cost",
+                          );
+                          return;
+                        }
 
-                            if (addListingsController
-                                .pricePerSqmController.text.isEmpty) {
-                              showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
-                            if (addListingsController
-                                .bedsController.text.isEmpty) {
-                              showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
-                            if (addListingsController
-                                .bathsController.text.isEmpty) {
-                              showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
-                            if (addListingsController
-                                .addressController.text.isEmpty) {
-                              showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
-                            if (addListingsController
-                                .carsController.text.isEmpty) {
-                              showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
-                            if (addListingsController
-                                .areaController.text.isEmpty) {
-                              showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
+                        if (addListingsController
+                            .pricePerSqmController.text.isEmpty) {
+                          showErroDialogs(
+                            title: "Error",
+                            description:
+                                "All fields are required! price per sqm",
+                          );
+                          return;
+                        }
+                        if (addListingsController.bedsController.text.isEmpty) {
+                          showErroDialogs(
+                            title: "Error",
+                            description: "All fields are required! beds",
+                          );
+                          return;
+                        }
+                        if (addListingsController
+                            .bathsController.text.isEmpty) {
+                          showErroDialogs(
+                            title: "Error",
+                            description: "All fields are required! baths",
+                          );
+                          return;
+                        }
+                        if (addListingsController
+                            .addressController.text.isEmpty) {
+                          showErroDialogs(
+                            title: "Error",
+                            description: "All fields are required! address",
+                          );
+                          return;
+                        }
+                        if (addListingsController.carsController.text.isEmpty) {
+                          showErroDialogs(
+                            title: "Error",
+                            description: "All fields are required!  cars",
+                          );
+                          return;
+                        }
+                        if (addListingsController.areaController.text.isEmpty) {
+                          showErroDialogs(
+                            title: "Error",
+                            description: "All fields are required! area",
+                          );
+                          return;
+                        }
 
-                            if (addListingsController.selectedOfferT.value ==
-                                null) {
-                              showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
+                        if (addListingsController.selectedOfferT.value ==
+                            null) {
+                          showErroDialogs(
+                            title: "Error",
+                            description: "All fields are required!  offer type",
+                          );
+                          return;
+                        }
 
-                            if (addListingsController.selectedView.value ==
-                                null) {
-                              showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
-                            if (addListingsController.selectedPropertyT.value ==
-                                null) {
-                              showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
-                            if (addListingsController
-                                    .selectedPropertySubCategory.value ==
-                                null) {
-                              showErroDialogs(
-                                title: "Error",
-                                description:
-                                    "All fields are required! Only Description is optional",
-                              );
-                              return;
-                            }
-                            BaseController().hideLoading();
-                            try {
-                              await Listing(
-                                  name: addListingsController
-                                      .propertyNameController.text,
-                                  price: addListingsController
-                                      .propertyCostController.text
-                                      .replaceAll(',', '')
-                                      .toDouble(),
-                                  ppsqm: addListingsController
-                                      .pricePerSqmController.text
-                                      .toDouble(),
-                                  beds: addListingsController
-                                      .bedsController.text
-                                      .toInt(),
-                                  baths: addListingsController
-                                      .bathsController.text
-                                      .toInt(),
-                                  cars: addListingsController
-                                      .carsController.text
-                                      .toInt(),
-                                  area: addListingsController
-                                      .areaController.text
-                                      .toInt(),
-                                  status: addListingsController
-                                      .selectedOfferT.value
-                                      .toString(),
-                                  // view: controller.selectedView.value.toString(),
-                                  location: addListingsController.add.city,
-                                  type: addListingsController.selectedPropertyT.value.toString(),
-                                  subCategory: addListingsController.selectedPropertySubCategory.value.toString(),
-                                  description: addListingsController.descController.text,
-                                  view: addListingsController.selectedView.value.toString(),
-                                  address: addListingsController.addressController.text,
-                                  latLng: [
-                                    addListingsController.latLng!.latitude,
-                                    addListingsController.latLng!.longitude
-                                  ]).addListing(
-                                  addListingsController.images, user!.id);
-                              addListingsController.showSuccessDialog(
-                                  hitApi: () {
-                                    //todo trigger referesh in dashboard
-                                    // Get.offAllNamed(RouteString.agentDashBoard);
-                                  },
-                                  title: "Add Listing Success",
-                                  description:
-                                      "Listing has been uploaded to the database.");
-                            } catch (e, ex) {
-                              print(e);
-                              print(ex);
-                            }
-                          },
-                          margin: EdgeInsets.symmetric(horizontal: 5),
-                          width: 150.w,
-                          text: 'SUBMIT',
-                          bgColor: AppColors.blue,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        Button(
-                          margin: EdgeInsets.symmetric(horizontal: 5),
-                          width: 150.w,
-                          text: 'CANCEL',
-                          bgColor: AppColors.hint,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ]),
+                        if (addListingsController.selectedView.value == null) {
+                          showErroDialogs(
+                            title: "Error",
+                            description: "All fields are required! view",
+                          );
+                          return;
+                        }
+                        if (addListingsController.selectedPropertyT.value ==
+                            null) {
+                          showErroDialogs(
+                            title: "Error",
+                            description:
+                                "All fields are required! property type",
+                          );
+                          return;
+                        }
+                        if (addListingsController
+                                .selectedPropertySubCategory.value ==
+                            null) {
+                          showErroDialogs(
+                            title: "Error",
+                            description:
+                                "All fields are required! Only Description is optional",
+                          );
+                          return;
+                        }
+                        BaseController().hideLoading();
+                        try {
+                          await Listing(
+                              name: addListingsController
+                                  .propertyNameController.text,
+                              price: addListingsController
+                                  .propertyCostController.text
+                                  .replaceAll(',', '')
+                                  .toDouble(),
+                              ppsqm: addListingsController
+                                  .pricePerSqmController.text
+                                  .toDouble(),
+                              beds: addListingsController.bedsController.text
+                                  .toInt(),
+                              baths: addListingsController.bathsController.text
+                                  .toInt(),
+                              cars: addListingsController.carsController.text
+                                  .toInt(),
+                              area: addListingsController.areaController.text
+                                  .toInt(),
+                              status: addListingsController.selectedOfferT.value
+                                  .toString(),
+                              // view: controller.selectedView.value.toString(),
+                              location: addListingsController.add.city,
+                              type: addListingsController
+                                  .selectedPropertyT.value
+                                  .toString(),
+                              subCategory: addListingsController
+                                  .selectedPropertySubCategory.value
+                                  .toString(),
+                              description:
+                                  addListingsController.descController.text,
+                              view: addListingsController.selectedView.value
+                                  .toString(),
+                              address:
+                                  addListingsController.addressController.text,
+                              latLng: [
+                                addListingsController.latLng!.latitude,
+                                addListingsController.latLng!.longitude
+                              ]).addListing(
+                              addListingsController.images, user!.id);
+                          addListingsController.showSuccessDialog(
+                              hitApi: () {
+                                Get.delete<AddListingsController>();
+
+                                Get.put(AddListingsController());
+
+                                Get.back();
+                                addListingsController.clearFields();
+                                //todo trigger referesh in dashboard
+                                // Get.offAllNamed(RouteString.agentDashBoard);
+                              },
+                              title: "Add Listing Success",
+                              description:
+                                  "Listing has been uploaded to the database.");
+                        } catch (e, ex) {
+                          print(e);
+                          print(ex);
+                        }
+                      },
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      width: 150.w,
+                      text: 'SUBMIT',
+                      bgColor: AppColors.blue,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    Button(
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      width: 150.w,
+                      text: 'CANCEL',
+                      bgColor: AppColors.hint,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ]),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -495,7 +514,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
             ),
           ),
         );
-      } else if (controller.state.value == AdminEditState.loaded) {
+      } else if (controller.state.value == AdminEditState.picker) {
         return _picker();
       } else {
         return _loading();
@@ -555,6 +574,8 @@ class AddPropertyAdmin extends GetView<ListingsController> {
 
                   // }
                   // if (Get.isDialogOpen!)
+                  Get.back();
+                  Get.back();
                   Get.back();
                 },
                 bgColor: AppColors.primary,
