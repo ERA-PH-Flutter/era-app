@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -122,7 +123,7 @@ class CloudStorage {
   Future<String> uploadFromMemory(
       {required file, required String target, customName}) async {
     try {
-      var filename = file.path.split("/")[file.path.split("/").length - 1];
+      var filename = "${Random().nextInt(100)}";
       var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename";
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putData(file);
