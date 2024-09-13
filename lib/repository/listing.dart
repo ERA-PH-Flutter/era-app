@@ -134,8 +134,14 @@ class Listing {
   addListing(images, userId) async {
     photos = [];
     for (int i = 0; i < images!.length; i++) {
-      photos!.add(await CloudStorage()
-          .upload(file: kIsWeb ? File.fromRawPath(images![i]) : images![i], target: 'listings/$userId'));
+      if(kIsWeb){
+        photos!.add(await CloudStorage()
+            .uploadFromMemory(file: images![i], target: 'listings/$userId'));
+      }else{
+        photos!.add(await CloudStorage()
+            .upload(file: images![i], target: 'listings/$userId'));
+      }
+
     }
     DocumentReference<Map<String, dynamic>> doc =
         db.collection('listings').doc();

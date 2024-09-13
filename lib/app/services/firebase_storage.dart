@@ -119,6 +119,19 @@ class CloudStorage {
       return "error $e";
     }
   }
+  Future<String> uploadFromMemory(
+      {required file, required String target, customName}) async {
+    try {
+      var filename = file.path.split("/")[file.path.split("/").length - 1];
+      var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename";
+      var fileRef = ref.child('$target/${customName ?? uploadFilename}');
+      await fileRef.putData(file);
+      return '$target/${customName ?? uploadFilename}';
+    } catch (e,ex) {
+      print(ex);
+      return "error $e";
+    }
+  }
 
   Future<String> uploadImage({required File image}) async {
     try {
