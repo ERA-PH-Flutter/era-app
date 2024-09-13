@@ -1,10 +1,13 @@
+import 'package:eraphilippines/app.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/admin/properties/controllers/listing_admin_controller.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
@@ -18,6 +21,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/models/geocode.dart';
 import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
+import '../controllers/listing_admin_controller.dart';
 //todo add text
 
 class AddPropertyAdmin extends GetView<ListingsController> {
@@ -25,8 +29,6 @@ class AddPropertyAdmin extends GetView<ListingsController> {
 
   @override
   Widget build(BuildContext context) {
-    //temporary
-    //AgentAdminController controllers = Get.put(AgentAdminController());
     AddListingsController addListingsController =
         Get.put(AddListingsController());
     return Obx(() {
@@ -123,30 +125,39 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                   ),
                 ),
 
+                // AddListings.buildWidget(
+                //   'Address',
+                //   TextformfieldWidget(
+                //     controller: addListingsController.addressController,
+                //     hintText: 'Address',
+                //     maxLines: 1,
+                //     keyboardType: TextInputType.text,
+                //   ),
+                // ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 126.h,
-                            width: Get.width / 5.1 - 4.w,
-                            child: AddListings.dropDownAddlistings(
-                                padding: EdgeInsets.zero,
-                                selectedItem:
-                                    addListingsController.selectedOfferT,
-                                Types: addListingsController.offerT,
-                                onChanged: (value) =>
-                                    addListingsController.selectedOfferT,
-                                name: 'Offer Type *',
-                                hintText: 'Select Offer Type'),
-                          ),
-                        ],
-                      ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Container(
+                      //       height: 126.h,
+                      //       width: Get.width / 5.1 - 4.w,
+                      //       child: AddListings.dropDownAddlistings(
+                      //           padding: EdgeInsets.zero,
+                      //           selectedItem:
+                      //               addListingsController.selectedOfferT,
+                      //           Types: addListingsController.offerT,
+                      //           onChanged: (value) =>
+                      //               addListingsController.selectedOfferT,
+                      //           name: 'Offer Types *',
+                      //           hintText: 'Select Offer Types'),
+                      //     ),
+                      //   ],
+                      // ),
                       sbw25(),
                       Container(
                         height: 126.h,
@@ -484,7 +495,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
             ),
           ),
         );
-      } else if (controller.state.value == AdminEditState.picker) {
+      } else if (controller.state.value == AdminEditState.loaded) {
         return _picker();
       } else {
         return _loading();

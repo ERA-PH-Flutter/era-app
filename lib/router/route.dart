@@ -3,8 +3,8 @@ import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/contr
 import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/pages/home_analytics.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_binding.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.dart';
-import 'package:eraphilippines/presentation/admin/project_management/controllers/listingsAdmin_bindings.dart';
-import 'package:eraphilippines/presentation/admin/project_management/pages/edit_listing_admin.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_bindings.dart';
+import 'package:eraphilippines/presentation/admin/properties/pages/edit_listing_admin.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_bindings.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';

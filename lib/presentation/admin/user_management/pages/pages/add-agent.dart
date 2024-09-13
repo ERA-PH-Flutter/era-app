@@ -3,10 +3,8 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
-import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
@@ -26,7 +24,8 @@ class AddAgent extends GetView<AgentAdminController> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
+        padding:
+            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,10 +51,15 @@ class AddAgent extends GetView<AgentAdminController> {
                 'Date of Birth *',
                 controller.dateBirthA,
                 'Gender *',
-                controller.sexA,onTap: ()async{
-                  var date = await showDatePicker(context: Get.context!, firstDate: DateTime(1930), lastDate: DateTime(2005),currentDate: DateTime(2000));
-                  controller.dateBirthA.text = DateFormat('MM dd, yyyy').format(date!);
-                }),
+                controller.sexA, onTap: () async {
+              var date = await showDatePicker(
+                  context: Get.context!,
+                  firstDate: DateTime(1930),
+                  lastDate: DateTime(2005),
+                  currentDate: DateTime(2000));
+              controller.dateBirthA.text =
+                  DateFormat('MM dd, yyyy').format(date!);
+            }),
             SizedBox(
               height: 10.h,
             ),
@@ -183,10 +187,14 @@ class AddAgent extends GetView<AgentAdminController> {
               padding: EdgeInsets.all(8.sp),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Button(
-                  onTap: ()async{
-                    try{
-                      await Authentication().signup(email: controller.emailAdressA.text,password: controller.passwordA.text);
-                      var id = await Authentication().login(email: controller.emailAdressA.text,password: controller.passwordA.text);
+                  onTap: () async {
+                    try {
+                      await Authentication().signup(
+                          email: controller.emailAdressA.text,
+                          password: controller.passwordA.text);
+                      var id = await Authentication().login(
+                          email: controller.emailAdressA.text,
+                          password: controller.passwordA.text);
                       //var image = await CloudStorage().upload(file: controller.images, target: 'users/test/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}');
                       await EraUser(
                         id: id,
@@ -203,20 +211,18 @@ class AddAgent extends GetView<AgentAdminController> {
                         description: controller.descriptionA.text,
                       ).add();
                       BaseController().showSuccessDialog(
-                        title: "Add Agent Success",
-                        description: "Agent added successfully!",
-                        hitApi: (){
-                          Get.back();
-                        }
-                      );
-                    }catch(e){
+                          title: "Add Agent Success",
+                          description: "Agent added successfully!",
+                          hitApi: () {
+                            Get.back();
+                          });
+                    } catch (e) {
                       BaseController().showSuccessDialog(
-                        title: "Error!",
-                        description: "$e",
-                        hitApi:(){
-                          Get.back();
-                        }
-                      );
+                          title: "Error!",
+                          description: "$e",
+                          hitApi: () {
+                            Get.back();
+                          });
                     }
                   },
                   margin: EdgeInsets.symmetric(horizontal: 5),
@@ -334,7 +340,8 @@ class AddAgent extends GetView<AgentAdminController> {
       String text2,
       TextEditingController controller2,
       String text3,
-      TextEditingController controller3,{onTap}) {
+      TextEditingController controller3,
+      {onTap}) {
     return Padding(
       padding: EdgeInsets.only(left: 10.w),
       child: Row(
@@ -375,9 +382,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 height: 60.h,
                 width: Get.width / 5.1 - 3.w,
                 child: TextformfieldWidget(
-                  onTap: onTap ?? (){
-
-                  },
+                  onTap: onTap ?? () {},
                   controller: controller2,
                   fontSize: 18.sp,
                   maxLines: 1,

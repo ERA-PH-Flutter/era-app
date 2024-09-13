@@ -19,7 +19,8 @@ class ApprovedAgents extends GetView<AgentAdminController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+      padding:
+          EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -29,24 +30,27 @@ class ApprovedAgents extends GetView<AgentAdminController> {
             color: AppColors.black,
             fontSize: 25.sp,
           ),
+          sb20(),
           Container(
             height: 800.h,
             child: StreamBuilder(
-              stream: FirebaseFirestore.instance.collection('users').where('status',isEqualTo: 'disabled').snapshots(),
-              builder: (context,snapshot){
-                if(snapshot.hasData){
-                  return agentApproval(
-                    listingModels: snapshot.data!.docs.map((doc){
-                      return EraUser.fromJSON(doc.data());
-                    }).toList(),
-                  );
-                }else{
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              }
-            ),
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .where('status', isEqualTo: 'disabled')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return agentApproval(
+                      listingModels: snapshot.data!.docs.map((doc) {
+                        return EraUser.fromJSON(doc.data());
+                      }).toList(),
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
           )
         ],
       ),
@@ -258,7 +262,8 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                 GestureDetector(
                                   onTap: () {
                                     //todo record approve by
-                                    listingModels[i].position = controller.selectedAgentType.value;
+                                    listingModels[i].position =
+                                        controller.selectedAgentType.value;
                                     listingModels[i].status = "approved";
                                     listingModels[i].update();
                                     Get.back();

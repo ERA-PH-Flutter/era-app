@@ -5,7 +5,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
-import 'package:eraphilippines/presentation/admin/project_management/controllers/listing_admin_controller.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/listing_admin_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
@@ -22,27 +22,30 @@ class EditPropertyAdmin extends GetView<ListingsController> {
   const EditPropertyAdmin({super.key});
   @override
   Widget build(BuildContext context) {
-
     //  Get.find<LandingPageController>().arguments;
-    return Obx(()=>switch(controller.state.value){
-      AdminEditState.loading => _loading(),
-      AdminEditState.loaded => _loaded(),
-      AdminEditState.picker => _picker(),
-    });
+    return Obx(() => switch (controller.state.value) {
+          AdminEditState.loading => _loading(),
+          AdminEditState.loaded => _loaded(),
+          AdminEditState.picker => _picker(),
+        });
   }
-  _loading(){
+
+  _loading() {
     //controller.loadData();
     return Center(
       child: CircularProgressIndicator(),
     );
   }
-  _loaded(){
+
+  _loaded() {
     Get.put(AddListingsController());
-    AddListingsController addListingsController = Get.find<AddListingsController>();
+    AddListingsController addListingsController =
+        Get.find<AddListingsController>();
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+        padding:
+            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -97,7 +100,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                         selectedItem: addListingsController.selectedPropertyT,
                         Types: addListingsController.propertyT,
                         onChanged: (value) =>
-                        addListingsController.selectedPropertyT,
+                            addListingsController.selectedPropertyT.value,
                         name: 'Property Type *',
                         hintText: 'Edit Property Type'),
                   ),
@@ -106,23 +109,35 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                     width: Get.width / 2.46,
                     child: Column(
                       children: [
-                        SizedBox(height: 37.h,),
+                        SizedBox(
+                          height: 37.h,
+                        ),
                         Button(
                           height: 65.h,
                           width: Get.width / 2.2,
-                          margin: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                          margin: EdgeInsets.symmetric(
+                              horizontal: EraTheme.paddingWidth),
                           fontSize: 20.sp,
                           bgColor: Colors.red,
                           text: 'Pick Address',
                           onTap: () {
-                            controller.state.value =
-                                AdminEditState.picker;
+                            controller.state.value = AdminEditState.picker;
                           },
                         ),
                       ],
                     ),
                   ),
                 ],
+              ),
+            ),
+
+            AddListings.buildWidget(
+              'Address',
+              TextformfieldWidget(
+                controller: addListingsController.addressController,
+                hintText: 'Address',
+                maxLines: 1,
+                keyboardType: TextInputType.text,
               ),
             ),
             SizedBox(
@@ -145,7 +160,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                             selectedItem: addListingsController.selectedOfferT,
                             Types: addListingsController.offerT,
                             onChanged: (value) =>
-                            addListingsController.selectedOfferT,
+                                addListingsController.selectedOfferT.value,
                             name: 'Offer Type *',
                             hintText: 'Edit Offer Type'),
                       ),
@@ -160,7 +175,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                         selectedItem: addListingsController.selectedView,
                         Types: addListingsController.viewL,
                         onChanged: (value) =>
-                        addListingsController.selectedView,
+                            addListingsController.selectedView.value,
                         name: 'View *',
                         hintText: 'Edit View'),
                   ),
@@ -171,10 +186,10 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
                         selectedItem:
-                        addListingsController.selectedPropertySubCategory,
+                            addListingsController.selectedPropertySubCategory,
                         Types: addListingsController.subCategory,
-                        onChanged: (value) =>
-                        addListingsController.selectedPropertySubCategory,
+                        onChanged: (value) => addListingsController
+                            .selectedPropertySubCategory.value,
                         name: 'Subcategory Type *',
                         hintText: 'Edit Subcategory Type'),
                   ),
@@ -225,14 +240,12 @@ class EditPropertyAdmin extends GetView<ListingsController> {
               padding: EdgeInsets.all(8.sp),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Button(
-                  onTap:()async{
-                    try{
+                  onTap: () async {
+                    try {
                       await addListingsController.updateListing();
                       Get.delete<AddListingsController>();
                       Get.find<LandingPageController>().onSectionSelected(5);
-                    }catch(e){
-
-                    }
+                    } catch (e) {}
                   },
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   width: 150.w,
@@ -257,6 +270,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
       ),
     );
   }
+
   _picker() {
     AddListingsController c = Get.find<AddListingsController>();
     return WillPopScope(
@@ -282,13 +296,12 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                     c.generateMarker(position);
                     c.latLng = position;
                     c.add = (await GeoCode(
-                        apiKey: "65d99e660931a611004109ogd35593a",
-                        lat: position.latitude,
-                        lng: position.longitude)
+                            apiKey: "65d99e660931a611004109ogd35593a",
+                            lat: position.latitude,
+                            lng: position.longitude)
                         .reverse());
                     c.address.value = c.add.displayName!;
-                    c.addressController.text =
-                        c.address.value;
+                    c.addressController.text = c.address.value;
                   },
                 ),
               ),
@@ -299,31 +312,31 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                   padding: EdgeInsets.symmetric(
                       horizontal: EraTheme.paddingWidthSmall, vertical: 10.h),
                   margin:
-                  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Obx(() => EraText(
-                    text: "Address: ${c.address.value}",
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  )),
+                        text: "Address: ${c.address.value}",
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                      )),
                 ),
               ),
+
               Positioned(
                 bottom: 21.w,
                 child: Container(
                   alignment: Alignment.center,
-                  width: Get.width  - 270.w,
+                  width: Get.width - 270.w,
                   margin:
-                  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                   height: 50.h,
                   child: Button(
                     width: Get.width - (EraTheme.paddingWidth * 2),
                     onTap: () {
-                      controller.state.value =
-                          AdminEditState.loaded;
+                      controller.state.value = AdminEditState.loaded;
                     },
                     bgColor: AppColors.kRedColor,
                     text: "Select Location",
