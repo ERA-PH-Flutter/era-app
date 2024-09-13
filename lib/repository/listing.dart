@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/repository/user.dart';
+import 'package:flutter/foundation.dart';
 
 import '../presentation/global.dart';
 
@@ -132,7 +135,7 @@ class Listing {
     photos = [];
     for (int i = 0; i < images!.length; i++) {
       photos!.add(await CloudStorage()
-          .upload(file: images![i], target: 'listings/$userId'));
+          .upload(file: kIsWeb ? File.fromRawPath(images![i]) : images![i], target: 'listings/$userId'));
     }
     DocumentReference<Map<String, dynamic>> doc =
         db.collection('listings').doc();

@@ -18,6 +18,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/models/geocode.dart';
 import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
+import '../../landingpage/controllers/landingpage_controller.dart';
 //todo add text
 
 class AddPropertyAdmin extends GetView<ListingsController> {
@@ -451,8 +452,9 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                   addListingsController.images, user!.id);
                               addListingsController.showSuccessDialog(
                                   hitApi: () {
-                                    //todo trigger referesh in dashboard
-                                    // Get.offAllNamed(RouteString.agentDashBoard);
+                                    Get.find<LandingPageController>()
+                                        .onSectionSelected(7);
+                                    Get.delete<AddListingsController>();
                                   },
                                   title: "Add Listing Success",
                                   description:
