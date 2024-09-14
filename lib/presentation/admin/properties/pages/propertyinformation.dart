@@ -4,6 +4,8 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/repository/listing.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -279,6 +281,23 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                     text: 'DELETE',
                                     bgColor: AppColors.hint,
                                     borderRadius: BorderRadius.circular(30),
+                                    onTap: () {
+                                      BaseController().showSuccessDialog(
+                                          title: "Confirm",
+                                          description:
+                                              "Do you want to delete this listing?",
+                                          hitApi: () async {
+                                            BaseController().showLoading();
+                                            await Listing().deleteListingsById(
+                                                controller.listing!.id);
+                                            BaseController().hideLoading();
+                                            // controller.agentListingsState.value =
+                                            //     AgentListingsState.loading;
+                                            Get.back();
+                                            //        await controller.loadListing();
+                                          },
+                                          cancelable: true);
+                                    },
                                   ),
                                 ]),
                           ),
