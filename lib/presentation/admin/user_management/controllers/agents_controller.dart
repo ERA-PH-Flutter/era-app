@@ -70,6 +70,9 @@ class AgentAdminController extends GetxController with BaseController {
   TextEditingController licensedNumA = TextEditingController();
   TextEditingController parking = TextEditingController();
 
+// roster
+  TextEditingController message = TextEditingController();
+
   clearfield() {
     fNameA.clear();
     lNameA.clear();

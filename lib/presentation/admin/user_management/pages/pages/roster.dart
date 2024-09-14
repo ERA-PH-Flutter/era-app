@@ -13,6 +13,8 @@ import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.
 
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -61,14 +63,15 @@ class Roster extends GetView<AgentAdminController> {
               ),
             ),
             StreamBuilder(
-              stream: FirebaseFirestore.instance.collection('users').snapshots(),
-              builder: (context,snapshot){
-                if(snapshot.hasData){
-                  List<EraUser> users = snapshot.data!.docs.map((doc){
+              stream:
+                  FirebaseFirestore.instance.collection('users').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<EraUser> users = snapshot.data!.docs.map((doc) {
                     return EraUser.fromJSON(doc.data());
                   }).toList();
                   return rosterGridview(listingModels: users);
-                }else{
+                } else {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
@@ -192,16 +195,83 @@ class Roster extends GetView<AgentAdminController> {
             SizedBox(
               height: 20.h,
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 250.w),
-              child: Button(
-                width: 150.w,
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Button(
+                onTap: () {
+                  //NOT DONE YET TO DO NIKKO
+                  BaseController().showSuccessDialog(
+                      title: "Confirm",
+                      description: "Do you want to delete this User?",
+                      hitApi: () async {
+                        BaseController().showLoading();
+                        await EraUser().delete();
+                        BaseController().hideLoading();
+
+                        Get.back();
+                      },
+                      cancelable: true);
+                },
+                width: 170.w,
+                fontSize: EraTheme.buttonFontSizeSmall,
+                text: 'DELETE',
+                bgColor: AppColors.kRedColor,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              sbw10(),
+              Button(
+                onTap: () {
+                  Get.dialog(AlertDialog(
+                    backgroundColor: AppColors.white,
+                    title: GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            Icons.close,
+                            color: AppColors.black,
+                          ),
+                        )),
+                    content: Stack(
+                      children: [
+                        SizedBox(
+                          height: 250.h,
+                          width: Get.width - 400.w,
+                          child: Column(
+                            children: [
+                              TextformfieldWidget(
+                                controller: controller.message,
+                                hintText: 'Type your message here',
+                                maxLines: 5,
+                                fontSize: 15.sp,
+                                textInputAction: TextInputAction.newline,
+                                keyboardType: TextInputType.multiline,
+                                color: AppColors.hint,
+                              ),
+                              sb30(),
+                              Button(
+                                onTap: () {},
+                                width: 170.w,
+                                fontSize: EraTheme.buttonFontSizeSmall,
+                                text: 'SUBMIT',
+                                bgColor: AppColors.blue,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ));
+                },
+                width: 170.w,
                 fontSize: EraTheme.buttonFontSizeSmall,
                 text: 'MESSAGE',
                 bgColor: AppColors.blue,
                 borderRadius: BorderRadius.circular(30),
               ),
-            ),
+            ]),
             sb20(),
           ],
         ),
