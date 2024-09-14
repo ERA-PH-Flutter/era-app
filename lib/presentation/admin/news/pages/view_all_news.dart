@@ -22,7 +22,6 @@ class ViewAllNews extends GetView<NewsController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            color: AppColors.hint.withOpacity(0.1),
             padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
             child: Column(
               children: [

@@ -47,7 +47,7 @@ class HomePage extends GetView<ContentManagementController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        UploadBannersWidget(controller: controller, maxImages: 15),
+        UploadBannersWidget(maxImages: 15),
         sb20(),
         // preview photos
         _uploadPreviewPhotos(),

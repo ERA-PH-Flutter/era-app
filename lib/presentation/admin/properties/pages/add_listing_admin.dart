@@ -279,13 +279,13 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                     height: 400.h,
                                     width: 400.w,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: MemoryImage(
-                                              addListingsController
-                                                  .images[index],
-                                            ))),
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: MemoryImage(
+                                            addListingsController.images[index],
+                                          )),
+                                    ),
                                   ),
                                   Positioned(
                                     top: 5.h,

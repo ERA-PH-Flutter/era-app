@@ -30,7 +30,7 @@ class ContentManagementController extends GetxController with BaseController {
   @override
   void onInit() async {
     try {
-      if(settings != null){
+      if (settings != null) {
         if (settings!.banners != null) {
           for (int i = 0; i < settings!.banners!.length; i++) {
             bannersImages.add(settings!.banners![i]);
@@ -75,6 +75,8 @@ class ContentManagementController extends GetxController with BaseController {
   }
 
   TextEditingController titleController = TextEditingController();
+  TextEditingController description = TextEditingController();
+
   Future getImageGallery() async {
     try {
       final imagePick = await picker.pickMultiImage();

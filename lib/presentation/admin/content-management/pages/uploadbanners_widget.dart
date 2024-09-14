@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/assets.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,19 +12,19 @@ import 'package:eraphilippines/presentation/admin/content-management/controllers
 import '../../../../app/constants/theme.dart';
 
 class UploadBannersWidget extends StatelessWidget {
-  final ContentManagementController controller;
   final String? text;
   final int maxImages;
 
   const UploadBannersWidget({
     super.key,
-    required this.controller,
     this.text,
     required this.maxImages,
   });
 
   @override
   Widget build(BuildContext context) {
+    AddListingsController addListingsController =
+        Get.put(AddListingsController());
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
@@ -35,8 +36,11 @@ class UploadBannersWidget extends StatelessWidget {
               // Reusing textBuild function
               AddListings.textBuild(text ?? 'UPLOAD BANNERS', EraTheme.header,
                   FontWeight.w600, AppColors.black),
-              AddListings.textBuild('${controller.images.length}/$maxImages',
-                  22.sp, FontWeight.w600, Colors.black)
+              Obx(() => AddListings.textBuild(
+                  '${addListingsController.images.length}/$maxImages',
+                  22.sp,
+                  FontWeight.w600,
+                  Colors.black)),
             ],
           ),
           SizedBox(height: 10.h),
@@ -57,8 +61,9 @@ class UploadBannersWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: () {
-                    controller.getImageGallery();
+                  onPressed: () async {
+                    print(addListingsController.pickImageFromWeb());
+                    await addListingsController.pickImageFromWeb();
                   },
                   icon: Icon(
                     CupertinoIcons.photo_fill_on_rectangle_fill,
@@ -76,7 +81,7 @@ class UploadBannersWidget extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Obx(() {
-            if (controller.images.isEmpty) {
+            if (addListingsController.images.isEmpty) {
               return _buildUploadPhoto();
             } else {
               return GridView.builder(
@@ -88,29 +93,51 @@ class UploadBannersWidget extends StatelessWidget {
                   mainAxisSpacing: 10.h,
                   crossAxisSpacing: 10.h,
                 ),
-                itemCount: controller.images.length,
+                itemCount: addListingsController.images.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: FileImage(controller.images[index]),
-                        fit: BoxFit.cover,
+                  return Stack(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 10.w, bottom: 10.w),
+                        alignment: Alignment.center,
+                        height: 400.h,
+                        width: Get.width - 100.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: MemoryImage(
+                                addListingsController.images[index],
+                              )),
+                        ),
                       ),
-                    ),
+                      Positioned(
+                        top: 0,
+                        right: 5.w,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.cancel,
+                            color: AppColors.black,
+                          ),
+                          onPressed: () {
+                            addListingsController.images.removeAt(index);
+                          },
+                        ),
+                      ),
+                    ],
                   );
                 },
               );
             }
           }),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: EraText(
-              text: 'Photo must be at least 300px X 300px',
-              fontSize: 15.sp,
-              color: AppColors.hint,
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 20.w),
+          //   child: EraText(
+          //     text: 'Photo must be at least 300px X 300px',
+          //     fontSize: 15.sp,
+          //     color: AppColors.hint,
+          //   ),
+          // ),
         ],
       ),
     );

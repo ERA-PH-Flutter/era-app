@@ -122,6 +122,8 @@ class AppEraAssets {
   static String listingDash = "${l}elements_Dash Listing.png";
   static String settingDash = "${l}elements_Dash Setting.png";
   static String messagingDash = "${l}elements_Dash Messaging.png";
+  static String news = "${l}news.png";
+  static String helpDash = "${l}help_web.png";
 
   static String profileAdmin = "${l}dah_user.png";
   static String mailAdmin = "${l}dah_messages.png";

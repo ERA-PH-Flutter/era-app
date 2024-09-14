@@ -1,5 +1,6 @@
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/news.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../app/services/local_storage.dart';
 
@@ -36,4 +37,7 @@ class NewsController extends GetxController {
       }
     }
   }
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController content = TextEditingController();
 }

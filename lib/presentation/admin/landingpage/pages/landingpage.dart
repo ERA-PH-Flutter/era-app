@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/about_us.dart';
+import 'package:eraphilippines/presentation/admin/news/pages/upload_news.dart';
 import 'package:eraphilippines/presentation/admin/news/pages/view_all_news.dart';
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/homepage.dart';
@@ -41,7 +42,11 @@ class LandingPage extends GetView<LandingPageController> {
     HomePage(), //9
     AboutUsPage(), //10
     ViewAllNews(), //11
-    HomePage(), //12
+    UploadNews(), //12
+    ViewAllNews(), //13
+    UploadNews(), //14
+
+    UploadNews(), //15
   ];
 
   @override
@@ -217,15 +222,24 @@ class LandingPage extends GetView<LandingPageController> {
             image: AppEraAssets.listingDash,
             children: [
               _buildMenuItem('HOMEPAGE', 9),
-              _buildMenuItem('ABOUT US', 10),
+              _buildMenuItem('ADD ABOUT US', 10),
             ],
           ),
           _buildExpansionTile(
             text: "NEWS",
-            image: AppEraAssets.listingDash,
+            image: AppEraAssets.news,
             children: [
-              _buildMenuItem('HOMEPAGE', 11),
-              _buildMenuItem('ABOUT US', 12),
+              _buildMenuItem('VIEW ALL NEWS', 11),
+              _buildMenuItem('ADD NEWS', 12),
+            ],
+          ),
+          _buildExpansionTile(
+            text: "FAQS",
+            image: AppEraAssets.helpDash,
+            children: [
+              _buildMenuItem('General FAQ’S', 11),
+              _buildMenuItem('Agent FAQ’s', 12),
+              _buildMenuItem('Customer FAQ’s', 13),
             ],
           ),
         ],
