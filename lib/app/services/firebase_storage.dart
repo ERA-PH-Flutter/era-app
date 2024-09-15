@@ -107,6 +107,19 @@ class CloudStorage {
     }
   }
 
+  Future<String> deleteAll({
+    required List fileList,
+  }) async {
+    try {
+      for(int i = 0;i < fileList.length;i++){
+        await ref.child(fileList[i]).delete();
+      }
+      return "success";
+    } catch (e) {
+      return "Error: $e";
+    }
+  }
+
   Future<String> upload(
       {required File file, required String target, customName}) async {
     try {

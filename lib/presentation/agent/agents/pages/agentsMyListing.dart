@@ -346,6 +346,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                                           "Do you want to delete this listing?",
                                       hitApi: () async {
                                         BaseController().showLoading();
+                                        await CloudStorage().deleteAll(fileList: listing.photos!);
                                         await Listing()
                                             .deleteListingsById(listing.id);
                                         BaseController().hideLoading();
