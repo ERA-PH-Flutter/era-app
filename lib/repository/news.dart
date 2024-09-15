@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 
 class News{
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -24,7 +25,10 @@ class News{
   getNews()async{
     return News.fromJSON((await db.collection('news').doc(id).get()).data() ?? {});
   }
-  addNews()async{
+  addNews(image)async{
+    if(image != null){
+      image = await CloudStorage().uploadFromMemory(file: image, target: "news",customName: "news_${DateTime.now().microsecondsSinceEpoch}");
+    }
     await db.collection('news').add(
       toMap()
     );

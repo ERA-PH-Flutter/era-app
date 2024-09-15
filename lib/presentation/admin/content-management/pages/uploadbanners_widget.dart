@@ -1,24 +1,30 @@
+import 'dart:typed_data';
+
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/constants/theme.dart';
 
 class UploadBannersWidget extends StatelessWidget {
   final String? text;
   final int maxImages;
+  Rx<Uint8List>? selectedImage;
 
-  const UploadBannersWidget({
+  UploadBannersWidget({
     super.key,
     this.text,
     required this.maxImages,
+    this.selectedImage,
   });
 
   @override
@@ -62,8 +68,18 @@ class UploadBannersWidget extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async {
-                    print(addListingsController.pickImageFromWeb());
-                    await addListingsController.pickImageFromWeb();
+                    if(maxImages != 1){
+                      await addListingsController.pickImageFromWeb();
+                    }else{
+                      try {
+                        final imagePick = await ImagePicker().pickImage(source: ImageSource.gallery);
+                        var image = await imagePick!.readAsBytes();
+                        selectedImage = (image).obs;
+                        addListingsController.images.value = [image];
+                      } catch (e) {
+                         print(e);
+                      }
+                    }
                   },
                   icon: Icon(
                     CupertinoIcons.photo_fill_on_rectangle_fill,
@@ -89,9 +105,10 @@ class UploadBannersWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount: maxImages == 1 ? 1 : 3,
                   mainAxisSpacing: 10.h,
                   crossAxisSpacing: 10.h,
+                  mainAxisExtent: maxImages == 1 ? 500.h : null,
                 ),
                 itemCount: addListingsController.images.length,
                 itemBuilder: (context, index) {
@@ -100,8 +117,6 @@ class UploadBannersWidget extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(right: 10.w, bottom: 10.w),
                         alignment: Alignment.center,
-                        height: 400.h,
-                        width: Get.width - 100.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(

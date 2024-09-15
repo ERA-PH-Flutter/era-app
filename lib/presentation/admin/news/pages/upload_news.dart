@@ -4,6 +4,8 @@ import 'package:eraphilippines/presentation/admin/content-management/pages/uploa
 import 'package:eraphilippines/presentation/admin/news/controller/new_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/repository/news.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,7 +27,7 @@ class UploadNews extends GetView<NewsController> {
         children: [
           sb30(),
           //to do  nikko only one image upload error if more than one
-          UploadBannersWidget(text: 'UPLOAD IMAGE', maxImages: 1),
+          UploadBannersWidget(text: 'UPLOAD IMAGE', maxImages: 1,selectedImage: controller.selectedNewsImage,),
           sb10(),
           AboutUsPage.title(
             controller: controller.titleController,
@@ -41,6 +43,29 @@ class UploadNews extends GetView<NewsController> {
             margin: EdgeInsets.only(right: 80.w),
             child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Button(
+                onTap:()async{
+                  try{
+                    await News(
+                      title: controller.titleController.text,
+                      description: controller.content.text,
+                    ).addNews(controller.selectedNewsImage);
+                    BaseController().showSuccessDialog(
+                        title: "Success!",
+                        description: "News has been added!",
+                        hitApi: (){
+                          Get.back();Get.back();
+                        }
+                    );
+                  }catch(e){
+                    BaseController().showSuccessDialog(
+                      title: "Error!",
+                      description: "Error: $e",
+                      hitApi: (){
+                        Get.back();Get.back();
+                      }
+                    );
+                  }
+                },
                 margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 150.w,
                 text: 'PUBLISH',

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/news.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,8 @@ class NewsController extends GetxController {
   // var selectedSection = AdminSection.homepage.obs;
   var selectedSectionIndex = 0.obs;
   var news = [];
-
+  Rx<Uint8List>? selectedNewsImage;
+  final OverlayPortalController menu = OverlayPortalController();
   getNews() async {
     if (settings!.featuredNews!.isNotEmpty) {
       for (int i = 0; i < settings!.featuredNews!.length; i++) {
@@ -37,6 +40,8 @@ class NewsController extends GetxController {
       }
     }
   }
+
+
 
   TextEditingController titleController = TextEditingController();
   TextEditingController content = TextEditingController();

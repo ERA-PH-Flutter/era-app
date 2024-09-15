@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/presentation/admin/news/controller/new_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -8,6 +11,7 @@ import 'package:get/get.dart';
 import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/app_text.dart';
+import '../../../../repository/news.dart';
 
 class ViewAllNews extends GetView<NewsController> {
   const ViewAllNews({super.key});
@@ -64,85 +68,106 @@ class ViewAllNews extends GetView<NewsController> {
                 SizedBox(
                   height: 550.h,
                   width: Get.width,
-                  child: GridView.builder(
-                    physics: ScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      mainAxisExtent: 390.w, //410
-                    ),
-                    itemCount: controller.news.length,
-                    itemBuilder: (context, i) => GestureDetector(
-                      onTap: () {
-                        Get.offAll(() => CompanyNewsPage(
-                            title: controller.news[i].title,
-                            image: controller.news[i].image,
-                            description: controller.news[i].description));
-                      },
-                      child: Container(
-                        width: Get.width,
-                        margin: EdgeInsets.only(bottom: 15.h, right: 12.w),
-                        child: Stack(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                CloudStorage().imageLoader(
-                                  ref: controller.news[i].image,
-                                  height: 250.h,
-                                ),
-                                Spacer(),
-                              ],
-                            ),
-                            Positioned(
-                              bottom: 15.h,
-                              left: -4.w,
-                              right: -4.w,
-                              top: 200.h,
-                              child: Card(
-                                color: AppColors.white,
-                                elevation: 3,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          EraTheme.paddingWidthSmall + 15.w,
-                                      vertical: 15.h),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      EraText(
-                                        text: controller.news[i].title,
-                                        fontSize: EraTheme.paragraph + 5.sp,
-                                        color: AppColors.kRedColor,
-                                        fontWeight: FontWeight.bold,
-                                        textOverflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
-                                      ),
-                                      EraText(
-                                        text: controller.news[i].description,
-                                        fontSize: EraTheme.paragraph - 2.sp,
-                                        color: AppColors.hint,
-                                        fontWeight: FontWeight.w500,
-                                        maxLines: 5,
-                                        textOverflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                    ],
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance.collection('news').snapshots(),
+                    builder: (context,snapshot){
+                      if(snapshot.hasData){
+                        return GridView.builder(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            mainAxisExtent: 390.w, //410
+                          ),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, i) {
+                            News news = News.fromJSON(snapshot.data!.docs[i].data());
+                            RxString selectedValue = "".obs;
+                            return GestureDetector(
+                            onTap: () {
+                              // Get.offAll(() => CompanyNewsPage(
+                              //     title: news.title,
+                              //     image: news.image,
+                              //     description: news.description));
+                            },
+                            child: Container(
+                              width: Get.width,
+                              margin: EdgeInsets.only(bottom: 15.h, right: 12.w),
+                              child: Stack(
+                                children: [
+                                  CloudStorage().imageLoaderProvider(
+                                    ref: news.image,
+                                    height: 250.h,
+                                    borderRadius: BorderRadius.circular(10.r)
                                   ),
-                                ),
+                                  //todo missy add functionality to this
+                                  Positioned(
+                                    top: 5.h,
+                                    right: 10.h,
+                                    child: IconButton(
+                                      onPressed: (){
+
+                                      },
+                                      icon: Icon(Icons.more_horiz_rounded,color: Colors.white,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
+                                    )
+                                  ),
+                                  Positioned(
+                                    bottom: 15.h,
+                                    left: -4.w,
+                                    right: -4.w,
+                                    top: 200.h,
+                                    child: Card(
+                                      color: AppColors.white,
+                                      elevation: 3,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20.r),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal:
+                                            EraTheme.paddingWidthSmall + 15.w,
+                                            vertical: 15.h),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            EraText(
+                                              text: news.title ?? "No title",
+                                              fontSize: EraTheme.paragraph + 5.sp,
+                                              color: AppColors.kRedColor,
+                                              fontWeight: FontWeight.bold,
+                                              textOverflow: TextOverflow.ellipsis,
+                                              maxLines: 3,
+                                            ),
+                                            EraText(
+                                              text: news.description ?? "No description",
+                                              fontSize: EraTheme.paragraph - 2.sp,
+                                              color: AppColors.hint,
+                                              fontWeight: FontWeight.w500,
+                                              maxLines: 5,
+                                              textOverflow: TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
+                          );
+                          }
+                        );
+                      }else{
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    }
                   ),
                 ),
               ],
