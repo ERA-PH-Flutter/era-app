@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
+
 class Settings{
+  String? settingsId;
   String appName;
   List? featuredListings;
   List? featuredProjects;
@@ -16,6 +20,7 @@ class Settings{
   double? exchangeRate;
   Settings({
     required this.appName,
+    this.settingsId,
     this.featuredListings,
     this.featuredProjects,
     this.featuredNews,
@@ -47,8 +52,67 @@ class Settings{
       rentalPicture: json['rental_picture'] ?? "",
       banners: json["banners"] ?? [],
       featuredAgents: json["featured_agents"] ?? [],
-      exchangeRate: json["exchange_rate"] ?? 0
+      exchangeRate: json["exchange_rate"] ?? 0,
+      settingsId: json['id'],
     );
   }
-
+  updatePicture(target,previousPicture,newPicture)async{
+    await CloudStorage().deleteFileDirect(docRef: previousPicture);
+    switch(target){
+      case "residential":
+        residentialPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "residential");
+      case "rental":
+        rentalPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "rental");
+      case "commercial":
+        commercialPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "commercial");
+      case "pre-selling":
+        preSellingPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "pre-selling");
+      default:
+        auctionPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "auction");
+    }
+    await update();
+  }
+  updateBanner(bannerImage)async{
+    banners!.add(await CloudStorage().uploadFromMemory(file: bannerImage, target: 'banners',customName: "banner_${banners!.length}"));
+    await update();
+  }
+  addToFeaturedListings(id)async{
+    if(!featuredListings!.contains(id)){
+      featuredListings!.add(id);
+      await update();
+    }
+  }
+  addToFeaturedNews(id)async{
+    if(!featuredNews!.contains(id)){
+      featuredNews!.add(id);
+      await update();
+    }
+  }
+  update()async{
+    try{
+      await FirebaseFirestore.instance.collection('settings').doc(settingsId).update(toMap());
+    }catch(e){
+      print(e);
+    }
+  }
+  toMap(){
+    return {
+      'app_name': appName,
+      'featured_listings': featuredListings,
+      'featured_projects': featuredProjects,
+      'featured_news': featuredNews,
+      'file_size': fileSizeLimit,
+      'maintenance': isMaintenance,
+      'splash_ad': splashAd,
+      'pre_selling_picture': preSellingPicture,
+      'residential_picture': residentialPicture,
+      'auction_picture': auctionPicture,
+      'commercial_picture': commercialPicture,
+      'rental_picture': rentalPicture,
+      'banners': banners,
+      'featured_agents': featuredAgents,
+      'exchange_rate': exchangeRate,
+      'id': settingsId,
+    };
+  }
 }
