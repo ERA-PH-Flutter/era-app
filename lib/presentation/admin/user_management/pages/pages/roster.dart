@@ -244,12 +244,13 @@ class Roster extends GetView<AgentAdminController> {
                                           icon: Icon(Icons.close,size: 25.sp,color: Colors.black,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
                                         )
                                     ),
-                                    _menuOptions("Message",()async{
-                                      //todo open modal with message textfield title and description
-                                    },CupertinoIcons.chat_bubble_fill),
+
                                     _menuOptions("Edit",()async{
                                       //todo move to edit users
                                     },Icons.edit),
+                                    _menuOptions("Message",()async{
+                                      //todo open modal with message textfield title and description
+                                    },CupertinoIcons.chat_bubble_fill),
                                     _menuOptions("Delete",()async{
                                       await listingModels[i].delete();
                                     },Icons.delete_rounded),
