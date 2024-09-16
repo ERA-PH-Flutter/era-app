@@ -195,84 +195,66 @@ class Roster extends GetView<AgentAdminController> {
             SizedBox(
               height: 20.h,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Button(
-                onTap: () {
-                  //NOT DONE YET TO DO NIKKO
-                  BaseController().showSuccessDialog(
-                      title: "Confirm",
-                      description: "Do you want to delete this User?",
-                      hitApi: () async {
-                        BaseController().showLoading();
-                        await EraUser().delete();
-                        BaseController().hideLoading();
-
-                        Get.back();
-                      },
-                      cancelable: true);
+            sb20(),
+            Align(
+              alignment: Alignment.centerRight,
+              child: PopupMenuButton<String>(
+                onSelected: (value) {
+                  switch (value) {
+                    case 'Delete':
+                      break;
+                    case 'Edit':
+                      break;
+                    case 'Message':
+                      break;
+                  }
                 },
-                width: 170.w,
-                fontSize: EraTheme.buttonFontSizeSmall,
-                text: 'DELETE',
-                bgColor: AppColors.kRedColor,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              sbw10(),
-              Button(
-                onTap: () {
-                  Get.dialog(AlertDialog(
-                    backgroundColor: AppColors.white,
-                    title: GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Icon(
-                            Icons.close,
+                itemBuilder: (BuildContext context) {
+                  return [
+                    PopupMenuItem(
+                      value: 'Delete',
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete, color: AppColors.kRedColor),
+                          SizedBox(width: 10.w),
+                          EraText(
+                            text: 'Delete',
                             color: AppColors.black,
                           ),
-                        )),
-                    content: Stack(
-                      children: [
-                        SizedBox(
-                          height: 250.h,
-                          width: Get.width - 400.w,
-                          child: Column(
-                            children: [
-                              TextformfieldWidget(
-                                controller: controller.message,
-                                hintText: 'Type your message here',
-                                maxLines: 5,
-                                fontSize: 15.sp,
-                                textInputAction: TextInputAction.newline,
-                                keyboardType: TextInputType.multiline,
-                                color: AppColors.hint,
-                              ),
-                              sb30(),
-                              Button(
-                                onTap: () {},
-                                width: 170.w,
-                                fontSize: EraTheme.buttonFontSizeSmall,
-                                text: 'SUBMIT',
-                                bgColor: AppColors.blue,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ));
+                    PopupMenuItem(
+                      value: 'Edit',
+                      child: Row(
+                        children: [
+                          Icon(Icons.edit, color: AppColors.kRedColor),
+                          SizedBox(width: 10.w),
+                          EraText(
+                            text: 'Delete',
+                            color: AppColors.black,
+                          ),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'Edit',
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete, color: AppColors.kRedColor),
+                          SizedBox(width: 10.w),
+                          EraText(
+                            text: 'Delete',
+                            color: AppColors.black,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ];
                 },
-                width: 170.w,
-                fontSize: EraTheme.buttonFontSizeSmall,
-                text: 'MESSAGE',
-                bgColor: AppColors.blue,
-                borderRadius: BorderRadius.circular(30),
+                icon: Icon(Icons.more_vert, color: AppColors.black),
               ),
-            ]),
-            sb20(),
+            ),
           ],
         ),
       ),
@@ -342,3 +324,82 @@ class Roster extends GetView<AgentAdminController> {
     );
   }
 }
+
+
+  // Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            //   Button(
+            //     onTap: () {
+            //       //NOT DONE YET TO DO NIKKO
+            //       BaseController().showSuccessDialog(
+            //           title: "Confirm",
+            //           description: "Do you want to delete this User?",
+            //           hitApi: () async {
+            //             BaseController().showLoading();
+            //             await EraUser().delete();
+            //             BaseController().hideLoading();
+
+            //             Get.back();
+            //           },
+            //           cancelable: true);
+            //     },
+            //     width: 170.w,
+            //     fontSize: EraTheme.buttonFontSizeSmall,
+            //     text: 'DELETE',
+            //     bgColor: AppColors.kRedColor,
+            //     borderRadius: BorderRadius.circular(30),
+            //   ),
+            //   sbw10(),
+            //   Button(
+            //     onTap: () {
+            //       Get.dialog(AlertDialog(
+            //         backgroundColor: AppColors.white,
+            //         title: GestureDetector(
+            //             onTap: () {
+            //               Get.back();
+            //             },
+            //             child: Align(
+            //               alignment: Alignment.centerRight,
+            //               child: Icon(
+            //                 Icons.close,
+            //                 color: AppColors.black,
+            //               ),
+            //             )),
+            //         content: Stack(
+            //           children: [
+            //             SizedBox(
+            //               height: 250.h,
+            //               width: Get.width - 400.w,
+            //               child: Column(
+            //                 children: [
+            //                   TextformfieldWidget(
+            //                     controller: controller.message,
+            //                     hintText: 'Type your message here',
+            //                     maxLines: 5,
+            //                     fontSize: 15.sp,
+            //                     textInputAction: TextInputAction.newline,
+            //                     keyboardType: TextInputType.multiline,
+            //                     color: AppColors.hint,
+            //                   ),
+            //                   sb30(),
+            //                   Button(
+            //                     onTap: () {},
+            //                     width: 170.w,
+            //                     fontSize: EraTheme.buttonFontSizeSmall,
+            //                     text: 'SUBMIT',
+            //                     bgColor: AppColors.blue,
+            //                     borderRadius: BorderRadius.circular(30),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ));
+            //     },
+            //     width: 170.w,
+            //     fontSize: EraTheme.buttonFontSizeSmall,
+            //     text: 'MESSAGE',
+            //     bgColor: AppColors.blue,
+            //     borderRadius: BorderRadius.circular(30),
+            //   ),
+            // ]),

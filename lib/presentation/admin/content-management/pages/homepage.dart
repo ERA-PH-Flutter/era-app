@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -47,13 +48,14 @@ class HomePage extends GetView<ContentManagementController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        UploadBannersWidget(maxImages: 15),
+        //     UploadBannersWidget(maxImages: 15),
         sb20(),
         // preview photos
         _uploadPreviewPhotos(),
         sb20(),
 
-        _featuredProjects(),
+//        _featuredProjects(),
+        _quicklinks(),
       ],
     );
   }
@@ -64,6 +66,76 @@ class HomePage extends GetView<ContentManagementController> {
         text: 'erorr',
         color: AppColors.black,
       ),
+    );
+  }
+
+  Widget _quicklinks() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'QUICK LINKS',
+          color: AppColors.kRedColor,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: 10.h),
+        GridView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 14,
+              mainAxisSpacing: 20,
+            ),
+            itemCount: controller.categoryIcons.length,
+            itemBuilder: (context, index) {
+              return Stack(
+                children: [
+                  Row(
+                    children: [
+                      CachedNetworkImage(
+                          imageUrl: controller.categoryIcons[index]),
+                      SizedBox(height: 15.h),
+                    ],
+                  ),
+                  Positioned(
+                    bottom: 20,
+                    child: Padding(
+                      padding: EdgeInsets.all(8.sp),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Button(
+                              onTap: () {
+                                //todo change picture
+                              },
+                              margin: EdgeInsets.symmetric(horizontal: 5),
+                              height: 30.h,
+                              width: 30.w,
+                              text: controller.categoryIcons[index] == null
+                                  ? 'ADD'
+                                  : "EDIT",
+                              bgColor: AppColors.blue,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            Button(
+                              onTap: () {
+                                //todo delete picture ( delete in db too )
+                              },
+                              margin: EdgeInsets.symmetric(horizontal: 5),
+                              height: 30.h,
+                              width: 30.w,
+                              text: 'DELETE',
+                              bgColor: AppColors.hint,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ]),
+                    ),
+                  )
+                ],
+              );
+            })
+      ],
     );
   }
 

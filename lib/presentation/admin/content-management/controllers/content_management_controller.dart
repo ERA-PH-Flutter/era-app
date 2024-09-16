@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
@@ -105,4 +106,32 @@ class ContentManagementController extends GetxController with BaseController {
   bool isSelected(int index) {
     return selectedItems.contains(index);
   }
+
+  var categoryIcons = [
+    AppEraAssets.agricultural,
+    AppEraAssets.apartment,
+    AppEraAssets.commercial,
+    AppEraAssets.condo,
+    AppEraAssets.factory,
+    AppEraAssets.farm,
+    AppEraAssets.hotel,
+    AppEraAssets.housenlot,
+    AppEraAssets.house1,
+    AppEraAssets.lot,
+    AppEraAssets.industrial,
+    AppEraAssets.office,
+    AppEraAssets.parkingLot,
+    AppEraAssets.residential,
+    AppEraAssets.townhouse,
+    AppEraAssets.resort,
+    AppEraAssets.warehouse,
+    AppEraAssets.penthouse,
+    AppEraAssets.beachHouse,
+    AppEraAssets.loft,
+    AppEraAssets.bedspace,
+    AppEraAssets.room,
+    AppEraAssets.memorial,
+    AppEraAssets.coworking,
+    AppEraAssets.studio,
+  ];
 }
