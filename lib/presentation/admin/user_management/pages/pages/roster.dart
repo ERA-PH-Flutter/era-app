@@ -16,6 +16,7 @@ import 'package:eraphilippines/presentation/admin/user_management/controllers/ag
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -104,161 +105,168 @@ class Roster extends GetView<AgentAdminController> {
       itemCount: listingModels.length,
       itemBuilder: (context, i){
         var more = false.obs;
-        return Card(
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: AppColors.hint.withOpacity(0.5), width: 3),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          color: AppColors.white,
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        return Wrap(
+          children: [
+            Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: AppColors.hint.withOpacity(0.5), width: 3),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              color: AppColors.white,
+              child: Stack(
                 children: [
-                  Container(
-                    color: AppColors.hint.withOpacity(0.5),
-                    child: GestureDetector(
-                      onTap: () {
-                        controllers.onSectionSelected(0);
-                      },
-                      child: ListedBy(
-                        text: '',
-                        image: "${listingModels[i].image}",
-                        agentFirstName: "${listingModels[i].firstname}",
-                        agentLastName: "${listingModels[i].lastname}",
-                        agentType: "${listingModels[i].role}",
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.w, top: 20.h),
-                    child: EraText(
-                      text: "Profile Overview",
-                      fontSize: 18.sp,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 25.w, top: 10.h, right: 25.w),
-                    child: EraText(
-                      text:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non mauris congue, eleifend orci ac, eleifend est. Donec varius arcu magna, vel sagittis ex condimentum scelerisque. Fusce efficitur nisi ut mauris vulputate faucibus. Nullam hendrerit, lacus id interdum tempus.',
-                      fontSize: 15.sp,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w500,
-                      maxLines: 3,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.w, top: 20.h),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          listingModels[i].whatsApp == null
-                              ? AppEraAssets.whatsappIcon
-                              : AppEraAssets.whatsappIcon,
-                          width: 40.w,
-                          height: 40.h,
-                        ),
-                        EraText(
-                          text: "${listingModels[i].whatsApp}",
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.black,
-                          lineHeight: 0.h,
-                        ),
-                      ],
-                    ),
-                  ),
-                  sb10(),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.w),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          listingModels[i].email == null
-                              ? AppEraAssets.emailIcon
-                              : AppEraAssets.emailIcon,
-                          width: 40.w,
-                          height: 40.h,
-                        ),
-                        EraText(
-                          text: "${listingModels[i].email}",
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.black,
-                          lineHeight: 0.h,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                ],
-              ),
-              Positioned(
-                  top: 25.h,
-                  right: 15.h,
-                  child: IconButton(
-                    onPressed: (){
-                      more.value = true;
-                    },
-                    icon: Icon(Icons.more_horiz_rounded,color: Colors.black,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
-                  )
-              ),
-              Obx((){
-                if(more.value == true){
-                  return Wrap(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.r),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                    offset: Offset(0,0),
-                                    blurRadius: 5,
-                                    spreadRadius: 1,
-                                    color: Colors.black38
-                                )
-                              ]
+                        color: AppColors.hint.withOpacity(0.5),
+                        child: GestureDetector(
+                          onTap: () {
+                            controllers.onSectionSelected(0);
+                          },
+                          child: ListedBy(
+                            text: '',
+                            image: "${listingModels[i].image}",
+                            agentFirstName: "${listingModels[i].firstname}",
+                            agentLastName: "${listingModels[i].lastname}",
+                            agentType: "${listingModels[i].role}",
                           ),
-
-                          width:Get.width,
-                          child: Column(
-                              children:[
-                                Container(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                      onPressed: (){
-                                        more.value = false;
-                                      },
-                                      icon: Icon(Icons.close,size: 25.sp,color: Colors.black,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
-                                    )
-                                ),
-                                _menuOptions("Edit",()async{
-                                  //todo move to edit users
-                                },Icons.edit),
-                                _menuOptions("Delete",()async{
-                                  await listingModels[i].delete();
-                                },Icons.delete_rounded),
-                                SizedBox(height: 20.h,)
-                              ]
-                          )
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.w, top: 20.h),
+                        child: EraText(
+                          text: "Profile Overview",
+                          fontSize: 18.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 25.w, top: 10.h, right: 25.w),
+                        child: EraText(
+                          text:
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non mauris congue, eleifend orci ac, eleifend est. Donec varius arcu magna, vel sagittis ex condimentum scelerisque. Fusce efficitur nisi ut mauris vulputate faucibus. Nullam hendrerit, lacus id interdum tempus.',
+                          fontSize: 15.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w500,
+                          maxLines: 3,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.w, top: 20.h),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              listingModels[i].whatsApp == null
+                                  ? AppEraAssets.whatsappIcon
+                                  : AppEraAssets.whatsappIcon,
+                              width: 40.w,
+                              height: 40.h,
+                            ),
+                            EraText(
+                              text: "${listingModels[i].whatsApp}",
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.black,
+                              lineHeight: 0.h,
+                            ),
+                          ],
+                        ),
+                      ),
+                      sb10(),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.w),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              listingModels[i].email == null
+                                  ? AppEraAssets.emailIcon
+                                  : AppEraAssets.emailIcon,
+                              width: 40.w,
+                              height: 40.h,
+                            ),
+                            EraText(
+                              text: "${listingModels[i].email}",
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.black,
+                              lineHeight: 0.h,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
                       ),
                     ],
-                  );
-                }else{
-                  return Container();
-                }
-              }),
-            ],
-          ),
+                  ),
+                  Positioned(
+                      top: 25.h,
+                      right: 15.h,
+                      child: IconButton(
+                        onPressed: (){
+                          more.value = true;
+                        },
+                        icon: Icon(Icons.more_horiz_rounded,color: Colors.black,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
+                      )
+                  ),
+                  Obx((){
+                    if(more.value == true){
+                      return Wrap(
+                        children: [
+                          Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.r),
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        offset: Offset(0,0),
+                                        blurRadius: 5,
+                                        spreadRadius: 1,
+                                        color: Colors.black38
+                                    )
+                                  ]
+                              ),
+
+                              width:Get.width,
+                              child: Column(
+                                  children:[
+                                    Container(
+                                        alignment: Alignment.centerRight,
+                                        child: IconButton(
+                                          onPressed: (){
+                                            more.value = false;
+                                          },
+                                          icon: Icon(Icons.close,size: 25.sp,color: Colors.black,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
+                                        )
+                                    ),
+                                    _menuOptions("Message",()async{
+                                      //todo open modal with message textfield title and description
+                                    },CupertinoIcons.chat_bubble_fill),
+                                    _menuOptions("Edit",()async{
+                                      //todo move to edit users
+                                    },Icons.edit),
+                                    _menuOptions("Delete",()async{
+                                      await listingModels[i].delete();
+                                    },Icons.delete_rounded),
+                                    SizedBox(height: 20.h,)
+                                  ]
+                              )
+                          ),
+                        ],
+                      );
+                    }else{
+                      return Container();
+                    }
+                  }),
+                ],
+              ),
+            ),
+          ],
         );
       },
     );
