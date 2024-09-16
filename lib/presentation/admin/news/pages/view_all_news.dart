@@ -207,6 +207,7 @@ class ViewAllNews extends GetView<NewsController> {
                                                                 },Icons.add_circle),
                                                                 _menuOptions("Delete",()async{
                                                                   await news.deleteNews();
+                                                                  await CloudStorage().deleteFileDirect(docRef: news.image!);
                                                                 },Icons.delete_rounded),
                                                                 SizedBox(height: 20.h,)
                                                               ]

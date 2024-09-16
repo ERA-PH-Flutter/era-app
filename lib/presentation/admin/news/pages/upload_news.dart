@@ -38,7 +38,6 @@ class UploadNews extends GetView<NewsController> {
           UploadBannersWidget(
             text: 'UPLOAD IMAGE',
             maxImages: 1,
-            selectedImage: controller.selectedNewsImage,
           ),
           sb10(),
           AboutUsPage.title(
@@ -56,11 +55,12 @@ class UploadNews extends GetView<NewsController> {
             child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Button(
                 onTap: () async {
+                  BaseController().showLoading();
                   try {
                     await News(
                       title: controller.titleController.text,
                       description: controller.content.text,
-                    ).addNews(controller.selectedNewsImage);
+                    ).addNews(Get.find<AddListingsController>().images.first);
                     BaseController().showSuccessDialog(
                         title: "Success!",
                         description: "News has been added!",

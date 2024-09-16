@@ -18,13 +18,11 @@ import '../../../../app/constants/theme.dart';
 class UploadBannersWidget extends StatelessWidget {
   final String? text;
   final int maxImages;
-  Rx<Uint8List>? selectedImage;
 
-  UploadBannersWidget({
+  const UploadBannersWidget({
     super.key,
     this.text,
     required this.maxImages,
-    this.selectedImage,
   });
 
   @override
@@ -74,7 +72,7 @@ class UploadBannersWidget extends StatelessWidget {
                       try {
                         final imagePick = await ImagePicker().pickImage(source: ImageSource.gallery);
                         var image = await imagePick!.readAsBytes();
-                        selectedImage = (image).obs;
+                        //con.selectedImage = image;
                         addListingsController.images.value = [image];
                       } catch (e) {
                          print(e);

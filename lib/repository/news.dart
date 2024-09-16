@@ -25,11 +25,13 @@ class News{
   getNews()async{
     return News.fromJSON((await db.collection('news').doc(id).get()).data() ?? {});
   }
-  addNews(image)async{
-    if(image != null){
-      image = await CloudStorage().uploadFromMemory(file: image, target: "news",customName: "news_${DateTime.now().microsecondsSinceEpoch}");
+  addNews(img)async{
+    if(img != null){
+      image = await CloudStorage().uploadFromMemory(file: img, target: "news",customName: "news_${DateTime.now().microsecondsSinceEpoch}.png");
     }
-    await db.collection('news').add(
+    var newsDoc = db.collection('news').doc();
+    id = newsDoc.id;
+    await newsDoc.set(
       toMap()
     );
   }
