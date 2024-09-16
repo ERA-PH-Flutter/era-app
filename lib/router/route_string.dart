@@ -40,7 +40,7 @@ class RouteString {
   static String nextPage = "/nextPage";
 
   //admin
-  static String landingPage = "/landingPage";
+  static String landingPage = "/dashboard";
   static String homeAnalytics = "/home-analytics";
 
   static String addlistingsAdmin = "/addlistings-admin";
