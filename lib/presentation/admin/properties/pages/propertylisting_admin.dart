@@ -495,7 +495,9 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                                   controller.addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
                                                 },Icons.add_circle),
                                                 _menuOptions("Delete",()async{
+                                                  controller.addEditListingsStateAd.value = AddEditListingsStateAd.loading;
                                                   await listing.deleteListings();
+                                                  controller.addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
                                                 },Icons.delete_rounded),
                                                 SizedBox(height: 20.h,)
                                               ]
