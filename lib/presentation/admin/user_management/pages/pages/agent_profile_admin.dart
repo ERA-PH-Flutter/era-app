@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/agent_profile_card.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,8 +16,7 @@ class AgentProfileAdmin extends GetView<AgentAdminController> {
 
   @override
   Widget build(BuildContext context) {
-    final RealEstateListing? agentData =
-        controller.agentListings ?? Get.arguments;
+    final EraUser? agentData = controller.agentListingssss ?? Get.arguments;
 
     return SingleChildScrollView(
       child: Padding(
@@ -22,7 +24,6 @@ class AgentProfileAdmin extends GetView<AgentAdminController> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Left Side (Agent Profile, Favorites, Latest News)
             Expanded(
               flex: 2,
               child: Column(
@@ -41,11 +42,12 @@ class AgentProfileAdmin extends GetView<AgentAdminController> {
                         ),
                         AgentProfileCard(
                           image: agentData?.image,
-                          fname: agentData?.user.firstname,
-                          lname: agentData?.user.lastname,
-                          role: agentData?.user.role,
-                          whatsApp: agentData?.user.whatsApp,
-                          email: agentData?.user.email,
+                          fname: agentData?.firstname,
+                          lname: agentData?.lastname,
+                          role: agentData?.role,
+                          whatsApp: agentData?.whatsApp,
+                          email: agentData?.email,
+                          description: agentData?.description,
                         ),
                       ],
                     ),
@@ -54,6 +56,13 @@ class AgentProfileAdmin extends GetView<AgentAdminController> {
                   FavoritesSection(),
                   SizedBox(height: 20.h),
                   latestNews(),
+                  Button(
+                    text: 'SAVE CHANGES',
+                    onTap: () {},
+                    width: 200.w,
+                    bgColor: AppColors.kRedColor,
+                    borderRadius: BorderRadius.circular(30),
+                  )
                 ],
               ),
             ),

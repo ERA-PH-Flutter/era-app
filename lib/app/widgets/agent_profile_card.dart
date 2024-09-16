@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,15 +17,18 @@ class AgentProfileCard extends StatelessWidget {
   String? role;
   String? whatsApp;
   String? email;
+  String? description;
 
-  AgentProfileCard(
-      {super.key,
-      this.image,
-      this.fname,
-      this.lname,
-      this.role,
-      this.whatsApp,
-      this.email});
+  AgentProfileCard({
+    super.key,
+    this.image,
+    this.fname,
+    this.lname,
+    this.role,
+    this.whatsApp,
+    this.email,
+    this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +41,11 @@ class AgentProfileCard extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               decoration:
                   BoxDecoration(shape: BoxShape.circle, color: AppColors.hint),
-              child: CachedNetworkImage(
-                imageUrl: image ?? '',
+              child: CloudStorage().imageLoader(
+                ref: image ?? '',
                 width: 55.w,
                 height: 55.w,
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                //     fit: BoxFit.cover,
               ),
             ),
             SizedBox(
@@ -83,8 +87,7 @@ class AgentProfileCard extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
         EraText(
-          text:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non mauris congue, eleifend orci ac, eleifend est. Donec varius arcu magna, vel sagittis ex condimentum scelerisque. Fusce efficitur nisi ut mauris vulputate faucibus. Nullam hendrerit, lacus id interdum tempus.',
+          text: description ?? '',
           fontSize: 15.sp,
           color: AppColors.black,
           fontWeight: FontWeight.w500,
@@ -174,22 +177,6 @@ class AgentProfileCard extends StatelessWidget {
         SizedBox(
           height: 10.h,
         ),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Button(
-            margin: EdgeInsets.symmetric(horizontal: 5),
-            width: 150.w,
-            text: 'EDIT',
-            bgColor: AppColors.blue,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          Button(
-            margin: EdgeInsets.symmetric(horizontal: 5),
-            width: 150.w,
-            text: 'DELETE',
-            bgColor: AppColors.kRedColor,
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ])
       ],
     );
   }

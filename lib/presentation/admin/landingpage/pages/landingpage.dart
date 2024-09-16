@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/about_us.dart';
+import 'package:eraphilippines/presentation/admin/faqs/pages/general_faq.dart';
 import 'package:eraphilippines/presentation/admin/news/pages/upload_news.dart';
 import 'package:eraphilippines/presentation/admin/news/pages/view_all_news.dart';
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
@@ -29,11 +30,12 @@ class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
 
   final List<Widget> _screens = [
-    Roster(), //3
-
+    Roster(), //0
     AddAgent(), //1
     ApprovedAgents(), //2
-    AgentProfileAdmin(), //0
+
+    AgentProfileAdmin(), //3 invisible
+
     AddProjectAdmin(), //4
     PropertylistAdmin(), //5
     PropertyInformationAdmin(), //6
@@ -43,10 +45,9 @@ class LandingPage extends GetView<LandingPageController> {
     AboutUsPage(), //10
     ViewAllNews(), //11
     UploadNews(), //12
-    ViewAllNews(), //13
-    UploadNews(), //14
-
-    UploadNews(), //15
+    GeneralFaq(), //13
+    // UploadNews(), //14
+    // UploadNews(), //15
   ];
 
   @override
@@ -203,7 +204,7 @@ class LandingPage extends GetView<LandingPageController> {
               _buildMenuItem('ROSTER', 0),
               _buildMenuItem('ADD AGENT', 1),
               _buildMenuItem('APPROVAL NEW AGENT', 2),
-              // _buildMenuItem('VIEW AGENTS/BROKERS', 0),
+              //     _buildMenuItem('VIEW AGENTS/BROKERS', 3),
             ],
           ),
           _buildExpansionTile(
@@ -237,9 +238,9 @@ class LandingPage extends GetView<LandingPageController> {
             text: "FAQS",
             image: AppEraAssets.helpDash,
             children: [
-              _buildMenuItem('General FAQ’S', 11),
-              _buildMenuItem('Agent FAQ’s', 12),
-              _buildMenuItem('Customer FAQ’s', 13),
+              _buildMenuItem('General FAQ’S', 13),
+              // _buildMenuItem('Agent FAQ’s', 12),
+              // _buildMenuItem('Customer FAQ’s', 13),
             ],
           ),
         ],

@@ -25,6 +25,7 @@ class ContentManagementController extends GetxController with BaseController {
   RxList images = [].obs;
   final picker = ImagePicker();
   var listings = [].obs;
+  var changeCategoryIcon = [].obs;
 
   final List<String> bannersImages = [];
   var listingImages = [];
@@ -84,6 +85,19 @@ class ContentManagementController extends GetxController with BaseController {
       if (imagePick.isNotEmpty) {
         for (var image in imagePick) {
           images.add(File(image.path));
+        }
+      }
+    } on PlatformException catch (e) {
+      return e;
+    }
+  }
+
+  Future pickImageFromWeb() async {
+    try {
+      final imagePick = await picker.pickMultiImage();
+      if (imagePick.isNotEmpty) {
+        for (var image in imagePick) {
+          images.add(await image.readAsBytes());
         }
       }
     } on PlatformException catch (e) {

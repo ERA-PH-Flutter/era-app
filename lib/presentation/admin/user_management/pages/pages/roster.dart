@@ -10,12 +10,10 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
-import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.dart';
 
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
-import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
-import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -103,13 +101,14 @@ class Roster extends GetView<AgentAdminController> {
           crossAxisSpacing: 40.w,
           mainAxisSpacing: 30.h),
       itemCount: listingModels.length,
-      itemBuilder: (context, i){
+      itemBuilder: (context, i) {
         var more = false.obs;
         return Wrap(
           children: [
             Card(
               shape: RoundedRectangleBorder(
-                side: BorderSide(color: AppColors.hint.withOpacity(0.5), width: 3),
+                side: BorderSide(
+                    color: AppColors.hint.withOpacity(0.5), width: 3),
                 borderRadius: BorderRadius.circular(10),
               ),
               color: AppColors.white,
@@ -143,10 +142,10 @@ class Roster extends GetView<AgentAdminController> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 25.w, top: 10.h, right: 25.w),
+                        padding:
+                            EdgeInsets.only(left: 25.w, top: 10.h, right: 25.w),
                         child: EraText(
-                          text:
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non mauris congue, eleifend orci ac, eleifend est. Donec varius arcu magna, vel sagittis ex condimentum scelerisque. Fusce efficitur nisi ut mauris vulputate faucibus. Nullam hendrerit, lacus id interdum tempus.',
+                          text: "${listingModels[i].description}",
                           fontSize: 15.sp,
                           color: AppColors.black,
                           fontWeight: FontWeight.w500,
@@ -207,59 +206,139 @@ class Roster extends GetView<AgentAdminController> {
                       top: 25.h,
                       right: 15.h,
                       child: IconButton(
-                        onPressed: (){
+                        onPressed: () {
                           more.value = true;
                         },
-                        icon: Icon(Icons.more_horiz_rounded,color: Colors.black,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
-                      )
-                  ),
-                  Obx((){
-                    if(more.value == true){
+                        icon: Icon(
+                          Icons.more_horiz_rounded,
+                          color: Colors.black,
+                          shadows: const [
+                            BoxShadow(
+                                offset: Offset(0, 0),
+                                color: Colors.white,
+                                blurRadius: 5,
+                                spreadRadius: 1)
+                          ],
+                        ),
+                      )),
+                  Obx(() {
+                    if (more.value == true) {
                       return Wrap(
                         children: [
                           Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 15.h),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
                                   color: Colors.white,
                                   boxShadow: const [
                                     BoxShadow(
-                                        offset: Offset(0,0),
+                                        offset: Offset(0, 0),
                                         blurRadius: 5,
                                         spreadRadius: 1,
-                                        color: Colors.black38
-                                    )
-                                  ]
-                              ),
-
-                              width:Get.width,
-                              child: Column(
-                                  children:[
-                                    Container(
-                                        alignment: Alignment.centerRight,
-                                        child: IconButton(
-                                          onPressed: (){
-                                            more.value = false;
-                                          },
-                                          icon: Icon(Icons.close,size: 25.sp,color: Colors.black,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
-                                        )
+                                        color: Colors.black38)
+                                  ]),
+                              width: Get.width,
+                              child: Column(children: [
+                                Container(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        more.value = false;
+                                      },
+                                      icon: Icon(
+                                        Icons.close,
+                                        size: 25.sp,
+                                        color: Colors.black,
+                                        shadows: const [
+                                          BoxShadow(
+                                              offset: Offset(0, 0),
+                                              color: Colors.white,
+                                              blurRadius: 5,
+                                              spreadRadius: 1)
+                                        ],
+                                      ),
+                                    )),
+                                menuOptions("Message", () async {
+                                  Get.dialog(AlertDialog(
+                                    backgroundColor: AppColors.white,
+                                    title: GestureDetector(
+                                        onTap: () {
+                                          Get.back();
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Icon(
+                                            Icons.close,
+                                            color: AppColors.black,
+                                          ),
+                                        )),
+                                    content: Stack(
+                                      children: [
+                                        SizedBox(
+                                          height: 300.h,
+                                          width: Get.width - 400.w,
+                                          child: Column(
+                                            children: [
+                                              TextformfieldWidget(
+                                                controller: controller.message,
+                                                hintText: 'TITLE',
+                                                maxLines: 1,
+                                                fontSize: 15.sp,
+                                                textInputAction:
+                                                    TextInputAction.newline,
+                                                keyboardType:
+                                                    TextInputType.multiline,
+                                                color: AppColors.hint,
+                                              ),
+                                              sb10(),
+                                              TextformfieldWidget(
+                                                controller: controller.message,
+                                                hintText:
+                                                    'Type your message here',
+                                                maxLines: 5,
+                                                fontSize: 15.sp,
+                                                textInputAction:
+                                                    TextInputAction.newline,
+                                                keyboardType:
+                                                    TextInputType.multiline,
+                                                color: AppColors.hint,
+                                              ),
+                                              sb30(),
+                                              Button(
+                                                onTap: () {},
+                                                width: 170.w,
+                                                fontSize: EraTheme
+                                                    .buttonFontSizeSmall,
+                                                text: 'SUBMIT',
+                                                bgColor: AppColors.blue,
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    _menuOptions("Message",()async{
-                                      //todo open modal with message textfield title and description
-                                    },CupertinoIcons.chat_bubble_fill),
-                                    _menuOptions("Edit",()async{
-                                      //todo move to edit users
-                                    },Icons.edit),
-                                    _menuOptions("Delete",()async{
-                                      await listingModels[i].delete();
-                                    },Icons.delete_rounded),
-                                    SizedBox(height: 20.h,)
-                                  ]
-                              )
-                          ),
+                                  ));
+                                  // todo open modal with message textfield title and description
+                                }, CupertinoIcons.chat_bubble_fill),
+                                menuOptions("Edit", () async {
+                                  //todo move to edit users
+                                  controller.agentListingssss =
+                                      listingModels[i];
+                                  controllers.onSectionSelected(3);
+                                }, Icons.edit),
+                                menuOptions("Delete", () async {
+                                  await listingModels[i].delete();
+                                }, Icons.delete_rounded),
+                                SizedBox(
+                                  height: 20.h,
+                                )
+                              ])),
                         ],
                       );
-                    }else{
+                    } else {
                       return Container();
                     }
                   }),
@@ -272,45 +351,46 @@ class Roster extends GetView<AgentAdminController> {
     );
   }
 
-  _menuOptions(text,callback,icon){
+  static menuOptions(text, callback, icon) {
     var isHover = false.obs;
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      onEnter: (event){
+      onEnter: (event) {
         isHover.value = true;
       },
-      onExit: (event){
+      onExit: (event) {
         isHover.value = false;
       },
       child: GestureDetector(
         onTap: callback,
-        child: Obx(()=>Container(
-          alignment: Alignment.center,
-          width: Get.width,
-          color: isHover.value ? AppColors.kRedColor : Colors.white,
-          padding: EdgeInsets.symmetric(
-              vertical: 15.h
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 25.sp,
-                color: isHover.value ? Colors.white : Colors.black,
+        child: Obx(() => Container(
+              alignment: Alignment.center,
+              width: Get.width,
+              color: isHover.value ? AppColors.kRedColor : Colors.white,
+              padding: EdgeInsets.symmetric(vertical: 15.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
+                    size: 25.sp,
+                    color: isHover.value ? Colors.white : Colors.black,
+                  ),
+                  SizedBox(
+                    width: 15.w,
+                  ),
+                  EraText(
+                    text: text,
+                    fontSize: 18.sp,
+                    color: isHover.value ? Colors.white : Colors.black,
+                  ),
+                ],
               ),
-              SizedBox(width: 15.w,),
-              EraText(
-                text: text,
-                fontSize: 18.sp,
-                color: isHover.value ? Colors.white : Colors.black,
-              ),
-            ],
-          ),
-        )),
+            )),
       ),
     );
   }
+
   Widget buildField() {
     return Column(
       children: [
@@ -401,7 +481,8 @@ class Roster extends GetView<AgentAdminController> {
             //   sbw10(),
             //   Button(
             //     onTap: () {
-            //       Get.dialog(AlertDialog(
+            //       Get.dialog(
+            // AlertDialog(
             //         backgroundColor: AppColors.white,
             //         title: GestureDetector(
             //             onTap: () {
