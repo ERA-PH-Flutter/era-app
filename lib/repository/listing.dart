@@ -181,7 +181,11 @@ class Listing {
   }
 
   deleteListings() async {
-    await db.collection("listings").doc(id).delete();
+    try{
+      await db.collection("listings").doc(id).delete();
+    }catch(e){
+      print(e);
+    }
   }
 
   deleteListingsById(listingId) async {
