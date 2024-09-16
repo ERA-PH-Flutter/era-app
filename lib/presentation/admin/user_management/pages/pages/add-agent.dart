@@ -210,6 +210,7 @@ class AddAgent extends GetView<AgentAdminController> {
                         //todo number
                         position: controller.selectedAgentType.value,
                         description: controller.descriptionA.text,
+                        status: "approved"
                       ).add();
                       BaseController().showSuccessDialog(
                           title: "Add Agent Success",

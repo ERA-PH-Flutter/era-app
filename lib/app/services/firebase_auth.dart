@@ -28,7 +28,7 @@ class Authentication{
   }
   logout()async{
     try{
-      await GoogleSignIn().signOut();
+      //await GoogleSignIn().signOut();
       await auth.signOut();
       return "success";
     } on FirebaseAuthException catch(e){

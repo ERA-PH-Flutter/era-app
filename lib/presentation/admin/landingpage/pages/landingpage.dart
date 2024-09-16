@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/about_us.dart';
@@ -20,6 +21,8 @@ import 'package:eraphilippines/presentation/admin/user_management/pages/pages/ad
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/approvedagents.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/roster.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -145,7 +148,7 @@ class LandingPage extends GetView<LandingPageController> {
   List<Widget> _buildAppBarIcons() => [
         Image.asset(AppEraAssets.notifAdmin, height: 50.h),
         Image.asset(AppEraAssets.helpAdmin, height: 50.h),
-        Image.asset(AppEraAssets.mailAdmin, height: 50.h),
+        //Image.asset(AppEraAssets.mailAdmin, height: 50.h),
         Image.asset(AppEraAssets.profileAdmin, height: 80.h),
         Padding(
           padding: EdgeInsets.only(right: 20.w),
@@ -157,27 +160,38 @@ class LandingPage extends GetView<LandingPageController> {
                   if (user != null) {
                     return EraText(
                       text:
-                          '${user!.firstname ?? "Firstname"} ${user!.lastname ?? "Lastname"}',
+                          '${user!.firstname ?? "Loading"} ${user!.lastname ?? "Name.."}',
                       color: AppColors.white,
-                      fontSize: 12.sp,
+                      fontSize: 15.sp,
                     );
                   } else {
                     return EraText(
                       text: 'No Name',
                       color: AppColors.white,
-                      fontSize: 12.sp,
+                      fontSize: 15.sp,
                     );
                   }
                 },
               ),
-              EraText(
-                text: 'Status',
-                color: AppColors.white,
-                fontSize: 12.sp,
-              ),
             ],
           ),
         ),
+        IconButton(
+          onPressed: (){
+            BaseController().showSuccessDialog(
+              hitApi: ()async{
+                await Authentication().logout();
+                Get.toNamed(RouteString.adminLogin);
+              },
+              title: "Logout?",
+              description: "Logout your admin account?",
+              cancelable: true,
+              cancelButton: "Cancel",
+            );
+          },
+          icon: Icon(Icons.power_settings_new,color: Colors.white,size: 30.sp,),
+        ),
+        SizedBox(width: 20.w,)
       ];
 
   Widget _buildDashboardTitle() => Container(
