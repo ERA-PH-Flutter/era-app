@@ -68,7 +68,7 @@ class LoginPageController extends GetxController with BaseController {
     showLoading();
     var login = await Authentication()
         .login(email: email.text.trim(), password: password.text.trim());
-    if (login != null) {
+    if (!login.contains("error")) {
       var id = FirebaseAuth.instance.currentUser!.uid;
       user = await EraUser().getById(id);
       Get.find<LocalStorageService>().userID = id;
@@ -82,7 +82,7 @@ class LoginPageController extends GetxController with BaseController {
             Get.back();
           },
           title: "Failed",
-          description: "Incorrect credentials, please double check!");
+          description: "$login");
     }
   }
 

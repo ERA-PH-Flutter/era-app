@@ -99,7 +99,8 @@ class EraUser {
   }
 
   delete() async {
-    await db.collection('users').doc(id).delete();
+    status = "deleted";
+    await update();
     //delete info too
   }
 

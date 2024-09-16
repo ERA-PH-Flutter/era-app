@@ -42,6 +42,9 @@ class AboutUsPage extends GetView<ContentManagementController> {
             margin: EdgeInsets.only(right: 80.w),
             child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Button(
+                onTap:(){
+
+                },
                 margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 150.w,
                 text: 'SUBMIT',
