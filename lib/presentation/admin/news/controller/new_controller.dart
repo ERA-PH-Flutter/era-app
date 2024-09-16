@@ -40,8 +40,11 @@ class NewsController extends GetxController {
       }
     }
   }
-
-
+  @override
+  void onInit() {
+    newsState.value = NewsState.loaded;
+    super.onInit();
+  }
 
   TextEditingController titleController = TextEditingController();
   TextEditingController content = TextEditingController();

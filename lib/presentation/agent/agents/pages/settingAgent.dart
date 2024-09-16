@@ -138,7 +138,7 @@ class SettingsPage extends GetView<AgentsController> {
                             width: Get.width,
                             child: ElevatedButton(
                               onPressed: () {
-                                agentController.getImagePic();
+                                agentController.getImagePic(agentController.image);
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

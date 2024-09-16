@@ -80,11 +80,17 @@ class Settings{
     if(!featuredListings!.contains(id)){
       featuredListings!.add(id);
       await update();
+    }else{
+      featuredListings!.removeAt(featuredListings!.indexOf(id));
+      await update();
     }
   }
   addToFeaturedNews(id)async{
     if(!featuredNews!.contains(id)){
       featuredNews!.add(id);
+      await update();
+    }else{
+      featuredNews!.removeAt(featuredNews!.indexOf(id));
       await update();
     }
   }

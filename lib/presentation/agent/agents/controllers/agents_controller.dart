@@ -149,7 +149,8 @@ class AgentsController extends GetxController with BaseController {
     }
   }
 
-  Future<void> getImagePic() async {
+  Future<void> getImagePic(previousPicture) async {
+
     try {
       final XFile? imagePick =
           await picker.pickImage(source: ImageSource.camera);
@@ -163,6 +164,7 @@ class AgentsController extends GetxController with BaseController {
         } catch (e) {
           print(e);
         }
+        await CloudStorage().deleteFileDirect(docRef: previousPicture);
         var im = await CloudStorage().upload(
             file: image.value!,
             target: 'users/images',

@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
+import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
@@ -101,166 +102,207 @@ class Roster extends GetView<AgentAdminController> {
           crossAxisSpacing: 40.w,
           mainAxisSpacing: 30.h),
       itemCount: listingModels.length,
-      itemBuilder: (context, i) => Card(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: AppColors.hint.withOpacity(0.5), width: 3),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        color: AppColors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              color: AppColors.hint.withOpacity(0.5),
-              child: GestureDetector(
-                onTap: () {
-                  // Get.toNamed('/agentProfileAdmin');
-                  //controller.agentListingssss = listingModels[i];
-                  controllers.onSectionSelected(0);
-                },
-                child: ListedBy(
-                  text: '',
-                  image: "${listingModels[i].image}",
-                  agentFirstName: "${listingModels[i].firstname}",
-                  agentLastName: "${listingModels[i].lastname}",
-                  agentType: "${listingModels[i].role}",
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20.w, top: 20.h),
-              child: EraText(
-                text: "Profile Overview",
-                fontSize: 18.sp,
-                color: AppColors.black,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 25.w, top: 10.h, right: 25.w),
-              child: EraText(
-                text:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non mauris congue, eleifend orci ac, eleifend est. Donec varius arcu magna, vel sagittis ex condimentum scelerisque. Fusce efficitur nisi ut mauris vulputate faucibus. Nullam hendrerit, lacus id interdum tempus.',
-                fontSize: 15.sp,
-                color: AppColors.black,
-                fontWeight: FontWeight.w500,
-                maxLines: 3,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 15.w, top: 20.h),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+      itemBuilder: (context, i){
+        var more = false.obs;
+        return Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: AppColors.hint.withOpacity(0.5), width: 3),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          color: AppColors.white,
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    listingModels[i].whatsApp == null
-                        ? AppEraAssets.whatsappIcon
-                        : AppEraAssets.whatsappIcon,
-                    width: 40.w,
-                    height: 40.h,
+                  Container(
+                    color: AppColors.hint.withOpacity(0.5),
+                    child: GestureDetector(
+                      onTap: () {
+                        controllers.onSectionSelected(0);
+                      },
+                      child: ListedBy(
+                        text: '',
+                        image: "${listingModels[i].image}",
+                        agentFirstName: "${listingModels[i].firstname}",
+                        agentLastName: "${listingModels[i].lastname}",
+                        agentType: "${listingModels[i].role}",
+                      ),
+                    ),
                   ),
-                  EraText(
-                    text: "${listingModels[i].whatsApp}",
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black,
-                    lineHeight: 0.h,
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.w, top: 20.h),
+                    child: EraText(
+                      text: "Profile Overview",
+                      fontSize: 18.sp,
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 25.w, top: 10.h, right: 25.w),
+                    child: EraText(
+                      text:
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non mauris congue, eleifend orci ac, eleifend est. Donec varius arcu magna, vel sagittis ex condimentum scelerisque. Fusce efficitur nisi ut mauris vulputate faucibus. Nullam hendrerit, lacus id interdum tempus.',
+                      fontSize: 15.sp,
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w500,
+                      maxLines: 3,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.w, top: 20.h),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          listingModels[i].whatsApp == null
+                              ? AppEraAssets.whatsappIcon
+                              : AppEraAssets.whatsappIcon,
+                          width: 40.w,
+                          height: 40.h,
+                        ),
+                        EraText(
+                          text: "${listingModels[i].whatsApp}",
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.black,
+                          lineHeight: 0.h,
+                        ),
+                      ],
+                    ),
+                  ),
+                  sb10(),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15.w),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          listingModels[i].email == null
+                              ? AppEraAssets.emailIcon
+                              : AppEraAssets.emailIcon,
+                          width: 40.w,
+                          height: 40.h,
+                        ),
+                        EraText(
+                          text: "${listingModels[i].email}",
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.black,
+                          lineHeight: 0.h,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.h,
                   ),
                 ],
               ),
-            ),
-            sb10(),
-            Padding(
-              padding: EdgeInsets.only(left: 15.w),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    listingModels[i].email == null
-                        ? AppEraAssets.emailIcon
-                        : AppEraAssets.emailIcon,
-                    width: 40.w,
-                    height: 40.h,
-                  ),
-                  EraText(
-                    text: "${listingModels[i].email}",
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black,
-                    lineHeight: 0.h,
-                  ),
-                ],
+              Positioned(
+                  top: 25.h,
+                  right: 15.h,
+                  child: IconButton(
+                    onPressed: (){
+                      more.value = true;
+                    },
+                    icon: Icon(Icons.more_horiz_rounded,color: Colors.black,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
+                  )
               ),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            sb20(),
-            Align(
-              alignment: Alignment.centerRight,
-              child: PopupMenuButton<String>(
-                onSelected: (value) {
-                  switch (value) {
-                    case 'Delete':
-                      break;
-                    case 'Edit':
-                      break;
-                    case 'Message':
-                      break;
-                  }
-                },
-                itemBuilder: (BuildContext context) {
-                  return [
-                    PopupMenuItem(
-                      value: 'Delete',
-                      child: Row(
-                        children: [
-                          Icon(Icons.delete, color: AppColors.kRedColor),
-                          SizedBox(width: 10.w),
-                          EraText(
-                            text: 'Delete',
-                            color: AppColors.black,
+              Obx((){
+                if(more.value == true){
+                  return Wrap(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                    offset: Offset(0,0),
+                                    blurRadius: 5,
+                                    spreadRadius: 1,
+                                    color: Colors.black38
+                                )
+                              ]
                           ),
-                        ],
+
+                          width:Get.width,
+                          child: Column(
+                              children:[
+                                Container(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                      onPressed: (){
+                                        more.value = false;
+                                      },
+                                      icon: Icon(Icons.close,size: 25.sp,color: Colors.black,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
+                                    )
+                                ),
+                                _menuOptions("Edit",()async{
+                                  //todo move to edit users
+                                },Icons.edit),
+                                _menuOptions("Delete",()async{
+                                  await listingModels[i].delete();
+                                },Icons.delete_rounded),
+                                SizedBox(height: 20.h,)
+                              ]
+                          )
                       ),
-                    ),
-                    PopupMenuItem(
-                      value: 'Edit',
-                      child: Row(
-                        children: [
-                          Icon(Icons.edit, color: AppColors.kRedColor),
-                          SizedBox(width: 10.w),
-                          EraText(
-                            text: 'Delete',
-                            color: AppColors.black,
-                          ),
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 'Edit',
-                      child: Row(
-                        children: [
-                          Icon(Icons.delete, color: AppColors.kRedColor),
-                          SizedBox(width: 10.w),
-                          EraText(
-                            text: 'Delete',
-                            color: AppColors.black,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ];
-                },
-                icon: Icon(Icons.more_vert, color: AppColors.black),
-              ),
-            ),
-          ],
-        ),
-      ),
+                    ],
+                  );
+                }else{
+                  return Container();
+                }
+              }),
+            ],
+          ),
+        );
+      },
     );
   }
 
+  _menuOptions(text,callback,icon){
+    var isHover = false.obs;
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (event){
+        isHover.value = true;
+      },
+      onExit: (event){
+        isHover.value = false;
+      },
+      child: GestureDetector(
+        onTap: callback,
+        child: Obx(()=>Container(
+          alignment: Alignment.center,
+          width: Get.width,
+          color: isHover.value ? AppColors.kRedColor : Colors.white,
+          padding: EdgeInsets.symmetric(
+              vertical: 15.h
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                size: 25.sp,
+                color: isHover.value ? Colors.white : Colors.black,
+              ),
+              SizedBox(width: 15.w,),
+              EraText(
+                text: text,
+                fontSize: 18.sp,
+                color: isHover.value ? Colors.white : Colors.black,
+              ),
+            ],
+          ),
+        )),
+      ),
+    );
+  }
   Widget buildField() {
     return Column(
       children: [
