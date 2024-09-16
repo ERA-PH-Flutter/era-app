@@ -59,18 +59,14 @@ class AureliaProject extends GetView<ProjectsController> {
             images: CarouselModels.aureliaCarouselImages,
             color: AppColors.carouselBgColor),
         SizedBox(height: 30.h),
-
         projectContent1(aureliaProjects),
         SizedBox(height: 30.h),
-//location
         locationLaya(aureliaProjects),
         SizedBox(height: 40.h),
-
         discoverOurSpaces(
           aureliaProjects,
         ),
         SizedBox(height: 10.h),
-        // Image.asset(project.text36 ?? ""),
         SizedBox(height: 15.h),
         Inquiry(),
         SizedBox(height: 40.h),

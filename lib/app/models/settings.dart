@@ -60,15 +60,31 @@ class Settings{
     await CloudStorage().deleteFileDirect(docRef: previousPicture);
     switch(target){
       case "residential":
-        residentialPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "residential");
+        residentialPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "residential.png");
       case "rental":
-        rentalPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "rental");
+        rentalPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "rental.png");
       case "commercial":
-        commercialPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "commercial");
+        commercialPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "commercial.png");
       case "pre-selling":
-        preSellingPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "pre-selling");
+        preSellingPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "preSelling.png");
       default:
-        auctionPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "auction");
+        auctionPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "auction.png");
+    }
+    await update();
+  }
+  deletePicture(target,previousPicture)async{
+    await CloudStorage().deleteFileDirect(docRef: previousPicture);
+    switch(target){
+      case "residential":
+        residentialPicture = null;
+      case "rental":
+        rentalPicture = null;
+      case "commercial":
+        commercialPicture = null;
+      case "pre-selling":
+        preSellingPicture = null;
+      default:
+        auctionPicture = null;
     }
     await update();
   }

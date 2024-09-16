@@ -1,4 +1,5 @@
 String l = "assets/icons/";
+String w = "quickLinks/";
 
 class AppEraAssets {
   //mortgage calculator icons
@@ -26,31 +27,31 @@ class AppEraAssets {
   static String money = "${l}money.png";
 
   // properties icons
-  static String agricultural = "${l}4_agricultural.png";
-  static String apartment = "${l}4_apartment.png";
-  static String commercial = "${l}4_commercial.png";
-  static String condo = "${l}4_condominium.png";
-  static String factory = "${l}4_factory.png";
-  static String farm = "${l}4_farm.png";
-  static String hotel = "${l}4_hotel.png";
-  static String housenlot = "${l}4_house and lot.png";
-  static String house1 = "${l}4_house.png";
-  static String lot = "${l}4_lot.png";
-  static String industrial = "${l}4_insdustrial lot.png";
-  static String office = "${l}4_office.png";
-  static String parkingLot = "${l}4_parking lot.png";
-  static String residential = "${l}4_residential.png";
-  static String townhouse = "${l}4_townhouse.png";
-  static String resort = "${l}4_resort.png";
-  static String warehouse = "${l}4_warehouse.png";
-  static String penthouse = "${l}4_penthouse.png";
-  static String beachHouse = "${l}4_beach house.png";
-  static String loft = "${l}loft.jpg";
-  static String bedspace = "${l}4_bedspace.png";
-  static String room = "${l}4_room.png";
-  static String memorial = "${l}4_memorial.png";
-  static String coworking = "${l}4_coworking space.png";
-  static String studio = "${l}4_studio.png";
+  static String agricultural = "${w}4_agricultural.png";
+  static String apartment = "${w}4_apartment.png";
+  static String commercial = "${w}4_commercial.png";
+  static String condo = "${w}4_condominium.png";
+  static String factory = "${w}4_factory.png";
+  static String farm = "${w}4_farm.png";
+  static String hotel = "${w}4_hotel.png";
+  static String housenlot = "${w}4_house and lot.png";
+  static String house1 = "${w}4_house.png";
+  static String lot = "${w}4_lot.png";
+  static String industrial = "${w}4_insdustrial lot.png";
+  static String office = "${w}4_office.png";
+  static String parkingLot = "${w}4_parking lot.png";
+  static String residential = "${w}4_residential.png";
+  static String townhouse = "${w}4_townhouse.png";
+  static String resort = "${w}4_resort.png";
+  static String warehouse = "${w}4_warehouse.png";
+  static String penthouse = "${w}4_penthouse.png";
+  static String beachHouse = "${w}4_beach house.png";
+  static String loft = "${w}loft.jpg";
+  static String bedspace = "${w}4_bedspace.png";
+  static String room = "${w}4_room.png";
+  static String memorial = "${w}4_memorial.png";
+  static String coworking = "${w}4_coworking space.png";
+  static String studio = "${w}4_studio.png";
 
   // static String land = "${l}__Land.png";
   // static String waterfront = "${l}__Waterfront.png";

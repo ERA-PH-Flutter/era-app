@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:number_paginator/number_paginator.dart';
 
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/widgets/box_widget.dart';
@@ -192,7 +193,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                     Expanded(
                       child: AppTextField(
                         controller: controller.aiSearchController,
-                        hint: 'AI Search',
+                        hint: 'Property name',
                         svgIcon: AppEraAssets.send,
                         bgColor: AppColors.white,
                       ),
@@ -203,21 +204,9 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                     Container(
                       width: 250.w,
                       child: SearchWidget.build(() async {
-                        var data;
-                        if (controller.aiSearchController.text == "") {
-                          data = await Database().searchListing(
-                              location: controller.locationController.text,
-                              price: controller.priceController,
-                              property: controller.propertyController.text);
-                        } else {
-                          data = await AI(
-                                  query: controller.aiSearchController.text)
-                              .search();
-                        }
-                        Get.toNamed("/searchresult", arguments: [
-                          data,
-                          controller.aiSearchController.text
-                        ]);
+                        controller.addEditListingsStateAd.value = AddEditListingsStateAd.loading;
+                        controller.searchStream();
+                        controller.addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
                       }),
                     ),
                   ],
@@ -230,7 +219,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
           Obx((){
             if(controller.addEditListingsStateAd.value == AddEditListingsStateAd.loaded){
               return StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('listings').snapshots(),
+                stream: controller.searchStream(),
                 builder: (context,snapshot){
                   if(snapshot.hasData){
                     var data = snapshot.data!.docs;
@@ -521,7 +510,9 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                         },
                       ),
                     );
-                  }else{
+                  }
+                  else{
+                    print(controller.searchStream());
                     return Center(
                       child: CircularProgressIndicator(),
                     );

@@ -1,16 +1,19 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/services/functions.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/user.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:number_paginator/number_paginator.dart';
 import '../../../../app/services/local_storage.dart';
 
 enum ListingsAState { loading, loaded, error, empty }
@@ -21,7 +24,7 @@ class ListingsAdminController extends GetxController {
   AddListingsController addListingsController =
       Get.put(AddListingsController());
   var addEditListingsStateAd = AddEditListingsStateAd.loading.obs;
-
+  var paginator = NumberPaginatorController();
   var store = Get.find<LocalStorageService>();
   var listingState = ListingsAState.loading.obs;
   var aiSearchController = TextEditingController();
@@ -114,31 +117,36 @@ class ListingsAdminController extends GetxController {
 
   @override
   void onInit() async {
-    data.clear();
-    listingState.value = ListingsAState.loaded;
-    try {
-      if (Get.arguments == null) {
-        var tempData = [];
-        tempData = (await FirebaseFirestore.instance.collection('listings').limit(10).get()).docs.map((doc){
-          return doc.data();
-        }).toList();
-        print(tempData);
-        loadData(tempData);
+    if(!kIsWeb){
+      data.clear();
+      listingState.value = ListingsAState.loaded;
+      try {
+        if (Get.arguments == null) {
+          var tempData = [];
+          tempData = (await FirebaseFirestore.instance.collection('listings').limit(10).get()).docs.map((doc){
+            return doc.data();
+          }).toList();
+          print(tempData);
+          loadData(tempData);
+        }
+        else {
+          loadData(Get.arguments[0]);
+          searchQuery.value = Get.arguments[1];
+        }
+      } catch (e, ex) {
+        print(e);
+        print(ex);
+        listingState.value = ListingsAState.error;
       }
-      else {
-        loadData(Get.arguments[0]);
-        searchQuery.value = Get.arguments[1];
+      super.onInit();
+      if (Get.currentRoute == '/editListingsAd') {
+        id = Get.arguments[0];
+        await assignData();
+      } else {
+        addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
       }
-    } catch (e, ex) {
-      print(e);
-      print(ex);
-      listingState.value = ListingsAState.error;
-    }
-    super.onInit();
-    if (Get.currentRoute == '/editListingsAd') {
-      id = Get.arguments[0];
-      await assignData();
-    } else {
+    }else{
+      listingState.value = ListingsAState.loaded;
       addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
     }
   }
@@ -200,5 +208,22 @@ class ListingsAdminController extends GetxController {
         AddEditListingsState.loaded;
     addListingsController.selectedView.value = listing!.view ?? "SUNRISE";
     addListingsController.addListingsState.value = AddListingsState.loaded;
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> searchStream(){
+    if(aiSearchController.text.isNotEmpty){
+      return  FirebaseFirestore.instance.collection('listings').where('name',isGreaterThanOrEqualTo: aiSearchController.text)
+          .where('name', isLessThanOrEqualTo:  '${aiSearchController.text}\uf8ff').orderBy('date_created').snapshots();
+    }else if(locationController.text.isNotEmpty){
+      return  FirebaseFirestore.instance.collection('listings').where('location',isGreaterThanOrEqualTo: locationController.text)
+          .where('location', isLessThanOrEqualTo:  '${locationController.text}\uf8ff').orderBy('date_created').snapshots();
+    }else if(priceController.text.isNotEmpty){
+      return  FirebaseFirestore.instance.collection('listings').where('price',isLessThanOrEqualTo: priceController.text.toInt()).orderBy('date_created').snapshots();
+    }else if(propertyController.text.isNotEmpty){
+      return  FirebaseFirestore.instance.collection('listings').where('type',isGreaterThanOrEqualTo: propertyController.text)
+          .where('type', isLessThanOrEqualTo:  '${propertyController.text}\uf8ff').orderBy('date_created').snapshots();
+    }else{
+      return  FirebaseFirestore.instance.collection('listings').orderBy('date_created').snapshots();
+    }
   }
 }

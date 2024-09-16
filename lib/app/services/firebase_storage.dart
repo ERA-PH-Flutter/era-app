@@ -38,6 +38,16 @@ class CloudStorage {
     }
   }
 
+  Future<Object?> getFileBytes({
+    required String docRef,
+  }) async {
+    try {
+      return await ref.child(docRef).getData();
+    } catch (e) {
+      return "Error: $e";
+    }
+  }
+
   imageLoader({ref, height, width, BoxFit? fit}){
     return FutureBuilder(
       future: getFileDirect(docRef: ref),
@@ -96,7 +106,7 @@ class CloudStorage {
     );
   }
 
-  Future<String> deleteFileDirect({
+  deleteFileDirect({
     required String docRef,
   }) async {
     try {
