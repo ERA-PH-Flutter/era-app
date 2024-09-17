@@ -205,7 +205,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                       width: 250.w,
                       child: SearchWidget.build(() async {
                         controller.addEditListingsStateAd.value = AddEditListingsStateAd.loading;
-                        controller.searchStream();
+                        controller.streamSearch = controller.searchStream();
                         controller.addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
                       }),
                     ),
@@ -219,7 +219,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
           Obx((){
             if(controller.addEditListingsStateAd.value == AddEditListingsStateAd.loaded){
               return StreamBuilder(
-                stream: controller.searchStream(),
+                stream: controller.streamSearch,
                 builder: (context,snapshot){
                   if(snapshot.hasData){
                     var data = snapshot.data!.docs;

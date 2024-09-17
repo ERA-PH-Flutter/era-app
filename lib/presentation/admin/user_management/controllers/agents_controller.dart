@@ -125,13 +125,9 @@ class AgentAdminController extends GetxController with BaseController {
   Stream<QuerySnapshot<Map<String, dynamic>>> getStream(){
     if(fNameA.text.isNotEmpty){
       return  FirebaseFirestore.instance.collection('users').where('full_name',isGreaterThanOrEqualTo: fNameA.text)
-          .where('full_name', isLessThanOrEqualTo:  fNameA.text + '\uf8ff').orderBy('full_name').snapshots();
-    }else if(lNameA.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('users').where('full_name',isGreaterThanOrEqualTo: lNameA.text)
-          .where('full_name', isLessThanOrEqualTo:  lNameA.text + '\uf8ff').orderBy('full_name').snapshots();
+          .where('full_name', isLessThanOrEqualTo:  '${fNameA.text}\uf8ff').orderBy('full_name').snapshots();
     }else if(phoneNA.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('users').where('phone',isGreaterThanOrEqualTo: phoneNA.text)
-          .where('phone', isLessThanOrEqualTo:  '${phoneNA.text}\uf8ff').orderBy('full_name').snapshots();
+      return  FirebaseFirestore.instance.collection('users').where('phone',isEqualTo: emailAdressA.text).snapshots();
     }else if(emailAdressA.text.isNotEmpty){
       return  FirebaseFirestore.instance.collection('users').where('email',isEqualTo: emailAdressA.text).snapshots();
     }else{

@@ -408,8 +408,26 @@ class Roster extends GetView<AgentAdminController> {
   Widget buildField() {
     return Column(
       children: [
-        buildFormField('First Name *', controller.fNameA, 'Last Name *',
-            controller.lNameA),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            EraText(
+              text: "Full Name",
+              color: AppColors.black,
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w500,
+            ),
+            SizedBox(height: 5.h),
+            SizedBox(
+              width: Get.width,
+              child: TextformfieldWidget(
+                controller: controller.fNameA,
+                fontSize: 12.sp,
+                maxLines: 1,
+              ),
+            ),
+          ],
+        ),
         buildFormField('Phone Number *', controller.phoneNA, 'Email *',
             controller.emailAdressA),
       ],
