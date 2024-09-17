@@ -83,10 +83,9 @@ class ListingsAdminController extends GetxController {
   }
 
   void removeBlurb(int index) {
-    addBlurbParagraph.removeAt(index);
+    addBlurbTitle.removeAt(index);
     addBlurbParagraph.removeAt(index);
     addBlurImage.removeAt(index);
-    //if clear there is error im not sure  how to fix it
 
     blurbTitleController[index].dispose();
     blurbParagraphController[index].dispose();
@@ -104,22 +103,10 @@ class ListingsAdminController extends GetxController {
     }
     super.onClose();
   }
-  // void updateBlurbTitle(String title) {
-  //   addBlurbTitle.value = title;
-  // }
-
-  // void updateBlurbImage(Uint8List image) {
-  //   addBlurImage.add(image);
-  // }
-
-  // void updateBlurbParagraph(String paragraph) {
-  //   addBlurbParagraph.value = paragraph;
-  // }
 
   void updateDeveloperName(String name) {
     developerName.value = name;
   }
-  //im not sure for the link hehe but ill put it here for now so we cant forget
 
   void updateVirtualTitle(String title) {
     virtualTitle.value = title;

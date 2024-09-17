@@ -9,6 +9,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -210,20 +211,25 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                 _buildText(text: controller.virtualTitle),
                 _buildText(text: controller.virtualParagraph),
                 _buildText(text: controller.virtualLink),
-                Column(
-                  children: List.generate(
-                    controller.addBlurbTitle.length,
-                    (index) => Column(
-                      children: [
-                        _buildBulbTitle(),
-                        _buildBulbImage(),
-                      ],
+                Obx(
+                  () => Column(
+                    //im not sure why its not working
+                    children: List.generate(
+                      controller.addBlurbTitle.length,
+                      (index) => Column(
+                        children: [
+                          _buildBlurbTitle(
+                              controller: controller, index: index),
+                          _buildBulbImage(controller: controller, index: index),
+                          _buildBlurbpParagraph(
+                              controller: controller, index: index),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
-            sb50(),
           ],
         ),
       ),
@@ -244,12 +250,23 @@ Widget _buildBulbImage({ListingsAdminController? controller, int? index}) {
 }
 //preview
 
-Widget _buildBulbTitle({ListingsAdminController? controller, int? index}) {
+Widget _buildBlurbTitle(
+    {required ListingsAdminController controller, required int index}) {
   return Obx(() => EraText(
-        text: controller!.addBlurbTitle[index!],
+        text: controller.addBlurbTitle[index],
         color: AppColors.black,
         fontSize: EraTheme.paragraph,
-        maxLines: 50,
+        maxLines: 1,
+      ));
+}
+
+Widget _buildBlurbpParagraph(
+    {required ListingsAdminController controller, required int index}) {
+  return Obx(() => EraText(
+        text: controller.addBlurbParagraph[index],
+        color: AppColors.black,
+        fontSize: EraTheme.paragraph,
+        maxLines: 10,
       ));
 }
 
@@ -262,6 +279,7 @@ Widget _buildBlurb(int index, ListingsAdminController controller) {
           onChanged: (value) {
             controller.updateBlurbTitle(index, value);
           }),
+      _buildBlurbTitle(controller: controller, index: index),
       sb20(),
       UploadBannersWidget(
           text: 'Upload Blurb Image',
@@ -291,7 +309,6 @@ Widget _buildBlurb(int index, ListingsAdminController controller) {
 }
 
 Widget _buildText({
-  int? index,
   RxString? text,
 }) {
   return Obx(() => EraText(
