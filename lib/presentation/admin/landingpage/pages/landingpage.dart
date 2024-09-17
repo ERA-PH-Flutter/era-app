@@ -45,7 +45,7 @@ class LandingPage extends GetView<LandingPageController> {
     AddPropertyAdmin(), //7
     EditPropertyAdmin(), //8
     HomePage(), //9
-    //AboutUsPage(), //10
+    AboutUsPage(), //10
     ViewAllNews(), //11
     UploadNews(), //12
     GeneralFaq(), //13
@@ -243,7 +243,7 @@ class LandingPage extends GetView<LandingPageController> {
             image: AppEraAssets.listingDash,
             children: [
               _buildMenuItem('HOMEPAGE', 9),
-              //   _buildMenuItem('ADD ABOUT US', 10),
+              //  _buildMenuItem('ADD ABOUT US', 10),
             ],
           ),
           _buildExpansionTile(
@@ -283,7 +283,7 @@ class LandingPage extends GetView<LandingPageController> {
           onTap: () async {
             if (section == 7) {
               Get.put(ListingsController());
-            }else if(section == 9){
+            } else if (section == 9) {
               Get.put(ContentManagementController());
             }
             controller.onSectionSelected(section);

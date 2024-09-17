@@ -1,26 +1,18 @@
 import 'dart:math';
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
-import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/roster.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
-import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
-import 'package:eraphilippines/repository/listing.dart';
-import 'package:eraphilippines/repository/user.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/theme.dart';
@@ -53,7 +45,8 @@ class HomePage extends GetView<ContentManagementController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidthAdmin - 5.w),
           child: Column(
             children: [
               Row(
@@ -89,12 +82,18 @@ class HomePage extends GetView<ContentManagementController> {
                       ),
                       onPressed: () async {
                         try {
-                          final imagePick = await ImagePicker().pickMultipleMedia();
-                          if(imagePick.isNotEmpty){
+                          final imagePick =
+                              await ImagePicker().pickMultipleMedia();
+                          if (imagePick.isNotEmpty) {
                             for (var image in imagePick) {
                               var img = await image.readAsBytes();
                               controller.images.add(img);
-                              var bannerImage = await CloudStorage().uploadFromMemory(file: img, target: "banners",customName: "${DateTime.now().microsecondsSinceEpoch}_${Random().nextInt(1000)}.png");
+                              var bannerImage = await CloudStorage()
+                                  .uploadFromMemory(
+                                      file: img,
+                                      target: "banners",
+                                      customName:
+                                          "${DateTime.now().microsecondsSinceEpoch}_${Random().nextInt(1000)}.png");
                               settings!.banners!.add(bannerImage);
                             }
                             settings!.update();
@@ -177,8 +176,9 @@ class HomePage extends GetView<ContentManagementController> {
                                 Icons.cancel,
                                 color: AppColors.black,
                               ),
-                              onPressed: ()async{
-                                await CloudStorage().deleteFileDirect(docRef: settings!.banners![index]);
+                              onPressed: () async {
+                                await CloudStorage().deleteFileDirect(
+                                    docRef: settings!.banners![index]);
                                 settings!.banners!.removeAt(index);
                                 controller.images.removeAt(index);
                                 settings!.update();
@@ -204,12 +204,14 @@ class HomePage extends GetView<ContentManagementController> {
         ),
         sb20(),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidthAdmin - 5.w),
           child: _uploadPreviewPhotos(),
         ),
         sb20(),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidthAdmin - 5.w),
           child: _quicklinks(),
         ),
       ],
@@ -248,9 +250,8 @@ class HomePage extends GetView<ContentManagementController> {
               return Stack(
                 children: [
                   CloudStorage().imageLoaderProvider(
-                    borderRadius: BorderRadius.circular(10.r),
-                    ref: controller.categoryIcons[index]
-                  ),
+                      borderRadius: BorderRadius.circular(10.r),
+                      ref: controller.categoryIcons[index]),
                   Positioned(
                     top: 25.h,
                     right: 15.h,
@@ -338,50 +339,46 @@ class HomePage extends GetView<ContentManagementController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildUploadPhoto(
-          text: 'Preselling Preview Photo',
-          image: settings!.preSellingPicture != null
-              ? CloudStorage().imageLoader(ref: settings!.preSellingPicture)
-              : null,
-          target: "pre-selling",
-          previousImage: settings!.preSellingPicture
-        ),
+            text: 'Preselling Preview Photo',
+            image: settings!.preSellingPicture != null
+                ? CloudStorage().imageLoader(ref: settings!.preSellingPicture)
+                : null,
+            target: "pre-selling",
+            previousImage: settings!.preSellingPicture),
         _buildUploadPhoto(
-          text: 'Residential Preview Photo',
-          image: settings!.residentialPicture != null
-              ? CloudStorage().imageLoader(ref: settings!.residentialPicture)
-              : null,
+            text: 'Residential Preview Photo',
+            image: settings!.residentialPicture != null
+                ? CloudStorage().imageLoader(ref: settings!.residentialPicture)
+                : null,
             target: "residential",
-            previousImage: settings!.residentialPicture
-        ),
+            previousImage: settings!.residentialPicture),
         _buildUploadPhoto(
-          text: 'Commercial Preview Photo',
-          image: settings!.commercialPicture != null
-              ? CloudStorage().imageLoader(ref: settings!.commercialPicture)
-              : null,
+            text: 'Commercial Preview Photo',
+            image: settings!.commercialPicture != null
+                ? CloudStorage().imageLoader(ref: settings!.commercialPicture)
+                : null,
             target: "commercial",
-            previousImage: settings!.commercialPicture
-        ),
+            previousImage: settings!.commercialPicture),
         _buildUploadPhoto(
-          text: 'Rental Preview Photo',
-          image: settings!.rentalPicture != null
-              ? CloudStorage().imageLoader(ref: settings!.rentalPicture)
-              : null,
+            text: 'Rental Preview Photo',
+            image: settings!.rentalPicture != null
+                ? CloudStorage().imageLoader(ref: settings!.rentalPicture)
+                : null,
             target: "rental",
-            previousImage: settings!.rentalPicture
-        ),
+            previousImage: settings!.rentalPicture),
         _buildUploadPhoto(
-          text: 'Auction Preview Photo',
-          image: settings!.auctionPicture != null
-              ? CloudStorage().imageLoader(ref: settings!.auctionPicture)
-              : null,
+            text: 'Auction Preview Photo',
+            image: settings!.auctionPicture != null
+                ? CloudStorage().imageLoader(ref: settings!.auctionPicture)
+                : null,
             target: "auction",
-            previousImage: settings!.auctionPicture
-        ),
+            previousImage: settings!.auctionPicture),
       ],
     );
   }
 
-  Widget _buildUploadPhoto({String? text, image,required target,previousImage}) {
+  Widget _buildUploadPhoto(
+      {String? text, image, required target, previousImage}) {
     return Column(
       children: [
         AddListings.textBuild(
@@ -401,11 +398,13 @@ class HomePage extends GetView<ContentManagementController> {
           padding: EdgeInsets.all(8.sp),
           child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Button(
-              onTap: ()async{
+              onTap: () async {
                 controller.homepageState.value = HomepageState.loading;
-                var newPicture = await ImagePicker().pickImage(source: ImageSource.gallery);
-                if(newPicture != null){
-                  await settings!.updatePicture(target, previousImage, await newPicture.readAsBytes());
+                var newPicture =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (newPicture != null) {
+                  await settings!.updatePicture(
+                      target, previousImage, await newPicture.readAsBytes());
                 }
                 controller.homepageState.value = HomepageState.loaded;
               },
@@ -416,7 +415,7 @@ class HomePage extends GetView<ContentManagementController> {
               borderRadius: BorderRadius.circular(30),
             ),
             Button(
-              onTap: ()async{
+              onTap: () async {
                 await settings!.deletePicture(target, image);
               },
               margin: EdgeInsets.symmetric(horizontal: 5),

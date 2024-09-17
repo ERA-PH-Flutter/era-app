@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -5,8 +7,9 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
-import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -38,205 +41,147 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               fontSize: EraTheme.header,
               fontWeight: FontWeight.w600,
             ),
-            _buildCollapsibleSection(
-              title: 'ADD BANNER PHOTO',
-              children: [
-                AddAgent.buildUploadPhoto(onTap: () {
-                  controller.getImageGallery();
-                }),
+            DropdownButton<String>(
+              value: controller.selectedOption.isEmpty
+                  ? null
+                  : controller.selectedOption.value,
+              hint: EraText(
+                text: 'Select Option',
+                color: AppColors.black,
+              ),
+              items: [
+                DropdownMenuItem(
+                    value: 'bannerImages',
+                    child: EraText(
+                      text: 'Banner Images',
+                      color: AppColors.black,
+                    )),
+                DropdownMenuItem(
+                    value: 'developerName',
+                    child: EraText(
+                      text: 'Developer Name',
+                      color: AppColors.black,
+                    )),
+                DropdownMenuItem(
+                    value: 'ProjectLogo',
+                    child: EraText(
+                      text: 'Project Logo',
+                      color: AppColors.black,
+                    )),
+                DropdownMenuItem(
+                    value: '3DVirtual',
+                    child: EraText(
+                      text: 'Add 3D Virtual Tour',
+                      color: AppColors.black,
+                    )),
+                DropdownMenuItem(
+                    value: 'Blurb',
+                    child: EraText(
+                      text: 'Add Burb',
+                      color: AppColors.black,
+                    )),
               ],
+              onChanged: (value) {
+                controller.updateSelectedOption(value!);
+              },
             ),
-            _buildCollapsibleSection(
-              title: 'ADD LOGO AND DEVELOPER NAME',
-              children: [
-                AddAgent.buildUploadPhoto(onTap: () {
-                  controller.getImageGallery();
-                }),
-                _buildTextField(
-                  controller: controller.developerController,
-                  label: 'Developer *',
-                ),
-              ],
-            ),
-            // _buildCollapsibleSection(
-            //   title: 'ADD LOGO AND DEVELOPER NAME',
-            //   children: [
-            //     sb10(),
-            //     AddAgent.buildUploadPhoto(onTap: () {
-            //       controller.getImageGallery();
-            //     }),
-
-            //     sb10(),
-            //     _buildTextField(
-            //       controller: controller.developerController,
-            //       label: 'Developer *',
-            //     ),
-            //     // sb10(),
-            //     // _buildTextField(
-            //     //   controller: controller.vrUploadController,
-            //     //   label: '3D Virtual Tour Link *',
-            //     // ),
-            //     // sb10(),
-            //     // _buildTextField(
-            //     //   controller: controller.locationControllers,
-            //     //   label: 'Location *',
-            //     // ),
-            //     // sb10(),
-            //     // SizedBox(
-            //     //   width: Get.width,
-            //     //   child: TextformfieldWidget(
-            //     //     controller: controller.descriptionController,
-            //     //     hintText: 'Description *',
-            //     //     maxLines: 8,
-            //     //     textInputAction: TextInputAction.newline,
-            //     //     keyboardType: TextInputType.multiline,
-            //     //   ),
-            //     // ),
-            //     // sb10(),
-            //     // //options
-            //     // _buildTextField(
-            //     //   controller: controller.vrUploadController2,
-            //     //   label: '3D Virtual Tour Link *',
-            //     // ),
-            //     // sb10(),
-            //   ],
-            // ),
-            sb20(),
-            _buildCollapsibleSection(
-              title: 'FEATURED DETAILS',
-              children: [
-                Row(
+            Obx(() {
+              if (controller.selectedOption.value == 'bannerImages') {
+                return _buildCollapsibleSection(
+                  title: 'BANNER PHOTO',
                   children: [
-                    buildFeautredPhoto(onTap: () {
-                      controller.getImageGallery();
-                    }),
-                    sbw10(),
-                    SizedBox(
-                      width: Get.width / 4.2,
-                      child: TextformfieldWidget(
-                        controller: controller.addFeaturedDesc1,
-                        hintText: 'Description *',
-                        maxLines: 8,
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                      ),
+                    UploadBannersWidget(
+                      text: 'Upload Banners',
+                      maxImages: 1,
+                      onImageSelected: (Uint8List bannerImage) {
+                        controller.addBannerPhoto(bannerImage);
+                      },
                     ),
-                    buildFeautredPhoto(onTap: () {
-                      controller.getImageGallery();
-                    }),
-                    sbw10(),
-                    SizedBox(
-                      width: Get.width / 4.2,
-                      child: TextformfieldWidget(
-                        controller: controller.addFeaturedDesc2,
-                        hintText: 'Description *',
-                        maxLines: 8,
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                      ),
-                    ),
+                    sb20(),
                   ],
-                ),
-                Row(
+                );
+              } else if (controller.selectedOption.value == 'developerName') {
+                return _buildCollapsibleSection(
+                  title: 'DEVELOPER NAME',
                   children: [
-                    buildFeautredPhoto(onTap: () {
-                      controller.getImageGallery();
-                    }),
-                    sbw10(),
-                    SizedBox(
-                      width: Get.width / 4.2,
-                      child: TextformfieldWidget(
-                        controller: controller.addFeaturedDesc3,
-                        hintText: 'Description *',
-                        maxLines: 8,
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                      ),
+                    _buildTextField(
+                      controller: controller.developerController,
+                      label: 'Developer Name*',
+                      onChanged: (value) {
+                        controller.updateDeveloperName(
+                            controller.developerController.text);
+                      },
                     ),
-                    buildFeautredPhoto(onTap: () {
-                      controller.getImageGallery();
-                    }),
-                    sbw10(),
-                    SizedBox(
-                      width: Get.width / 4.2,
-                      child: TextformfieldWidget(
-                        controller: controller.addFeaturedDesc4,
-                        hintText: 'Description *',
-                        maxLines: 8,
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                      ),
-                    ),
+                    sb20(),
                   ],
-                ),
-              ],
-            ),
-            sb20(),
-            _buildCollapsibleSection(
-              title: 'AMENITIES PROJECT DETAILS',
-              children: [
-                Row(
+                );
+              } else if (controller.selectedOption.value == 'ProjectLogo') {
+                return _buildCollapsibleSection(
+                  title: 'PROJECT LOGO',
                   children: [
-                    buildFeautredPhoto(
-                        title: 'Outdoor Amenities',
-                        onTap: () {
-                          controller.getImageGallery();
+                    UploadBannersWidget(
+                      text: 'Upload Project Logo',
+                      maxImages: 1,
+                      onImageSelected: (Uint8List image) {
+                        controller.addProjectPhoto(image);
+                      },
+                    ),
+                    sb20(),
+                  ],
+                );
+              } else if (controller.selectedOption.value == '3DVirtual') {
+                return _buildCollapsibleSection(
+                  title: 'ADD VIRTUAL TOUR',
+                  children: [
+                    _buildTextField(
+                        controller: controller.virtualTitleController,
+                        label: 'Virtual Title*',
+                        onChanged: (value) {
+                          controller.updateVirtualTitle(value);
                         }),
-                    sbw10(),
-                    SizedBox(
-                      width: Get.width / 4.2,
-                      child: TextformfieldWidget(
-                        controller: controller.outdoorAmenitiesController,
-                        hintText: 'Description *',
-                        maxLines: 8,
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                      ),
+                    sb20(),
+                    TextformfieldWidget(
+                      controller: controller.virtualParagraphController,
+                      hintText: 'Virtual Paragraph *',
+                      maxLines: 10,
+                      textInputAction: TextInputAction.newline,
+                      keyboardType: TextInputType.multiline,
+                      onChanged: (value) {
+                        controller.updateVirtualParagaph(value);
+                      },
                     ),
-                    buildFeautredPhoto(
-                        title: 'Indoor Amenities',
-                        onTap: () {
-                          controller.getImageGallery();
-                        }),
-                    sbw10(),
-                    SizedBox(
-                      width: Get.width / 4.2,
-                      child: TextformfieldWidget(
-                        controller: controller.indoorAmenitiesController,
-                        hintText: 'Description *',
-                        maxLines: 8,
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                      ),
+                    sb20(),
+                    _buildTextField(
+                      controller: controller.virtualLinkController,
+                      label: 'Virtual Link*',
+                    ),
+                    sb20(),
+                  ],
+                );
+              } else if (controller.selectedOption.value == 'Blurb') {
+                return _buildCollapsibleSection(
+                  title: 'ADD BLURB',
+                  children: [
+                    Obx(() => Column(
+                          children: List.generate(
+                              controller.addBlurbTitle.length,
+                              (index) => _buildBlurb(
+                                    index,
+                                    controller,
+                                  )),
+                        )),
+                    IconButton(
+                      onPressed: () {
+                        controller.addBlurb();
+                      },
+                      icon: Icon(CupertinoIcons.add),
                     ),
                   ],
-                ),
-              ],
-            ),
-            buildCarouselOption(
-              controller: controller,
-              title: 'CAROUSEL 1',
-              controller1: controller.areaController,
-              controller2: controller.roomController,
-              controller3: controller.balconyController,
-              controller4: controller.carouselDesc,
-            ),
-            buildCarouselOption(
-              controller: controller,
-              title: 'CAROUSEL 2',
-              controller1: controller.areaController1,
-              controller2: controller.roomController2,
-              controller3: controller.balconyController3,
-              controller4: controller.carouselDesc2,
-            ),
-            buildCarouselOption(
-              controller: controller,
-              title: 'CAROUSEL 3',
-              controller1: controller.areaController4,
-              controller2: controller.roomController,
-              controller3: controller.balconyController3,
-              controller4: controller.carouselDesc2,
-            ),
+                );
+              } else {
+                return Container();
+              }
+            }),
             Padding(
               padding: EdgeInsets.all(8.sp),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -256,98 +201,172 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                 ),
               ]),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField(
-      {TextEditingController? controller,
-      String? label,
-      TextInputType? keyboardType,
-      width}) {
-    return SizedBox(
-      width: width,
-      child: TextFormField(
-        keyboardType: keyboardType ?? TextInputType.text,
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(),
-        ),
-      ),
-    );
-  }
-
-  Widget buildFeautredPhoto({void Function()? onTap, String? title}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(
-              text: title ?? 'ADD FEATURED PHOTOS',
-              fontSize: 18.sp,
-              color: AppColors.black,
-              fontWeight: FontWeight.w500,
-            ),
-            Container(
-              width: 300.w,
-              height: 250.h,
-              decoration: BoxDecoration(
-                color: AppColors.hint.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: AppColors.hint.withOpacity(0.9),
-                  width: 2,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _buildImagePreview(controller.bannerPhotos),
+                _buildText(text: controller.developerName),
+                _buildImagePreview(controller.projectLogo),
+                _buildText(text: controller.virtualTitle),
+                _buildText(text: controller.virtualParagraph),
+                _buildText(text: controller.virtualLink),
+                Column(
+                  children: List.generate(
+                    controller.addBlurbTitle.length,
+                    (index) => Column(
+                      children: [
+                        _buildBulbTitle(),
+                        _buildBulbImage(),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              child: Center(
-                child: Image.asset(AppEraAssets.uploadAdmin),
-              ),
+              ],
             ),
-            SizedBox(
-              height: 20.h,
-            ),
+            sb50(),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget buildCarouselOption({
-    ListingsAdminController? controller,
-    String? title,
-    TextEditingController? controller1,
-    TextEditingController? controller2,
-    TextEditingController? controller3,
-    TextEditingController? controller4,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        EraText(
-          text: title!,
-          color: AppColors.black,
-          fontSize: EraTheme.header - 10.sp,
-          fontWeight: FontWeight.w600,
-        ),
-        EraText(
-          text: 'Add photos (min 10)',
-          color: AppColors.black,
-          fontSize: EraTheme.header - 12.sp,
-          fontWeight: FontWeight.w500,
-        ),
-        GestureDetector(
-          onTap: () {
-            //im not sure if this is the right function to call
-            controller!.getImageGallery();
+//preview
+Widget _buildBulbImage({ListingsAdminController? controller, int? index}) {
+  return Obx(() => controller!.addBlurImage[index!] != null
+      ? Image.memory(
+          controller.addBlurImage[index]!,
+          width: 150,
+          height: 150,
+          fit: BoxFit.cover,
+        )
+      : Container());
+}
+//preview
+
+Widget _buildBulbTitle({ListingsAdminController? controller, int? index}) {
+  return Obx(() => EraText(
+        text: controller!.addBlurbTitle[index!],
+        color: AppColors.black,
+        fontSize: EraTheme.paragraph,
+        maxLines: 50,
+      ));
+}
+
+Widget _buildBlurb(int index, ListingsAdminController controller) {
+  return Column(
+    children: [
+      _buildTextField(
+          controller: controller.blurbTitleController[index],
+          label: 'Blurb Title*',
+          onChanged: (value) {
+            controller.updateBlurbTitle(index, value);
+          }),
+      sb20(),
+      UploadBannersWidget(
+          text: 'Upload Blurb Image',
+          maxImages: 1,
+          onImageSelected: (Uint8List image) {
+            controller.updateBlurbImage(index, image);
+          }),
+      sb20(),
+      TextformfieldWidget(
+        controller: controller.blurbParagraphController[index],
+        hintText: 'Blurb Paragraph *',
+        maxLines: 10,
+        textInputAction: TextInputAction.newline,
+        keyboardType: TextInputType.multiline,
+        onChanged: (value) {
+          controller.updateBlurbParagraph(index, value);
+        },
+      ),
+      IconButton(
+          onPressed: () {
+            controller.removeBlurb(index);
           },
-          child: Container(
-            width: Get.width,
+          icon: Icon(CupertinoIcons.clear)),
+      sb20(),
+    ],
+  );
+}
+
+Widget _buildText({
+  int? index,
+  RxString? text,
+}) {
+  return Obx(() => EraText(
+        text: text!.value,
+        color: AppColors.black,
+        fontSize: EraTheme.paragraph,
+        maxLines: 50,
+      ));
+}
+
+Widget _buildImagePreview(
+  RxList<Uint8List> images,
+) {
+  return Stack(
+    children: [
+      Obx(() => images.isNotEmpty
+          ? Image.memory(
+              images.first,
+              width: Get.width / 2.5,
+              height: Get.height / 2.5,
+              fit: BoxFit.cover,
+            )
+          : Container()),
+      Positioned(
+        top: 5.h,
+        right: 0,
+        child: IconButton(
+          onPressed: () => images.clear(),
+          icon: Icon(
+            CupertinoIcons.clear,
+            color: AppColors.black,
+          ),
+        ),
+      )
+    ],
+  );
+}
+
+Widget _buildTextField({
+  TextEditingController? controller,
+  String? label,
+  TextInputType? keyboardType,
+  width,
+  void Function(String)? onChanged,
+}) {
+  return SizedBox(
+    width: width,
+    child: TextFormField(
+      keyboardType: keyboardType ?? TextInputType.text,
+      controller: controller,
+      onChanged: onChanged,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(),
+      ),
+    ),
+  );
+}
+
+Widget buildFeautredPhoto({void Function()? onTap, String? title}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          EraText(
+            text: title ?? 'ADD FEATURED PHOTOS',
+            fontSize: 18.sp,
+            color: AppColors.black,
+            fontWeight: FontWeight.w500,
+          ),
+          Container(
+            width: 300.w,
             height: 250.h,
             decoration: BoxDecoration(
               color: AppColors.hint.withOpacity(0.3),
@@ -361,148 +380,26 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               child: Image.asset(AppEraAssets.uploadAdmin),
             ),
           ),
-        ),
-        sb20(),
-        Row(
-          children: [
-            _buildTextField(
-              width: Get.width / 4,
-              controller: controller1,
-              label: 'Area *',
-            ),
-            sbw20(),
-            _buildTextField(
-              width: Get.width / 4,
-              controller: controller2,
-              label: 'Number of Rooms *',
-            ),
-            sbw20(),
-            _buildTextField(
-              width: Get.width / 4,
-              controller: controller3,
-              label: 'Balcony Size *',
-            ),
-          ],
-        ),
-        sb20(),
-        TextformfieldWidget(
-          controller: controller4,
-          hintText: 'Description *',
-          maxLines: 8,
-          textInputAction: TextInputAction.newline,
-          keyboardType: TextInputType.multiline,
-        ),
-        sb20(),
-      ],
-    );
-  }
-
-  Widget _buildCollapsibleSection({
-    required String title,
-    required List<Widget> children,
-  }) {
-    return ExpansionTile(
-      title: EraText(
-        text: title,
-        fontSize: EraTheme.header - 5.sp,
-        fontWeight: FontWeight.w500,
-        color: AppColors.black,
+          SizedBox(
+            height: 20.h,
+          ),
+        ],
       ),
-      children: children,
-    );
-  }
-  // Widget buildUploadSection({
-  //   required String title,
-  //   required TextEditingController controller1,
-  //   required String text1,
-  //   TextEditingController? controller2,
-  //   String? text2,
-  //   int maxLines1 = 1,
-  //   int? maxLines2,
-  // }) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           EraText(
-  //             text: title,
-  //             color: AppColors.black,
-  //             fontSize: 18.sp,
-  //             fontWeight: FontWeight.w500,
-  //           ),
-  //           SizedBox(height: 10.h),
-  //           Container(
-  //             height: 300.h,
-  //             width: 500.w,
-  //             decoration: BoxDecoration(
-  //               borderRadius: BorderRadius.circular(20),
-  //               color: AppColors.hint,
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //       SizedBox(width: 20.w),
-  //       Expanded(
-  //         child: Column(
-  //           children: [
-  //             buildTextFormField2(
-  //               text: text1,
-  //               controller: controller1,
-  //               maxLines: maxLines1,
-  //             ),
-  //             if (text2 != null && controller2 != null) ...[
-  //               SizedBox(height: 20.h),
-  //               buildTextFormField2(
-  //                 text: text2,
-  //                 controller: controller2,
-  //                 maxLines: maxLines2 ?? 1,
-  //               ),
-  //             ],
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+    ),
+  );
+}
 
-  // static Widget buildTextFormField2({
-  //   required String text,
-  //   required TextEditingController controller,
-  //   int maxLines = 1,
-  // }) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       if (text.isNotEmpty)
-  //         EraText(
-  //           text: text,
-  //           fontSize: 18.sp,
-  //           color: AppColors.black,
-  //           fontWeight: FontWeight.w500,
-  //         ),
-  //       SizedBox(height: 10.h),
-  //       TextFormField(
-  //         controller: controller,
-  //         maxLines: maxLines,
-  //         decoration: InputDecoration(
-  //           filled: true,
-  //           fillColor: AppColors.white,
-  //           enabledBorder: OutlineInputBorder(
-  //             borderRadius: BorderRadius.circular(10),
-  //             borderSide: BorderSide(
-  //               color: AppColors.black,
-  //               width: 1.5,
-  //             ),
-  //           ),
-  //           border: OutlineInputBorder(
-  //             borderRadius: BorderRadius.circular(10),
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+Widget _buildCollapsibleSection({
+  required String title,
+  required List<Widget> children,
+}) {
+  return ExpansionTile(
+    title: EraText(
+      text: title,
+      fontSize: EraTheme.header - 5.sp,
+      fontWeight: FontWeight.w500,
+      color: AppColors.black,
+    ),
+    children: children,
+  );
 }

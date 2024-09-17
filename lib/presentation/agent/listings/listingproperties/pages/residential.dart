@@ -1,16 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/app/services/ai_search.dart';
-import 'package:eraphilippines/app/services/firebase_database.dart';
+
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/app_text_listing.dart';
-import 'package:eraphilippines/app/widgets/app_textfield.dart';
-import 'package:eraphilippines/app/widgets/box_widget.dart';
-import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
-import 'package:eraphilippines/app/widgets/filter_options.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+
 import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +11,6 @@ import 'package:get/get.dart';
 import '../../../../../app/widgets/filteredsearch_box.dart';
 import '../../searchresult/controllers/searchresult_controller.dart';
 import '../controllers/listing_controller.dart';
-import 'findproperties.dart';
 
 class Residential extends GetView<ListingController> {
   const Residential({super.key});

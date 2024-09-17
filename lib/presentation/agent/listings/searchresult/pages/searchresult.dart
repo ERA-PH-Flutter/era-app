@@ -84,7 +84,7 @@ class SearchResult extends GetView<SearchResultController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   EraText(
-                    text: 'Showcased Listing',
+                    text: 'Showcased Listings',
                     fontSize: 23.sp,
                     color: AppColors.kRedColor,
                     fontWeight: FontWeight.w800,

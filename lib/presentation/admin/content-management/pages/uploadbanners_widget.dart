@@ -18,12 +18,9 @@ import '../../../../app/constants/theme.dart';
 class UploadBannersWidget extends StatelessWidget {
   final String? text;
   final int maxImages;
-
-  const UploadBannersWidget({
-    super.key,
-    this.text,
-    required this.maxImages,
-  });
+  final Function(Uint8List)? onImageSelected;
+  const UploadBannersWidget(
+      {super.key, this.text, required this.maxImages, this.onImageSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -66,16 +63,21 @@ class UploadBannersWidget extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async {
-                    if(maxImages != 1){
+                    if (maxImages != 1) {
                       await addListingsController.pickImageFromWeb();
-                    }else{
+                    } else {
                       try {
-                        final imagePick = await ImagePicker().pickImage(source: ImageSource.gallery);
+                        final imagePick = await ImagePicker()
+                            .pickImage(source: ImageSource.gallery);
                         var image = await imagePick!.readAsBytes();
+                        if (onImageSelected != null) {
+                          onImageSelected!(image);
+                          return;
+                        }
                         //con.selectedImage = image;
                         addListingsController.images.value = [image];
                       } catch (e) {
-                         print(e);
+                        print(e);
                       }
                     }
                   },

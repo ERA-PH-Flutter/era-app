@@ -7,7 +7,6 @@ import 'package:eraphilippines/app/services/functions.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/listing.dart';
-import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,58 +38,170 @@ class ListingsAdminController extends GetxController {
   Listing? listing;
   List<Listing> listings = [];
 
+  TextEditingController developerController = TextEditingController();
+  TextEditingController virtualTitleController = TextEditingController();
+  TextEditingController virtualParagraphController = TextEditingController();
+  TextEditingController virtualLinkController = TextEditingController();
+
+  var addBlurbTitle = <String>[].obs;
+  var addBlurbParagraph = <String>[].obs;
+  var addBlurImage = <Uint8List?>[].obs;
+
+  var blurbTitleController = <TextEditingController>[].obs;
+  var blurbParagraphController = <TextEditingController>[].obs;
+
+  var selectedOption = ''.obs;
+  var bannerPhotos = <Uint8List>[].obs;
+  var projectLogo = <Uint8List>[].obs;
+  var developerName = ''.obs;
+  var virtualTitle = ''.obs;
+  var virtualParagraph = ''.obs;
+  var virtualLink = ''.obs;
+
+  void addBlurb() {
+    addBlurbTitle.add('');
+    addBlurbParagraph.add('');
+    addBlurImage.add(null);
+
+    blurbTitleController.add(TextEditingController());
+    blurbParagraphController.add(TextEditingController());
+  }
+
+  void updateBlurbTitle(int index, String title) {
+    addBlurbTitle[index] = title;
+    addBlurbTitle.refresh();
+  }
+
+  void updateBlurbImage(int index, Uint8List? image) {
+    addBlurImage[index] = image;
+    addBlurImage.refresh();
+  }
+
+  void updateBlurbParagraph(int index, String paragraph) {
+    addBlurbParagraph[index] = paragraph;
+    addBlurbParagraph.refresh();
+  }
+
+  void removeBlurb(int index) {
+    addBlurbParagraph.removeAt(index);
+    addBlurbParagraph.removeAt(index);
+    addBlurImage.removeAt(index);
+    //if clear there is error im not sure  how to fix it
+
+    blurbTitleController[index].dispose();
+    blurbParagraphController[index].dispose();
+    blurbTitleController.removeAt(index);
+    blurbParagraphController.removeAt(index);
+  }
+
+  @override
+  void onClose() {
+    for (var controller in blurbTitleController) {
+      controller.dispose();
+    }
+    for (var controller in blurbParagraphController) {
+      controller.dispose();
+    }
+    super.onClose();
+  }
+  // void updateBlurbTitle(String title) {
+  //   addBlurbTitle.value = title;
+  // }
+
+  // void updateBlurbImage(Uint8List image) {
+  //   addBlurImage.add(image);
+  // }
+
+  // void updateBlurbParagraph(String paragraph) {
+  //   addBlurbParagraph.value = paragraph;
+  // }
+
+  void updateDeveloperName(String name) {
+    developerName.value = name;
+  }
+  //im not sure for the link hehe but ill put it here for now so we cant forget
+
+  void updateVirtualTitle(String title) {
+    virtualTitle.value = title;
+  }
+
+  void updateVirtualParagaph(String paragraph) {
+    virtualParagraph.value = paragraph;
+  }
+
+  void addProjectPhoto(Uint8List image) {
+    projectLogo.add(image);
+  }
+
+  void addBannerPhoto(Uint8List bannerImage) {
+    bannerPhotos.add(bannerImage);
+  }
+
+  void removeProjectPhoto() {
+    projectLogo.clear();
+    bannerPhotos.clear();
+  }
+
+  void updateSelectedOption(String option) {
+    selectedOption.value = option;
+  }
+
   //EraUser? user;
   //EraUser? user;
+
+//   TextEditingController locationController = TextEditingController();
+//   TextEditingController propertyController = TextEditingController();
+//   TextEditingController priceController = TextEditingController();
+
+//   //projects
+//   TextEditingController propertyNameController = TextEditingController();
+//   TextEditingController developerController = TextEditingController();
+//   TextEditingController featuredPhotosController = TextEditingController();
+//   TextEditingController descriptionController = TextEditingController();
+
+//   TextEditingController addFeaturedDesc1 = TextEditingController();
+//   TextEditingController addFeaturedDesc2 = TextEditingController();
+//   TextEditingController addFeaturedDesc3 = TextEditingController();
+//   TextEditingController addFeaturedDesc4 = TextEditingController();
+
+//   TextEditingController outdoorAmenitiesController = TextEditingController();
+//   TextEditingController indoorAmenitiesController = TextEditingController();
+
+//   TextEditingController locationControllers = TextEditingController();
+
+//   TextEditingController areaController = TextEditingController();
+//   TextEditingController roomController = TextEditingController();
+//   TextEditingController balconyController = TextEditingController();
+//   TextEditingController areaController1 = TextEditingController();
+//   TextEditingController roomController2 = TextEditingController();
+//   TextEditingController balconyController3 = TextEditingController();
+//   TextEditingController areaController4 = TextEditingController();
+//   TextEditingController roomController5 = TextEditingController();
+//   TextEditingController balconyController6 = TextEditingController();
+
+//   TextEditingController carouselDesc = TextEditingController();
+//   TextEditingController carouselDesc2 = TextEditingController();
+//   TextEditingController carouselDesc3 = TextEditingController();
+
+// //
+//   TextEditingController vrUploadController = TextEditingController();
+//   TextEditingController vrUploadController2 = TextEditingController();
 
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();
   TextEditingController priceController = TextEditingController();
-
-  //projects
-  TextEditingController propertyNameController = TextEditingController();
-  TextEditingController developerController = TextEditingController();
-  TextEditingController featuredPhotosController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-
-  TextEditingController addFeaturedDesc1 = TextEditingController();
-  TextEditingController addFeaturedDesc2 = TextEditingController();
-  TextEditingController addFeaturedDesc3 = TextEditingController();
-  TextEditingController addFeaturedDesc4 = TextEditingController();
-
-  TextEditingController outdoorAmenitiesController = TextEditingController();
-  TextEditingController indoorAmenitiesController = TextEditingController();
-
-  TextEditingController locationControllers = TextEditingController();
-
-  TextEditingController areaController = TextEditingController();
-  TextEditingController roomController = TextEditingController();
-  TextEditingController balconyController = TextEditingController();
-  TextEditingController areaController1 = TextEditingController();
-  TextEditingController roomController2 = TextEditingController();
-  TextEditingController balconyController3 = TextEditingController();
-  TextEditingController areaController4 = TextEditingController();
-  TextEditingController roomController5 = TextEditingController();
-  TextEditingController balconyController6 = TextEditingController();
-
-  TextEditingController carouselDesc = TextEditingController();
-  TextEditingController carouselDesc2 = TextEditingController();
-  TextEditingController carouselDesc3 = TextEditingController();
-
-//
-  TextEditingController vrUploadController = TextEditingController();
-  TextEditingController vrUploadController2 = TextEditingController();
-
-  // TextEditingController locationController = TextEditingController();
-  // TextEditingController propertyController = TextEditingController();
-  // TextEditingController priceController = TextEditingController();
-  TextEditingController propertyNameC = TextEditingController();
-  TextEditingController descriptionTitleC = TextEditingController();
-  TextEditingController descriptionC = TextEditingController();
-  TextEditingController carouselTitleC = TextEditingController();
-  TextEditingController carouselFooterC = TextEditingController();
-  TextEditingController allDescriptionC = TextEditingController();
+//   TextEditingController propertyNameC = TextEditingController();
+//   TextEditingController descriptionTitleC = TextEditingController();
+//   TextEditingController descriptionC = TextEditingController();
+//   TextEditingController carouselTitleC = TextEditingController();
+//   TextEditingController carouselFooterC = TextEditingController();
+//   TextEditingController allDescriptionC = TextEditingController();
   var currentImage = ''.obs;
-  Stream<QuerySnapshot<Map<String, dynamic>>> streamSearch = FirebaseFirestore.instance.collection('listings').orderBy('date_created').snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> streamSearch = FirebaseFirestore
+      .instance
+      .collection('listings')
+      .orderBy('date_created')
+      .snapshots();
 
   var images = [].obs;
   final picker = ImagePicker();
@@ -118,19 +229,23 @@ class ListingsAdminController extends GetxController {
 
   @override
   void onInit() async {
-    if(!kIsWeb){
+    if (!kIsWeb) {
       data.clear();
       listingState.value = ListingsAState.loaded;
       try {
         if (Get.arguments == null) {
           var tempData = [];
-          tempData = (await FirebaseFirestore.instance.collection('listings').limit(10).get()).docs.map((doc){
+          tempData = (await FirebaseFirestore.instance
+                  .collection('listings')
+                  .limit(10)
+                  .get())
+              .docs
+              .map((doc) {
             return doc.data();
           }).toList();
           print(tempData);
           loadData(tempData);
-        }
-        else {
+        } else {
           loadData(Get.arguments[0]);
           searchQuery.value = Get.arguments[1];
         }
@@ -146,7 +261,7 @@ class ListingsAdminController extends GetxController {
       } else {
         addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
       }
-    }else{
+    } else {
       listingState.value = ListingsAState.loaded;
       addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
     }
@@ -211,20 +326,42 @@ class ListingsAdminController extends GetxController {
     addListingsController.addListingsState.value = AddListingsState.loaded;
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> searchStream(){
-    if(aiSearchController.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('listings').where('name',isGreaterThanOrEqualTo: aiSearchController.text.capitalize)
-          .where('name', isLessThanOrEqualTo:  '${aiSearchController.text.capitalize}\uf8ff').snapshots();
-    }else if(locationController.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('listings').where('location',isGreaterThanOrEqualTo: locationController.text)
-          .where('location', isLessThanOrEqualTo:  '${locationController.text}\uf8ff').snapshots();
-    }else if(priceController.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('listings').where('price',isLessThanOrEqualTo: priceController.text.toInt()).snapshots();
-    }else if(propertyController.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('listings').where('type',isGreaterThanOrEqualTo: propertyController.text.capitalizeFirst)
-          .where('type', isLessThanOrEqualTo:  '${propertyController.text.capitalizeFirst}\uf8ff').snapshots();
-    }else{
-      return  FirebaseFirestore.instance.collection('listings').orderBy('date_created').snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> searchStream() {
+    if (aiSearchController.text.isNotEmpty) {
+      return FirebaseFirestore.instance
+          .collection('listings')
+          .where('name',
+              isGreaterThanOrEqualTo: aiSearchController.text.capitalize)
+          .where('name',
+              isLessThanOrEqualTo:
+                  '${aiSearchController.text.capitalize}\uf8ff')
+          .snapshots();
+    } else if (locationController.text.isNotEmpty) {
+      return FirebaseFirestore.instance
+          .collection('listings')
+          .where('location', isGreaterThanOrEqualTo: locationController.text)
+          .where('location',
+              isLessThanOrEqualTo: '${locationController.text}\uf8ff')
+          .snapshots();
+    } else if (priceController.text.isNotEmpty) {
+      return FirebaseFirestore.instance
+          .collection('listings')
+          .where('price', isLessThanOrEqualTo: priceController.text.toInt())
+          .snapshots();
+    } else if (propertyController.text.isNotEmpty) {
+      return FirebaseFirestore.instance
+          .collection('listings')
+          .where('type',
+              isGreaterThanOrEqualTo: propertyController.text.capitalizeFirst)
+          .where('type',
+              isLessThanOrEqualTo:
+                  '${propertyController.text.capitalizeFirst}\uf8ff')
+          .snapshots();
+    } else {
+      return FirebaseFirestore.instance
+          .collection('listings')
+          .orderBy('date_created')
+          .snapshots();
     }
   }
 }

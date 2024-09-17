@@ -197,21 +197,21 @@ class AddAgent extends GetView<AgentAdminController> {
                           password: controller.passwordA.text);
                       //var image = await CloudStorage().upload(file: controller.images, target: 'users/test/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}');
                       await EraUser(
-                        id: id,
-                        //image: image,
-                        firstname: controller.fNameA.text,
-                        lastname: controller.lNameA.text,
-                        email: controller.emailAdressA.text,
-                        //todo birthday
-                        whatsApp: controller.phoneNA.text,
-                        gender: controller.sexA.text,
-                        location: controller.officeLA.text,
-                        licence: controller.licensedNumA.text,
-                        //todo number
-                        position: controller.selectedAgentType.value,
-                        description: controller.descriptionA.text,
-                        status: "approved"
-                      ).add();
+                              id: id,
+                              //image: image,
+                              firstname: controller.fNameA.text,
+                              lastname: controller.lNameA.text,
+                              email: controller.emailAdressA.text,
+                              //todo birthday
+                              whatsApp: controller.phoneNA.text,
+                              gender: controller.sexA.text,
+                              location: controller.officeLA.text,
+                              licence: controller.licensedNumA.text,
+                              //todo number
+                              position: controller.selectedAgentType.value,
+                              description: controller.descriptionA.text,
+                              status: "approved")
+                          .add();
                       BaseController().showSuccessDialog(
                           title: "Add Agent Success",
                           description: "Agent added successfully!",
@@ -570,7 +570,7 @@ class AddAgent extends GetView<AgentAdminController> {
     );
   }
 
-  static Widget buildUploadPhoto({void Function()? onTap}) {
+  static Widget buildUploadPhoto({text, void Function()? onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -579,7 +579,7 @@ class AddAgent extends GetView<AgentAdminController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             EraText(
-              text: ' Upload Photo *',
+              text: text ?? ' Upload Photo *',
               fontSize: 18.sp,
               color: AppColors.black,
               fontWeight: FontWeight.w500,
