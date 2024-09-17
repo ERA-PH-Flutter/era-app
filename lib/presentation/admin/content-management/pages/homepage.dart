@@ -52,11 +52,166 @@ class HomePage extends GetView<ContentManagementController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        UploadBannersWidget(maxImages: 15),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Reusing textBuild function
+                  AddListings.textBuild('UPLOAD BANNERS', EraTheme.header,
+                      FontWeight.w600, AppColors.black),
+                  Obx(() => AddListings.textBuild(
+                      '${controller.images.length}/15',
+                      22.sp,
+                      FontWeight.w600,
+                      Colors.black)),
+                ],
+              ),
+              SizedBox(height: 10.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.blue,
+                        shadowColor: Colors.transparent,
+                        side: BorderSide(
+                          color: AppColors.hint.withOpacity(0.1),
+                          width: 1,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () async {
+                        try {
+                          final imagePick = await ImagePicker().pickMultipleMedia();
+                          if(imagePick.isNotEmpty){
+                            for (var image in imagePick) {
+                              var img = await image.readAsBytes();
+                              controller.images.add(img);
+                              var bannerImage = await CloudStorage().uploadFromMemory(file: img, target: "banners",customName: "${DateTime.now().microsecondsSinceEpoch}_${Random().nextInt(1000)}.png");
+                              settings!.banners!.add(bannerImage);
+                            }
+                            settings!.update();
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
+                      },
+                      icon: Icon(
+                        CupertinoIcons.photo_fill_on_rectangle_fill,
+                        color: AppColors.white,
+                      ),
+                      label: EraText(
+                        text: 'Select Photos / Videos',
+                        color: AppColors.white,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10.h),
+              Obx(() {
+                if (controller.images.isEmpty) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: Get.width / 1.2 - 45.w,
+                        height: 250.h,
+                        decoration: BoxDecoration(
+                          color: AppColors.hint.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: AppColors.hint.withOpacity(0.9),
+                            width: 2,
+                          ),
+                        ),
+                        child: Center(
+                          child: Image.asset(AppEraAssets.uploadAdmin),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                    ],
+                  );
+                } else {
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 10.h,
+                      crossAxisSpacing: 10.h,
+                    ),
+                    itemCount: controller.images.length,
+                    itemBuilder: (context, index) {
+                      return Stack(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 10.w, bottom: 10.w),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: MemoryImage(
+                                    controller.images[index],
+                                  )),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 5.w,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.cancel,
+                                color: AppColors.black,
+                              ),
+                              onPressed: ()async{
+                                await CloudStorage().deleteFileDirect(docRef: settings!.banners![index]);
+                                settings!.banners!.removeAt(index);
+                                controller.images.removeAt(index);
+                                settings!.update();
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              }),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 20.w),
+              //   child: EraText(
+              //     text: 'Photo must be at least 300px X 300px',
+              //     fontSize: 15.sp,
+              //     color: AppColors.hint,
+              //   ),
+              // ),
+            ],
+          ),
+        ),
         sb20(),
-        _uploadPreviewPhotos(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+          child: _uploadPreviewPhotos(),
+        ),
         sb20(),
-        _quicklinks(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+          child: _quicklinks(),
+        ),
       ],
     );
   }
@@ -180,7 +335,7 @@ class HomePage extends GetView<ContentManagementController> {
 
   Widget _uploadPreviewPhotos() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildUploadPhoto(
           text: 'Preselling Preview Photo',

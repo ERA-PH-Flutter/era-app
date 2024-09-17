@@ -1,12 +1,12 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
+import 'package:eraphilippines/app/models/settings.dart' as era_settings;
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
-import 'package:eraphilippines/repository/listing.dart';
-import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -37,6 +37,11 @@ class ContentManagementController extends GetxController with BaseController {
           for (int i = 0; i < settings!.banners!.length; i++) {
             bannersImages.add(settings!.banners![i]);
           }
+        }
+      }else{
+        settings = era_settings.Settings.fromJSON((await FirebaseFirestore.instance.collection('settings').doc('main').get()).data()!);
+        for (int i = 0; i < settings!.banners!.length; i++) {
+          images.add(await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
         }
       }
       //await getImages();
