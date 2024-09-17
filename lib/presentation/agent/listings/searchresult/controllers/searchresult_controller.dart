@@ -89,14 +89,14 @@ class SearchResultController extends GetxController {
 
   loadData(loadedData) {
     loadedData = loadedData ?? [];
-    data.value = loadedData.map((d) {
+    print(loadedData);
+    loadedData.forEach((d) {
       if(d != null){
-        if (!(d['is_sold'] ?? true)) {
-          return d;
+        if (!(d['is_sold'] ?? false)) {
+          data.add(d);
         }
       }
-
-    }).toList();
+    });
     //data.assignAll(loadedData);
     if (data.isEmpty) {
       searchResultState.value = SearchResultState.empty;

@@ -121,7 +121,6 @@ class SearchResult extends GetView<SearchResultController> {
             shrinkWrap: true,
             itemCount: controller.data.length,
             itemBuilder: (context, index) {
-              //print(controller.data[index]);
               if (controller.data[index] != null) {
                 Listing listing = Listing.fromJSON(controller.data[index]);
                 return GestureDetector(
