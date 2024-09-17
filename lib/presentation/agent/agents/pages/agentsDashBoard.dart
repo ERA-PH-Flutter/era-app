@@ -72,7 +72,6 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
 
                           SizedBox(height: 10.h),
                           AgentInfoWidget.agentInformation(
-                            issettings: true,
                             imageProvider: user!.image != null
                                 ? user!.image!
                                 : AppStrings.noUserImageWhite,
@@ -84,15 +83,23 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                           ),
                           SizedBox(height: 25.h),
 
-                          Button(
-                            fontSize: EraTheme.paragraph - 2.sp,
-                            width: Get.width,
-                            text: 'MORTGAGE CALCULATOR',
-                            borderRadius: BorderRadius.circular(20),
-                            bgColor: AppColors.kRedColor,
-                            onTap: () {
-                              Get.toNamed("/mortageCalculator");
-                            },
+                          Row(
+                            children: [
+                              Button(
+                                fontSize: EraTheme.paragraph - 2.sp,
+                                width: Get.width - 100.w,
+                                text: 'MORTGAGE CALCULATOR',
+                                borderRadius: BorderRadius.circular(20),
+                                bgColor: AppColors.kRedColor,
+                                onTap: () {
+                                  Get.toNamed("/mortageCalculator");
+                                },
+                              ),
+                              sbw10(), // SizedBox(width: 10.w),
+                              settingIcon(() {
+                                Get.to(() => SettingsPage());
+                              })
+                            ],
                           ),
                           SizedBox(height: 25.h),
                           myListings(),
@@ -606,7 +613,9 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                 height: 100.w,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: controller.listings.length >= 5 ? 5 : controller.listings.length,
+                  itemCount: controller.listings.length >= 5
+                      ? 5
+                      : controller.listings.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -629,7 +638,8 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                             children: [
                               Positioned.fill(
                                 child: CloudStorage().imageLoaderProvider(
-                                    ref: controller.listings[index].photos.first ,
+                                    ref:
+                                        controller.listings[index].photos.first,
                                     height: 100.w,
                                     width: 100.w,
                                     borderRadius: BorderRadius.circular(10.r)),
@@ -742,7 +752,7 @@ Widget settingIcon(Function()? onTap) {
       child: Icon(
         CupertinoIcons.settings,
         color: AppColors.blue,
-        size: 25.sp,
+        size: 35.sp,
       ),
     ),
   );

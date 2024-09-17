@@ -21,7 +21,6 @@ class AgentInfoWidget {
     String? whatsApp,
     String? email,
     String? role,
-    bool issettings = false,
   }) {
     final Uri whatsAppUrl2 = Uri.parse('https://wa.me/$whatsApp');
 
@@ -39,24 +38,14 @@ class AgentInfoWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  agentText(
-                    '$firstName $lastName',
-                    AppColors.blue,
-                    18.sp,
-                    FontWeight.bold,
-                    1.2,
-                  ),
-                  sbw90(),
-                  issettings
-                      ? settingIcon(() {
-                          Get.to(() => SettingsPage());
-                        })
-                      : Container(),
-                ],
+              agentText(
+                '$firstName $lastName',
+                AppColors.blue,
+                18.sp,
+                FontWeight.bold,
+                1.2,
               ),
+              sbw90(),
               agentText(
                 role!.toUpperCase(),
                 AppColors.black,

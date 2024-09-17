@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,8 @@ class Button extends StatelessWidget {
   final EdgeInsets? margin;
   final EdgeInsets? padding;
   final BorderRadius? borderRadius;
+  final BoxBorder? border;
+  final Color? color;
 
   const Button({
     super.key,
@@ -32,6 +35,8 @@ class Button extends StatelessWidget {
     this.margin,
     this.padding,
     this.borderRadius,
+    this.border,
+    this.color,
   });
 
   @override
@@ -46,11 +51,12 @@ class Button extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: borderRadius ?? BorderRadius.circular(10),
             color: bgColor,
+            border: border ?? Border.all(color: Colors.transparent),
           ),
           child: Center(
               child: EraText(
             text: text ?? '',
-            color: AppColors.white,
+            color: color ?? AppColors.white,
             fontSize: fontSize ?? 15.sp,
             fontWeight: fontWeight,
           )),

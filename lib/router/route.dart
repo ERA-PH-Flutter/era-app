@@ -16,6 +16,7 @@ import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.
 import 'package:eraphilippines/presentation/agent/projects/pages/aurelia.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/laya.dart';
+import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 import '../presentation/agent/agents/controllers/agents_binding.dart';
@@ -188,6 +189,10 @@ appRoutes() => [
         name: RouteString.nextPage,
         page: () => Nextpage(),
         binding: LoginPageBinding(),
+      ),
+      GetPage(
+        name: RouteString.termsAndConditions,
+        page: () => TermsCondition(),
       ),
 //admin
       GetPage(

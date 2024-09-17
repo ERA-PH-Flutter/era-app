@@ -39,7 +39,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               fontWeight: FontWeight.w600,
             ),
             _buildCollapsibleSection(
-              title: 'BANNER PHOTO',
+              title: 'ADD BANNER PHOTO',
               children: [
                 AddAgent.buildUploadPhoto(onTap: () {
                   controller.getImageGallery();
@@ -47,48 +47,60 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               ],
             ),
             _buildCollapsibleSection(
-              title: 'PROJECT DETAILS',
+              title: 'ADD LOGO AND DEVELOPER NAME',
               children: [
-                sb10(),
-                _buildTextField(
-                  controller: controller.propertyNameController,
-                  label: 'Property Name *',
-                ),
-                sb10(),
+                AddAgent.buildUploadPhoto(onTap: () {
+                  controller.getImageGallery();
+                }),
                 _buildTextField(
                   controller: controller.developerController,
                   label: 'Developer *',
                 ),
-                sb10(),
-                _buildTextField(
-                  controller: controller.vrUploadController,
-                  label: '3D Virtual Tour Link *',
-                ),
-                sb10(),
-                _buildTextField(
-                  controller: controller.locationControllers,
-                  label: 'Location *',
-                ),
-                sb10(),
-                SizedBox(
-                  width: Get.width,
-                  child: TextformfieldWidget(
-                    controller: controller.descriptionController,
-                    hintText: 'Description *',
-                    maxLines: 8,
-                    textInputAction: TextInputAction.newline,
-                    keyboardType: TextInputType.multiline,
-                  ),
-                ),
-                sb10(),
-                //options
-                _buildTextField(
-                  controller: controller.vrUploadController2,
-                  label: '3D Virtual Tour Link *',
-                ),
-                sb10(),
               ],
             ),
+            // _buildCollapsibleSection(
+            //   title: 'ADD LOGO AND DEVELOPER NAME',
+            //   children: [
+            //     sb10(),
+            //     AddAgent.buildUploadPhoto(onTap: () {
+            //       controller.getImageGallery();
+            //     }),
+
+            //     sb10(),
+            //     _buildTextField(
+            //       controller: controller.developerController,
+            //       label: 'Developer *',
+            //     ),
+            //     // sb10(),
+            //     // _buildTextField(
+            //     //   controller: controller.vrUploadController,
+            //     //   label: '3D Virtual Tour Link *',
+            //     // ),
+            //     // sb10(),
+            //     // _buildTextField(
+            //     //   controller: controller.locationControllers,
+            //     //   label: 'Location *',
+            //     // ),
+            //     // sb10(),
+            //     // SizedBox(
+            //     //   width: Get.width,
+            //     //   child: TextformfieldWidget(
+            //     //     controller: controller.descriptionController,
+            //     //     hintText: 'Description *',
+            //     //     maxLines: 8,
+            //     //     textInputAction: TextInputAction.newline,
+            //     //     keyboardType: TextInputType.multiline,
+            //     //   ),
+            //     // ),
+            //     // sb10(),
+            //     // //options
+            //     // _buildTextField(
+            //     //   controller: controller.vrUploadController2,
+            //     //   label: '3D Virtual Tour Link *',
+            //     // ),
+            //     // sb10(),
+            //   ],
+            // ),
             sb20(),
             _buildCollapsibleSection(
               title: 'FEATURED DETAILS',

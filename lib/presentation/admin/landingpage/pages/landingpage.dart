@@ -45,7 +45,7 @@ class LandingPage extends GetView<LandingPageController> {
     AddPropertyAdmin(), //7
     EditPropertyAdmin(), //8
     HomePage(), //9
-    AboutUsPage(), //10
+    //AboutUsPage(), //10
     ViewAllNews(), //11
     UploadNews(), //12
     GeneralFaq(), //13
@@ -177,9 +177,9 @@ class LandingPage extends GetView<LandingPageController> {
           ),
         ),
         IconButton(
-          onPressed: (){
+          onPressed: () {
             BaseController().showSuccessDialog(
-              hitApi: ()async{
+              hitApi: () async {
                 await Authentication().logout();
                 Get.toNamed(RouteString.adminLogin);
               },
@@ -189,9 +189,15 @@ class LandingPage extends GetView<LandingPageController> {
               cancelButton: "Cancel",
             );
           },
-          icon: Icon(Icons.power_settings_new,color: Colors.white,size: 30.sp,),
+          icon: Icon(
+            Icons.power_settings_new,
+            color: Colors.white,
+            size: 30.sp,
+          ),
         ),
-        SizedBox(width: 20.w,)
+        SizedBox(
+          width: 20.w,
+        )
       ];
 
   Widget _buildDashboardTitle() => Container(
@@ -225,7 +231,7 @@ class LandingPage extends GetView<LandingPageController> {
             text: "PROPERTIES",
             image: AppEraAssets.agentDash,
             children: [
-              // _buildMenuItem('ADD PROJECTS', 4),
+              _buildMenuItem('ADD PROJECTS', 4),
               _buildMenuItem('PROPERTY LISTINGS', 5),
               // _buildMenuItem('PROPERTY INFORMATION', 6),
               _buildMenuItem('ADD LISTINGS', 7),
@@ -237,7 +243,7 @@ class LandingPage extends GetView<LandingPageController> {
             image: AppEraAssets.listingDash,
             children: [
               _buildMenuItem('HOMEPAGE', 9),
-              _buildMenuItem('ADD ABOUT US', 10),
+              //   _buildMenuItem('ADD ABOUT US', 10),
             ],
           ),
           _buildExpansionTile(

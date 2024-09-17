@@ -38,6 +38,7 @@ class RouteString {
   static String sellProperty = "/sellProperty";
   static String directContactUs = "/direct-contactus";
   static String nextPage = "/nextPage";
+  static String termsAndConditions = "/termsAndConditions";
 
   //admin
   static String landingPage = "/dashboard";

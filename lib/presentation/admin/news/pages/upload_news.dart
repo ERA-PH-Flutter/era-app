@@ -40,7 +40,7 @@ class UploadNews extends GetView<NewsController> {
             maxImages: 1,
           ),
           sb10(),
-          AboutUsPage.title(
+          title(
             controller: controller.titleController,
           ),
           Padding(
@@ -67,6 +67,10 @@ class UploadNews extends GetView<NewsController> {
                         hitApi: () {
                           Get.back();
                           Get.back();
+                          controller.titleController.clear();
+                          controller.content.clear();
+                          (Get.find<AddListingsController>().images.first)
+                              .clear();
                         });
                   } catch (e) {
                     BaseController().showSuccessDialog(
@@ -92,6 +96,25 @@ class UploadNews extends GetView<NewsController> {
     );
   }
 
+  Widget title({
+    TextEditingController? controller,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(text: 'Title:', color: AppColors.black, fontSize: 18.sp),
+        SizedBox(
+          height: 70.h,
+          width: Get.width / 1.2 - 45.w,
+          child: TextformfieldWidget(
+            controller: controller,
+            hintText: 'Title *',
+            maxLines: 1,
+          ),
+        ),
+      ],
+    );
+  }
   // Widget _featuredNews() {
   //   return SingleChildScrollView(
   //     scrollDirection: Axis.vertical,

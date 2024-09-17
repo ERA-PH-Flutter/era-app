@@ -6,6 +6,7 @@ import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -77,13 +78,47 @@ class JoinEra extends StatelessWidget {
                 child: Button(
                   borderRadius: BorderRadius.circular(99),
                   onTap: () {
-                    Get.toNamed(RouteString.createaccount);
+                    Get.toNamed(RouteString.termsAndConditions);
                   },
                   height: 53.h,
                   width: Get.width,
                   text: "Get Started",
                   fontSize: EraTheme.paragraph,
                   bgColor: AppColors.kRedColor,
+                ),
+              ),
+              sb10(),
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                      text: 'By continuing, you agree to our ',
+                      style: TextStyle(
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'Terms',
+                          style: TextStyle(
+                            color: AppColors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' and ',
+                          style: TextStyle(
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Privacy Policy',
+                          style: TextStyle(
+                            color: AppColors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ]),
                 ),
               ),
               sb50(),
