@@ -213,16 +213,16 @@ class ListingsAdminController extends GetxController {
 
   Stream<QuerySnapshot<Map<String, dynamic>>> searchStream(){
     if(aiSearchController.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('listings').where('name',isGreaterThanOrEqualTo: aiSearchController.text)
-          .where('name', isLessThanOrEqualTo:  '${aiSearchController.text}\uf8ff').snapshots();
+      return  FirebaseFirestore.instance.collection('listings').where('name',isGreaterThanOrEqualTo: aiSearchController.text.capitalize)
+          .where('name', isLessThanOrEqualTo:  '${aiSearchController.text.capitalize}\uf8ff').snapshots();
     }else if(locationController.text.isNotEmpty){
       return  FirebaseFirestore.instance.collection('listings').where('location',isGreaterThanOrEqualTo: locationController.text)
           .where('location', isLessThanOrEqualTo:  '${locationController.text}\uf8ff').snapshots();
     }else if(priceController.text.isNotEmpty){
       return  FirebaseFirestore.instance.collection('listings').where('price',isLessThanOrEqualTo: priceController.text.toInt()).snapshots();
     }else if(propertyController.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('listings').where('type',isGreaterThanOrEqualTo: propertyController.text)
-          .where('type', isLessThanOrEqualTo:  '${propertyController.text}\uf8ff').snapshots();
+      return  FirebaseFirestore.instance.collection('listings').where('type',isGreaterThanOrEqualTo: propertyController.text.capitalizeFirst)
+          .where('type', isLessThanOrEqualTo:  '${propertyController.text.capitalizeFirst}\uf8ff').snapshots();
     }else{
       return  FirebaseFirestore.instance.collection('listings').orderBy('date_created').snapshots();
     }
