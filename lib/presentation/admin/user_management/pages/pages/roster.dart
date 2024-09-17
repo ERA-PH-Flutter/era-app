@@ -12,6 +12,7 @@ import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
 
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -54,6 +55,12 @@ class Roster extends GetView<AgentAdminController> {
             Padding(
               padding: EdgeInsets.only(left: Get.width - 520.w),
               child: Button(
+                onTap: ()async{
+                  controller.agentState.value = AgentAdminState.loading;
+                  controller.searchStream = controller.getStream();
+                  // await Future.delayed(Duration(seconds: 1));
+                  controller.agentState.value = AgentAdminState.loaded;
+                },
                 margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 150.w,
                 text: 'SEARCH',
@@ -62,22 +69,29 @@ class Roster extends GetView<AgentAdminController> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('users').snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<EraUser> users = snapshot.data!.docs.map((doc) {
-                    return EraUser.fromJSON(doc.data());
-                  }).toList();
-                  return rosterGridview(listingModels: users);
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
+            Obx((){
+              if(controller.agentState.value == AgentAdminState.loaded){
+                return StreamBuilder(
+                  stream: controller.searchStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<EraUser> users = snapshot.data!.docs.map((doc) {
+                        return EraUser.fromJSON(doc.data());
+                      }).toList();
+                      return rosterGridview(listingModels: users);
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                );
+              }else{
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }),
             SizedBox(height: 30.h),
           ],
         ),
