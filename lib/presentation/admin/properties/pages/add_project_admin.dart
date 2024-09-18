@@ -210,13 +210,14 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                 );
               } else if (controller.selectedOption.value ==
                   'outdoorAmenities') {
-                return _buildCollapsibleSection(
-                  title: 'ADD OUTDOOR AMENITIES',
+                return Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        EraText(text: 'Select Option', color: AppColors.black),
+                        EraText(
+                            text: 'Add Outdoor Amenities',
+                            color: AppColors.black),
                         Obx(
                           () => DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
@@ -289,14 +290,14 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                   ],
                 );
               } else if (controller.selectedOption.value == 'indoorAmenities') {
-                return _buildCollapsibleSection(
-                  title: 'ADD INDOOR AMENITIES',
+                return Column(
                   children: [
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           EraText(
-                              text: 'Select Option', color: AppColors.black),
+                              text: 'Add Indoor Amenities',
+                              color: AppColors.black),
                           Obx(
                             () => DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
