@@ -129,10 +129,6 @@ class ListingsAdminController extends GetxController {
     bannerPhotos.clear();
   }
 
-  void updateSelectedOption(String option) {
-    selectedOption.value = option;
-  }
-
   //EraUser? user;
   //EraUser? user;
 

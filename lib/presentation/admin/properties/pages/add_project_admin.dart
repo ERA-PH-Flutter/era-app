@@ -42,49 +42,53 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
               fontSize: EraTheme.header,
               fontWeight: FontWeight.w600,
             ),
-            DropdownButton<String>(
-              value: controller.selectedOption.isEmpty
-                  ? null
-                  : controller.selectedOption.value,
-              hint: EraText(
-                text: 'Select Option',
-                color: AppColors.black,
+            DropdownButtonHideUnderline(
+              child: Obx(
+                () => DropdownButton<String>(
+                  value: controller.selectedOption.isEmpty
+                      ? null
+                      : controller.selectedOption.value,
+                  hint: EraText(
+                    text: 'Select Option',
+                    color: AppColors.black,
+                  ),
+                  items: [
+                    DropdownMenuItem(
+                        value: 'bannerImages',
+                        child: EraText(
+                          text: 'Banner Images',
+                          color: AppColors.black,
+                        )),
+                    DropdownMenuItem(
+                        value: 'developerName',
+                        child: EraText(
+                          text: 'Developer Name',
+                          color: AppColors.black,
+                        )),
+                    DropdownMenuItem(
+                        value: 'ProjectLogo',
+                        child: EraText(
+                          text: 'Project Logo',
+                          color: AppColors.black,
+                        )),
+                    DropdownMenuItem(
+                        value: '3DVirtual',
+                        child: EraText(
+                          text: 'Add 3D Virtual Tour',
+                          color: AppColors.black,
+                        )),
+                    DropdownMenuItem(
+                        value: 'Blurb',
+                        child: EraText(
+                          text: 'Add Burb',
+                          color: AppColors.black,
+                        )),
+                  ],
+                  onChanged: (value) {
+                    controller.selectedOption.value = value!;
+                  },
+                ),
               ),
-              items: [
-                DropdownMenuItem(
-                    value: 'bannerImages',
-                    child: EraText(
-                      text: 'Banner Images',
-                      color: AppColors.black,
-                    )),
-                DropdownMenuItem(
-                    value: 'developerName',
-                    child: EraText(
-                      text: 'Developer Name',
-                      color: AppColors.black,
-                    )),
-                DropdownMenuItem(
-                    value: 'ProjectLogo',
-                    child: EraText(
-                      text: 'Project Logo',
-                      color: AppColors.black,
-                    )),
-                DropdownMenuItem(
-                    value: '3DVirtual',
-                    child: EraText(
-                      text: 'Add 3D Virtual Tour',
-                      color: AppColors.black,
-                    )),
-                DropdownMenuItem(
-                    value: 'Blurb',
-                    child: EraText(
-                      text: 'Add Burb',
-                      color: AppColors.black,
-                    )),
-              ],
-              onChanged: (value) {
-                controller.updateSelectedOption(value!);
-              },
             ),
             Obx(() {
               if (controller.selectedOption.value == 'bannerImages') {
