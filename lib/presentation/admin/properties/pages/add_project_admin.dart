@@ -9,7 +9,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
-import 'package:eraphilippines/repository/listing.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,6 +45,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
             DropdownButtonHideUnderline(
               child: Obx(
                 () => DropdownButton<String>(
+                  focusColor: AppColors.hint.withOpacity(0.7),
+                  dropdownColor: AppColors.white,
                   value: controller.selectedOption.isEmpty
                       ? null
                       : controller.selectedOption.value,
@@ -74,13 +76,31 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                     DropdownMenuItem(
                         value: '3DVirtual',
                         child: EraText(
-                          text: 'Add 3D Virtual Tour',
+                          text: '3D Virtual Tour',
                           color: AppColors.black,
                         )),
                     DropdownMenuItem(
                         value: 'Blurb',
                         child: EraText(
-                          text: 'Add Burb',
+                          text: 'Blurb',
+                          color: AppColors.black,
+                        )),
+                    DropdownMenuItem(
+                        value: 'location',
+                        child: EraText(
+                          text: 'Location',
+                          color: AppColors.black,
+                        )),
+                    DropdownMenuItem(
+                        value: 'outdoorAmenities',
+                        child: EraText(
+                          text: 'Outdoor Amenities',
+                          color: AppColors.black,
+                        )),
+                    DropdownMenuItem(
+                        value: 'indoorAmenities',
+                        child: EraText(
+                          text: 'Indor Amenities',
                           color: AppColors.black,
                         )),
                   ],
@@ -183,6 +203,170 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                     ),
                   ],
                 );
+              } else if (controller.selectedOption.value == 'location') {
+                return _buildCollapsibleSection(
+                  title: 'ADD LOCATION',
+                  children: [],
+                );
+              } else if (controller.selectedOption.value ==
+                  'outdoorAmenities') {
+                return _buildCollapsibleSection(
+                  title: 'ADD OUTDOOR AMENITIES',
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        EraText(text: 'Select Option', color: AppColors.black),
+                        Obx(
+                          () => DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                                hint: EraText(
+                                    text: 'Select Option',
+                                    color: AppColors.black),
+                                value: controller.selectedOutDoor.value.isEmpty
+                                    ? null
+                                    : controller.selectedOutDoor.value,
+                                items: [
+                                  DropdownMenuItem(
+                                      value: 'blurb',
+                                      child: EraText(
+                                          text: 'add blrub',
+                                          color: AppColors.black)),
+                                  DropdownMenuItem(
+                                      value: 'gallery',
+                                      child: EraText(
+                                          text: 'add gallery photos',
+                                          color: AppColors.black)),
+                                ],
+                                onChanged: (value) {
+                                  controller.selectedOutDoor.value = value!;
+                                }),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Obx(() {
+                      if (controller.selectedOutDoor.value == 'blurb') {
+                        return Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                EraText(
+                                    text: 'BLURB OUTDOOR AMENITIES',
+                                    color: AppColors.black),
+                                IconButton(
+                                  onPressed: () {
+                                    controller.addBlurb();
+                                  },
+                                  icon: Icon(CupertinoIcons.add),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: List.generate(
+                                  controller.addBlurbTitle.length,
+                                  (index) => _buildBlurb(
+                                        index,
+                                        controller,
+                                      )),
+                            ),
+                          ],
+                        );
+                      } else if (controller.selectedOutDoor.value ==
+                          'gallery') {
+                        return UploadBannersWidget(
+                          text: 'Upload Outdoor Amenities Gallery Only',
+                          maxImages: 10,
+                          onImageSelected: (Uint8List outdoorAmenities) {
+                            controller.addoutdoorAmenities(outdoorAmenities);
+                          },
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }),
+                  ],
+                );
+              } else if (controller.selectedOption.value == 'indoorAmenities') {
+                return _buildCollapsibleSection(
+                  title: 'ADD INDOOR AMENITIES',
+                  children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          EraText(
+                              text: 'Select Option', color: AppColors.black),
+                          Obx(
+                            () => DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                    hint: EraText(
+                                        text: 'Select Option',
+                                        color: AppColors.black),
+                                    value: controller.selectedIndoor.isEmpty
+                                        ? null
+                                        : controller.selectedIndoor.value,
+                                    items: [
+                                      DropdownMenuItem(
+                                          value: 'blurb',
+                                          child: EraText(
+                                            text: 'add blurb',
+                                            color: AppColors.black,
+                                          )),
+                                      DropdownMenuItem(
+                                          value: 'gallery',
+                                          child: EraText(
+                                            text: 'add gallery',
+                                            color: AppColors.black,
+                                          )),
+                                    ],
+                                    onChanged: (value) {
+                                      controller.selectedIndoor.value = value!;
+                                    })),
+                          ),
+                        ]),
+                    Obx(() {
+                      if (controller.selectedIndoor.value == 'blurb') {
+                        return Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                EraText(
+                                    text: 'BLURB INDOOR AMENITIES',
+                                    color: AppColors.black),
+                                IconButton(
+                                  onPressed: () {
+                                    controller.addBlurb();
+                                  },
+                                  icon: Icon(CupertinoIcons.add),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: List.generate(
+                                  controller.addBlurbTitle.length,
+                                  (index) => _buildBlurb(
+                                        index,
+                                        controller,
+                                      )),
+                            ),
+                          ],
+                        );
+                      } else if (controller.selectedIndoor.value == 'gallery') {
+                        return UploadBannersWidget(
+                          text: 'Upload Indoor Amenities Gallery Only',
+                          maxImages: 10,
+                          onImageSelected: (Uint8List outdoorAmenities) {
+                            controller.addoutdoorAmenities(outdoorAmenities);
+                          },
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }),
+                  ],
+                );
               } else {
                 return Container();
               }
@@ -245,8 +429,8 @@ Widget _buildBulbImage({ListingsAdminController? controller, int? index}) {
   return Obx(() => controller!.addBlurImage[index!] != null
       ? Image.memory(
           controller.addBlurImage[index]!,
-          width: 150,
-          height: 150,
+          width: Get.width / 3,
+          height: Get.height / 2.5,
           fit: BoxFit.cover,
         )
       : Container());

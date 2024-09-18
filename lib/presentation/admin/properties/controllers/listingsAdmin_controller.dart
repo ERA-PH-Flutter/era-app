@@ -51,12 +51,17 @@ class ListingsAdminController extends GetxController {
   var blurbParagraphController = <TextEditingController>[].obs;
 
   var selectedOption = ''.obs;
+
+  var selectedIndoor = ''.obs;
+  var selectedOutDoor = ''.obs;
   var bannerPhotos = <Uint8List>[].obs;
   var projectLogo = <Uint8List>[].obs;
   var developerName = ''.obs;
   var virtualTitle = ''.obs;
   var virtualParagraph = ''.obs;
   var virtualLink = ''.obs;
+  var outdoorAmenities = <Uint8List>[].obs;
+  var indoorAmenities = <Uint8List>[].obs;
 
   void addBlurb() {
     addBlurbTitle.add('');
@@ -122,6 +127,14 @@ class ListingsAdminController extends GetxController {
 
   void addBannerPhoto(Uint8List bannerImage) {
     bannerPhotos.add(bannerImage);
+  }
+
+  void addoutdoorAmenities(Uint8List image) {
+    outdoorAmenities.add(image);
+  }
+
+  void addindoorAmenities(Uint8List image) {
+    indoorAmenities.add(image);
   }
 
   void removeProjectPhoto() {
