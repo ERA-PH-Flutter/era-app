@@ -56,9 +56,7 @@ class ProjectsController extends GetxController {
     "Santa Ana",
   ];
   var developerType = [
-    "Aurelia Projects",
-    "Haraya Projects",
-    "Laya Projects",
+    "Shang Properties",
   ];
 
   final isLoading = true.obs;

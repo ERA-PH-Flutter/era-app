@@ -146,7 +146,7 @@ class ProjectMain extends GetView<ProjectsController> {
                                   Types: controller.developerType,
                                   onChanged: (value) => controller
                                       .selectedDeveloper.value = value!,
-                                  name: 'Developer Type',
+                                  name: 'Developer',
                                   hintText: 'Select Developer Type'),
 
                               SearchWidget.build(() async {

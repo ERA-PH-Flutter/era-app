@@ -56,7 +56,7 @@ class JoinEra extends StatelessWidget {
               _buildDescription(
                   'ERA Real Estate was founded on the principle of collaboration.'),
               _buildDescription(
-                  'The idea that by working together and supporting one another, we can create a stronger, more knowledgeable community of real estate professionals who are better prepared serve your unique needs.'),
+                  'The idea that by working together and supporting one another, we can create a stronger, more knowledgeable community of real estate professionals who are better prepared to serve your unique needs.'),
               SizedBox(
                 height: 20.h,
               ),

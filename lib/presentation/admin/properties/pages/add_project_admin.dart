@@ -213,7 +213,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                 _buildText(text: controller.virtualLink),
                 Obx(
                   () => Column(
-                    //im not sure why its not working
                     children: List.generate(
                       controller.addBlurbTitle.length,
                       (index) => Column(

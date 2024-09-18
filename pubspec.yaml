@@ -63,11 +63,40 @@ dependencies:
   dropdown_search: ^5.0.6
   full_screen_image: ^2.0.0
   circle_nav_bar: ^2.1.0+1
- 
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+ 
+ 
+
+flutter_launcher_icons:
+  #  image_path: "assets/images/icon-128x128.png"
+  image_path_android: "assets/images/era_app_icon.png"
+  # image_path_ios: "assets/images/eraa_app_icon.png" #//1024x1024
+  android: "launcher_icon"  
+  ios: true  
+  # adaptive_icon_background: "assets/images/ic_launcher_background.png"  
+  # adaptive_icon_foreground: "assets/images/ic_launcher_foreground.png"  
+  # adaptive_icon_monochrome: "assets/images/ic_launcher_monochrome.png" 
+  # min_sdk_android: 21  
+  # remove_alpha_ios: true
+  # background_color_ios: "#ffffff"
+  # web:
+  #   generate: true
+  #   image_path: "assets/images/era_app_icon.png"
+  #   background_color: "#hexcode"
+  #   theme_color: "#hexcode"
+  # windows:
+  #   generate: true
+  #   image_path: "assets/images/era_app_icon.png"
+  #   icon_size: 48 # min:48, max:256, default: 48
+  # macos:
+  #   generate: true
+  #   image_path: "assets/images/era_app_icon.png"
+
+
 
 flutter:
   uses-material-design: true
