@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
+import 'package:eraphilippines/presentation/admin/contact_us/pages/contact_us_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/about_us.dart';
 import 'package:eraphilippines/presentation/admin/faqs/pages/general_faq.dart';
 import 'package:eraphilippines/presentation/admin/news/pages/upload_news.dart';
@@ -51,6 +52,7 @@ class LandingPage extends GetView<LandingPageController> {
     UploadNews(), //12
     GeneralFaq(), //13
     SellPropertyAdmin(),
+    ContactUsAdmin(),
     // UploadNews(), //14
     // UploadNews(), //15
   ];
@@ -270,6 +272,15 @@ class LandingPage extends GetView<LandingPageController> {
             image: AppEraAssets.helpDash,
             children: [
               _buildMenuItem('SELLING PROPERTY', 14),
+              // _buildMenuItem('Agent FAQ’s', 12),
+              // _buildMenuItem('Customer FAQ’s', 13),
+            ],
+          ),
+          _buildExpansionTile(
+            text: "CONTACT US",
+            image: AppEraAssets.helpDash,
+            children: [
+              _buildMenuItem('CONTACT US MANAGEMENT', 15),
               // _buildMenuItem('Agent FAQ’s', 12),
               // _buildMenuItem('Customer FAQ’s', 13),
             ],
