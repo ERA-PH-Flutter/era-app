@@ -47,13 +47,15 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
                     itemBuilder: (context, index) {
                       var property = sellProperty[index].data();
                       return ExpansionTile(
+                        trailing: IconButton(
+                            onPressed: ()async{
+                              await FirebaseFirestore.instance.collection('sell_properties').doc(property['id']).delete();
+                            },
+                            icon: Icon(Icons.delete)),
+                        controlAffinity: ListTileControlAffinity.leading,
                         title: Row(
                           children: [
-                            IconButton(
-                                onPressed: () {
-                                  controller.sellPropertyRemove(index);
-                                },
-                                icon: Icon(Icons.delete)),
+
                             EraText(
                               text:  property['name'],
                               color: AppColors.black,
