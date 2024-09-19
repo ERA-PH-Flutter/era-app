@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/listing_filters.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
@@ -9,6 +10,7 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
@@ -162,14 +164,137 @@ class FilteredSearchBox extends StatelessWidget {
                                 selectedPropertyTypeSearch.value = value!,
                             name: 'Property Type',
                             hintText: 'Select Property Type'),
-                        AddListings.dropDownAddlistings1(
-                            color: AppColors.white,
-                            selectedItem: selectedPriceSearch,
-                            Types: priceSearch,
-                            onChanged: (value) =>
-                                selectedPriceSearch.value = value!,
-                            name: 'Price Range',
-                            hintText: 'Select Price Range'),
+                        // AddListings.dropDownAddlistings1(
+                        //     color: AppColors.white,
+                        //     selectedItem: selectedPriceSearch,
+                        //     Types: priceSearch,
+                        //     onChanged: (value) =>
+                        //         selectedPriceSearch.value = value!,
+                        //     name: 'Price Range',
+                        //     hintText: 'Select Price Range'),
+
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            EraText(
+                                text: 'Select Price Range',
+                                fontSize: 18.sp,
+                                color: AppColors.white),
+                            SizedBox(height: 5.h),
+                            Container(
+                              height: 50.h,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(horizontal: 21.w),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(99),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  alignment: Alignment.centerLeft,
+                                  dropdownColor: AppColors.white,
+                                  focusColor: AppColors.hint,
+                                  iconEnabledColor: Colors.black,
+                                  isExpanded: true,
+                                  isDense: false,
+                                  value: selectedPriceRange.value.isEmpty
+                                      ? null
+                                      : selectedPriceRange.value,
+                                  hint: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: EraText(
+                                      text: 'Select Price Range',
+                                      textAlign: TextAlign.center,
+                                      color: Colors.grey,
+                                      fontSize: 20.sp,
+                                    ),
+                                  ),
+                                  items: [
+                                    ...priceSearch.map((price) {
+                                      return DropdownMenuItem<String>(
+                                        value: price,
+                                        child: EraText(
+                                          text: price,
+                                          color: AppColors.black,
+                                        ),
+                                      );
+                                    }).toList(),
+                                    DropdownMenuItem(
+                                      value: '2',
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: SizedBox(
+                                              width: 90.w,
+                                              height: 50.h,
+                                              child: TextformfieldWidget(
+                                                controller: areaMin,
+                                                hintText: 'Min Price',
+                                                obscureText: false,
+                                                color: AppColors.black,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                borderSide: BorderSide.none,
+                                                border: UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black,
+                                                      width: 1.0),
+                                                ),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black,
+                                                      width: 1.0),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          sbw10(),
+                                          Expanded(
+                                            child: SizedBox(
+                                              width: 90.w,
+                                              height: 50.h,
+                                              child: TextformfieldWidget(
+                                                contentPadding: EdgeInsets.only(
+                                                    top: 20.h,
+                                                    bottom: 0.h,
+                                                    left: 10.w,
+                                                    right: 0.w),
+                                                controller: areaMax,
+                                                hintText: 'Max Price',
+                                                obscureText: false,
+                                                color: AppColors.black,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                borderSide: BorderSide.none,
+                                                border: UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black,
+                                                      width: 1.0),
+                                                ),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black,
+                                                      width: 1.0),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                  onChanged: (value) {
+                                    selectedPriceRange.value = value!;
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         Obx(
                           () => Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

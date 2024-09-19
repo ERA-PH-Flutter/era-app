@@ -20,26 +20,33 @@ class TextformfieldWidget extends StatelessWidget {
   final void Function(String)? onChanged;
   final void Function()? onTap;
   final TextInputAction? textInputAction;
+  final BorderSide? borderSide;
+  final InputBorder? border;
+  final InputBorder? enabledBorder;
 
-  const TextformfieldWidget(
-      {super.key,
-      this.style,
-      this.hintText,
-      this.hintstlye,
-      this.controller,
-      this.contentPadding,
-      this.maxLines,
-      this.suffixIcon,
-      this.obscureText,
-      this.keyboardType,
-      this.fontSize,
-      this.color,
-      this.validator,
-      this.readOnly,
-      this.onChanged,
-      this.onTap,
-      this.radius,
-      this.textInputAction});
+  const TextformfieldWidget({
+    super.key,
+    this.style,
+    this.hintText,
+    this.hintstlye,
+    this.controller,
+    this.contentPadding,
+    this.maxLines,
+    this.suffixIcon,
+    this.obscureText,
+    this.keyboardType,
+    this.fontSize,
+    this.color,
+    this.validator,
+    this.readOnly,
+    this.onChanged,
+    this.onTap,
+    this.radius,
+    this.textInputAction,
+    this.borderSide,
+    this.border,
+    this.enabledBorder,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +69,19 @@ class TextformfieldWidget extends StatelessWidget {
             TextStyle(color: AppColors.hint, fontSize: fontSize ?? 18.sp),
         fillColor: AppColors.white,
         filled: true,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(radius ?? 10),
-          borderSide: BorderSide(
-            color: color ?? AppColors.black,
-            width: 1.5,
-          ),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(radius ?? 10),
-        ),
+        enabledBorder: enabledBorder ??
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius ?? 10),
+              borderSide: borderSide ??
+                  BorderSide(
+                    color: color ?? AppColors.black,
+                    width: 1.5,
+                  ),
+            ),
+        border: border ??
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius ?? 10),
+            ),
       ),
     );
   }

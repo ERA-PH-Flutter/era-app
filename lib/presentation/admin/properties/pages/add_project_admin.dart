@@ -103,6 +103,12 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                           text: 'Indor Amenities',
                           color: AppColors.black,
                         )),
+                    DropdownMenuItem(
+                        value: 'Carousel',
+                        child: EraText(
+                          text: 'Carousel Slider',
+                          color: AppColors.black,
+                        )),
                   ],
                   onChanged: (value) {
                     controller.selectedOption.value = value!;
