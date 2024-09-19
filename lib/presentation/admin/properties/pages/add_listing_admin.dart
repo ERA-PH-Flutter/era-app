@@ -480,8 +480,6 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                 Get.put(AddListingsController());
                                 Get.back();
                                 addListingsController.clearFields();
-                                //todo trigger referesh in dashboard
-                                // Get.offAllNamed(RouteString.agentDashBoard);
                               },
                               title: "Add Listing Success",
                               description:
