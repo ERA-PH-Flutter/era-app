@@ -437,7 +437,13 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             );
             return;
           }
-
+          if (controller.latLng == null) {
+            showErroDialogs(
+              title: "Error",
+              description: "Please pick or choose a valid one!",
+            );
+            return;
+          }
           if (controller.selectedOfferT.value == null) {
             showErroDialogs(
               title: "Error",
@@ -470,6 +476,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           }
           BaseController().showLoading();
           try {
+            settings!.listingCount = settings!.listingCount! + 1;
             await Listing(
                 name: controller.propertyNameController.text,
                 price: controller.propertyCostController.text
@@ -491,25 +498,21 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 description: controller.descController.text,
                 view: controller.selectedView.value.toString(),
                 address: controller.addressController.text,
+                propertyId: "ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}",
                 latLng: [
                   controller.latLng!.latitude,
                   controller.latLng!.longitude
                 ]).addListing(controller.images, user!.id);
 
+            await settings!.update();
             controller.showSuccessDialog(
                 hitApi: () {
-                  //todo trigger referesh in dashboard
                   Get.offAllNamed(RouteString.agentDashBoard);
                 },
                 title: "Add Listing Success",
                 description: "Listing has been uploaded to the database.");
           } catch (e, ex) {
-            BaseController().showErroDialog(
-              description: e.toString(),
-              onTap: (){
-                Get.back();Get.back();
-              }
-            );
+            print(e);
           }
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),

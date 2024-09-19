@@ -2,14 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 
 class Settings{
-  String? settingsId;
-  String appName;
+  final String? settingsId;
+  final String appName;
   List? featuredListings;
   List? featuredProjects;
   List? banners;
   List? featuredNews;
   List? featuredAgents;
-  int fileSizeLimit;
+  final int fileSizeLimit;
+  final listingLimit;
   bool isMaintenance;
   String? splashAd;
   String? residentialPicture;
@@ -18,6 +19,8 @@ class Settings{
   String? commercialPicture;
   String? rentalPicture;
   double? exchangeRate;
+  int? agentCount;
+  int? listingCount;
   Settings({
     required this.appName,
     this.settingsId,
@@ -34,7 +37,10 @@ class Settings{
     this.rentalPicture,
     this.banners,
     this.featuredAgents,
-    this.exchangeRate
+    this.exchangeRate,
+    this.agentCount,
+    this.listingCount,
+    this.listingLimit
   });
   factory Settings.fromJSON(Map<String,dynamic> json){
     return Settings(
@@ -54,6 +60,9 @@ class Settings{
       featuredAgents: json["featured_agents"] ?? [],
       exchangeRate: json["exchange_rate"] ?? 0,
       settingsId: json['id'],
+      listingCount: json['listing_count'],
+      agentCount: json['agent_count'],
+      listingLimit: json['listing_limit']
     );
   }
   updatePicture(target,previousPicture,newPicture)async{
@@ -135,6 +144,9 @@ class Settings{
       'featured_agents': featuredAgents,
       'exchange_rate': exchangeRate,
       'id': settingsId,
+      'agent_count' : agentCount,
+      'listing_count' : listingCount,
+      'listing_limit' : listingLimit
     };
   }
 }

@@ -254,7 +254,7 @@ class PropertyInformation extends GetView<ListingController> {
             maxLines: 50,
           ),
           SizedBox(height: 20.h),
-          eratexts('Listing ID# ', '${listing.id}'),
+          eratexts('Listing ID# ', '${listing.propertyId}'),
           eratexts(
               'Last Updated: ',
               DateFormat('MMMM dd, yyyy hh:mm aaa')
