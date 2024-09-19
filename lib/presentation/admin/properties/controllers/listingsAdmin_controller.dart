@@ -60,8 +60,23 @@ class ListingsAdminController extends GetxController {
   var virtualTitle = ''.obs;
   var virtualParagraph = ''.obs;
   var virtualLink = ''.obs;
+
+  var addOutDoorTitle = <String>[].obs;
+  var addOutDoorParagraph = <String>[].obs;
+  var addOutDoorImage = <Uint8List?>[].obs;
+
+//for gallery images in the amenities
   var outdoorAmenities = <Uint8List>[].obs;
   var indoorAmenities = <Uint8List>[].obs;
+
+  void addoutdoorAmenitiesBlurb() {
+    addOutDoorTitle.add('');
+    addBlurbParagraph.add('');
+    addOutDoorImage.add(null);
+
+    blurbTitleController.add(TextEditingController());
+    blurbParagraphController.add(TextEditingController());
+  }
 
   void addBlurb() {
     addBlurbTitle.add('');
