@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
@@ -42,6 +43,30 @@ class ListingsAdminController extends GetxController {
   TextEditingController virtualTitleController = TextEditingController();
   TextEditingController virtualParagraphController = TextEditingController();
   TextEditingController virtualLinkController = TextEditingController();
+  TextEditingController carouselTitleController = TextEditingController();
+  TextEditingController carouselParagraphController = TextEditingController();
+  TextEditingController carouselFloorAreaC = TextEditingController();
+  TextEditingController carouselnumberOfBedC = TextEditingController();
+  TextEditingController carouselLoggiaSizeC = TextEditingController();
+
+  // var innerController = CarouselSliderController();
+  // var carouselIndex = 0.obs;
+
+  var carouselFa = ''.obs;
+  var carouselNob = ''.obs;
+  var carouselLs = ''.obs;
+
+  void addcarouselFa(String floorArea) {
+    carouselFa.value = floorArea;
+  }
+
+  void addNob(String nob) {
+    carouselNob.value = nob;
+  }
+
+  void addcarouselLs(String ls) {
+    carouselLs.value = ls;
+  }
 
   var addBlurbTitle = <String>[].obs;
   var addBlurbParagraph = <String>[].obs;
@@ -52,6 +77,7 @@ class ListingsAdminController extends GetxController {
 
   var selectedOption = ''.obs;
 
+  var carousel = <Uint8List>[].obs;
   var selectedIndoor = ''.obs;
   var selectedOutDoor = ''.obs;
   var bannerPhotos = <Uint8List>[].obs;
@@ -60,6 +86,18 @@ class ListingsAdminController extends GetxController {
   var virtualTitle = ''.obs;
   var virtualParagraph = ''.obs;
   var virtualLink = ''.obs;
+  // discover our spaces
+  var carouselTitle = ''.obs;
+  var carouselParagraph = ''.obs;
+
+  void addCarouselTitle(String title) {
+    carouselTitle.value = title;
+  }
+
+  void addCarouselPhoto(Uint8List image) {
+    carousel.add(image);
+  }
+  //amenities
 
   var addOutDoorTitle = <String>[].obs;
   var addOutDoorParagraph = <String>[].obs;

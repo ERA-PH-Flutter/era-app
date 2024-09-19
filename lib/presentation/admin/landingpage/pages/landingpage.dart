@@ -16,6 +16,7 @@ import 'package:eraphilippines/presentation/admin/properties/pages/add_project_a
 import 'package:eraphilippines/presentation/admin/properties/pages/edit_listing_admin.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/propertyinformation.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/propertylisting_admin.dart';
+import 'package:eraphilippines/presentation/admin/sell_property/pages/sell_property_admin.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
@@ -49,6 +50,7 @@ class LandingPage extends GetView<LandingPageController> {
     ViewAllNews(), //11
     UploadNews(), //12
     GeneralFaq(), //13
+    SellPropertyAdmin(),
     // UploadNews(), //14
     // UploadNews(), //15
   ];
@@ -259,6 +261,15 @@ class LandingPage extends GetView<LandingPageController> {
             image: AppEraAssets.helpDash,
             children: [
               _buildMenuItem('General FAQ’S', 13),
+              // _buildMenuItem('Agent FAQ’s', 12),
+              // _buildMenuItem('Customer FAQ’s', 13),
+            ],
+          ),
+          _buildExpansionTile(
+            text: "SELLING PROPERTY",
+            image: AppEraAssets.helpDash,
+            children: [
+              _buildMenuItem('SELLING PROPERTY', 14),
               // _buildMenuItem('Agent FAQ’s', 12),
               // _buildMenuItem('Customer FAQ’s', 13),
             ],
