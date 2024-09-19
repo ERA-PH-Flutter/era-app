@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -14,6 +15,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../../../app/widgets/custom_image_viewer.dart';
+import '../../../agent/projects/pages/haraya.dart';
 
 class AddProjectAdmin extends GetView<ListingsAdminController> {
   const AddProjectAdmin({super.key});
@@ -374,6 +378,63 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                     }),
                   ],
                 );
+              } else if (controller.selectedOption.value == 'Carousel') {
+                return Column(
+                  children: [
+                    _buildTextField(
+                      controller: controller.carouselTitleController,
+                      label: 'Carousel Title*',
+                      onChanged: (value) {
+                        controller.addCarouselTitle(value);
+                      },
+                    ),
+                    UploadBannersWidget(
+                      text: 'Add Carousel Slider Photos',
+                      maxImages: 10,
+                      onImageSelected: (Uint8List carousel) {
+                        controller.addCarouselPhoto(carousel);
+                      },
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              infoTile(
+                                  AppEraAssets.floorArea,
+                                  controller.carouselFloorAreaC,
+                                  'Floor Area', (value) {
+                                controller.addcarouselFa(value);
+                              }),
+                              infoTile(
+                                  AppEraAssets.numberOfBed,
+                                  controller.carouselnumberOfBedC,
+                                  'Number of Bed', (value) {
+                                controller.addNob(value);
+                              }),
+
+                              infoTile(
+                                  AppEraAssets.loggiaSize,
+                                  controller.carouselLoggiaSizeC,
+                                  'Loggia Size', (value) {
+                                controller.addcarouselLs(value);
+                              }),
+                              //    infoTile(AppEraAssets.numberOfBed,
+                              //     controller.carouselnumberOfBedC, 'Floor Area',
+                              //     (value) {
+                              //   controller.addNob(value);
+                              // }),
+                              // HarayaProject.infoTile(AppEraAssets.loggiaSize,
+                              //     controller.carouselLoggiaSizeC.text),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
               } else {
                 return Container();
               }
@@ -422,6 +483,79 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                     ),
                   ),
                 ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildText(text: controller.carouselTitle),
+                    _buildImagePreview(controller.carousel),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Obx(
+                                () => Row(
+                                  children: [
+                                    Image.asset(AppEraAssets.floorArea,
+                                        width: 70.w, height: 70.h),
+                                    _buildText(
+                                        text: ('${controller.carouselFa} sqm')
+                                            .obs),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Image.asset(AppEraAssets.numberOfBed,
+                                      width: 70.w, height: 70.h),
+                                  _buildText(text: controller.carouselNob),
+                                ],
+                              ),
+
+                              Obx(
+                                () => Row(
+                                  children: [
+                                    Image.asset(AppEraAssets.loggiaSize,
+                                        width: 70.w, height: 70.h),
+                                    _buildText(
+                                        text: ('${controller.carouselLs} sqm')
+                                            .obs),
+                                  ],
+                                ),
+                              )
+
+                              // HarayaProject.infoTile(AppEraAssets.numberOfBed,
+                              //     controller.carouselNob.value),
+                              // HarayaProject.infoTile(AppEraAssets.loggiaSize,
+                              //     controller.carouselLs.value),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    sb50(),
+                  ],
+                ),
+                // CarouselSlider(
+                //     controller: controller.innerController,
+                //     items: controller.carousel.map((imagePath) {
+                //       return Image.memory(
+                //         controller.carousel[controller.carouselIndex.value],
+                //         width: Get.width / 3,
+                //         height: Get.height / 2.5,
+                //         fit: BoxFit.cover,
+                //       );
+                //     }).toList(),
+                //     options: CarouselOptions(
+                //       autoPlayInterval: Duration(seconds: 7),
+                //       autoPlay: true,
+                //       viewportFraction: 1,
+                //       aspectRatio: 1.2,
+                //       onPageChanged: (index, reason) =>
+                //           controller.carouselIndex.value = index,
+                //     )),
               ],
             ),
           ],
@@ -429,6 +563,28 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
       ),
     );
   }
+}
+
+Widget infoTile(
+    String icon, TextEditingController controller, hintText, onChanged) {
+  return Row(
+    children: [
+      Image.asset(icon, width: 70.w, height: 70.h),
+      SizedBox(
+        width: 150.w,
+        height: 50.h,
+        child: TextformfieldWidget(
+          contentPadding: EdgeInsets.only(
+            top: 10.w,
+          ),
+          controller: controller,
+          hintText: hintText,
+          onChanged: onChanged,
+          keyboardType: TextInputType.number,
+        ),
+      )
+    ],
+  );
 }
 
 //preview

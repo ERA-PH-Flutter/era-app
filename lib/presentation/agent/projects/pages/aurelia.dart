@@ -3,16 +3,12 @@ import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/project_divider.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../app/widgets/custom_appbar.dart';
-import '../../forms/contacts/controllers/contacts_controller.dart';
 import '../../forms/contacts/pages/findus.dart';
 import '../../forms/contacts/pages/inquiry.dart';
 import '../controllers/projects_controller.dart';
@@ -22,8 +18,6 @@ class AureliaProject extends GetView<ProjectsController> {
 
   @override
   Widget build(BuildContext context) {
-    ContactusController contactusController = Get.put(ContactusController());
-
     return Scaffold(
       appBar: CustomAppbar(),
       body: SingleChildScrollView(
@@ -71,7 +65,7 @@ class AureliaProject extends GetView<ProjectsController> {
         Inquiry(),
         SizedBox(height: 40.h),
         Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: FindUs(),
         ),
         SizedBox(height: 20.h),
