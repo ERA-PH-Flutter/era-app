@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -260,12 +261,13 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                   width: 20.w,
                                 ),
                                 GestureDetector(
-                                  onTap: () {
-                                    //todo record approve by
+                                  onTap: ()async{
                                     listingModels[i].position =
                                         controller.selectedAgentType.value;
+                                    listingModels[i].eraId =
+                                        "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5,"0")}";
                                     listingModels[i].status = "approved";
-                                    listingModels[i].update();
+                                    await listingModels[i].update();
                                     Get.back();
                                   },
                                   child: EraText(

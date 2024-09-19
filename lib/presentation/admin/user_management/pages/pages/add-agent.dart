@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../repository/user.dart';
+import '../../../../global.dart';
 
 class AddAgent extends GetView<AgentAdminController> {
   const AddAgent({super.key});
@@ -33,7 +34,7 @@ class AddAgent extends GetView<AgentAdminController> {
               height: 20.h,
             ),
             EraText(
-              text: 'ADD AGENT',
+              text: '${controller.agentListingssss != null ? "EDIT" : "ADD"} AGENT',
               fontSize: EraTheme.header,
               color: AppColors.black,
             ),
@@ -188,61 +189,75 @@ class AddAgent extends GetView<AgentAdminController> {
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Button(
                   onTap: () async {
-                    try {
-                      await Authentication().signup(
-                          email: controller.emailAdressA.text,
-                          password: controller.passwordA.text);
-                      var id = await Authentication().login(
-                          email: controller.emailAdressA.text,
-                          password: controller.passwordA.text);
-                      //var image = await CloudStorage().upload(file: controller.images, target: 'users/test/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}');
-                      await EraUser(
-                              id: id,
-                              //image: image,
-                              firstname: controller.fNameA.text,
-                              lastname: controller.lNameA.text,
-                              email: controller.emailAdressA.text,
-                              //todo birthday
-                              whatsApp: controller.phoneNA.text,
-                              gender: controller.sexA.text,
-                              location: controller.officeLA.text,
-                              licence: controller.licensedNumA.text,
-                              //todo number
-                              position: controller.selectedAgentType.value,
-                              description: controller.descriptionA.text,
-                              status: "approved")
-                          .add();
-                      BaseController().showSuccessDialog(
-                          title: "Add Agent Success",
-                          description: "Agent added successfully!",
-                          hitApi: () {
-                            Get.back();
-                          });
-                    } catch (e) {
-                      BaseController().showSuccessDialog(
-                          title: "Error!",
-                          description: "$e",
-                          hitApi: () {
-                            Get.back();
-                          });
+                    if(controller.agentListingssss == null){
+                      try {
+                        await Authentication().signup(
+                            email: controller.emailAdressA.text,
+                            password: controller.passwordA.text);
+                        var id = await Authentication().login(
+                            email: controller.emailAdressA.text,
+                            password: controller.passwordA.text);
+                        //var image = await CloudStorage().upload(file: controller.images, target: 'users/test/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}');
+                        await EraUser(
+                            id: id,
+                            firstname: controller.fNameA.text,
+                            lastname: controller.lNameA.text,
+                            email: controller.emailAdressA.text,
+                            birthday: controller.dateBirthA.text,
+                            whatsApp: controller.phoneNA.text,
+                            gender: controller.sexA.text,
+                            location: controller.officeLA.text,
+                            licence: controller.licensedNumA.text,
+                            position: controller.selectedAgentType.value,
+                            description: controller.descriptionA.text,
+                            eraId: "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5,"0")}",
+                            status: "approved")
+                            .add();
+                        settings!.agentCount = settings!.agentCount! + 1;
+                        await settings!.update();
+                        BaseController().showSuccessDialog(
+                            title: "Add Agent Success",
+                            description: "Agent added successfully!",
+                            hitApi: () {
+                              Get.back();
+                            });
+                      } catch (e) {
+                        BaseController().showSuccessDialog(
+                            title: "Error!",
+                            description: "$e",
+                            hitApi: () {
+                              Get.back();
+                            });
+                      }
+                    }
+                    else{
+                      await controller.updateValues();
                     }
                   },
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   width: 150.w,
-                  text: 'SUBMIT',
+                  text: controller.agentListingssss == null ? 'SUBMIT' : "EDIT",
                   bgColor: AppColors.blue,
                   borderRadius: BorderRadius.circular(30),
                 ),
-                Button(
-                  onTap: () {
-                    controller.clearfield();
+                Builder(
+                  builder: (context){
+                    if(controller.agentListingssss == null){
+                      return Button(
+                        onTap: () {
+                          controller.clearfield();
+                        },
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        width: 150.w,
+                        text: 'CLEAR FIELDS',
+                        bgColor: AppColors.hint,
+                        borderRadius: BorderRadius.circular(30),
+                      );
+                    }else{
+                      return Container();
+                    }
                   },
-                  margin: EdgeInsets.symmetric(horizontal: 5),
-                  width: 150.w,
-                  text: 'CLEAR FIELDS',
-                  bgColor: AppColors.hint,
-                  borderRadius: BorderRadius.circular(30),
-                ),
+                )
               ]),
             ),
             SizedBox(

@@ -73,6 +73,7 @@ class AgentAdminController extends GetxController with BaseController {
 
 // roster
   TextEditingController message = TextEditingController();
+  TextEditingController title = TextEditingController();
 
   clearfield() {
     fNameA.clear();
@@ -91,6 +92,37 @@ class AgentAdminController extends GetxController with BaseController {
     licensedNumA.clear();
     parking.clear();
     selectedAgentType.value = null;
+  }
+  setValues(EraUser user){
+    agentListingssss = user;
+    fNameA.text = user.firstname!;
+    lNameA.text = user.lastname!;
+    emailAdressA.text = user.email!;
+    dateBirthA.text = user.birthday ?? "";
+    sexA.text = user.gender!;
+    locationA.text = user.location!;
+    phoneNA.text = user.whatsApp!;
+    passwordA.text = "eraaccount";
+    confirmPA.text = "eraaccount";
+    positionA.text = user.position!;
+    descriptionA.text = user.description!;
+    officeLA.text = user.office ?? "";
+    licensedNumA.text = user.licence?? "";
+    selectedAgentType.value = user.position ?? "ASC";
+  }
+  updateValues()async{
+    agentListingssss!.birthday = dateBirthA.text;
+    agentListingssss!.firstname = fNameA.text;
+    agentListingssss!.lastname = lNameA.text;
+    agentListingssss!.eraId = emailAdressA.text;
+    agentListingssss!.gender = sexA.text;
+    agentListingssss!.location = locationA.text;
+    agentListingssss!.licence = licensedNumA.text;
+    agentListingssss!.whatsApp = phoneNA.text;
+    agentListingssss!.position = selectedAgentType.value;
+    agentListingssss!.description = descriptionA.text;
+    agentListingssss!.office = officeLA.text;
+    await agentListingssss!.update();
   }
 //create listing controller
 

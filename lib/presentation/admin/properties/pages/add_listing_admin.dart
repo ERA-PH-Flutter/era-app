@@ -453,7 +453,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                   .toInt(),
                               status: addListingsController.selectedOfferT.value
                                   .toString(),
-                              // view: controller.selectedView.value.toString(),
+                              propertyId: "ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5,"0")}",
                               location: addListingsController.add.city,
                               type: addListingsController
                                   .selectedPropertyT.value
@@ -472,12 +472,12 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                 addListingsController.latLng!.longitude
                               ]).addListing(
                               addListingsController.images, user!.id);
+                          settings!.listingCount = settings!.listingCount! + 1;
+                          await settings!.update();
                           addListingsController.showSuccessDialog(
                               hitApi: () {
                                 Get.delete<AddListingsController>();
-
                                 Get.put(AddListingsController());
-
                                 Get.back();
                                 addListingsController.clearFields();
                                 //todo trigger referesh in dashboard

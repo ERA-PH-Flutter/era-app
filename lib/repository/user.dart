@@ -10,6 +10,8 @@ class EraUser {
   String? email;
   String? whatsApp;
   String? image;
+  String? birthday;
+  String? office;
   String? deviceId;
   String? lastLogin;
   String? status;
@@ -41,6 +43,8 @@ class EraUser {
       this.description,
       this.position,
       this.favorites,
+      this.office,
+      this.birthday,
       this.archives});
 
   factory EraUser.fromJSON(Map<String, dynamic> json) {

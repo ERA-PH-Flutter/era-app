@@ -13,6 +13,7 @@ import 'package:eraphilippines/presentation/admin/landingpage/controllers/landin
 
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -240,8 +241,8 @@ class Roster extends GetView<AgentAdminController> {
                       return Wrap(
                         children: [
                           Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 10.w, vertical: 15.h),
+                              margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
+                              width: Get.width,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
                                   color: Colors.white,
@@ -252,7 +253,6 @@ class Roster extends GetView<AgentAdminController> {
                                         spreadRadius: 1,
                                         color: Colors.black38)
                                   ]),
-                              width: Get.width,
                               child: Column(children: [
                                 Container(
                                     alignment: Alignment.centerRight,
@@ -287,47 +287,64 @@ class Roster extends GetView<AgentAdminController> {
                                             color: AppColors.black,
                                           ),
                                         )),
-                                    content: Stack(
+                                    content: Wrap(
                                       children: [
                                         SizedBox(
-                                          height: 300.h,
-                                          width: Get.width - 400.w,
+                                          width: Get.width / 2.5,
                                           child: Column(
                                             children: [
                                               TextformfieldWidget(
-                                                controller: controller.message,
+                                                controller: controller.title,
                                                 hintText: 'TITLE',
                                                 maxLines: 1,
                                                 fontSize: 15.sp,
                                                 textInputAction:
-                                                    TextInputAction.newline,
+                                                TextInputAction.newline,
                                                 keyboardType:
-                                                    TextInputType.multiline,
+                                                TextInputType.multiline,
                                                 color: AppColors.hint,
                                               ),
                                               sb10(),
                                               TextformfieldWidget(
                                                 controller: controller.message,
                                                 hintText:
-                                                    'Type your message here',
+                                                'Type your message here',
                                                 maxLines: 5,
                                                 fontSize: 15.sp,
                                                 textInputAction:
-                                                    TextInputAction.newline,
+                                                TextInputAction.newline,
                                                 keyboardType:
-                                                    TextInputType.multiline,
+                                                TextInputType.multiline,
                                                 color: AppColors.hint,
                                               ),
                                               sb30(),
                                               Button(
-                                                onTap: () {},
-                                                width: 170.w,
+                                                width: Get.width,
+                                                onTap: () async {
+                                                  var messageDoc = FirebaseFirestore.instance.collection('messages').doc();
+                                                  var message = await messageDoc.set({
+                                                    'date' : DateTime.now(),
+                                                    'from' : "${user!.firstname ?? "ERA Admin"} ${user!.lastname ?? ""}",
+                                                    "title" : controller.title.text,
+                                                    'subject' : controller.message.text,
+                                                    'to' : listingModels[i].id
+                                                  });
+                                                  BaseController().showSuccessDialog(
+                                                    title: "Success",
+                                                    description: "Message has been sent!",
+                                                    hitApi: (){
+                                                      controller.title.clear();
+                                                      controller.message.clear();
+                                                      Get.back();Get.back();
+                                                    }
+                                                  );
+                                                },
                                                 fontSize: EraTheme
                                                     .buttonFontSizeSmall,
                                                 text: 'SUBMIT',
                                                 bgColor: AppColors.blue,
                                                 borderRadius:
-                                                    BorderRadius.circular(30),
+                                                BorderRadius.circular(30),
                                               ),
                                             ],
                                           ),
@@ -338,17 +355,12 @@ class Roster extends GetView<AgentAdminController> {
                                   // todo open modal with message textfield title and description
                                 }, CupertinoIcons.chat_bubble_fill),
                                 menuOptions("Edit", () async {
-                                  //todo move to edit users
-                                  controller.agentListingssss =
-                                      listingModels[i];
-                                  controllers.onSectionSelected(3);
+                                  Get.find<AgentAdminController>().setValues(listingModels[i]);
+                                  controllers.onSectionSelected(1);
                                 }, Icons.edit),
                                 menuOptions("Delete", () async {
                                   await listingModels[i].delete();
                                 }, Icons.delete_rounded),
-                                SizedBox(
-                                  height: 20.h,
-                                )
                               ])),
                         ],
                       );
