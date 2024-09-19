@@ -13,6 +13,7 @@ import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dar
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -89,12 +90,12 @@ class _BaseScaffoldState extends State<BaseScaffold> {
         body: WillPopScope(
           onWillPop: ()async{
             BaseController().showSuccessDialog(
-              title: "Confirm Exit",
-              description: "Do you wanna exit ERA Philippines App?",
-              cancelable: true,
-              hitApi: (){
-                exit(0);
-              }
+                title: "Confirm Exit",
+                description: "Do you wanna exit ERA Philippines App?",
+                cancelable: true,
+                hitApi: (){
+                  Platform.isAndroid ? SystemNavigator.pop():  exit(0);
+                }
             );
             return Future.value(true);
           },
