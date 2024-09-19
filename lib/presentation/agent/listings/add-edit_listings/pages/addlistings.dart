@@ -504,8 +504,12 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 title: "Add Listing Success",
                 description: "Listing has been uploaded to the database.");
           } catch (e, ex) {
-            print(e);
-            print(ex);
+            BaseController().showErroDialog(
+              description: e.toString(),
+              onTap: (){
+                Get.back();Get.back();
+              }
+            );
           }
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),

@@ -68,20 +68,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
- 
- 
 
 flutter_launcher_icons:
   #  image_path: "assets/images/icon-128x128.png"
-  image_path_android: "assets/images/era_app_icon.png"
-  # image_path_ios: "assets/images/eraa_app_icon.png" #//1024x1024
+  image_path_android: "assets/images/logowhite.png"
+  image_path_ios: "assets/images/logowhite.png" #//1024x1024
   android: "launcher_icon"  
-  ios: true  
-  # adaptive_icon_background: "assets/images/ic_launcher_background.png"  
-  # adaptive_icon_foreground: "assets/images/ic_launcher_foreground.png"  
-  # adaptive_icon_monochrome: "assets/images/ic_launcher_monochrome.png" 
+  ios: true
   # min_sdk_android: 21  
-  # remove_alpha_ios: true
+  remove_alpha_ios: true
   # background_color_ios: "#ffffff"
   # web:
   #   generate: true

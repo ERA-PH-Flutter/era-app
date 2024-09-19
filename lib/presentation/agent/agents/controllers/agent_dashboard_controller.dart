@@ -27,7 +27,11 @@ class AgentDashboardController extends GetxController{
   @override
   void onInit()async{
     for(int i = 0;i<user!.favorites!.length;i++){
-      favorites.add( await Listing().getListing(user!.favorites![i]));
+      if(await Database().doDocumentExist(user!.favorites![i])){
+        favorites.add( await Listing().getListing(user!.favorites![i]));
+      }else{
+        user!.favorites!.removeAt(i);
+      }
     }
     listings.value = await Database().searchListingsByUserId(user!.id!);
     listings.shuffle();

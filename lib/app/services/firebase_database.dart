@@ -12,7 +12,15 @@ class Database {
       return "Error: $error";
     }
   }
-
+  Future<bool> doDocumentExist(id,{target = 'listings'})async{
+    try{
+      var docRef = db.collection(target).doc(id);
+      var doc = await docRef.get();
+      return doc.exists;
+    }catch(e){
+      return false;
+    }
+  }
   //LISTING
   Future<List<Listing>> searchListingsByUserId(String id) async {
     return (await db.collection("listings").where('by', isEqualTo: id).get())

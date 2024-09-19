@@ -2,6 +2,7 @@ import 'package:eraphilippines/presentation/agent/utility/controller/base_contro
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../../../../../app/services/firebase_database.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 
@@ -24,9 +25,13 @@ class FavController extends GetxController with BaseController {
     if (user != null) {
       if (user!.favorites!.isNotEmpty) {
         for (int i = 0; i < user!.favorites!.length; i++) {
-          Listing listingA = await Listing().getListing(user!.favorites![i]);
-          if (!(listingA.isSold ?? true)) {
-            favoritesList.add(listingA);
+          if(await Database().doDocumentExist(user!.favorites![i])){
+            Listing listingA = await Listing().getListing(user!.favorites![i]);
+            if (!(listingA.isSold ?? true)) {
+              favoritesList.add(listingA);
+            }
+          }else{
+            user!.favorites!.removeAt(i);
           }
         }
       }
