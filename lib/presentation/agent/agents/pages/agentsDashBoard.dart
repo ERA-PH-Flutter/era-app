@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,6 +17,7 @@ import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.da
 import 'package:eraphilippines/presentation/agent/agents/pages/settingAgent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../app/constants/sized_box.dart';
@@ -25,6 +27,7 @@ import '../../../../app/widgets/navigation/app_nav_items.dart';
 import '../../../../repository/user.dart';
 import '../../../global.dart';
 
+import '../../utility/controller/base_controller.dart';
 import '../controllers/agent_dashboard_controller.dart';
 
 class AgentDashBoard extends GetView<AgentDashboardController> {
@@ -37,94 +40,107 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppbar(),
-        body: SingleChildScrollView(
-          controller: controller.scrollController,
-          scrollDirection: Axis.vertical,
-          child: SafeArea(
-            child: Obx(() {
-              if (controller.agentDashboardState.value ==
-                  AgentDashboardState.loading) {
-                return _loading();
-              } else {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: EraTheme.paddingWidth, vertical: 10.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          EraText(
-                            text:
-                                '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
-                            fontSize: 20.sp,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          SizedBox(height: 10.h),
-                          EraText(
-                            text: 'Welcome to your Dashboard!',
-                            fontSize: 25.sp,
-                            color: AppColors.kRedColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          sb10(),
+        body: WillPopScope(
+          onWillPop: ()async{
+            BaseController().showSuccessDialog(
+                title: "Confirm Exit",
+                description: "Do you wanna exit ERA Philippines App?",
+                cancelable: true,
+                hitApi: (){
+                  Platform.isAndroid ? SystemNavigator.pop():  exit(0);
+                }
+            );
+            return Future.value(true);
+          },
+          child: SingleChildScrollView(
+            controller: controller.scrollController,
+            scrollDirection: Axis.vertical,
+            child: SafeArea(
+              child: Obx(() {
+                if (controller.agentDashboardState.value ==
+                    AgentDashboardState.loading) {
+                  return _loading();
+                } else {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: EraTheme.paddingWidth, vertical: 10.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            EraText(
+                              text:
+                                  '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
+                              fontSize: 20.sp,
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            SizedBox(height: 10.h),
+                            EraText(
+                              text: 'Welcome to your Dashboard!',
+                              fontSize: 25.sp,
+                              color: AppColors.kRedColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            sb10(),
 
-                          SizedBox(height: 10.h),
-                          AgentInfoWidget.agentInformation(
-                            imageProvider: user!.image != null
-                                ? user!.image!
-                                : AppStrings.noUserImageWhite,
-                            firstName: '${user!.firstname}',
-                            lastName: '${user!.lastname}',
-                            whatsApp: '${user!.whatsApp}',
-                            email: '${user!.email}',
-                            role: '${user!.role}',
-                          ),
-                          SizedBox(height: 25.h),
+                            SizedBox(height: 10.h),
+                            AgentInfoWidget.agentInformation(
+                              imageProvider: user!.image != null
+                                  ? user!.image!
+                                  : AppStrings.noUserImageWhite,
+                              firstName: '${user!.firstname}',
+                              lastName: '${user!.lastname}',
+                              whatsApp: '${user!.whatsApp}',
+                              email: '${user!.email}',
+                              role: '${user!.role}',
+                            ),
+                            SizedBox(height: 25.h),
 
-                          Row(
-                            children: [
-                              Button(
-                                fontSize: EraTheme.paragraph - 2.sp,
-                                width: Get.width - 100.w,
-                                text: 'MORTGAGE CALCULATOR',
-                                borderRadius: BorderRadius.circular(20),
-                                bgColor: AppColors.kRedColor,
-                                onTap: () {
-                                  Get.toNamed("/mortageCalculator");
-                                },
-                              ),
-                              sbw10(), // SizedBox(width: 10.w),
-                              settingIcon(() {
-                                Get.to(() => SettingsPage());
-                              })
-                            ],
-                          ),
-                          SizedBox(height: 25.h),
-                          myListings(),
-                          SizedBox(height: 25.h),
-                          favorites(),
-                          SizedBox(height: 25.h),
-                          archivedListing(),
-                          SizedBox(height: 25.h),
-                          soldProperties(),
-                          SizedBox(height: 25.h),
-                          myTrainings(),
-                          SizedBox(height: 25.h),
-                          findAgentsandOffices(),
-                          SizedBox(height: 25.h),
+                            Row(
+                              children: [
+                                Button(
+                                  fontSize: EraTheme.paragraph - 2.sp,
+                                  width: Get.width - 100.w,
+                                  text: 'MORTGAGE CALCULATOR',
+                                  borderRadius: BorderRadius.circular(20),
+                                  bgColor: AppColors.kRedColor,
+                                  onTap: () {
+                                    Get.toNamed("/mortageCalculator");
+                                  },
+                                ),
+                                sbw10(), // SizedBox(width: 10.w),
+                                settingIcon(() {
+                                  Get.to(() => SettingsPage());
+                                })
+                              ],
+                            ),
+                            SizedBox(height: 25.h),
+                            myListings(),
+                            SizedBox(height: 25.h),
+                            favorites(),
+                            SizedBox(height: 25.h),
+                            archivedListing(),
+                            SizedBox(height: 25.h),
+                            soldProperties(),
+                            SizedBox(height: 25.h),
+                            myTrainings(),
+                            SizedBox(height: 25.h),
+                            findAgentsandOffices(),
+                            SizedBox(height: 25.h),
 
-                          // eraMerch(),
-                        ],
+                            // eraMerch(),
+                          ],
+                        ),
                       ),
-                    ),
-                    latestNews(),
-                    SizedBox(height: 25.h),
-                  ],
-                );
-              }
-            }),
+                      latestNews(),
+                      SizedBox(height: 25.h),
+                    ],
+                  );
+                }
+              }),
+            ),
           ),
         ),
         bottomNavigationBar: Obx(() {

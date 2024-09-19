@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../app/constants/sized_box.dart';
 import '../../../listings/add-edit_listings/pages/addlistings.dart';
+import '../../../utility/controller/base_controller.dart';
 import '../controllers/contacts_controller.dart';
 import 'findus.dart';
 
@@ -19,30 +23,43 @@ class DirectContactUs extends GetView<ContactusController> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: CustomAppbar(),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                EraText(
-                  text: "Contact Us",
-                  fontSize: 30,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blue,
-                ),
-                SizedBox(height: 20.h),
-                contacts(),
-                // Help.iconButton(
-                //   padding: EdgeInsets.only(right: 10.w),
-                //   icon: AppEraAssets.whatsappIcon,
-                //   icon2: AppEraAssets.emailIcon,
-                // ),
-                FindUs(
-                  title: 'Find Us',
-                ),
-              ],
+      body: WillPopScope(
+        onWillPop: ()async{
+          BaseController().showSuccessDialog(
+              title: "Confirm Exit",
+              description: "Do you wanna exit ERA Philippines App?",
+              cancelable: true,
+              hitApi: (){
+                Platform.isAndroid ? SystemNavigator.pop():  exit(0);
+              }
+          );
+          return Future.value(true);
+        },
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  EraText(
+                    text: "Contact Us",
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.blue,
+                  ),
+                  SizedBox(height: 20.h),
+                  contacts(),
+                  // Help.iconButton(
+                  //   padding: EdgeInsets.only(right: 10.w),
+                  //   icon: AppEraAssets.whatsappIcon,
+                  //   icon2: AppEraAssets.emailIcon,
+                  // ),
+                  FindUs(
+                    title: 'Find Us',
+                  ),
+                ],
+              ),
             ),
           ),
         ),

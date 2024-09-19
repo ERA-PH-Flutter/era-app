@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
@@ -6,6 +8,7 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/listing_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +19,7 @@ import '../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../app/widgets/quick_links.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
+import '../../../utility/controller/base_controller.dart';
 
 class FindProperties extends GetView<ListingController> {
   const FindProperties({super.key});
@@ -24,43 +28,56 @@ class FindProperties extends GetView<ListingController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 10.h,
-              ),
-              EraText(
-                text: "Property searches made simple.",
-                fontSize: 26.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.kRedColor,
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              FilteredSearchBox(),
-              SizedBox(height: 10.h),
-              Obx(() {
-                if (controller.showFullSearch.value == false) {
-                  return QuickLinks(origin: 'search');
-                }
-                return Container();
-              }),
-              Obx(() => switch (controller.listingState.value) {
-                    ListingState.loading => Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ListingState.loaded => _loaded(),
-                    ListingState.empty => _empty(),
-                    ListingState.searching => _searching(),
-                    ListingState.error => _error(),
-                  }),
-            ],
+      body: WillPopScope(
+        onWillPop: ()async{
+          BaseController().showSuccessDialog(
+              title: "Confirm Exit",
+              description: "Do you wanna exit ERA Philippines App?",
+              cancelable: true,
+              hitApi: (){
+                Platform.isAndroid ? SystemNavigator.pop():  exit(0);
+              }
+          );
+          return Future.value(true);
+        },
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 10.h,
+                ),
+                EraText(
+                  text: "Property searches made simple.",
+                  fontSize: 26.sp,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.kRedColor,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                FilteredSearchBox(),
+                SizedBox(height: 10.h),
+                Obx(() {
+                  if (controller.showFullSearch.value == false) {
+                    return QuickLinks(origin: 'search');
+                  }
+                  return Container();
+                }),
+                Obx(() => switch (controller.listingState.value) {
+                      ListingState.loading => Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ListingState.loaded => _loaded(),
+                      ListingState.empty => _empty(),
+                      ListingState.searching => _searching(),
+                      ListingState.error => _error(),
+                    }),
+              ],
+            ),
           ),
         ),
       ),

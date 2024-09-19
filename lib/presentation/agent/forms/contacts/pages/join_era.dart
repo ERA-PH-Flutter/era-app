@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -9,12 +10,14 @@ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart'
 import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../../app/widgets/button.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
+import '../../../utility/controller/base_controller.dart';
 
 class JoinEra extends StatelessWidget {
   const JoinEra({super.key});
@@ -23,106 +26,119 @@ class JoinEra extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CachedNetworkImage(
-                imageUrl:
-                    'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-                fit: BoxFit.cover,
-                height: 250.h,
-                width: Get.width,
-              ),
-              SizedBox(height: 15.h),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                child: EraText(
-                    text: 'Join Us Today',
-                    fontSize: EraTheme.header - 4.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.kRedColor),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              _buildDescription(
-                  'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.'),
-              SizedBox(
-                height: 20.h,
-              ),
-              _buildDescription(
-                  'ERA Real Estate was founded on the principle of collaboration.'),
-              _buildDescription(
-                  'The idea that by working together and supporting one another, we can create a stronger, more knowledgeable community of real estate professionals who are better prepared to serve your unique needs.'),
-              SizedBox(
-                height: 20.h,
-              ),
-              _buildDescription('Why Join Us?',
-                  color: AppColors.blue,
-                  fontSize: EraTheme.header - 4.sp,
-                  fontWeight: FontWeight.w600),
-              _buildDescription('•   Training & Development'),
-              _buildDescription('•   Reputable developer properties'),
-              _buildDescription('•   Favourable Commission Terms'),
-              _buildDescription('•   Advanced Digital Platforms'),
-              _buildDescription('•   Administrative Support'),
-              _buildDescription('•   Access to our office spaces & facilities'),
-              sb30(),
-              Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                width: Get.width,
-                child: Button(
-                  borderRadius: BorderRadius.circular(99),
-                  onTap: () {
-                    Get.toNamed(RouteString.termsAndConditions);
-                  },
-                  height: 53.h,
+      body: WillPopScope(
+        onWillPop: ()async{
+          BaseController().showSuccessDialog(
+              title: "Confirm Exit",
+              description: "Do you wanna exit ERA Philippines App?",
+              cancelable: true,
+              hitApi: (){
+                Platform.isAndroid ? SystemNavigator.pop():  exit(0);
+              }
+          );
+          return Future.value(true);
+        },
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CachedNetworkImage(
+                  imageUrl:
+                      'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+                  fit: BoxFit.cover,
+                  height: 250.h,
                   width: Get.width,
-                  text: "Get Started",
-                  fontSize: EraTheme.paragraph,
-                  bgColor: AppColors.kRedColor,
                 ),
-              ),
-              sb10(),
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                      text: 'By continuing, you agree to our ',
-                      style: TextStyle(
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: 'Terms',
-                          style: TextStyle(
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextSpan(
-                          text: ' and ',
-                          style: TextStyle(
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'Privacy Policy',
-                          style: TextStyle(
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ]),
+                SizedBox(height: 15.h),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  child: EraText(
+                      text: 'Join Us Today',
+                      fontSize: EraTheme.header - 4.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.kRedColor),
                 ),
-              ),
-              sb50(),
-            ],
+                SizedBox(
+                  height: 20.h,
+                ),
+                _buildDescription(
+                    'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.'),
+                SizedBox(
+                  height: 20.h,
+                ),
+                _buildDescription(
+                    'ERA Real Estate was founded on the principle of collaboration.'),
+                _buildDescription(
+                    'The idea that by working together and supporting one another, we can create a stronger, more knowledgeable community of real estate professionals who are better prepared to serve your unique needs.'),
+                SizedBox(
+                  height: 20.h,
+                ),
+                _buildDescription('Why Join Us?',
+                    color: AppColors.blue,
+                    fontSize: EraTheme.header - 4.sp,
+                    fontWeight: FontWeight.w600),
+                _buildDescription('•   Training & Development'),
+                _buildDescription('•   Reputable developer properties'),
+                _buildDescription('•   Favourable Commission Terms'),
+                _buildDescription('•   Advanced Digital Platforms'),
+                _buildDescription('•   Administrative Support'),
+                _buildDescription('•   Access to our office spaces & facilities'),
+                sb30(),
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  width: Get.width,
+                  child: Button(
+                    borderRadius: BorderRadius.circular(99),
+                    onTap: () {
+                      Get.toNamed(RouteString.termsAndConditions);
+                    },
+                    height: 53.h,
+                    width: Get.width,
+                    text: "Get Started",
+                    fontSize: EraTheme.paragraph,
+                    bgColor: AppColors.kRedColor,
+                  ),
+                ),
+                sb10(),
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                        text: 'By continuing, you agree to our ',
+                        style: TextStyle(
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Terms',
+                            style: TextStyle(
+                              color: AppColors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: ' and ',
+                            style: TextStyle(
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Privacy Policy',
+                            style: TextStyle(
+                              color: AppColors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ]),
+                  ),
+                ),
+                sb50(),
+              ],
+            ),
           ),
         ),
       ),
