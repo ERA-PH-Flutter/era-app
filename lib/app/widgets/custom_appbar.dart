@@ -86,7 +86,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                           ? StreamBuilder(
                               stream: FirebaseFirestore.instance
                                   .collection('messages')
-                                  .where("to", whereIn: ["all"]).snapshots(),
+                                  .where("to", whereIn: ["all",user!.id]).snapshots(),
                               builder: (context, snapshot) {
                                 int count = 0;
                                 if (snapshot.hasData) {

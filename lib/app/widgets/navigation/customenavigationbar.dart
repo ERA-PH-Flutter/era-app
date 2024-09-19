@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/homepage.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agent_listings_controller.dart';
@@ -8,6 +10,7 @@ import 'package:eraphilippines/presentation/agent/listings/searchresult/controll
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/searchresult.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,16 +86,29 @@ class _BaseScaffoldState extends State<BaseScaffold> {
         extendBody: true,
         backgroundColor: AppColors.white,
         appBar: CustomAppbar(),
-        body: PageView(
-          controller: pageViewController,
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            Home(),
-            ProjectMain(),
-            SearchResult(),
-            FindAgents(),
-            Help(),
-          ],
+        body: WillPopScope(
+          onWillPop: ()async{
+            BaseController().showSuccessDialog(
+              title: "Confirm Exit",
+              description: "Do you wanna exit ERA Philippines App?",
+              cancelable: true,
+              hitApi: (){
+                exit(0);
+              }
+            );
+            return Future.value(true);
+          },
+          child: PageView(
+            controller: pageViewController,
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              Home(),
+              ProjectMain(),
+              SearchResult(),
+              FindAgents(),
+              Help(),
+            ],
+          ),
         ),
         bottomNavigationBar: Obx(() => CircleNavBar(
               tabCurve: Curves.linear,
