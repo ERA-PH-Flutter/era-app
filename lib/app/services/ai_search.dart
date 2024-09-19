@@ -97,7 +97,7 @@ class AI{
       if(filter.contains("<=")){
         var parts = filter.split("<=");
         final field = parts[0].toLowerCase();
-        final value = parts[1];
+        final value = (field == "type" || field == "sub_category") ? parts[1].capitalize ?? "" : "type";
         if(except.contains(field)){
           additionalFilters.add(AiFilters(
             field: field,
@@ -111,7 +111,7 @@ class AI{
       else if(filter.contains(">=")){
         var parts = filter.split(">=");
         final field = parts[0].toLowerCase();
-        final value = parts[1];
+        final value = (field == "type" || field == "sub_category") ? parts[1].capitalize ?? "" : "type";
         if(except.contains(field)){
           additionalFilters.add(AiFilters(
               field: field,
@@ -125,7 +125,7 @@ class AI{
       else if(filter.contains("=")){
         var parts = filter.split("=");
         final field = parts[0].toLowerCase();
-        final value = parts[1];
+        final value = (field == "type" || field == "sub_category") ? parts[1].capitalize ?? "" : "type";
         if(except.contains(field)){
           additionalFilters.add(AiFilters(
               field: field,
@@ -139,7 +139,7 @@ class AI{
       else if(filter.contains(">")){
         var parts = filter.split(">");
         final field = parts[0].toLowerCase();
-        final value = parts[1];
+        final value = (field == "type" || field == "sub_category") ? parts[1].capitalize ?? "" : "type";
         if(except.contains(field)){
           additionalFilters.add(AiFilters(
               field: field,
@@ -153,7 +153,7 @@ class AI{
       else if(filter.contains("<")){
         var parts = filter.split("<");
         final field = parts[0].toLowerCase();
-        final value = parts[1];
+        final value = (field == "type" || field == "sub_category") ? parts[1].capitalize ?? "" : "type";
         if(except.contains(field)){
           additionalFilters.add(AiFilters(
               field: field,

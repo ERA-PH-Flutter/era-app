@@ -71,10 +71,32 @@ class LoginPageController extends GetxController with BaseController {
     if (!login.contains("error")) {
       var id = FirebaseAuth.instance.currentUser!.uid;
       user = await EraUser().getById(id);
-      Get.find<LocalStorageService>().userID = id;
-      selectedIndex.value = 0;
-      pageViewController = PageController(initialPage: 0);
-      Get.offAll(BaseScaffold(),binding: HomeBinding());
+      if(user!.status == "approved"){
+        Get.find<LocalStorageService>().userID = id;
+        selectedIndex.value = 0;
+        pageViewController = PageController(initialPage: 0);
+        Get.offAll(BaseScaffold(),binding: HomeBinding());
+      }else if(user!.status == "pending"){
+        await FirebaseAuth.instance.signOut();
+        user = null;
+        showSuccessDialog(
+            hitApi: () {
+              Get.back();
+              Get.back();
+            },
+            title: "Account Pending",
+            description: "Wait for ERA Admin to approve and review your account!");
+      }else{
+        await FirebaseAuth.instance.signOut();
+        user = null;
+        showSuccessDialog(
+            hitApi: () {
+              Get.back();
+              Get.back();
+            },
+            title: "Failed",
+            description: "Account is deleted or Block by admin!");
+      }
     } else {
       showSuccessDialog(
           hitApi: () {
