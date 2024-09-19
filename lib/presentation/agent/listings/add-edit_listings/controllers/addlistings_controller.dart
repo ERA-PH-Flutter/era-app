@@ -29,6 +29,7 @@ class AddListingsController extends GetxController with BaseController {
   var address = "".obs;
   var add;
   RxList images = [].obs;
+  List imagesRef = [];
   final picker = ImagePicker();
   final removeImage = false.obs;
   var selectedPropertyT = RxnString();
@@ -159,8 +160,7 @@ class AddListingsController extends GetxController with BaseController {
   }
 
   Future pickImageFromWeb() async {
-    //var webImages;
-//    images.clear();
+
     try {
       final imagePick = await picker.pickMultiImage();
       if (imagePick.isNotEmpty) {
@@ -212,8 +212,15 @@ class AddListingsController extends GetxController with BaseController {
     propertyCostController.text =
         listing!.price == null ? "0" : listing!.price.toString();
     if (!isWeb) {
+      images.clear();
       for (int i = 0; i < listing!.photos!.length; i++) {
         images.add(await EraFunctions.urlToFile(listing!.photos![i]));
+      }
+    }else{
+      images.clear();
+      for (int i = 0; i < listing!.photos!.length; i++) {
+        imagesRef.add(listing!.photos![i]);
+        images.add(await CloudStorage().getFileBytes(docRef: listing!.photos![i]));
       }
     }
     pricePerSqmController.text = listing!.ppsqm.toString();

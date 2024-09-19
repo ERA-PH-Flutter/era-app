@@ -254,7 +254,6 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                     ],
                   ),
                 ),
-
                 SizedBox(height: 10.h),
                 Obx(() {
                   if (addListingsController.images.isEmpty) {

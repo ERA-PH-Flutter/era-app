@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
@@ -9,10 +12,12 @@ import 'package:eraphilippines/presentation/admin/properties/controllers/listing
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/models/geocode.dart';
 
@@ -232,6 +237,116 @@ class EditPropertyAdmin extends GetView<ListingsController> {
             SizedBox(
               height: 10.h,
             ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.blue,
+                      shadowColor: Colors.transparent,
+                      side: BorderSide(
+                          color: AppColors.hint.withOpacity(0.1), width: 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () async {
+                      var images = await ImagePicker().pickMultiImage();
+
+                      if(images.isNotEmpty){
+                        for (var image in images) {
+                          var uploadedImage = await CloudStorage().uploadFromMemory(file:await image.readAsBytes(), target: "listings/${addListingsController.listing!.by}",customName: "${DateTime.now().microsecondsSinceEpoch}_${Random().nextInt(100)}.png");
+                          addListingsController.listing!.photos!.add(uploadedImage);
+                          await addListingsController.listing!.updateListing();
+                          addListingsController.imagesRef.add(uploadedImage);
+                          addListingsController.images.add(await image.readAsBytes());
+                        }
+
+                      }
+                    },
+                    icon: Icon(
+                      CupertinoIcons.photo_fill_on_rectangle_fill,
+                      color: AppColors.white,
+                    ),
+                    label: EraText(
+                      text: 'Select Photos',
+                      color: AppColors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Obx(() {
+              if (addListingsController.images.isEmpty) {
+                return AddAgent.buildUploadPhoto();
+              } else {
+                return Container(
+                    child: GridView.builder(
+                        gridDelegate:
+                        SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                        ),
+                        shrinkWrap: true,
+                        //scrollDirection: Axis.horizontal,
+                        itemCount: addListingsController.images.length,
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                    right: 10.w, bottom: 10.w),
+                                alignment: Alignment.center,
+                                height: 400.h,
+                                width: 400.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: MemoryImage(
+                                        addListingsController.images[index],
+                                      )),
+                                ),
+                              ),
+                              Positioned(
+                                top: 5.h,
+                                right: 0,
+                                child: IconButton(
+                                  icon: Icon(Icons.cancel),
+                                  onPressed: ()async{
+                                    addListingsController.images.removeAt(index);
+                                    await CloudStorage().deleteFileDirect(docRef: addListingsController.imagesRef[index]);
+                                    addListingsController.listing!.photos!.removeAt(index);
+                                    await addListingsController.listing!.updateListing();
+                                    addListingsController.imagesRef.removeAt(index);
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        }));
+                //return Image.memory(addListingsController.images.first);
+                // return GridView.builder(
+                //     shrinkWrap: true,
+                //     padding: EdgeInsets.symmetric(horizontal: 20.w),
+                //     physics: NeverScrollableScrollPhysics(),
+                //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                //       crossAxisCount: 3,
+                //       mainAxisSpacing: 10.h,
+                //       crossAxisSpacing: 10.h,
+                //     ),
+                //     itemCount: addListingsController.images.length,
+                //     itemBuilder: (context, index) {
+                //       return Container(
+                //
+                //       );
+                //     });
+              }
+            }),
             // AddAgent.buildUploadPhoto(),
             // SizedBox(
             //   height: 10.h,
