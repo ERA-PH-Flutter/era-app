@@ -71,7 +71,7 @@ class SellProperty extends GetView<SellPropertyController> {
                         name: 'Email Address',
                         textInputType: TextInputType.text,
                         hintText: 'Email Address',
-                        controller: controller.name),
+                        controller: controller.emailAd),
                     SizedBox(height: 20.h),
                     SharedWidgets.dropDown(
                       controller.selectedProperty,

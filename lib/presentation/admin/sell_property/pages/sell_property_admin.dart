@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -15,7 +16,7 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
     SellPropertyAController controller = Get.put(SellPropertyAController());
     return SingleChildScrollView(
       child: Container(
-        //remove the fixed height since it's causing the overflow
+        height: Get.height - 150.h,
         alignment: Alignment.topCenter,
         padding:
             EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
@@ -33,29 +34,18 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
                 ),
               ],
             ),
-            ExpansionTile(
-              title: EraText(
-                text: 'MANAGE SELL PROPERTY',
-                color: AppColors.black,
-              ),
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    controller.addSellProperty();
-                  },
-                  child: EraText(
-                    text: 'Add Sell Property',
-                    color: AppColors.black,
-                  ),
-                ),
-                sb10(),
-                Obx(() {
+            SizedBox(height: 20.h,),
+            StreamBuilder(
+              stream: FirebaseFirestore.instance.collection('sell_properties').snapshots(),
+              builder: (context,snapshot){
+                if(snapshot.hasData){
+                  var sellProperty = snapshot.data!.docs;
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: controller.sellProperty.length,
+                    itemCount: sellProperty.length,
                     itemBuilder: (context, index) {
-                      final property = controller.sellProperty[index];
+                      var property = sellProperty[index].data();
                       return ExpansionTile(
                         title: Row(
                           children: [
@@ -65,20 +55,18 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
                                 },
                                 icon: Icon(Icons.delete)),
                             EraText(
-                              text: 'Property ${index + 1}',
+                              text:  property['name'],
                               color: AppColors.black,
                             ),
                           ],
                         ),
-                        subtitle: EraText(
-                            text: property['name'] ?? 'Unnamed Property'),
                         children: [
-                          _builTextField('Phone: ${property['phone']}', 1),
+                          _builTextField('Phone: ${property['contact_number']}', 1),
                           _builTextField('Email: ${property['email']}', 1),
                           _builTextField(
-                              'Property Type: ${property['propertyType']}', 1),
+                              'Property Type: ${property['type']}', 1),
                           _builTextField(
-                              'Location: ${property['propertyLocation']}', 1),
+                              'Location: ${property['location']}', 1),
                           _builTextField('Price: ${property['price']}', 1),
                           _builTextField(
                               'Description: ${property['description']}', 10),
@@ -86,10 +74,34 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
                       );
                     },
                   );
-                }),
-              ],
-            ),
-            sb50(),
+                }
+                else{
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            )
+            // ExpansionTile(
+            //   title: EraText(
+            //     text: 'MANAGE SELL PROPERTY',
+            //     color: AppColors.black,
+            //   ),
+            //   children: [
+            //     ElevatedButton(
+            //       onPressed: () {
+            //         controller.addSellProperty();
+            //       },
+            //       child: EraText(
+            //         text: 'Add Sell Property',
+            //         color: AppColors.black,
+            //       ),
+            //     ),
+            //     sb10(),
+            //
+            //   ],
+            // ),
+            // sb50(),
           ],
         ),
       ),
