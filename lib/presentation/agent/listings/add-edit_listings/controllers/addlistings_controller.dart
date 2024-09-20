@@ -52,6 +52,10 @@ class AddListingsController extends GetxController with BaseController {
   var viewL = [
     "SUNSET",
     "SUNRISE",
+    "SEA VIEW",
+    "City View",
+    "Mountain View",
+    "N/A",
   ];
 
   var subCategory = [
@@ -160,7 +164,6 @@ class AddListingsController extends GetxController with BaseController {
   }
 
   Future pickImageFromWeb() async {
-
     try {
       final imagePick = await picker.pickMultiImage();
       if (imagePick.isNotEmpty) {
@@ -216,11 +219,12 @@ class AddListingsController extends GetxController with BaseController {
       for (int i = 0; i < listing!.photos!.length; i++) {
         images.add(await EraFunctions.urlToFile(listing!.photos![i]));
       }
-    }else{
+    } else {
       images.clear();
       for (int i = 0; i < listing!.photos!.length; i++) {
         imagesRef.add(listing!.photos![i]);
-        images.add(await CloudStorage().getFileBytes(docRef: listing!.photos![i]));
+        images.add(
+            await CloudStorage().getFileBytes(docRef: listing!.photos![i]));
       }
     }
     pricePerSqmController.text = listing!.ppsqm.toString();
