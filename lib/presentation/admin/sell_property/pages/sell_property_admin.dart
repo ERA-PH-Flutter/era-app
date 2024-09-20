@@ -6,6 +6,7 @@ import 'package:eraphilippines/presentation/admin/sell_property/controller/sell_
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../app/constants/theme.dart';
 
 class SellPropertyAdmin extends GetView<SellPropertyAController> {
@@ -16,7 +17,7 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
     SellPropertyAController controller = Get.put(SellPropertyAController());
     return SingleChildScrollView(
       child: Container(
-        height: Get.height - 150.h,
+        //height: Get.height - 150.h,
         alignment: Alignment.topCenter,
         padding:
             EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
@@ -47,11 +48,23 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
                     itemBuilder: (context, index) {
                       var property = sellProperty[index].data();
                       return ExpansionTile(
-                        trailing: IconButton(
-                            onPressed: ()async{
-                              await FirebaseFirestore.instance.collection('sell_properties').doc(property['id']).delete();
-                            },
-                            icon: Icon(Icons.delete)),
+                        trailing: SizedBox(
+                          width: 100.w,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                  onPressed: ()async{
+                                    launchUrl(Uri.parse("mailto:${property['email']}?subject=ERA%20App%20Sell%20Property&body="));
+                                  },
+                                  icon: Icon(Icons.email)),
+                              IconButton(
+                                  onPressed: ()async{
+                                    await FirebaseFirestore.instance.collection('sell_properties').doc(property['id']).delete();
+                                  },
+                                  icon: Icon(Icons.delete,color:Colors.red)),
+                            ],
+                          ),
+                        ),
                         controlAffinity: ListTileControlAffinity.leading,
                         title: Row(
                           children: [

@@ -80,6 +80,7 @@ class DirectContactUs extends GetView<ContactusController> {
         TextformfieldWidget(
           hintText: 'Name',
           maxLines: 1,
+          controller: controller.name,
           keyboardType: TextInputType.text,
         ),
         SizedBox(height: 20.h),
@@ -90,6 +91,7 @@ class DirectContactUs extends GetView<ContactusController> {
             color: AppColors.black),
         SizedBox(height: 5.h),
         TextformfieldWidget(
+          controller: controller.number,
           hintText: '000-000-0000',
           maxLines: 1,
           keyboardType: TextInputType.number,
@@ -99,9 +101,11 @@ class DirectContactUs extends GetView<ContactusController> {
             text: 'Email',
             fontSize: 18.sp,
             fontWeight: FontWeight.w500,
+
             color: AppColors.black),
         SizedBox(height: 5.h),
         TextformfieldWidget(
+          controller: controller.emailA,
           hintText: 'Your email here',
           maxLines: 1,
           keyboardType: TextInputType.emailAddress,
@@ -118,11 +122,13 @@ class DirectContactUs extends GetView<ContactusController> {
         ),
         EraText(
           text: 'Message',
+
           fontSize: 18.sp,
           fontWeight: FontWeight.w500,
           color: AppColors.black,
         ),
         TextformfieldWidget(
+          controller: controller.message,
           hintText: 'Type your message here',
           maxLines: 15,
           color: AppColors.hint,
@@ -133,7 +139,9 @@ class DirectContactUs extends GetView<ContactusController> {
         Button.button2(
           Get.width,
           53.h,
-          () {},
+          ()async{
+            await controller.submitContact();
+          },
           'Send',
         ),
         sb30(),
