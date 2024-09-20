@@ -18,7 +18,8 @@ class GeneralFaq extends GetView<FaqsController> {
       child: Container(
         height: Get.height - 150.h,
         alignment: Alignment.topCenter,
-        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+        padding:
+            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,8 +45,8 @@ class GeneralFaq extends GetView<FaqsController> {
             ),
             StreamBuilder(
               stream: FirebaseFirestore.instance.collection('faq').snapshots(),
-              builder: (context,snapshot){
-                if(snapshot.hasData){
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
                   var data = snapshot.data!.docs;
                   return ListView.builder(
                     shrinkWrap: true,
@@ -67,13 +68,15 @@ class GeneralFaq extends GetView<FaqsController> {
                               IconButton(
                                 icon: Icon(Icons.edit),
                                 onPressed: () {
-                                  Get.dialog(
-                                      _buildEditFAQDialog(faq));
+                                  Get.dialog(_buildEditFAQDialog(faq));
                                 },
                               ),
                               IconButton(
-                                icon: Icon(Icons.delete,color: Colors.red,),
-                                onPressed: ()async{
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () async {
                                   await faq.deleteFAQ();
                                 },
                               ),
@@ -83,7 +86,7 @@ class GeneralFaq extends GetView<FaqsController> {
                       );
                     },
                   );
-                }else{
+                } else {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
@@ -101,9 +104,7 @@ class GeneralFaq extends GetView<FaqsController> {
       backgroundColor: Colors.white,
       title: Text('Add FAQ'),
       content: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.r)
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
         width: 500.w,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -131,12 +132,12 @@ class GeneralFaq extends GetView<FaqsController> {
           child: Text('Cancel'),
         ),
         TextButton(
-          onPressed: ()async{
+          onPressed: () async {
             await FAQ(
-              type: controller.typeController.text,
-              question: controller.titleController.text,
-              answer: controller.answerController.text
-            ).addFAQ();
+                    type: controller.typeController.text,
+                    question: controller.titleController.text,
+                    answer: controller.answerController.text)
+                .addFAQ();
             Get.back();
           },
           child: Text('Add'),
