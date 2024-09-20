@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -8,16 +7,15 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
+import 'package:eraphilippines/presentation/admin/properties/pages/upload_photos.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import '../../../../app/widgets/custom_image_viewer.dart';
-import '../../../agent/projects/pages/haraya.dart';
 
 class AddProjectAdmin extends GetView<ListingsAdminController> {
   const AddProjectAdmin({super.key});
@@ -125,7 +123,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                 return _buildCollapsibleSection(
                   title: 'BANNER PHOTO',
                   children: [
-                    UploadBannersWidget(
+                    UploadPhotos(
                       text: 'Upload Banners',
                       maxImages: 1,
                       onImageSelected: (Uint8List bannerImage) {
@@ -154,7 +152,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                 return _buildCollapsibleSection(
                   title: 'PROJECT LOGO',
                   children: [
-                    UploadBannersWidget(
+                    UploadPhotos(
                       text: 'Upload Project Logo',
                       maxImages: 1,
                       onImageSelected: (Uint8List image) {
@@ -286,7 +284,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                         );
                       } else if (controller.selectedOutDoor.value ==
                           'gallery') {
-                        return UploadBannersWidget(
+                        return UploadPhotos(
                           text: 'Upload Outdoor Amenities Gallery Only',
                           maxImages: 10,
                           onImageSelected: (Uint8List outdoorAmenities) {
@@ -365,7 +363,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                           ],
                         );
                       } else if (controller.selectedIndoor.value == 'gallery') {
-                        return UploadBannersWidget(
+                        return UploadPhotos(
                           text: 'Upload Indoor Amenities Gallery Only',
                           maxImages: 10,
                           onImageSelected: (Uint8List outdoorAmenities) {
@@ -388,7 +386,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                         controller.addCarouselTitle(value);
                       },
                     ),
-                    UploadBannersWidget(
+                    UploadPhotos(
                       text: 'Add Carousel Slider Photos',
                       maxImages: 10,
                       onImageSelected: (Uint8List carousel) {
@@ -631,12 +629,13 @@ Widget _buildBlurb(int index, ListingsAdminController controller) {
           }),
       _buildBlurbTitle(controller: controller, index: index),
       sb20(),
-      UploadBannersWidget(
-          text: 'Upload Blurb Image',
-          maxImages: 1,
-          onImageSelected: (Uint8List image) {
-            controller.updateBlurbImage(index, image);
-          }),
+      UploadPhotos(
+        text: 'Upload Blurb Image',
+        maxImages: 1,
+        onImageSelected: (Uint8List image) {
+          controller.updateBlurbImage(index, image);
+        },
+      ),
       sb20(),
       TextformfieldWidget(
         controller: controller.blurbParagraphController[index],
