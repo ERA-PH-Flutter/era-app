@@ -41,53 +41,55 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
               builder: (context,snapshot){
                 if(snapshot.hasData){
                   var sellProperty = snapshot.data!.docs;
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: sellProperty.length,
-                    itemBuilder: (context, index) {
-                      var property = sellProperty[index].data();
-                      return ExpansionTile(
-                        trailing: SizedBox(
-                          width: 100.w,
-                          child: Row(
+                  return SizedBox(
+                    height: Get.height - 200.h,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: sellProperty.length,
+                      itemBuilder: (context, index) {
+                        var property = sellProperty[index].data();
+                        return ExpansionTile(
+                          trailing: SizedBox(
+                            width: 100.w,
+                            child: Row(
+                              children: [
+                                IconButton(
+                                    onPressed: ()async{
+                                      launchUrl(Uri.parse("mailto:${property['email']}?subject=ERA%20App%20Sell%20Property&body="));
+                                    },
+                                    icon: Icon(Icons.email)),
+                                IconButton(
+                                    onPressed: ()async{
+                                      await FirebaseFirestore.instance.collection('sell_properties').doc(property['id']).delete();
+                                    },
+                                    icon: Icon(Icons.delete,color:Colors.red)),
+                              ],
+                            ),
+                          ),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          title: Row(
                             children: [
-                              IconButton(
-                                  onPressed: ()async{
-                                    launchUrl(Uri.parse("mailto:${property['email']}?subject=ERA%20App%20Sell%20Property&body="));
-                                  },
-                                  icon: Icon(Icons.email)),
-                              IconButton(
-                                  onPressed: ()async{
-                                    await FirebaseFirestore.instance.collection('sell_properties').doc(property['id']).delete();
-                                  },
-                                  icon: Icon(Icons.delete,color:Colors.red)),
+
+                              EraText(
+                                text:  property['name'],
+                                color: AppColors.black,
+                              ),
                             ],
                           ),
-                        ),
-                        controlAffinity: ListTileControlAffinity.leading,
-                        title: Row(
                           children: [
-
-                            EraText(
-                              text:  property['name'],
-                              color: AppColors.black,
-                            ),
+                            _builTextField('Phone: ${property['contact_number']}', 1),
+                            _builTextField('Email: ${property['email']}', 1),
+                            _builTextField(
+                                'Property Type: ${property['type']}', 1),
+                            _builTextField(
+                                'Location: ${property['location']}', 1),
+                            _builTextField('Price: ${property['price']}', 1),
+                            _builTextField(
+                                'Description: ${property['description']}', 10),
                           ],
-                        ),
-                        children: [
-                          _builTextField('Phone: ${property['contact_number']}', 1),
-                          _builTextField('Email: ${property['email']}', 1),
-                          _builTextField(
-                              'Property Type: ${property['type']}', 1),
-                          _builTextField(
-                              'Location: ${property['location']}', 1),
-                          _builTextField('Price: ${property['price']}', 1),
-                          _builTextField(
-                              'Description: ${property['description']}', 10),
-                        ],
-                      );
-                    },
+                        );
+                      },
+                    ),
                   );
                 }
                 else{
