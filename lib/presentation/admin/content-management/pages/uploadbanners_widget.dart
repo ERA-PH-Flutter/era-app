@@ -26,6 +26,7 @@ class UploadBannersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.delete<AddListingsController>();
     AddListingsController addListingsController =
         Get.put(AddListingsController());
     return Padding(
