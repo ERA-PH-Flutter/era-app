@@ -18,6 +18,9 @@ import 'package:eraphilippines/presentation/admin/properties/pages/edit_listing_
 import 'package:eraphilippines/presentation/admin/properties/pages/propertyinformation.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/propertylisting_admin.dart';
 import 'package:eraphilippines/presentation/admin/sell_property/pages/sell_property_admin.dart';
+import 'package:eraphilippines/presentation/admin/statitics/pages/statistics_admin.dart';
+import 'package:eraphilippines/presentation/admin/trainings/pages/upload_training_admin.dart';
+import 'package:eraphilippines/presentation/admin/trainings/pages/view_all_training.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
@@ -50,9 +53,14 @@ class LandingPage extends GetView<LandingPageController> {
     AboutUsPage(), //10
     ViewAllNews(), //11
     UploadNews(), //12
-    GeneralFaq(), //13
-    SellPropertyAdmin(),
-    ContactUsAdmin(),
+    StatisticsAdmin(), //STATISTICS 13
+
+    GeneralFaq(), //14
+
+    SellPropertyAdmin(), //15
+    ContactUsAdmin(), //16
+    ViewAllTraining(), //17
+    UploadTrainingAdmin(), //18
     // UploadNews(), //14
     // UploadNews(), //15
   ];
@@ -259,28 +267,39 @@ class LandingPage extends GetView<LandingPageController> {
             ],
           ),
           _buildExpansionTile(
+            text: "STATISTICS",
+            image: AppEraAssets.statistics,
+            children: [
+              _buildMenuItem('MANAGE STATISTICS', 13),
+            ],
+          ),
+          _buildExpansionTile(
             text: "FAQS",
             image: AppEraAssets.helpDash,
             children: [
-              _buildMenuItem('General FAQ’S', 13),
+              _buildMenuItem('General FAQ’S', 14),
               // _buildMenuItem('Agent FAQ’s', 12),
               // _buildMenuItem('Customer FAQ’s', 13),
             ],
           ),
           _buildExpansionTile(
-            text: "SELLING PROPERTY",
-            image: AppEraAssets.helpDash,
+            text: "SETTINGS",
+            image: AppEraAssets.settingDash,
             children: [
-              _buildMenuItem('SELLING PROPERTY', 14),
+              _buildMenuItem('SELLING PROPERTY', 15),
+              _buildMenuItem('CONTACT US MANAGEMENT', 16),
+
               // _buildMenuItem('Agent FAQ’s', 12),
               // _buildMenuItem('Customer FAQ’s', 13),
             ],
           ),
           _buildExpansionTile(
-            text: "CONTACT US",
-            image: AppEraAssets.helpDash,
+            text: "TRAINING",
+            image: AppEraAssets.trainings,
             children: [
-              _buildMenuItem('CONTACT US MANAGEMENT', 15),
+              _buildMenuItem('VIEW ALL TRAINING UPLOADS', 17),
+
+              _buildMenuItem('TRAININGS UPLOAD', 18),
               // _buildMenuItem('Agent FAQ’s', 12),
               // _buildMenuItem('Customer FAQ’s', 13),
             ],
