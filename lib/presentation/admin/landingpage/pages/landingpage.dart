@@ -295,7 +295,7 @@ class LandingPage extends GetView<LandingPageController> {
           ),
           _buildExpansionTile(
             text: "TRAINING",
-            image: AppEraAssets.videoT,
+            image: AppEraAssets.trainings,
             children: [
               _buildMenuItem('VIEW ALL TRAINING UPLOADS', 17),
 
