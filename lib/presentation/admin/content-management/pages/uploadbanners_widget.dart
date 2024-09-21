@@ -20,8 +20,9 @@ class UploadBannersWidget extends StatelessWidget {
   final int maxImages;
   final EdgeInsets? padding;
   final Function(Uint8List)? onImageSelected;
+  final Function(List<Uint8List>)? onImageSelectedMany;
   const UploadBannersWidget(
-      {super.key, this.text, required this.maxImages, this.onImageSelected,this.padding});
+      {super.key, this.text, required this.maxImages, this.onImageSelected,this.padding,this.onImageSelectedMany});
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +65,14 @@ class UploadBannersWidget extends StatelessWidget {
                 onPressed: () async {
                   if (maxImages != 1) {
                     await addListingsController.pickImageFromWeb();
+                    if (onImageSelectedMany != null) {
+                      List<Uint8List> listUint = [];
+                      addListingsController.images.forEach((image){
+                        listUint.add(image);
+                      });
+                      onImageSelectedMany!(listUint);
+                      return;
+                    }
                   } else {
                     try {
                       final imagePick = await ImagePicker()

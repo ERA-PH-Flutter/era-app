@@ -168,6 +168,7 @@ class AddListingsController extends GetxController with BaseController {
           images.add(await image.readAsBytes());
         }
       }
+      return images;
     } on PlatformException catch (e) {
       return e;
     }
