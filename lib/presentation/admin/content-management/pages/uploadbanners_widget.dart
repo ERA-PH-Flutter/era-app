@@ -18,9 +18,10 @@ import '../../../../app/constants/theme.dart';
 class UploadBannersWidget extends StatelessWidget {
   final String? text;
   final int maxImages;
+  final EdgeInsets? padding;
   final Function(Uint8List)? onImageSelected;
   const UploadBannersWidget(
-      {super.key, this.text, required this.maxImages, this.onImageSelected});
+      {super.key, this.text, required this.maxImages, this.onImageSelected,this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class UploadBannersWidget extends StatelessWidget {
         Get.put(AddListingsController());
     return Padding(
       padding:
-          EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+          padding ?? EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
       child: Column(
         children: [
           Row(
@@ -36,7 +37,7 @@ class UploadBannersWidget extends StatelessWidget {
             children: [
               // Reusing textBuild function
               AddListings.textBuild(text ?? 'UPLOAD BANNERS', EraTheme.header,
-                  FontWeight.w600, AppColors.black),
+                  FontWeight.w600, AppColors.black,padding: EdgeInsets.zero),
               Obx(() => AddListings.textBuild(
                   '${addListingsController.images.length}/$maxImages',
                   22.sp,
@@ -44,56 +45,53 @@ class UploadBannersWidget extends StatelessWidget {
                   Colors.black)),
             ],
           ),
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.blue,
-                    shadowColor: Colors.transparent,
-                    side: BorderSide(
-                      color: AppColors.hint.withOpacity(0.1),
-                      width: 1,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+          SizedBox(height: 20.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.blue,
+                  shadowColor: Colors.transparent,
+                  side: BorderSide(
+                    color: AppColors.hint.withOpacity(0.1),
+                    width: 1,
                   ),
-                  onPressed: () async {
-                    if (maxImages != 1) {
-                      await addListingsController.pickImageFromWeb();
-                    } else {
-                      try {
-                        final imagePick = await ImagePicker()
-                            .pickImage(source: ImageSource.gallery);
-                        var image = await imagePick!.readAsBytes();
-                        if (onImageSelected != null) {
-                          onImageSelected!(image);
-                          return;
-                        }
-                        //con.selectedImage = image;
-                        addListingsController.images.value = [image];
-                      } catch (e) {
-                        print(e);
-                      }
-                    }
-                  },
-                  icon: Icon(
-                    CupertinoIcons.photo_fill_on_rectangle_fill,
-                    color: AppColors.white,
-                  ),
-                  label: EraText(
-                    text: 'Select Photos',
-                    color: AppColors.white,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w500,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-              ],
-            ),
+                onPressed: () async {
+                  if (maxImages != 1) {
+                    await addListingsController.pickImageFromWeb();
+                  } else {
+                    try {
+                      final imagePick = await ImagePicker()
+                          .pickImage(source: ImageSource.gallery);
+                      var image = await imagePick!.readAsBytes();
+                      if (onImageSelected != null) {
+                        onImageSelected!(image);
+                        return;
+                      }
+                      //con.selectedImage = image;
+                      addListingsController.images.value = [image];
+                    } catch (e) {
+                      print(e);
+                    }
+                  }
+                },
+                icon: Icon(
+                  CupertinoIcons.photo_fill_on_rectangle_fill,
+                  color: AppColors.white,
+                ),
+                label: EraText(
+                  text: 'Select Photos',
+                  color: AppColors.white,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 10.h),
           Obx(() {

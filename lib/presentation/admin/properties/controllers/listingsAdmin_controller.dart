@@ -38,6 +38,7 @@ class ListingsAdminController extends GetxController {
   var isForLease = true.obs;
   Listing? listing;
   List<Listing> listings = [];
+  var projectLego = [].obs;
 
   TextEditingController developerController = TextEditingController();
   TextEditingController virtualTitleController = TextEditingController();
@@ -74,6 +75,9 @@ class ListingsAdminController extends GetxController {
 
   var blurbTitleController = <TextEditingController>[].obs;
   var blurbParagraphController = <TextEditingController>[].obs;
+
+  var blurbTitle = TextEditingController();
+  var blurbParagraph = TextEditingController();
 
   var selectedOption = ''.obs;
 
@@ -120,7 +124,6 @@ class ListingsAdminController extends GetxController {
     addBlurbTitle.add('');
     addBlurbParagraph.add('');
     addBlurImage.add(null);
-
     blurbTitleController.add(TextEditingController());
     blurbParagraphController.add(TextEditingController());
   }

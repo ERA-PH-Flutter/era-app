@@ -540,9 +540,9 @@ class AddListings extends GetView<AddListingsController> with BaseController {
   }
 
   static Widget textBuild(
-      String text, double fontSize, FontWeight fontWeight, Color color) {
+      String text, double fontSize, FontWeight fontWeight, Color color,{padding}) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           children: [
             EraText(

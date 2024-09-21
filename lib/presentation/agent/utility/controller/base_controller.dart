@@ -125,12 +125,14 @@ mixin class BaseController{
     VoidCallback? onTap,
     String title = 'Error',
     String? description = 'Something went wrong',
+    double? width
   }) {
     showCupertinoDialog(
       barrierDismissible: false,
       context: Get.context!,
       builder: (context) => Dialog(
         child: Container(
+          width: width ?? Get.width,
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.5),

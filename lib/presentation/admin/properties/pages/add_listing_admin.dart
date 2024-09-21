@@ -431,7 +431,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                           );
                           return;
                         }
-                        BaseController().hideLoading();
+                        BaseController().showLoading();
                         try {
                           await Listing(
                               name: addListingsController
@@ -470,12 +470,12 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                               latLng: [
                                 addListingsController.latLng!.latitude,
                                 addListingsController.latLng!.longitude
-                              ]).addListing(
-                              addListingsController.images, user!.id);
+                              ]).addListing(addListingsController.images, user!.id);
                           settings!.listingCount = settings!.listingCount! + 1;
                           await settings!.update();
                           addListingsController.showSuccessDialog(
                               hitApi: () {
+                                BaseController().hideLoading();
                                 Get.delete<AddListingsController>();
                                 Get.put(AddListingsController());
                                 Get.back();
