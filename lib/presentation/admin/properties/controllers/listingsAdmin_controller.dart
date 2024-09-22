@@ -31,6 +31,7 @@ class ListingsAdminController extends GetxController {
   RxString price = "".obs;
   var symbol = "PHP ";
   var id = "";
+  final isLoading = true.obs;
 
   var data = [].obs;
   var searchQuery = ''.obs;
@@ -96,6 +97,10 @@ class ListingsAdminController extends GetxController {
 
   void addCarouselTitle(String title) {
     carouselTitle.value = title;
+  }
+
+  void addCarouselDesc(String title) {
+    carouselParagraph.value = title;
   }
 
   void addCarouselPhoto(Uint8List image) {
@@ -248,7 +253,7 @@ class ListingsAdminController extends GetxController {
 //   TextEditingController carouselTitleC = TextEditingController();
 //   TextEditingController carouselFooterC = TextEditingController();
 //   TextEditingController allDescriptionC = TextEditingController();
-  var currentImage = ''.obs;
+  var currentImage = <Uint8List>[].obs;
   Stream<QuerySnapshot<Map<String, dynamic>>> streamSearch = FirebaseFirestore
       .instance
       .collection('listings')

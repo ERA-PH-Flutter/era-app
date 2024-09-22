@@ -227,6 +227,13 @@ class LandingPage extends GetView<LandingPageController> {
   Widget _buildSidebarMenu() => ListView(
         children: [
           _buildExpansionTile(
+            text: "STATISTICS",
+            image: AppEraAssets.statistics,
+            children: [
+              _buildMenuItem('MANAGE STATISTICS', 13),
+            ],
+          ),
+          _buildExpansionTile(
             text: "USERS",
             image: AppEraAssets.dashboard,
             children: [
@@ -264,13 +271,6 @@ class LandingPage extends GetView<LandingPageController> {
             ],
           ),
           _buildExpansionTile(
-            text: "STATISTICS",
-            image: AppEraAssets.statistics,
-            children: [
-              _buildMenuItem('MANAGE STATISTICS', 13),
-            ],
-          ),
-          _buildExpansionTile(
             text: "FAQS",
             image: AppEraAssets.helpDash,
             children: [
@@ -290,17 +290,17 @@ class LandingPage extends GetView<LandingPageController> {
               // _buildMenuItem('Customer FAQ’s', 13),
             ],
           ),
-          _buildExpansionTile(
-            text: "TRAINING",
-            image: AppEraAssets.trainings,
-            children: [
-              _buildMenuItem('VIEW ALL TRAINING UPLOADS', 17),
+          // _buildExpansionTile(
+          //   text: "TRAINING",
+          //   image: AppEraAssets.trainings,
+          //   children: [
+          //     _buildMenuItem('VIEW ALL TRAINING UPLOADS', 17),
 
-              _buildMenuItem('TRAININGS UPLOAD', 18),
-              // _buildMenuItem('Agent FAQ’s', 12),
-              // _buildMenuItem('Customer FAQ’s', 13),
-            ],
-          ),
+          //     _buildMenuItem('TRAININGS UPLOAD', 18),
+          //     // _buildMenuItem('Agent FAQ’s', 12),
+          //     // _buildMenuItem('Customer FAQ’s', 13),
+          //   ],
+          // ),
         ],
       );
 

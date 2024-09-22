@@ -6,6 +6,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
@@ -16,6 +17,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:map_location_picker/map_location_picker.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../agent/listings/add-edit_listings/pages/addlistings.dart';
 
@@ -65,34 +68,38 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                           ),
                           Padding(
                             padding: EdgeInsets.all(8.sp),
-                            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                              Button(
-                                onTap: (){
-                                  print(controller.projectLego);
-                                },
-                                margin: EdgeInsets.symmetric(horizontal: 5),
-                                width: 150.w,
-                                text: 'SUBMIT',
-                                bgColor: AppColors.blue,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              Button(
-                                margin: EdgeInsets.symmetric(horizontal: 5),
-                                width: 150.w,
-                                text: 'CANCEL',
-                                bgColor: AppColors.hint,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ]),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Button(
+                                    onTap: () {
+                                      print(controller.projectLego);
+                                    },
+                                    margin: EdgeInsets.symmetric(horizontal: 5),
+                                    width: 150.w,
+                                    text: 'SUBMIT',
+                                    bgColor: AppColors.blue,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  Button(
+                                    margin: EdgeInsets.symmetric(horizontal: 5),
+                                    width: 150.w,
+                                    text: 'CANCEL',
+                                    bgColor: AppColors.hint,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ]),
                           ),
                         ],
                       ),
-                      SizedBox(height: 20.h,),
+                      SizedBox(
+                        height: 20.h,
+                      ),
                       SizedBox(
                         width: Get.width,
                         child: DropdownButtonHideUnderline(
                           child: Obx(
-                                () => DropdownButton<String>(
+                            () => DropdownButton<String>(
                               focusColor: AppColors.hint.withOpacity(0.7),
                               dropdownColor: AppColors.white,
                               value: controller.selectedOption.isEmpty
@@ -177,20 +184,20 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20.h,),
+                      SizedBox(
+                        height: 20.h,
+                      ),
                       Obx(() {
                         if (controller.selectedOption.value == 'bannerImages') {
-                          var image;
+                          Uint8List? image;
                           return _buildCollapsibleSection(
-                            onTap: ()async{
-                              if(image != null){
-                                controller.projectLego.add({
-                                  'type' : "Banner Images",
-                                  'image' : image
-                                });
+                            onTap: () async {
+                              if (image != null) {
+                                controller.projectLego.add(
+                                    {'type': "Banner Images", 'image': image});
                                 image = null;
                                 controller.selectedOption.value = "unselect";
-                              }else{
+                              } else {
                                 showError('Image is empty!');
                               }
                             },
@@ -207,18 +214,20 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'developerName') {
+                        } else if (controller.selectedOption.value ==
+                            'developerName') {
                           return _buildCollapsibleSection(
-                            onTap: (){
-                              if(controller.developerController.text.isNotEmpty){
+                            onTap: () {
+                              if (controller
+                                  .developerController.text.isNotEmpty) {
                                 controller.projectLego.add({
-                                  'type' : "Developer Name",
-                                  'developer_name' : controller.developerController.text
+                                  'type': "Developer Name",
+                                  'developer_name':
+                                      controller.developerController.text
                                 });
                                 controller.developerController.clear();
                                 controller.selectedOption.value = "unselect";
-                              }else{
+                              } else {
                                 showError('Developer Name is empty');
                               }
                             },
@@ -235,63 +244,70 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'ProjectLogo') {
-                          var image;
+                        } else if (controller.selectedOption.value ==
+                            'ProjectLogo') {
+                          Uint8List? imageLogo;
                           return _buildCollapsibleSection(
-                            onTap: (){
-                              if(image != null){
+                            onTap: () async {
+                              if (imageLogo != null) {
                                 controller.projectLego.add({
-                                  'type' : "Project Logo",
-                                  'image' : image
+                                  'type': "Project Logo",
+                                  'image': imageLogo
                                 });
-                                image = null;
+                                imageLogo = null;
                                 controller.selectedOption.value = "unselect";
-                              }else{
+                              } else {
                                 showError('Select a photo first!');
                               }
                             },
                             title: 'PROJECT LOGO',
                             children: [
                               UploadBannersWidget(
-                                text: 'Upload Project Logo',
+                                padding: EdgeInsets.zero,
+                                text: 'Upload Logo',
                                 maxImages: 1,
                                 onImageSelected: (Uint8List image) {
-                                  image = image;
+                                  imageLogo = image;
                                 },
                               ),
                               sb20(),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == '3DVirtual') {
+                        } else if (controller.selectedOption.value ==
+                            '3DVirtual') {
                           return _buildCollapsibleSection(
-                            onTap: (){
+                            onTap: () {
                               String? message;
-                              if(controller.virtualTitleController.text.isEmpty){
+                              if (controller
+                                  .virtualTitleController.text.isEmpty) {
                                 message = 'Please enter valid title!';
                               }
-                              if(controller.virtualParagraphController.text.isEmpty){
+                              if (controller
+                                  .virtualParagraphController.text.isEmpty) {
                                 message = 'Please enter valid paragraph!';
                               }
-                              if(controller.virtualLinkController.text.isEmpty || !controller.virtualLinkController.text.contains('http')){
+                              if (controller
+                                      .virtualLinkController.text.isEmpty ||
+                                  !controller.virtualLinkController.text
+                                      .contains('http')) {
                                 message = 'Please enter valid link!';
                               }
-                              if(message == null){
+                              if (message == null) {
                                 controller.projectLego.add({
-                                  'type' : "3D Virtual",
-                                  'title' :  controller.virtualTitleController.text,
-                                  'description' : controller.virtualParagraphController.text,
-                                  'link' :  controller.virtualLinkController.text,
+                                  'type': "3D Virtual",
+                                  'title':
+                                      controller.virtualTitleController.text,
+                                  'description': controller
+                                      .virtualParagraphController.text,
+                                  'link': controller.virtualLinkController.text,
                                 });
                                 controller.virtualTitleController.clear();
                                 controller.virtualParagraphController.clear();
                                 controller.virtualLinkController.clear();
                                 controller.selectedOption.value = "unselect";
-                              }else{
+                              } else {
                                 showError(message);
                               }
-
                             },
                             title: 'ADD VIRTUAL TOUR',
                             children: [
@@ -303,7 +319,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   }),
                               sb20(),
                               TextformfieldWidget(
-                                controller: controller.virtualParagraphController,
+                                controller:
+                                    controller.virtualParagraphController,
                                 hintText: 'Virtual Paragraph *',
                                 maxLines: 10,
                                 textInputAction: TextInputAction.newline,
@@ -320,44 +337,42 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'Blurb') {
+                        } else if (controller.selectedOption.value == 'Blurb') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
-                          var blurbImage;
+                          Uint8List? blurbImage;
                           return _buildCollapsibleSection(
-                            onTap: (){
+                            onTap: () {
                               String? message;
-                              if(blurbTitle.text.isEmpty){
+                              if (blurbTitle.text.isEmpty) {
                                 message = 'Title is empty!';
                               }
-                              if(blurbParagraph.text.isEmpty){
+                              if (blurbParagraph.text.isEmpty) {
                                 message = 'Paragraph is empty!';
                               }
-                              if(blurbImage == null){
+                              if (blurbImage == null) {
                                 message = 'Image is not picked!';
                               }
-                              if(message == null){
+                              if (message == null) {
                                 controller.projectLego.add({
-                                  'type' : "Blurb",
-                                  'title' :  blurbTitle,
-                                  'description' : blurbParagraph,
-                                  'image' : blurbImage,
+                                  'type': "Blurb",
+                                  'title': blurbTitle.text,
+                                  'description': blurbParagraph.text,
+                                  'image': blurbImage,
                                 });
                                 blurbTitle.clear();
                                 blurbParagraph.clear();
                                 blurbImage = null;
                                 controller.selectedOption.value = "unselect";
-                              }else{
+                              } else {
                                 showError(message);
                               }
-
                             },
                             title: 'ADD BLURB',
                             children: [
                               _buildTextField(
-                                  controller: blurbTitle,
-                                  label: 'Blurb Title*',
+                                controller: blurbTitle,
+                                label: 'Blurb Title*',
                               ),
                               sb20(),
                               UploadBannersWidget(
@@ -378,154 +393,166 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'location') {
+                        } else if (controller.selectedOption.value ==
+                            'location') {
                           return _buildCollapsibleSection(
                             title: 'ADD LOCATION',
                             children: [],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'outdoorAmenities') {
+                        } else if (controller.selectedOption.value ==
+                            'outdoorAmenities') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
-                          var blurbImage;
-                          var blurbImages;
+                          Uint8List? blurbImage;
+                          List<Uint8List>? blurbImages;
                           return Column(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   EraText(
                                       text: 'Add Outdoor Amenities',
                                       color: AppColors.black),
                                   Obx(
-                                        () => DropdownButtonHideUnderline(
+                                    () => DropdownButtonHideUnderline(
                                       child: DropdownButton<String>(
                                           hint: EraText(
                                               text: 'Select Option',
                                               color: AppColors.black),
-                                          value: controller.selectedOutDoor.value.isEmpty
+                                          value: controller
+                                                  .selectedOutDoor.value.isEmpty
                                               ? null
-                                              : controller.selectedOutDoor.value,
+                                              : controller
+                                                  .selectedOutDoor.value,
                                           items: [
                                             DropdownMenuItem(
                                                 value: 'blurb',
                                                 child: EraText(
-                                                    text: 'add blurb',
+                                                    text: 'blurb',
                                                     color: AppColors.black)),
                                             DropdownMenuItem(
                                                 value: 'gallery',
                                                 child: EraText(
-                                                    text: 'add gallery photos',
+                                                    text: 'gallery',
                                                     color: AppColors.black)),
                                           ],
                                           onChanged: (value) {
-                                            controller.selectedOutDoor.value = value!;
+                                            controller.selectedOutDoor.value =
+                                                value!;
                                           }),
                                     ),
                                   ),
                                 ],
                               ),
                               Obx(() {
-                                if (controller.selectedOutDoor.value == 'blurb') {
+                                if (controller.selectedOutDoor.value ==
+                                    'blurb') {
                                   return Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           EraText(
                                               text: 'BLURB OUTDOOR AMENITIES',
                                               color: AppColors.black),
                                         ],
                                       ),
-                                      Column(
-                                        children: [
-                                          _buildTextField(
-                                            controller: blurbTitle,
-                                            label: 'Blurb Title*',
-                                          ),
-                                          sb20(),
-                                          UploadBannersWidget(
-                                              text: 'Upload Blurb Image',
-                                              maxImages: 1,
-                                              padding: EdgeInsets.zero,
-                                              onImageSelected: (Uint8List image) {
-                                                blurbImage = image;
-                                              }),
-                                          sb20(),
-                                          TextformfieldWidget(
-                                            controller: blurbParagraph,
-                                            hintText: 'Blurb Paragraph *',
-                                            maxLines: 10,
-                                            textInputAction: TextInputAction.newline,
-                                            keyboardType: TextInputType.multiline,
-                                          ),
-                                          sb20(),
-                                        ]
-                                      ),
+                                      Column(children: [
+                                        _buildTextField(
+                                          controller: blurbTitle,
+                                          label: 'Blurb Title*',
+                                        ),
+                                        sb20(),
+                                        UploadBannersWidget(
+                                            text: 'Upload Blurb Image',
+                                            maxImages: 1,
+                                            padding: EdgeInsets.zero,
+                                            onImageSelected: (Uint8List image) {
+                                              blurbImage = image;
+                                            }),
+                                        sb20(),
+                                        TextformfieldWidget(
+                                          controller: blurbParagraph,
+                                          hintText: 'Blurb Paragraph *',
+                                          maxLines: 10,
+                                          textInputAction:
+                                              TextInputAction.newline,
+                                          keyboardType: TextInputType.multiline,
+                                        ),
+                                        sb20(),
+                                      ]),
                                     ],
                                   );
-                                }
-                                else if (controller.selectedOutDoor.value == 'gallery') {
+                                } else if (controller.selectedOutDoor.value ==
+                                    'gallery') {
                                   return UploadBannersWidget(
                                     padding: EdgeInsets.zero,
-                                    text: 'Upload Outdoor Amenities Gallery Only',
+                                    text:
+                                        'Upload Outdoor Amenities Gallery Only',
                                     maxImages: 10,
-                                    onImageSelected: (Uint8List outdoorAmenities) {
+                                    onImageSelectedMany:
+                                        (List<Uint8List> outdoorAmenities) {
                                       blurbImages = outdoorAmenities;
+                                      print(
+                                          'Gallery images selected: ${blurbImages?.length} images');
                                     },
                                   );
-                                }
-                                else {
+                                } else {
                                   return Container();
                                 }
                               }),
                               sb20(),
                               Button(
-                                onTap: (){
+                                onTap: () {
                                   String? message;
-                                  if(controller.selectedOutDoor.value == 'blurb'){
-                                    if(blurbTitle.text.isEmpty){
+                                  if (controller.selectedOutDoor.value ==
+                                      'blurb') {
+                                    if (blurbTitle.text.isEmpty) {
                                       message = 'Title is empty!';
                                     }
-                                    if(blurbParagraph.text.isEmpty){
+                                    if (blurbParagraph.text.isEmpty) {
                                       message = 'Paragraph is empty!';
                                     }
-                                    if(blurbImage == null){
+                                    if (blurbImage == null) {
                                       message = 'Select photos first!';
                                     }
-                                    if(message == null){
+                                    if (message == null) {
                                       controller.projectLego.add({
-                                        'type' : 'Outdoor Amenities',
-                                        'sub_type' : 'blurb',
-                                        'title' : blurbTitle.text,
-                                        'description' : blurbParagraph.text,
-                                        'images' : blurbImage,
+                                        'type': 'Outdoor Amenities',
+                                        'sub_type': 'blurb',
+                                        'title': blurbTitle.text,
+                                        'description': blurbParagraph.text,
+                                        'images': blurbImage,
                                       });
-                                    }else{
+                                    } else {
                                       showError(message);
                                     }
-                                  }else{
-                                    if(blurbImages == null){
+                                  } else if (controller.selectedOutDoor.value ==
+                                      'gallery') {
+                                    if (blurbImages == null ||
+                                        blurbImages!.isEmpty) {
                                       message = 'Select photos first!';
                                     }
-                                    if(message != null){
+                                    if (message == null) {
                                       controller.projectLego.add({
-                                        'type' : 'indoorAmenities',
-                                        'sub_type' : 'gallery',
-                                        'images' : blurbImages,
+                                        'type': 'Outdoor Amenities',
+                                        'sub_type': 'gallery',
+                                        'images': blurbImages,
                                       });
-                                    }else{
+                                    } else {
                                       showError(message);
                                     }
-
                                   }
-                                  if(message != null){
+
+                                  if (message != null) {
                                     blurbTitle.clear();
                                     blurbParagraph.clear();
-                                    blurbImages = null;
+
                                     blurbImage = null;
-                                    controller.selectedOption.value = "unselect";
+                                    controller.selectedOption.value =
+                                        "unselect";
                                   }
                                 },
                                 margin: EdgeInsets.symmetric(horizontal: 5),
@@ -536,148 +563,157 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'indoorAmenities') {
+                        } else if (controller.selectedOption.value ==
+                            'indoorAmenities') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
-                          var blurbImage;
-                          var blurbImages;
+                          Uint8List? blurbImage;
+                          List<Uint8List>? blurbImages;
                           return Column(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   EraText(
-                                      text: 'Add Outdoor Amenities',
+                                      text: 'Add Indoor Amenities',
                                       color: AppColors.black),
                                   Obx(
-                                        () => DropdownButtonHideUnderline(
+                                    () => DropdownButtonHideUnderline(
                                       child: DropdownButton<String>(
                                           hint: EraText(
                                               text: 'Select Option',
                                               color: AppColors.black),
-                                          value: controller.selectedOutDoor.value.isEmpty
+                                          value: controller
+                                                  .selectedOutDoor.value.isEmpty
                                               ? null
-                                              : controller.selectedOutDoor.value,
+                                              : controller
+                                                  .selectedOutDoor.value,
                                           items: [
                                             DropdownMenuItem(
                                                 value: 'blurb',
                                                 child: EraText(
-                                                    text: 'add blurb',
+                                                    text: 'blurb',
                                                     color: AppColors.black)),
                                             DropdownMenuItem(
                                                 value: 'gallery',
                                                 child: EraText(
-                                                    text: 'add gallery photos',
+                                                    text: 'gallery',
                                                     color: AppColors.black)),
                                           ],
                                           onChanged: (value) {
-                                            controller.selectedOutDoor.value = value!;
+                                            controller.selectedOutDoor.value =
+                                                value!;
                                           }),
                                     ),
                                   ),
                                 ],
                               ),
                               Obx(() {
-                                if (controller.selectedOutDoor.value == 'blurb') {
+                                if (controller.selectedOutDoor.value ==
+                                    'blurb') {
                                   return Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           EraText(
                                               text: 'BLURB INDOOR AMENITIES',
                                               color: AppColors.black),
                                         ],
                                       ),
-                                      Column(
-                                          children: [
-                                            _buildTextField(
-                                              controller: blurbTitle,
-                                              label: 'Blurb Title*',
-                                            ),
-                                            sb20(),
-                                            UploadBannersWidget(
-                                                text: 'Upload Blurb Image',
-                                                maxImages: 1,
-                                                padding: EdgeInsets.zero,
-                                                onImageSelected: (Uint8List image) {
-                                                  blurbImage = image;
-                                                }),
-                                            sb20(),
-                                            TextformfieldWidget(
-                                              controller: blurbParagraph,
-                                              hintText: 'Blurb Paragraph *',
-                                              maxLines: 10,
-                                              textInputAction: TextInputAction.newline,
-                                              keyboardType: TextInputType.multiline,
-                                            ),
-                                            sb20(),
-                                          ]
-                                      ),
+                                      Column(children: [
+                                        _buildTextField(
+                                          controller: blurbTitle,
+                                          label: 'Blurb Title*',
+                                        ),
+                                        sb20(),
+                                        UploadBannersWidget(
+                                            text: 'Upload Blurb Image',
+                                            maxImages: 1,
+                                            padding: EdgeInsets.zero,
+                                            onImageSelected: (Uint8List image) {
+                                              blurbImage = image;
+                                            }),
+                                        sb20(),
+                                        TextformfieldWidget(
+                                          controller: blurbParagraph,
+                                          hintText: 'Blurb Paragraph *',
+                                          maxLines: 10,
+                                          textInputAction:
+                                              TextInputAction.newline,
+                                          keyboardType: TextInputType.multiline,
+                                        ),
+                                        sb20(),
+                                      ]),
                                     ],
                                   );
-                                }
-                                else if (controller.selectedOutDoor.value == 'gallery') {
+                                } else if (controller.selectedOutDoor.value ==
+                                    'gallery') {
                                   return UploadBannersWidget(
                                     padding: EdgeInsets.zero,
-                                    text: 'Upload Indoor Amenities Gallery Only',
+                                    text:
+                                        'Upload Indoor Amenities Gallery Only',
                                     maxImages: 10,
-                                    onImageSelectedMany: (List<Uint8List> outdoorAmenities) {
+                                    onImageSelectedMany:
+                                        (List<Uint8List> outdoorAmenities) {
                                       blurbImages = outdoorAmenities;
                                     },
                                   );
-                                }
-                                else {
+                                } else {
                                   return Container();
                                 }
                               }),
                               sb20(),
                               Button(
-                                onTap: (){
+                                onTap: () {
                                   String? message;
-                                  if(controller.selectedOutDoor.value == 'blurb'){
-                                    if(blurbTitle.text.isEmpty){
+                                  if (controller.selectedOutDoor.value ==
+                                      'blurb') {
+                                    if (blurbTitle.text.isEmpty) {
                                       message = 'Title is empty!';
                                     }
-                                    if(blurbParagraph.text.isEmpty){
+                                    if (blurbParagraph.text.isEmpty) {
                                       message = 'Paragraph is empty!';
                                     }
-                                    if(blurbImage == null){
+                                    if (blurbImage == null) {
                                       message = 'Select photos first!';
                                     }
-                                    if(message == null){
+                                    if (message == null) {
                                       controller.projectLego.add({
-                                        'type' : 'Indoor Amenities',
-                                        'sub_type' : 'blurb',
-                                        'title' : blurbTitle.text,
-                                        'description' : blurbParagraph.text,
-                                        'images' : blurbImage,
+                                        'type': 'Indoor Amenities',
+                                        'sub_type': 'blurb',
+                                        'title': blurbTitle.text,
+                                        'description': blurbParagraph.text,
+                                        'images': blurbImage,
                                       });
-                                    }else{
+                                    } else {
                                       showError(message);
                                     }
-                                  }else{
-                                    if(blurbImages == null){
+                                  } else if (controller.selectedOutDoor.value ==
+                                      'gallery') {
+                                    if (blurbImages == null ||
+                                        blurbImages!.isEmpty) {
                                       message = 'Select photos first!';
                                     }
-                                    if(message != null){
+                                    if (message == null) {
                                       controller.projectLego.add({
-                                        'type' : 'indoorAmenities',
-                                        'sub_type' : 'gallery',
-                                        'images' : blurbImages,
+                                        'type': 'Indoor Amenities',
+                                        'sub_type': 'gallery',
+                                        'images': blurbImages,
                                       });
-                                    }else{
+                                    } else {
                                       showError(message);
                                     }
-
                                   }
-                                  if(message != null){
+                                  if (message != null) {
                                     blurbTitle.clear();
                                     blurbParagraph.clear();
                                     blurbImages = null;
                                     blurbImage = null;
-                                    controller.selectedOption.value = "unselect";
+                                    controller.selectedOption.value =
+                                        "unselect";
                                   }
                                 },
                                 margin: EdgeInsets.symmetric(horizontal: 5),
@@ -688,13 +724,14 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'Carousel') {
+                        } else if (controller.selectedOption.value ==
+                            'Carousel') {
                           var carouselTitle = TextEditingController();
                           var carouselFloorAreaC = TextEditingController();
                           var carouselNumberOfBedC = TextEditingController();
                           var carouselLoggiaSizeC = TextEditingController();
                           var carouselImages;
+                          var carouselParagraph = TextEditingController();
                           return Column(
                             children: [
                               _buildTextField(
@@ -707,7 +744,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               UploadBannersWidget(
                                 text: 'Add Carousel Slider Photos',
                                 maxImages: 10,
-                                onImageSelectedMany: (List<Uint8List> outdoorAmenities) {
+                                onImageSelectedMany:
+                                    (List<Uint8List> outdoorAmenities) {
                                   carouselImages = outdoorAmenities;
                                 },
                                 padding: EdgeInsets.zero,
@@ -715,9 +753,11 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               Row(
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 25.w),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 25.w),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         infoTile(
                                             AppEraAssets.floorArea,
@@ -749,36 +789,56 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   ),
                                 ],
                               ),
+                              TextformfieldWidget(
+                                controller: carouselParagraph,
+                                hintText: 'Paragraph *',
+                                maxLines: 10,
+                                textInputAction: TextInputAction.newline,
+                                keyboardType: TextInputType.multiline,
+                              ),
                               sb20(),
                               Button(
-                                onTap: (){
+                                onTap: () {
                                   String? message;
-                                  if(carouselTitle.text.isEmpty){
+                                  if (carouselTitle.text.isEmpty) {
                                     message = 'Title is empty';
                                   }
-                                  if(carouselImages == null){
+                                  if (carouselImages == null) {
                                     message = 'Images is empty';
                                   }
-                                  if(message == null){
+                                  if (carouselParagraph.text.isEmpty) {
+                                    message = 'Paragraph is empty!';
+                                  }
+                                  if (message == null) {
                                     controller.projectLego.add({
-                                      'type' : 'Carousel',
-                                      'title' : carouselTitle.text,
-                                      'floor_area' : carouselFloorAreaC.text.isEmpty ? 0 : carouselFloorAreaC.text,
-                                      'beds' : carouselNumberOfBedC.text.isEmpty ? 0 : carouselNumberOfBedC.text,
-                                      'loggia_size' : carouselLoggiaSizeC.text.isEmpty ? 0 : carouselLoggiaSizeC.text,
+                                      'type': 'Carousel',
+                                      'title': carouselTitle.text,
+                                      'floor_area':
+                                          carouselFloorAreaC.text.isEmpty
+                                              ? 0
+                                              : carouselFloorAreaC.text,
+                                      'beds': carouselNumberOfBedC.text.isEmpty
+                                          ? 0
+                                          : carouselNumberOfBedC.text,
+                                      'loggia_size':
+                                          carouselLoggiaSizeC.text.isEmpty
+                                              ? 0
+                                              : carouselLoggiaSizeC.text,
                                       //'color' :
-                                      'images' : carouselImages,
+                                      'paragraph': carouselParagraph.text,
+                                      'images': carouselImages,
                                     });
                                     carouselTitle.clear();
                                     carouselFloorAreaC.clear();
                                     carouselNumberOfBedC.clear();
                                     carouselLoggiaSizeC.clear();
+                                    carouselParagraph.clear();
                                     carouselImages = null;
-                                    controller.selectedOption.value = "unselect";
-                                  }else{
+                                    controller.selectedOption.value =
+                                        "unselect";
+                                  } else {
                                     showError(message);
                                   }
-
                                 },
                                 margin: EdgeInsets.symmetric(horizontal: 5),
                                 width: Get.width,
@@ -788,8 +848,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'space') {
+                        } else if (controller.selectedOption.value == 'space') {
                           var height = TextEditingController();
                           return Column(
                             children: [
@@ -802,19 +861,19 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               ),
                               sb20(),
                               Button(
-                                onTap: (){
+                                onTap: () {
                                   String? message;
-                                  if(height.text.isNotEmpty){
+                                  if (height.text.isNotEmpty) {
                                     controller.projectLego.add({
-                                      'type' : 'Space',
-                                      'height' : height.text,
+                                      'type': 'Space',
+                                      'height': height.text,
                                     });
                                     height.clear();
-                                    controller.selectedOption.value = "unselect";
-                                  }else{
+                                    controller.selectedOption.value =
+                                        "unselect";
+                                  } else {
                                     showError('Space value is empty!');
                                   }
-
                                 },
                                 margin: EdgeInsets.symmetric(horizontal: 5),
                                 width: Get.width,
@@ -824,41 +883,53 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        }
-                        else {
+                        } else {
                           return Container();
                         }
                       }),
                       sb20(),
-                      Obx((){
-                        if(controller.projectLego.value.length != 0){
+                      Obx(() {
+                        if (controller.projectLego.value.length != 0) {
                           return ReorderableListView.builder(
                             key: Key('awawa'),
                             shrinkWrap: true,
-                            onReorder: (oldIndex,newIndex){
+                            onReorder: (oldIndex, newIndex) {
                               if (oldIndex < newIndex) {
                                 newIndex -= 1;
                               }
-                              final item = controller.projectLego.removeAt(oldIndex);
+                              final item =
+                                  controller.projectLego.removeAt(oldIndex);
                               controller.projectLego.insert(newIndex, item);
                             },
                             itemCount: controller.projectLego.length,
-                            itemBuilder: (context,index){
+                            itemBuilder: (context, index) {
                               return Container(
                                 width: Get.width,
                                 key: Key('era$index'),
                                 padding: EdgeInsets.symmetric(vertical: 5.h),
                                 margin: EdgeInsets.only(bottom: 10.h),
                                 color: Colors.grey[200],
-                                child: EraText(
-                                  text: controller.projectLego[index]['type'],
-                                  color: Colors.black,
-                                  fontSize: 20.sp,
+                                child: ListTile(
+                                  title: EraText(
+                                    text: controller.projectLego[index]['type'],
+                                    color: Colors.black,
+                                    fontSize: 20.sp,
+                                  ),
+                                  trailing: Padding(
+                                    padding: EdgeInsets.only(right: 5.w),
+                                    child: IconButton(
+                                        onPressed: () {
+                                          controller.projectLego
+                                              .removeAt(index);
+                                          controller.projectLego.clear();
+                                        },
+                                        icon: Icon(Icons.delete)),
+                                  ),
                                 ),
                               );
                             },
                           );
-                        }else{
+                        } else {
                           return Container();
                         }
                       })
@@ -867,69 +938,400 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                 ),
               ),
             ),
-            SizedBox(width: 20.w,),
+            SizedBox(
+              width: 20.w,
+            ),
             Flexible(
-              flex: 1,
-              child: Container(
-                margin: EdgeInsets.only(top: 20.h),
-                height: Get.height - 150.h,
-                child: Obx((){
-                  if(controller.projectLego.value.isNotEmpty){
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: controller.projectLego.length,
-                      itemBuilder: (context,index){
-                        var data = controller.projectLego[index];
-                        if(data['type'] == "Banner Images"){
-                          return Image.memory(
-                            data['image'],
-                            fit: BoxFit.cover,
-                            height: 250.h,
-                            width: Get.width,
-                          );
-                        }else if(data['type'] == "Developer Name"){
+                flex: 1,
+                child: Container(
+                  margin: EdgeInsets.only(top: 20.h),
+                  height: Get.height - 150.h,
+                  child: Obx(() {
+                    if (controller.projectLego.value.isNotEmpty) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: controller.projectLego.length,
+                        itemBuilder: (context, index) {
+                          var data = controller.projectLego[index];
+                          if (data['type'] == "Banner Images") {
+                            return Image.memory(
+                              data['image'],
+                              fit: BoxFit.cover,
+                              height: 250.h,
+                              width: Get.width,
+                            );
+                          } else if (data['type'] == "Developer Name") {
+                            return EraText(
+                              textAlign: TextAlign.center,
+                              text: data['developer_name'],
+                              color: AppColors.black,
+                              fontSize: EraTheme.header,
+                              fontWeight: FontWeight.w500,
+                            );
+                          } else if (data['type'] == "Project Logo") {
+                            return Image.memory(
+                              data['image'],
+                              fit: BoxFit.cover,
+                              height: 250.h,
+                              width: Get.width,
+                            );
+                          } else if (data['type'] == "3D Virtual") {
+                            return Column(
+                              children: [
+                                EraText(
+                                  text: data['title'],
+                                  color: AppColors.black,
+                                  textAlign: TextAlign.center,
+                                  fontSize: EraTheme.header + 3.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                EraText(
+                                  text: data['description'],
+                                  color: AppColors.black,
+                                  textAlign: TextAlign.start,
+                                  fontSize: EraTheme.header,
+                                  maxLines: 10,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                // Builder(builder: (context) {
+                                //   var webViewController = WebViewController();
+                                //   var params =
+                                //       const PlatformWebViewControllerCreationParams();
+                                //   var webview = WebViewController
+                                //       .fromPlatformCreationParams(
+                                //     params,
+                                //     onPermissionRequest:
+                                //         (WebViewPermissionRequest request) {
+                                //       request.grant();
+                                //     },
+                                //   );
 
-                        }else if(data['type'] == "Project Logo"){
+                                //   webViewController
+                                //     //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
+                                //     ..setJavaScriptMode(
+                                //         JavaScriptMode.unrestricted)
+                                //     ..setBackgroundColor(
+                                //         const Color(0x00000000))
+                                //     ..setNavigationDelegate(
+                                //       NavigationDelegate(
+                                //         onPageStarted: (String url) {
+                                //           controller.isLoading.value = true;
+                                //         },
+                                //         onPageFinished: (String url) {
+                                //           controller.isLoading.value = false;
+                                //         },
+                                //         onWebResourceError:
+                                //             (WebResourceError error) {},
+                                //       ),
+                                //     )
+                                //     ..loadRequest(Uri.parse(data['link']));
+                                //   return SizedBox(
+                                //     height: 400.h,
+                                //     child: GestureDetector(
+                                //       child: WebViewWidget(
+                                //         controller: webViewController,
+                                //       ),
+                                //     ),
+                                //   );
+                                // }),
+                              ],
+                            );
+                          } else if (data['type'] == "Blurb") {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                EraText(
+                                  text: data['title'],
+                                  color: AppColors.black,
+                                  fontSize: EraTheme.header + 3.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                sb10(),
+                                EraText(
+                                  text: data['description'],
+                                  color: AppColors.black,
+                                  fontSize: EraTheme.header,
+                                  fontWeight: FontWeight.w500,
+                                  maxLines: 10,
+                                ),
+                                sb10(),
+                                Image.memory(
+                                  data['image'],
+                                  fit: BoxFit.cover,
+                                  height: 250.h,
+                                  width: Get.width,
+                                )
+                              ],
+                            );
+                          } else if (data['type'] == "Location") {
+                          } else if (data['type'] == "Outdoor Amenities") {
+                            if (data['sub_type'] == 'blurb') {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  EraText(
+                                    text: data['title'],
+                                    color: AppColors.black,
+                                    fontSize: EraTheme.header + 3.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  sb10(),
+                                  EraText(
+                                    text: data['description'],
+                                    color: AppColors.black,
+                                    fontSize: EraTheme.header,
+                                    fontWeight: FontWeight.w500,
+                                    maxLines: 10,
+                                  ),
+                                  sb10(),
+                                  Image.memory(
+                                    data['images'],
+                                    fit: BoxFit.cover,
+                                    height: 250.h,
+                                    width: Get.width,
+                                  )
+                                ],
+                              );
+                            } else if (data['sub_type'] == 'gallery') {
+                              //im getting erorr here if i use getx :<
+                              return SizedBox(
+                                height: 350.h,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      child: Container(
+                                        width: Get.width,
+                                        height: 320.h,
+                                        child: Image.memory(
+                                          data['images'][0],
+                                          fit: BoxFit.cover,
+                                          height: 250.h,
+                                          width: Get.width,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0.h,
+                                      child: Container(
+                                        height: 70.h,
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: data['images'].length,
+                                          itemBuilder: (context, index) {
+                                            final isSelected =
+                                                controller.currentImage ==
+                                                    data['images'][index];
 
-                        }else if(data['type'] == "3D Virtual"){
+                                            return GestureDetector(
+                                              onTap: () {
+                                                controller.currentImage.value =
+                                                    data['images'][index];
+                                              },
+                                              child: Container(
+                                                decoration: isSelected
+                                                    ? BoxDecoration(
+                                                        border: Border.all(
+                                                          color: AppColors.hint,
+                                                          width: 5.w,
+                                                        ),
+                                                      )
+                                                    : BoxDecoration(
+                                                        border: Border.all(
+                                                          color: AppColors.hint,
+                                                          width: 2.w,
+                                                        ),
+                                                      ),
+                                                child: Image.memory(
+                                                  data['images'][index],
+                                                  fit: BoxFit.cover,
+                                                  width: 70.w,
+                                                  height: Get.height,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          } else if (data['type'] == "Indoor Amenities") {
+                            if (data['sub_type'] == 'blurb') {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  EraText(
+                                    text: data['title'],
+                                    color: AppColors.black,
+                                    fontSize: EraTheme.header + 3.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  sb10(),
+                                  EraText(
+                                    text: data['description'],
+                                    color: AppColors.black,
+                                    fontSize: EraTheme.header,
+                                    fontWeight: FontWeight.w500,
+                                    maxLines: 10,
+                                  ),
+                                  sb10(),
+                                  Image.memory(
+                                    data['images'],
+                                    fit: BoxFit.cover,
+                                    height: 250.h,
+                                    width: Get.width,
+                                  )
+                                ],
+                              );
+                            } else if (data['sub_type'] == 'gallery') {
+                              //im getting erorr here if i use getx :<
+                              return SizedBox(
+                                height: 350.h,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      child: Container(
+                                        width: Get.width,
+                                        height: 320.h,
+                                        child: Image.memory(
+                                          data['images'][0],
+                                          fit: BoxFit.cover,
+                                          height: 250.h,
+                                          width: Get.width,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0.h,
+                                      child: Container(
+                                        height: 70.h,
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: data['images'].length,
+                                          itemBuilder: (context, index) {
+                                            final isSelected =
+                                                controller.currentImage ==
+                                                    data['images'][index];
 
-                        }else if(data['type'] == "Blurb"){
-
-                        }else if(data['type'] == "Location"){
-
-                        }else if(data['type'] == "Outdoor Amenities"){
-
-                        }else if(data['type'] == "Indoor Amenities"){
-
-                        }else if(data['type'] == "Carousel"){
-                          return Container(
-                            decoration: BoxDecoration(color: AppColors.carouselBgColor),
-                            child: CarouselSlider(
-                              items: data['images'].map<Widget>((image) {
-                                return Image.memory(
-                                  image
-                                );
-                              }).toList(),
-                              options: CarouselOptions(
-                                enlargeCenterPage: true,
-                                enlargeStrategy: CenterPageEnlargeStrategy.height,
-                                autoPlay: true,
-                                viewportFraction: 0.8,
-                              ),
-                            ));
-                        }else if(data['type'] == "Space"){
-                          return SizedBox(height: data['height'].toString().toDouble());
-                        }
-                        return Container();
-                      },
-                    );
-                  }else{
-                    return Container();
-                  }
-                }),
-              )
-            )
+                                            return GestureDetector(
+                                              onTap: () {
+                                                controller.currentImage.value =
+                                                    data['images'][index];
+                                              },
+                                              child: Container(
+                                                decoration: isSelected
+                                                    ? BoxDecoration(
+                                                        border: Border.all(
+                                                          color: AppColors.hint,
+                                                          width: 5.w,
+                                                        ),
+                                                      )
+                                                    : BoxDecoration(
+                                                        border: Border.all(
+                                                          color: AppColors.hint,
+                                                          width: 2.w,
+                                                        ),
+                                                      ),
+                                                child: Image.memory(
+                                                  data['images'][index],
+                                                  fit: BoxFit.cover,
+                                                  width: 70.w,
+                                                  height: Get.height,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          } else if (data['type'] == "Carousel") {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                EraText(
+                                  text: data['title'],
+                                  color: AppColors.black,
+                                  fontSize: EraTheme.header + 3.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                sb10(),
+                                Container(
+                                    decoration: BoxDecoration(
+                                        color: AppColors.carouselBgColor),
+                                    child: CarouselSlider(
+                                      items:
+                                          data['images'].map<Widget>((image) {
+                                        return Image.memory(image);
+                                      }).toList(),
+                                      options: CarouselOptions(
+                                        enlargeCenterPage: true,
+                                        enlargeStrategy:
+                                            CenterPageEnlargeStrategy.height,
+                                        autoPlay: true,
+                                        viewportFraction: 0.8,
+                                      ),
+                                    )),
+                                sb20(),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    infoTile(
+                                        AppEraAssets.floorArea,
+                                        TextEditingController(
+                                            text:
+                                                data['floor_area'].toString()),
+                                        'Floor Area', (value) {
+                                      controller.addcarouselFa(value);
+                                    }),
+                                    infoTile(
+                                        AppEraAssets.numberOfBed,
+                                        TextEditingController(
+                                            text: data['beds'].toString()),
+                                        'Number of Bed', (value) {
+                                      controller.addNob(value);
+                                    }),
+                                    infoTile(
+                                        AppEraAssets.loggiaSize,
+                                        TextEditingController(
+                                            text:
+                                                data['loggia_size'].toString()),
+                                        'Loggia Size', (value) {
+                                      controller.addcarouselLs(value);
+                                    }),
+                                  ],
+                                ),
+                                sb10(),
+                                EraText(
+                                  text: data['paragraph'],
+                                  color: AppColors.black,
+                                  fontSize: EraTheme.header,
+                                  fontWeight: FontWeight.w500,
+                                  maxLines: 10,
+                                ),
+                              ],
+                            );
+                          } else if (data['type'] == "Space") {
+                            return SizedBox(
+                                height: data['height'].toString().toDouble());
+                          }
+                          return Container();
+                        },
+                      );
+                    } else {
+                      return Container();
+                    }
+                  }),
+                ))
           ],
         ),
       ),
@@ -943,7 +1345,7 @@ Widget infoTile(
     children: [
       Image.asset(icon, width: 70.w, height: 70.h),
       SizedBox(
-        width: 150.w,
+        width: 100.w,
         height: 50.h,
         child: TextformfieldWidget(
           contentPadding: EdgeInsets.only(
@@ -951,6 +1353,7 @@ Widget infoTile(
           ),
           controller: controller,
           hintText: hintText,
+          hintstlye: TextStyle(fontSize: 15.sp),
           onChanged: onChanged,
           keyboardType: TextInputType.number,
         ),
@@ -958,9 +1361,12 @@ Widget infoTile(
     ],
   );
 }
-showError(error){
-  BaseController().showErroDialog(description: error,onTap: (){},width: Get.width / 2.5);
+
+showError(error) {
+  BaseController()
+      .showErroDialog(description: error, onTap: () {}, width: Get.width / 2.5);
 }
+
 //preview
 Widget _buildBulbImage({ListingsAdminController? controller, int? index}) {
   return Obx(() => controller!.addBlurImage[index!] != null
@@ -1126,34 +1532,29 @@ Widget buildFeautredPhoto({void Function()? onTap, String? title}) {
   );
 }
 
-Widget _buildCollapsibleSection({
-  required String title,
-  required List<Widget> children,
-  void Function()? onTap
-}) {
-  return Column(
-    children: [
-      ExpansionTile(
-        title: EraText(
-          text: title,
-          fontSize: EraTheme.header - 5.sp,
-          fontWeight: FontWeight.w500,
-          color: AppColors.black,
-        ),
-        tilePadding: EdgeInsets.zero,
-        children: children,
+Widget _buildCollapsibleSection(
+    {required String title,
+    required List<Widget> children,
+    void Function()? onTap}) {
+  return Column(children: [
+    ExpansionTile(
+      title: EraText(
+        text: title,
+        fontSize: EraTheme.header - 5.sp,
+        fontWeight: FontWeight.w500,
+        color: AppColors.black,
       ),
-      sb20(),
-      Button(
-        onTap: onTap ?? (){
-
-        },
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        width: Get.width,
-        text: 'ADD',
-        bgColor: AppColors.blue,
-        borderRadius: BorderRadius.circular(30),
-      )
-    ]
-  );
+      tilePadding: EdgeInsets.zero,
+      children: children,
+    ),
+    sb20(),
+    Button(
+      onTap: onTap ?? () {},
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      width: Get.width,
+      text: 'ADD',
+      bgColor: AppColors.blue,
+      borderRadius: BorderRadius.circular(30),
+    )
+  ]);
 }
