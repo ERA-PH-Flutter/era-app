@@ -178,10 +178,10 @@ class StatisticsAdmin extends GetView<StatisticsController> {
     DateTime selectedDate = DateTime.now();
     final startOfWeek = selectedDate.subtract(Duration(days: selectedDate.weekday - 1));
     final endOfWeek = startOfWeek.add(Duration(days: 6));
-    return FutureBuilder(
-      future: FirebaseFirestore.instance.collection('listings')
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance.collection('listings')
           .where('date_created', isGreaterThanOrEqualTo: startOfWeek)
-          .where('date_created', isLessThanOrEqualTo: endOfWeek).get(),
+          .where('date_created', isLessThanOrEqualTo: endOfWeek).snapshots(),
       builder: (context,snapshot){
         List<FlSpot> graphData = [];
         if(snapshot.hasData){
