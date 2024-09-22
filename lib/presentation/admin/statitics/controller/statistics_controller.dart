@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 class StatisticsController extends GetxController {
   var listings = RealEstateListing.listingsModels.obs;
-
+  int maxValue = 1;
   int get totalListings => listings.length;
 
   double get averagePrice {

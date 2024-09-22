@@ -18,7 +18,7 @@ import 'package:eraphilippines/presentation/admin/properties/pages/edit_listing_
 import 'package:eraphilippines/presentation/admin/properties/pages/propertyinformation.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/propertylisting_admin.dart';
 import 'package:eraphilippines/presentation/admin/sell_property/pages/sell_property_admin.dart';
-import 'package:eraphilippines/presentation/admin/statitics/pages/statistics_admin.dart';
+import 'package:eraphilippines/presentation/admin/statitics/pages/statistics_admin_old.dart';
 import 'package:eraphilippines/presentation/admin/trainings/pages/upload_training_admin.dart';
 import 'package:eraphilippines/presentation/admin/trainings/pages/view_all_training.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
@@ -33,6 +33,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../global.dart';
+import '../../statitics/pages/statistics_admin.dart';
 
 class LandingPage extends GetView<LandingPageController> {
   LandingPage({super.key});
@@ -41,9 +42,7 @@ class LandingPage extends GetView<LandingPageController> {
     Roster(), //0
     AddAgent(), //1
     ApprovedAgents(), //2
-
     AgentProfileAdmin(), //3 invisible
-
     AddProjectAdmin(), //4
     PropertylistAdmin(), //5
     PropertyInformationAdmin(), //6
@@ -54,9 +53,7 @@ class LandingPage extends GetView<LandingPageController> {
     ViewAllNews(), //11
     UploadNews(), //12
     StatisticsAdmin(), //STATISTICS 13
-
     GeneralFaq(), //14
-
     SellPropertyAdmin(), //15
     ContactUsAdmin(), //16
     ViewAllTraining(), //17

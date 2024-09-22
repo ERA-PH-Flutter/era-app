@@ -22,7 +22,7 @@ class LandingPageController extends GetxController {
   var landingState = LandingState.loading.obs;
   var arguments = [];
   // var selectedSection = AdminSection.homepage.obs;
-  var selectedSectionIndex = 0.obs;
+  var selectedSectionIndex = 13.obs;
   @override
   void onInit() {
     landingState.value = LandingState.loaded;
