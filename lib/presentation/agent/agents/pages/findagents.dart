@@ -69,8 +69,10 @@ class FindAgents extends GetView<AgentsController> {
                                 bgColor: AppColors.white,
                                 isSuffix: true,
                                 obscureText: false,
-                                onSuffixTap: ()async{
-                                  await controller.aiSearch( searchResultController.aiSearchController.text);
+                                onSuffixTap: () async {
+                                  await controller.aiSearch(
+                                      searchResultController
+                                          .aiSearchController.text);
                                 },
                                 suffixIcons: AppEraAssets.send);
                           }

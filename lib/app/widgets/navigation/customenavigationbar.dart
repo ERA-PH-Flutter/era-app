@@ -88,15 +88,14 @@ class _BaseScaffoldState extends State<BaseScaffold> {
         backgroundColor: AppColors.white,
         appBar: CustomAppbar(),
         body: WillPopScope(
-          onWillPop: ()async{
+          onWillPop: () async {
             BaseController().showSuccessDialog(
                 title: "Confirm Exit",
                 description: "Do you wanna exit ERA Philippines App?",
                 cancelable: true,
-                hitApi: (){
-                  Platform.isAndroid ? SystemNavigator.pop():  exit(0);
-                }
-            );
+                hitApi: () {
+                  Platform.isAndroid ? SystemNavigator.pop() : exit(0);
+                });
             return Future.value(true);
           },
           child: PageView(
@@ -163,7 +162,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                       Text(
                         item.label,
                         style: TextStyle(
-                            fontSize: 11.sp, color: CupertinoColors.white),
+                            fontSize: 10.sp, color: CupertinoColors.white),
                       ),
                     ],
                   ),

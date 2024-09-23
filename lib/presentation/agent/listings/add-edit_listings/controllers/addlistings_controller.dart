@@ -53,8 +53,8 @@ class AddListingsController extends GetxController with BaseController {
     "SUNSET",
     "SUNRISE",
     "SEA VIEW",
-    "City View",
-    "Mountain View",
+    "CITY VIEW",
+    "MOUNTAIN VIEW",
     "N/A",
   ];
 

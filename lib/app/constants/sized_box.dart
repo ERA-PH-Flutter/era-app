@@ -48,3 +48,5 @@ sbw85() => SizedBox(width: 85.h);
 sbw90() => SizedBox(width: 90.h);
 sbw95() => SizedBox(width: 95.h);
 sbw100() => SizedBox(width: 100.h);
+
+sbw200() => SizedBox(width: 200.h);
