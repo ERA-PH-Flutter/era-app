@@ -420,10 +420,21 @@ class FilteredSearchBox extends StatelessWidget {
                               return properties.data();
                             }).toList();
                           }
+                          if(areaMin.text != "" && areaMax.text != ""){
+                            query = query.where('price',
+                                isGreaterThanOrEqualTo: areaMin.text.toInt());
+                            query = query.where('price',
+                                isLessThanOrEqualTo:areaMax.text.toInt());
+                            listings =
+                                (await query.get()).docs.map((properties) {
+                                  return properties.data();
+                                }).toList();
+                          }
                           if (selectedPriceRange.value != "") {
                             var price = selectedPriceRange.value.split(" - ");
                             if (selectedPropertyTypeSearch.value == null &&
                                 selectedLocation.value == null) {
+
                               query = query.where('price',
                                   isGreaterThanOrEqualTo: price[0].contains('M')
                                       ? price[0].toInt() * 1000000

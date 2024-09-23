@@ -126,7 +126,7 @@ class SearchResult extends GetView<SearchResultController> {
                 return GestureDetector(
                   onTap: () async {
                     // await Database().addViews(listing.id);
-                    Get.offAllNamed('/propertyInfo', arguments: listing);
+                    Get.toNamed('/propertyInfo', arguments: listing);
                   },
                   child: Container(
                     margin: EdgeInsets.only(bottom: 16.h),
