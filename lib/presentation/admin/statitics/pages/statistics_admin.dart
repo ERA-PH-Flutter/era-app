@@ -35,13 +35,13 @@ class StatisticsAdmin extends GetView<StatisticsController> {
             SizedBox(height: 30.h),
             Row(
               children: [
-                _createSummaryTile(text: "Total Users",target: FirebaseFirestore.instance.collection("users").snapshots(),difference: "100%"),
+                _createSummaryTile(text: "Total Users",target: FirebaseFirestore.instance.collection("users").snapshots(),difference: "100%",collection:'users'),
                 SizedBox(width: 15.w,),
-                _createSummaryTile(text: "Total Listings",target: FirebaseFirestore.instance.collection("listings").snapshots(),difference: "100%",icon: Icons.real_estate_agent_rounded),
+                _createSummaryTile(text: "Total Listings",target: FirebaseFirestore.instance.collection("listings").snapshots(),difference: "100%",icon: Icons.real_estate_agent_rounded,collection:'listings'),
                 SizedBox(width: 15.w,),
-                _createSummaryTile(text: "Total Projects",target:FirebaseFirestore.instance.collection("projects").snapshots(),difference: "100%",icon: Icons.apartment),
+                _createSummaryTile(text: "Total Projects",target:FirebaseFirestore.instance.collection("projects").snapshots(),difference: "100%",icon: Icons.apartment,collection:'projects'),
                 SizedBox(width: 15.w,),
-                _createSummaryTile(text: "Total Sold Listings",target: FirebaseFirestore.instance.collection("listings").where('isSold', isEqualTo: "true").snapshots(),difference: "100%",icon: Icons.attach_money),
+                _createSummaryTile(text: "Total Sold Listings",target: FirebaseFirestore.instance.collection("listings").where('is_sold', isEqualTo: true).snapshots(),difference: "100%",icon: Icons.attach_money,collection:'listings sold'),
               ],
             ),
             SizedBox(height: 20.h,),
@@ -68,6 +68,7 @@ class StatisticsAdmin extends GetView<StatisticsController> {
     required Stream<QuerySnapshot<Map<String, dynamic>>> target,
     difference,
     icon,
+    required collection
   }){
     return Flexible(
       child: Wrap(
@@ -151,11 +152,25 @@ class StatisticsAdmin extends GetView<StatisticsController> {
                       ),
                       child: Row(
                         children: [
-                          EraText(
-                            text: difference,
-                            fontSize: 20.sp,
-                            color: Colors.green,
-                            fontWeight: FontWeight.w400,
+                          FutureBuilder(
+                            future: controller.calculateDifference(collection),
+                            builder: (context,AsyncSnapshot<int> snapshot) {
+                              if(snapshot.hasData){
+                                return EraText(
+                                  text: "${snapshot.data!}%",
+                                  fontSize: 20.sp,
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.w400,
+                                );
+                              }else{
+                                return EraText(
+                                  text: "0",
+                                  fontSize: 20.sp,
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.w400,
+                                );
+                              }
+                            }
                           ),
                           SizedBox(width: 5.w,),
                           Icon(
@@ -176,8 +191,8 @@ class StatisticsAdmin extends GetView<StatisticsController> {
   }
   _buildGraph(){
     DateTime selectedDate = DateTime.now();
-    final startOfWeek = selectedDate.subtract(Duration(days: selectedDate.weekday - 1));
-    final endOfWeek = startOfWeek.add(Duration(days: 6));
+    final startOfWeek = selectedDate.subtract(Duration(days: 7));
+    final endOfWeek = startOfWeek.add(Duration(days: 7));
     return StreamBuilder(
       stream: FirebaseFirestore.instance.collection('listings')
           .where('date_created', isGreaterThanOrEqualTo: startOfWeek)
@@ -383,7 +398,6 @@ class StatisticsAdmin extends GetView<StatisticsController> {
     AppColors.kRedColor,
     AppColors.blue,
   ];
-
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.bold,
@@ -422,7 +436,6 @@ class StatisticsAdmin extends GetView<StatisticsController> {
       child: text,
     );
   }
-
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.bold,

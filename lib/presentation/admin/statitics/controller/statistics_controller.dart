@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,26 @@ class StatisticsController extends GetxController {
   var listings = RealEstateListing.listingsModels.obs;
   int maxValue = 1;
   int get totalListings => listings.length;
+
+  Future<int> calculateDifference(target)async{
+    DateTime selectedDate = DateTime.now();
+    final startOfWeek = selectedDate.subtract(Duration(days: 7));
+    final endOfWeek = startOfWeek.subtract(Duration(days: 14));
+    var res2Length;
+    var query1 = FirebaseFirestore.instance.collection(target).where('date_created', isGreaterThanOrEqualTo: startOfWeek)
+        .where('date_created', isLessThanOrEqualTo: selectedDate);
+    var query2 = FirebaseFirestore.instance.collection(target).where('date_created', isGreaterThanOrEqualTo: endOfWeek)
+        .where('date_created', isLessThanOrEqualTo: startOfWeek);
+    if(target == "listings sold"){
+      target = "listings";
+      query1.where('is_sold', isEqualTo: true);
+      query2.where('is_sold', isEqualTo: true);
+    }
+    var res1 = await query1.get();
+    var res2 = await query2.get();
+    res2Length = res2.docs.isEmpty ? 1 : res2.docs.length;
+    return (((res1.docs.length) / res2Length) * 100).floor();
+  }
 
   double get averagePrice {
     if (listings.isEmpty) return 0;

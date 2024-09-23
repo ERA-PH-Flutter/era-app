@@ -19,6 +19,8 @@ class EraUser {
   String? location;
   String? licence;
   String? position;
+  DateTime? dateUpdated;
+  DateTime? dateCreated;
   String? description;
   int? age;
   String? gender;
@@ -36,6 +38,8 @@ class EraUser {
       this.lastLogin,
       this.status,
       this.eraId,
+      this.dateUpdated,
+      this.dateCreated,
       this.age,
       this.gender,
       this.location,
@@ -45,6 +49,7 @@ class EraUser {
       this.favorites,
       this.office,
       this.birthday,
+
       this.archives});
 
   factory EraUser.fromJSON(Map<String, dynamic> json) {
@@ -68,6 +73,16 @@ class EraUser {
         position: json['position'],
         description: json['description'],
         licence: json['licence'],
+        dateCreated: (json["date_created"] == null)
+            ? DateTime.now()
+            : json["date_created"].runtimeType == Timestamp
+            ? json["date_created"].toDate()
+            : json["date_created"],
+        dateUpdated: (json["date_updated"] == null)
+            ? DateTime.now()
+            : json["date_updated"].runtimeType == Timestamp
+            ? json["date_updated"].toDate()
+            : json["date_updated"],
     );
 
   }
@@ -129,7 +144,10 @@ class EraUser {
       'location' : location ?? "",
       'position' : position ?? "ASC",
       'description' : description ?? "",
-      'license' : licence ?? ""
+      'license' : licence ?? "",
+      "date_created": dateCreated ?? DateTime.now(),
+      "date_updated": DateTime.now(),
+
     };
   }
 

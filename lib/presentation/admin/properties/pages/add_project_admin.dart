@@ -32,6 +32,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
@@ -943,394 +944,417 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
             ),
             Flexible(
                 flex: 1,
-                child: Container(
-                  margin: EdgeInsets.only(top: 20.h),
-                  height: Get.height - 150.h,
-                  child: Obx(() {
-                    if (controller.projectLego.value.isNotEmpty) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: controller.projectLego.length,
-                        itemBuilder: (context, index) {
-                          var data = controller.projectLego[index];
-                          if (data['type'] == "Banner Images") {
-                            return Image.memory(
-                              data['image'],
-                              fit: BoxFit.cover,
-                              height: 250.h,
-                              width: Get.width,
-                            );
-                          } else if (data['type'] == "Developer Name") {
-                            return EraText(
-                              textAlign: TextAlign.center,
-                              text: data['developer_name'],
-                              color: AppColors.black,
-                              fontSize: EraTheme.header,
-                              fontWeight: FontWeight.w500,
-                            );
-                          } else if (data['type'] == "Project Logo") {
-                            return Image.memory(
-                              data['image'],
-                              fit: BoxFit.cover,
-                              height: 250.h,
-                              width: Get.width,
-                            );
-                          } else if (data['type'] == "3D Virtual") {
-                            return Column(
-                              children: [
-                                EraText(
-                                  text: data['title'],
-                                  color: AppColors.black,
-                                  textAlign: TextAlign.center,
-                                  fontSize: EraTheme.header + 3.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                EraText(
-                                  text: data['description'],
-                                  color: AppColors.black,
-                                  textAlign: TextAlign.start,
-                                  fontSize: EraTheme.header,
-                                  maxLines: 10,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                // Builder(builder: (context) {
-                                //   var webViewController = WebViewController();
-                                //   var params =
-                                //       const PlatformWebViewControllerCreationParams();
-                                //   var webview = WebViewController
-                                //       .fromPlatformCreationParams(
-                                //     params,
-                                //     onPermissionRequest:
-                                //         (WebViewPermissionRequest request) {
-                                //       request.grant();
-                                //     },
-                                //   );
-
-                                //   webViewController
-                                //     //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
-                                //     ..setJavaScriptMode(
-                                //         JavaScriptMode.unrestricted)
-                                //     ..setBackgroundColor(
-                                //         const Color(0x00000000))
-                                //     ..setNavigationDelegate(
-                                //       NavigationDelegate(
-                                //         onPageStarted: (String url) {
-                                //           controller.isLoading.value = true;
-                                //         },
-                                //         onPageFinished: (String url) {
-                                //           controller.isLoading.value = false;
-                                //         },
-                                //         onWebResourceError:
-                                //             (WebResourceError error) {},
-                                //       ),
-                                //     )
-                                //     ..loadRequest(Uri.parse(data['link']));
-                                //   return SizedBox(
-                                //     height: 400.h,
-                                //     child: GestureDetector(
-                                //       child: WebViewWidget(
-                                //         controller: webViewController,
-                                //       ),
-                                //     ),
-                                //   );
-                                // }),
-                              ],
-                            );
-                          } else if (data['type'] == "Blurb") {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                EraText(
-                                  text: data['title'],
-                                  color: AppColors.black,
-                                  fontSize: EraTheme.header + 3.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                sb10(),
-                                EraText(
-                                  text: data['description'],
-                                  color: AppColors.black,
-                                  fontSize: EraTheme.header,
-                                  fontWeight: FontWeight.w500,
-                                  maxLines: 10,
-                                ),
-                                sb10(),
-                                Image.memory(
+                child: Wrap(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 20.h),
+                      padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 10.w),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(12.r),
+                        boxShadow: const [
+                          BoxShadow(
+                              offset: Offset(0, 0),
+                              blurRadius: 3,
+                              spreadRadius: 0,
+                              color: Colors.black26
+                          )
+                        ],
+                      ),
+                      child: Obx(() {
+                        if (controller.projectLego.value.isNotEmpty) {
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: controller.projectLego.length,
+                            itemBuilder: (context, index) {
+                              var data = controller.projectLego[index];
+                              if (data['type'] == "Banner Images") {
+                                return Image.memory(
                                   data['image'],
                                   fit: BoxFit.cover,
                                   height: 250.h,
                                   width: Get.width,
-                                )
-                              ],
-                            );
-                          } else if (data['type'] == "Location") {
-                          } else if (data['type'] == "Outdoor Amenities") {
-                            if (data['sub_type'] == 'blurb') {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  EraText(
-                                    text: data['title'],
-                                    color: AppColors.black,
-                                    fontSize: EraTheme.header + 3.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  sb10(),
-                                  EraText(
-                                    text: data['description'],
-                                    color: AppColors.black,
-                                    fontSize: EraTheme.header,
-                                    fontWeight: FontWeight.w500,
-                                    maxLines: 10,
-                                  ),
-                                  sb10(),
-                                  Image.memory(
-                                    data['images'],
-                                    fit: BoxFit.cover,
-                                    height: 250.h,
-                                    width: Get.width,
-                                  )
-                                ],
-                              );
-                            } else if (data['sub_type'] == 'gallery') {
-                              //im getting erorr here if i use getx :<
-                              return SizedBox(
-                                height: 350.h,
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      child: Container(
-                                        width: Get.width,
-                                        height: 320.h,
-                                        child: Image.memory(
-                                          data['images'][0],
-                                          fit: BoxFit.cover,
-                                          height: 250.h,
-                                          width: Get.width,
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: 0.h,
-                                      child: Container(
-                                        height: 70.h,
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: data['images'].length,
-                                          itemBuilder: (context, index) {
-                                            final isSelected =
-                                                controller.currentImage ==
-                                                    data['images'][index];
-
-                                            return GestureDetector(
-                                              onTap: () {
-                                                controller.currentImage.value =
-                                                    data['images'][index];
-                                              },
-                                              child: Container(
-                                                decoration: isSelected
-                                                    ? BoxDecoration(
-                                                        border: Border.all(
-                                                          color: AppColors.hint,
-                                                          width: 5.w,
-                                                        ),
-                                                      )
-                                                    : BoxDecoration(
-                                                        border: Border.all(
-                                                          color: AppColors.hint,
-                                                          width: 2.w,
-                                                        ),
-                                                      ),
-                                                child: Image.memory(
-                                                  data['images'][index],
-                                                  fit: BoxFit.cover,
-                                                  width: 70.w,
-                                                  height: Get.height,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          } else if (data['type'] == "Indoor Amenities") {
-                            if (data['sub_type'] == 'blurb') {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  EraText(
-                                    text: data['title'],
-                                    color: AppColors.black,
-                                    fontSize: EraTheme.header + 3.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  sb10(),
-                                  EraText(
-                                    text: data['description'],
-                                    color: AppColors.black,
-                                    fontSize: EraTheme.header,
-                                    fontWeight: FontWeight.w500,
-                                    maxLines: 10,
-                                  ),
-                                  sb10(),
-                                  Image.memory(
-                                    data['images'],
-                                    fit: BoxFit.cover,
-                                    height: 250.h,
-                                    width: Get.width,
-                                  )
-                                ],
-                              );
-                            } else if (data['sub_type'] == 'gallery') {
-                              //im getting erorr here if i use getx :<
-                              return SizedBox(
-                                height: 350.h,
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      child: Container(
-                                        width: Get.width,
-                                        height: 320.h,
-                                        child: Image.memory(
-                                          data['images'][0],
-                                          fit: BoxFit.cover,
-                                          height: 250.h,
-                                          width: Get.width,
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: 0.h,
-                                      child: Container(
-                                        height: 70.h,
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: data['images'].length,
-                                          itemBuilder: (context, index) {
-                                            final isSelected =
-                                                controller.currentImage ==
-                                                    data['images'][index];
-
-                                            return GestureDetector(
-                                              onTap: () {
-                                                controller.currentImage.value =
-                                                    data['images'][index];
-                                              },
-                                              child: Container(
-                                                decoration: isSelected
-                                                    ? BoxDecoration(
-                                                        border: Border.all(
-                                                          color: AppColors.hint,
-                                                          width: 5.w,
-                                                        ),
-                                                      )
-                                                    : BoxDecoration(
-                                                        border: Border.all(
-                                                          color: AppColors.hint,
-                                                          width: 2.w,
-                                                        ),
-                                                      ),
-                                                child: Image.memory(
-                                                  data['images'][index],
-                                                  fit: BoxFit.cover,
-                                                  width: 70.w,
-                                                  height: Get.height,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          } else if (data['type'] == "Carousel") {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                EraText(
-                                  text: data['title'],
-                                  color: AppColors.black,
-                                  fontSize: EraTheme.header + 3.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                sb10(),
-                                Container(
-                                    decoration: BoxDecoration(
-                                        color: AppColors.carouselBgColor),
-                                    child: CarouselSlider(
-                                      items:
-                                          data['images'].map<Widget>((image) {
-                                        return Image.memory(image);
-                                      }).toList(),
-                                      options: CarouselOptions(
-                                        enlargeCenterPage: true,
-                                        enlargeStrategy:
-                                            CenterPageEnlargeStrategy.height,
-                                        autoPlay: true,
-                                        viewportFraction: 0.8,
-                                      ),
-                                    )),
-                                sb20(),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    infoTile(
-                                        AppEraAssets.floorArea,
-                                        TextEditingController(
-                                            text:
-                                                data['floor_area'].toString()),
-                                        'Floor Area', (value) {
-                                      controller.addcarouselFa(value);
-                                    }),
-                                    infoTile(
-                                        AppEraAssets.numberOfBed,
-                                        TextEditingController(
-                                            text: data['beds'].toString()),
-                                        'Number of Bed', (value) {
-                                      controller.addNob(value);
-                                    }),
-                                    infoTile(
-                                        AppEraAssets.loggiaSize,
-                                        TextEditingController(
-                                            text:
-                                                data['loggia_size'].toString()),
-                                        'Loggia Size', (value) {
-                                      controller.addcarouselLs(value);
-                                    }),
-                                  ],
-                                ),
-                                sb10(),
-                                EraText(
-                                  text: data['paragraph'],
+                                );
+                              } else if (data['type'] == "Developer Name") {
+                                return EraText(
+                                  textAlign: TextAlign.center,
+                                  text: data['developer_name'],
                                   color: AppColors.black,
                                   fontSize: EraTheme.header,
                                   fontWeight: FontWeight.w500,
-                                  maxLines: 10,
-                                ),
-                              ],
-                            );
-                          } else if (data['type'] == "Space") {
-                            return SizedBox(
-                                height: data['height'].toString().toDouble());
-                          }
-                          return Container();
-                        },
-                      );
-                    } else {
-                      return Container();
-                    }
-                  }),
+                                );
+                              } else if (data['type'] == "Project Logo") {
+                                return Image.memory(
+                                  data['image'],
+                                  fit: BoxFit.cover,
+                                  height: 250.h,
+                                  width: Get.width,
+                                );
+                              } else if (data['type'] == "3D Virtual") {
+                                return Column(
+                                  children: [
+                                    EraText(
+                                      text: data['title'],
+                                      color: AppColors.black,
+                                      textAlign: TextAlign.center,
+                                      fontSize: EraTheme.header + 3.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    EraText(
+                                      text: data['description'],
+                                      color: AppColors.black,
+                                      textAlign: TextAlign.start,
+                                      fontSize: EraTheme.header,
+                                      maxLines: 10,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    // Builder(builder: (context) {
+                                    //   var webViewController = WebViewController();
+                                    //   var params =
+                                    //       const PlatformWebViewControllerCreationParams();
+                                    //   var webview = WebViewController
+                                    //       .fromPlatformCreationParams(
+                                    //     params,
+                                    //     onPermissionRequest:
+                                    //         (WebViewPermissionRequest request) {
+                                    //       request.grant();
+                                    //     },
+                                    //   );
+
+                                    //   webViewController
+                                    //     //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
+                                    //     ..setJavaScriptMode(
+                                    //         JavaScriptMode.unrestricted)
+                                    //     ..setBackgroundColor(
+                                    //         const Color(0x00000000))
+                                    //     ..setNavigationDelegate(
+                                    //       NavigationDelegate(
+                                    //         onPageStarted: (String url) {
+                                    //           controller.isLoading.value = true;
+                                    //         },
+                                    //         onPageFinished: (String url) {
+                                    //           controller.isLoading.value = false;
+                                    //         },
+                                    //         onWebResourceError:
+                                    //             (WebResourceError error) {},
+                                    //       ),
+                                    //     )
+                                    //     ..loadRequest(Uri.parse(data['link']));
+                                    //   return SizedBox(
+                                    //     height: 400.h,
+                                    //     child: GestureDetector(
+                                    //       child: WebViewWidget(
+                                    //         controller: webViewController,
+                                    //       ),
+                                    //     ),
+                                    //   );
+                                    // }),
+                                  ],
+                                );
+                              } else if (data['type'] == "Blurb") {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    EraText(
+                                      text: data['title'],
+                                      color: AppColors.black,
+                                      fontSize: EraTheme.header + 3.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    sb10(),
+                                    EraText(
+                                      text: data['description'],
+                                      color: AppColors.black,
+                                      fontSize: EraTheme.header,
+                                      fontWeight: FontWeight.w500,
+                                      maxLines: 10,
+                                    ),
+                                    sb10(),
+                                    Image.memory(
+                                      data['image'],
+                                      fit: BoxFit.cover,
+                                      height: 250.h,
+                                      width: Get.width,
+                                    )
+                                  ],
+                                );
+                              } else if (data['type'] == "Location") {
+                              } else if (data['type'] == "Outdoor Amenities") {
+                                if (data['sub_type'] == 'blurb') {
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      EraText(
+                                        text: data['title'],
+                                        color: AppColors.black,
+                                        fontSize: EraTheme.header + 3.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      sb10(),
+                                      EraText(
+                                        text: data['description'],
+                                        color: AppColors.black,
+                                        fontSize: EraTheme.header,
+                                        fontWeight: FontWeight.w500,
+                                        maxLines: 10,
+                                      ),
+                                      sb10(),
+                                      Image.memory(
+                                        data['images'],
+                                        fit: BoxFit.cover,
+                                        height: 250.h,
+                                        width: Get.width,
+                                      )
+                                    ],
+                                  );
+                                } else if (data['sub_type'] == 'gallery') {
+                                  //im getting erorr here if i use getx :<
+                                  return SizedBox(
+                                    height: 350.h,
+                                    child: Stack(
+                                      children: [
+                                        Positioned(
+                                          child: Container(
+                                            width: Get.width,
+                                            height: 320.h,
+                                            child: Image.memory(
+                                              data['images'][0],
+                                              fit: BoxFit.cover,
+                                              height: 250.h,
+                                              width: Get.width,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 0.h,
+                                          child: Container(
+                                            height: 70.h,
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: data['images'].length,
+                                              itemBuilder: (context, index) {
+                                                final isSelected =
+                                                    controller.currentImage ==
+                                                        data['images'][index];
+
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    controller.currentImage.value =
+                                                        data['images'][index];
+                                                  },
+                                                  child: Container(
+                                                    decoration: isSelected
+                                                        ? BoxDecoration(
+                                                            border: Border.all(
+                                                              color: AppColors.hint,
+                                                              width: 5.w,
+                                                            ),
+                                                          )
+                                                        : BoxDecoration(
+                                                            border: Border.all(
+                                                              color: AppColors.hint,
+                                                              width: 2.w,
+                                                            ),
+                                                          ),
+                                                    child: Image.memory(
+                                                      data['images'][index],
+                                                      fit: BoxFit.cover,
+                                                      width: 70.w,
+                                                      height: Get.height,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              } else if (data['type'] == "Indoor Amenities") {
+                                if (data['sub_type'] == 'blurb') {
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      EraText(
+                                        text: data['title'],
+                                        color: AppColors.black,
+                                        fontSize: EraTheme.header + 3.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      sb10(),
+                                      EraText(
+                                        text: data['description'],
+                                        color: AppColors.black,
+                                        fontSize: EraTheme.header,
+                                        fontWeight: FontWeight.w500,
+                                        maxLines: 10,
+                                      ),
+                                      sb10(),
+                                      Image.memory(
+                                        data['images'],
+                                        fit: BoxFit.cover,
+                                        height: 250.h,
+                                        width: Get.width,
+                                      )
+                                    ],
+                                  );
+                                } else if (data['sub_type'] == 'gallery') {
+                                  //im getting erorr here if i use getx :<
+                                  return SizedBox(
+                                    height: 350.h,
+                                    child: Stack(
+                                      children: [
+                                        Positioned(
+                                          child: Container(
+                                            width: Get.width,
+                                            height: 320.h,
+                                            child: Image.memory(
+                                              data['images'][0],
+                                              fit: BoxFit.cover,
+                                              height: 250.h,
+                                              width: Get.width,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 0.h,
+                                          child: Container(
+                                            height: 70.h,
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: data['images'].length,
+                                              itemBuilder: (context, index) {
+                                                final isSelected =
+                                                    controller.currentImage ==
+                                                        data['images'][index];
+
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    controller.currentImage.value =
+                                                        data['images'][index];
+                                                  },
+                                                  child: Container(
+                                                    decoration: isSelected
+                                                        ? BoxDecoration(
+                                                            border: Border.all(
+                                                              color: AppColors.hint,
+                                                              width: 5.w,
+                                                            ),
+                                                          )
+                                                        : BoxDecoration(
+                                                            border: Border.all(
+                                                              color: AppColors.hint,
+                                                              width: 2.w,
+                                                            ),
+                                                          ),
+                                                    child: Image.memory(
+                                                      data['images'][index],
+                                                      fit: BoxFit.cover,
+                                                      width: 70.w,
+                                                      height: Get.height,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              } else if (data['type'] == "Carousel") {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    EraText(
+                                      text: data['title'],
+                                      color: AppColors.black,
+                                      fontSize: EraTheme.header + 3.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    sb10(),
+                                    Container(
+                                        decoration: BoxDecoration(
+                                            color: AppColors.carouselBgColor),
+                                        child: CarouselSlider(
+                                          items:
+                                              data['images'].map<Widget>((image) {
+                                            return Image.memory(image);
+                                          }).toList(),
+                                          options: CarouselOptions(
+                                            enlargeCenterPage: true,
+                                            enlargeStrategy:
+                                                CenterPageEnlargeStrategy.height,
+                                            autoPlay: true,
+                                            viewportFraction: 0.8,
+                                          ),
+                                        )),
+                                    sb20(),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        infoTile(
+                                            AppEraAssets.floorArea,
+                                            TextEditingController(
+                                                text:
+                                                    data['floor_area'].toString()),
+                                            'Floor Area', (value) {
+                                          controller.addcarouselFa(value);
+                                        }),
+                                        infoTile(
+                                            AppEraAssets.numberOfBed,
+                                            TextEditingController(
+                                                text: data['beds'].toString()),
+                                            'Number of Bed', (value) {
+                                          controller.addNob(value);
+                                        }),
+                                        infoTile(
+                                            AppEraAssets.loggiaSize,
+                                            TextEditingController(
+                                                text:
+                                                    data['loggia_size'].toString()),
+                                            'Loggia Size', (value) {
+                                          controller.addcarouselLs(value);
+                                        }),
+                                      ],
+                                    ),
+                                    sb10(),
+                                    EraText(
+                                      text: data['paragraph'],
+                                      color: AppColors.black,
+                                      fontSize: EraTheme.header,
+                                      fontWeight: FontWeight.w500,
+                                      maxLines: 10,
+                                    ),
+                                  ],
+                                );
+                              } else if (data['type'] == "Space") {
+                                return SizedBox(
+                                    height: data['height'].toString().toDouble());
+                              }
+                              return Container();
+                            },
+                          );
+                        }
+                        else {
+                          return Center(
+                            child: EraText(
+                              text: "Empty data",
+                              color: Colors.black,
+                              fontSize: 17.sp,
+                            ),
+                          );
+                        }
+                      }),
+                    ),
+                  ],
                 ))
           ],
         ),
