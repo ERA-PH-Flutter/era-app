@@ -945,9 +945,15 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                 flex: 1,
                 child: Wrap(
                   children: [
+                    SizedBox(height: 20.h,width: Get.width,),
+                    EraText(
+                      text: 'PROJECT PREVIEW',
+                      color: AppColors.black,
+                      fontSize: EraTheme.header,
+                      fontWeight: FontWeight.w500,
+                    ),
                     Container(
                       margin: EdgeInsets.only(top: 20.h),
-                      padding: EdgeInsets.symmetric(horizontal: 0.w,vertical: 10.w),
                       decoration: BoxDecoration(
                         color: Colors.grey[100],
                         borderRadius: BorderRadius.circular(12.r),
@@ -1344,10 +1350,13 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                         }
                         else {
                           return Center(
-                            child: EraText(
-                              text: "Empty data",
-                              color: Colors.black,
-                              fontSize: 17.sp,
+                            child: Padding(
+                              padding: EdgeInsets.all(10.w),
+                              child: EraText(
+                                text: "Empty data",
+                                color: Colors.black,
+                                fontSize: 17.sp,
+                              ),
                             ),
                           );
                         }
