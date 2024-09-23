@@ -68,11 +68,9 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                     ),
                   ),
                   child: CloudStorage().imageLoader(
-                    ref: controller.currentImage.value == ''
-                        ? (controller.images.isNotEmpty
-                            ? controller.images.first
-                            : AppStrings.noUserImageWhite)
-                        : controller.currentImage.value,
+                    ref: controller.listing!.photos!.isNotEmpty
+                            ? controller.listing!.photos!.first
+                            : AppStrings.noUserImageWhite
                   ),
                 ),
                 EraText(
@@ -322,7 +320,7 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
   }
 
   Widget propertyInfo({
-    required List<RealEstateListing> listingModels,
+    required List<Listing> listingModels,
   }) {
     final listing = listingModels.isNotEmpty ? listingModels[0] : null;
 
@@ -341,7 +339,7 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         EraText(
-          text: listing.type,
+          text: listing.type!,
           color: AppColors.kRedColor,
           fontSize: EraTheme.header,
           fontWeight: FontWeight.w600,
@@ -394,7 +392,7 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                   ),
                   SizedBox(height: 10.h),
                   EraText(
-                    text: listing.description,
+                    text: listing.description!,
                     color: AppColors.black,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w400,
@@ -444,7 +442,7 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                 text: 'Price per sqm',
                                 text2: NumberFormat.currency(
                                         locale: 'en_PH', symbol: 'PHP ')
-                                    .format(listing.pricePerSqm),
+                                    .format(listing.ppsqm),
                               ),
                               shorterSummary(
                                 text: 'Beds',
@@ -460,23 +458,23 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                               ),
                               shorterSummary(
                                 text: 'Area',
-                                text2: listing.areas.toString(),
+                                text2: listing.area!.toString(),
                               ),
                               shorterSummary(
                                 text: 'View',
-                                text2: listing.view,
+                                text2: listing.view!,
                               ),
                               shorterSummary(
                                 text: 'Location',
-                                text2: listing.location.capitalize ?? '',
+                                text2: listing.location!.capitalize ?? '',
                               ),
                               shorterSummary(
                                 text: 'Type',
-                                text2: listing.type,
+                                text2: listing.type!,
                               ),
                               shorterSummary(
                                 text: 'Sub Category',
-                                text2: listing.subCategory,
+                                text2: listing.subCategory!,
                               ),
                             ],
                           ),
@@ -525,9 +523,9 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                   shorterSummary(
                       text: 'Listing ID# ', text2: '${listing.propertyId}'),
                   shorterSummary(
-                      text: 'Last Updated: ', text2: '${listing.lastUpdated}'),
+                      text: 'Last Updated: ', text2: '${listing.dateUpdated}'),
                   shorterSummary(
-                      text: 'Added: ', text2: '${listing.addedDaysago}'),
+                      text: 'Added: ', text2: '${DateTime.now().subtract(Duration(days: listing.dateCreated!.day))}'),
                 ],
               ),
             ),

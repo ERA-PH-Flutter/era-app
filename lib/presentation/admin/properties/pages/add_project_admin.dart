@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -13,6 +14,7 @@ import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,6 +23,7 @@ import 'package:map_location_picker/map_location_picker.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../agent/listings/add-edit_listings/pages/addlistings.dart';
+import '../../../global.dart';
 
 class AddProjectAdmin extends GetView<ListingsAdminController> {
   const AddProjectAdmin({super.key});
@@ -73,20 +76,32 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Button(
-                                    onTap: () {
-                                      print(controller.projectLego);
+                                    onTap: ()async{
+                                      try{
+                                        BaseController().showLoading();
+                                        // var projectDoc = FirebaseFirestore.instance.collection('projects').doc();
+                                        // await projectDoc.set({
+                                        //   'id' : projectDoc.id,
+                                        //   'uploaded_by' : user == null ? "UnknownAdmin" : user!.id ,
+                                        //   'date_created' : DateTime.now(),
+                                        //   'date_updated' : DateTime.now(),
+                                        //   'data' : controller.projectLego
+                                        // });
+                                        BaseController().showSuccessDialog(
+                                          title: "Under construction",
+                                          description: "Projects is still under construction for preview only!",
+                                          hitApi: (){
+                                            Get.back();Get.back();
+                                          }
+                                        );
+                                      }catch(e){
+                                        print(e);
+                                      }
                                     },
                                     margin: EdgeInsets.symmetric(horizontal: 5),
                                     width: 150.w,
                                     text: 'SUBMIT',
                                     bgColor: AppColors.blue,
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  Button(
-                                    margin: EdgeInsets.symmetric(horizontal: 5),
-                                    width: 150.w,
-                                    text: 'CANCEL',
-                                    bgColor: AppColors.hint,
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                 ]),
