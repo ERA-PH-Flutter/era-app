@@ -922,7 +922,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                         onPressed: () {
                                           controller.projectLego
                                               .removeAt(index);
-                                          controller.projectLego.clear();
                                         },
                                         icon: Icon(Icons.delete)),
                                   ),
@@ -948,7 +947,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(top: 20.h),
-                      padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 10.w),
+                      padding: EdgeInsets.symmetric(horizontal: 0.w,vertical: 10.w),
                       decoration: BoxDecoration(
                         color: Colors.grey[100],
                         borderRadius: BorderRadius.circular(12.r),
