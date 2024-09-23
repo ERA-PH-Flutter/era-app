@@ -62,8 +62,9 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                   );
                 }),
                 sb10(),
+
                 Container(
-                  height: 250.h,
+                  height: Get.height,
                   width: Get.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -73,10 +74,52 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                       width: 2.w,
                     ),
                   ),
-                  child: CloudStorage().imageLoader(
-                      ref: controller.listing!.photos!.isNotEmpty
-                          ? controller.listing!.photos!.first
-                          : AppStrings.noUserImageWhite),
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: Get.width,
+                        padding: EdgeInsets.only(
+                            top: 16.h, bottom: 30.h, left: 16.w, right: 16.w),
+                        height: Get.height,
+                        child: CloudStorage().imageLoader(
+                            ref: controller.listing!.photos!.isNotEmpty
+                                ? controller.listing!.photos!.first
+                                : AppStrings.noUserImageWhite),
+                      ),
+                      Positioned(
+                        bottom: -10.h,
+                        child: Container(
+                          height: 250.h,
+                          width: Get.width,
+                          padding: EdgeInsets.all(EraTheme.paddingWidthSmall),
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 5.w),
+                                  width: Get.width / 7,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppColors.hint.withOpacity(0.9),
+                                      width: 5.w,
+                                    ),
+                                  ),
+                                  child: CloudStorage().imageLoader(
+                                      width: Get.width / 7,
+                                      height: Get.height,
+                                      ref: controller
+                                              .listing!.photos!.isNotEmpty
+                                          ? controller.listing!.photos![index]
+                                          : AppStrings.noUserImageWhite),
+                                );
+                              },
+                              itemCount: controller.listing!.photos!.length),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 sb40(),
                 Row(
