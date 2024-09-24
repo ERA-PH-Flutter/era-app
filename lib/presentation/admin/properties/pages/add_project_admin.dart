@@ -19,6 +19,7 @@ import 'package:get/get.dart';
 
 import '../../../../repository/logs.dart';
 import '../../../../repository/project.dart';
+import '../../../agent/projects/pages/haraya.dart';
 import '../../../global.dart';
 
 class AddProjectAdmin extends GetView<ListingsAdminController> {
@@ -433,8 +434,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 controller.projectLego.add({
                                   'type': "Blurb",
                                   'title': blurbTitle.text,
-                                  'description': blurbParagraph.text,
                                   'image': blurbImage,
+                                  'description': blurbParagraph.text,
                                 });
                                 blurbTitle.clear();
                                 blurbParagraph.clear();
@@ -599,8 +600,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                         'type': 'Outdoor Amenities',
                                         'sub_type': 'blurb',
                                         'title': blurbTitle.text,
-                                        'description': blurbParagraph.text,
                                         'image': blurbImage,
+                                        'description': blurbParagraph.text,
                                       });
                                     } else {
                                       showError(message);
@@ -760,8 +761,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                         'type': 'Indoor Amenities',
                                         'sub_type': 'blurb',
                                         'title': blurbTitle.text,
-                                        'description': blurbParagraph.text,
                                         'image': blurbImage,
+                                        'description': blurbParagraph.text,
                                       });
                                     } else {
                                       showError(message);
@@ -835,11 +836,13 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         infoTile(
-                                            AppEraAssets.floorArea,
-                                            carouselFloorAreaC,
-                                            'Floor Area', (value) {
-                                          controller.addcarouselFa(value);
-                                        }),
+                                          AppEraAssets.floorArea,
+                                          carouselFloorAreaC,
+                                          'Floor Area',
+                                          (value) {
+                                            controller.addcarouselFa(value);
+                                          },
+                                        ),
                                         infoTile(
                                             AppEraAssets.numberOfBed,
                                             carouselNumberOfBedC,
@@ -1061,104 +1064,100 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 return EraText(
                                   textAlign: TextAlign.center,
                                   text: data['developer_name'],
-                                  color: AppColors.black,
-                                  fontSize: EraTheme.header,
-                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.hint,
+                                  fontSize: EraTheme.small,
                                 );
                               } else if (data['type'] == "Project Logo") {
                                 return Image.memory(
                                   data['image'],
                                   fit: BoxFit.cover,
-                                  height: 250.h,
-                                  width: Get.width,
+                                  height: 91.h,
+                                  width: 241.h,
                                 );
                               } else if (data['type'] == "3D Virtual") {
-                                return Column(
-                                  children: [
-                                    EraText(
-                                      text: data['title'],
-                                      color: AppColors.black,
-                                      textAlign: TextAlign.center,
-                                      fontSize: EraTheme.header + 3.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    EraText(
-                                      text: data['description'],
-                                      color: AppColors.black,
-                                      textAlign: TextAlign.start,
-                                      fontSize: EraTheme.header,
-                                      maxLines: 10,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    // Builder(builder: (context) {
-                                    //   var webViewController = WebViewController();
-                                    //   var params =
-                                    //       const PlatformWebViewControllerCreationParams();
-                                    //   var webview = WebViewController
-                                    //       .fromPlatformCreationParams(
-                                    //     params,
-                                    //     onPermissionRequest:
-                                    //         (WebViewPermissionRequest request) {
-                                    //       request.grant();
-                                    //     },
-                                    //   );
+                                return Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 25.w, vertical: 15.h),
+                                  color: AppColors.hint.withOpacity(0.3),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      title(
+                                        text: data['title'],
+                                        textAlign: TextAlign.start,
+                                      ),
+                                      sb10(),
+                                      description(text: data['description']),
 
-                                    //   webViewController
-                                    //     //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
-                                    //     ..setJavaScriptMode(
-                                    //         JavaScriptMode.unrestricted)
-                                    //     ..setBackgroundColor(
-                                    //         const Color(0x00000000))
-                                    //     ..setNavigationDelegate(
-                                    //       NavigationDelegate(
-                                    //         onPageStarted: (String url) {
-                                    //           controller.isLoading.value = true;
-                                    //         },
-                                    //         onPageFinished: (String url) {
-                                    //           controller.isLoading.value = false;
-                                    //         },
-                                    //         onWebResourceError:
-                                    //             (WebResourceError error) {},
-                                    //       ),
-                                    //     )
-                                    //     ..loadRequest(Uri.parse(data['link']));
-                                    //   return SizedBox(
-                                    //     height: 400.h,
-                                    //     child: GestureDetector(
-                                    //       child: WebViewWidget(
-                                    //         controller: webViewController,
-                                    //       ),
-                                    //     ),
-                                    //   );
-                                    // }),
-                                  ],
+                                      // Builder(builder: (context) {
+                                      //   var webViewController = WebViewController();
+                                      //   var params =
+                                      //       const PlatformWebViewControllerCreationParams();
+                                      //   var webview = WebViewController
+                                      //       .fromPlatformCreationParams(
+                                      //     params,
+                                      //     onPermissionRequest:
+                                      //         (WebViewPermissionRequest request) {
+                                      //       request.grant();
+                                      //     },
+                                      //   );
+
+                                      //   webViewController
+                                      //     //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
+                                      //     ..setJavaScriptMode(
+                                      //         JavaScriptMode.unrestricted)
+                                      //     ..setBackgroundColor(
+                                      //         const Color(0x00000000))
+                                      //     ..setNavigationDelegate(
+                                      //       NavigationDelegate(
+                                      //         onPageStarted: (String url) {
+                                      //           controller.isLoading.value = true;
+                                      //         },
+                                      //         onPageFinished: (String url) {
+                                      //           controller.isLoading.value = false;
+                                      //         },
+                                      //         onWebResourceError:
+                                      //             (WebResourceError error) {},
+                                      //       ),
+                                      //     )
+                                      //     ..loadRequest(Uri.parse(data['link']));
+                                      //   return SizedBox(
+                                      //     height: 400.h,
+                                      //     child: GestureDetector(
+                                      //       child: WebViewWidget(
+                                      //         controller: webViewController,
+                                      //       ),
+                                      //     ),
+                                      //   );
+                                      // }),
+                                    ],
+                                  ),
                                 );
                               } else if (data['type'] == "Blurb") {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    EraText(
-                                      text: data['title'],
-                                      color: AppColors.black,
-                                      fontSize: EraTheme.header + 3.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    sb10(),
-                                    EraText(
-                                      text: data['description'],
-                                      color: AppColors.black,
-                                      fontSize: EraTheme.header,
-                                      fontWeight: FontWeight.w500,
-                                      maxLines: 10,
-                                    ),
-                                    sb10(),
-                                    Image.memory(
-                                      data['image'],
-                                      fit: BoxFit.cover,
-                                      height: 250.h,
-                                      width: Get.width,
-                                    )
-                                  ],
+                                return Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.w, vertical: 15.h),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      title(
+                                          text: data['title'],
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: EraTheme.paddingWidth30,
+                                          )),
+                                      sb10(),
+                                      Image.memory(
+                                        data['image'],
+                                        fit: BoxFit.cover,
+                                        //   height: 250.h,
+                                        width: Get.width,
+                                      ),
+                                      sb10(),
+                                      description(text: data['description']),
+                                    ],
+                                  ),
                                 );
                               } else if (data['type'] == "Location") {
                               } else if (data['type'] == "Outdoor Amenities") {
@@ -1167,27 +1166,21 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      EraText(
-                                        text: data['title'],
-                                        color: AppColors.black,
-                                        fontSize: EraTheme.header + 3.sp,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      sb10(),
-                                      EraText(
-                                        text: data['description'],
-                                        color: AppColors.black,
-                                        fontSize: EraTheme.header,
-                                        fontWeight: FontWeight.w500,
-                                        maxLines: 10,
-                                      ),
+                                      title(
+                                          text: data['title'],
+                                          color: AppColors.black,
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: EraTheme.paddingWidth30,
+                                          )),
                                       sb10(),
                                       Image.memory(
-                                        data['images'],
+                                        data['image'],
                                         fit: BoxFit.cover,
-                                        height: 250.h,
+                                        //   height: 250.h,
                                         width: Get.width,
-                                      )
+                                      ),
+                                      sb10(),
+                                      description(text: data['description']),
                                     ],
                                   );
                                 } else if (data['sub_type'] == 'gallery') {
@@ -1265,27 +1258,21 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      EraText(
-                                        text: data['title'],
-                                        color: AppColors.black,
-                                        fontSize: EraTheme.header + 3.sp,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      sb10(),
-                                      EraText(
-                                        text: data['description'],
-                                        color: AppColors.black,
-                                        fontSize: EraTheme.header,
-                                        fontWeight: FontWeight.w500,
-                                        maxLines: 10,
-                                      ),
+                                      title(
+                                          color: AppColors.black,
+                                          text: data['title'],
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: EraTheme.paddingWidth30,
+                                          )),
                                       sb10(),
                                       Image.memory(
-                                        data['images'],
+                                        data['image'],
                                         fit: BoxFit.cover,
-                                        height: 250.h,
+                                        //   height: 250.h,
                                         width: Get.width,
-                                      )
+                                      ),
+                                      sb10(),
+                                      description(text: data['description']),
                                     ],
                                   );
                                 } else if (data['sub_type'] == 'gallery') {
@@ -1361,11 +1348,9 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    EraText(
+                                    title(
                                       text: data['title'],
-                                      color: AppColors.black,
-                                      fontSize: EraTheme.header + 3.sp,
-                                      fontWeight: FontWeight.bold,
+                                      textAlign: TextAlign.start,
                                     ),
                                     sb10(),
                                     Container(
@@ -1416,13 +1401,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       ],
                                     ),
                                     sb10(),
-                                    EraText(
-                                      text: data['paragraph'],
-                                      color: AppColors.black,
-                                      fontSize: EraTheme.header,
-                                      fontWeight: FontWeight.w500,
-                                      maxLines: 10,
-                                    ),
+                                    description(text: data['paragraph']),
                                   ],
                                 );
                               } else if (data['type'] == "Space") {
@@ -1473,6 +1452,7 @@ Widget infoTile(
           hintstlye: TextStyle(fontSize: 15.sp),
           onChanged: onChanged,
           keyboardType: TextInputType.number,
+          readOnly: false,
         ),
       )
     ],
@@ -1674,4 +1654,32 @@ Widget _buildCollapsibleSection(
       borderRadius: BorderRadius.circular(30),
     )
   ]);
+}
+
+Widget title({text, color, padding, textAlign}) {
+  return Padding(
+    padding:
+        padding ?? EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth20),
+    child: EraText(
+      text: text,
+      color: color ?? AppColors.kRedColor,
+      fontSize: EraTheme.header + 3.sp,
+      fontWeight: FontWeight.bold,
+      textAlign: textAlign ?? TextAlign.center,
+    ),
+  );
+}
+
+Widget description({text, color, padding}) {
+  return Padding(
+    padding:
+        padding ?? EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth30),
+    child: EraText(
+      text: text,
+      color: color ?? AppColors.black,
+      fontSize: EraTheme.subHeader,
+      fontWeight: FontWeight.w500,
+      maxLines: 20,
+    ),
+  );
 }

@@ -8,12 +8,20 @@ import 'app/services/local_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+
+void configureApp() {
+  setUrlStrategy(PathUrlStrategy());
+}
 
 void main() async {
   await initServices();
+  configureApp();
+
   // SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitUp,
   // ]);
+
   runApp(const App());
 }
 
