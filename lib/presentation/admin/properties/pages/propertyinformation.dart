@@ -67,19 +67,16 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                   height: Get.height,
                   width: Get.width,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
                     color: AppColors.hint.withOpacity(0.3),
                     border: Border.all(
                       color: AppColors.hint.withOpacity(0.9),
-                      width: 2.w,
+                      width: 3.w,
                     ),
                   ),
                   child: Stack(
                     children: [
                       Container(
                         width: Get.width,
-                        padding: EdgeInsets.only(
-                            top: 16.h, bottom: 30.h, left: 16.w, right: 16.w),
                         height: Get.height,
                         child: CloudStorage().imageLoader(
                             ref: controller.listing!.photos!.isNotEmpty
@@ -90,15 +87,14 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                         bottom: -10.h,
                         child: Container(
                           height: 250.h,
-                          width: Get.width,
+                          color: AppColors.kRedColor,
+                          width: 300.w,
                           padding: EdgeInsets.all(EraTheme.paddingWidthSmall),
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5.w),
                                   width: Get.width / 7,
                                   decoration: BoxDecoration(
                                     border: Border.all(
@@ -193,7 +189,8 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                         SizedBox(height: 5.h),
                                         shorterSummary(
                                           text: 'Property ID:',
-                                          text2: '${controller.listing?.propertyId}',
+                                          text2:
+                                              '${controller.listing?.propertyId}',
                                         ),
                                         shorterSummary(
                                           text: 'Price',

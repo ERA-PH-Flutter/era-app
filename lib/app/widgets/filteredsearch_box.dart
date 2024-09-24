@@ -62,8 +62,8 @@ class FilteredSearchBox extends StatelessWidget {
     "Manila",
     "Quezon City",
     "Caloocan",
-    "Makati"
-        "Valenzuela",
+    "Makati",
+    "Valenzuela",
     "San Juan",
     "Parañaque",
     "Navotas",
@@ -420,21 +420,20 @@ class FilteredSearchBox extends StatelessWidget {
                               return properties.data();
                             }).toList();
                           }
-                          if(areaMin.text != "" && areaMax.text != ""){
+                          if (areaMin.text != "" && areaMax.text != "") {
                             query = query.where('price',
                                 isGreaterThanOrEqualTo: areaMin.text.toInt());
                             query = query.where('price',
-                                isLessThanOrEqualTo:areaMax.text.toInt());
+                                isLessThanOrEqualTo: areaMax.text.toInt());
                             listings =
                                 (await query.get()).docs.map((properties) {
-                                  return properties.data();
-                                }).toList();
+                              return properties.data();
+                            }).toList();
                           }
                           if (selectedPriceRange.value != "") {
                             var price = selectedPriceRange.value.split(" - ");
                             if (selectedPropertyTypeSearch.value == null &&
                                 selectedLocation.value == null) {
-
                               query = query.where('price',
                                   isGreaterThanOrEqualTo: price[0].contains('M')
                                       ? price[0].toInt() * 1000000
