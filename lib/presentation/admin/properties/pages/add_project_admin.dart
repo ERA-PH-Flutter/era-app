@@ -22,6 +22,8 @@ import 'package:get/get.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../../repository/logs.dart';
+import '../../../../repository/project.dart';
 import '../../../agent/listings/add-edit_listings/pages/addlistings.dart';
 import '../../../global.dart';
 
@@ -79,19 +81,36 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     onTap: ()async{
                                       try{
                                         BaseController().showLoading();
-                                        // var projectDoc = FirebaseFirestore.instance.collection('projects').doc();
-                                        // await projectDoc.set({
-                                        //   'id' : projectDoc.id,
-                                        //   'uploaded_by' : user == null ? "UnknownAdmin" : user!.id ,
-                                        //   'date_created' : DateTime.now(),
-                                        //   'date_updated' : DateTime.now(),
-                                        //   'data' : controller.projectLego
-                                        // });
+                                        for (var lego in controller.projectLego) {
+                                          if(['Banner Images','Project Logo','Blurb'].contains(lego['type'])){
+                                            lego['image'] = await controller.uploadSingle(lego['image']);
+                                          }else if(['Carousel'].contains(lego['type'])){
+                                            lego['images'] = await controller.uploadMultiple(lego['images']);
+                                          }else if(['Outdoor Amenities','Indoor Amenities'].contains(lego['type'])){
+                                            if(lego['sub_type'] == 'blurb'){
+                                              lego['image'] = await controller.uploadSingle(lego['image']);
+                                            }else{
+                                              lego['images'] = await controller.uploadMultiple(lego['images']);
+                                            }
+                                          }
+                                        }
+                                        var project = Project.fromJSON({
+                                          'uploaded_by' : user == null ? "UnknownAdmin" : user!.id ,
+                                          'date_created' : DateTime.now(),
+                                          'date_updated' : DateTime.now(),
+                                          'data' : controller.projectLego
+                                        });
+                                        await project.add();
+                                        await Logs(
+                                            title: "${user!.firstname} ${user!.lastname} added a project with ID ${project.id}",
+                                            type: "project"
+                                        ).add();
                                         BaseController().showSuccessDialog(
-                                          title: "Under construction",
-                                          description: "Projects is still under construction for preview only!",
+                                          title: "Success",
+                                          description: "Project upload success!",
                                           hitApi: (){
                                             Get.back();Get.back();
+                                            //todo navigate to project list
                                           }
                                         );
                                       }catch(e){
@@ -230,8 +249,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'developerName') {
+                        }
+                        else if (controller.selectedOption.value == 'developerName') {
                           return _buildCollapsibleSection(
                             onTap: () {
                               if (controller
@@ -260,8 +279,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'ProjectLogo') {
+                        }
+                        else if (controller.selectedOption.value == 'ProjectLogo') {
                           Uint8List? imageLogo;
                           return _buildCollapsibleSection(
                             onTap: () async {
@@ -289,8 +308,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            '3DVirtual') {
+                        }
+                        else if (controller.selectedOption.value == '3DVirtual') {
                           return _buildCollapsibleSection(
                             onTap: () {
                               String? message;
@@ -353,7 +372,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        } else if (controller.selectedOption.value == 'Blurb') {
+                        }
+                        else if (controller.selectedOption.value == 'Blurb') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
                           Uint8List? blurbImage;
@@ -409,14 +429,14 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'location') {
+                        }
+                        else if (controller.selectedOption.value == 'location') {
                           return _buildCollapsibleSection(
                             title: 'ADD LOCATION',
                             children: [],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'outdoorAmenities') {
+                        }
+                        else if (controller.selectedOption.value == 'outdoorAmenities') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
                           Uint8List? blurbImage;
@@ -579,8 +599,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'indoorAmenities') {
+                        }
+                        else if (controller.selectedOption.value == 'indoorAmenities') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
                           Uint8List? blurbImage;
@@ -740,8 +760,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'Carousel') {
+                        }
+                        else if (controller.selectedOption.value == 'Carousel') {
                           var carouselTitle = TextEditingController();
                           var carouselFloorAreaC = TextEditingController();
                           var carouselNumberOfBedC = TextEditingController();

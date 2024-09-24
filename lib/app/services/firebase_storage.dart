@@ -147,7 +147,7 @@ class CloudStorage {
       {required file, required String target, customName}) async {
     try {
       var filename = "${Random().nextInt(100)}";
-      var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename";
+      var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename.png";
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putData(file);
       return '$target/${customName ?? uploadFilename}';

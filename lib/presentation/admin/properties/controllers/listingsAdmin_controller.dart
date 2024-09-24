@@ -170,6 +170,18 @@ class ListingsAdminController extends GetxController {
     super.onClose();
   }
 
+  uploadSingle(file)async{
+    return await CloudStorage().uploadFromMemory(file: file, target: 'projects');
+  }
+  uploadMultiple(files)async{
+    var newImages = [];
+    for (var image in files) {
+      newImages.add(await CloudStorage().uploadFromMemory(file: image, target: 'projects'));
+    }
+    return newImages;
+  }
+
+
   void updateDeveloperName(String name) {
     developerName.value = name;
   }
