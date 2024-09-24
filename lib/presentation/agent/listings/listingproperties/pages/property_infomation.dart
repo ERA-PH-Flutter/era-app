@@ -689,7 +689,7 @@ class PropertyInformation extends GetView<ListingController> {
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 5.h),
-            shorterSummary(text: 'Property ID', text2: '${listing.id}'),
+            shorterSummary(text: 'Property ID', text2: '${listing.propertyId}'),
             shorterSummary(
                 text: 'Price',
                 text2: NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')

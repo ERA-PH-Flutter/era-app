@@ -193,7 +193,7 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                         SizedBox(height: 5.h),
                                         shorterSummary(
                                           text: 'Property ID:',
-                                          text2: '${controller.listing?.id}',
+                                          text2: '${controller.listing?.propertyId}',
                                         ),
                                         shorterSummary(
                                           text: 'Price',

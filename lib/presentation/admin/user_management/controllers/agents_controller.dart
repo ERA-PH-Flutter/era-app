@@ -9,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../app/services/local_storage.dart';
+import '../../../../repository/logs.dart';
+import '../../../global.dart';
 
 enum AgentAdminState {
   loading,
@@ -123,6 +125,10 @@ class AgentAdminController extends GetxController with BaseController {
     agentListingssss!.description = descriptionA.text;
     agentListingssss!.office = officeLA.text;
     await agentListingssss!.update();
+    await Logs(
+        title: "${user!.firstname} ${user!.lastname} edited an agent with ID ${agentListingssss!.eraId}",
+        type: "account"
+    ).add();
   }
 //create listing controller
 

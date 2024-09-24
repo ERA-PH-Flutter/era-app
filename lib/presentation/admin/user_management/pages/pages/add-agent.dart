@@ -14,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../repository/logs.dart';
 import '../../../../../repository/user.dart';
 import '../../../../global.dart';
 
@@ -190,6 +191,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 Button(
                   onTap: () async {
                     if(controller.agentListingssss == null){
+                      BaseController().showLoading();
                       try {
                         await Authentication().signup(
                             email: controller.emailAdressA.text,
@@ -213,25 +215,45 @@ class AddAgent extends GetView<AgentAdminController> {
                             eraId: "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5,"0")}",
                             status: "approved")
                             .add();
+                        await Logs(
+                          title: "${user!.firstname} ${user!.lastname} added an agent with ID ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5,"0")}",
+                          type: "account"
+                        ).add();
                         settings!.agentCount = settings!.agentCount! + 1;
                         await settings!.update();
                         BaseController().showSuccessDialog(
                             title: "Add Agent Success",
                             description: "Agent added successfully!",
                             hitApi: () {
-                              Get.back();
+                              Get.back();Get.back();
                             });
                       } catch (e) {
                         BaseController().showSuccessDialog(
                             title: "Error!",
                             description: "$e",
                             hitApi: () {
-                              Get.back();
+                              Get.back();Get.back();
                             });
                       }
                     }
                     else{
-                      await controller.updateValues();
+                      BaseController().showLoading();
+                      BaseController().showSuccessDialog(
+                          title: "Edit Agent Success",
+                          description: "Agent edited successfully!",
+                          hitApi: () {
+                            Get.back();Get.back();
+                          });
+                      try {
+                        await controller.updateValues();
+                      } catch (e) {
+                        BaseController().showSuccessDialog(
+                            title: "Error!",
+                            description: "$e",
+                            hitApi: () {
+                              Get.back();Get.back();
+                            });
+                      }
                     }
                   },
                   margin: EdgeInsets.symmetric(horizontal: 5),

@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../../repository/logs.dart';
 import '../../../../../repository/user.dart';
 
 class Roster extends GetView<AgentAdminController> {
@@ -360,6 +361,10 @@ class Roster extends GetView<AgentAdminController> {
                                 }, Icons.edit),
                                 menuOptions("Delete", () async {
                                   await listingModels[i].delete();
+                                  await Logs(
+                                      title: "${user!.firstname} ${user!.lastname} remove an agent with ID ${listingModels[i].eraId}",
+                                      type: "account"
+                                  ).add();
                                 }, Icons.delete_rounded),
                               ])),
                         ],

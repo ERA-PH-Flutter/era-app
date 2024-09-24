@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 
 import '../../../../../app/widgets/createaccount_widget.dart';
 import '../../../../../repository/listing.dart';
+import '../../../../../repository/logs.dart';
 import '../../../../../repository/user.dart';
 
 class ApprovedAgents extends GetView<AgentAdminController> {
@@ -186,10 +187,13 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                             backgroundColor:
                                 WidgetStateProperty.all(AppColors.white),
                           ),
-                          onPressed: () {
-                            //todo record decline by
+                          onPressed: () async{
                             listingModels[i].status = "declined";
-                            listingModels[i].update();
+                            await listingModels[i].update();
+                            await Logs(
+                            title: "${user!.firstname} ${user!.lastname} decline an agent with email ${listingModels[i].email}",
+                            type: "account"
+                            ).add();
                           },
                           icon: Icon(
                             Icons.cancel,
@@ -268,6 +272,10 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                         "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5,"0")}";
                                     listingModels[i].status = "approved";
                                     await listingModels[i].update();
+                                    await Logs(
+                                        title: "${user!.firstname} ${user!.lastname} approved an agent with ID ${listingModels[i].eraId}",
+                                        type: "account"
+                                    ).add();
                                     Get.back();
                                   },
                                   child: EraText(
