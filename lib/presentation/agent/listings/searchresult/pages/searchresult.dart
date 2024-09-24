@@ -260,9 +260,7 @@ class SearchResult extends GetView<SearchResultController> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: Text(
-                            listing.description == ""
-                                ? "No description."
-                                : listing.description!,
+                            listing.description ?? "No description.",
                             style: TextStyle(
                               fontSize: EraTheme.paragraph - 4.sp,
                               fontWeight: FontWeight.w500,

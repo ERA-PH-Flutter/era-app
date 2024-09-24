@@ -79,6 +79,25 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 children: [
                                   Button(
                                     onTap: ()async{
+                                      var hasDeveloperName = false;var hasCarousel = false;var hasProjectLogo = false;
+                                      for (var lego in controller.projectLego) {
+                                        if(lego['type'] == "Project Logo"){
+                                          hasProjectLogo = true;
+                                        }
+                                        if(lego['type'] == "Carousel"){
+                                          hasCarousel = true;
+                                        }
+                                        if(lego['type'] == "Developer Name"){
+                                          hasDeveloperName = true;
+                                        }
+                                      }
+                                      if(!hasDeveloperName || !hasCarousel || !hasProjectLogo){
+                                        BaseController().showErroDialog(
+                                          title: "Error",
+                                          description: "Project must have, developer name, carousel and project logo",
+                                        );
+                                        return;
+                                      }
                                       try{
                                         BaseController().showLoading();
                                         for (var lego in controller.projectLego) {
@@ -114,7 +133,12 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           }
                                         );
                                       }catch(e){
-                                        print(e);
+                                        BaseController().showErroDialog(
+                                          onTap: (){
+                                            Get.back();Get.back();
+                                          },
+                                          description: '$e'
+                                        );
                                       }
                                     },
                                     margin: EdgeInsets.symmetric(horizontal: 5),
@@ -560,7 +584,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                         'sub_type': 'blurb',
                                         'title': blurbTitle.text,
                                         'description': blurbParagraph.text,
-                                        'images': blurbImage,
+                                        'image': blurbImage,
                                       });
                                     } else {
                                       showError(message);
@@ -722,7 +746,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                         'sub_type': 'blurb',
                                         'title': blurbTitle.text,
                                         'description': blurbParagraph.text,
-                                        'images': blurbImage,
+                                        'image': blurbImage,
                                       });
                                     } else {
                                       showError(message);
