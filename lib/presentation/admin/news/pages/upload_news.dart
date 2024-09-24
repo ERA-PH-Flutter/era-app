@@ -20,6 +20,7 @@ import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/widgets/button.dart';
 import '../../../../app/widgets/textformfield_widget.dart';
+import '../../../../repository/logs.dart';
 import '../../../global.dart';
 
 class UploadNews extends GetView<NewsController> {
@@ -57,10 +58,15 @@ class UploadNews extends GetView<NewsController> {
                 onTap: () async {
                   BaseController().showLoading();
                   try {
-                    await News(
+                    var news = News(
                       title: controller.titleController.text,
                       description: controller.content.text,
-                    ).addNews(Get.find<AddListingsController>().images.first);
+                    );
+                    await news.addNews(Get.find<AddListingsController>().images.first);
+                    await Logs(
+                        title: "${user!.firstname} ${user!.lastname} added a news with ID ${news.id}",
+                        type: "news"
+                    ).add();
                     BaseController().showSuccessDialog(
                         title: "Success!",
                         description: "News has been added!",
