@@ -606,10 +606,9 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     }
                                   }
 
-                                  if (message != null) {
+                                  if (message == null) {
                                     blurbTitle.clear();
                                     blurbParagraph.clear();
-
                                     blurbImage = null;
                                     controller.selectedOption.value =
                                         "unselect";
@@ -767,7 +766,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       showError(message);
                                     }
                                   }
-                                  if (message != null) {
+                                  if (message == null) {
                                     blurbTitle.clear();
                                     blurbParagraph.clear();
                                     blurbImages = null;
