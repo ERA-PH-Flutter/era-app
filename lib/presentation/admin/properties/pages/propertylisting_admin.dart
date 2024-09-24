@@ -23,6 +23,7 @@ import 'package:number_paginator/number_paginator.dart';
 
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/widgets/box_widget.dart';
+import '../../../../repository/logs.dart';
 import '../../../global.dart';
 import '../controllers/listing_admin_controller.dart';
 
@@ -487,11 +488,19 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                                       _menuOptions(settings!.featuredListings!.contains(listing.id) ? "Remove from Featured" : "Add to Featured",()async{
                                                         controller.addEditListingsStateAd.value = AddEditListingsStateAd.loading;
                                                         await settings!.addToFeaturedListings(listing.id);
+                                                        await Logs(
+                                                        title: "${user!.firstname} ${user!.lastname} ${settings!.featuredListings!.contains(listing.id) ? "removed" : "added"} a listing to featured, with ID ${listing.propertyId}",
+                                                        type: "listing"
+                                                        ).add();
                                                         controller.addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
                                                       },Icons.add_circle),
                                                       _menuOptions("Delete",()async{
                                                         await CloudStorage().deleteAll(fileList: listing.photos!);
                                                         await listing.deleteListings();
+                                                        await Logs(
+                                                            title: "${user!.firstname} ${user!.lastname} added a listing with ID ${listing.propertyId}",
+                                                            type: "listing"
+                                                        ).add();
                                                       },Icons.delete_rounded),
                                                       SizedBox(height: 20.h,)
                                                     ]

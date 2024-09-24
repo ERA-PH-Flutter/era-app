@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/models/geocode.dart';
+import '../../../../repository/logs.dart';
 import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 //todo add text
 
@@ -471,6 +472,10 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                 addListingsController.latLng!.latitude,
                                 addListingsController.latLng!.longitude
                               ]).addListing(addListingsController.images, user!.id);
+                          await Logs(
+                              title: "${user!.firstname} ${user!.lastname} added a listing with ID ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5,"0")}",
+                              type: "listing"
+                          ).add();
                           settings!.listingCount = settings!.listingCount! + 1;
                           await settings!.update();
                           addListingsController.showSuccessDialog(
