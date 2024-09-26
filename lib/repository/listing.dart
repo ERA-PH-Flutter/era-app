@@ -84,7 +84,7 @@ class Listing {
         owner: json["owner"],
         leads: json["leads"],
         views: json["views"],
-        propertyId: json['propertyId'] ?? "Invalid",
+        propertyId: json['property_id'] ?? "Invalid",
         dateCreated: (json["date_created"] == null)
             ? DateTime.now()
             : json["date_created"].runtimeType == Timestamp
@@ -149,35 +149,7 @@ class Listing {
     }
     DocumentReference<Map<String, dynamic>> doc =
         db.collection('listings').doc();
-    await doc.set({
-      "id": doc.id,
-      "name": name,
-      "price": price,
-      "photos": photos,
-      "ppsqm": ppsqm,
-      "floor_area": floorArea,
-      "beds": beds,
-      "baths": baths,
-      "area": area,
-      "status": status,
-      "view": view,
-      "location": location,
-      "type": type,
-      "sub_category": subCategory,
-      "landmarks": "",
-      "leads": 0,
-      "garage": cars,
-      "by": user!.id,
-      "owner": "admin",
-      "amenities": "",
-      "description": description,
-      "views": 0,
-      "date_created": DateTime.now(),
-      "date_updated": DateTime.now(),
-      "address": address ?? "",
-      "latLng": latLng ?? [0, 0],
-      "is_sold" : isSold ?? false
-    });
+    await doc.set(toMap());
   }
 
   updateListing() async {

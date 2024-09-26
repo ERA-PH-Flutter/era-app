@@ -378,6 +378,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
 
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
+           print("ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}");
           if (controller.propertyNameController.text.isEmpty) {
             showErroDialogs(
               title: "Error",
@@ -476,7 +477,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           }
           BaseController().showLoading();
           try {
-            settings!.listingCount = settings!.listingCount! + 1;
+
             await Listing(
                 name: controller.propertyNameController.text,
                 price: controller.propertyCostController.text
@@ -503,7 +504,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                   controller.latLng!.latitude,
                   controller.latLng!.longitude
                 ]).addListing(controller.images, user!.id);
-
+            settings!.listingCount = settings!.listingCount! + 1;
             await settings!.update();
             controller.showSuccessDialog(
                 hitApi: () {
@@ -514,6 +515,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           } catch (e, ex) {
             print(e);
           }
+
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
       ],

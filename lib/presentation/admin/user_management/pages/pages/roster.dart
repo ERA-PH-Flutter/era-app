@@ -77,9 +77,12 @@ class Roster extends GetView<AgentAdminController> {
                   stream: controller.searchStream,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      List<EraUser> users = snapshot.data!.docs.map((doc) {
-                        return EraUser.fromJSON(doc.data());
-                      }).toList();
+                      List<EraUser> users = [];
+                      for (var doc in snapshot.data!.docs) {
+                        if(doc.data()['status'] == "approved"){
+                          users.add( EraUser.fromJSON(doc.data()));
+                        }
+                      }
                       return rosterGridview(listingModels: users);
                     } else {
                       return Center(
