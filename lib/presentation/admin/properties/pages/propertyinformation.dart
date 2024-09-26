@@ -88,7 +88,7 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                         child: Container(
                           height: 250.h,
                           color: AppColors.kRedColor,
-                          width: 300.w,
+                          width: Get.width,
                           padding: EdgeInsets.all(EraTheme.paddingWidthSmall),
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
