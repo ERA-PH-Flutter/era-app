@@ -48,7 +48,7 @@ class CloudStorage {
     }
   }
 
-  imageLoader({ref, height, width, BoxFit? fit}){
+  Widget imageLoader({ref, height, width, BoxFit? fit}){
     return FutureBuilder(
       future: getFileDirect(docRef: ref),
       builder: (context, snapshot) {

@@ -1160,6 +1160,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   ),
                                 );
                               } else if (data['type'] == "Location") {
+
                               } else if (data['type'] == "Outdoor Amenities") {
                                 if (data['sub_type'] == 'blurb') {
                                   return Column(
