@@ -8,11 +8,12 @@ import 'package:google_places_flutter/model/prediction.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../constants/strings.dart';
+import '../models/geocode.dart';
 
 class PlacesTextField extends StatelessWidget {
   var textController;
-  LatLng? latLng;
-  PlacesTextField({super.key,this.textController,this.latLng});
+  var onPredict;
+  PlacesTextField({super.key,required this.textController,required this.onPredict});
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +22,7 @@ class PlacesTextField extends StatelessWidget {
         // latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
         // print("${latLng!.latitude} ${latLng!.longitude}");
       },
-      getPlaceDetailWithLatLng: (Prediction postalCodeResponse){
-        textController.text = postalCodeResponse.description;
-        latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
-      },
+      getPlaceDetailWithLatLng: onPredict,
       textEditingController: textController,
       googleAPIKey: AppStrings.googleMapKey,
       inputDecoration: InputDecoration(

@@ -19,7 +19,7 @@ import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 import '../../../utility/controller/base_controller.dart';
 import '../controllers/addlistings_controller.dart';
-import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:google_places_flutter/model/prediction.dart' as Predict;
 
 class AddListings extends GetView<AddListingsController> with BaseController {
   const AddListings({super.key});
@@ -310,7 +310,14 @@ class AddListings extends GetView<AddListingsController> with BaseController {
               padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               width: Get.width,
               child: PlacesTextField(
-                latLng:controller.latLng,
+                onPredict: (Predict.Prediction postalCodeResponse) async {
+                  controller.addressController.text = postalCodeResponse.description!;
+                  controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
+                  controller.add = await GeoCode(
+                      apiKey: "65d99e660931a611004109ogd35593a",
+                      lat: postalCodeResponse.lat!.toDouble(),
+                      lng: postalCodeResponse.lng!.toDouble()).reverse();
+                },
                 textController: controller.addressController,
               ),
             ),

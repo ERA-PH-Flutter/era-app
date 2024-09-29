@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_places_flutter/model/prediction.dart' as Predict;
 import 'package:map_location_picker/map_location_picker.dart';
 import '../../../../../app/models/geocode.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
@@ -424,7 +425,14 @@ class EditListing extends GetView<AddListingsController> {
               padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               width: Get.width,
               child: PlacesTextField(
-                latLng:controller.latLng,
+                onPredict: (Predict.Prediction postalCodeResponse) async {
+                  controller.addressController.text = postalCodeResponse.description!;
+                  controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
+                  controller.add = await GeoCode(
+                      apiKey: "65d99e660931a611004109ogd35593a",
+                      lat: postalCodeResponse.lat!.toDouble(),
+                      lng: postalCodeResponse.lng!.toDouble()).reverse();
+                },
                 textController: controller.addressController,
               ),
             ),
