@@ -71,41 +71,30 @@ class AboutUsWeb extends StatelessWidget {
                     fontWeight: FontWeight.w600),
                 _buildDescription(
                     'Discover unparalleled expertise and personalized guidance with our premier real estate brokerage services. Whether you’re buying, selling, or investing, our seasoned professionals are committed to guiding you through every step of the process.'),
-                // SizedBox(height: 20.h),
-                // Wrap(
-                //   children: [
-                //     _buildDescription('Agent & Broker Training:',
-                //         fontWeight: FontWeight.w600),
-                //     _buildDescription(
-                //         'Elevate the careers of our agents and brokers with our comprehensive training and development programs. Our courses are designed to enhance their skills and boost their success, covering everything from mastering market trends and effective client communication to advanced negotiation tactics and cutting-edge technology.'),
-                //   ],
-                // ),
-                // SizedBox(height: 20.h),
-                // Wrap(
-                //   children: [
-                //     _buildDescription('Franchise Arrangements:',
-                //         fontWeight: FontWeight.w600),
-                //     _buildDescription(
-                //         'Explore limitless possibilities of real estate franchising through our dynamic franchise arrangements. As part of our network, you’ll benefit from a proven business model, robust marketing support, and extensive operational resources tailored to maximize your growth and profitability.'),
-                //   ],
-                // ),
-                // SizedBox(height: 20.h),
-                // Wrap(
-                //   children: [
-                //     _buildDescription('Property Valuation: ',
-                //         fontWeight: FontWeight.w600),
-                //     _buildDescription(
-                //         'Accurate property valuation is the cornerstone of successful real estate transactions. At ERA Real Estate Philippines, we offer meticulous property valuation services designed to provide clarity and confidence to buyers, sellers, and investors alike. Backed by comprehensive market analysis and expert insights, our valuation process ensures you receive an informed and fair assessment of your property’s worth.'),
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 40.h,
-                // ),
+                SizedBox(height: 20.h),
+                _buildDescription('Agent & Broker Training:',
+                    fontWeight: FontWeight.w600),
+                _buildDescription(
+                    'Elevate the careers of our agents and brokers with our comprehensive training and development programs. Our courses are designed to enhance their skills and boost their success, covering everything from mastering market trends and effective client communication to advanced negotiation tactics and cutting-edge technology.'),
+                SizedBox(height: 20.h),
+                _buildDescription('Franchise Arrangements:',
+                    fontWeight: FontWeight.w600),
+                _buildDescription(
+                    'Explore limitless possibilities of real estate franchising through our dynamic franchise arrangements. As part of our network, you’ll benefit from a proven business model, robust marketing support, and extensive operational resources tailored to maximize your growth and profitability.'),
+                SizedBox(height: 20.h),
+                _buildDescription('Property Valuation: ',
+                    fontWeight: FontWeight.w600),
+                _buildDescription(
+                    'Accurate property valuation is the cornerstone of successful real estate transactions. At ERA Real Estate Philippines, we offer meticulous property valuation services designed to provide clarity and confidence to buyers, sellers, and investors alike. Backed by comprehensive market analysis and expert insights, our valuation process ensures you receive an informed and fair assessment of your property’s worth.'),
+                SizedBox(
+                  height: 40.h,
+                ),
                 // SizedBox(
                 //   width: Get.width,
                 //   child: Button(
                 //     text: "Get Started",
                 //     bgColor: AppColors.kRedColor,
+                //     fontSize: EraTheme.paragraphWeb,
                 //   ),
                 // )
               ],
@@ -121,7 +110,6 @@ class AboutUsWeb extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
       child: Container(
         width: Get.width - 60.w,
-        color: AppColors.kRedColor,
         child: EraText(
           text: text,
           maxLines: 3,

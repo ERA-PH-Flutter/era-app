@@ -4,9 +4,10 @@ import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-
 import 'package:eraphilippines/presentation/website/buy_website/pages/buy_web.dart';
-import 'package:eraphilippines/presentation/website/form/pages/about_us.dart';
+
+import 'package:eraphilippines/presentation/website/form/pages/about_us_web.dart';
+import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
 import 'package:eraphilippines/presentation/website/home_website/pages/home_web.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controllers/web_landingpage_controller.dart';
 
@@ -180,9 +181,11 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
               children: const [
                 HomeWeb(), //0
                 AboutUsWeb(), //01
-                //AboutUsWeb(),
 
-                // BuyWeb(),
+                BuyWeb(),
+                AboutUsWeb(), //01
+                AboutUsWeb(), //01
+                JoinEraWeb()
                 // BuyWeb(),
               ],
             );
@@ -245,7 +248,7 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
           navLink(
               text: 'Join Era'.toUpperCase(),
               onPressed: () {
-                controller.currentPage(1);
+                controller.currentPage(5);
               }),
           sbw10(),
           navLink(
