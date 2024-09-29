@@ -17,4 +17,10 @@ class EraTheme {
   static double paddingWidthSmall = 16.w;
 
   static double paddingWidthAdmin = 75.w;
+  static double paddingWidth20 = 20.w;
+  static double paddingWidth30 = 30.w;
+  //web
+  static double headerWeb = 50.sp;
+  static double subHeaderWeb = 40.sp;
+  static double paragraphWeb = 30.sp;
 }

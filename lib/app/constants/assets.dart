@@ -1,7 +1,12 @@
 String l = "assets/icons/";
 String w = "quickLinks/";
+String i = "assets/images/";
 
 class AppEraAssets {
+  static String noImageWhite = "${i}no_img_user.png";
+
+  //era ph logo
+  static String eraPh = "${i}eraph_logo.png";
   //mortgage calculator icons
   static String currency = "${l}philippine-peso.png";
   static String percentage = "${l}percentage.png";
@@ -59,6 +64,7 @@ class AppEraAssets {
   // static String lotF = "${l}lot.png";
   //appbar
   static String menubar = "${l}menubar.png";
+  static String closeIcon = "${l}close.png";
 
   //property info icons
   static String money2 = "${l}money2.png";

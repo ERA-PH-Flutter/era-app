@@ -51,4 +51,7 @@ class RouteString {
   static String agentProfileAdmin = "/agentProfileAdmin";
 
   static String editListingsAd = "/editListingsAd";
+
+  //website
+  static String webLandingPage = "/webLandingPage";
 }

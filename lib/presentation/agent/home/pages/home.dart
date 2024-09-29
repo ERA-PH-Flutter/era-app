@@ -689,7 +689,10 @@ class Home extends GetView<HomeController> {
     return Container();
   }
 
-  Widget viewOtherProjects({required String? text, void Function()? onTap}) {
+  Widget viewOtherProjects({
+    required String? text,
+    void Function()? onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Padding(

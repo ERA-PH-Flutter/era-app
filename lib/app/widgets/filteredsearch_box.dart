@@ -39,6 +39,8 @@ class FilteredSearchBox extends StatelessWidget {
   var bathrooms = 0.obs;
   var garage = 0.obs;
   var selectedSubProperty = "".obs;
+  var areaMinimum = TextEditingController();
+  var areaMaximum = TextEditingController();
   var areaMin = TextEditingController();
   var areaMax = TextEditingController();
   var floorAreaMin = TextEditingController();
@@ -230,7 +232,7 @@ class FilteredSearchBox extends StatelessWidget {
                                               width: 90.w,
                                               height: 50.h,
                                               child: TextformfieldWidget(
-                                                controller: areaMin,
+                                                controller: areaMinimum,
                                                 hintText: 'Min Price',
                                                 obscureText: false,
                                                 color: AppColors.black,
@@ -262,7 +264,7 @@ class FilteredSearchBox extends StatelessWidget {
                                                     bottom: 0.h,
                                                     left: 10.w,
                                                     right: 0.w),
-                                                controller: areaMax,
+                                                controller: areaMaximum,
                                                 hintText: 'Max Price',
                                                 obscureText: false,
                                                 color: AppColors.black,

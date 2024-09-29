@@ -117,7 +117,7 @@ class ProjectsModels1 {
     ProjectsModels1(
       heroImage: 'assets/images/harayawithText.png',
       text1: 'EXPERIENCE HARAYA',
-      text2: 'Explore Haraya Residences in\n3D Tour',
+      text2: 'Explore  Haraya Residences in\n3D Tour',
       text3:
           'Take a virtual tour through each carefully rendered unit and experience Haraya Residences for yourself.',
       image1: 'assets/images/virtual_image.png',

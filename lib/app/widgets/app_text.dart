@@ -37,7 +37,7 @@ class EraText extends StatelessWidget {
       maxLines: maxLines ?? 3,
       text,
       textAlign: textAlign,
-      textScaler: TextScaler.linear( ScreenUtil().textScaleFactor),
+      textScaler: TextScaler.linear(ScreenUtil().textScaleFactor),
       style: style ??
           TextStyle(
             decoration: textDecoration ?? TextDecoration.none,

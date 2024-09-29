@@ -17,6 +17,7 @@ import 'package:eraphilippines/presentation/agent/projects/pages/aurelia.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/laya.dart';
 import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
+import 'package:eraphilippines/presentation/website/landingpage/pages/web_landingpage.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 import '../presentation/agent/agents/controllers/agents_binding.dart';
@@ -223,6 +224,13 @@ appRoutes() => [
         name: RouteString.editListingsAd,
         page: () => EditPropertyAdmin(),
         binding: ListingsAdminBindings(),
+      ),
+
+      //website
+
+      GetPage(
+        name: RouteString.webLandingPage,
+        page: () => WebsiteLandingPage(),
       ),
     ];
 
