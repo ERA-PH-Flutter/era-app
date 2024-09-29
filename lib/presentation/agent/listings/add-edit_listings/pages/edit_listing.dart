@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:eraphilippines/app/widgets/places_textfield.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -391,21 +392,44 @@ class EditListing extends GetView<AddListingsController> {
             },
           ),
         ),
-        AddListings.buildWidget(
-          'Address',
-          TextformfieldWidget(
-            controller: controller.addressController,
-            hintText: 'Address',
-            maxLines: 1,
-            keyboardType: TextInputType.text,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Address is required';
-              }
-
-              return null;
-            },
-          ),
+        // AddListings.buildWidget(
+        //   'Address',
+        //   TextformfieldWidget(
+        //     controller: controller.addressController,
+        //     hintText: 'Address',
+        //     maxLines: 1,
+        //     keyboardType: TextInputType.text,
+        //     validator: (value) {
+        //       if (value == null || value.isEmpty) {
+        //         return 'Address is required';
+        //       }
+        //
+        //       return null;
+        //     },
+        //   ),
+        // ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+              child: EraText(
+                  text: "Listing Location",
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black),
+            ),
+            SizedBox(height: 5.h),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+              width: Get.width,
+              child: PlacesTextField(
+                latLng:controller.latLng,
+                textController: controller.addressController,
+              ),
+            ),
+            SizedBox(height: 20.h),
+          ],
         ),
         SizedBox(
           height: 48.h,

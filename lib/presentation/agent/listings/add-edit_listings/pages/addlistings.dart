@@ -5,18 +5,21 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/geocode.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/places_textfield.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_places_flutter/model/place_type.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 import '../../../utility/controller/base_controller.dart';
 import '../controllers/addlistings_controller.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
 
 class AddListings extends GetView<AddListingsController> with BaseController {
   const AddListings({super.key});
@@ -291,15 +294,38 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             keyboardType: TextInputType.number,
           ),
         ),
-        AddListings.buildWidget(
-          'Address',
-          TextformfieldWidget(
-            controller: controller.addressController,
-            hintText: 'Address',
-            maxLines: 1,
-            keyboardType: TextInputType.text,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+              child: EraText(
+                  text: "Listing Location",
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black),
+            ),
+            SizedBox(height: 5.h),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+              width: Get.width,
+              child: PlacesTextField(
+                latLng:controller.latLng,
+                textController: controller.addressController,
+              ),
+            ),
+            SizedBox(height: 20.h),
+          ],
         ),
+        // AddListings.buildWidget(
+        //   'Address',
+        //   TextformfieldWidget(
+        //     controller: controller.addressController,
+        //     hintText: 'Address',
+        //     maxLines: 1,
+        //     keyboardType: TextInputType.text,
+        //   ),
+        // ),
         SizedBox(
           height: 48.h,
           width: Get.width,
@@ -314,6 +340,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             },
           ),
         ),
+        SizedBox(height: 20.h),
         buildWidget(
           'Garage',
           TextformfieldWidget(
