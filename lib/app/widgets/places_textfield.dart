@@ -11,14 +11,22 @@ import '../constants/strings.dart';
 import '../models/geocode.dart';
 
 class PlacesTextField extends StatelessWidget {
-  var textController;
-  var onPredict;
-  PlacesTextField({super.key,required this.textController,required this.onPredict});
+  final TextEditingController textController;
+  final Function(Prediction) onPredict;
+  final FocusNode? focusNode;
+
+  PlacesTextField({
+    super.key,
+    required this.textController,
+    required this.onPredict,
+    this.focusNode,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GooglePlaceAutoCompleteTextField(
-      itemClick: (Prediction postalCodeResponse){
+      focusNode: focusNode,
+      itemClick: (Prediction postalCodeResponse) {
         // latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
         // print("${latLng!.latitude} ${latLng!.longitude}");
       },
@@ -33,10 +41,9 @@ class PlacesTextField extends StatelessWidget {
       ),
       debounceTime: 800,
       countries: const ["ph"],
-      isLatLngRequired:true,
+      isLatLngRequired: true,
       isCrossBtnShown: true,
       placeType: PlaceType.geocode,
-
     );
   }
 }

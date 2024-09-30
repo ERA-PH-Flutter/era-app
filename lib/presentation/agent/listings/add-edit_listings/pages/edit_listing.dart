@@ -425,13 +425,17 @@ class EditListing extends GetView<AddListingsController> {
               padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               width: Get.width,
               child: PlacesTextField(
+                focusNode: controller.addressFocusNode,
                 onPredict: (Predict.Prediction postalCodeResponse) async {
-                  controller.addressController.text = postalCodeResponse.description!;
-                  controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
+                  controller.addressController.text =
+                      postalCodeResponse.description!;
+                  controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(),
+                      postalCodeResponse.lng!.toDouble());
                   controller.add = await GeoCode(
-                      apiKey: "65d99e660931a611004109ogd35593a",
-                      lat: postalCodeResponse.lat!.toDouble(),
-                      lng: postalCodeResponse.lng!.toDouble()).reverse();
+                          apiKey: "65d99e660931a611004109ogd35593a",
+                          lat: postalCodeResponse.lat!.toDouble(),
+                          lng: postalCodeResponse.lng!.toDouble())
+                      .reverse();
                 },
                 textController: controller.addressController,
               ),

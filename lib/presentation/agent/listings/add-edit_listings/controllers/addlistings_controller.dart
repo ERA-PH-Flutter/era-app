@@ -104,7 +104,8 @@ class AddListingsController extends GetxController with BaseController {
     "For Sale",
     "For Rent",
   ];
-
+//  FocusNode bathsFocusNode = FocusNode();
+  FocusNode addressFocusNode = FocusNode();
   clearFields() async {
     propertyNameController.clear();
     propertyCostController.clear();

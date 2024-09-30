@@ -1071,7 +1071,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 return Image.memory(
                                   data['image'],
                                   fit: BoxFit.cover,
-                                  height: 91.h,
                                   width: 241.h,
                                 );
                               } else if (data['type'] == "3D Virtual") {
@@ -1136,8 +1135,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 );
                               } else if (data['type'] == "Blurb") {
                                 return Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10.w, vertical: 15.h),
+                                  padding: EdgeInsets.symmetric(vertical: 15.h),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -1160,7 +1158,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   ),
                                 );
                               } else if (data['type'] == "Location") {
-
                               } else if (data['type'] == "Outdoor Amenities") {
                                 if (data['sub_type'] == 'blurb') {
                                   return Column(
@@ -1376,27 +1373,27 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        infoTile(
+                                        infoTilePreview(
                                             AppEraAssets.floorArea,
                                             TextEditingController(
                                                 text: data['floor_area']
                                                     .toString()),
-                                            'Floor Area', (value) {
+                                            ' sqm', (value) {
                                           controller.addcarouselFa(value);
                                         }),
-                                        infoTile(
+                                        infoTilePreview(
                                             AppEraAssets.numberOfBed,
                                             TextEditingController(
                                                 text: data['beds'].toString()),
-                                            'Number of Bed', (value) {
+                                            '', (value) {
                                           controller.addNob(value);
                                         }),
-                                        infoTile(
+                                        infoTilePreview(
                                             AppEraAssets.loggiaSize,
                                             TextEditingController(
                                                 text: data['loggia_size']
                                                     .toString()),
-                                            'Loggia Size', (value) {
+                                            ' sqm', (value) {
                                           controller.addcarouselLs(value);
                                         }),
                                       ],
@@ -1455,6 +1452,21 @@ Widget infoTile(
           keyboardType: TextInputType.number,
           readOnly: false,
         ),
+      )
+    ],
+  );
+}
+
+Widget infoTilePreview(
+    String icon, TextEditingController controller, hintText, onChanged) {
+  return Row(
+    children: [
+      Image.asset(icon, width: 70.w, height: 70.h),
+      EraText(
+        text: controller.text + hintText,
+        // controller: controller,
+        fontSize: 15.sp,
+        color: AppColors.black,
       )
     ],
   );

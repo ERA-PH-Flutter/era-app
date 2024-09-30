@@ -287,6 +287,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
         buildWidget(
           'Baths',
           TextformfieldWidget(
+            //   focusNode: controller.bathsFocusNode,
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             controller: controller.bathsController,
             hintText: '3',
@@ -310,13 +311,17 @@ class AddListings extends GetView<AddListingsController> with BaseController {
               padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               width: Get.width,
               child: PlacesTextField(
+                focusNode: controller.addressFocusNode,
                 onPredict: (Predict.Prediction postalCodeResponse) async {
-                  controller.addressController.text = postalCodeResponse.description!;
-                  controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
+                  controller.addressController.text =
+                      postalCodeResponse.description!;
+                  controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(),
+                      postalCodeResponse.lng!.toDouble());
                   controller.add = await GeoCode(
-                      apiKey: "65d99e660931a611004109ogd35593a",
-                      lat: postalCodeResponse.lat!.toDouble(),
-                      lng: postalCodeResponse.lng!.toDouble()).reverse();
+                          apiKey: "65d99e660931a611004109ogd35593a",
+                          lat: postalCodeResponse.lat!.toDouble(),
+                          lng: postalCodeResponse.lng!.toDouble())
+                      .reverse();
                 },
                 textController: controller.addressController,
               ),
@@ -412,7 +417,8 @@ class AddListings extends GetView<AddListingsController> with BaseController {
 
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
-           print("ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}");
+          print(
+              "ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}");
           if (controller.propertyNameController.text.isEmpty) {
             showErroDialogs(
               title: "Error",
@@ -511,7 +517,6 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           }
           BaseController().showLoading();
           try {
-
             await Listing(
                 name: controller.propertyNameController.text,
                 price: controller.propertyCostController.text
@@ -533,7 +538,8 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 description: controller.descController.text,
                 view: controller.selectedView.value.toString(),
                 address: controller.addressController.text,
-                propertyId: "ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}",
+                propertyId:
+                    "ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}",
                 latLng: [
                   controller.latLng!.latitude,
                   controller.latLng!.longitude
@@ -549,7 +555,6 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           } catch (e, ex) {
             print(e);
           }
-
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
       ],
@@ -576,7 +581,8 @@ class AddListings extends GetView<AddListingsController> with BaseController {
   }
 
   static Widget textBuild(
-      String text, double fontSize, FontWeight fontWeight, Color color,{padding}) {
+      String text, double fontSize, FontWeight fontWeight, Color color,
+      {padding}) {
     return Padding(
         padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
