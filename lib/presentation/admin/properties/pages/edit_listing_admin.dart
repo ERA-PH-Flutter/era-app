@@ -21,6 +21,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/models/geocode.dart';
+import '../../../../app/widgets/era_place_search.dart';
 import '../../../../repository/logs.dart';
 import '../../../global.dart';
 
@@ -139,14 +140,30 @@ class EditPropertyAdmin extends GetView<ListingsController> {
               ),
             ),
 
-            AddListings.buildWidget(
-              'Address',
-              TextformfieldWidget(
-                controller: addListingsController.addressController,
-                hintText: 'Address',
-                maxLines: 1,
-                keyboardType: TextInputType.text,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EraText(
+                    text: "Listing Location ( Search or Pick )",
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black),
+                SizedBox(height: 5.h),
+                Container(
+                  width: Get.width,
+                  child: EraPlaceSearch(
+                    textFieldController: addListingsController.addressController,
+                    callback: (coordinate)async{
+                      addListingsController.latLng = coordinate;
+                      addListingsController.add = await GeoCode(
+                          apiKey: "65d99e660931a611004109ogd35593a",
+                          lat: coordinate.latitude.toDouble(),
+                          lng: coordinate.longitude.toDouble()).reverse();
+                    },
+                  ),
+                ),
+                SizedBox(height: 20.h),
+              ],
             ),
             SizedBox(
               height: 10.h,
@@ -363,7 +380,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                       BaseController().showLoading();
                       await addListingsController.updateListing();
                       await Logs(
-                          title: "${user!.firstname} ${user!.lastname} edited a listing with ID ${controller.listing!.propertyId}",
+                          title: "${user!.firstname} ${user!.lastname} edited a listing with ID ${addListingsController.listing!.propertyId}",
                           type: "listing"
                       ).add();
                       BaseController().showSuccessDialog(
@@ -374,7 +391,8 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                           Get.find<LandingPageController>().onSectionSelected(5);
                         }
                       );
-                    } catch (e) {
+                    } catch (e,ex) {
+                      print(ex);
                       BaseController().showErroDialog(
                         description: e.toString(),
                         onTap: (){

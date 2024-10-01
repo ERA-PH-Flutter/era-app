@@ -5,21 +5,19 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/geocode.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/places_textfield.dart';
+import 'package:eraphilippines/app/widgets/era_place_search.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_places_flutter/model/place_type.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 import '../../../utility/controller/base_controller.dart';
 import '../controllers/addlistings_controller.dart';
-import 'package:google_places_flutter/model/prediction.dart' as Predict;
 
 class AddListings extends GetView<AddListingsController> with BaseController {
   const AddListings({super.key});
@@ -300,7 +298,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               child: EraText(
-                  text: "Listing Location",
+                  text: "Listing Location ( Search or Pick )",
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.black),
@@ -309,21 +307,31 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             Container(
               padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               width: Get.width,
-              child: PlacesTextField(
-                onPredict: (Predict.Prediction postalCodeResponse) async {
-                  controller.addressController.text = postalCodeResponse.description!;
-                  controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
+              child: EraPlaceSearch(
+                textFieldController: controller.addressController,
+                callback: (coordinate)async{
+                  controller.latLng = coordinate;
                   controller.add = await GeoCode(
-                      apiKey: "65d99e660931a611004109ogd35593a",
-                      lat: postalCodeResponse.lat!.toDouble(),
-                      lng: postalCodeResponse.lng!.toDouble()).reverse();
+                    apiKey: "65d99e660931a611004109ogd35593a",
+                    lat: coordinate.latitude.toDouble(),
+                    lng: coordinate.longitude.toDouble()).reverse();
                 },
-                textController: controller.addressController,
               ),
             ),
             SizedBox(height: 20.h),
           ],
         ),
+         // PlacesTextField(
+         //          onPredict: (Predict.Prediction postalCodeResponse) async {
+         //            controller.addressController.text = postalCodeResponse.description!;
+         //            controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
+         //            controller.add = await GeoCode(
+         //                apiKey: "65d99e660931a611004109ogd35593a",
+         //                lat: postalCodeResponse.lat!.toDouble(),
+         //                lng: postalCodeResponse.lng!.toDouble()).reverse();
+         //          },
+         //          textController: controller.addressController,
+         //        ),
         // AddListings.buildWidget(
         //   'Address',
         //   TextformfieldWidget(
@@ -530,6 +538,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 type: controller.selectedPropertyT.value.toString(),
                 subCategory:
                     controller.selectedPropertySubCategory.value.toString(),
+                by: user!.id,
                 description: controller.descController.text,
                 view: controller.selectedView.value.toString(),
                 address: controller.addressController.text,

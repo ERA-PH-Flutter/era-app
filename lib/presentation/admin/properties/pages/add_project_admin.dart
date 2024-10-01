@@ -16,7 +16,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../../../app/models/geocode.dart';
+import '../../../../app/widgets/era_place_search.dart';
 import '../../../../repository/logs.dart';
 import '../../../../repository/project.dart';
 import '../../../agent/projects/pages/haraya.dart';
@@ -291,8 +294,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'developerName') {
+                        }
+                        else if (controller.selectedOption.value == 'developerName') {
                           return _buildCollapsibleSection(
                             onTap: () {
                               if (controller
@@ -321,8 +324,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'ProjectLogo') {
+                        }
+                        else if (controller.selectedOption.value == 'ProjectLogo') {
                           Uint8List? imageLogo;
                           return _buildCollapsibleSection(
                             onTap: () async {
@@ -350,8 +353,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            '3DVirtual') {
+                        }
+                        else if (controller.selectedOption.value == '3DVirtual') {
                           return _buildCollapsibleSection(
                             onTap: () {
                               String? message;
@@ -414,7 +417,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        } else if (controller.selectedOption.value == 'Blurb') {
+                        }
+                        else if (controller.selectedOption.value == 'Blurb') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
                           Uint8List? blurbImage;
@@ -470,14 +474,34 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'location') {
+                        }
+                        else if (controller.selectedOption.value == 'location') {
+                          var textController = TextEditingController();
+                          var coords;
                           return _buildCollapsibleSection(
+                            onTap: (){
+                              controller.projectLego.add(
+                                  {'type': "Location", 'location': [
+                                    coords.latitude,coords.longitude
+                                  ]});
+                              controller.selectedOption.value = "unselect";
+                            },
                             title: 'ADD LOCATION',
-                            children: [],
+                            children: [
+                              Container(
+                                width: Get.width,
+                                child: EraPlaceSearch(
+                                  textFieldController: textController,
+                                  callback: (coordinate)async{
+                                    coords = coordinate;
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
+                            ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'outdoorAmenities') {
+                        }
+                        else if (controller.selectedOption.value == 'outdoorAmenities') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
                           Uint8List? blurbImage;
@@ -639,8 +663,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'indoorAmenities') {
+                        }
+                        else if (controller.selectedOption.value == 'indoorAmenities') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
                           Uint8List? blurbImage;
@@ -800,8 +824,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        } else if (controller.selectedOption.value ==
-                            'Carousel') {
+                        }
+                        else if (controller.selectedOption.value == 'Carousel') {
                           var carouselTitle = TextEditingController();
                           var carouselFloorAreaC = TextEditingController();
                           var carouselNumberOfBedC = TextEditingController();
@@ -926,7 +950,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        } else if (controller.selectedOption.value == 'space') {
+                        }
+                        else if (controller.selectedOption.value == 'space') {
                           var height = TextEditingController();
                           return Column(
                             children: [
@@ -1160,7 +1185,24 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   ),
                                 );
                               } else if (data['type'] == "Location") {
-
+                                print(data['location'].runtimeType);
+                                return Container(
+                                  height: 350.h,
+                                  width: Get.width,
+                                  child: GoogleMap(
+                                    initialCameraPosition: CameraPosition(
+                                      target: LatLng(data['location'][0], data['location'][1]),
+                                      zoom: 15
+                                    ),
+                                    markers: {
+                                      Marker(
+                                          position: LatLng(data['location'][0], data['location'][1]),
+                                          markerId: MarkerId('mainPin'),
+                                          icon: BitmapDescriptor.defaultMarker)
+                                    },
+                                    zoomControlsEnabled: false,
+                                  ),
+                                );
                               } else if (data['type'] == "Outdoor Amenities") {
                                 if (data['sub_type'] == 'blurb') {
                                   return Column(
@@ -1634,7 +1676,9 @@ Widget _buildCollapsibleSection(
     {required String title,
     required List<Widget> children,
     void Function()? onTap}) {
-  return Column(children: [
+  return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
     ExpansionTile(
       title: EraText(
         text: title,

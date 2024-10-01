@@ -1,11 +1,8 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
-import 'package:eraphilippines/app/widgets/places_textfield.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -13,10 +10,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_places_flutter/model/prediction.dart' as Predict;
 import 'package:map_location_picker/map_location_picker.dart';
 import '../../../../../app/models/geocode.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
+import '../../../../../app/widgets/era_place_search.dart';
 import '../controllers/addlistings_controller.dart';
 import 'addlistings.dart';
 
@@ -415,7 +412,7 @@ class EditListing extends GetView<AddListingsController> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               child: EraText(
-                  text: "Listing Location",
+                  text: "Listing Location ( Search or Pick )",
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.black),
@@ -424,16 +421,15 @@ class EditListing extends GetView<AddListingsController> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
               width: Get.width,
-              child: PlacesTextField(
-                onPredict: (Predict.Prediction postalCodeResponse) async {
-                  controller.addressController.text = postalCodeResponse.description!;
-                  controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
+              child: EraPlaceSearch(
+                textFieldController: controller.addressController,
+                callback: (coordinate)async{
+                  controller.latLng = coordinate;
                   controller.add = await GeoCode(
                       apiKey: "65d99e660931a611004109ogd35593a",
-                      lat: postalCodeResponse.lat!.toDouble(),
-                      lng: postalCodeResponse.lng!.toDouble()).reverse();
+                      lat: coordinate.latitude.toDouble(),
+                      lng: coordinate.longitude.toDouble()).reverse();
                 },
-                textController: controller.addressController,
               ),
             ),
             SizedBox(height: 20.h),
@@ -537,6 +533,12 @@ class EditListing extends GetView<AddListingsController> {
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           controller.updateListing();
+          BaseController().showSuccessDialog(
+              description: "Edit Listing Success",
+              hitApi: (){
+                Get.back();
+              }
+          );
         }, 'UPDATE LISTING'),
         SizedBox(height: 20.h),
       ],

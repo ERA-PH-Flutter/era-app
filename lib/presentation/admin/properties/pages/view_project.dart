@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,19 +16,46 @@ class ViewProject extends StatelessWidget {
       padding: EdgeInsets.all(EraTheme.paddingWidthAdmin - 5.w),
       alignment: Alignment.topCenter,
       height: Get.height - 150.h,
-      child: Card(
-        child: ListTile(
-          title: EraText(
-              text: 'Developer Name: ',
-              color: AppColors.black,
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold),
-          trailing: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.delete),
-          ),
-        ),
-      ),
+      child: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('projects').snapshots(),
+        builder: (context,snapshot){
+          if(snapshot.hasData){
+            var data = snapshot.data!.docs;
+            return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context,index){
+                var d = data[index].data();
+                var developerName = "";
+                d['data'].forEach((lego){
+                  if(lego['type'] == "Developer Name"){
+                    developerName = lego['developer_name'];
+                  }
+                });
+                return Card(
+                  child: ListTile(
+                    title: EraText(
+                        text: 'Developer Name: $developerName',
+                        color: AppColors.black,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold),
+                    trailing: IconButton(
+                      onPressed: ()async{
+                        await FirebaseFirestore.instance.collection('projects').doc(d['id']).delete();
+                      },
+                      icon: Icon(Icons.delete),
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+          else{
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      )
     );
   }
 }

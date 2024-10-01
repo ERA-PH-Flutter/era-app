@@ -350,16 +350,8 @@ class AddListingsController extends GetxController with BaseController {
       await listing!.updateListing();
 
       !kIsWeb ? hideLoading() : null;
-      showSuccessDialog(
-        title: "Success",
-        description:
-            "Listing update success!, note that changing image doesn't work. Do you want to exit?",
-        hitApi: () {
-          Get.back();
-        },
-        cancelable: true,
-      );
-    } catch (e) {
+    } catch (e,ex) {
+      print(ex);
       print(e);
     }
   }
