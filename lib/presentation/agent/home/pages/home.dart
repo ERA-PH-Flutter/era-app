@@ -1,21 +1,29 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
-import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
+import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
+
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/carousel/carousel_slider.dart';
 import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
-import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
-import 'package:eraphilippines/app/widgets/project_divider.dart';
-import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
-import 'package:eraphilippines/app/widgets/quick_links.dart';
 
+import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
+import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
+import 'package:eraphilippines/app/widgets/project_divider.dart';
+
+import 'package:eraphilippines/app/widgets/project_views.dart';
+import 'package:eraphilippines/app/widgets/quick_links.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/project_view_binding.dart';
+import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
+import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
 import 'package:eraphilippines/repository/listing.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,10 +31,9 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../app/constants/sized_box.dart';
+import '../../../../app/constants/strings.dart';
 import '../../../../app/constants/theme.dart';
-import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
-import '../../forms/contacts/pages/join_era.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -51,6 +58,8 @@ class Home extends GetView<HomeController> {
   }
 
   _loaded() {
+    ProjectsListController projectController =
+        Get.put(ProjectsListController());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -156,86 +165,110 @@ class Home extends GetView<HomeController> {
           ),
         ),
         sb30(),
+        //    ProjectsList(),
 
         /// Listings
-        PropertiesWidgets(listingsModels: controller.listingImages),
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: EraTheme.paddingWidth, vertical: 15.h),
-          child: ProjectMain.featuredProject(),
+        Container(
+          height: Get.height,
+          child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: projectController.projects.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Get.to(ProjectView(),
+                        binding: ProjectViewBinding(),
+                        arguments: projectController.projects[index]);
+                  },
+                  child: Container(
+                    height: Get.height,
+                    child: Column(
+                      children: [
+                        Column(
+                          children: ProjectViews(
+                                  project: projectController.projects[index])
+                              .HomebuildPreview(),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
         ),
+        // sb90(),
 
         /// Projects
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            sb20(),
-            ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
-            sb20(),
-            CarouselSliderWidget(images: CarouselModels.carouselModels),
-            sb40(),
-            Button(
-              text: 'LEARN MORE',
-              onTap: () {
-                Get.toNamed("/haraya");
-              },
-              bgColor: AppColors.kRedColor,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            //laya
-            sb90(),
-            ProjectDivider(
-              textImage: ProjectTextImageModels.textImageModels2,
-            ),
-            sb20(),
-            //temporary carousel
-            CarouselSliderWidget(
-                images: CarouselModels.layaCarouselImages,
-                color: AppColors.carouselBgColor),
-            sb40(),
-            Button(
-              text: 'LEARN MORE',
-              onTap: () {
-                Get.toNamed("/laya");
-              },
-              bgColor: AppColors.kRedColor,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            //laya
+        // Column(
+        //   crossAxisAlignment: CrossAxisAlignment.start,
+        //   children: [
+        //     sb20(),
+        //     ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
+        //     sb20(),
+        //     CarouselSliderWidget(images: CarouselModels.carouselModels),
+        //     sb40(),
+        //     Button(
+        //       text: 'LEARN MORE',
+        //       onTap: () {
+        //         Get.toNamed("/haraya");
+        //       },
+        //       bgColor: AppColors.kRedColor,
+        //       borderRadius: BorderRadius.circular(30),
+        //     ),
+        //     //laya
+        //     sb90(),
+        //     ProjectDivider(
+        //       textImage: ProjectTextImageModels.textImageModels2,
+        //     ),
+        //     sb20(),
+        //     //temporary carousel
+        //     CarouselSliderWidget(
+        //         images: CarouselModels.layaCarouselImages,
+        //         color: AppColors.carouselBgColor),
+        //     sb40(),
+        //     Button(
+        //       text: 'LEARN MORE',
+        //       onTap: () {
+        //         Get.toNamed("/laya");
+        //       },
+        //       bgColor: AppColors.kRedColor,
+        //       borderRadius: BorderRadius.circular(30),
+        //     ),
+        //     //laya
 
-            sb90(),
-            ProjectDivider(
-              textImage: ProjectTextImageModels.textImageModels3,
-            ),
-            sb20(),
-            CarouselSliderWidget(
-                images: CarouselModels.aureliaCarouselImages,
-                color: AppColors.carouselBgColor),
-            sb40(),
-            Button(
-              text: 'LEARN MORE',
-              onTap: () {
-                Get.toNamed("/aurelia");
-              },
-              bgColor: AppColors.kRedColor,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            sb10(),
-          ],
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              sb30(),
-              viewOtherProjects(
-                  text: 'View other projects',
-                  onTap: () => Get.toNamed("/project-main")),
-              sb20(),
-            ],
-          ),
-        ),
+        //     sb90(),
+        //     ProjectDivider(
+        //       textImage: ProjectTextImageModels.textImageModels3,
+        //     ),
+        //     sb20(),
+        //     CarouselSliderWidget(
+        //         images: CarouselModels.aureliaCarouselImages,
+        //         color: AppColors.carouselBgColor),
+        //     sb40(),
+        //     Button(
+        //       text: 'LEARN MORE',
+        //       onTap: () {
+        //         Get.toNamed("/aurelia");
+        //       },
+        //       bgColor: AppColors.kRedColor,
+        //       borderRadius: BorderRadius.circular(30),
+        //     ),
+        //     sb10(),
+        //   ],
+        // ),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.center,
+        //     children: [
+        //       sb30(),
+        //       viewOtherProjects(
+        //           text: 'View other projects',
+        //           onTap: () => Get.toNamed("/project-main")),
+        //       sb20(),
+        //     ],
+        //   ),
+        // ),
         sb30(),
 
         Padding(
