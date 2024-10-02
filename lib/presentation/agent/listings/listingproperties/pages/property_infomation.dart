@@ -809,90 +809,118 @@ class PropertyInformation extends GetView<ListingController> {
       builder: (context) {
         final PageController pageController =
             PageController(initialPage: initialIndex);
-
         final RxInt currentPage = RxInt(initialIndex);
 
         return Dialog(
-          //insetPadding: EdgeInsets.symmetric(horizontal: 7.w),
-          backgroundColor: Colors.black,
+          insetPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 180.h),
           child: Stack(
+            alignment: Alignment.center,
             children: [
-              PageView.builder(
-                controller: pageController,
-                itemCount: controller.images.length,
-                onPageChanged: (index) {
-                  currentPage.value = index;
-                },
-                itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: Get.width,
-                    height: Get.height,
-                    child: CloudStorage().imageLoader(
-                        ref: controller.images[index],
-                        width: Get.width,
-                        height: Get.height,
-                        fit: BoxFit.contain),
-                  );
-                },
-              ),
               Positioned(
-                top: 15.h,
-                right: 15.w,
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    alignment: Alignment.center,
-                    child: Icon(
-                      CupertinoIcons.clear,
-                      color: Colors.white,
-                      size: 40.sp,
+                top: 0.h,
+                right: 0.w,
+                left: 0.w,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Obx(() {
+                        return Padding(
+                          padding: EdgeInsets.only(left: 80.sp),
+                          child: EraText(
+                            text:
+                                "${currentPage.value + 1} / ${controller.images.length}",
+                            textAlign: TextAlign.center,
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      }),
                     ),
-                  ),
+                    IconButton(
+                      // style: IconButton.styleFrom(
+                      //   backgroundColor: AppColors.white,
+                      // ),
+                      color: AppColors.blue3,
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(
+                        CupertinoIcons.clear,
+                        color: AppColors.white,
+                        size: 30.sp,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               // Positioned(
-              //   top: 10.h,
-              //   right: 10.w,
+              //   left: -10.w,
               //   child: IconButton(
-              //     onPressed: () {
-              //       Get.back();
-              //     },
+              //          style: IconButton.styleFrom(
+              //           backgroundColor: AppColors.hint,
+              //         ),
               //     icon: Icon(
-              //       CupertinoIcons.clear,
+              //       Icons.arrow_back_ios,
               //       color: Colors.white,
               //       size: 40.sp,
               //     ),
+              //     onPressed: () {
+              //       if (currentPage.value > 0) {
+              //         pageController.previousPage(
+              //           duration: Duration(milliseconds: 300),
+              //           curve: Curves.easeInOut,
+              //         );
+              //       }
+              //     },
+              //   ),
+              // ),
+              // Positioned(
+              //   right: -20.w,
+              //   child: IconButton(
 
-              //     constraints: BoxConstraints(
-              //       minWidth: 55,
-              //       minHeight: 55,
+              //     color: AppColors.black,
+              //     icon: Icon(
+              //       Icons.arrow_forward_ios,
+              //       color: Colors.white,
+              //       size: 40.sp,
               //     ),
+              //     onPressed: () {
+              //       if (currentPage.value < controller.images.length - 1) {
+              //         pageController.nextPage(
+              //           duration: Duration(milliseconds: 300),
+              //           curve: Curves.easeInOut,
+              //         );
+              //       }
+              //     },
               //   ),
               // ),
 
-              Positioned(
-                top: 50.h,
-                left: 0,
-                right: 0,
-                child: Obx(() {
-                  return EraText(
-                    text:
-                        "${currentPage.value + 1} / ${controller.images.length}",
-                    textAlign: TextAlign.center,
-                    color: Colors.white,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  );
-                }),
+              Positioned.fill(
+                top: 60.h,
+                left: 0.w,
+                right: 0.w,
+                bottom: 30.h,
+                child: PageView.builder(
+                  controller: pageController,
+                  itemCount: controller.images.length,
+                  onPageChanged: (index) {
+                    currentPage.value = index;
+                  },
+                  itemBuilder: (context, index) {
+                    return CloudStorage().imageLoader(
+                      ref: controller.images[index],
+                      width: Get.width,
+                      height: Get.height,
+                      fit: BoxFit.cover,
+                    );
+                  },
+                ),
               ),
+
               Positioned(
-                bottom: 20.h,
-                left: 0,
-                right: 0,
+                bottom: 0.h,
                 child: Obx(() {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
