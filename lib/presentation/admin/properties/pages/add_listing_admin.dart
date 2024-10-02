@@ -587,11 +587,6 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                 height: 48.h,
                 text: "Okay",
                 onTap: () {
-                  // if (hitApi != null) {
-
-                  // }
-                  // if (Get.isDialogOpen!)
-                  Get.back();
                   Get.back();
                   Get.back();
                 },
