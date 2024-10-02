@@ -1185,7 +1185,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   ),
                                 );
                               } else if (data['type'] == "Location") {
-                                print(data['location'].runtimeType);
                                 return Container(
                                   height: 350.h,
                                   width: Get.width,

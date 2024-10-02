@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../constants/sized_box.dart';
@@ -81,6 +82,23 @@ class ProjectViews {
             ),
           );
         } else if (data['type'] == "Location") {
+          return Container(
+            height: 350.h,
+            width: Get.width,
+            child: GoogleMap(
+              initialCameraPosition: CameraPosition(
+                  target: LatLng(data['location'][0], data['location'][1]),
+                  zoom: 15
+              ),
+              markers: {
+                Marker(
+                    position: LatLng(data['location'][0], data['location'][1]),
+                    markerId: MarkerId('mainPin'),
+                    icon: BitmapDescriptor.defaultMarker)
+              },
+              zoomControlsEnabled: false,
+            ),
+          );
         } else if (data['type'] == "Outdoor Amenities") {
           if (data['sub_type'] == 'blurb') {
             return Column(
