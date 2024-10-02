@@ -419,7 +419,7 @@ class ProjectViews {
       if (block['type'] == "Project Logo") {
         preview[2] = CloudStorage().imageLoaderProvider(
           ref: block['image'],
-          height: 150.h,
+          height: 120.h,
           width: Get.width,
         );
       }

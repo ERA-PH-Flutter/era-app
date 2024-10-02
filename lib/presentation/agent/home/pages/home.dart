@@ -22,6 +22,7 @@ import 'package:eraphilippines/presentation/admin/properties/controllers/project
 import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/listing.dart';
 
 import 'package:flutter/material.dart';
@@ -166,36 +167,125 @@ class Home extends GetView<HomeController> {
         ),
         sb30(),
         //    ProjectsList(),
+        PropertiesWidgets(listingsModels: controller.listingImages),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidth, vertical: 15.h),
+          child: ProjectMain.featuredProject(),
+        ),
 
         /// Listings
-        Container(
-          height: Get.height,
-          child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: projectController.projects.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Get.to(ProjectView(),
-                        binding: ProjectViewBinding(),
-                        arguments: projectController.projects[index]);
-                  },
-                  child: Container(
-                    height: Get.height,
-                    child: Column(
-                      children: [
-                        Column(
-                          children: ProjectViews(
-                                  project: projectController.projects[index])
-                              .HomebuildPreview(),
-                        ),
-                      ],
+        Obx(() {
+          if (projectController.projectsListState.value ==
+              ProjectsListState.loading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (settings!.featuredProjects != null &&
+              settings!.featuredProjects!.isNotEmpty) {
+            return Container(
+              height: Get.height,
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: projectController.projects.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(ProjectView(),
+                          binding: ProjectViewBinding(),
+                          arguments: projectController.projects[index]);
+                    },
+                    child: Container(
+                      height: Get.height,
+                      child: Column(
+                        children: [
+                          Column(
+                            children: ProjectViews(
+                                    project: projectController.projects[index])
+                                .HomebuildPreview(),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }),
-        ),
+                  );
+                },
+              ),
+            );
+          } else {
+            return Center(child: Text('No projects available'));
+          }
+        }),
+        // Obx(() {
+        //       if (projectController.projectsListState.value ==
+        //           ProjectsListState.loading) {
+        //         return Center(
+        //           child: CircularProgressIndicator(),
+        //         );
+        //       }
+        //       if (settings!.featuredProjects!.isNotEmpty) {
+        //         return Container(
+        //           height: Get.height,
+        //           child: ListView.builder(
+        //             shrinkWrap: true,
+        //             physics: NeverScrollableScrollPhysics(),
+        //             itemCount: settings!.featuredProjects!.length,
+        //             itemBuilder: (context, index) {
+        //               return GestureDetector(
+        //                 onTap: () {
+        //                   Get.to(ProjectView(),
+        //                       binding: ProjectViewBinding(),
+        //                       arguments: settings!.featuredProjects![index]);
+        //                 },
+        //                 child: Container(
+        //                   height: Get.height,
+        //                   child: Column(
+        //                     children: [
+        //                       Column(
+        //                         children: ProjectViews(
+        //                                 project: settings!.featuredProjects![index])
+        //                             .HomebuildPreview(),
+        //                       ),
+        //                     ],
+        //                   ),
+        //                 ),
+        //               );
+        //             },
+        //           ),
+        //         );
+        //       } else {
+        //         return Container();
+        //       }
+        //     }),
+        // Container(
+        //    height: Get.height,
+        //   child: ListView.builder(
+        //       shrinkWrap: true,
+        //       physics: NeverScrollableScrollPhysics(),
+        //       itemCount: projectController.projects.length,
+        //       itemBuilder: (context, index) {
+        //         return GestureDetector(
+        //           onTap: () {
+        //             Get.to(ProjectView(),
+        //                 binding: ProjectViewBinding(),
+        //                 arguments: projectController.projects[index]);
+        //           },
+        //           child: Container(
+        //             height: Get.height,
+        //             child: Column(
+        //               children: [
+        //                 Column(
+        //                   children: ProjectViews(
+        //                           project: projectController.projects[index])
+        //                       .HomebuildPreview(),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //         );
+        //       }),
+        // ),
         // sb90(),
 
         /// Projects
