@@ -111,15 +111,18 @@ class Database {
   }
 
   searchUser({searchParam = "full_name", searchQuery}) async {
-    return (await db
-            .collection('users')
-            .where(searchParam, isGreaterThanOrEqualTo: searchQuery)
-            .where(searchParam, isLessThanOrEqualTo: searchQuery + '\uf8ff')
-            .get())
-        .docs
-        .map((user) {
-      return EraUser.fromJSON(user.data());
-    }).toList();
+    var users = [];
+    var docs = (await db
+        .collection('users')
+        .where(searchParam, isGreaterThanOrEqualTo: searchQuery)
+        .where(searchParam, isLessThanOrEqualTo: searchQuery + '\uf8ff')
+        .get()).docs;
+    for(int i = 0;i < docs.length;i++){
+      if(docs[i].data()['status'] == 'approved'){
+        users.add(EraUser.fromJSON(docs[i].data()));
+      }
+    }
+    return users;
   }
 
   // PROJECTS

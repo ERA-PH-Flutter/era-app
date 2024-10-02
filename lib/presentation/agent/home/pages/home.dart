@@ -476,7 +476,7 @@ class Home extends GetView<HomeController> {
                                 child: Text(
                                   listing.description == ""
                                       ? "No description."
-                                      : listing.description!,
+                                      : listing.description ?? "No description.",
                                   style: TextStyle(
                                     fontSize: EraTheme.paragraph - 4.sp,
                                     fontWeight: FontWeight.w500,

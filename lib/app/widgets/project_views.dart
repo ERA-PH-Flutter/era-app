@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../constants/sized_box.dart';
@@ -20,6 +23,10 @@ import 'app_text.dart';
 class ProjectViews {
   Project project;
   ProjectViews({required this.project});
+  Future<bool>loadLink(link,webViewController)async{
+    await webViewController.loadRequest(Uri.parse(link));
+        return true;
+  }
   build() {
     return ListView.builder(
       shrinkWrap: true,
@@ -47,8 +54,24 @@ class ProjectViews {
             width: 241.h,
           );
         } else if (data['type'] == "3D Virtual") {
+          var webViewController = WebViewController();
+          webViewController..setJavaScriptMode(
+              JavaScriptMode.unrestricted)
+            ..setBackgroundColor(
+                const Color(0x00000000))
+            ..setNavigationDelegate(
+              NavigationDelegate(
+                onPageStarted: (String url) {
+
+                },
+                onPageFinished: (String url) {
+
+                },
+                onWebResourceError:
+                    (WebResourceError error) {},
+              ),
+            );
           return Container(
-            padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
             color: AppColors.hint.withOpacity(0.3),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,9 +79,41 @@ class ProjectViews {
                 title(
                   text: data['title'],
                   textAlign: TextAlign.start,
+                  padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth)
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  child: description(text: data['description']),
                 ),
                 sb20(),
-                description(text: data['description']),
+                FutureBuilder(
+                  future: loadLink(data['link'],webViewController),
+                  builder: (context,snapshot) {
+                    if(snapshot.hasData){
+                      var params =
+                      const PlatformWebViewControllerCreationParams();
+                      var webview = WebViewController.fromPlatformCreationParams(
+                        params,
+                        onPermissionRequest:
+                            (WebViewPermissionRequest request) {
+                          request.grant();
+                        },
+                      );
+                      return SizedBox(
+                        height: 400.h,
+                        child: GestureDetector(
+                          child: WebViewWidget(
+                            controller: webViewController,
+                          ),
+                        ),
+                      );
+                    }else{
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }
+                ),
               ],
             ),
           );

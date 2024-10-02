@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
@@ -17,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../app/models/geocode.dart';
 import '../../../../app/widgets/era_place_search.dart';
@@ -1114,48 +1116,17 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       ),
                                       sb10(),
                                       description(text: data['description']),
-
-                                      // Builder(builder: (context) {
-                                      //   var webViewController = WebViewController();
-                                      //   var params =
-                                      //       const PlatformWebViewControllerCreationParams();
-                                      //   var webview = WebViewController
-                                      //       .fromPlatformCreationParams(
-                                      //     params,
-                                      //     onPermissionRequest:
-                                      //         (WebViewPermissionRequest request) {
-                                      //       request.grant();
-                                      //     },
-                                      //   );
-
-                                      //   webViewController
-                                      //     //..runJavaScript("document.querySelector('head').innerHTML += '<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'none' 'unsafe-eval'\">';",)
-                                      //     ..setJavaScriptMode(
-                                      //         JavaScriptMode.unrestricted)
-                                      //     ..setBackgroundColor(
-                                      //         const Color(0x00000000))
-                                      //     ..setNavigationDelegate(
-                                      //       NavigationDelegate(
-                                      //         onPageStarted: (String url) {
-                                      //           controller.isLoading.value = true;
-                                      //         },
-                                      //         onPageFinished: (String url) {
-                                      //           controller.isLoading.value = false;
-                                      //         },
-                                      //         onWebResourceError:
-                                      //             (WebResourceError error) {},
-                                      //       ),
-                                      //     )
-                                      //     ..loadRequest(Uri.parse(data['link']));
-                                      //   return SizedBox(
-                                      //     height: 400.h,
-                                      //     child: GestureDetector(
-                                      //       child: WebViewWidget(
-                                      //         controller: webViewController,
-                                      //       ),
-                                      //     ),
-                                      //   );
-                                      // }),
+                                      Container(
+                                        color: Colors.white,
+                                        height: 350.h,
+                                        width: Get.width,
+                                        alignment: Alignment.center,
+                                        child: EraText(
+                                          color: Colors.black,
+                                          fontSize: 20.sp,
+                                          text: "No Preview for Web!",
+                                        ),
+                                      )
                                     ],
                                   ),
                                 );

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:carousel_slider_plus/carousel_controller.dart';
@@ -432,5 +433,9 @@ class ListingsAdminController extends GetxController {
           .orderBy('date_created')
           .snapshots();
     }
+  }
+  loadWeb(link,webViewController)async{
+    await webViewController.loadRequest(Uri.parse("https://api.eraphilippines.com/proxy.php?url=${base64Encode(link)}"));
+    return true;
   }
 }

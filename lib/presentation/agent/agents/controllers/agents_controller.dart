@@ -62,9 +62,11 @@ class AgentsController extends GetxController with BaseController {
     agentState.value = AgentsState.loading;
     var aiSearchResult = await AI(query: query).userSearch();
     if(aiSearchResult.isNotEmpty){
-      results.value = aiSearchResult.map((user){
-        return EraUser.fromJSON(user.data());
-      }).toList();
+      aiSearchResult.forEach((user){
+        if(user.data()['status'] == "approved"){
+          results.add(EraUser.fromJSON(user.data()));
+        }
+      });
     }
 
     if (results.isNotEmpty) {
@@ -79,7 +81,6 @@ class AgentsController extends GetxController with BaseController {
     agentState.value = AgentsState.loading;
     showLoading();
     if (agentName.text != "") {
-      print("aaaaaaaaaaaaaaaaaaaa");
       results.value = (await Database().searchUser(
               searchParam: 'full_name', searchQuery: agentName.text)) ??
           [];

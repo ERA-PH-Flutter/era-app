@@ -525,7 +525,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
             scrollDirection: Axis.horizontal,
             child: StreamBuilder(
               stream:
-                  FirebaseFirestore.instance.collection('users').snapshots(),
+                  FirebaseFirestore.instance.collection('users').where('status',isEqualTo: 'approved').snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
