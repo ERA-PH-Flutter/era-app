@@ -167,6 +167,12 @@ class Home extends GetView<HomeController> {
         ),
         sb30(),
         //    ProjectsList(),
+        PropertiesWidgets(listingsModels: controller.listingImages),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidth, vertical: 15.h),
+          child: ProjectMain.featuredProject(),
+        ),
 
         /// Listings
         Obx(() {
