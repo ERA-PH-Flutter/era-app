@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class CloudStorage {
     try {
       return await ref.child(docRef).getDownloadURL();
     } catch (e) {
-      return "Error: $e";
+      return await ref.child(AppStrings.noUserImageWhite).getDownloadURL();
     }
   }
 
@@ -44,6 +45,7 @@ class CloudStorage {
     try {
       return await ref.child(docRef).getData();
     } catch (e) {
+      return await ref.child(AppStrings.noUserImageWhite).getData();
       return "Error: $e";
     }
   }
@@ -139,8 +141,7 @@ class CloudStorage {
       await fileRef.putFile(file);
       return '$target/${customName ?? uploadFilename}';
     } catch (e,ex) {
-      print(ex);
-      return "error $e";
+      return "";
     }
   }
   Future<String> uploadFromMemory(
@@ -152,8 +153,7 @@ class CloudStorage {
       await fileRef.putData(file);
       return '$target/${customName ?? uploadFilename}';
     } catch (e,ex) {
-      print(ex);
-      return "error $e";
+      return "";
     }
   }
 
@@ -165,7 +165,7 @@ class CloudStorage {
       await imageRef.putFile(image);
       return await imageRef.getDownloadURL();
     } catch (e) {
-      return "Error: $e";
+      return "";
     }
   }
 }

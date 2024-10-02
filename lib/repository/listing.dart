@@ -149,7 +149,8 @@ class Listing {
 
     }
     DocumentReference<Map<String, dynamic>> doc =
-        db.collection('listings').doc();
+      db.collection('listings').doc();
+    id = doc.id;
     await doc.set(toMap());
   }
 

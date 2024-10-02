@@ -449,6 +449,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                         BaseController().showLoading();
                         try {
                           await Listing(
+                              by: user!.id,
                               name: addListingsController
                                   .propertyNameController.text,
                               price: addListingsController
@@ -497,7 +498,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                 BaseController().hideLoading();
                                 Get.delete<AddListingsController>();
                                 Get.put(AddListingsController());
-                                Get.back();
+                                Get.back();Get.back();
                                 addListingsController.clearFields();
                               },
                               title: "Add Listing Success",

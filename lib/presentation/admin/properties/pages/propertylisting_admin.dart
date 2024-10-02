@@ -495,7 +495,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                                         controller.addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
                                                       },Icons.add_circle),
                                                       _menuOptions("Delete",()async{
-                                                        await CloudStorage().deleteAll(fileList: listing.photos!);
+                                                        listing.photos!.isNotEmpty ? await CloudStorage().deleteAll(fileList: listing.photos!) : null;
                                                         await listing.deleteListings();
                                                         await Logs(
                                                             title: "${user!.firstname} ${user!.lastname} added a listing with ID ${listing.propertyId}",
