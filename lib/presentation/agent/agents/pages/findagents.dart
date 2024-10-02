@@ -245,7 +245,7 @@ class FindAgents extends GetView<AgentsController> {
                   SizedBox(height: 20.h),
                   FutureBuilder(
                     future: FirebaseFirestore.instance
-                        .collection('users')
+                        .collection('users').where('status',isEqualTo: 'approved')
                         .count()
                         .get(),
                     builder: (data, snapshot) {
