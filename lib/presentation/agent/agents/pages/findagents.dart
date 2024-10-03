@@ -264,7 +264,7 @@ class FindAgents extends GetView<AgentsController> {
                   ),
                   EraText(
                     text:
-                        "Your Go-To Professionals for Seemless Property Transactions",
+                        "Your Go-To Professionals for Seamless Property Transactions",
                     fontSize: EraTheme.small,
                     fontWeight: FontWeight.w600,
                     color: AppColors.hint,

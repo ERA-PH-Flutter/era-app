@@ -43,7 +43,7 @@ class AgentsController extends GetxController with BaseController {
   void onInit() async {
     try {
       var randomUser =
-          (await FirebaseFirestore.instance.collection('users').get()).docs;
+          (await FirebaseFirestore.instance.collection('users').where('status',isEqualTo: 'approved').get()).docs;
       randomUser.shuffle();
       for (int i = 0;
           i < (randomUser.length > 6 ? 6 : randomUser.length);

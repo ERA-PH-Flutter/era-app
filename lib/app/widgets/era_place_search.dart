@@ -20,9 +20,10 @@ class EraPlaceSearch extends StatefulWidget {
 }
 
 class _EraPlaceSearchState extends State<EraPlaceSearch> {
-  int timer = 1;
+  int timer = 2;
   bool isReady = false;
   Timer? clock;
+  int count = 0;
   var currentText = "".obs;
   RxList results = [].obs;
   @override
@@ -65,9 +66,8 @@ class _EraPlaceSearchState extends State<EraPlaceSearch> {
             onChanged: (value)async{
               currentText.value = value;
               if(!isReady && clock == null){
-                clock = Timer.periodic(
-                    Duration(milliseconds: 500), (t)async{
-                  if(t.tick  == timer){
+                clock = Timer.periodic(Duration(milliseconds: 500), (t)async{
+                  if(count  == timer){
                     clock!.cancel();
                     clock = null;
                     timer = 1;
@@ -78,10 +78,11 @@ class _EraPlaceSearchState extends State<EraPlaceSearch> {
                     }
                     isReady = false;
                   }
+                  timer++;
                 }
                 );
               }else{
-                timer++;
+                timer = 0;
               }
 
             },
