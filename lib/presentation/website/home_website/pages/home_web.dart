@@ -19,6 +19,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/strings.dart';
 import '../../../../app/models/carousel_models.dart';
 import '../../../../app/services/firebase_storage.dart';
@@ -57,11 +58,7 @@ class HomeWeb extends GetView<HomeWebController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(
-        color: AppColors.primary,
-      ),
-    );
+    return Screens.loading();
   }
 
   _loaded() {
@@ -89,9 +86,11 @@ class HomeWeb extends GetView<HomeWebController> {
             child: FilteredSearchBox(),
           ),
           sb15(),
-          QuickLinks(
-            fontSize: EraTheme.subHeaderWeb,
-          ),
+          controller.quickLinks!,
+
+          // QuickLinks(
+          //   fontSize: EraTheme.subHeaderWeb,
+          // ),
           sb30(),
           _uploadPreviewPhotos(),
           sb20(),
@@ -690,38 +689,6 @@ class HomeWeb extends GetView<HomeWebController> {
   }
 }
 
-_buildMenuCard(text, callback, isActive) {
-  return GestureDetector(
-    onTap: callback,
-    child: Card(
-      color: isActive ? AppColors.kRedColor : AppColors.white,
-      elevation: 4,
-      child: Container(
-        height: 45.h,
-        child: Row(
-          children: [
-            Expanded(
-              child: Center(
-                child: SizedBox(
-                  width: Get.width,
-                  child: EraText(
-                    textOverflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    text: text,
-                    color: isActive ? AppColors.white : AppColors.black,
-                    fontSize: 40.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
 Widget _uploadPreviewPhotos() {
   List<UploadPhotoData> photos = [
     UploadPhotoData(
@@ -763,9 +730,15 @@ Widget _uploadPreviewPhotos() {
     itemCount: photos.length,
     itemBuilder: (context, index) {
       final photo = photos[index];
-      return _buildUploadPhoto(
-        image: photo.image,
-        text: photo.text,
+      return Column(
+        children: [
+          _buildUploadPhoto(
+            text: 'Preselling',
+            image: settings!.preSellingPicture != null
+                ? CloudStorage().imageLoader(ref: settings!.preSellingPicture)
+                : null,
+          ),
+        ],
       );
     },
     staggeredTileBuilder: (index) {

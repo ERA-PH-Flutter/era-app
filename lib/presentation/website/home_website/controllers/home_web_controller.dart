@@ -2,6 +2,7 @@ import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
+import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/news.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class HomeWebController extends GetxController {
   List<Listing> listings = [];
   RxList images = [].obs;
   var news = [];
+  Widget? quickLinks;
 
   var innerController = CarouselSliderController();
   var carouselC = PageController();
@@ -45,6 +47,8 @@ class HomeWebController extends GetxController {
         images.add(
             await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
       }
+      quickLinks = await QuickLinksModel().initialize();
+
       await getListings();
       await getNews();
 
