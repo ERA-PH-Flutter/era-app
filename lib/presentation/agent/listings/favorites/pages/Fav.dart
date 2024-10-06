@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:image_to_pdf_converter/image_to_pdf_converter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
+import '../../../../../app/constants/screens.dart';
 import '../../../../../app/constants/theme.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../app/widgets/fav/favItems_widgets.dart';
@@ -50,11 +51,7 @@ class Fav extends GetView<FavController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(
-        color: AppColors.primary,
-      ),
-    );
+    return Screens.loading();
   }
 
   _loaded() {

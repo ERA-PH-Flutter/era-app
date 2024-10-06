@@ -63,7 +63,7 @@ class FindProperties extends GetView<ListingController> {
                 SizedBox(height: 10.h),
                 Obx(() {
                   if (controller.showFullSearch.value == false) {
-                    return QuickLinks(origin: 'search');
+                    return controller.quickLinks ?? Container();
                   }
                   return Container();
                 }),

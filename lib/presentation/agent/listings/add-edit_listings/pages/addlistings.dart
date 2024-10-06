@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:map_location_picker/map_location_picker.dart';
+import '../../../../../app/constants/screens.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
@@ -163,14 +164,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
   }
 
   _loading() {
-    return Center(
-      child: GestureDetector(
-          onTap: () {
-            print("Debug: Checking addListingsState value");
-            print(controller.addListingsState.value == AddListingsState.loaded);
-          },
-          child: CircularProgressIndicator()),
-    );
+    return Screens.loading();
   }
 
   _locationPick() {

@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../app/constants/assets.dart';
+import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/custom_appbar.dart';
@@ -499,12 +500,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
   }
 
   _loading() {
-    return SizedBox(
-      height: Get.height - 200.h,
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return Screens.loading();
   }
 
   _error() {

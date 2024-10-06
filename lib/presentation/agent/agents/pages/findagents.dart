@@ -19,6 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../app/constants/screens.dart';
 import '../../../../app/services/ai_search.dart';
 
 class FindAgents extends GetView<AgentsController> {
@@ -293,9 +294,7 @@ class FindAgents extends GetView<AgentsController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
+    return Screens.loading();
   }
 
   _error() {

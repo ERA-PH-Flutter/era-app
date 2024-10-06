@@ -30,6 +30,7 @@ import 'package:get/get.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/strings.dart';
 import '../../../../app/constants/theme.dart';
@@ -70,9 +71,15 @@ class Home extends GetView<HomeController> {
                 Positioned.fill(
                   child: CarouselSlider(
                       controller: controller.innerController,
-                      items: controller.images.map((imagePath) {
-                        return CustomImage(
-                          url: imagePath,
+                      items: controller.images.map((image) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(0),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(0),
+                            child: image
+                          ),
                         );
                       }).toList(),
                       options: CarouselOptions(
@@ -160,7 +167,7 @@ class Home extends GetView<HomeController> {
               sb10(),
               FilteredSearchBox(),
               sb15(),
-              QuickLinks()
+              controller.quickLinks!,
             ],
           ),
         ),
@@ -716,7 +723,7 @@ class Home extends GetView<HomeController> {
         SizedBox(
           height: 20.h,
         ),
-
+        /// join us today
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: Container(
@@ -770,13 +777,10 @@ class Home extends GetView<HomeController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
+    return Screens.loading();
   }
-
   _error() {
-    return Container();
+    return Screens.error();
   }
 
   Widget viewOtherProjects({required String? text, void Function()? onTap}) {

@@ -38,7 +38,7 @@ class PreSelling extends GetView<ListingController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 10.h),
-                          QuickLinks(),
+                          searchController.quickLinks ?? Container(),
                           SizedBox(height: 10.h),
                         ]);
                   }

@@ -1,24 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
-import '../../presentation/agent/listings/listingproperties/pages/findproperties.dart';
 import '../../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import '../../presentation/global.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
+import '../services/firebase_storage.dart';
 import 'app_text_listing.dart';
 import 'navigation/customenavigationbar.dart';
 
-class QuickLinks extends StatelessWidget {
-  String? origin;
-  QuickLinks({super.key, this.origin});
+class QuickLinksModel {
   var categories = [
     [AppEraAssets.agricultural,"type","Agricultural"],
-    [AppEraAssets.apartment,"sub_category","Apertment"],
+    [AppEraAssets.apartment,"sub_category","Apartment"],
     [AppEraAssets.commercial,"type","Commercial"],
     [AppEraAssets.condo,"type","Condominium"],
     [AppEraAssets.factory,"sub_category","Factory"],
@@ -37,38 +33,40 @@ class QuickLinks extends StatelessWidget {
     [AppEraAssets.penthouse,"sub_category","Penthouse"],
     [AppEraAssets.beachHouse,"sub_category","Beach House"],
     [AppEraAssets.loft,"sub_category","Loft"],
-    [AppEraAssets.bedspace,"sub_category","Bedspace"],
+    [AppEraAssets.bedspace,"sub_category","BedSpace"],
     [AppEraAssets.room,"sub_category","Room"],
     [AppEraAssets.memorial,"sub_category","Memorial"],
     [AppEraAssets.coworking,"sub_category","Coworking"],
     [AppEraAssets.studio,"sub_category","Studio"],
   ];
-  @override
-  Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      TextListing(
-        text: 'Quick Links',
-        fontSize: 18.sp,
-        fontWeight: FontWeight.w500,
-        color: AppColors.black,
-      ),
-      SizedBox(height: 10.h),
-      SizedBox(
-        height: 100.h,
-        width: Get.width,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemCount: categories.length,
-          itemBuilder: (context,index){
-            return quickSearchIcon(categories[index][0], categories[index][1], categories[index][2]);
-          },
+
+  initialize() async {
+    List<Widget> items = [];
+    for(int index = 0;index < categories.length;index++){
+      items.add(await quickSearchIcon(categories[index][0], categories[index][1], categories[index][2]));
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextListing(
+          text: 'Quick Links',
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
         ),
-      ),
-      SizedBox(height: 10.h),
-    ]);
+        SizedBox(height: 10.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: items,
+          ),
+        ),
+        SizedBox(height: 10.h),
+      ],
+    );
   }
-  Widget quickSearchIcon(String icon,target,type) {
+
+  Future<Widget> quickSearchIcon(String icon,target,type)async{
     return GestureDetector(
       onTap: ()async{
         var listings = (await FirebaseFirestore.instance
@@ -80,20 +78,24 @@ class QuickLinks extends StatelessWidget {
         pageViewController = PageController(initialPage: 2);
         currentRoute = '/searchresult';
         Get.offAll(BaseScaffold(),
-        binding: SearchResultBinding(),
-        arguments: [data, 'All $type listings!']);
+            binding: SearchResultBinding(),
+            arguments: [data, 'All $type listings!']);
       },
-      child: Container(
-        child: Column(
-          children: [
-            CloudStorage().imageLoaderProvider(
-              height: 100.h,
-              width: 100.h,
+      child: Column(
+        children: [
+          Container(
+            height: 100.h,
+            width: 100.h,
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
-              ref: icon,
+              image: DecorationImage(
+                image: CachedNetworkImageProvider(
+                    await CloudStorage().getFileDirect(docRef: icon)
+                )
+              )
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

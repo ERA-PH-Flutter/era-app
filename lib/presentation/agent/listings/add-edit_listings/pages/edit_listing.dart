@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:map_location_picker/map_location_picker.dart';
+import '../../../../../app/constants/screens.dart';
 import '../../../../../app/models/geocode.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../app/widgets/era_place_search.dart';
@@ -36,12 +37,7 @@ class EditListing extends GetView<AddListingsController> {
   }
 
   _loading() {
-    return SizedBox(
-      height: Get.height - 200.h,
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return Screens.loading();
   }
 
   _loaded() {

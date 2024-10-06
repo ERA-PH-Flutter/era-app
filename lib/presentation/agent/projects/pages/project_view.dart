@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
+import '../../../../app/constants/screens.dart';
 import '../../../../app/widgets/project_views.dart';
 import '../../../admin/properties/controllers/project_view_controller.dart';
 
@@ -31,11 +32,7 @@ class ProjectView extends GetView<ProjectViewController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(
-        color: AppColors.primary,
-      ),
-    );
+    return Screens.loading();
   }
 
   _loaded() {

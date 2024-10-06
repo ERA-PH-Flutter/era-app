@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../app/constants/screens.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../controllers/archived_controller.dart';
 
@@ -49,9 +50,7 @@ class Archived extends GetView<ArchivedController> {
     );
   }
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
+    return Screens.loading();
   }
   _error() {
     return Center(

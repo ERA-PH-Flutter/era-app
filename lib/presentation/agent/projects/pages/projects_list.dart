@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../app/constants/screens.dart';
 import '../../../../app/widgets/project_views.dart';
 import '../../../admin/properties/controllers/project_list_controller.dart';
 import '../../../admin/properties/controllers/project_view_binding.dart';
@@ -32,11 +33,7 @@ class ProjectsList extends GetView<ProjectsListController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(
-        color: AppColors.primary,
-      ),
-    );
+    return Screens.loading();
   }
 
   _loaded() {
