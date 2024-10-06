@@ -15,7 +15,7 @@ mixin class BaseController{
     String? description = 'Successfully',
     cancelable = false,
     cancelButton = "No",
-    okayButton = "Okay",
+    okayButton = "Yes",
     dismissible = false,
   }) {
     showCupertinoDialog(
