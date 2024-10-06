@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,6 +30,7 @@ class ListingController extends GetxController {
   var searchQuery = ''.obs;
   var data = [].obs;
   var showFullSearch = false.obs;
+  var quickLinks;
   List<Listing> listings = [];
 
   TextEditingController locationController = TextEditingController();
@@ -40,6 +42,7 @@ class ListingController extends GetxController {
   void onInit() async {
     data.clear();
     listingState.value = ListingState.loading;
+    quickLinks = await QuickLinksModel().initialize();
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {
         var tempData = [];

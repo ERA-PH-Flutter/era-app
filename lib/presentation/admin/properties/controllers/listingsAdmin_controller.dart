@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:carousel_slider_plus/carousel_controller.dart';
@@ -169,6 +170,18 @@ class ListingsAdminController extends GetxController {
     }
     super.onClose();
   }
+
+  uploadSingle(file)async{
+    return await CloudStorage().uploadFromMemory(file: file, target: 'projects');
+  }
+  uploadMultiple(files)async{
+    var newImages = [];
+    for (var image in files) {
+      newImages.add(await CloudStorage().uploadFromMemory(file: image, target: 'projects'));
+    }
+    return newImages;
+  }
+
 
   void updateDeveloperName(String name) {
     developerName.value = name;
@@ -420,5 +433,9 @@ class ListingsAdminController extends GetxController {
           .orderBy('date_created')
           .snapshots();
     }
+  }
+  loadWeb(link,webViewController)async{
+    await webViewController.loadRequest(Uri.parse("https://api.eraphilippines.com/proxy.php?url=${base64Encode(link)}"));
+    return true;
   }
 }

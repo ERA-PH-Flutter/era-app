@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../app/constants/assets.dart';
+import '../../../../app/constants/screens.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../../../../app/widgets/listings/agentInfo-widget.dart';
@@ -306,9 +307,7 @@ class AgentListings extends GetView<AgentListingsController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
+    return Screens.loading();
   }
 
   _error() {

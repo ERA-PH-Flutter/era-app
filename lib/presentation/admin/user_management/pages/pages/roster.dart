@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../../repository/logs.dart';
 import '../../../../../repository/user.dart';
 
 class Roster extends GetView<AgentAdminController> {
@@ -76,9 +77,12 @@ class Roster extends GetView<AgentAdminController> {
                   stream: controller.searchStream,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      List<EraUser> users = snapshot.data!.docs.map((doc) {
-                        return EraUser.fromJSON(doc.data());
-                      }).toList();
+                      List<EraUser> users = [];
+                      for (var doc in snapshot.data!.docs) {
+                        if(doc.data()['status'] == "approved"){
+                          users.add( EraUser.fromJSON(doc.data()));
+                        }
+                      }
                       return rosterGridview(listingModels: users);
                     } else {
                       return Center(
@@ -360,6 +364,10 @@ class Roster extends GetView<AgentAdminController> {
                                 }, Icons.edit),
                                 menuOptions("Delete", () async {
                                   await listingModels[i].delete();
+                                  await Logs(
+                                      title: "${user!.firstname} ${user!.lastname} remove an agent with ID ${listingModels[i].eraId}",
+                                      type: "account"
+                                  ).add();
                                 }, Icons.delete_rounded),
                               ])),
                         ],

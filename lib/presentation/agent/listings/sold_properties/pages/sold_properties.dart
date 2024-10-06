@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../app/constants/screens.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../controllers/sold_properties_controller.dart';
 
@@ -40,11 +41,7 @@ class SoldProperties extends GetView<SoldPropertiesController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(
-        color: AppColors.primary,
-      ),
-    );
+    return Screens.loading();
   }
 
   _loaded() {

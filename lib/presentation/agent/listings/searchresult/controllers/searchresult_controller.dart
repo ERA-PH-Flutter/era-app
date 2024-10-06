@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,7 @@ class SearchResultController extends GetxController {
   var data = [].obs;
   var searchQuery = ''.obs;
   var expanded = false.obs;
+  Widget? quickLinks;
 
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();
@@ -57,6 +59,7 @@ class SearchResultController extends GetxController {
   void onInit() async {
     data.clear();
     searchResultState.value = SearchResultState.loading;
+    quickLinks = await QuickLinksModel().initialize();
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {
         var tempData = [];

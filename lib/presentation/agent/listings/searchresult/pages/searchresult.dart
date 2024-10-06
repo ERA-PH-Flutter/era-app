@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../../../../app/constants/screens.dart';
 import '../../../../../app/services/firebase_database.dart';
 import '../../../../../app/widgets/filteredsearch_box.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
@@ -47,14 +48,12 @@ class SearchResult extends GetView<SearchResultController> {
               SizedBox(height: 10.h),
               Obx(() {
                 if (controller.showFullSearch.value == false) {
-                  return QuickLinks(origin: 'search');
+                  return controller.quickLinks ?? Container();
                 }
                 return Container();
               }),
               Obx(() => switch (controller.searchResultState.value) {
-                    SearchResultState.loading => Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                    SearchResultState.loading => Screens.loading(height: 500.h),
                     SearchResultState.loaded => _loaded(),
                     SearchResultState.empty => _empty(),
                     SearchResultState.searching => _searching(),
@@ -260,9 +259,7 @@ class SearchResult extends GetView<SearchResultController> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: Text(
-                            listing.description == ""
-                                ? "No description."
-                                : listing.description!,
+                            listing.description ?? "No description.",
                             style: TextStyle(
                               fontSize: EraTheme.paragraph - 4.sp,
                               fontWeight: FontWeight.w500,

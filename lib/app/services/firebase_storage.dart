@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class CloudStorage {
     try {
       return await ref.child(docRef).getDownloadURL();
     } catch (e) {
-      return "Error: $e";
+      return await ref.child(AppStrings.noUserImageWhite).getDownloadURL();
     }
   }
 
@@ -44,11 +45,12 @@ class CloudStorage {
     try {
       return await ref.child(docRef).getData();
     } catch (e) {
+      return await ref.child(AppStrings.noUserImageWhite).getData();
       return "Error: $e";
     }
   }
 
-  imageLoader({ref, height, width, BoxFit? fit}){
+  Widget imageLoader({ref, height, width, BoxFit? fit}){
     return FutureBuilder(
       future: getFileDirect(docRef: ref),
       builder: (context, snapshot) {
@@ -139,21 +141,19 @@ class CloudStorage {
       await fileRef.putFile(file);
       return '$target/${customName ?? uploadFilename}';
     } catch (e,ex) {
-      print(ex);
-      return "error $e";
+      return "";
     }
   }
   Future<String> uploadFromMemory(
       {required file, required String target, customName}) async {
     try {
       var filename = "${Random().nextInt(100)}";
-      var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename";
+      var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename.png";
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putData(file);
       return '$target/${customName ?? uploadFilename}';
     } catch (e,ex) {
-      print(ex);
-      return "error $e";
+      return "";
     }
   }
 
@@ -165,7 +165,7 @@ class CloudStorage {
       await imageRef.putFile(image);
       return await imageRef.getDownloadURL();
     } catch (e) {
-      return "Error: $e";
+      return "";
     }
   }
 }

@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/models/navbaritems.dart';
 import '../../../../app/widgets/custom_appbar.dart';
@@ -172,12 +173,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
   }
 
   _loading() {
-    return Container(
-      height: 250.h,
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return Screens.loading();
   }
 
   Widget soldProperties() {
@@ -525,7 +521,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
             scrollDirection: Axis.horizontal,
             child: StreamBuilder(
               stream:
-                  FirebaseFirestore.instance.collection('users').snapshots(),
+                  FirebaseFirestore.instance.collection('users').where('status',isEqualTo: 'approved').snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());

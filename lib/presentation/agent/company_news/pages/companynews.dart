@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/constants/screens.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../controllers/companynews_controller.dart';
 
@@ -34,9 +35,7 @@ class CompanyNews extends GetView<CompanyNewsController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
+    return Screens.loading();
   }
 
   _loaded() {

@@ -17,6 +17,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/models/geocode.dart';
+import '../../../../app/widgets/era_place_search.dart';
+import '../../../../repository/logs.dart';
 import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 //todo add text
 
@@ -79,57 +81,70 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                   height: 10.h,
                 ),
                 //with dropdown
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 126.h,
-                        width: Get.width / 2.5,
-                        child: AddListings.dropDownAddlistings(
-                            padding: EdgeInsets.zero,
-                            selectedItem:
-                                addListingsController.selectedPropertyT,
-                            Types: addListingsController.propertyT,
-                            onChanged: (value) => addListingsController
-                                .selectedPropertyT.value = value!,
-                            name: 'Property Type *',
-                            hintText: 'Edit Property Type'),
+                Row(
+                  children: [
+                    Container(
+                      height: 126.h,
+                      width: Get.width / 2.5,
+                      child: AddListings.dropDownAddlistings(
+                          padding: EdgeInsets.zero,
+                          selectedItem:
+                              addListingsController.selectedPropertyT,
+                          Types: addListingsController.propertyT,
+                          onChanged: (value) => addListingsController
+                              .selectedPropertyT.value = value!,
+                          name: 'Property Type *',
+                          hintText: 'Edit Property Type'),
+                    ),
+                    SizedBox(
+                      height: 126.h,
+                      width: Get.width / 2.46,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 37.h,
+                          ),
+                          Button(
+                            height: 65.h,
+                            width: Get.width / 2.2,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: EraTheme.paddingWidth),
+                            fontSize: 20.sp,
+                            bgColor: Colors.red,
+                            text: 'Pick Address',
+                            onTap: () {
+                              controller.state.value = AdminEditState.picker;
+                            },
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 126.h,
-                        width: Get.width / 2.46,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 37.h,
-                            ),
-                            Button(
-                              height: 65.h,
-                              width: Get.width / 2.2,
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: EraTheme.paddingWidth),
-                              fontSize: 20.sp,
-                              bgColor: Colors.red,
-                              text: 'Pick Address',
-                              onTap: () {
-                                controller.state.value = AdminEditState.picker;
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                AddListings.buildWidget(
-                  'Address',
-                  TextformfieldWidget(
-                    controller: addListingsController.addressController,
-                    hintText: 'Address',
-                    maxLines: 1,
-                    keyboardType: TextInputType.text,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    EraText(
+                        text: "Listing Location ( Search or Pick )",
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.black),
+                    SizedBox(height: 5.h),
+                    Container(
+                      width: Get.width,
+                      child: EraPlaceSearch(
+                        textFieldController: addListingsController.addressController,
+                        callback: (coordinate)async{
+                          addListingsController.latLng = coordinate;
+                          addListingsController.add = await GeoCode(
+                              apiKey: "65d99e660931a611004109ogd35593a",
+                              lat: coordinate.latitude.toDouble(),
+                              lng: coordinate.longitude.toDouble()).reverse();
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                  ],
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.w),
@@ -434,6 +449,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                         BaseController().showLoading();
                         try {
                           await Listing(
+                              by: user!.id,
                               name: addListingsController
                                   .propertyNameController.text,
                               price: addListingsController
@@ -471,6 +487,10 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                 addListingsController.latLng!.latitude,
                                 addListingsController.latLng!.longitude
                               ]).addListing(addListingsController.images, user!.id);
+                          await Logs(
+                              title: "${user!.firstname} ${user!.lastname} added a listing with ID ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5,"0")}",
+                              type: "listing"
+                          ).add();
                           settings!.listingCount = settings!.listingCount! + 1;
                           await settings!.update();
                           addListingsController.showSuccessDialog(
@@ -478,7 +498,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                 BaseController().hideLoading();
                                 Get.delete<AddListingsController>();
                                 Get.put(AddListingsController());
-                                Get.back();
+                                Get.back();Get.back();
                                 addListingsController.clearFields();
                               },
                               title: "Add Listing Success",
@@ -567,11 +587,6 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                 height: 48.h,
                 text: "Okay",
                 onTap: () {
-                  // if (hitApi != null) {
-
-                  // }
-                  // if (Get.isDialogOpen!)
-                  Get.back();
                   Get.back();
                   Get.back();
                 },

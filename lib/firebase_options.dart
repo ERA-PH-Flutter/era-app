@@ -20,10 +20,7 @@ class DefaultFirebaseOptions {
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -38,18 +35,18 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyCrXRGnJ-hpElTnPLxIE704fFM3lwl8hdU',
-    appId: '1:257014263809:web:85279409769d3d91a5d000',
+    appId: '1:257014263809:web:a0cba9c3920db78ca5d000',
     messagingSenderId: '257014263809',
     projectId: 'era-philippines',
     authDomain: 'era-philippines.firebaseapp.com',
     databaseURL: 'https://era-philippines-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'era-philippines.appspot.com',
-    measurementId: 'G-K82XTSHE26',
+    measurementId: 'G-HC2V4GL3H1',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCwxVU4RDoho0zmAeOXXq0uCZU6Z0f4X-0',
-    appId: '1:257014263809:android:731c812a8c42fb06a5d000',
+    appId: '1:257014263809:android:193a889a88338716a5d000',
     messagingSenderId: '257014263809',
     projectId: 'era-philippines',
     databaseURL: 'https://era-philippines-default-rtdb.asia-southeast1.firebasedatabase.app',
@@ -58,11 +55,25 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAsD7EsR8OnW8DyQkDWSP1nuDBPl354NEg',
-    appId: '1:257014263809:ios:e5cb464872527d44a5d000',
+    appId: '1:257014263809:ios:d6c71c3d03513eb0a5d000',
     messagingSenderId: '257014263809',
     projectId: 'era-philippines',
     databaseURL: 'https://era-philippines-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'era-philippines.appspot.com',
+    androidClientId: '257014263809-b31jjgg2rdkthgq5mq7q4th19gpad1ev.apps.googleusercontent.com',
+    iosClientId: '257014263809-o2o9dfanld2k15s001s6q8qjadbit6nc.apps.googleusercontent.com',
     iosBundleId: 'com.example.architecture',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyCrXRGnJ-hpElTnPLxIE704fFM3lwl8hdU',
+    appId: '1:257014263809:web:08e24fd88b505f7ba5d000',
+    messagingSenderId: '257014263809',
+    projectId: 'era-philippines',
+    authDomain: 'era-philippines.firebaseapp.com',
+    databaseURL: 'https://era-philippines-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'era-philippines.appspot.com',
+    measurementId: 'G-PEZPPZS910',
+  );
+
 }

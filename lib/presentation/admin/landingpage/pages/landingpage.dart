@@ -3,7 +3,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
-import 'package:eraphilippines/presentation/admin/contact_us/pages/contact_us_admin.dart';
+import 'package:eraphilippines/presentation/admin/setting/contact_us/pages/contact_us_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/about_us.dart';
 import 'package:eraphilippines/presentation/admin/faqs/pages/general_faq.dart';
 import 'package:eraphilippines/presentation/admin/news/pages/upload_news.dart';
@@ -17,7 +17,9 @@ import 'package:eraphilippines/presentation/admin/properties/pages/add_project_a
 import 'package:eraphilippines/presentation/admin/properties/pages/edit_listing_admin.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/propertyinformation.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/propertylisting_admin.dart';
-import 'package:eraphilippines/presentation/admin/sell_property/pages/sell_property_admin.dart';
+import 'package:eraphilippines/presentation/admin/setting/log_list/pages/log_list_admin.dart';
+import 'package:eraphilippines/presentation/admin/properties/pages/view_project.dart';
+import 'package:eraphilippines/presentation/admin/setting/sell_property/pages/sell_property_admin.dart';
 import 'package:eraphilippines/presentation/admin/statitics/pages/statistics_admin_old.dart';
 import 'package:eraphilippines/presentation/admin/trainings/pages/upload_training_admin.dart';
 import 'package:eraphilippines/presentation/admin/trainings/pages/view_all_training.dart';
@@ -58,6 +60,8 @@ class LandingPage extends GetView<LandingPageController> {
     ContactUsAdmin(), //16
     ViewAllTraining(), //17
     UploadTrainingAdmin(), //18
+    ViewProject(), //19
+    LogListAdmin(), //20
     // UploadNews(), //14
     // UploadNews(), //15
   ];
@@ -248,6 +252,8 @@ class LandingPage extends GetView<LandingPageController> {
             image: AppEraAssets.agentDash,
             children: [
               _buildMenuItem('ADD PROJECTS', 4),
+              _buildMenuItem('VIEW PROJECT', 19),
+
               _buildMenuItem('PROPERTY LISTINGS', 5),
               // _buildMenuItem('PROPERTY INFORMATION', 6),
               _buildMenuItem('ADD LISTINGS', 7),
@@ -285,6 +291,7 @@ class LandingPage extends GetView<LandingPageController> {
             children: [
               _buildMenuItem('SELLING PROPERTY', 15),
               _buildMenuItem('CONTACT US MANAGEMENT', 16),
+              _buildMenuItem('ACTIVITY LIST', 20),
 
               // _buildMenuItem('Agent FAQ’s', 12),
               // _buildMenuItem('Customer FAQ’s', 13),

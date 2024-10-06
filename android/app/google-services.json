@@ -8,12 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:257014263809:android:731c812a8c42fb06a5d000",
+        "mobilesdk_app_id": "1:257014263809:android:193a889a88338716a5d000",
         "android_client_info": {
-          "package_name": "com.example.architecture"
+          "package_name": "com.eraphilippines.android"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "257014263809-5u2avub5vvnk2jsqijrsks5tendpm48h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCwxVU4RDoho0zmAeOXXq0uCZU6Z0f4X-0"
@@ -21,7 +26,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257014263809-5u2avub5vvnk2jsqijrsks5tendpm48h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "257014263809-o2o9dfanld2k15s001s6q8qjadbit6nc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.architecture"
+              }
+            }
+          ]
         }
       }
     }

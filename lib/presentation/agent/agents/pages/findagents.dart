@@ -19,6 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../app/constants/screens.dart';
 import '../../../../app/services/ai_search.dart';
 
 class FindAgents extends GetView<AgentsController> {
@@ -245,7 +246,7 @@ class FindAgents extends GetView<AgentsController> {
                   SizedBox(height: 20.h),
                   FutureBuilder(
                     future: FirebaseFirestore.instance
-                        .collection('users')
+                        .collection('users').where('status',isEqualTo: 'approved')
                         .count()
                         .get(),
                     builder: (data, snapshot) {
@@ -264,7 +265,7 @@ class FindAgents extends GetView<AgentsController> {
                   ),
                   EraText(
                     text:
-                        "Your Go-To Professionals for Seemless Property Transactions",
+                        "Your Go-To Professionals for Seamless Property Transactions",
                     fontSize: EraTheme.small,
                     fontWeight: FontWeight.w600,
                     color: AppColors.hint,
@@ -293,9 +294,7 @@ class FindAgents extends GetView<AgentsController> {
   }
 
   _loading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
+    return Screens.loading();
   }
 
   _error() {

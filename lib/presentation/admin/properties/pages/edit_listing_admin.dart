@@ -12,6 +12,7 @@ import 'package:eraphilippines/presentation/admin/properties/controllers/listing
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +21,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/models/geocode.dart';
+import '../../../../app/widgets/era_place_search.dart';
+import '../../../../repository/logs.dart';
+import '../../../global.dart';
 
 //todo add new controller
 //done
@@ -136,14 +140,30 @@ class EditPropertyAdmin extends GetView<ListingsController> {
               ),
             ),
 
-            AddListings.buildWidget(
-              'Address',
-              TextformfieldWidget(
-                controller: addListingsController.addressController,
-                hintText: 'Address',
-                maxLines: 1,
-                keyboardType: TextInputType.text,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EraText(
+                    text: "Listing Location ( Search or Pick )",
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black),
+                SizedBox(height: 5.h),
+                Container(
+                  width: Get.width,
+                  child: EraPlaceSearch(
+                    textFieldController: addListingsController.addressController,
+                    callback: (coordinate)async{
+                      addListingsController.latLng = coordinate;
+                      addListingsController.add = await GeoCode(
+                          apiKey: "65d99e660931a611004109ogd35593a",
+                          lat: coordinate.latitude.toDouble(),
+                          lng: coordinate.longitude.toDouble()).reverse();
+                    },
+                  ),
+                ),
+                SizedBox(height: 20.h),
+              ],
             ),
             SizedBox(
               height: 10.h,
@@ -357,10 +377,29 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                 Button(
                   onTap: () async {
                     try {
+                      BaseController().showLoading();
                       await addListingsController.updateListing();
-                      Get.delete<AddListingsController>();
-                      Get.find<LandingPageController>().onSectionSelected(5);
-                    } catch (e) {}
+                      await Logs(
+                          title: "${user!.firstname} ${user!.lastname} edited a listing with ID ${addListingsController.listing!.propertyId}",
+                          type: "listing"
+                      ).add();
+                      BaseController().showSuccessDialog(
+                        description: "Edit Listing Success",
+                        hitApi: (){
+                          Get.back();Get.back();
+                          Get.delete<AddListingsController>();
+                          Get.find<LandingPageController>().onSectionSelected(5);
+                        }
+                      );
+                    } catch (e,ex) {
+                      print(ex);
+                      BaseController().showErroDialog(
+                        description: e.toString(),
+                        onTap: (){
+
+                        }
+                      );
+                    }
                   },
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   width: 150.w,

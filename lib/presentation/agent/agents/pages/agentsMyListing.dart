@@ -13,6 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../app/constants/assets.dart';
+import '../../../../app/constants/screens.dart';
+import '../../../../app/constants/sized_box.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../controllers/agent_listings_controller.dart';
@@ -68,43 +70,79 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                   print(result);
                 },
                 menuItems: [
-                  popMenu(text: 'Category',isActive: controller.sortBy.value == 'category',onTap: (){
-                    controller.sortBy.value = 'category';
-                    controller.agentListingsState.value = AgentListingsState.loading;
-                    controller.listings.sort((a,b)=> a.type!.compareTo(b.type!));
-                    controller.agentListingsState.value = AgentListingsState.loaded;
-                  }),
-                  popMenu(text: 'Date',isActive: controller.sortBy.value == 'date',onTap: (){
-                    controller.sortBy.value = 'date';
-                    controller.agentListingsState.value = AgentListingsState.loading;
-                    controller.listings.sort((a,b)=> a.dateCreated!.compareTo(b.dateCreated!));
-                    controller.agentListingsState.value = AgentListingsState.loaded;
-                  }),
-                  popMenu(text: 'Location',isActive: controller.sortBy.value == 'location',onTap: (){
-                    controller.sortBy.value = 'location';
-                    controller.agentListingsState.value = AgentListingsState.loading;
-                    controller.listings.sort((a,b)=> a.location!.compareTo(b.location!));
-                    controller.agentListingsState.value = AgentListingsState.loaded;
-                  }),
-                  popMenu(text: 'Price',isActive: controller.sortBy.value == 'price',onTap: (){
-                    controller.sortBy.value = 'price';
-                    controller.agentListingsState.value = AgentListingsState.loading;
-                    controller.listings.sort((a,b)=> a.price!.compareTo(b.price!));
-                    controller.agentListingsState.value = AgentListingsState.loaded;
-                  }),
+                  popMenu(
+                      text: 'Category',
+                      isActive: controller.sortBy.value == 'category',
+                      onTap: () {
+                        controller.sortBy.value = 'category';
+                        controller.agentListingsState.value =
+                            AgentListingsState.loading;
+                        controller.listings
+                            .sort((a, b) => a.type!.compareTo(b.type!));
+                        controller.agentListingsState.value =
+                            AgentListingsState.loaded;
+                      }),
+                  popMenu(
+                      text: 'Date',
+                      isActive: controller.sortBy.value == 'date',
+                      onTap: () {
+                        controller.sortBy.value = 'date';
+                        controller.agentListingsState.value =
+                            AgentListingsState.loading;
+                        controller.listings.sort(
+                            (a, b) => a.dateCreated!.compareTo(b.dateCreated!));
+                        controller.agentListingsState.value =
+                            AgentListingsState.loaded;
+                      }),
+                  popMenu(
+                      text: 'Location',
+                      isActive: controller.sortBy.value == 'location',
+                      onTap: () {
+                        controller.sortBy.value = 'location';
+                        controller.agentListingsState.value =
+                            AgentListingsState.loading;
+                        controller.listings
+                            .sort((a, b) => a.location!.compareTo(b.location!));
+                        controller.agentListingsState.value =
+                            AgentListingsState.loaded;
+                      }),
+                  popMenu(
+                      text: 'Price',
+                      isActive: controller.sortBy.value == 'price',
+                      onTap: () {
+                        controller.sortBy.value = 'price';
+                        controller.agentListingsState.value =
+                            AgentListingsState.loading;
+                        controller.listings
+                            .sort((a, b) => a.price!.compareTo(b.price!));
+                        controller.agentListingsState.value =
+                            AgentListingsState.loaded;
+                      }),
                   PopupMenuDivider(),
-                  popMenu(text: 'Ascending',isActive: controller.sortOrder.value == 'asc',onTap: (){
-                    controller.sortOrder.value = 'asc';
-                    controller.agentListingsState.value = AgentListingsState.loading;
-                    controller.listings = controller.listings.reversed.toList();
-                    controller.agentListingsState.value = AgentListingsState.loaded;
-                  }),
-                  popMenu(text: 'Descending',isActive: controller.sortOrder.value == 'desc',onTap: (){
-                    controller.sortOrder.value = 'desc';
-                    controller.agentListingsState.value = AgentListingsState.loading;
-                    controller.listings = controller.listings.reversed.toList();
-                    controller.agentListingsState.value = AgentListingsState.loaded;
-                  }),
+                  popMenu(
+                      text: 'Ascending',
+                      isActive: controller.sortOrder.value == 'asc',
+                      onTap: () {
+                        controller.sortOrder.value = 'asc';
+                        controller.agentListingsState.value =
+                            AgentListingsState.loading;
+                        controller.listings =
+                            controller.listings.reversed.toList();
+                        controller.agentListingsState.value =
+                            AgentListingsState.loaded;
+                      }),
+                  popMenu(
+                      text: 'Descending',
+                      isActive: controller.sortOrder.value == 'desc',
+                      onTap: () {
+                        controller.sortOrder.value = 'desc';
+                        controller.agentListingsState.value =
+                            AgentListingsState.loading;
+                        controller.listings =
+                            controller.listings.reversed.toList();
+                        controller.agentListingsState.value =
+                            AgentListingsState.loaded;
+                      }),
                 ],
               ),
             ],
@@ -193,6 +231,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                             height: 30.h,
                             padding: EdgeInsets.symmetric(horizontal: 14.w),
                             child: EraText(
+                              lineHeight: 1.3,
                               textOverflow: TextOverflow.ellipsis,
                               text: listing.name! == ""
                                   ? "No Name"
@@ -346,7 +385,8 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                                           "Do you want to delete this listing?",
                                       hitApi: () async {
                                         BaseController().showLoading();
-                                        await CloudStorage().deleteAll(fileList: listing.photos!);
+                                        await CloudStorage().deleteAll(
+                                            fileList: listing.photos!);
                                         await Listing()
                                             .deleteListingsById(listing.id);
                                         BaseController().hideLoading();
@@ -460,12 +500,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
   }
 
   _loading() {
-    return SizedBox(
-      height: Get.height - 200.h,
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return Screens.loading();
   }
 
   _error() {
@@ -477,26 +512,28 @@ class AgentsMyListing extends GetView<AgentListingsController> {
     );
   }
 
-  popMenu({
-    required String text,
-    isActive = false,
-    required onTap,
-    style
-  }){
+  popMenu({required String text, isActive = false, required onTap, style}) {
     return PopupMenuItem<String>(
       onTap: onTap,
       value: text.toString().toLowerCase(),
-      child: Obx((){
+      child: Obx(() {
         controller.sortBy.value;
         controller.sortOrder.value;
         return Row(
           children: [
-            isActive ? Row(
-              children: [
-                Icon(Icons.check,color: AppColors.blue,),
-                SizedBox(width: 5.w,)
-              ],
-            ) : Container(),
+            isActive
+                ? Row(
+                    children: [
+                      Icon(
+                        Icons.check,
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      )
+                    ],
+                  )
+                : Container(),
             Text(
               text,
               style: style ?? TextStyle(),

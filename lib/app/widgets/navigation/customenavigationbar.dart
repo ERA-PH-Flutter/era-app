@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/homepage.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agent_listings_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
@@ -10,6 +11,7 @@ import 'package:eraphilippines/presentation/agent/listings/searchresult/controll
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/searchresult.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
+import 'package:eraphilippines/presentation/agent/projects/pages/projects_list.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +105,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             physics: NeverScrollableScrollPhysics(),
             children: [
               Home(),
-              ProjectMain(),
+              ProjectsList(),
               SearchResult(),
               FindAgents(),
               Help(),
@@ -120,9 +122,10 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                   Get.deleteAll();
                   Get.put(HomeController());
                 } else if (index == 1) {
-                  currentRoute = '/project-main';
+                  //currentRoute = '/project-main';
+                  currentRoute = '/project-list';
                   Get.deleteAll();
-                  Get.put(ProjectsController());
+                  Get.put(ProjectsListController());
                 } else if (index == 2) {
                   currentRoute = '/searchresult';
                   Get.deleteAll();

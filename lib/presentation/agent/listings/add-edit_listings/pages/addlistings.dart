@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/geocode.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/era_place_search.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:map_location_picker/map_location_picker.dart';
+import '../../../../../app/constants/screens.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
@@ -162,14 +164,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
   }
 
   _loading() {
-    return Center(
-      child: GestureDetector(
-          onTap: () {
-            print("Debug: Checking addListingsState value");
-            print(controller.addListingsState.value == AddListingsState.loaded);
-          },
-          child: CircularProgressIndicator()),
-    );
+    return Screens.loading();
   }
 
   _locationPick() {
@@ -291,15 +286,55 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             keyboardType: TextInputType.number,
           ),
         ),
-        AddListings.buildWidget(
-          'Address',
-          TextformfieldWidget(
-            controller: controller.addressController,
-            hintText: 'Address',
-            maxLines: 1,
-            keyboardType: TextInputType.text,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+              child: EraText(
+                  text: "Listing Location ( Search or Pick )",
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black),
+            ),
+            SizedBox(height: 5.h),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+              width: Get.width,
+              child: EraPlaceSearch(
+                textFieldController: controller.addressController,
+                callback: (coordinate)async{
+                  controller.latLng = coordinate;
+                  controller.add = await GeoCode(
+                    apiKey: "65d99e660931a611004109ogd35593a",
+                    lat: coordinate.latitude.toDouble(),
+                    lng: coordinate.longitude.toDouble()).reverse();
+                },
+              ),
+            ),
+            SizedBox(height: 20.h),
+          ],
         ),
+         // PlacesTextField(
+         //          onPredict: (Predict.Prediction postalCodeResponse) async {
+         //            controller.addressController.text = postalCodeResponse.description!;
+         //            controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
+         //            controller.add = await GeoCode(
+         //                apiKey: "65d99e660931a611004109ogd35593a",
+         //                lat: postalCodeResponse.lat!.toDouble(),
+         //                lng: postalCodeResponse.lng!.toDouble()).reverse();
+         //          },
+         //          textController: controller.addressController,
+         //        ),
+        // AddListings.buildWidget(
+        //   'Address',
+        //   TextformfieldWidget(
+        //     controller: controller.addressController,
+        //     hintText: 'Address',
+        //     maxLines: 1,
+        //     keyboardType: TextInputType.text,
+        //   ),
+        // ),
         SizedBox(
           height: 48.h,
           width: Get.width,
@@ -314,6 +349,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             },
           ),
         ),
+        SizedBox(height: 20.h),
         buildWidget(
           'Garage',
           TextformfieldWidget(
@@ -378,6 +414,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
 
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
+           print("ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}");
           if (controller.propertyNameController.text.isEmpty) {
             showErroDialogs(
               title: "Error",
@@ -476,7 +513,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           }
           BaseController().showLoading();
           try {
-            settings!.listingCount = settings!.listingCount! + 1;
+
             await Listing(
                 name: controller.propertyNameController.text,
                 price: controller.propertyCostController.text
@@ -495,6 +532,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 type: controller.selectedPropertyT.value.toString(),
                 subCategory:
                     controller.selectedPropertySubCategory.value.toString(),
+                by: user!.id,
                 description: controller.descController.text,
                 view: controller.selectedView.value.toString(),
                 address: controller.addressController.text,
@@ -503,7 +541,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                   controller.latLng!.latitude,
                   controller.latLng!.longitude
                 ]).addListing(controller.images, user!.id);
-
+            settings!.listingCount = settings!.listingCount! + 1;
             await settings!.update();
             controller.showSuccessDialog(
                 hitApi: () {
@@ -514,6 +552,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           } catch (e, ex) {
             print(e);
           }
+
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
       ],

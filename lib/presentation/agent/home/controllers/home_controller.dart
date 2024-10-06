@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
+import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,7 +36,8 @@ class HomeController extends GetxController {
   var news = [];
   List<Listing> listings = [];
   var listingImages = [];
-  final List<String> images = [];
+  final List<Widget> images = [];
+  Widget? quickLinks;
 
   var data = [].obs;
 
@@ -47,10 +51,21 @@ class HomeController extends GetxController {
     try {
       if (settings!.banners != null) {
         for (int i = 0; i < settings!.banners!.length; i++) {
-          images.add(settings!.banners![i]);
+          var img = CachedNetworkImageProvider(
+           await CloudStorage().getFileDirect(docRef: settings!.banners![i]),
+          );
+          await precacheImage(img, Get.context!);
+          images.add(Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: img
+              )
+            ),
+          ));
         }
       }
-      print(images);
+      quickLinks = await QuickLinksModel().initialize();
       await getNews();
       await getImages();
       await getListings();
@@ -66,9 +81,10 @@ class HomeController extends GetxController {
   getNews() async {
     if (settings!.featuredNews!.isNotEmpty) {
       for (int i = 0; i < settings!.featuredNews!.length; i++) {
-        settings!.featuredNews![i] != ''
-            ? news.add(await News(id: settings!.featuredNews![i]).getNews())
-            : null;
+        if(settings!.featuredNews![i] != ''){
+
+          news.add(await News(id: settings!.featuredNews![i]).getNews());
+        }
       }
     }
   }

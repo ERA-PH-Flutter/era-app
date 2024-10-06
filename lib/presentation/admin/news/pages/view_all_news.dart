@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/app_text.dart';
+import '../../../../repository/logs.dart';
 import '../../../../repository/news.dart';
 import '../../../global.dart';
 
@@ -237,27 +238,20 @@ class ViewAllNews extends GetView<NewsController> {
                                                             ],
                                                           ),
                                                         )),
-                                                    _menuOptions("Edit",
-                                                        () async {
-                                                      //todo move to edit
-                                                    }, Icons.edit),
-                                                    _menuOptions(
-                                                        settings!.featuredNews!
-                                                                .contains(
-                                                                    news.id)
+                                                    _menuOptions(settings!.featuredNews!.contains(news.id)
                                                             ? "Remove from Featured"
                                                             : "Add to Featured",
                                                         () async {
-                                                      controller
-                                                              .newsState.value =
-                                                          NewsState.loading;
-                                                      await settings!
-                                                          .addToFeaturedNews(
-                                                              news.id);
-                                                      controller
-                                                              .newsState.value =
-                                                          NewsState.loaded;
-                                                    }, Icons.add_circle),
+                                                      controller.newsState.value = NewsState.loading;
+                                                      await settings!.addToFeaturedNews(news.id);
+                                                      await Logs(
+                                                          title: "news with ID ${news.id} has been remove to featured news by ${user!.firstname} ${user!.lastname}",
+                                                          type: "news"
+                                                      ).add();
+                                                      controller.newsState.value = NewsState.loaded;
+                                                    }, settings!.featuredNews!
+                                                            .contains(
+                                                            news.id) ? Icons.remove_circle : Icons.add_circle),
                                                     _menuOptions("Delete",
                                                         () async {
                                                       await news.deleteNews();
@@ -265,7 +259,7 @@ class ViewAllNews extends GetView<NewsController> {
                                                           .deleteFileDirect(
                                                               docRef:
                                                                   news.image!);
-                                                    }, Icons.delete_rounded),
+                                                    }, Icons.delete_rounded ),
                                                     SizedBox(
                                                       height: 20.h,
                                                     )

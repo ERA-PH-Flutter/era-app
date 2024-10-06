@@ -1,10 +1,8 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -13,8 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:map_location_picker/map_location_picker.dart';
+import '../../../../../app/constants/screens.dart';
 import '../../../../../app/models/geocode.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
+import '../../../../../app/widgets/era_place_search.dart';
 import '../controllers/addlistings_controller.dart';
 import 'addlistings.dart';
 
@@ -37,12 +37,7 @@ class EditListing extends GetView<AddListingsController> {
   }
 
   _loading() {
-    return SizedBox(
-      height: Get.height - 200.h,
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return Screens.loading();
   }
 
   _loaded() {
@@ -391,21 +386,50 @@ class EditListing extends GetView<AddListingsController> {
             },
           ),
         ),
-        AddListings.buildWidget(
-          'Address',
-          TextformfieldWidget(
-            controller: controller.addressController,
-            hintText: 'Address',
-            maxLines: 1,
-            keyboardType: TextInputType.text,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Address is required';
-              }
-
-              return null;
-            },
-          ),
+        // AddListings.buildWidget(
+        //   'Address',
+        //   TextformfieldWidget(
+        //     controller: controller.addressController,
+        //     hintText: 'Address',
+        //     maxLines: 1,
+        //     keyboardType: TextInputType.text,
+        //     validator: (value) {
+        //       if (value == null || value.isEmpty) {
+        //         return 'Address is required';
+        //       }
+        //
+        //       return null;
+        //     },
+        //   ),
+        // ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+              child: EraText(
+                  text: "Listing Location ( Search or Pick )",
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black),
+            ),
+            SizedBox(height: 5.h),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+              width: Get.width,
+              child: EraPlaceSearch(
+                textFieldController: controller.addressController,
+                callback: (coordinate)async{
+                  controller.latLng = coordinate;
+                  controller.add = await GeoCode(
+                      apiKey: "65d99e660931a611004109ogd35593a",
+                      lat: coordinate.latitude.toDouble(),
+                      lng: coordinate.longitude.toDouble()).reverse();
+                },
+              ),
+            ),
+            SizedBox(height: 20.h),
+          ],
         ),
         SizedBox(
           height: 48.h,
@@ -505,6 +529,12 @@ class EditListing extends GetView<AddListingsController> {
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
           controller.updateListing();
+          BaseController().showSuccessDialog(
+              description: "Edit Listing Success",
+              hitApi: (){
+                Get.back();
+              }
+          );
         }, 'UPDATE LISTING'),
         SizedBox(height: 20.h),
       ],

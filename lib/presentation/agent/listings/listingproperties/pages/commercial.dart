@@ -35,7 +35,7 @@ class Commercial extends GetView<ListingController> {
                   if (searchController.showFullSearch.value) {
                     return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [QuickLinks()]);
+                        children: [searchController.quickLinks ?? Container()]);
                   }
                   return Container();
                 }),
