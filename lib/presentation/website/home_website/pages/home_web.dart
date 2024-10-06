@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
+import 'package:eraphilippines/app/models/settings.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -690,92 +691,102 @@ class HomeWeb extends GetView<HomeWebController> {
 }
 
 Widget _uploadPreviewPhotos() {
-  List<UploadPhotoData> photos = [
-    UploadPhotoData(
-      text: 'Preselling',
-      image: settings!.preSellingPicture != null
-          ? CloudStorage().imageLoader(ref: settings!.preSellingPicture)
-          : null,
-    ),
-    UploadPhotoData(
-      text: 'Residential',
-      image: settings!.residentialPicture != null
-          ? CloudStorage().imageLoader(ref: settings!.residentialPicture)
-          : null,
-    ),
-    UploadPhotoData(
-      text: 'Auction',
-      image: settings!.auctionPicture != null
-          ? CloudStorage().imageLoader(ref: settings!.auctionPicture)
-          : null,
-    ),
-    UploadPhotoData(
-      text: 'Rental',
-      image: settings!.rentalPicture != null
-          ? CloudStorage().imageLoader(ref: settings!.rentalPicture)
-          : null,
-    ),
-    UploadPhotoData(
-      text: 'Commercial',
-      image: settings!.commercialPicture != null
-          ? CloudStorage().imageLoader(ref: settings!.commercialPicture)
-          : null,
-    ),
-  ];
-
   return StaggeredGridView.countBuilder(
     shrinkWrap: true,
     physics: NeverScrollableScrollPhysics(),
     crossAxisCount: 3,
-    itemCount: photos.length,
+    itemCount: 5,
     itemBuilder: (context, index) {
-      final photo = photos[index];
-      return Column(
-        children: [
-          _buildUploadPhoto(
+      switch (index) {
+        case 0:
+          return _buildUploadPhoto(
             text: 'Preselling',
-            image: settings!.preSellingPicture != null
+            image: settings?.preSellingPicture != null
                 ? CloudStorage().imageLoader(ref: settings!.preSellingPicture)
                 : null,
-          ),
-        ],
-      );
+          );
+        case 1:
+          return _buildUploadPhoto(
+            text: 'Residential',
+            image: settings?.residentialPicture != null
+                ? CloudStorage().imageLoader(ref: settings!.residentialPicture)
+                : null,
+          );
+        case 2:
+          return _buildUploadPhoto(
+            text: 'Commercial',
+            image: settings?.commercialPicture != null
+                ? CloudStorage().imageLoader(ref: settings!.commercialPicture)
+                : null,
+          );
+        case 3:
+          return _buildUploadPhoto(
+            text: 'Rental',
+            image: settings?.rentalPicture != null
+                ? CloudStorage().imageLoader(ref: settings!.rentalPicture)
+                : null,
+          );
+
+        case 4:
+          return _buildUploadPhoto(
+            text: 'Auction',
+            image: settings?.auctionPicture != null
+                ? CloudStorage().imageLoader(ref: settings!.auctionPicture)
+                : null,
+          );
+        default:
+          return SizedBox.shrink();
+      }
     },
     staggeredTileBuilder: (index) {
-      return photos[index].text == 'Auction'
-          ? StaggeredTile.count(1, 2)
-          : StaggeredTile.count(1, 1);
+      if (index == 4) {
+        return StaggeredTile.count(2, 1);
+      } else {
+        return StaggeredTile.count(1, 1);
+      }
     },
   );
 }
 
-Widget _buildUploadPhoto({text, image}) {
+Widget _buildUploadPhoto({required String text, Widget? image}) {
   return Stack(
     children: [
       GestureDetector(
         onTap: () {},
-        child: Container(
-            //color: AppColors.black,
-            margin: EdgeInsets.only(right: 20.w, bottom: 20.h),
-            decoration: BoxDecoration(
-              color: AppColors.black,
-              borderRadius: BorderRadius.only(topRight: Radius.circular(30)),
-            ),
-            width: Get.width,
-            height: Get.height,
-            child:
-                //  image ?? Image.asset(AppEraAssets.noImageWhite)
-
-                CloudStorage().imageLoader(ref: settings!.auctionPicture)),
+        child: image != null
+            ? Container(
+                margin: EdgeInsets.only(right: 20.w, bottom: 20.h),
+                height: Get.height,
+                width: Get.width,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20.r),
+                  ),
+                  child: Container(
+                      height: Get.height, width: Get.width, child: image),
+                ),
+              )
+            : Image.asset(
+                AppEraAssets.noImageWhite,
+                fit: BoxFit.cover,
+              ),
       ),
       Positioned(
         bottom: 20,
         left: 10,
         child: EraText(
-          text: text!,
-          fontSize: EraTheme.header,
-          color: AppColors.white,
-          fontWeight: FontWeight.bold,
+          text: text,
+          style: TextStyle(
+              fontSize: EraTheme.headerWeb - 5.sp,
+              color: AppColors.white,
+              fontWeight: FontWeight.bold,
+              shadows: const [
+                Shadow(
+                  color: Colors.black,
+                  blurRadius: 5,
+                  offset: Offset(2, 2),
+                )
+              ]),
         ),
       )
     ],
