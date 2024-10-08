@@ -75,26 +75,26 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                   ),
                   child: Stack(
                     children: [
-                      Container(
-                        width: Get.width,
-                        height: Get.height,
-                        child: CloudStorage().imageLoader(
-                            ref: controller.listing!.photos!.isNotEmpty
-                                ? controller.listing!.photos!.first
-                                : AppStrings.noUserImageWhite),
-                      ),
+                      // Container(
+                      //   width: Get.width,
+                      //   height: Get.height,
+                      //   child: CloudStorage().imageLoader(
+                      //       ref: controller.listing!.photos!.isNotEmpty
+                      //           ? controller.listing!.photos!.first
+                      //           : AppStrings.noUserImageWhite),
+                      // ),
                       Positioned(
-                        bottom: -10.h,
+                        bottom: 0.h,
                         child: Container(
-                          height: 250.h,
-                          color: AppColors.kRedColor,
                           width: Get.width,
+                          height: 250.h,
                           padding: EdgeInsets.all(EraTheme.paddingWidthSmall),
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 5.w),
                                   width: Get.width / 7,
                                   decoration: BoxDecoration(
                                     border: Border.all(
