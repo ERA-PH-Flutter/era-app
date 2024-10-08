@@ -75,9 +75,8 @@ class Home extends GetView<HomeController> {
                             borderRadius: BorderRadius.circular(0),
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(0),
-                            child: image
-                          ),
+                              borderRadius: BorderRadius.circular(0),
+                              child: image),
                         );
                       }).toList(),
                       options: CarouselOptions(
@@ -237,12 +236,13 @@ class Home extends GetView<HomeController> {
                   },
                   child: Container(
                     height: Get.height,
+                    width: Get.width,
                     child: Column(
                       children: [
                         Column(
-                          children: ProjectViews(
-                                  project: controller.projects[index])
-                              .HomebuildPreview(),
+                          children:
+                              ProjectViews(project: controller.projects[index])
+                                  .HomebuildPreview(),
                         ),
                       ],
                     ),
@@ -431,7 +431,7 @@ class Home extends GetView<HomeController> {
                               sb17(),
                               Container(
                                 width: Get.width,
-                                height: 30.h,
+                                height: 40.h,
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: EraText(
                                   textOverflow: TextOverflow.ellipsis,
@@ -441,6 +441,7 @@ class Home extends GetView<HomeController> {
                                   fontSize: EraTheme.header - 5.sp,
                                   color: AppColors.kRedColor,
                                   fontWeight: FontWeight.bold,
+                                  lineHeight: 2,
                                 ),
                               ),
                               Padding(
@@ -721,6 +722,7 @@ class Home extends GetView<HomeController> {
         SizedBox(
           height: 20.h,
         ),
+
         /// join us today
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
@@ -777,6 +779,7 @@ class Home extends GetView<HomeController> {
   _loading() {
     return Screens.loading();
   }
+
   _error() {
     return Screens.error();
   }

@@ -30,7 +30,7 @@ class SearchResult extends GetView<SearchResultController> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 height: 10.h,
@@ -40,6 +40,7 @@ class SearchResult extends GetView<SearchResultController> {
                 fontSize: 26.sp,
                 fontWeight: FontWeight.bold,
                 color: AppColors.kRedColor,
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 10.h,
@@ -159,7 +160,7 @@ class SearchResult extends GetView<SearchResultController> {
                         ),
                         Container(
                           width: Get.width,
-                          height: 30.h,
+                          height: 40.h,
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: EraText(
                             textOverflow: TextOverflow.ellipsis,
@@ -168,6 +169,7 @@ class SearchResult extends GetView<SearchResultController> {
                             fontSize: EraTheme.header - 5.sp,
                             color: AppColors.kRedColor,
                             fontWeight: FontWeight.bold,
+                            lineHeight: 2,
                           ),
                         ),
                         Padding(

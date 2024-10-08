@@ -1,22 +1,12 @@
-import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/constants/sized_box.dart';
-import 'package:eraphilippines/app/services/firebase_database.dart';
-import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../app/constants/assets.dart';
 import '../../../../app/constants/screens.dart';
-import '../../../../app/constants/theme.dart';
-import '../../../../app/services/ai_search.dart';
-import '../../../../app/widgets/app_text.dart';
-import '../../../../app/widgets/app_textfield.dart';
-import '../../../../app/widgets/box_widget.dart';
+
 import '../../../../app/widgets/project_views.dart';
-import '../../../../app/widgets/search_widget.dart';
+
 import '../../../admin/properties/controllers/project_list_controller.dart';
 import '../../../admin/properties/controllers/project_view_binding.dart';
 //todo add text
@@ -48,8 +38,8 @@ class ProjectsList extends GetView<ProjectsListController> {
   }
 
   _loaded() {
-    final SearchResultController searchController =
-        Get.put(SearchResultController());
+    // final SearchResultController searchController =
+    //     Get.put(SearchResultController());
     return Container(
       height: Get.height,
       child: SingleChildScrollView(

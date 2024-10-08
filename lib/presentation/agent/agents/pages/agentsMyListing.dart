@@ -228,10 +228,10 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                           ),
                           Container(
                             width: Get.width,
-                            height: 30.h,
+                            height: 40.h,
                             padding: EdgeInsets.symmetric(horizontal: 14.w),
                             child: EraText(
-                              lineHeight: 1.3,
+                                  lineHeight: 2,
                               textOverflow: TextOverflow.ellipsis,
                               text: listing.name! == ""
                                   ? "No Name"

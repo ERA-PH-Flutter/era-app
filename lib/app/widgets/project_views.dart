@@ -653,7 +653,7 @@ class ProjectViews {
       if (block['type'] == "Project Logo") {
         preview[2] = CloudStorage().imageLoaderProvider(
           ref: block['image'],
-          height: 120.h,
+          height: 170.h,
           width: Get.width,
         );
       }
@@ -743,8 +743,8 @@ class ProjectViews {
       if (block['type'] == "Project Logo") {
         preview[0] = CloudStorage().imageLoaderProvider(
           ref: block['image'],
-          height: 91.h,
-          width: 241.h,
+          height: 170.h,
+          width: Get.width,
         );
       }
       if (block['type'] == "Developer Name") {

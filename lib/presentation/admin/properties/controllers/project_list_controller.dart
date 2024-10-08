@@ -16,10 +16,12 @@ class ProjectsListController extends GetxController {
   var projects = [].obs;
   @override
   void onInit() async {
-    projects.value =
-        (await FirebaseFirestore.instance.collection('projects').get())
-            .docs
-            .map((doc) {
+    projects.value = (await FirebaseFirestore.instance
+            .collection('projects')
+            .orderBy('order_id')
+            .get())
+        .docs
+        .map((doc) {
       return Project.fromJSON(doc.data());
     }).toList();
     projectsListState.value = ProjectsListState.loaded;

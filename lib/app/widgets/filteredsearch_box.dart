@@ -173,14 +173,14 @@ class FilteredSearchBox extends StatelessWidget {
                         //         selectedPriceSearch.value = value!,
                         //     name: 'Price Range',
                         //     hintText: 'Select Price Range'),
-
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             EraText(
-                                text: 'Select Price Range',
-                                fontSize: 18.sp,
-                                color: AppColors.white),
+                              text: 'Select Price Range',
+                              fontSize: 18.sp,
+                              color: AppColors.white,
+                            ),
                             SizedBox(height: 5.h),
                             Container(
                               height: 50.h,
@@ -197,7 +197,6 @@ class FilteredSearchBox extends StatelessWidget {
                                   focusColor: AppColors.hint,
                                   iconEnabledColor: Colors.black,
                                   isExpanded: true,
-                                  isDense: false,
                                   value: selectedPriceRange.value.isEmpty
                                       ? null
                                       : selectedPriceRange.value,
@@ -211,6 +210,78 @@ class FilteredSearchBox extends StatelessWidget {
                                     ),
                                   ),
                                   items: [
+                                    DropdownMenuItem(
+                                      value: '2',
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Expanded(
+                                            child: TextformfieldWidget(
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 10.h),
+                                              controller: areaMin,
+                                              hintText: 'Min Price',
+                                              obscureText: false,
+                                              color: AppColors.black,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              borderSide: BorderSide.none,
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                    width: 1.0),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(width: 10.w),
+                                          Expanded(
+                                            child: TextformfieldWidget(
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 10.h),
+                                              controller: areaMax,
+                                              hintText: 'Max Price',
+                                              obscureText: false,
+                                              color: AppColors.black,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              borderSide: BorderSide.none,
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                    width: 1.0),
+                                              ),
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              // String customPriceRange =
+                                              //     '${areaMin.text} - ${areaMax.text}';
+
+                                              // selectedPriceRange.value.isEmpty
+                                              //     ? selectedPriceRange.value =
+                                              //         customPriceRange
+                                              //     : selectedPriceRange.value =
+                                              //         selectedPriceRange
+                                              //             .value;
+
+                                              Get.back();
+                                            },
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  WidgetStateProperty.all(
+                                                      AppColors.hint
+                                                          .withOpacity(0.5)),
+                                            ),
+                                            icon: Icon(Icons.check),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                     ...priceSearch.map((price) {
                                       return DropdownMenuItem<String>(
                                         value: price,
@@ -220,73 +291,6 @@ class FilteredSearchBox extends StatelessWidget {
                                         ),
                                       );
                                     }).toList(),
-                                    DropdownMenuItem(
-                                      value: '2',
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: SizedBox(
-                                              width: 90.w,
-                                              height: 50.h,
-                                              child: TextformfieldWidget(
-                                                controller: areaMin,
-                                                hintText: 'Min Price',
-                                                obscureText: false,
-                                                color: AppColors.black,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                borderSide: BorderSide.none,
-                                                border: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black,
-                                                      width: 1.0),
-                                                ),
-                                                enabledBorder:
-                                                    UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black,
-                                                      width: 1.0),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          sbw10(),
-                                          Expanded(
-                                            child: SizedBox(
-                                              width: 90.w,
-                                              height: 50.h,
-                                              child: TextformfieldWidget(
-                                                contentPadding: EdgeInsets.only(
-                                                    top: 20.h,
-                                                    bottom: 0.h,
-                                                    left: 10.w,
-                                                    right: 0.w),
-                                                controller: areaMax,
-                                                hintText: 'Max Price',
-                                                obscureText: false,
-                                                color: AppColors.black,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                borderSide: BorderSide.none,
-                                                border: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black,
-                                                      width: 1.0),
-                                                ),
-                                                enabledBorder:
-                                                    UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black,
-                                                      width: 1.0),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
                                   ],
                                   onChanged: (value) {
                                     selectedPriceRange.value = value!;
