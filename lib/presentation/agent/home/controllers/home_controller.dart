@@ -84,7 +84,7 @@ class HomeController extends GetxController {
   getProjects()async{
     if (settings!.featuredProjects != null) {
       for (int i = 0; i < settings!.featuredProjects!.length; i++) {
-        projects.add(Project.getById( settings!.featuredProjects![i]));
+        projects.add(await Project.getById(settings!.featuredProjects![i]));
       }
     }
   }
