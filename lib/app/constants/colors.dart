@@ -8,7 +8,7 @@ class AppColors {
   static Color textFieldBackground = const Color(0xffEFF1F6);
   static Color kPrimaryColor = const Color(0xFF6F35A5);
   static Color blue = const Color(0xFF0D3279);
-  static Color kRedColor = const Color.fromARGB(255, 138, 11, 11);
+  static Color kRedColor = const Color(0xFF8A0B0B);
   static Color carouselBgColor = const Color(0xFFC5B4A1);
   static Color carouselBgColor1 = const Color(0xFF79BA5E);
   static Color maroon = const Color(0xFF920337);

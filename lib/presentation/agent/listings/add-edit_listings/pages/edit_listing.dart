@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:map_location_picker/map_location_picker.dart';
+import 'package:reorderables/reorderables.dart';
 import '../../../../../app/constants/screens.dart';
 import '../../../../../app/models/geocode.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
@@ -169,55 +170,64 @@ class EditListing extends GetView<AddListingsController> {
               ),
             );
           } else {
-            return GridView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 10.h,
-                  crossAxisSpacing: 10.h,
-                ),
-                itemCount: controller.images.length,
-                itemBuilder: (context, index) {
-                  return Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: FileImage(controller.images[index]),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Obx(
-                        () => Visibility(
-                          visible: controller.removeImage.value,
-                          child: Positioned(
-                            top: 5,
-                            right: 5,
-                            child: GestureDetector(
-                              onTap: () async {
-                                //controller.listing?.photos![index];
-                                await FirebaseStorage.instance
-                                    .ref(controller.listing?.photos![index])
-                                    .delete();
-                                controller.listing?.photos?.removeAt(index);
-                                await controller.listing?.updateListing();
-                                controller.removeAt(index);
-                              },
-                              child: Icon(
-                                CupertinoIcons.xmark_circle_fill,
-                                color: Colors.black.withOpacity(0.7),
+            return Padding(
+              padding: EdgeInsets.only(left: 30.h),
+              child: Obx(
+                () => ReorderableWrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    maxMainAxisCount: 3,
+                    onReorder: (oldIndex, newIndex) {
+                      if (oldIndex < newIndex) {
+                        newIndex -= 1;
+                      }
+                      final item = controller.images.removeAt(oldIndex);
+                      controller.images.insert(newIndex, item);
+                    },
+                    children: List.generate(controller.images.length, (index) {
+                      return Stack(
+                        key: ValueKey(index),
+                        children: [
+                          Container(
+                            height: 120.h,
+                            width: Get.width / 3.5,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                image: FileImage(controller.images[index]),
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  );
-                });
+                          Obx(
+                            () => Visibility(
+                              visible: controller.removeImage.value,
+                              child: Positioned(
+                                top: 5,
+                                right: 5,
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    //controller.listing?.photos![index];
+                                    await FirebaseStorage.instance
+                                        .ref(controller.listing?.photos![index])
+                                        .delete();
+                                    controller.listing?.photos?.removeAt(index);
+                                    await controller.listing?.updateListing();
+                                    controller.removeAt(index);
+                                  },
+                                  child: Icon(
+                                    CupertinoIcons.xmark_circle_fill,
+                                    color: Colors.black.withOpacity(0.7),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    })),
+              ),
+            );
           }
         }),
 
@@ -419,12 +429,13 @@ class EditListing extends GetView<AddListingsController> {
               width: Get.width,
               child: EraPlaceSearch(
                 textFieldController: controller.addressController,
-                callback: (coordinate)async{
+                callback: (coordinate) async {
                   controller.latLng = coordinate;
                   controller.add = await GeoCode(
-                      apiKey: "65d99e660931a611004109ogd35593a",
-                      lat: coordinate.latitude.toDouble(),
-                      lng: coordinate.longitude.toDouble()).reverse();
+                          apiKey: "65d99e660931a611004109ogd35593a",
+                          lat: coordinate.latitude.toDouble(),
+                          lng: coordinate.longitude.toDouble())
+                      .reverse();
                 },
               ),
             ),
@@ -531,10 +542,9 @@ class EditListing extends GetView<AddListingsController> {
           controller.updateListing();
           BaseController().showSuccessDialog(
               description: "Edit Listing Success",
-              hitApi: (){
+              hitApi: () {
                 Get.back();
-              }
-          );
+              });
         }, 'UPDATE LISTING'),
         SizedBox(height: 20.h),
       ],

@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:map_location_picker/map_location_picker.dart';
+import 'package:reorderables/reorderables.dart';
 import '../../../../../app/constants/screens.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../repository/listing.dart';
@@ -125,27 +126,60 @@ class AddListings extends GetView<AddListingsController> with BaseController {
               ),
             );
           } else {
-            return GridView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 10.h,
-                  crossAxisSpacing: 10.h,
-                ),
-                itemCount: controller.images.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: FileImage(controller.images[index]),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                });
+            return Padding(
+              padding: EdgeInsets.only(left: 30.h),
+              child: Obx(() => ReorderableWrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  maxMainAxisCount: 3,
+                  onReorder: (oldIndex, newIndex) {
+                    if (oldIndex < newIndex) {
+                      newIndex -= 1;
+                    }
+                    final item = controller.images.removeAt(oldIndex);
+                    controller.images.insert(newIndex, item);
+                  },
+                  children: List.generate(controller.images.length, (index) {
+                    return Stack(
+                      key: ValueKey(index),
+                      children: [
+                        Container(
+                          height: 120.h,
+                          width: Get.width / 3.5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: FileImage(controller.images[index]),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }))),
+            );
+
+            //  GridView.builder(
+            //     shrinkWrap: true,
+            //     padding: EdgeInsets.symmetric(horizontal: 20.w),
+            //     physics: NeverScrollableScrollPhysics(),
+            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 3,
+            //       mainAxisSpacing: 10.h,
+            //       crossAxisSpacing: 10.h,
+            //     ),
+            //     itemCount: controller.images.length,
+            //     itemBuilder: (context, index) {
+            //       return Container(
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(10),
+            //           image: DecorationImage(
+            //             image: FileImage(controller.images[index]),
+            //             fit: BoxFit.cover,
+            //           ),
+            //         ),
+            //       );
+            //     });
           }
         }),
 
@@ -303,29 +337,30 @@ class AddListings extends GetView<AddListingsController> with BaseController {
               width: Get.width,
               child: EraPlaceSearch(
                 textFieldController: controller.addressController,
-                callback: (coordinate)async{
+                callback: (coordinate) async {
                   controller.latLng = coordinate;
                   controller.add = await GeoCode(
-                    apiKey: "65d99e660931a611004109ogd35593a",
-                    lat: coordinate.latitude.toDouble(),
-                    lng: coordinate.longitude.toDouble()).reverse();
+                          apiKey: "65d99e660931a611004109ogd35593a",
+                          lat: coordinate.latitude.toDouble(),
+                          lng: coordinate.longitude.toDouble())
+                      .reverse();
                 },
               ),
             ),
             SizedBox(height: 20.h),
           ],
         ),
-         // PlacesTextField(
-         //          onPredict: (Predict.Prediction postalCodeResponse) async {
-         //            controller.addressController.text = postalCodeResponse.description!;
-         //            controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
-         //            controller.add = await GeoCode(
-         //                apiKey: "65d99e660931a611004109ogd35593a",
-         //                lat: postalCodeResponse.lat!.toDouble(),
-         //                lng: postalCodeResponse.lng!.toDouble()).reverse();
-         //          },
-         //          textController: controller.addressController,
-         //        ),
+        // PlacesTextField(
+        //          onPredict: (Predict.Prediction postalCodeResponse) async {
+        //            controller.addressController.text = postalCodeResponse.description!;
+        //            controller.latLng = LatLng(postalCodeResponse.lat!.toDouble(), postalCodeResponse.lng!.toDouble());
+        //            controller.add = await GeoCode(
+        //                apiKey: "65d99e660931a611004109ogd35593a",
+        //                lat: postalCodeResponse.lat!.toDouble(),
+        //                lng: postalCodeResponse.lng!.toDouble()).reverse();
+        //          },
+        //          textController: controller.addressController,
+        //        ),
         // AddListings.buildWidget(
         //   'Address',
         //   TextformfieldWidget(
@@ -414,7 +449,8 @@ class AddListings extends GetView<AddListingsController> with BaseController {
 
         SizedBox(height: 20.h),
         Button.button2(390.w, 50.h, () async {
-           print("ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}");
+          print(
+              "ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}");
           if (controller.propertyNameController.text.isEmpty) {
             showErroDialogs(
               title: "Error",
@@ -513,7 +549,6 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           }
           BaseController().showLoading();
           try {
-
             await Listing(
                 name: controller.propertyNameController.text,
                 price: controller.propertyCostController.text
@@ -536,7 +571,8 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 description: controller.descController.text,
                 view: controller.selectedView.value.toString(),
                 address: controller.addressController.text,
-                propertyId: "ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}",
+                propertyId:
+                    "ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, '0')}",
                 latLng: [
                   controller.latLng!.latitude,
                   controller.latLng!.longitude
@@ -552,7 +588,6 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           } catch (e, ex) {
             print(e);
           }
-
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
       ],
@@ -579,7 +614,8 @@ class AddListings extends GetView<AddListingsController> with BaseController {
   }
 
   static Widget textBuild(
-      String text, double fontSize, FontWeight fontWeight, Color color,{padding}) {
+      String text, double fontSize, FontWeight fontWeight, Color color,
+      {padding}) {
     return Padding(
         padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(

@@ -58,9 +58,9 @@ class Nextpage extends GetView<LoginPageController> {
                       ),
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
-                          name: 'N/A if not applicable',
+                          name: 'Who is your Recruiter',
                           textInputType: TextInputType.text,
-                          hintText: 'Who is your Recruiter',
+                          hintText: 'N/A if not applicable',
                           controller: controller.recruiter),
                       SizedBox(height: 20.h),
                       SharedWidgets.dropDown(

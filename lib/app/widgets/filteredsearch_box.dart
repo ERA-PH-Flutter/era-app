@@ -45,7 +45,8 @@ class FilteredSearchBox extends StatelessWidget {
   var floorAreaMax = TextEditingController();
   var ppsqmMin = TextEditingController();
   var ppsqmMax = TextEditingController();
-
+  var lotAreaMin = TextEditingController();
+  var lotAreaMax = TextEditingController();
   var isForSale = 0.obs;
   var selectedLocation = RxnString();
   var selectedPriceRange = "".obs;
@@ -368,8 +369,8 @@ class FilteredSearchBox extends StatelessWidget {
                                   floorAreaMin: floorAreaMin,
                                   ppsqmMin: ppsqmMin,
                                   ppsqmMax: ppsqmMax,
-                                  areaMax: areaMax,
-                                  areaMin: areaMin);
+                                  areaMax: lotAreaMin,
+                                  areaMin: lotAreaMax);
                             },
                             label: EraText(
                               text: 'More Filters',

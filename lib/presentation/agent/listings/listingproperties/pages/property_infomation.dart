@@ -141,38 +141,46 @@ class PropertyInformation extends GetView<ListingController> {
                       child: SizedBox(
                         width: Get.width,
                         height: 70.h,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: controller.images.length,
-                          itemBuilder: (context, index) {
-                            final image = controller.images[index];
-                            final isSelected =
-                                controller.currentImage.value == image;
-
-                            return GestureDetector(
-                              onTap: () {
-                                controller.currentImage.value = image;
+                        child: Builder(builder: (context) {
+                          for (int i = 0; i > controller.images.length; i++) {
+                            controller.currentImage.value =
+                                controller.images[i];
+                          }
+                          return Obx(() {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: controller.images.length,
+                              itemBuilder: (context, index) {
+                                final image = controller.images[index];
+                                final isSelected =
+                                    controller.currentImage.value == image;
+                                return GestureDetector(
+                                  onTap: () {
+                                    controller.currentImage.value = image;
+                                  },
+                                  child: Container(
+                                    decoration: isSelected
+                                        ? BoxDecoration(
+                                            border: Border.all(
+                                              color: AppColors.hint,
+                                              width: 5,
+                                            ),
+                                          )
+                                        : null,
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 7.w),
+                                    child: CloudStorage().imageLoader(
+                                      ref: controller.images[index],
+                                      width: Get.width / 6,
+                                      height: Get.height,
+                                    ),
+                                  ),
+                                );
                               },
-                              child: Container(
-                                decoration: isSelected
-                                    ? BoxDecoration(
-                                        border: Border.all(
-                                          color: AppColors.hint,
-                                          width: 5,
-                                        ),
-                                      )
-                                    : null,
-                                margin: EdgeInsets.symmetric(horizontal: 7.w),
-                                child: CloudStorage().imageLoader(
-                                  ref: controller.images[index],
-                                  width: Get.width / 6,
-                                  height: Get.height,
-                                ),
-                              ),
                             );
-                          },
-                        ),
+                          });
+                        }),
                       ),
                     ),
                     Obx(() {
