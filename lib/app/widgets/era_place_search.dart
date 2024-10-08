@@ -20,7 +20,7 @@ class EraPlaceSearch extends StatefulWidget {
 }
 
 class _EraPlaceSearchState extends State<EraPlaceSearch> {
-  int timer = 2;
+  int timer = 1;
   bool isReady = false;
   Timer? clock;
   int count = 0;
