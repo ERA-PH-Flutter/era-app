@@ -66,7 +66,7 @@ class _EraPlaceSearchState extends State<EraPlaceSearch> {
             onChanged: (value)async{
               currentText.value = value;
               if(!isReady && clock == null){
-                clock = Timer.periodic(Duration(milliseconds: 500), (t)async{
+                clock = Timer.periodic(Duration(milliseconds: 400), (t)async{
                   if(count  == timer){
                     clock!.cancel();
                     clock = null;
