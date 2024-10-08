@@ -42,6 +42,11 @@ class Project{
         toMap()
     );
   }
+  static getById(id)async{
+    return Project.fromJSON(
+        (await FirebaseFirestore.instance.collection('projects').doc(id).get()).data()!
+    );
+  }
   updateProject()async{
     await db.collection('projects').doc(id).update(toMap());
   }

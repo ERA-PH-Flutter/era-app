@@ -59,8 +59,6 @@ class Home extends GetView<HomeController> {
   }
 
   _loaded() {
-    ProjectsListController projectController =
-        Get.put(ProjectsListController());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -229,13 +227,13 @@ class Home extends GetView<HomeController> {
           child: ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: projectController.projects.length,
+              itemCount: controller.projects.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
                     Get.to(ProjectView(),
                         binding: ProjectViewBinding(),
-                        arguments: projectController.projects[index]);
+                        arguments: controller.projects[index]);
                   },
                   child: Container(
                     height: Get.height,
@@ -243,7 +241,7 @@ class Home extends GetView<HomeController> {
                       children: [
                         Column(
                           children: ProjectViews(
-                                  project: projectController.projects[index])
+                                  project: controller.projects[index])
                               .HomebuildPreview(),
                         ),
                       ],

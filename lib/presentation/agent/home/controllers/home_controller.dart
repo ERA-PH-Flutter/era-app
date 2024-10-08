@@ -15,6 +15,7 @@ import '../../../../app/models/propertieslisting.dart';
 import '../../../../app/services/local_storage.dart';
 import '../../../../repository/listing.dart';
 import '../../../../repository/news.dart';
+import '../../../../repository/project.dart';
 
 enum HomeState {
   loading,
@@ -37,6 +38,7 @@ class HomeController extends GetxController {
   List<Listing> listings = [];
   var listingImages = [];
   final List<Widget> images = [];
+  List projects = [];
   Widget? quickLinks;
 
   var data = [].obs;
@@ -69,6 +71,7 @@ class HomeController extends GetxController {
       await getNews();
       await getImages();
       await getListings();
+      await getProjects();
       //await Future.delayed(Duration(seconds: 1,milliseconds: 500));
       homeState.value = HomeState.loaded;
     } catch (e) {
@@ -76,6 +79,14 @@ class HomeController extends GetxController {
       homeState.value = HomeState.error;
     }
     super.onInit();
+  }
+
+  getProjects()async{
+    if (settings!.featuredProjects != null) {
+      for (int i = 0; i < settings!.featuredProjects!.length; i++) {
+        projects.add(Project.getById( settings!.featuredProjects![i]));
+      }
+    }
   }
 
   getNews() async {

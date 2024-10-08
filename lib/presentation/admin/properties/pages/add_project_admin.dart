@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -138,6 +139,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                               : user!.id,
                                           'date_created': DateTime.now(),
                                           'date_updated': DateTime.now(),
+                                          'order_id' :(await FirebaseFirestore.instance.collection('projects').get()).docs.length,
                                           'data': controller.projectLego
                                         });
                                         await project.add();
@@ -996,7 +998,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                       Obx(() {
                         if (controller.projectLego.value.length != 0) {
                           return ReorderableListView.builder(
-                            key: Key('awawa'),
+                            key: Key('addProjects'),
                             shrinkWrap: true,
                             onReorder: (oldIndex, newIndex) {
                               if (oldIndex < newIndex) {
