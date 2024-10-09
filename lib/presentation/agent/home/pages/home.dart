@@ -221,23 +221,19 @@ class Home extends GetView<HomeController> {
         //   }
         // }),
 
-        Container(
-          height: Get.height,
-          child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: controller.projects.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Get.to(ProjectView(),
-                        binding: ProjectViewBinding(),
-                        arguments: controller.projects[index]);
-                  },
-                  child: Container(
-                    height: Get.height,
-                    width: Get.width,
-                    child: Column(
+        Wrap(
+          children: [
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.projects.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(ProjectView(),
+                          binding: ProjectViewBinding(),
+                          arguments: controller.projects[index]);
+                    },
+                    child: Wrap(
                       children: [
                         Column(
                           children:
@@ -246,9 +242,9 @@ class Home extends GetView<HomeController> {
                         ),
                       ],
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+          ],
         ),
         // sb90(),
 
