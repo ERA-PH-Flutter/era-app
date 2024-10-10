@@ -93,7 +93,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
           onWillPop: () async {
             BaseController().showSuccessDialog(
                 title: "Confirm Exit",
-                description: "Do want to Exit?",
+                description: "Do you to want to Exit?",
                 cancelable: true,
                 hitApi: () {
                   Platform.isAndroid ? SystemNavigator.pop() : exit(0);
