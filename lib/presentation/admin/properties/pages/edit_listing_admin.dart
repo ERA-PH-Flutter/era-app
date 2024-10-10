@@ -311,24 +311,29 @@ class EditPropertyAdmin extends GetView<ListingsController> {
             ),
             SizedBox(height: 10.h),
             Obx(() {
+              print(addListingsController.listing!.photos);
               if (addListingsController.images.isEmpty) {
                 return AddAgent.buildUploadPhoto();
               } else {
                 return Obx(
                   () => ReorderableWrap(
                     onReorder: (oldIndex, newIndex) {
-                      if (oldIndex < newIndex) {
-                        newIndex -= 1;
-                      }
+                      // if (oldIndex < newIndex) {
+                      //   newIndex -= 1;
+                      // }
                       //testing
                       if (oldIndex != newIndex) {
-                        var oldItem =  addListingsController.listing!.photos![oldIndex];
-                        var newItem =  addListingsController.listing!.photos![newIndex];
-                        addListingsController.listing!.photos![oldIndex] = newItem;
-                        addListingsController.listing!.photos![newIndex] = oldItem;
+                        var oldItem =
+                            addListingsController.listing!.photos![oldIndex];
+                        var newItem =
+                            addListingsController.listing!.photos![newIndex];
+                        addListingsController.listing!.photos![oldIndex] =
+                            newItem;
+                        addListingsController.listing!.photos![newIndex] =
+                            oldItem;
 
-                        var oldImage =  addListingsController.images[oldIndex];
-                        var newImage =  addListingsController.images[newIndex];
+                        var oldImage = addListingsController.images[oldIndex];
+                        var newImage = addListingsController.images[newIndex];
                         addListingsController.images[oldIndex] = newImage;
                         addListingsController.images[newIndex] = oldImage;
 

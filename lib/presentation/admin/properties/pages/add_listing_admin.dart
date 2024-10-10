@@ -277,18 +277,23 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                     return AddAgent.buildUploadPhoto();
                   } else {
                     return ReorderableWrap(
-                      onReorder: (oldIndex, newIndex) {
-                        if (oldIndex < newIndex) {
-                          newIndex -= 1;
-                        }
-                        final itemImage =
-                            addListingsController.images.removeAt(oldIndex);
+                   onReorder: (oldIndex, newIndex) {
+                      // if (oldIndex < newIndex) {
+                      //   newIndex -= 1;
+                      // }
+                      //testing
+                      if (oldIndex != newIndex) {
+                     
 
-                        addListingsController.images
-                            .insert(newIndex, itemImage);
+                        var oldImage = addListingsController.images[oldIndex];
+                        var newImage = addListingsController.images[newIndex];
+                        addListingsController.images[oldIndex] = newImage;
+                        addListingsController.images[newIndex] = oldImage;
 
-                        addListingsController.update();
-                      },
+                       } else {
+                        print('No change in order, indices are the same.');
+                      }
+                    },
                       children: List.generate(
                           addListingsController.images.length, (index) {
                         return Stack(
