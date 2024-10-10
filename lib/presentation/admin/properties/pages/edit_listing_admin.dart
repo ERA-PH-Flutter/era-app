@@ -322,16 +322,16 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                       }
                       //testing
                       if (oldIndex != newIndex) {
-                        final itemImage =
-                            addListingsController.images.removeAt(oldIndex);
-                        addListingsController.images
-                            .insert(newIndex, itemImage);
-                        addListingsController.listing!.photos!
-                            .removeAt(oldIndex);
-                        addListingsController.listing!.photos!.insert(
-                            newIndex,
-                            addListingsController.listing!.photos!
-                                .removeAt(oldIndex));
+                        var oldItem =  addListingsController.listing!.photos![oldIndex];
+                        var newItem =  addListingsController.listing!.photos![newIndex];
+                        addListingsController.listing!.photos![oldIndex] = newItem;
+                        addListingsController.listing!.photos![newIndex] = oldItem;
+
+                        var oldImage =  addListingsController.images[oldIndex];
+                        var newImage =  addListingsController.images[newIndex];
+                        addListingsController.images[oldIndex] = newImage;
+                        addListingsController.images[newIndex] = oldImage;
+
                         addListingsController.listing!.updateListing();
                       } else {
                         print('No change in order, indices are the same.');
