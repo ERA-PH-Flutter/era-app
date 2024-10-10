@@ -155,6 +155,16 @@ class CloudStorage {
       return "";
     }
   }
+  Future<String> uploadCustom(
+      {required File file, required customName}) async {
+    try {
+      var fileRef = ref.child('$customName');
+      await fileRef.putFile(file);
+      return '$customName';
+    } catch (e,ex) {
+      return "";
+    }
+  }
   Future<String> uploadFromMemory(
       {required file, required String target, customName}) async {
     try {

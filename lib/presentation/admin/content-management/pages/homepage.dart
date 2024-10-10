@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:eraphilippines/app/constants/assets.dart';
@@ -311,11 +312,17 @@ class HomePage extends GetView<ContentManagementController> {
                                       ),
                                     )),
                                 Roster.menuOptions("CHANGE ICON", () async {
-                                  controller.pickImageFromWeb().then((value) {
-                                    if (value != null) {
-                                      controller.changeCategoryIcon();
-                                    }
-                                  });
+                                  controller.homepageState.value = HomepageState.loading;
+                                  var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                                  if(image != null){
+                                    await CloudStorage().uploadCustom(file: File(image.path),customName: controller.categoryIcons[index]);
+                                  }
+                                  controller.homepageState.value = HomepageState.loaded;
+                                  // controller.pickImageFromWeb().then((value) {
+                                  //   if (value != null) {
+                                  //     controller.changeCategoryIcon[index] = value;
+                                  //   }
+                                  // });
                                 }, Icons.change_circle),
                                 SizedBox(
                                   height: 20.h,
