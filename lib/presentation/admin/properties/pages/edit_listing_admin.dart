@@ -19,6 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:reorderables/reorderables.dart';
 
 import '../../../../app/models/geocode.dart';
 import '../../../../app/widgets/era_place_search.dart';
@@ -152,13 +153,15 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                 Container(
                   width: Get.width,
                   child: EraPlaceSearch(
-                    textFieldController: addListingsController.addressController,
-                    callback: (coordinate)async{
+                    textFieldController:
+                        addListingsController.addressController,
+                    callback: (coordinate) async {
                       addListingsController.latLng = coordinate;
                       addListingsController.add = await GeoCode(
-                          apiKey: "65d99e660931a611004109ogd35593a",
-                          lat: coordinate.latitude.toDouble(),
-                          lng: coordinate.longitude.toDouble()).reverse();
+                              apiKey: "65d99e660931a611004109ogd35593a",
+                              lat: coordinate.latitude.toDouble(),
+                              lng: coordinate.longitude.toDouble())
+                          .reverse();
                     },
                   ),
                 ),
@@ -275,15 +278,21 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                     onPressed: () async {
                       var images = await ImagePicker().pickMultiImage();
 
-                      if(images.isNotEmpty){
+                      if (images.isNotEmpty) {
                         for (var image in images) {
-                          var uploadedImage = await CloudStorage().uploadFromMemory(file:await image.readAsBytes(), target: "listings/${addListingsController.listing!.by}",customName: "${DateTime.now().microsecondsSinceEpoch}_${Random().nextInt(100)}.png");
-                          addListingsController.listing!.photos!.add(uploadedImage);
+                          var uploadedImage = await CloudStorage().uploadFromMemory(
+                              file: await image.readAsBytes(),
+                              target:
+                                  "listings/${addListingsController.listing!.by}",
+                              customName:
+                                  "${DateTime.now().microsecondsSinceEpoch}_${Random().nextInt(100)}.png");
+                          addListingsController.listing!.photos!
+                              .add(uploadedImage);
                           await addListingsController.listing!.updateListing();
                           addListingsController.imagesRef.add(uploadedImage);
-                          addListingsController.images.add(await image.readAsBytes());
+                          addListingsController.images
+                              .add(await image.readAsBytes());
                         }
-
                       }
                     },
                     icon: Icon(
@@ -305,69 +314,74 @@ class EditPropertyAdmin extends GetView<ListingsController> {
               if (addListingsController.images.isEmpty) {
                 return AddAgent.buildUploadPhoto();
               } else {
-                return Container(
-                    child: GridView.builder(
-                        gridDelegate:
-                        SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                        ),
-                        shrinkWrap: true,
-                        //scrollDirection: Axis.horizontal,
-                        itemCount: addListingsController.images.length,
-                        itemBuilder: (context, index) {
-                          return Stack(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(
-                                    right: 10.w, bottom: 10.w),
-                                alignment: Alignment.center,
-                                height: 400.h,
-                                width: 400.w,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: MemoryImage(
-                                        addListingsController.images[index],
-                                      )),
-                                ),
-                              ),
-                              Positioned(
-                                top: 5.h,
-                                right: 0,
-                                child: IconButton(
-                                  icon: Icon(Icons.cancel),
-                                  onPressed: ()async{
-                                    addListingsController.images.removeAt(index);
-                                    await CloudStorage().deleteFileDirect(docRef: addListingsController.imagesRef[index]);
-                                    addListingsController.listing!.photos!.removeAt(index);
-                                    await addListingsController.listing!.updateListing();
-                                    addListingsController.imagesRef.removeAt(index);
-                                  },
-                                ),
-                              ),
-                            ],
-                          );
-                        }));
-                //return Image.memory(addListingsController.images.first);
-                // return GridView.builder(
-                //     shrinkWrap: true,
-                //     padding: EdgeInsets.symmetric(horizontal: 20.w),
-                //     physics: NeverScrollableScrollPhysics(),
-                //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                //       crossAxisCount: 3,
-                //       mainAxisSpacing: 10.h,
-                //       crossAxisSpacing: 10.h,
-                //     ),
-                //     itemCount: addListingsController.images.length,
-                //     itemBuilder: (context, index) {
-                //       return Container(
-                //
-                //       );
-                //     });
+                return Obx(
+                  () => ReorderableWrap(
+                    onReorder: (oldIndex, newIndex) {
+                      if (oldIndex < newIndex) {
+                        newIndex -= 1;
+                      }
+                      //testing
+                      if (oldIndex != newIndex) {
+                        final itemImage =
+                            addListingsController.images.removeAt(oldIndex);
+                        addListingsController.images
+                            .insert(newIndex, itemImage);
+                        addListingsController.listing!.photos!
+                            .removeAt(oldIndex);
+                        addListingsController.listing!.photos!.insert(
+                            newIndex,
+                            addListingsController.listing!.photos!
+                                .removeAt(oldIndex));
+                        addListingsController.listing!.updateListing();
+                      } else {
+                        print('No change in order, indices are the same.');
+                      }
+                    },
+                    children: List.generate(addListingsController.images.length,
+                        (index) {
+                      return Stack(
+                        children: [
+                          Container(
+                            key: ValueKey(index),
+                            margin: EdgeInsets.only(right: 10.w, bottom: 10.w),
+                            alignment: Alignment.center,
+                            height: 400.h,
+                            width: 500.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: MemoryImage(
+                                    addListingsController.images[index],
+                                  )),
+                            ),
+                          ),
+                          Positioned(
+                            top: 5.h,
+                            right: 0,
+                            child: IconButton(
+                              icon: Icon(Icons.cancel),
+                              onPressed: () async {
+                                addListingsController.images.removeAt(index);
+                                await CloudStorage().deleteFileDirect(
+                                    docRef:
+                                        addListingsController.imagesRef[index]);
+                                addListingsController.listing!.photos!
+                                    .removeAt(index);
+                                await addListingsController.listing!
+                                    .updateListing();
+                                addListingsController.imagesRef.removeAt(index);
+                              },
+                            ),
+                          )
+                        ],
+                      );
+                    }),
+                  ),
+                );
               }
             }),
-            // AddAgent.buildUploadPhoto(),
+            // AddAgent.buildUploadPhoto(),{}
             // SizedBox(
             //   height: 10.h,
             // ),
@@ -380,25 +394,23 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                       BaseController().showLoading();
                       await addListingsController.updateListing();
                       await Logs(
-                          title: "${user!.firstname} ${user!.lastname} edited a listing with ID ${addListingsController.listing!.propertyId}",
-                          type: "listing"
-                      ).add();
+                              title:
+                                  "${user!.firstname} ${user!.lastname} edited a listing with ID ${addListingsController.listing!.propertyId}",
+                              type: "listing")
+                          .add();
                       BaseController().showSuccessDialog(
-                        description: "Edit Listing Success",
-                        hitApi: (){
-                          Get.back();Get.back();
-                          Get.delete<AddListingsController>();
-                          Get.find<LandingPageController>().onSectionSelected(5);
-                        }
-                      );
-                    } catch (e,ex) {
+                          description: "Edit Listing Success",
+                          hitApi: () {
+                            Get.back();
+                            Get.back();
+                            Get.delete<AddListingsController>();
+                            Get.find<LandingPageController>()
+                                .onSectionSelected(5);
+                          });
+                    } catch (e, ex) {
                       print(ex);
                       BaseController().showErroDialog(
-                        description: e.toString(),
-                        onTap: (){
-
-                        }
-                      );
+                          description: e.toString(), onTap: () {});
                     }
                   },
                   margin: EdgeInsets.symmetric(horizontal: 5),

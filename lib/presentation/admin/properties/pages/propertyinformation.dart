@@ -75,14 +75,14 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                   ),
                   child: Stack(
                     children: [
-                      // Container(
-                      //   width: Get.width,
-                      //   height: Get.height,
-                      //   child: CloudStorage().imageLoader(
-                      //       ref: controller.listing!.photos!.isNotEmpty
-                      //           ? controller.listing!.photos!.first
-                      //           : AppStrings.noUserImageWhite),
-                      // ),
+                      Container(
+                        width: Get.width,
+                        height: Get.height,
+                        child: CloudStorage().imageLoader(
+                            ref: controller.listing!.photos!.isNotEmpty
+                                ? controller.listing!.photos!.first
+                                : AppStrings.noUserImageWhite),
+                      ),
                       Positioned(
                         bottom: 0.h,
                         child: Container(

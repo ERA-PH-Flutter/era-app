@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:reorderables/reorderables.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/models/geocode.dart';
 import '../../../../app/widgets/era_place_search.dart';
@@ -88,8 +89,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                       width: Get.width / 2.5,
                       child: AddListings.dropDownAddlistings(
                           padding: EdgeInsets.zero,
-                          selectedItem:
-                              addListingsController.selectedPropertyT,
+                          selectedItem: addListingsController.selectedPropertyT,
                           Types: addListingsController.propertyT,
                           onChanged: (value) => addListingsController
                               .selectedPropertyT.value = value!,
@@ -133,13 +133,15 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                     Container(
                       width: Get.width,
                       child: EraPlaceSearch(
-                        textFieldController: addListingsController.addressController,
-                        callback: (coordinate)async{
+                        textFieldController:
+                            addListingsController.addressController,
+                        callback: (coordinate) async {
                           addListingsController.latLng = coordinate;
                           addListingsController.add = await GeoCode(
-                              apiKey: "65d99e660931a611004109ogd35593a",
-                              lat: coordinate.latitude.toDouble(),
-                              lng: coordinate.longitude.toDouble()).reverse();
+                                  apiKey: "65d99e660931a611004109ogd35593a",
+                                  lat: coordinate.latitude.toDouble(),
+                                  lng: coordinate.longitude.toDouble())
+                              .reverse();
                         },
                       ),
                     ),
@@ -274,63 +276,96 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                   if (addListingsController.images.isEmpty) {
                     return AddAgent.buildUploadPhoto();
                   } else {
-                    return Container(
-                        child: GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4,
+                    return ReorderableWrap(
+                      onReorder: (oldIndex, newIndex) {
+                        if (oldIndex < newIndex) {
+                          newIndex -= 1;
+                        }
+                        final itemImage =
+                            addListingsController.images.removeAt(oldIndex);
+
+                        addListingsController.images
+                            .insert(newIndex, itemImage);
+
+                        addListingsController.update();
+                      },
+                      children: List.generate(
+                          addListingsController.images.length, (index) {
+                        return Stack(
+                          children: [
+                            Container(
+                              key: ValueKey(index),
+                              margin:
+                                  EdgeInsets.only(right: 10.w, bottom: 10.w),
+                              alignment: Alignment.center,
+                              height: 400.h,
+                              width: 500.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: MemoryImage(
+                                    addListingsController.images[index],
+                                  ),
+                                ),
+                              ),
                             ),
-                            shrinkWrap: true,
-                            //scrollDirection: Axis.horizontal,
-                            itemCount: addListingsController.images.length,
-                            itemBuilder: (context, index) {
-                              return Stack(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        right: 10.w, bottom: 10.w),
-                                    alignment: Alignment.center,
-                                    height: 400.h,
-                                    width: 400.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: MemoryImage(
-                                            addListingsController.images[index],
-                                          )),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 5.h,
-                                    right: 0,
-                                    child: IconButton(
-                                      icon: Icon(Icons.cancel),
-                                      onPressed: () {
-                                        addListingsController.images
-                                            .removeAt(index);
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }));
-                    //return Image.memory(addListingsController.images.first);
-                    // return GridView.builder(
-                    //     shrinkWrap: true,
-                    //     padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    //     physics: NeverScrollableScrollPhysics(),
-                    //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    //       crossAxisCount: 3,
-                    //       mainAxisSpacing: 10.h,
-                    //       crossAxisSpacing: 10.h,
-                    //     ),
-                    //     itemCount: addListingsController.images.length,
-                    //     itemBuilder: (context, index) {
-                    //       return Container(
-                    //
-                    //       );
-                    //     });
+                            Positioned(
+                                top: 5.h,
+                                right: 0,
+                                child: IconButton(
+                                  icon: Icon(Icons.cancel),
+                                  onPressed: () {
+                                    addListingsController.images
+                                        .removeAt(index);
+                                  },
+                                ))
+                          ],
+                        );
+                      }),
+                    );
+
+                    // Container(
+                    //     child: GridView.builder(
+                    //         gridDelegate:
+                    //             SliverGridDelegateWithFixedCrossAxisCount(
+                    //           crossAxisCount: 4,
+                    //         ),
+                    //         shrinkWrap: true,
+                    //         //scrollDirection: Axis.horizontal,
+                    //         itemCount: addListingsController.images.length,
+                    //         itemBuilder: (context, index) {
+                    //           return Stack(
+                    //             children: [
+                    //               Container(
+                    //                 margin: EdgeInsets.only(
+                    //                     right: 10.w, bottom: 10.w),
+                    //                 alignment: Alignment.center,
+                    //                 height: 400.h,
+                    //                 width: 400.w,
+                    //                 decoration: BoxDecoration(
+                    //                   borderRadius: BorderRadius.circular(10),
+                    //                   image: DecorationImage(
+                    //                       fit: BoxFit.cover,
+                    //                       image: MemoryImage(
+                    //                         addListingsController.images[index],
+                    //                       )),
+                    //                 ),
+                    //               ),
+                    //               Positioned(
+                    //                 top: 5.h,
+                    //                 right: 0,
+                    //                 child: IconButton(
+                    //                   icon: Icon(Icons.cancel),
+                    //                   onPressed: () {
+                    //                     addListingsController.images
+                    //                         .removeAt(index);
+                    //                   },
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           );
+                    //         }));
                   }
                 }),
 
@@ -469,28 +504,24 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                   .toInt(),
                               status: addListingsController.selectedOfferT.value
                                   .toString(),
-                              propertyId: "ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5,"0")}",
+                              propertyId:
+                                  "ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, "0")}",
                               location: addListingsController.add.city,
-                              type: addListingsController
-                                  .selectedPropertyT.value
-                                  .toString(),
-                              subCategory: addListingsController
-                                  .selectedPropertySubCategory.value
-                                  .toString(),
-                              description:
-                                  addListingsController.descController.text,
-                              view: addListingsController.selectedView.value
-                                  .toString(),
-                              address:
-                                  addListingsController.addressController.text,
+                              type: addListingsController.selectedPropertyT.value.toString(),
+                              subCategory: addListingsController.selectedPropertySubCategory.value.toString(),
+                              description: addListingsController.descController.text,
+                              view: addListingsController.selectedView.value.toString(),
+                              address: addListingsController.addressController.text,
                               latLng: [
                                 addListingsController.latLng!.latitude,
                                 addListingsController.latLng!.longitude
-                              ]).addListing(addListingsController.images, user!.id);
+                              ]).addListing(
+                              addListingsController.images, user!.id);
                           await Logs(
-                              title: "${user!.firstname} ${user!.lastname} added a listing with ID ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5,"0")}",
-                              type: "listing"
-                          ).add();
+                                  title:
+                                      "${user!.firstname} ${user!.lastname} added a listing with ID ERA_listing${(settings!.listingCount! + 1).toString().padLeft(5, "0")}",
+                                  type: "listing")
+                              .add();
                           settings!.listingCount = settings!.listingCount! + 1;
                           await settings!.update();
                           addListingsController.showSuccessDialog(
@@ -498,7 +529,8 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                 BaseController().hideLoading();
                                 Get.delete<AddListingsController>();
                                 Get.put(AddListingsController());
-                                Get.back();Get.back();
+                                Get.back();
+                                Get.back();
                                 addListingsController.clearFields();
                               },
                               title: "Add Listing Success",
