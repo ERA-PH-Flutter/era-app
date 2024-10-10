@@ -636,11 +636,10 @@ class ProjectViews {
       Container(),
       Container(),
       Container(),
-      sb50(),
     ];
     for (var block in project.data!) {
       if (block['type'] == "Developer Name") {
-        preview[1] = Padding(
+        preview[0] = Padding(
           padding: EdgeInsets.only(top: 20.h),
           child: EraText(
             textAlign: TextAlign.center,
@@ -651,14 +650,14 @@ class ProjectViews {
         );
       }
       if (block['type'] == "Project Logo") {
-        preview[2] = CloudStorage().imageLoaderProvider(
+        preview[1] = CloudStorage().imageLoaderProvider(
           ref: block['image'],
           height: 170.h,
           width: Get.width,
         );
       }
       if (block['type'] == "Blurb") {
-        preview[3] = Container(
+        preview[2] = Container(
           padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -675,6 +674,7 @@ class ProjectViews {
               ),
               sb20(),
               description(text: block['description']),
+              sb40(),
             ],
           ),
         );
@@ -737,7 +737,6 @@ class ProjectViews {
       Container(),
       Container(),
       Container(),
-      sb50(),
     ];
     for (var block in project.data!) {
       if (block['type'] == "Project Logo") {

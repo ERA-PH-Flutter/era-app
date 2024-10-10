@@ -74,7 +74,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                             onPressed: () {
                               selectedIndex.value = 0;
                               currentRoute = '/home';
-                              Get.offAll(BaseScaffold(),binding: HomeBinding());
+                              Get.offAll(BaseScaffold(),
+                                  binding: HomeBinding());
                             },
                           )),
                 ],
@@ -86,7 +87,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                           ? StreamBuilder(
                               stream: FirebaseFirestore.instance
                                   .collection('messages')
-                                  .where("to", whereIn: ["all",user!.id]).snapshots(),
+                                  .where("to",
+                                      whereIn: ["all", user!.id]).snapshots(),
                               builder: (context, snapshot) {
                                 int count = 0;
                                 if (snapshot.hasData) {
@@ -167,11 +169,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                   children: [
                                     user != null
                                         ? _buildMenuCard('MY DASHBOARD', () {
-                                      currentRoute = '/agentDashBoard';
-                                      Get.offAllNamed("/agentDashBoard");
-                                    },
-                                        Get.currentRoute ==
-                                            '/agentDashBoard')
+                                            currentRoute = '/agentDashBoard';
+                                            Get.offAllNamed("/agentDashBoard");
+                                          },
+                                            Get.currentRoute ==
+                                                '/agentDashBoard')
                                         : Container(),
                                     _buildMenuCard('FIND PROPERTIES', () {
                                       currentRoute = '/findproperties';
@@ -179,16 +181,25 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                     }, Get.currentRoute == '/findproperties'),
                                     _buildMenuCard('PROJECTS', () {
                                       selectedIndex.value = 1;
-                                      pageViewController = PageController(initialPage: 1);
+                                      pageViewController =
+                                          PageController(initialPage: 1);
                                       currentRoute = '/project-main';
-                                      Get.offAll(BaseScaffold(),binding: ProjectsBinding());
-                                    }, currentRoute == '/project-main' || Get.currentRoute == '/project-main'),
+                                      Get.offAll(BaseScaffold(),
+                                          binding: ProjectsBinding());
+                                    },
+                                        currentRoute == '/project-main' ||
+                                            Get.currentRoute ==
+                                                '/project-main'),
                                     _buildMenuCard('FIND AGENTS', () {
                                       selectedIndex.value = 3;
-                                      pageViewController = PageController(initialPage: 3);
+                                      pageViewController =
+                                          PageController(initialPage: 3);
                                       currentRoute = '/findagents';
-                                      Get.offAll(BaseScaffold(),binding: AgentsBinding());
-                                    }, Get.currentRoute == '/findagents' || currentRoute == '/findagents'),
+                                      Get.offAll(BaseScaffold(),
+                                          binding: AgentsBinding());
+                                    },
+                                        Get.currentRoute == '/findagents' ||
+                                            currentRoute == '/findagents'),
                                     _buildMenuCard('ABOUT US', () {
                                       currentRoute = '/aboutus';
                                       Get.offAllNamed("/aboutus");

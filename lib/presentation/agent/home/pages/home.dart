@@ -220,32 +220,52 @@ class Home extends GetView<HomeController> {
         //     return Center(child: Text('No projects available'));
         //   }
         // }),
-
-        Wrap(
-          children: [
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: controller.projects.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(ProjectView(),
-                          binding: ProjectViewBinding(),
-                          arguments: controller.projects[index]);
-                    },
-                    child: Wrap(
-                      children: [
-                        Column(
-                          children:
-                              ProjectViews(project: controller.projects[index])
-                                  .HomebuildPreview(),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-          ],
-        ),
+        Builder(builder: (context) {
+          List<Widget> projects = [];
+          for (int i = 0; i < controller.projects.length; i++) {
+            projects.add(GestureDetector(
+              onTap: () {
+                Get.to(ProjectView(),
+                    binding: ProjectViewBinding(),
+                    arguments: controller.projects[i]);
+              },
+              child: Wrap(
+                children: [
+                  Column(
+                    children: ProjectViews(project: controller.projects[i])
+                        .HomebuildPreview(),
+                  ),
+                ],
+              ),
+            ));
+          }
+          return Column(children: projects);
+        }),
+        // Wrap(
+        //   children: [
+        //     ListView.builder(
+        //         shrinkWrap: true,
+        //         itemCount: controller.projects.length,
+        //         itemBuilder: (context, index) {
+        //           return GestureDetector(
+        //             onTap: () {
+        //               Get.to(ProjectView(),
+        //                   binding: ProjectViewBinding(),
+        //                   arguments: controller.projects[index]);
+        //             },
+        //             child: Wrap(
+        //               children: [
+        //                 Column(
+        //                   children:
+        //                       ProjectViews(project: controller.projects[index])
+        //                           .HomebuildPreview(),
+        //                 ),
+        //               ],
+        //             ),
+        //           );
+        //         }),
+        //   ],
+        // ),
         // sb90(),
 
         /// Projects

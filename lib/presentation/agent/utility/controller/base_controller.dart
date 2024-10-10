@@ -7,9 +7,8 @@ import '../../../../app/constants/colors.dart';
 import '../../../../app/widgets/app_text.dart';
 import '../../../../app/widgets/button.dart';
 
-mixin class BaseController{
-  showSuccessDialog(
-  {
+mixin class BaseController {
+  showSuccessDialog({
     VoidCallback? hitApi,
     String title = 'Success',
     String? description = 'Successfully',
@@ -53,6 +52,26 @@ mixin class BaseController{
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CupertinoButton(
+                    color: AppColors.primary,
+                    padding:
+                        EdgeInsets.symmetric(vertical: 5.h, horizontal: 20.w),
+                    onPressed: hitApi ??
+                        () {
+                          Get.back();
+                          // if (Get.isDialogOpen!)
+                        },
+                    child: Text(
+                      okayButton,
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 15.sp,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.w,
+                  ),
                   if (cancelable)
                     CupertinoButton(
                       onPressed: () {
@@ -66,25 +85,6 @@ mixin class BaseController{
                         ),
                       ),
                     ),
-                  SizedBox(
-                    height: 10.w,
-                  ),
-                  CupertinoButton(
-                    color: AppColors.primary,
-                    padding:
-                        EdgeInsets.symmetric(vertical: 5.h, horizontal: 20.w),
-                    onPressed: hitApi ?? (){
-                      Get.back();
-                      // if (Get.isDialogOpen!)
-                    },
-                    child: Text(
-                      okayButton,
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 15.sp,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ],
@@ -121,12 +121,11 @@ mixin class BaseController{
     Get.back();
   }
 
-  void showErroDialog({
-    VoidCallback? onTap,
-    String title = 'Error',
-    String? description = 'Something went wrong',
-    double? width
-  }) {
+  void showErroDialog(
+      {VoidCallback? onTap,
+      String title = 'Error',
+      String? description = 'Something went wrong',
+      double? width}) {
     showCupertinoDialog(
       barrierDismissible: false,
       context: Get.context!,

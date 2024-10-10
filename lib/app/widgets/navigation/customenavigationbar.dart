@@ -93,7 +93,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
           onWillPop: () async {
             BaseController().showSuccessDialog(
                 title: "Confirm Exit",
-                description: "Do you wanna exit ERA Philippines App?",
+                description: "Do you want to exit ERA Philippines App?",
                 cancelable: true,
                 hitApi: () {
                   Platform.isAndroid ? SystemNavigator.pop() : exit(0);
