@@ -312,10 +312,11 @@ class HomePage extends GetView<ContentManagementController> {
                                       ),
                                     )),
                                 Roster.menuOptions("CHANGE ICON", () async {
-                                  controller.homepageState.value = HomepageState.loading;
-                                  var image = await ImagePicker().pickImage(source: ImageSource.gallery);
-                                  if(image != null){
-                                    await CloudStorage().uploadCustom(file: File(image.path),customName: controller.categoryIcons[index]);
+                                  var i = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+                                  if(i != null){
+                                    controller.homepageState.value = HomepageState.loading;
+                                    print( await CloudStorage().uploadCustom(file: await i.readAsBytes(),customName: controller.categoryIcons[index]));
                                   }
                                   controller.homepageState.value = HomepageState.loaded;
                                   // controller.pickImageFromWeb().then((value) {
