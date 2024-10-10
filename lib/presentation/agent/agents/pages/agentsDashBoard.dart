@@ -25,9 +25,11 @@ import '../../../../app/constants/sized_box.dart';
 import '../../../../app/models/navbaritems.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../../../../app/widgets/navigation/app_nav_items.dart';
+import '../../../../app/widgets/navigation/customenavigationbar.dart';
 import '../../../../repository/user.dart';
 import '../../../global.dart';
 
+import '../../home/controllers/home_binding.dart';
 import '../../utility/controller/base_controller.dart';
 import '../controllers/agent_dashboard_controller.dart';
 
@@ -43,15 +45,11 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
         appBar: CustomAppbar(),
         body: WillPopScope(
           onWillPop: ()async{
-            BaseController().showSuccessDialog(
-                title: "Confirm Exit",
-                description: "Do you wanna exit ERA Philippines App?",
-                cancelable: true,
-                hitApi: (){
-                  Platform.isAndroid ? SystemNavigator.pop():  exit(0);
-                }
-            );
-            return Future.value(true);
+            selectedIndex.value = 0;
+            pageViewController = PageController(initialPage: 0);
+            currentRoute = '/home';
+            Get.offAll(BaseScaffold(),binding: HomeBinding());
+            return Future.value(false);
           },
           child: SingleChildScrollView(
             controller: controller.scrollController,

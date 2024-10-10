@@ -17,6 +17,8 @@ import 'package:get/get.dart';
 
 import '../../../../../app/widgets/button.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
+import '../../../../global.dart';
+import '../../../home/controllers/home_binding.dart';
 import '../../../utility/controller/base_controller.dart';
 
 class JoinEra extends StatelessWidget {
@@ -28,15 +30,11 @@ class JoinEra extends StatelessWidget {
       appBar: CustomAppbar(),
       body: WillPopScope(
         onWillPop: ()async{
-          BaseController().showSuccessDialog(
-              title: "Confirm Exit",
-              description: "Do you wanna exit ERA Philippines App?",
-              cancelable: true,
-              hitApi: (){
-                Platform.isAndroid ? SystemNavigator.pop():  exit(0);
-              }
-          );
-          return Future.value(true);
+          selectedIndex.value = 0;
+          pageViewController = PageController(initialPage: 0);
+          currentRoute = '/home';
+          Get.offAll(BaseScaffold(),binding: HomeBinding());
+          return Future.value(false);
         },
         child: SingleChildScrollView(
           child: SafeArea(

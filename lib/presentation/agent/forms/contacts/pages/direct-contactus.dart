@@ -1,17 +1,16 @@
-import 'dart:io';
-
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../app/constants/sized_box.dart';
+import '../../../../../app/widgets/navigation/customenavigationbar.dart';
+import '../../../../global.dart';
+import '../../../home/controllers/home_binding.dart';
 import '../../../listings/add-edit_listings/pages/addlistings.dart';
-import '../../../utility/controller/base_controller.dart';
 import '../controllers/contacts_controller.dart';
 import 'findus.dart';
 
@@ -25,15 +24,11 @@ class DirectContactUs extends GetView<ContactusController> {
       appBar: CustomAppbar(),
       body: WillPopScope(
         onWillPop: ()async{
-          BaseController().showSuccessDialog(
-              title: "Confirm Exit",
-              description: "Do you wanna exit ERA Philippines App?",
-              cancelable: true,
-              hitApi: (){
-                Platform.isAndroid ? SystemNavigator.pop():  exit(0);
-              }
-          );
-          return Future.value(true);
+          selectedIndex.value = 0;
+          pageViewController = PageController(initialPage: 0);
+          currentRoute = '/home';
+          Get.offAll(BaseScaffold(),binding: HomeBinding());
+          return Future.value(false);
         },
         child: SingleChildScrollView(
           child: SafeArea(
