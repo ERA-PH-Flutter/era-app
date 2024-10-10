@@ -97,7 +97,8 @@ class LoginPageController extends GetxController with BaseController {
             title: "Failed",
             description: "Account is deleted or Block by admin!");
       }
-    } else {
+    }
+    else {
       showSuccessDialog(
           hitApi: () {
             Get.back();

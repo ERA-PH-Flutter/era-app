@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -29,7 +30,29 @@ class LogListAdmin extends GetView<LogListAdminController> {
             fontWeight: FontWeight.bold,
           ),
           sb20(),
-          _builTextField('LOG MESSAGE: '),
+          StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('logs').orderBy('date_created').snapshots(),
+            builder: (context,snapshot){
+              if(snapshot.hasData){
+                var data = snapshot.data!.docs;
+                return SizedBox(
+                  height: Get.height-275.h,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: data.length,
+                    itemBuilder: (context,index){
+                      return _builTextField('LOG MESSAGE: ${data[index]['title']}');
+                    },
+                  ),
+                );
+              }else{
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          )
+
         ],
       ),
     ));

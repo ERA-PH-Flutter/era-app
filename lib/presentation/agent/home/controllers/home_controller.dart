@@ -74,8 +74,8 @@ class HomeController extends GetxController {
       await getProjects();
       //await Future.delayed(Duration(seconds: 1,milliseconds: 500));
       homeState.value = HomeState.loaded;
-    } catch (e) {
-      print(e);
+    } catch (e,ex) {
+      print(ex);
       homeState.value = HomeState.error;
     }
     super.onInit();

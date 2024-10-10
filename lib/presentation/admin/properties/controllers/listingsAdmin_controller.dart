@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:number_paginator/number_paginator.dart';
 import '../../../../app/services/local_storage.dart';
+import '../../landingpage/controllers/landingpage_controller.dart';
 
 enum ListingsAState { loading, loaded, error, empty }
 
@@ -299,6 +300,29 @@ class ListingsAdminController extends GetxController {
 
   @override
   void onInit() async {
+    if(projectsData != null){
+      for (int i = 0;i<projectsData!.length;i++) {
+        if ([
+          'Banner Images',
+          'Project Logo',
+          'Blurb'
+        ].contains(projectsData![i]['type'])) {
+          projectsData![i]['image'] = await CloudStorage().getFileBytes(docRef: projectsData![i]['image']);
+        } else if (['Carousel'].contains(projectsData![i]['type'])) {
+          projectsData![i]['images'] = await CloudStorage().getFilesBytes(docRefs: projectsData![i]['images']);
+        } else if ([
+          'Outdoor Amenities',
+          'Indoor Amenities'
+        ].contains(projectsData![i]['type'])) {
+          if (projectsData?[i]['sub_type'] == 'blurb') {
+            projectsData![i]['image'] = await CloudStorage().getFileBytes(docRef: projectsData![i]['image']);
+          } else {
+           projectsData![i]['images'] = await CloudStorage().getFilesBytes(docRefs: projectsData?[i]['images']);
+          }
+        }
+      }
+      projectLego.value = projectsData!;
+    }
     if (!kIsWeb) {
       data.clear();
       listingState.value = ListingsAState.loaded;

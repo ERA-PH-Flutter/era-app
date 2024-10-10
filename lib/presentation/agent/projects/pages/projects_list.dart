@@ -198,7 +198,6 @@ class ProjectsList extends GetView<ProjectsListController> {
             //   ),
             // ),
             ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: controller.projects.length,
                 itemBuilder: (context, index) {

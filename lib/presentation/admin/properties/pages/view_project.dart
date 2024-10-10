@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +11,7 @@ import 'package:get/get.dart';
 
 import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/theme.dart';
+import '../../landingpage/controllers/landingpage_controller.dart';
 
 class ViewProject extends StatefulWidget {
   const ViewProject({super.key});
@@ -126,6 +128,15 @@ class _ViewProjectState extends State<ViewProject> {
                                   "${settings!.featuredProjects!.contains(data[index]['id']) ? "Remove from" : "Add to"} Featured",
                               color: Colors.black,
                             ),
+                          ),
+                          IconButton(
+                            onPressed: () async {
+                              projectsData = data[index]['data'];
+                              await Get.delete<ListingsAdminController>();
+                              Get.put(ListingsAdminController());
+                              Get.find<LandingPageController>().onSectionSelected(4);
+                            },
+                            icon: Icon(Icons.edit),
                           ),
                           IconButton(
                             onPressed: () async {

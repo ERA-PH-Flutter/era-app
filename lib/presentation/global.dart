@@ -6,3 +6,4 @@ Settings? settings;
 EraUser? user;
 PageController pageViewController = PageController();
 String? currentRoute = '/home';
+List? projectsData;

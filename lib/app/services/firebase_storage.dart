@@ -46,7 +46,18 @@ class CloudStorage {
       return await ref.child(docRef).getData();
     } catch (e) {
       return await ref.child(AppStrings.noUserImageWhite).getData();
-      return "Error: $e";
+    }
+  }
+  Future<Object?> getFilesBytes({
+    required List docRefs,
+  }) async {
+    var files = [];
+    try {
+      for (var docRef in docRefs) {
+        files.add(await ref.child(docRef).getData());
+      }return files;
+    } catch (e) {
+      return [];
     }
   }
 
