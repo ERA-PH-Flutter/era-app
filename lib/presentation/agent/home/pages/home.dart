@@ -385,7 +385,6 @@ class Home extends GetView<HomeController> {
                   scrollDirection: Axis.horizontal,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: controller.listings.length,
                     itemBuilder: (context, index) {
