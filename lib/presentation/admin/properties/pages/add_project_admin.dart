@@ -83,7 +83,11 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       var hasDeveloperName = false;
                                       var hasCarousel = false;
                                       var hasProjectLogo = false;
+                                      var hasProjectTilted = false;
                                       for (var lego in controller.projectLego) {
+                                        if (lego['type'] == "ProjectTitle") {
+                                          hasProjectTilted = true;
+                                        }
                                         if (lego['type'] == "Project Logo") {
                                           hasProjectLogo = true;
                                         }
@@ -139,7 +143,12 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                               : user!.id,
                                           'date_created': DateTime.now(),
                                           'date_updated': DateTime.now(),
-                                          'order_id' :(await FirebaseFirestore.instance.collection('projects').get()).docs.length,
+                                          'order_id': (await FirebaseFirestore
+                                                  .instance
+                                                  .collection('projects')
+                                                  .get())
+                                              .docs
+                                              .length,
                                           'data': controller.projectLego
                                         });
                                         await project.add();
@@ -198,6 +207,12 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     value: 'unselect',
                                     child: EraText(
                                       text: 'None',
+                                      color: AppColors.black,
+                                    )),
+                                DropdownMenuItem(
+                                    value: 'ProjectTitle',
+                                    child: EraText(
+                                      text: 'Project Title',
                                       color: AppColors.black,
                                     )),
                                 DropdownMenuItem(
@@ -298,8 +313,38 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'developerName') {
+                        } else if (controller.selectedOption.value ==
+                            'ProjectTitle') {
+                          return _buildCollapsibleSection(
+                            onTap: () {
+                              if (controller
+                                  .projectTitleController.text.isNotEmpty) {
+                                controller.projectLego.add({
+                                  'type': "Project Title",
+                                  'project_title':
+                                      controller.projectTitleController.text
+                                });
+                                controller.projectTitleController.clear();
+                                controller.selectedOption.value = "unselect";
+                              } else {
+                                showError('Project Title is empty');
+                              }
+                            },
+                            title: 'Project Title',
+                            children: [
+                              _buildTextField(
+                                controller: controller.projectTitleController,
+                                label: 'Porject Title*',
+                                onChanged: (value) {
+                                  controller.updateDeveloperName(
+                                      controller.projectTitleController.text);
+                                },
+                              ),
+                              sb20(),
+                            ],
+                          );
+                        } else if (controller.selectedOption.value ==
+                            'developerName') {
                           return _buildCollapsibleSection(
                             onTap: () {
                               if (controller
@@ -328,8 +373,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'ProjectLogo') {
+                        } else if (controller.selectedOption.value ==
+                            'ProjectLogo') {
                           Uint8List? imageLogo;
                           return _buildCollapsibleSection(
                             onTap: () async {
@@ -357,8 +402,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == '3DVirtual') {
+                        } else if (controller.selectedOption.value ==
+                            '3DVirtual') {
                           return _buildCollapsibleSection(
                             onTap: () {
                               String? message;
@@ -421,8 +466,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'Blurb') {
+                        } else if (controller.selectedOption.value == 'Blurb') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
                           Uint8List? blurbImage;
@@ -478,16 +522,16 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'location') {
+                        } else if (controller.selectedOption.value ==
+                            'location') {
                           var textController = TextEditingController();
                           var coords;
                           return _buildCollapsibleSection(
-                            onTap: (){
-                              controller.projectLego.add(
-                                  {'type': "Location", 'location': [
-                                    coords.latitude,coords.longitude
-                                  ]});
+                            onTap: () {
+                              controller.projectLego.add({
+                                'type': "Location",
+                                'location': [coords.latitude, coords.longitude]
+                              });
                               controller.selectedOption.value = "unselect";
                             },
                             title: 'ADD LOCATION',
@@ -496,7 +540,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 width: Get.width,
                                 child: EraPlaceSearch(
                                   textFieldController: textController,
-                                  callback: (coordinate)async{
+                                  callback: (coordinate) async {
                                     coords = coordinate;
                                   },
                                 ),
@@ -504,8 +548,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               SizedBox(height: 20.h),
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'outdoorAmenities') {
+                        } else if (controller.selectedOption.value ==
+                            'outdoorAmenities') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
                           Uint8List? blurbImage;
@@ -667,8 +711,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'indoorAmenities') {
+                        } else if (controller.selectedOption.value ==
+                            'indoorAmenities') {
                           var blurbTitle = TextEditingController();
                           var blurbParagraph = TextEditingController();
                           Uint8List? blurbImage;
@@ -828,8 +872,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'Carousel') {
+                        } else if (controller.selectedOption.value ==
+                            'Carousel') {
                           var carouselTitle = TextEditingController();
                           var carouselFloorAreaC = TextEditingController();
                           var carouselNumberOfBedC = TextEditingController();
@@ -954,8 +998,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               )
                             ],
                           );
-                        }
-                        else if (controller.selectedOption.value == 'space') {
+                        } else if (controller.selectedOption.value == 'space') {
                           var height = TextEditingController();
                           return Column(
                             children: [
@@ -1082,7 +1125,17 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                             itemCount: controller.projectLego.length,
                             itemBuilder: (context, index) {
                               var data = controller.projectLego[index];
-                              if (data['type'] == "Banner Images") {
+                              if (data['type'] == "Project Title") {
+                                return Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.w, vertical: 15.h),
+                                  child: title(
+                                      text: data['project_title'],
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: EraTheme.paddingWidth30,
+                                      )),
+                                );
+                              } else if (data['type'] == "Banner Images") {
                                 return Image.memory(
                                   data['image'],
                                   fit: BoxFit.cover,
@@ -1163,12 +1216,13 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   width: Get.width,
                                   child: GoogleMap(
                                     initialCameraPosition: CameraPosition(
-                                      target: LatLng(data['location'][0], data['location'][1]),
-                                      zoom: 15
-                                    ),
+                                        target: LatLng(data['location'][0],
+                                            data['location'][1]),
+                                        zoom: 15),
                                     markers: {
                                       Marker(
-                                          position: LatLng(data['location'][0], data['location'][1]),
+                                          position: LatLng(data['location'][0],
+                                              data['location'][1]),
                                           markerId: MarkerId('mainPin'),
                                           icon: BitmapDescriptor.defaultMarker)
                                     },
@@ -1648,9 +1702,7 @@ Widget _buildCollapsibleSection(
     {required String title,
     required List<Widget> children,
     void Function()? onTap}) {
-  return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     ExpansionTile(
       title: EraText(
         text: title,

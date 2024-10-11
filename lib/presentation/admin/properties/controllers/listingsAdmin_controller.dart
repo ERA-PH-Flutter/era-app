@@ -42,6 +42,7 @@ class ListingsAdminController extends GetxController {
   Listing? listing;
   List<Listing> listings = [];
   var projectLego = [].obs;
+  TextEditingController projectTitleController = TextEditingController();
 
   TextEditingController developerController = TextEditingController();
   TextEditingController virtualTitleController = TextEditingController();
@@ -172,17 +173,19 @@ class ListingsAdminController extends GetxController {
     super.onClose();
   }
 
-  uploadSingle(file)async{
-    return await CloudStorage().uploadFromMemory(file: file, target: 'projects');
+  uploadSingle(file) async {
+    return await CloudStorage()
+        .uploadFromMemory(file: file, target: 'projects');
   }
-  uploadMultiple(files)async{
+
+  uploadMultiple(files) async {
     var newImages = [];
     for (var image in files) {
-      newImages.add(await CloudStorage().uploadFromMemory(file: image, target: 'projects'));
+      newImages.add(await CloudStorage()
+          .uploadFromMemory(file: image, target: 'projects'));
     }
     return newImages;
   }
-
 
   void updateDeveloperName(String name) {
     developerName.value = name;
@@ -300,24 +303,23 @@ class ListingsAdminController extends GetxController {
 
   @override
   void onInit() async {
-    if(projectsData != null){
-      for (int i = 0;i<projectsData!.length;i++) {
-        if ([
-          'Banner Images',
-          'Project Logo',
-          'Blurb'
-        ].contains(projectsData![i]['type'])) {
-          projectsData![i]['image'] = await CloudStorage().getFileBytes(docRef: projectsData![i]['image']);
+    if (projectsData != null) {
+      for (int i = 0; i < projectsData!.length; i++) {
+        if (['Banner Images', 'Project Logo', 'Blurb']
+            .contains(projectsData![i]['type'])) {
+          projectsData![i]['image'] = await CloudStorage()
+              .getFileBytes(docRef: projectsData![i]['image']);
         } else if (['Carousel'].contains(projectsData![i]['type'])) {
-          projectsData![i]['images'] = await CloudStorage().getFilesBytes(docRefs: projectsData![i]['images']);
-        } else if ([
-          'Outdoor Amenities',
-          'Indoor Amenities'
-        ].contains(projectsData![i]['type'])) {
+          projectsData![i]['images'] = await CloudStorage()
+              .getFilesBytes(docRefs: projectsData![i]['images']);
+        } else if (['Outdoor Amenities', 'Indoor Amenities']
+            .contains(projectsData![i]['type'])) {
           if (projectsData?[i]['sub_type'] == 'blurb') {
-            projectsData![i]['image'] = await CloudStorage().getFileBytes(docRef: projectsData![i]['image']);
+            projectsData![i]['image'] = await CloudStorage()
+                .getFileBytes(docRef: projectsData![i]['image']);
           } else {
-           projectsData![i]['images'] = await CloudStorage().getFilesBytes(docRefs: projectsData?[i]['images']);
+            projectsData![i]['images'] = await CloudStorage()
+                .getFilesBytes(docRefs: projectsData?[i]['images']);
           }
         }
       }
@@ -458,8 +460,10 @@ class ListingsAdminController extends GetxController {
           .snapshots();
     }
   }
-  loadWeb(link,webViewController)async{
-    await webViewController.loadRequest(Uri.parse("https://api.eraphilippines.com/proxy.php?url=${base64Encode(link)}"));
+
+  loadWeb(link, webViewController) async {
+    await webViewController.loadRequest(Uri.parse(
+        "https://api.eraphilippines.com/proxy.php?url=${base64Encode(link)}"));
     return true;
   }
 }
