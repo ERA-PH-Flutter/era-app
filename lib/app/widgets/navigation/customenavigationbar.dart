@@ -91,14 +91,19 @@ class _BaseScaffoldState extends State<BaseScaffold> {
         appBar: CustomAppbar(),
         body: WillPopScope(
           onWillPop: () async {
-            BaseController().showSuccessDialog(
-                title: "Confirm Exit",
-                description: "Do you to want to Exit?",
-                cancelable: true,
-                hitApi: () {
-                  Platform.isAndroid ? SystemNavigator.pop() : exit(0);
-                });
-            return Future.value(true);
+            // BaseController().showSuccessDialog(
+            //     title: "Confirm Exit",
+            //     description: "Do you to want to Exit?",
+            //     cancelable: true,
+            //     hitApi: () {
+            //       Platform.isAndroid ? SystemNavigator.pop() : exit(0);
+            //     });
+            // return Future.value(true);
+            selectedIndex.value = 0;
+            pageViewController = PageController(initialPage: 0);
+            currentRoute = '/home';
+            Get.offAll(BaseScaffold(), binding: HomeBinding());
+            return Future.value(false);
           },
           child: PageView(
             controller: pageViewController,

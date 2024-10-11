@@ -32,11 +32,11 @@ class FindProperties extends GetView<ListingController> {
     return Scaffold(
       appBar: CustomAppbar(),
       body: WillPopScope(
-        onWillPop: ()async{
+        onWillPop: () async {
           selectedIndex.value = 0;
           pageViewController = PageController(initialPage: 0);
           currentRoute = '/home';
-          Get.offAll(BaseScaffold(),binding: HomeBinding());
+          Get.offAll(BaseScaffold(), binding: HomeBinding());
           return Future.value(false);
         },
         child: SingleChildScrollView(
@@ -44,7 +44,7 @@ class FindProperties extends GetView<ListingController> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   height: 10.h,

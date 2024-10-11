@@ -5,10 +5,13 @@ import 'package:get/get.dart';
 
 import '../../../../app/constants/screens.dart';
 
+import '../../../../app/widgets/navigation/customenavigationbar.dart';
 import '../../../../app/widgets/project_views.dart';
 
 import '../../../admin/properties/controllers/project_list_controller.dart';
 import '../../../admin/properties/controllers/project_view_binding.dart';
+import '../../../global.dart';
+import '../../home/controllers/home_binding.dart';
 //todo add text
 
 class ProjectsList extends GetView<ProjectsListController> {
@@ -18,7 +21,10 @@ class ProjectsList extends GetView<ProjectsListController> {
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
-          Get.back();
+          selectedIndex.value = 0;
+          pageViewController = PageController(initialPage: 0);
+          currentRoute = '/home';
+          Get.offAll(BaseScaffold(), binding: HomeBinding());
           return Future.value(false);
         },
         child: SafeArea(
