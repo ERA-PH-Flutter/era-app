@@ -1,70 +1,28 @@
 import 'dart:io';
 
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
-import 'package:eraphilippines/presentation/admin/content-management/pages/homepage.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agent_listings_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
-import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/searchresult.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projects_list.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
-import 'package:eraphilippines/app/widgets/navigation/app_nav_items.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../presentation/agent/forms/contacts/pages/help.dart';
 import '../../../presentation/agent/home/controllers/home_binding.dart';
 import '../../../presentation/agent/home/pages/home.dart';
-import '../../../presentation/agent/projects/controllers/projects_controller.dart';
 import '../../../presentation/global.dart';
-import '../../../router/route.dart';
 import 'package:circle_nav_bar/circle_nav_bar.dart';
 
 var selectedIndex = 0.obs;
-
-void changeIndex(int index) {
-  navBarItems[index].onTap?.call();
-  selectedIndex.value = index;
-
-  Widget nextPage;
-  switch (index) {
-    case 0:
-      nextPage = HomePage();
-
-      break;
-    case 1:
-      Get.toNamed('/project-main');
-      break;
-    case 2:
-      Get.toNamed('/searchresult');
-      break;
-    case 3:
-      Get.toNamed('/findagents');
-      break;
-    case 4:
-      Get.toNamed('/help');
-      break;
-  }
-
-  // Get.off(
-  //   () => nextPage,
-  //   transition: Transition.noTransition,
-  //   routeSettings: RouteSettings(name: '/'),
-  //   duration: Duration(milliseconds: 500),
-  //   popGesture: true,
-  //   fullscreenDialog: false,
-  // );
-}
 
 class BaseScaffold extends StatefulWidget {
   const BaseScaffold({
@@ -91,19 +49,22 @@ class _BaseScaffoldState extends State<BaseScaffold> {
         appBar: CustomAppbar(),
         body: WillPopScope(
           onWillPop: () async {
-            // BaseController().showSuccessDialog(
-            //     title: "Confirm Exit",
-            //     description: "Do you to want to Exit?",
-            //     cancelable: true,
-            //     hitApi: () {
-            //       Platform.isAndroid ? SystemNavigator.pop() : exit(0);
-            //     });
-            // return Future.value(true);
-            selectedIndex.value = 0;
-            pageViewController = PageController(initialPage: 0);
-            currentRoute = '/home';
-            Get.offAll(BaseScaffold(), binding: HomeBinding());
-            return Future.value(false);
+            if (currentRoute == '/home') {
+              BaseController().showSuccessDialog(
+                  title: "Confirm Exit",
+                  description: "Do you want to Exit?",
+                  cancelable: true,
+                  hitApi: () {
+                    Platform.isAndroid ? SystemNavigator.pop() : exit(0);
+                  });
+              return Future.value(false);
+            } else {
+              selectedIndex.value = 0;
+              pageViewController = PageController(initialPage: 0);
+              currentRoute = '/home';
+              Get.offAll(BaseScaffold(), binding: HomeBinding());
+              return Future.value(false);
+            }
           },
           child: PageView(
             controller: pageViewController,
@@ -126,6 +87,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                   currentRoute = '/home';
                   Get.deleteAll();
                   Get.put(HomeController());
+                  Get.put(BaseController());
                 } else if (index == 1) {
                   //currentRoute = '/project-main';
                   currentRoute = '/project-list';
@@ -178,6 +140,8 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               }).toList(),
               color: AppColors.blue,
             )));
+  }
+}
     // bottomNavigationBar:Obx(()=> CurvedNavigationBar(
     //   animationCurve: Curves.linear ,
     //   height: 70.h < 75 ? 70.h : 75,
@@ -227,5 +191,3 @@ class _BaseScaffoldState extends State<BaseScaffold> {
     //         isActive: selectedIndex.value == currentIndex);
     //   }).toList(),
     // )));
-  }
-}
