@@ -1,8 +1,10 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 
 class Settings{
-  final String? settingsId;
+  String? id;
   final String appName;
   List? featuredListings;
   List? featuredProjects;
@@ -23,7 +25,7 @@ class Settings{
   int? listingCount;
   Settings({
     required this.appName,
-    this.settingsId,
+    this.id,
     this.featuredListings,
     this.featuredProjects,
     this.featuredNews,
@@ -59,7 +61,7 @@ class Settings{
       banners: json["banners"] ?? [],
       featuredAgents: json["featured_agents"] ?? [],
       exchangeRate: json["exchange_rate"] ?? 0,
-      settingsId: json['id'],
+      id: json['id'],
       listingCount: json['listing_count'],
       agentCount: json['agent_count'],
       listingLimit: json['listing_limit']
@@ -121,7 +123,8 @@ class Settings{
   }
   update()async{
     try{
-      await FirebaseFirestore.instance.collection('settings').doc(settingsId).update(toMap());
+      id =  String.fromCharCodes(List.generate(10, (index) => Random().nextInt(33) + 89));
+      await FirebaseFirestore.instance.collection('settings').doc(id).update(toMap());
     }catch(e){
       print(e);
     }
@@ -143,7 +146,7 @@ class Settings{
       'banners': banners,
       'featured_agents': featuredAgents,
       'exchange_rate': exchangeRate,
-      'id': settingsId,
+      'id': id,
       'agent_count' : agentCount,
       'listing_count' : listingCount,
       'listing_limit' : listingLimit

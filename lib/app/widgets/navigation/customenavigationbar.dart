@@ -85,22 +85,22 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                 selectedIndex.value = index;
                 if (index == 0) {
                   currentRoute = '/home';
-                  Get.deleteAll();
-                  Get.put(HomeController());
+                  //Get.deleteAll();
+                  //Get.put(HomeController());
                   Get.put(BaseController());
                 } else if (index == 1) {
                   //currentRoute = '/project-main';
                   currentRoute = '/project-list';
-                  Get.deleteAll();
-                  Get.put(ProjectsListController());
+                  //Get.deleteAll();
+                  //Get.put(ProjectsListController());
                 } else if (index == 2) {
                   currentRoute = '/searchresult';
-                  Get.deleteAll();
-                  SearchResultBinding().dependencies();
+                  //Get.deleteAll();
+                  //SearchResultBinding().dependencies();
                 } else if (index == 3) {
                   currentRoute = '/findagents';
-                  Get.deleteAll();
-                  Get.put(AgentsController());
+                  //Get.deleteAll();
+                  //Get.put(AgentsController());
                 } else if (index == 4) {
                   currentRoute = '/about';
                 }

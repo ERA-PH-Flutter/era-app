@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'dart:math';
-
+import 'package:permission_handler/permission_handler.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CloudStorage {
   final ref = FirebaseStorage.instance.ref();
@@ -18,6 +19,39 @@ class CloudStorage {
       return await ref.child('users/$uid').getDownloadURL();
     } catch (e) {
       return "Error: $e";
+    }
+  }
+
+  Future<String> downloadAndSave({
+    required String docRef,
+    required String folder,
+  }) async {
+    try {
+      final bytes = await ref.child(docRef).getData();
+
+      final Directory appDirectory = Directory('/storage/emulated/0/Download');
+      // if (!await appDirectory.exists()) {
+      //   await appDirectory.create(recursive: true);
+      // }
+      final String imagePath = '${appDirectory.path}/${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(100)}.jpg';
+      final File file = File(imagePath);
+      file.create();
+      await file.writeAsBytes(bytes!);
+      return imagePath;
+    } catch (e) {
+      return "error: $e";
+    }
+  }
+
+  Future<void> deleteFile(String filePath) async {
+    try {
+      final File file = File(filePath);
+
+      if (await file.exists()) {
+        await file.delete();
+      }
+    } catch (e) {
+
     }
   }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,10 +13,17 @@ class PropertiesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CloudStorage().imageLoaderProvider(
-      ref: image,
-      borderRadius: BorderRadius.only(topRight: Radius.circular(20.0)),
-      child: Stack(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(topRight: Radius.circular(20.0)),
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: FileImage(
+            File(image)
+          )
+        )
+      ),
+      child:  Stack(
         children: [
           Positioned(
             bottom: 10.0,

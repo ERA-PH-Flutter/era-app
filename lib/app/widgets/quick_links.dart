@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/services/local_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -42,8 +45,15 @@ class QuickLinksModel {
 
   initialize() async {
     List<Widget> items = [];
-    for(int index = 0;index < categories.length;index++){
-      items.add(await quickSearchIcon(categories[index][0], categories[index][1], categories[index][2]));
+    // for(int index = 0;index < categories.length;index++){
+    //   items.add(await quickSearchIcon(categories[index][0], categories[index][1], categories[index][2]));
+    // }
+    var ql = Get.find<LocalStorageService>().images!['quick_links'];
+    for(int index = 0;index < ql.length ;index++){
+      items.add(await quickSearchIcon(ql[index], categories[index][1], categories[index][2]));
+    }
+    if(ql.length != categories.length){
+      return Container();
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,6 +74,17 @@ class QuickLinksModel {
         SizedBox(height: 10.h),
       ],
     );
+  }
+
+  download()async{
+    List paths = [];
+    for (var category in categories) {
+      paths.add(await CloudStorage().downloadAndSave(
+        docRef: category[0],
+        folder: 'quick_links'
+      ));
+    }
+    return paths;
   }
 
   Future<Widget> quickSearchIcon(String icon,target,type)async{
@@ -89,8 +110,8 @@ class QuickLinksModel {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
               image: DecorationImage(
-                image: CachedNetworkImageProvider(
-                    await CloudStorage().getFileDirect(docRef: icon)
+                image: FileImage(
+                  File(icon)
                 )
               )
             ),

@@ -184,8 +184,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       pageViewController =
                                           PageController(initialPage: 1);
                                       currentRoute = '/project-main';
-                                      Get.offAll(BaseScaffold(),
-                                          binding: ProjectsBinding());
+                                      Get.off(BaseScaffold(),
+                                          binding: HomeBinding());
                                     },
                                         currentRoute == '/project-main' ||
                                             Get.currentRoute ==
@@ -196,7 +196,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                           PageController(initialPage: 3);
                                       currentRoute = '/findagents';
                                       Get.offAll(BaseScaffold(),
-                                          binding: AgentsBinding());
+                                          binding: HomeBinding());
                                     },
                                         Get.currentRoute == '/findagents' ||
                                             currentRoute == '/findagents'),

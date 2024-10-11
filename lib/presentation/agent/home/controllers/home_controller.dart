@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
@@ -50,23 +52,9 @@ class HomeController extends GetxController {
 
   @override
   void onInit() async {
+    print(Get.find<LocalStorageService>().images);
     try {
-      if (settings!.banners != null) {
-        for (int i = 0; i < settings!.banners!.length; i++) {
-          var img = CachedNetworkImageProvider(
-           await CloudStorage().getFileDirect(docRef: settings!.banners![i]),
-          );
-          await precacheImage(img, Get.context!);
-          images.add(Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: img
-              )
-            ),
-          ));
-        }
-      }
+      await getBanners();
       quickLinks = await QuickLinksModel().initialize();
       await getNews();
       await getImages();
@@ -75,10 +63,54 @@ class HomeController extends GetxController {
       //await Future.delayed(Duration(seconds: 1,milliseconds: 500));
       homeState.value = HomeState.loaded;
     } catch (e,ex) {
+      print(e);
       print(ex);
       homeState.value = HomeState.error;
     }
     super.onInit();
+  }
+
+  getBanners()async{
+    var banners = Get.find<LocalStorageService>().images!['banners'];
+    if (banners != null) {
+      for (int i = 0; i < banners.length; i++) {
+        images.add(Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: FileImage(
+                      File(banners[i])
+                  )
+              )
+          ),
+        ));
+      }
+      if(images.isEmpty){
+        images.add(
+            Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                          'assets/images/no_image_holder.jpg'
+                      )
+                  )
+              ),
+            )
+        );
+      }
+    }else{
+      images.add(Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(
+                    'assets/images/no_image_holder.jpg'
+                )
+            )
+        ),
+      ));
+    }
   }
 
   getProjects()async{
@@ -112,30 +144,21 @@ class HomeController extends GetxController {
   }
 
   getImages() async {
+    var images = Get.find<LocalStorageService>().images!;
     listingImages.add(PropertiesModels(
-        image: settings!.preSellingPicture
-            .toString()
-            .notEmpty(AppStrings.noImageWhite),
+        image: images['pre_selling'],
         label: 'PRE-SELLING'));
     listingImages.add(PropertiesModels(
-        image: settings!.residentialPicture
-            .toString()
-            .notEmpty(AppStrings.noImageWhite),
+        image: images['residential'],
         label: 'RESIDENTIAL'));
     listingImages.add(PropertiesModels(
-        image: settings!.commercialPicture
-            .toString()
-            .notEmpty(AppStrings.noImageWhite),
+        image: images['commercial'],
         label: 'COMMERCIAL'));
     listingImages.add(PropertiesModels(
-        image: settings!.rentalPicture
-            .toString()
-            .notEmpty(AppStrings.noImageWhite),
+        image: images['rental'],
         label: 'RENTAL'));
     listingImages.add(PropertiesModels(
-        image: settings!.auctionPicture
-            .toString()
-            .notEmpty(AppStrings.noImageWhite),
+        image: images['auction'],
         label: 'AUCTION'));
   }
 
