@@ -48,10 +48,7 @@ class SearchResult extends GetView<SearchResultController> {
               FilteredSearchBox(),
               SizedBox(height: 10.h),
               Obx(() {
-                if (controller.showFullSearch.value == false) {
-                  return controller.quickLinks ?? Container();
-                }
-                return Container();
+                return controller.quickLinks.value;
               }),
               Obx(() => switch (controller.searchResultState.value) {
                     SearchResultState.loading => Screens.loading(height: 500.h),

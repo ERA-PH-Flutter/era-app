@@ -37,7 +37,7 @@ class Residential extends GetView<ListingController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 10.h),
-                          searchController.quickLinks ?? Container(),
+                          searchController.quickLinks.value,
                           SizedBox(height: 10.h),
                         ]);
                   }

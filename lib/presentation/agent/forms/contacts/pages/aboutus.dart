@@ -32,7 +32,7 @@ class AboutUs extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fpic1.JPG?alt=media&token=92a9e2a1-46af-450e-8161-82eb1aa6b501',
+                      'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/about-us%2Faboutuspic.png?alt=media&token=0bb205a5-3807-4066-bb1d-18f410d64d9f',
                   fit: BoxFit.cover,
                 ),
                 SizedBox(height: 15.h),

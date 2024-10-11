@@ -21,7 +21,7 @@ class SearchResultController extends GetxController {
   var data = [].obs;
   var searchQuery = ''.obs;
   var expanded = false.obs;
-  Widget? quickLinks;
+  var quickLinks = Column().obs;
 
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();
@@ -59,7 +59,7 @@ class SearchResultController extends GetxController {
   void onInit() async {
     data.clear();
     searchResultState.value = SearchResultState.loading;
-    quickLinks = await QuickLinksModel().initialize();
+    quickLinks.value = await QuickLinksModel().initialize();
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {
         var tempData = [];

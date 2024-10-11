@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/services/local_storage.dart';
+import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -99,7 +100,7 @@ class QuickLinksModel {
         pageViewController = PageController(initialPage: 2);
         currentRoute = '/searchresult';
         Get.offAll(BaseScaffold(),
-            binding: SearchResultBinding(),
+            binding: HomeBinding(),
             arguments: [data, 'All $type listings!']);
       },
       child: Column(
