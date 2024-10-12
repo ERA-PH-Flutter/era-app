@@ -8,3 +8,4 @@ PageController pageViewController = PageController();
 String? currentRoute = '/home';
 List? projectsData;
 String? projectId;
+String? pjTitle;

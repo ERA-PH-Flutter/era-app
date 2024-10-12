@@ -9,11 +9,15 @@ import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/project_views.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/listing_controller.dart';
+import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
+import 'package:eraphilippines/presentation/agent/projects/pages/projects_list.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +33,7 @@ import '../../../../repository/logs.dart';
 import '../../../../repository/project.dart';
 import '../../../agent/projects/pages/haraya.dart';
 import '../../../global.dart';
+import '../../landingpage/controllers/landingpage_controller.dart';
 
 class AddProjectAdmin extends GetView<ListingsAdminController> {
   const AddProjectAdmin({super.key});
@@ -137,101 +142,147 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                         );
                                         return;
                                       }
-                                      try {
-                                        BaseController().showLoading();
-                                        for (var lego in controller.projectLego) {
-                                          if ([
-                                            'Banner Images',
-                                            'Project Logo',
-                                            'Blurb'
-                                          ].contains(lego['type'])) {
-                                            lego['image'] = await controller.uploadSingle(lego['image']);
-                                          } else if (['Carousel'].contains(lego['type'])) {
-                                            lego['images'] = await controller.uploadMultiple(lego['images']);
-                                          } else if ([
-                                            'Outdoor Amenities',
-                                            'Indoor Amenities'
-                                          ].contains(lego['type'])) {
-                                            if (lego['sub_type'] == 'blurb') {
-                                              lego['image'] = await controller.uploadSingle(lego['image']);
-                                            } else {
-                                              lego['images'] = await controller.uploadMultiple(lego['images']);
-                                            }
-                                          }
-                                        }
-                                        Project? project;
-                                        if(projectsData == null){
-                                          project = Project.fromJSON({
-                                            'uploaded_by': user == null
-                                                ? "UnknownAdmin"
-                                                : user!.id,
-                                            'date_created': DateTime.now(),
-                                            'date_updated': DateTime.now(),
-                                            'order_id':(await FirebaseFirestore
-                                                .instance
-                                                .collection('projects').orderBy('order_id')
-                                                .get()).docs.last.data()['order_id'].toString().toInt() + 1 ,
-                                            'data': controller.projectLego
-                                          });
-                                        }
-                                        else{
-                                          Project p = await Project.getById(projectId);
-                                          project = Project.fromJSON({
-                                            'id' : p.id,
-                                            'uploaded_by': p.uploadedBy,
-                                            'date_created': p.dateCreated,
-                                            'date_updated': DateTime.now(),
-                                            'order_id': p.orderId,
-                                            'data': controller.projectLego
-                                          });
-                                        }
-
-                                        if(projectsData != null){
-                                          print(project.toMap());
-                                          await project.updateProject();
-                                          await Logs(
-                                              title:
-                                              "${user!.firstname} ${user!.lastname} updated a project with ID ${project.id}",
-                                              type: "project")
-                                              .add();
-                                          for (var pd in projectsData!) {
-                                            if (['Banner Images', 'Project Logo', 'Blurb'].contains(pd['type'])) {
-                                              await CloudStorage().deleteFileDirect(docRef: pd['image']);
-                                            } else if (['Carousel'].contains(pd['type'])) {
-                                              await CloudStorage().deleteAll(fileList : pd['images']);
-                                            } else if (['Outdoor Amenities', 'Indoor Amenities'].contains(pd['type'])) {
-                                              if (pd['sub_type'] == 'blurb') {
-                                                await CloudStorage().deleteFileDirect(docRef: pd['image']);
-                                              } else {
-                                                await CloudStorage().deleteAll(fileList : pd['images']);
-                                              }
-                                            }
-                                          }
-                                        }else{
-                                          await project.add();
-                                          await Logs(
-                                              title:
-                                              "${user!.firstname} ${user!.lastname} added a project with ID ${project.id}",
-                                              type: "project")
-                                              .add();
-                                        }
-
-                                        BaseController().showSuccessDialog(
-                                            title: "Success!",
-                                            description:
-                                            "Project ${projectsData != null ? 'update' : 'upload'} success!",
-                                            hitApi: () {
-                                              Get.back();
-                                              Get.back();
-                                              //todo navigate to project list
-                                            });
-                                      } catch (e) {
-                                        BaseController().showErroDialog(
-                                            onTap: () {
-                                              Get.back();
-                                            },
-                                            description: '$e');
+                                      var titleController = TextEditingController();
+                                      if(projectsData != null){
+                                        titleController.text = pjTitle ?? "";
                                       }
+                                      showCupertinoDialog(
+                                        context: Get.context!,
+                                        builder: (context){
+                                          return Dialog(
+                                            backgroundColor: Colors.white,
+                                            child: Wrap(
+                                              children: [
+                                                Container(
+                                                  width: Get.width/3,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(20.r)
+                                                  ),
+                                                  padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 21.h),
+                                                  child: Column(
+                                                    children: [
+                                                      AppTextField(
+                                                        height: 48.h,
+                                                        isSuffix: false,
+                                                        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                                                        isPrefix: false,
+                                                        controller: titleController,
+                                                        hint: "Project Title",
+                                                      ),
+                                                      SizedBox(height: 10.h,),
+                                                      Button(
+                                                        margin: EdgeInsets.symmetric(horizontal: 5),
+                                                        width: Get.width,
+                                                        text: 'SUBMIT',
+                                                        bgColor: AppColors.blue,
+                                                        borderRadius: BorderRadius.circular(30),
+                                                        onTap: ()async{
+                                                          if(titleController.text.isNotEmpty){
+                                                            try {
+                                                              BaseController().showLoading();
+                                                              for (var lego in controller.projectLego) {
+                                                                if ([
+                                                                  'Banner Images',
+                                                                  'Project Logo',
+                                                                  'Blurb'
+                                                                ].contains(lego['type'])) {
+                                                                  lego['image'] = await controller.uploadSingle(lego['image']);
+                                                                } else if (['Carousel'].contains(lego['type'])) {
+                                                                  lego['images'] = await controller.uploadMultiple(lego['images']);
+                                                                } else if ([
+                                                                  'Outdoor Amenities',
+                                                                  'Indoor Amenities'
+                                                                ].contains(lego['type'])) {
+                                                                  if (lego['sub_type'] == 'blurb') {
+                                                                    lego['image'] = await controller.uploadSingle(lego['image']);
+                                                                  } else {
+                                                                    lego['images'] = await controller.uploadMultiple(lego['images']);
+                                                                  }
+                                                                }
+                                                              }
+                                                              Project? project;
+                                                              if(projectsData == null){
+                                                                project = Project.fromJSON({
+                                                                  'uploaded_by': user == null
+                                                                      ? "UnknownAdmin"
+                                                                      : user!.id,
+                                                                  'title' : titleController.text,
+                                                                  'date_created': DateTime.now(),
+                                                                  'date_updated': DateTime.now(),
+                                                                  'order_id': await controller.getOrderCount(),
+                                                                  'data': controller.projectLego
+                                                                });
+                                                              }
+                                                              else{
+                                                                Project p = await Project.getById(projectId);
+                                                                project = Project.fromJSON({
+                                                                  'id' : p.id,
+                                                                  'title' : titleController.text,
+                                                                  'uploaded_by': p.uploadedBy,
+                                                                  'date_created': p.dateCreated,
+                                                                  'date_updated': DateTime.now(),
+                                                                  'order_id': p.orderId,
+                                                                  'data': controller.projectLego
+                                                                });
+                                                              }
+                                                              if(projectsData != null){
+                                                                print(project.toMap());
+                                                                await project.updateProject();
+                                                                await Logs(
+                                                                    title:
+                                                                    "${user!.firstname} ${user!.lastname} updated a project with ID ${project.id}",
+                                                                    type: "project")
+                                                                    .add();
+                                                                for (var pd in controller.oldImages) {
+                                                                  await CloudStorage().deleteFileDirect(docRef: pd);
+                                                                }
+                                                              }
+                                                              else{
+                                                                await project.add();
+                                                                await Logs(
+                                                                    title:
+                                                                    "${user!.firstname} ${user!.lastname} added a project with ID ${project.id}",
+                                                                    type: "project")
+                                                                    .add();
+                                                              }
+                                                              BaseController().showSuccessDialog(
+                                                                  title: "Success!",
+                                                                  description:
+                                                                  "Project ${projectsData != null ? 'update' : 'upload'} success!",
+                                                                  hitApi: () {
+                                                                    Get.back();
+                                                                    Get.back();
+                                                                    Get.back();
+                                                                    Get.find<LandingPageController>()
+                                                                        .onSectionSelected(19);
+                                                                  });
+                                                            } catch (e,ex) {
+                                                              print(ex);
+                                                              BaseController().showErroDialog(
+                                                                  onTap: () {
+                                                                    Get.back();
+                                                                  },
+                                                                  description: '$e');
+                                                            }
+                                                          }
+                                                          else{
+                                                            BaseController().showErroDialog(
+                                                                onTap: (){
+
+                                                                },
+                                                                description: "Title is empty"
+                                                            );
+                                                          }
+                                                        },
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }
+                                      );
                                     },
                                     margin: EdgeInsets.symmetric(horizontal: 5),
                                     width: 150.w,
@@ -1093,7 +1144,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                       }),
                       sb20(),
                       Obx(() {
-                        if (controller.projectLego.value.length != 0) {
+                        if (controller.projectLego.value.isNotEmpty) {
                           return ReorderableListView.builder(
                             key: Key('addProjects'),
                             shrinkWrap: true,
@@ -1159,7 +1210,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                       fontWeight: FontWeight.w500,
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 20.h),
+                      margin: EdgeInsets.only(top: 20.h,bottom: 20.h),
                       decoration: BoxDecoration(
                         color: Colors.grey[100],
                         borderRadius: BorderRadius.circular(12.r),
@@ -1172,402 +1223,15 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                         ],
                       ),
                       child: Obx(() {
-                        if (controller.projectLego.value.isNotEmpty) {
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: controller.projectLego.length,
-                            itemBuilder: (context, index) {
-                              var data = controller.projectLego[index];
-                              if (data['type'] == "Project Title") {
-                                return Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10.w, vertical: 15.h),
-                                  child: title(
-                                      text: data['project_title'],
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: EraTheme.paddingWidth30,
-                                      )),
-                                );
-                              } else if (data['type'] == "Banner Images") {
-                                if(data['image'] != null){
-                                  return Image.memory(
-                                    data['image'],
-                                    fit: BoxFit.cover,
-                                    height: 250.h,
-                                    width: Get.width,
-                                  );
-                                }else{
-                                  return Image.asset(
-                                    'assets/images/no_image_holder.jpg',
-                                    fit: BoxFit.cover,
-                                    height: 250.h,
-                                    width: Get.width,
-                                  );
-                                }
-
-                              } else if (data['type'] == "Developer Name") {
-                                return EraText(
-                                  textAlign: TextAlign.center,
-                                  text: data['developer_name'],
-                                  color: AppColors.hint,
-                                  fontSize: EraTheme.small,
-                                );
-                              } else if (data['type'] == "Project Logo") {
-                                if(data['image'] != null){
-                                  return Image.memory(
-                                    data['image'],
-                                    fit: BoxFit.cover,
-                                    height: 250.h,
-                                    width: Get.width,
-                                  );
-                                }else{
-                                  return Image.asset(
-                                    'assets/images/no_image_holder.jpg',
-                                    fit: BoxFit.cover,
-                                    height: 250.h,
-                                    width: Get.width,
-                                  );
-                                }
-                              } else if (data['type'] == "3D Virtual") {
-                                return Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 25.w, vertical: 15.h),
-                                  color: AppColors.hint.withOpacity(0.3),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      title(
-                                        text: data['title'],
-                                        textAlign: TextAlign.start,
-                                      ),
-                                      sb10(),
-                                      description(text: data['description']),
-                                      Container(
-                                        color: Colors.white,
-                                        height: 350.h,
-                                        width: Get.width,
-                                        alignment: Alignment.center,
-                                        child: EraText(
-                                          color: Colors.black,
-                                          fontSize: 20.sp,
-                                          text: "No Preview for Web!",
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              } else if (data['type'] == "Blurb") {
-                                return Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10.w, vertical: 15.h),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      title(
-                                          text: data['title'],
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: EraTheme.paddingWidth30,
-                                          )),
-                                      sb10(),
-                                      Builder(
-                                        builder:(context){
-                                          if(data['image'] != null){
-                                            return Image.memory(
-                                              data['image'],
-                                              fit: BoxFit.cover,
-                                              height: 250.h,
-                                              width: Get.width,
-                                            );
-                                          }else{
-                                            return Image.asset(
-                                              'assets/images/no_image_holder.jpg',
-                                              fit: BoxFit.cover,
-                                              height: 250.h,
-                                              width: Get.width,
-                                            );
-                                          }
-                                        }
-                                      ),
-                                      sb10(),
-                                      description(text: data['description']),
-                                    ],
-                                  ),
-                                );
-                              } else if (data['type'] == "Location") {
-                                return Container(
-                                  height: 350.h,
-                                  width: Get.width,
-                                  child: GoogleMap(
-                                    initialCameraPosition: CameraPosition(
-                                        target: LatLng(data['location'][0],
-                                            data['location'][1]),
-                                        zoom: 15),
-                                    markers: {
-                                      Marker(
-                                          position: LatLng(data['location'][0],
-                                              data['location'][1]),
-                                          markerId: MarkerId('mainPin'),
-                                          icon: BitmapDescriptor.defaultMarker)
-                                    },
-                                    zoomControlsEnabled: false,
-                                  ),
-                                );
-                              } else if (data['type'] == "Outdoor Amenities") {
-                                if (data['sub_type'] == 'blurb') {
-                                  return Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      title(
-                                          text: data['title'],
-                                          color: AppColors.black,
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: EraTheme.paddingWidth30,
-                                          )),
-                                      sb10(),
-                                      Image.memory(
-                                        data['image'],
-                                        fit: BoxFit.cover,
-                                        //   height: 250.h,
-                                        width: Get.width,
-                                      ),
-                                      sb10(),
-                                      description(text: data['description']),
-                                    ],
-                                  );
-                                } else if (data['sub_type'] == 'gallery') {
-                                  //im getting erorr here if i use getx :<
-                                  return SizedBox(
-                                    height: 350.h,
-                                    child: Stack(
-                                      children: [
-                                        Positioned(
-                                          child: Container(
-                                            width: Get.width,
-                                            height: 320.h,
-                                            child: Image.memory(
-                                              data['images'][0],
-                                              fit: BoxFit.cover,
-                                              height: 250.h,
-                                              width: Get.width,
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 0.h,
-                                          child: Container(
-                                            height: 70.h,
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount: data['images'].length,
-                                              itemBuilder: (context, index) {
-                                                final isSelected =
-                                                    controller.currentImage ==
-                                                        data['images'][index];
-
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    controller.currentImage
-                                                        .value =
-                                                    data['images'][index];
-                                                  },
-                                                  child: Container(
-                                                    decoration: isSelected
-                                                        ? BoxDecoration(
-                                                      border: Border.all(
-                                                        color: AppColors
-                                                            .hint,
-                                                        width: 5.w,
-                                                      ),
-                                                    )
-                                                        : BoxDecoration(
-                                                      border: Border.all(
-                                                        color: AppColors
-                                                            .hint,
-                                                        width: 2.w,
-                                                      ),
-                                                    ),
-                                                    child: Image.memory(
-                                                      data['images'][index],
-                                                      fit: BoxFit.cover,
-                                                      width: 70.w,
-                                                      height: Get.height,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              } else if (data['type'] == "Indoor Amenities") {
-                                if (data['sub_type'] == 'blurb') {
-                                  return Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      title(
-                                          color: AppColors.black,
-                                          text: data['title'],
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: EraTheme.paddingWidth30,
-                                          )),
-                                      sb10(),
-                                      Image.memory(
-                                        data['image'],
-                                        fit: BoxFit.cover,
-                                        //   height: 250.h,
-                                        width: Get.width,
-                                      ),
-                                      sb10(),
-                                      description(text: data['description']),
-                                    ],
-                                  );
-                                } else if (data['sub_type'] == 'gallery') {
-                                  //im getting erorr here if i use getx :<
-                                  return SizedBox(
-                                    height: 350.h,
-                                    child: Stack(
-                                      children: [
-                                        Positioned(
-                                          child: Container(
-                                            width: Get.width,
-                                            height: 320.h,
-                                            child: Image.memory(
-                                              data['images'][0],
-                                              fit: BoxFit.cover,
-                                              height: 250.h,
-                                              width: Get.width,
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 0.h,
-                                          child: Container(
-                                            height: 70.h,
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount: data['images'].length,
-                                              itemBuilder: (context, index) {
-                                                final isSelected =
-                                                    controller.currentImage ==
-                                                        data['images'][index];
-
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    controller.currentImage
-                                                        .value =
-                                                    data['images'][index];
-                                                  },
-                                                  child: Container(
-                                                    decoration: isSelected
-                                                        ? BoxDecoration(
-                                                      border: Border.all(
-                                                        color: AppColors
-                                                            .hint,
-                                                        width: 5.w,
-                                                      ),
-                                                    )
-                                                        : BoxDecoration(
-                                                      border: Border.all(
-                                                        color: AppColors
-                                                            .hint,
-                                                        width: 2.w,
-                                                      ),
-                                                    ),
-                                                    child: Image.memory(
-                                                      data['images'][index],
-                                                      fit: BoxFit.cover,
-                                                      width: 70.w,
-                                                      height: Get.height,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              } else if (data['type'] == "Carousel") {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    title(
-                                      text: data['title'],
-                                      textAlign: TextAlign.start,
-                                    ),
-                                    sb10(),
-                                    Container(
-                                        decoration: BoxDecoration(
-                                            color: AppColors.carouselBgColor),
-                                        child: CarouselSlider(
-                                          items: data['images']
-                                              .map<Widget>((image) {
-                                            return Image.memory(image);
-                                          }).toList(),
-                                          options: CarouselOptions(
-                                            enlargeCenterPage: true,
-                                            enlargeStrategy:
-                                            CenterPageEnlargeStrategy
-                                                .height,
-                                            autoPlay: true,
-                                            viewportFraction: 0.8,
-                                          ),
-                                        )),
-                                    sb20(),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        infoTile(
-                                            AppEraAssets.floorArea,
-                                            TextEditingController(
-                                                text: data['floor_area']
-                                                    .toString()),
-                                            'Floor Area', (value) {
-                                          controller.addcarouselFa(value);
-                                        }),
-                                        infoTile(
-                                            AppEraAssets.numberOfBed,
-                                            TextEditingController(
-                                                text: data['beds'].toString()),
-                                            'Number of Bed', (value) {
-                                          controller.addNob(value);
-                                        }),
-                                        infoTile(
-                                            AppEraAssets.loggiaSize,
-                                            TextEditingController(
-                                                text: data['loggia_size']
-                                                    .toString()),
-                                            'Loggia Size', (value) {
-                                          controller.addcarouselLs(value);
-                                        }),
-                                      ],
-                                    ),
-                                    sb10(),
-                                    description(text: data['paragraph']),
-                                  ],
-                                );
-                              } else if (data['type'] == "Space") {
-                                return SizedBox(
-                                    height:
-                                    data['height'].toString().toDouble());
-                              }
-                              return Container();
-                            },
-                          );
-                        } else {
+                        if (controller.projectLego.value.isNotEmpty){
+                          return ProjectViews(
+                            project: Project.fromJSON({
+                              'id' : projectId,
+                              'data' : controller.projectLego
+                            })
+                          ).build();
+                        }
+                        else {
                           return Center(
                             child: Padding(
                               padding: EdgeInsets.all(10.w),

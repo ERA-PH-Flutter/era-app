@@ -11,6 +11,7 @@ import 'package:eraphilippines/presentation/agent/forms/contacts/pages/inquiry.d
 import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
 import 'package:eraphilippines/repository/project.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -32,20 +33,46 @@ class ProjectViews {
 
   var currentImage = ''.obs;
   final RxInt currentPage = 0.obs;
-
+  _buildImage({
+    height,
+    width,
+    image,
+  }){
+    return Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: image
+          )
+      ),
+    );
+  }
   build() {
-    return CustomScrollView(slivers: [
+    return CustomScrollView(
+        shrinkWrap: true,
+        slivers: [
       SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
             var data = project.data![index];
 
             if (data['type'] == "Banner Images") {
-              return CloudStorage().imageLoaderProvider(
-                ref: data['image'],
-                height: 250.h,
-                width: Get.width,
-              );
+              if(kIsWeb){
+                return _buildImage(
+                  image: MemoryImage(
+                      data['image']
+                  ),
+                  height: 250.h,
+                  width: Get.width
+                );
+              }else{
+                return CloudStorage().imageLoaderProvider(
+                  ref: data['image'],
+                  height: 250.h,
+                  width: Get.width,
+                );
+              }
             } else if (data['type'] == "Developer Name") {
               return EraText(
                 textAlign: TextAlign.center,
@@ -54,70 +81,110 @@ class ProjectViews {
                 fontSize: EraTheme.small,
               );
             } else if (data['type'] == "Project Logo") {
+              if(kIsWeb){
+                return _buildImage(
+                    image: MemoryImage(
+                        data['image']
+                    ),
+                    height: 250.h,
+                    width: Get.width
+                );
+              }
               return CloudStorage().imageLoaderProvider(
                 ref: data['image'],
                 height: 150.h,
                 width: 241.h,
               );
             } else if (data['type'] == "3D Virtual") {
-              var webViewController = WebViewController();
-              webViewController
-                ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                ..setBackgroundColor(const Color(0x00000000))
-                ..setNavigationDelegate(
-                  NavigationDelegate(
-                    onPageStarted: (String url) {},
-                    onPageFinished: (String url) {},
-                    onWebResourceError: (WebResourceError error) {},
-                  ),
-                );
-              return Container(
-                color: AppColors.hint.withOpacity(0.3),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    title(
+              if(kIsWeb){
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 25.w, vertical: 15.h),
+                  color: AppColors.hint.withOpacity(0.3),
+                  child: Column(
+                    crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                    children: [
+                      title(
                         text: data['title'],
                         textAlign: TextAlign.start,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: EraTheme.paddingWidth)),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: EraTheme.paddingWidth),
-                      child: description(text: data['description']),
+                      ),
+                      sb10(),
+                      description(text: data['description']),
+                      Container(
+                        color: Colors.white,
+                        height: 150.h,
+                        width: Get.width,
+                        alignment: Alignment.center,
+                        child: EraText(
+                          color: Colors.black,
+                          fontSize: 20.sp,
+                          text: "No Preview for Web!",
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }else{
+                var webViewController = WebViewController();
+                webViewController
+                  ..setJavaScriptMode(JavaScriptMode.unrestricted)
+                  ..setBackgroundColor(const Color(0x00000000))
+                  ..setNavigationDelegate(
+                    NavigationDelegate(
+                      onPageStarted: (String url) {},
+                      onPageFinished: (String url) {},
+                      onWebResourceError: (WebResourceError error) {},
                     ),
-                    sb20(),
-                    FutureBuilder(
-                        future: loadLink(data['link'], webViewController),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            var params =
-                                const PlatformWebViewControllerCreationParams();
-                            var webview =
-                                WebViewController.fromPlatformCreationParams(
-                              params,
-                              onPermissionRequest:
-                                  (WebViewPermissionRequest request) {
-                                request.grant();
-                              },
-                            );
-                            return SizedBox(
-                              height: 400.h,
-                              child: GestureDetector(
-                                child: WebViewWidget(
-                                  controller: webViewController,
+                  );
+                return Container(
+                  color: AppColors.hint.withOpacity(0.3),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      title(
+                          text: data['title'],
+                          textAlign: TextAlign.start,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: EraTheme.paddingWidth)),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: EraTheme.paddingWidth),
+                        child: description(text: data['description']),
+                      ),
+                      sb20(),
+                      FutureBuilder(
+                          future: loadLink(data['link'], webViewController),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var params =
+                              const PlatformWebViewControllerCreationParams();
+                              var webview =
+                              WebViewController.fromPlatformCreationParams(
+                                params,
+                                onPermissionRequest:
+                                    (WebViewPermissionRequest request) {
+                                  request.grant();
+                                },
+                              );
+                              return SizedBox(
+                                height: 400.h,
+                                child: GestureDetector(
+                                  child: WebViewWidget(
+                                    controller: webViewController,
+                                  ),
                                 ),
-                              ),
-                            );
-                          } else {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                        }),
-                  ],
-                ),
-              );
+                              );
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          }),
+                    ],
+                  ),
+                );
+              }
             } else if (data['type'] == "Blurb") {
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
@@ -170,10 +237,23 @@ class ProjectViews {
                         text: data['title'],
                       ),
                       sb30(),
-                      CloudStorage().imageLoaderProvider(
-                        ref: data['image'],
-                        height: 250.h,
-                        width: Get.width,
+                      Builder(
+                        builder: (context){
+                          if(kIsWeb){
+                            return _buildImage(
+                                image: MemoryImage(
+                                    data['image']
+                                ),
+                                height: 250.h,
+                                width: Get.width
+                            );
+                          }
+                          return CloudStorage().imageLoaderProvider(
+                            ref: data['image'],
+                            height: 250.h,
+                            width: Get.width,
+                          );
+                        },
                       ),
                       sb20(),
                       description(text: data['description']),
@@ -333,10 +413,23 @@ class ProjectViews {
                                           width: isSelected ? 5.w : 1.w,
                                         ),
                                       ),
-                                      child: CloudStorage().imageLoaderProvider(
-                                        ref: image,
-                                        width: Get.width / 6,
-                                        height: 70.h,
+                                      child: Builder(
+                                        builder: (context){
+                                          if(kIsWeb){
+                                            return _buildImage(
+                                                image:MemoryImage(
+                                                    data['image']
+                                                ),
+                                                width: Get.width / 6,
+                                                height: 70.h,
+                                            );
+                                          }
+                                          return CloudStorage().imageLoaderProvider(
+                                            ref: image,
+                                            width: Get.width / 6,
+                                            height: 70.h,
+                                          );
+                                        },
                                       ),
                                     ));
                               },
@@ -361,10 +454,23 @@ class ProjectViews {
                         text: data['title'],
                       ),
                       sb30(),
-                      CloudStorage().imageLoaderProvider(
-                        ref: data['image'],
-                        height: 250.h,
-                        width: Get.width,
+                      Builder(
+                        builder: (context){
+                          if(kIsWeb){
+                            return _buildImage(
+                                image: MemoryImage(
+                                    data['image']
+                                ),
+                                height: 250.h,
+                                width: Get.width
+                            );
+                          }
+                          return CloudStorage().imageLoaderProvider(
+                            ref: data['image'],
+                            height: 250.h,
+                            width: Get.width,
+                          );
+                        },
                       ),
                       sb20(),
                       description(text: data['description']),
@@ -436,11 +542,24 @@ class ProjectViews {
                                             },
                                             itemBuilder: (context, index) =>
                                                 Center(
-                                              child: CloudStorage()
-                                                  .imageLoaderProvider(
-                                                ref: data['images'][index],
-                                                height: Get.height,
-                                                width: Get.width,
+                                              child: Builder(
+                                                  builder:(context){
+                                                    if(kIsWeb){
+                                                      return _buildImage(
+                                                        image: MemoryImage(
+                                                          data['images'][index]
+                                                        ),
+                                                        height: Get.height,
+                                                        width: Get.width,
+                                                      );
+                                                    }
+                                                    return CloudStorage()
+                                                        .imageLoaderProvider(
+                                                      ref: data['images'][index],
+                                                      height: Get.height,
+                                                      width: Get.width,
+                                                    );
+                                                  }
                                               ),
                                             ),
                                           ),
@@ -489,12 +608,25 @@ class ProjectViews {
                             child: Container(
                               width: Get.width,
                               height: 320.h,
-                              child: CloudStorage().imageLoaderProvider(
-                                ref: currentImage.value.isEmpty
-                                    ? data['images'][index]
-                                    : currentImage.value,
-                                height: 250.h,
-                                width: Get.width,
+                              child: Builder(
+                                builder:(context){
+                                  if(kIsWeb){
+                                    return _buildImage(
+                                      image: MemoryImage(
+                                          data['image']
+                                      ),
+                                      height: 250.h,
+                                      width: Get.width,
+                                    );
+                                  }
+                                  return CloudStorage().imageLoaderProvider(
+                                    ref: currentImage.value.isEmpty
+                                        ? data['images'][index]
+                                        : currentImage.value,
+                                    height: 250.h,
+                                    width: Get.width,
+                                  );
+                                }
                               ),
                             ),
                           ),
@@ -524,10 +656,23 @@ class ProjectViews {
                                           width: isSelected ? 5.w : 1.w,
                                         ),
                                       ),
-                                      child: CloudStorage().imageLoaderProvider(
-                                        ref: image,
-                                        width: Get.width / 6,
-                                        height: 70.h,
+                                      child: Builder(
+                                        builder: (context){
+                                          if(kIsWeb){
+                                            return _buildImage(
+                                              image: MemoryImage(
+                                                  data['image']
+                                              ),
+                                              width: Get.width / 6,
+                                              height: 70.h,
+                                            );
+                                          }
+                                          return CloudStorage().imageLoaderProvider(
+                                            ref: image,
+                                            width: Get.width / 6,
+                                            height: 70.h,
+                                          );
+                                        },
                                       ),
                                     ));
                               },
@@ -557,10 +702,23 @@ class ProjectViews {
                           items: data['images'].map<Widget>((image) {
                             return ClipRRect(
                               borderRadius: BorderRadius.circular(30),
-                              child: CloudStorage().imageLoader(
-                                ref: image,
-                                width: Get.width,
-                                height: Get.height,
+                              child: Builder(
+                                builder: (context){
+                                  if(kIsWeb){
+                                    return _buildImage(
+                                      image: MemoryImage(
+                                        image
+                                      ),
+                                      width: Get.width,
+                                      height: Get.height,
+                                    );
+                                  }
+                                  return CloudStorage().imageLoader(
+                                    ref: image,
+                                    width: Get.width,
+                                    height: Get.height,
+                                  );
+                                },
                               ),
                             );
                           }).toList(),
@@ -616,16 +774,23 @@ class ProjectViews {
         ),
       ),
       SliverToBoxAdapter(
-        child: Column(
-          children: [
-            Inquiry(),
-            SizedBox(height: 40.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: FindUs(),
-            ),
-            SizedBox(height: 180.h),
-          ],
+        child:  Builder(
+          builder: (context){
+            if(kIsWeb){
+              return Container();
+            }
+            return Column(
+              children: [
+                Inquiry(),
+                SizedBox(height: 40.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  child: FindUs(),
+                ),
+                SizedBox(height: 180.h),
+              ],
+            );
+          },
         ),
       ),
     ]);

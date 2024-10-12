@@ -178,6 +178,17 @@ class ListingsAdminController extends GetxController {
         .uploadFromMemory(file: file, target: 'projects');
   }
 
+  Future<int> getOrderCount()async{
+    try {
+      return (await FirebaseFirestore
+          .instance
+          .collection('projects').orderBy('order_id')
+          .get()).docs.last.data()['order_id'].toString().toInt() + 1;
+    }catch(e){
+      return 1;
+    }
+  }
+
   uploadMultiple(files) async {
     var newImages = [];
     for (var image in files) {
@@ -300,20 +311,24 @@ class ListingsAdminController extends GetxController {
       return e;
     }
   }
-
+  var oldImages = [];
   @override
   void onInit() async {
     if (projectsData != null) {
       for (int i = 0; i < projectsData!.length; i++) {
         if (['Banner Images', 'Project Logo', 'Blurb']
             .contains(projectsData![i]['type'])) {
+          oldImages.add(projectsData![i]['image']);
           projectsData![i]['image'] = await CloudStorage().getFileBytes(docRef: projectsData![i]['image']);
         } else if (['Carousel'].contains(projectsData![i]['type'])) {
+          oldImages += projectsData![i]['images'];
           projectsData![i]['images'] = await CloudStorage().getFilesBytes(docRefs: projectsData![i]['images']);
         } else if (['Outdoor Amenities', 'Indoor Amenities'].contains(projectsData![i]['type'])) {
           if (projectsData?[i]['sub_type'] == 'blurb') {
+            oldImages.add(projectsData![i]['image']);
             projectsData![i]['image'] = await CloudStorage().getFileBytes(docRef: projectsData![i]['image']);
           } else {
+            oldImages += projectsData![i]['images'];
             projectsData![i]['images'] = await CloudStorage().getFilesBytes(docRefs: projectsData?[i]['images']);
           }
         }

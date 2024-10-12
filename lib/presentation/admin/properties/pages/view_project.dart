@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,36 +26,44 @@ class ViewProject extends StatefulWidget {
 }
 
 class _ViewProjectState extends State<ViewProject> {
+  Stream<QuerySnapshot<Map<String, dynamic>>> projectStream =  FirebaseFirestore.instance
+      .collection('projects')
+      .orderBy('order_id')
+      .snapshots();
+  var searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-          padding: EdgeInsets.all(EraTheme.paddingWidthAdmin - 5.w),
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w,vertical: 30.h),
           alignment: Alignment.topCenter,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppTextField(
+                controller: searchController,
                 height: 50.h,
-                // controller: controller.aiSearchController,
-                //can't use the hide why is that?
                 svgIcon: AppEraAssets.ai3,
-
                 hint: 'SEARCH PROJECTS',
                 bgColor: Colors.grey[200],
                 suffixIcons: AppEraAssets.send,
                 isSuffix: true,
-
                 onSuffixTap: () {
-                  // controller.onSearch();
+                  BaseController().showLoading();
+                  projectStream = FirebaseFirestore.instance
+                      .collection('projects')
+                      .where('title', isGreaterThanOrEqualTo: searchController.text)
+                      .where('title', isLessThanOrEqualTo:  '${searchController.text}\uf8ff')
+                      .snapshots();
+                  setState(() {
+
+                  });
+                  BaseController().hideLoading();
                 },
               ),
-              sb40(),
+              sb20(),
               StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('projects')
-                    .orderBy('order_id')
-                    .snapshots(),
+                stream: projectStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var data = snapshot.data!.docs;
@@ -90,14 +99,10 @@ class _ViewProjectState extends State<ViewProject> {
                         itemBuilder: (context, index) {
                           var d = data[index].data();
                           var developerName = "";
-                          var projectTitle = "";
                           var image = '';
                           d['data'].forEach((lego) {
                             if (lego['type'] == "Developer Name") {
                               developerName = lego['developer_name'];
-                            }
-                            if (lego['type'] == "Project Title") {
-                              projectTitle = lego['project_title'];
                             }
                             if (lego['type'] == "Project Logo") {
                               image = lego['image'];
@@ -124,7 +129,7 @@ class _ViewProjectState extends State<ViewProject> {
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold),
                               subtitle: EraText(
-                                  text: 'Project Title: $projectTitle',
+                                  text: 'Project Title: ${d['title']}',
                                   color: AppColors.black,
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold),
@@ -158,6 +163,7 @@ class _ViewProjectState extends State<ViewProject> {
                                     onPressed: () async {
                                       projectsData = data[index]['data'];
                                       projectId = data[index]['id'];
+                                      pjTitle = data[index]['title'];
                                       await Get.delete<
                                           ListingsAdminController>();
                                       Get.put(ListingsAdminController());
