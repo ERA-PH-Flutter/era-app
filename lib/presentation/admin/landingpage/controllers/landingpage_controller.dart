@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../app/services/local_storage.dart';
 
@@ -23,6 +24,17 @@ class LandingPageController extends GetxController {
   var arguments = [];
   // var selectedSection = AdminSection.homepage.obs;
   var selectedSectionIndex = 13.obs;
+
+  var selectedTile = -1;
+  List<ExpansionTileController> expandedControllers = [
+    ExpansionTileController(),
+    ExpansionTileController(),
+    ExpansionTileController(),
+    ExpansionTileController(),
+    ExpansionTileController(),
+    ExpansionTileController(),
+    ExpansionTileController(),
+  ];
   @override
   void onInit() {
     landingState.value = LandingState.loaded;

@@ -161,6 +161,24 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                                   padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 21.h),
                                                   child: Column(
                                                     children: [
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          EraText(
+                                                            text: "Project Title",
+                                                            fontSize: 18.sp,
+                                                            color: Colors.black,
+                                                            fontWeight: FontWeight.w600,
+                                                          ),
+                                                          IconButton(
+                                                            onPressed: (){
+                                                              Get.back();
+                                                            },
+                                                            icon: Icon(Icons.cancel,size: 30.sp,color: Colors.red,),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: 5.h,),
                                                       AppTextField(
                                                         height: 48.h,
                                                         isSuffix: false,
@@ -169,9 +187,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                                         controller: titleController,
                                                         hint: "Project Title",
                                                       ),
-                                                      SizedBox(height: 10.h,),
+                                                      SizedBox(height: 15.h,),
                                                       Button(
-                                                        margin: EdgeInsets.symmetric(horizontal: 5),
                                                         width: Get.width,
                                                         text: 'SUBMIT',
                                                         bgColor: AppColors.blue,

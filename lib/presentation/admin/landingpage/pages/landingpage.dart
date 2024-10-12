@@ -236,6 +236,8 @@ class LandingPage extends GetView<LandingPageController> {
             children: [
               _buildMenuItem('MANAGE STATISTICS', 13),
             ],
+            index: 0,
+            expandedController: controller.expandedControllers[0]
           ),
           _buildExpansionTile(
             text: "USERS",
@@ -246,6 +248,8 @@ class LandingPage extends GetView<LandingPageController> {
               _buildMenuItem('APPROVAL NEW AGENT', 2),
               //     _buildMenuItem('VIEW AGENTS/BROKERS', 3),
             ],
+            index: 1,
+              expandedController: controller.expandedControllers[1]
           ),
           _buildExpansionTile(
             text: "PROPERTIES",
@@ -259,6 +263,8 @@ class LandingPage extends GetView<LandingPageController> {
               _buildMenuItem('ADD LISTINGS', 7),
               //_buildMenuItem('EDIT LISTINGS', 8),
             ],
+            index: 2,
+              expandedController: controller.expandedControllers[2]
           ),
           _buildExpansionTile(
             text: "CONTENT",
@@ -267,6 +273,8 @@ class LandingPage extends GetView<LandingPageController> {
               _buildMenuItem('HOMEPAGE', 9),
               //  _buildMenuItem('ADD ABOUT US', 10),
             ],
+            index: 3,
+              expandedController: controller.expandedControllers[3]
           ),
           _buildExpansionTile(
             text: "NEWS",
@@ -275,6 +283,8 @@ class LandingPage extends GetView<LandingPageController> {
               _buildMenuItem('VIEW ALL NEWS', 11),
               _buildMenuItem('ADD NEWS', 12),
             ],
+            index: 4,
+              expandedController: controller.expandedControllers[4]
           ),
           _buildExpansionTile(
             text: "FAQS",
@@ -284,6 +294,8 @@ class LandingPage extends GetView<LandingPageController> {
               // _buildMenuItem('Agent FAQ’s', 12),
               // _buildMenuItem('Customer FAQ’s', 13),
             ],
+            index: 5,
+              expandedController: controller.expandedControllers[5]
           ),
           _buildExpansionTile(
             text: "SETTINGS",
@@ -296,6 +308,8 @@ class LandingPage extends GetView<LandingPageController> {
               // _buildMenuItem('Agent FAQ’s', 12),
               // _buildMenuItem('Customer FAQ’s', 13),
             ],
+            index: 6,
+              expandedController: controller.expandedControllers[6]
           ),
           // _buildExpansionTile(
           //   text: "TRAINING",
@@ -316,13 +330,13 @@ class LandingPage extends GetView<LandingPageController> {
             controller.selectedSectionIndex.value == section;
         return ListTile(
           title: Container(
+            alignment: Alignment.center,
             height: 40.h,
             child: EraText(
               textAlign: TextAlign.center,
               text: title,
-              fontSize: 12.sp,
+              fontSize: 13.sp,
               color: isSelected ? AppColors.kRedColor : AppColors.black,
-              maxLines: 2,
             ),
           ),
           onTap: () async {
@@ -340,8 +354,27 @@ class LandingPage extends GetView<LandingPageController> {
     required String text,
     required String image,
     required List<Widget> children,
+    required index,
+    required expandedController
   }) {
+    var cont = ExpansionTileController();
     return ExpansionTile(
+      onExpansionChanged: ((newState) {
+        print(index);
+        if (newState) {
+          controller.selectedTile = index;
+          for (int i = 0;i<controller.expandedControllers.length;i++) {
+            if(i != index){
+              if(controller.expandedControllers[i].isExpanded){
+                controller.expandedControllers[i].collapse();
+              }
+            }
+          }
+        } else {
+          controller.selectedTile = -1;
+        }
+      }),
+      controller: expandedController,
       leading: SizedBox(),
       title: Image.asset(
         image,
