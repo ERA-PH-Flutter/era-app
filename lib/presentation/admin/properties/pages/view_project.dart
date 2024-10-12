@@ -157,6 +157,7 @@ class _ViewProjectState extends State<ViewProject> {
                                   IconButton(
                                     onPressed: () async {
                                       projectsData = data[index]['data'];
+                                      projectId = data[index]['id'];
                                       await Get.delete<
                                           ListingsAdminController>();
                                       Get.put(ListingsAdminController());

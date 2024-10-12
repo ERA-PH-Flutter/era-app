@@ -13,6 +13,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
+import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/listing_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../app/models/geocode.dart';
+import '../../../../app/services/firebase_storage.dart';
 import '../../../../app/widgets/era_place_search.dart';
 import '../../../../repository/logs.dart';
 import '../../../../repository/project.dart';
@@ -34,6 +36,16 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
   @override
   Widget build(BuildContext context) {
     ListingsAdminController controller = Get.put(ListingsAdminController());
+    return Obx((){
+      return switch (controller.listingState.value) {
+        ListingsAState.loading => _loading(),
+        ListingsAState.loaded => _loaded(),
+        ListingsAState.error => _error(),
+        ListingsAState.empty => _empty(),
+      };
+    });
+  }
+  _loaded(){
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
@@ -43,7 +55,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
           children: [
             Flexible(
               flex: 2,
-              child: Container(
+              child: SizedBox(
                 height: Get.height - 150.h,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
@@ -79,14 +91,27 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Button(
+                                    onTap: (){
+                                      projectsData = null;
+                                      projectId = null;
+                                      controller.projectLego.clear();
+                                    },
+                                    text: "CLEAR",
+                                    margin: EdgeInsets.symmetric(horizontal: 5),
+                                    width: 150.w,
+                                    color: Colors.black,
+                                    border: Border.all(width: 2.w, color: AppColors.blue,),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  Button(
                                     onTap: () async {
                                       var hasDeveloperName = false;
                                       var hasCarousel = false;
                                       var hasProjectLogo = false;
-                                      var hasProjectTilted = false;
+                                      var hasProjectTitled = false;
                                       for (var lego in controller.projectLego) {
-                                        if (lego['type'] == "ProjectTitle") {
-                                          hasProjectTilted = true;
+                                        if (lego['type'] == "Project Title") {
+                                          hasProjectTitled = true;
                                         }
                                         if (lego['type'] == "Project Logo") {
                                           hasProjectLogo = true;
@@ -100,67 +125,101 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       }
                                       if (!hasDeveloperName ||
                                           !hasCarousel ||
-                                          !hasProjectLogo) {
+                                          !hasProjectLogo ||
+                                          !hasProjectTitled) {
                                         BaseController().showErroDialog(
-                                          title: "Error",
-                                          description:
-                                              "Project must have, developer name, carousel and project logo",
+                                            title: "Error",
+                                            description:
+                                            "Project must have Title, Developer Name, Carousel and a Logo",
+                                            onTap:(){
+
+                                            }
                                         );
                                         return;
                                       }
                                       try {
                                         BaseController().showLoading();
-                                        for (var lego
-                                            in controller.projectLego) {
+                                        for (var lego in controller.projectLego) {
                                           if ([
                                             'Banner Images',
                                             'Project Logo',
                                             'Blurb'
                                           ].contains(lego['type'])) {
-                                            lego['image'] = await controller
-                                                .uploadSingle(lego['image']);
-                                          } else if (['Carousel']
-                                              .contains(lego['type'])) {
-                                            lego['images'] = await controller
-                                                .uploadMultiple(lego['images']);
+                                            lego['image'] = await controller.uploadSingle(lego['image']);
+                                          } else if (['Carousel'].contains(lego['type'])) {
+                                            lego['images'] = await controller.uploadMultiple(lego['images']);
                                           } else if ([
                                             'Outdoor Amenities',
                                             'Indoor Amenities'
                                           ].contains(lego['type'])) {
                                             if (lego['sub_type'] == 'blurb') {
-                                              lego['image'] = await controller
-                                                  .uploadSingle(lego['image']);
+                                              lego['image'] = await controller.uploadSingle(lego['image']);
                                             } else {
-                                              lego['images'] = await controller
-                                                  .uploadMultiple(
-                                                      lego['images']);
+                                              lego['images'] = await controller.uploadMultiple(lego['images']);
                                             }
                                           }
                                         }
-                                        var project = Project.fromJSON({
-                                          'uploaded_by': user == null
-                                              ? "UnknownAdmin"
-                                              : user!.id,
-                                          'date_created': DateTime.now(),
-                                          'date_updated': DateTime.now(),
-                                          'order_id': (await FirebaseFirestore
-                                                  .instance
-                                                  .collection('projects')
-                                                  .get())
-                                              .docs
-                                              .length,
-                                          'data': controller.projectLego
-                                        });
-                                        await project.add();
-                                        await Logs(
-                                                title:
-                                                    "${user!.firstname} ${user!.lastname} added a project with ID ${project.id}",
-                                                type: "project")
-                                            .add();
+                                        Project? project;
+                                        if(projectsData == null){
+                                          project = Project.fromJSON({
+                                            'uploaded_by': user == null
+                                                ? "UnknownAdmin"
+                                                : user!.id,
+                                            'date_created': DateTime.now(),
+                                            'date_updated': DateTime.now(),
+                                            'order_id':(await FirebaseFirestore
+                                                .instance
+                                                .collection('projects').orderBy('order_id')
+                                                .get()).docs.last.data()['order_id'].toString().toInt() + 1 ,
+                                            'data': controller.projectLego
+                                          });
+                                        }
+                                        else{
+                                          Project p = await Project.getById(projectId);
+                                          project = Project.fromJSON({
+                                            'id' : p.id,
+                                            'uploaded_by': p.uploadedBy,
+                                            'date_created': p.dateCreated,
+                                            'date_updated': DateTime.now(),
+                                            'order_id': p.orderId,
+                                            'data': controller.projectLego
+                                          });
+                                        }
+
+                                        if(projectsData != null){
+                                          print(project.toMap());
+                                          await project.updateProject();
+                                          await Logs(
+                                              title:
+                                              "${user!.firstname} ${user!.lastname} updated a project with ID ${project.id}",
+                                              type: "project")
+                                              .add();
+                                          for (var pd in projectsData!) {
+                                            if (['Banner Images', 'Project Logo', 'Blurb'].contains(pd['type'])) {
+                                              await CloudStorage().deleteFileDirect(docRef: pd['image']);
+                                            } else if (['Carousel'].contains(pd['type'])) {
+                                              await CloudStorage().deleteAll(fileList : pd['images']);
+                                            } else if (['Outdoor Amenities', 'Indoor Amenities'].contains(pd['type'])) {
+                                              if (pd['sub_type'] == 'blurb') {
+                                                await CloudStorage().deleteFileDirect(docRef: pd['image']);
+                                              } else {
+                                                await CloudStorage().deleteAll(fileList : pd['images']);
+                                              }
+                                            }
+                                          }
+                                        }else{
+                                          await project.add();
+                                          await Logs(
+                                              title:
+                                              "${user!.firstname} ${user!.lastname} added a project with ID ${project.id}",
+                                              type: "project")
+                                              .add();
+                                        }
+
                                         BaseController().showSuccessDialog(
-                                            title: "Success",
+                                            title: "Success!",
                                             description:
-                                                "Project upload success!",
+                                            "Project ${projectsData != null ? 'update' : 'upload'} success!",
                                             hitApi: () {
                                               Get.back();
                                               Get.back();
@@ -169,7 +228,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       } catch (e) {
                                         BaseController().showErroDialog(
                                             onTap: () {
-                                              Get.back();
                                               Get.back();
                                             },
                                             description: '$e');
@@ -192,7 +250,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                         width: Get.width,
                         child: DropdownButtonHideUnderline(
                           child: Obx(
-                            () => DropdownButton<String>(
+                                () => DropdownButton<String>(
                               focusColor: AppColors.hint.withOpacity(0.7),
                               dropdownColor: AppColors.white,
                               value: controller.selectedOption.isEmpty
@@ -322,7 +380,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 controller.projectLego.add({
                                   'type': "Project Title",
                                   'project_title':
-                                      controller.projectTitleController.text
+                                  controller.projectTitleController.text
                                 });
                                 controller.projectTitleController.clear();
                                 controller.selectedOption.value = "unselect";
@@ -334,11 +392,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                             children: [
                               _buildTextField(
                                 controller: controller.projectTitleController,
-                                label: 'Porject Title*',
-                                onChanged: (value) {
-                                  controller.updateDeveloperName(
-                                      controller.projectTitleController.text);
-                                },
+                                label: 'Project Title*',
                               ),
                               sb20(),
                             ],
@@ -352,7 +406,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 controller.projectLego.add({
                                   'type': "Developer Name",
                                   'developer_name':
-                                      controller.developerController.text
+                                  controller.developerController.text
                                 });
                                 controller.developerController.clear();
                                 controller.selectedOption.value = "unselect";
@@ -416,7 +470,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 message = 'Please enter valid paragraph!';
                               }
                               if (controller
-                                      .virtualLinkController.text.isEmpty ||
+                                  .virtualLinkController.text.isEmpty ||
                                   !controller.virtualLinkController.text
                                       .contains('http')) {
                                 message = 'Please enter valid link!';
@@ -425,7 +479,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 controller.projectLego.add({
                                   'type': "3D Virtual",
                                   'title':
-                                      controller.virtualTitleController.text,
+                                  controller.virtualTitleController.text,
                                   'description': controller
                                       .virtualParagraphController.text,
                                   'link': controller.virtualLinkController.text,
@@ -449,7 +503,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                               TextformfieldWidget(
                                 controller:
-                                    controller.virtualParagraphController,
+                                controller.virtualParagraphController,
                                 hintText: 'Virtual Paragraph *',
                                 maxLines: 10,
                                 textInputAction: TextInputAction.newline,
@@ -558,22 +612,22 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   EraText(
                                       text: 'Add Outdoor Amenities',
                                       color: AppColors.black),
                                   Obx(
-                                    () => DropdownButtonHideUnderline(
+                                        () => DropdownButtonHideUnderline(
                                       child: DropdownButton<String>(
                                           hint: EraText(
                                               text: 'Select Option',
                                               color: AppColors.black),
                                           value: controller
-                                                  .selectedOutDoor.value.isEmpty
+                                              .selectedOutDoor.value.isEmpty
                                               ? null
                                               : controller
-                                                  .selectedOutDoor.value,
+                                              .selectedOutDoor.value,
                                           items: [
                                             DropdownMenuItem(
                                                 value: 'blurb',
@@ -588,7 +642,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           ],
                                           onChanged: (value) {
                                             controller.selectedOutDoor.value =
-                                                value!;
+                                            value!;
                                           }),
                                     ),
                                   ),
@@ -601,7 +655,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     children: [
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           EraText(
                                               text: 'BLURB OUTDOOR AMENITIES',
@@ -627,7 +681,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           hintText: 'Blurb Paragraph *',
                                           maxLines: 10,
                                           textInputAction:
-                                              TextInputAction.newline,
+                                          TextInputAction.newline,
                                           keyboardType: TextInputType.multiline,
                                         ),
                                         sb20(),
@@ -639,7 +693,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   return UploadBannersWidget(
                                     padding: EdgeInsets.zero,
                                     text:
-                                        'Upload Outdoor Amenities Gallery Only',
+                                    'Upload Outdoor Amenities Gallery Only',
                                     maxImages: 10,
                                     onImageSelectedMany:
                                         (List<Uint8List> outdoorAmenities) {
@@ -700,7 +754,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     blurbParagraph.clear();
                                     blurbImage = null;
                                     controller.selectedOption.value =
-                                        "unselect";
+                                    "unselect";
                                   }
                                 },
                                 margin: EdgeInsets.symmetric(horizontal: 5),
@@ -721,22 +775,22 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   EraText(
                                       text: 'Add Indoor Amenities',
                                       color: AppColors.black),
                                   Obx(
-                                    () => DropdownButtonHideUnderline(
+                                        () => DropdownButtonHideUnderline(
                                       child: DropdownButton<String>(
                                           hint: EraText(
                                               text: 'Select Option',
                                               color: AppColors.black),
                                           value: controller
-                                                  .selectedOutDoor.value.isEmpty
+                                              .selectedOutDoor.value.isEmpty
                                               ? null
                                               : controller
-                                                  .selectedOutDoor.value,
+                                              .selectedOutDoor.value,
                                           items: [
                                             DropdownMenuItem(
                                                 value: 'blurb',
@@ -751,7 +805,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           ],
                                           onChanged: (value) {
                                             controller.selectedOutDoor.value =
-                                                value!;
+                                            value!;
                                           }),
                                     ),
                                   ),
@@ -764,7 +818,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     children: [
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           EraText(
                                               text: 'BLURB INDOOR AMENITIES',
@@ -790,7 +844,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           hintText: 'Blurb Paragraph *',
                                           maxLines: 10,
                                           textInputAction:
-                                              TextInputAction.newline,
+                                          TextInputAction.newline,
                                           keyboardType: TextInputType.multiline,
                                         ),
                                         sb20(),
@@ -802,7 +856,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   return UploadBannersWidget(
                                     padding: EdgeInsets.zero,
                                     text:
-                                        'Upload Indoor Amenities Gallery Only',
+                                    'Upload Indoor Amenities Gallery Only',
                                     maxImages: 10,
                                     onImageSelectedMany:
                                         (List<Uint8List> outdoorAmenities) {
@@ -861,7 +915,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     blurbImages = null;
                                     blurbImage = null;
                                     controller.selectedOption.value =
-                                        "unselect";
+                                    "unselect";
                                   }
                                 },
                                 margin: EdgeInsets.symmetric(horizontal: 5),
@@ -902,16 +956,16 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 children: [
                                   Padding(
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 25.w),
+                                    EdgeInsets.symmetric(horizontal: 25.w),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                       children: [
                                         infoTile(
                                           AppEraAssets.floorArea,
                                           carouselFloorAreaC,
                                           'Floor Area',
-                                          (value) {
+                                              (value) {
                                             controller.addcarouselFa(value);
                                           },
                                         ),
@@ -964,16 +1018,16 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       'type': 'Carousel',
                                       'title': carouselTitle.text,
                                       'floor_area':
-                                          carouselFloorAreaC.text.isEmpty
-                                              ? 0
-                                              : carouselFloorAreaC.text,
+                                      carouselFloorAreaC.text.isEmpty
+                                          ? 0
+                                          : carouselFloorAreaC.text,
                                       'beds': carouselNumberOfBedC.text.isEmpty
                                           ? 0
                                           : carouselNumberOfBedC.text,
                                       'loggia_size':
-                                          carouselLoggiaSizeC.text.isEmpty
-                                              ? 0
-                                              : carouselLoggiaSizeC.text,
+                                      carouselLoggiaSizeC.text.isEmpty
+                                          ? 0
+                                          : carouselLoggiaSizeC.text,
                                       //'color' :
                                       'paragraph': carouselParagraph.text,
                                       'images': carouselImages,
@@ -985,7 +1039,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     carouselParagraph.clear();
                                     carouselImages = null;
                                     controller.selectedOption.value =
-                                        "unselect";
+                                    "unselect";
                                   } else {
                                     showError(message);
                                   }
@@ -1020,7 +1074,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     });
                                     height.clear();
                                     controller.selectedOption.value =
-                                        "unselect";
+                                    "unselect";
                                   } else {
                                     showError('Space value is empty!');
                                   }
@@ -1048,7 +1102,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 newIndex -= 1;
                               }
                               final item =
-                                  controller.projectLego.removeAt(oldIndex);
+                              controller.projectLego.removeAt(oldIndex);
                               controller.projectLego.insert(newIndex, item);
                             },
                             itemCount: controller.projectLego.length,
@@ -1136,12 +1190,22 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       )),
                                 );
                               } else if (data['type'] == "Banner Images") {
-                                return Image.memory(
-                                  data['image'],
-                                  fit: BoxFit.cover,
-                                  height: 250.h,
-                                  width: Get.width,
-                                );
+                                if(data['image'] != null){
+                                  return Image.memory(
+                                    data['image'],
+                                    fit: BoxFit.cover,
+                                    height: 250.h,
+                                    width: Get.width,
+                                  );
+                                }else{
+                                  return Image.asset(
+                                    'assets/images/no_image_holder.jpg',
+                                    fit: BoxFit.cover,
+                                    height: 250.h,
+                                    width: Get.width,
+                                  );
+                                }
+
                               } else if (data['type'] == "Developer Name") {
                                 return EraText(
                                   textAlign: TextAlign.center,
@@ -1150,12 +1214,21 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   fontSize: EraTheme.small,
                                 );
                               } else if (data['type'] == "Project Logo") {
-                                return Image.memory(
-                                  data['image'],
-                                  fit: BoxFit.cover,
-                                  height: 91.h,
-                                  width: 241.h,
-                                );
+                                if(data['image'] != null){
+                                  return Image.memory(
+                                    data['image'],
+                                    fit: BoxFit.cover,
+                                    height: 250.h,
+                                    width: Get.width,
+                                  );
+                                }else{
+                                  return Image.asset(
+                                    'assets/images/no_image_holder.jpg',
+                                    fit: BoxFit.cover,
+                                    height: 250.h,
+                                    width: Get.width,
+                                  );
+                                }
                               } else if (data['type'] == "3D Virtual") {
                                 return Container(
                                   padding: EdgeInsets.symmetric(
@@ -1163,7 +1236,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   color: AppColors.hint.withOpacity(0.3),
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       title(
                                         text: data['title'],
@@ -1191,7 +1264,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       horizontal: 10.w, vertical: 15.h),
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: [
                                       title(
                                           text: data['title'],
@@ -1199,11 +1272,24 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                             horizontal: EraTheme.paddingWidth30,
                                           )),
                                       sb10(),
-                                      Image.memory(
-                                        data['image'],
-                                        fit: BoxFit.cover,
-                                        //   height: 250.h,
-                                        width: Get.width,
+                                      Builder(
+                                        builder:(context){
+                                          if(data['image'] != null){
+                                            return Image.memory(
+                                              data['image'],
+                                              fit: BoxFit.cover,
+                                              height: 250.h,
+                                              width: Get.width,
+                                            );
+                                          }else{
+                                            return Image.asset(
+                                              'assets/images/no_image_holder.jpg',
+                                              fit: BoxFit.cover,
+                                              height: 250.h,
+                                              width: Get.width,
+                                            );
+                                          }
+                                        }
                                       ),
                                       sb10(),
                                       description(text: data['description']),
@@ -1233,7 +1319,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 if (data['sub_type'] == 'blurb') {
                                   return Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       title(
                                           text: data['title'],
@@ -1286,25 +1372,25 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                                 return GestureDetector(
                                                   onTap: () {
                                                     controller.currentImage
-                                                            .value =
-                                                        data['images'][index];
+                                                        .value =
+                                                    data['images'][index];
                                                   },
                                                   child: Container(
                                                     decoration: isSelected
                                                         ? BoxDecoration(
-                                                            border: Border.all(
-                                                              color: AppColors
-                                                                  .hint,
-                                                              width: 5.w,
-                                                            ),
-                                                          )
+                                                      border: Border.all(
+                                                        color: AppColors
+                                                            .hint,
+                                                        width: 5.w,
+                                                      ),
+                                                    )
                                                         : BoxDecoration(
-                                                            border: Border.all(
-                                                              color: AppColors
-                                                                  .hint,
-                                                              width: 2.w,
-                                                            ),
-                                                          ),
+                                                      border: Border.all(
+                                                        color: AppColors
+                                                            .hint,
+                                                        width: 2.w,
+                                                      ),
+                                                    ),
                                                     child: Image.memory(
                                                       data['images'][index],
                                                       fit: BoxFit.cover,
@@ -1325,7 +1411,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 if (data['sub_type'] == 'blurb') {
                                   return Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       title(
                                           color: AppColors.black,
@@ -1378,25 +1464,25 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                                 return GestureDetector(
                                                   onTap: () {
                                                     controller.currentImage
-                                                            .value =
-                                                        data['images'][index];
+                                                        .value =
+                                                    data['images'][index];
                                                   },
                                                   child: Container(
                                                     decoration: isSelected
                                                         ? BoxDecoration(
-                                                            border: Border.all(
-                                                              color: AppColors
-                                                                  .hint,
-                                                              width: 5.w,
-                                                            ),
-                                                          )
+                                                      border: Border.all(
+                                                        color: AppColors
+                                                            .hint,
+                                                        width: 5.w,
+                                                      ),
+                                                    )
                                                         : BoxDecoration(
-                                                            border: Border.all(
-                                                              color: AppColors
-                                                                  .hint,
-                                                              width: 2.w,
-                                                            ),
-                                                          ),
+                                                      border: Border.all(
+                                                        color: AppColors
+                                                            .hint,
+                                                        width: 2.w,
+                                                      ),
+                                                    ),
                                                     child: Image.memory(
                                                       data['images'][index],
                                                       fit: BoxFit.cover,
@@ -1433,8 +1519,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           options: CarouselOptions(
                                             enlargeCenterPage: true,
                                             enlargeStrategy:
-                                                CenterPageEnlargeStrategy
-                                                    .height,
+                                            CenterPageEnlargeStrategy
+                                                .height,
                                             autoPlay: true,
                                             viewportFraction: 0.8,
                                           ),
@@ -1442,7 +1528,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     sb20(),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                       children: [
                                         infoTile(
                                             AppEraAssets.floorArea,
@@ -1476,7 +1562,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               } else if (data['type'] == "Space") {
                                 return SizedBox(
                                     height:
-                                        data['height'].toString().toDouble());
+                                    data['height'].toString().toDouble());
                               }
                               return Container();
                             },
@@ -1500,6 +1586,21 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
           ],
         ),
       ),
+    );
+  }
+  _loading(){
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+  _empty(){
+    return Center(
+      child: EraText(text: "empty",color: Colors.black,),
+    );
+  }
+  _error(){
+    return Center(
+      child: EraText(text: "error",color: Colors.black,),
     );
   }
 }
