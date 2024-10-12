@@ -7,12 +7,14 @@ class Project{
   DateTime? dateCreated;
   DateTime? dateUpdated;
   String? uploadedBy;
+  int? orderId;
   Project({
     this.id,
     this.data,
     this.dateCreated,
     this.dateUpdated,
     this.uploadedBy,
+    this.orderId
   });
 
   factory Project.fromJSON(Map<String, dynamic> json){
@@ -20,6 +22,7 @@ class Project{
       id: json['id'],
       data: json['data'],
       uploadedBy: json['uploaded_by'],
+      orderId: json['order_id'],
       dateCreated: (json["date_created"] == null)
           ? DateTime.now()
           : json["date_created"].runtimeType == Timestamp
@@ -57,6 +60,7 @@ class Project{
     return {
       'id' : id,
       'data' : data,
+      'order_id' : orderId,
       'date_created' : dateCreated ?? DateTime.now(),
       'date_updated' : DateTime.now(),
       'uploaded_by' : uploadedBy,
