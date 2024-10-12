@@ -36,6 +36,7 @@ class ContentManagementController extends GetxController with BaseController {
         if (settings!.banners != null) {
           for (int i = 0; i < settings!.banners!.length; i++) {
             bannersImages.add(settings!.banners![i]);
+            images.add(await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
           }
         }
       }else{
@@ -45,6 +46,7 @@ class ContentManagementController extends GetxController with BaseController {
         }
       }
       //await getImages();
+      print(images);
       homepageState.value = HomepageState.loaded;
     } catch (e) {
       print(e);
