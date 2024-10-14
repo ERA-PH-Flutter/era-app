@@ -52,7 +52,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             if (currentRoute == '/home') {
               BaseController().showSuccessDialog(
                   title: "Confirm Exit",
-                  description: "Do you want to Exit?",
+                  description: "Do you want to exit?",
                   cancelable: true,
                   hitApi: () {
                     Platform.isAndroid ? SystemNavigator.pop() : exit(0);
