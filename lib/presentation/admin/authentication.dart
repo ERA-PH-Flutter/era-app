@@ -75,8 +75,7 @@ class AuthenticationPage extends GetView {
                                 width: 300.w,
                                 child: TextFormField(
                                   controller: pass,
-                                  obscureText:
-                                      isPasswordNotVisible.value,
+                                  obscureText: isPasswordNotVisible.value,
                                   style: TextStyle(
                                       color: AppColors.black, fontSize: 15.sp),
                                   decoration: InputDecoration(
@@ -85,12 +84,11 @@ class AuthenticationPage extends GetView {
                                     fillColor: AppColors.white,
                                     filled: true,
                                     suffixIcon: IconButton(
-                                      icon: Icon(
-                                          isPasswordNotVisible.value
-                                              ? CupertinoIcons.eye_fill
-                                              : CupertinoIcons.eye_slash_fill),
+                                      icon: Icon(isPasswordNotVisible.value
+                                          ? CupertinoIcons.eye_fill
+                                          : CupertinoIcons.eye_slash_fill),
                                       onPressed: () {
-                                       isPasswordNotVisible.value =
+                                        isPasswordNotVisible.value =
                                             !isPasswordNotVisible.value;
                                       },
                                     ),
@@ -114,25 +112,42 @@ class AuthenticationPage extends GetView {
                                 children: [
                                   Button(
                                       width: 300.w,
-                                      onTap: ()async{
+                                      onTap: () async {
                                         BaseController().showLoading();
-                                        var login = await Authentication().login(email: email.text,password: pass.text);
-                                        if(FirebaseAuth.instance.currentUser != null){
+                                        var login = await Authentication()
+                                            .login(
+                                                email: email.text,
+                                                password: pass.text);
+                                        if (FirebaseAuth.instance.currentUser !=
+                                            null) {
                                           BaseController().hideLoading();
-                                          user = await EraUser().getById( FirebaseAuth.instance.currentUser!.uid);
-                                          if(user!.role!.toLowerCase() != "admin"){
+                                          user = await EraUser().getById(
+                                              FirebaseAuth
+                                                  .instance.currentUser!.uid);
+                                          if (user!.role!.toLowerCase() !=
+                                              "admin") {
                                             user = null;
                                             await Authentication().logout();
-                                            BaseController().showSuccessDialog(title: "ERROR",description: "Please use admin account to have access!",hitApi: (){
-                                              Get.back();
-                                            });
-                                          }else{
-                                            Get.toNamed(RouteString.landingPage);
+                                            BaseController().showSuccessDialog(
+                                                title: "ERROR",
+                                                description:
+                                                    "Please use admin account to have access!",
+                                                hitApi: () {
+                                                  Get.back();
+                                                });
+                                          } else {
+                                            Get.toNamed(
+                                                RouteString.landingPage);
                                           }
-                                        }else{
-                                          BaseController().showSuccessDialog(title: "ERROR",description: "Password or email incorrect",hitApi: (){
-                                            Get.back();Get.back();
-                                          });
+                                        } else {
+                                          BaseController().showSuccessDialog(
+                                              title: "ERROR",
+                                              description:
+                                                  "Password or email incorrect",
+                                              hitApi: () {
+                                                Get.back();
+                                                Get.back();
+                                              });
                                         }
                                       },
                                       text: "L O G I N",

@@ -77,9 +77,8 @@ class Home extends GetView<HomeController> {
                             borderRadius: BorderRadius.circular(0),
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(0),
-                            child: image
-                          ),
+                              borderRadius: BorderRadius.circular(0),
+                              child: image),
                         );
                       }).toList(),
                       options: CarouselOptions(
@@ -180,50 +179,6 @@ class Home extends GetView<HomeController> {
           child: ProjectMain.featuredProject(),
         ),
 
-        /// Listings
-        // Obx(() {
-        //   if (projectController.projectsListState.value ==
-        //       ProjectsListState.loading) {
-        //     return Center(
-        //       child: CircularProgressIndicator(),
-        //     );
-        //   }
-        //   if (projectController.projectsListState.value ==
-        //       ProjectsListState.loaded) {
-        //     return Container(
-        //       height: Get.height,
-        //       child: ListView.builder(
-        //         shrinkWrap: true,
-        //         physics: NeverScrollableScrollPhysics(),
-        //         itemCount: settings!.featuredProject!.length,
-        //         itemBuilder: (context, index) {
-        //           return GestureDetector(
-        //             onTap: () {
-        //               Get.to(ProjectView(),
-        //                   binding: ProjectViewBinding(),
-        //                   arguments: settings!.featuredProject![index]);
-        //             },
-        //             child: Container(
-        //               height: Get.height,
-        //               child: Column(
-        //                 children: [
-        //                   Column(
-        //                     children: ProjectViews(
-        //                             project: settings!.featuredProject![index])
-        //                         .HomebuildPreview(),
-        //                   ),
-        //                 ],
-        //               ),
-        //             ),
-        //           );
-        //         },
-        //       ),
-        //     );
-        //   } else {
-        //     return Center(child: Text('No projects available'));
-        //   }
-        // }),
-
         Container(
           height: Get.height,
           child: ListView.builder(
@@ -252,80 +207,6 @@ class Home extends GetView<HomeController> {
                 );
               }),
         ),
-        // sb90(),
-
-        /// Projects
-        // Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     sb20(),
-        //     ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
-        //     sb20(),
-        //     CarouselSliderWidget(images: CarouselModels.carouselModels),
-        //     sb40(),
-        //     Button(
-        //       text: 'LEARN MORE',
-        //       onTap: () {
-        //         Get.toNamed("/haraya");
-        //       },
-        //       bgColor: AppColors.kRedColor,
-        //       borderRadius: BorderRadius.circular(30),
-        //     ),
-        //     //laya
-        //     sb90(),
-        //     ProjectDivider(
-        //       textImage: ProjectTextImageModels.textImageModels2,
-        //     ),
-        //     sb20(),
-        //     //temporary carousel
-        //     CarouselSliderWidget(
-        //         images: CarouselModels.layaCarouselImages,
-        //         color: AppColors.carouselBgColor),
-        //     sb40(),
-        //     Button(
-        //       text: 'LEARN MORE',
-        //       onTap: () {
-        //         Get.toNamed("/laya");
-        //       },
-        //       bgColor: AppColors.kRedColor,
-        //       borderRadius: BorderRadius.circular(30),
-        //     ),
-        //     //laya
-
-        //     sb90(),
-        //     ProjectDivider(
-        //       textImage: ProjectTextImageModels.textImageModels3,
-        //     ),
-        //     sb20(),
-        //     CarouselSliderWidget(
-        //         images: CarouselModels.aureliaCarouselImages,
-        //         color: AppColors.carouselBgColor),
-        //     sb40(),
-        //     Button(
-        //       text: 'LEARN MORE',
-        //       onTap: () {
-        //         Get.toNamed("/aurelia");
-        //       },
-        //       bgColor: AppColors.kRedColor,
-        //       borderRadius: BorderRadius.circular(30),
-        //     ),
-        //     sb10(),
-        //   ],
-        // ),
-        // Padding(
-        //   padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.center,
-        //     children: [
-        //       sb30(),
-        //       viewOtherProjects(
-        //           text: 'View other projects',
-        //           onTap: () => Get.toNamed("/project-main")),
-        //       sb20(),
-        //     ],
-        //   ),
-        // ),
-        // sb30(),
 
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
@@ -723,6 +604,7 @@ class Home extends GetView<HomeController> {
         SizedBox(
           height: 20.h,
         ),
+
         /// join us today
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
@@ -779,6 +661,7 @@ class Home extends GetView<HomeController> {
   _loading() {
     return Screens.loading();
   }
+
   _error() {
     return Screens.error();
   }

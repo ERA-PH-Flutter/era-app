@@ -37,7 +37,7 @@ class JoinEraWeb extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: EraText(
-              text: 'Join Us Today',
+              text: 'Join Us Today!',
               fontSize: EraTheme.headerWeb,
               fontWeight: FontWeight.w600,
               color: AppColors.kRedColor),

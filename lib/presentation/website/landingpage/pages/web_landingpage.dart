@@ -15,6 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../router/route_string.dart';
+import '../../../admin/authentication.dart';
+
 class WebsiteLandingPage extends GetView<WebLandingPageController> {
   const WebsiteLandingPage({super.key});
 
@@ -42,10 +45,12 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
                     width: 300.w,
                     onTap: () {
                       // controller.login();
+                      Get.toNamed(RouteString.webLoginPage);
+                      print('print click!!!');
                     },
                     text: "AGENT/BROKER LOGIN",
                     bgColor: AppColors.kRedColor,
-                    fontSize: 25.sp,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ],

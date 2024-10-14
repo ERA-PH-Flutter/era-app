@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
@@ -22,9 +24,11 @@ class HomeWebController extends GetxController {
   //final List<String> images = [];
   var listingImages = [];
   List<Listing> listings = [];
-  RxList images = [].obs;
+  //var images = <Uint8List>[].obs;
   var news = [];
   Widget? quickLinks;
+  final List<String> bannersImages = [];
+  RxList images = [].obs;
 
   var innerController = CarouselSliderController();
   var carouselC = PageController();
@@ -32,30 +36,40 @@ class HomeWebController extends GetxController {
   @override
   void onInit() async {
     try {
-      // if (settings!.banners != null) {
-      //   for (int i = 0; i < settings!.banners!.length; i++) {
-      //     images.add(settings!.banners![i]);
-      //   }
-      // }
-      settings = era_settings.Settings.fromJSON((await FirebaseFirestore
-              .instance
-              .collection('settings')
-              .doc('main')
-              .get())
-          .data()!);
-      for (int i = 0; i < settings!.banners!.length; i++) {
-        images.add(
-            await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
+      if (settings != null) {
+        if (settings!.banners != null) {
+          for (int i = 0; i < settings!.banners!.length; i++) {
+            bannersImages.add(settings!.banners![i]);
+          }
+        }
+      } else {
+        settings = era_settings.Settings.fromJSON((await FirebaseFirestore
+                .instance
+                .collection('settings')
+                .doc('main')
+                .get())
+            .data()!);
+        for (int i = 0; i < settings!.banners!.length; i++) {
+          images.add(
+              await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
+        }
       }
+      // settings = era_settings.Settings.fromJSON((await FirebaseFirestore
+      //         .instance
+      //         .collection('settings')
+      //         .doc('main')
+      //         .get())
+      //     .data()!);
+      // for (int i = 0; i < settings!.banners!.length; i++) {
+      //   images.add(
+      //       await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
+      // }
       quickLinks = await QuickLinksModel().initialize();
 
       await getListings();
       await getNews();
+      await getImages();
 
-      //  print(images);
-      // await getListings();
-
-      //await getImages();
       homelandingState.value = HomeWebState.loaded;
     } catch (e) {
       print(e);

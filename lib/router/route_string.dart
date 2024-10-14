@@ -54,4 +54,5 @@ class RouteString {
 
   //website
   static String webLandingPage = "/webLandingPage";
+  static String webLoginPage = "/webAboutUs";
 }

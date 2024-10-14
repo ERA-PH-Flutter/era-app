@@ -17,6 +17,7 @@ import 'package:eraphilippines/presentation/agent/projects/pages/aurelia.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/laya.dart';
 import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
+import 'package:eraphilippines/presentation/website/authentication.dart';
 import 'package:eraphilippines/presentation/website/landingpage/pages/web_landingpage.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
@@ -231,6 +232,11 @@ appRoutes() => [
       GetPage(
         name: RouteString.webLandingPage,
         page: () => WebsiteLandingPage(),
+      ),
+
+      GetPage(
+        name: RouteString.webLoginPage,
+        page: () => AuthenticationPageWeb(),
       ),
     ];
 
