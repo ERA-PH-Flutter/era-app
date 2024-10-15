@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
@@ -159,7 +158,6 @@ class ProjectViews {
                             if (snapshot.hasData) {
                               var params =
                               const PlatformWebViewControllerCreationParams();
-                              var webview =
                               WebViewController.fromPlatformCreationParams(
                                 params,
                                 onPermissionRequest:
@@ -220,7 +218,7 @@ class ProjectViews {
                 ),
               );
             } else if (data['type'] == "Location") {
-              return Container(
+              return SizedBox(
                 height: 350.h,
                 width: Get.width,
                 child: GoogleMap(
@@ -388,7 +386,7 @@ class ProjectViews {
                               },
                             );
                           },
-                          child: Container(
+                          child: SizedBox(
                             width: Get.width,
                             height: 320.h,
                             child:  Builder(
@@ -415,7 +413,7 @@ class ProjectViews {
                       ),
                       Positioned(
                         bottom: 0.h,
-                        child: Container(
+                        child: SizedBox(
                           width: Get.width,
                           height: 70.h,
                           child: ListView.builder(
@@ -629,7 +627,7 @@ class ProjectViews {
                               },
                             );
                           },
-                          child: Container(
+                          child: SizedBox(
                             width: Get.width,
                             height: 320.h,
                             child: Builder(
@@ -657,7 +655,7 @@ class ProjectViews {
                       ),
                       Positioned(
                         bottom: 0.h,
-                        child: Container(
+                        child: SizedBox(
                           width: Get.width,
                           height: 70.h,
                           child: ListView.builder(
@@ -867,59 +865,11 @@ class ProjectViews {
           ),
         );
       }
-      // if (block['type'] == "Carousel") {
-      //   preview[2] = Column(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: [
-      //       title(
-      //         text: block['title'],
-      //         textAlign: TextAlign.start,
-      //       ),
-      //       sb10(),
-      //       Container(
-      //           decoration: BoxDecoration(color: AppColors.carouselBgColor),
-      //           child: CarouselSlider(
-      //             items: block['images'].map<Widget>((image) {
-      //               return CloudStorage().imageLoader(ref: image);
-      //             }).toList(),
-      //             options: CarouselOptions(
-      //               enlargeCenterPage: true,
-      //               enlargeStrategy: CenterPageEnlargeStrategy.height,
-      //               autoPlay: true,
-      //               viewportFraction: 0.8,
-      //             ),
-      //           )),
-      //       sb20(),
-      //       Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //         children: [
-      //           infoTilePreview(
-      //               AppEraAssets.floorArea,
-      //               TextEditingController(text: block['floor_area'].toString()),
-      //               ' sqm',
-      //               (value) {}),
-      //           infoTilePreview(
-      //               AppEraAssets.numberOfBed,
-      //               TextEditingController(text: block['beds'].toString()),
-      //               '',
-      //               (value) {}),
-      //           infoTilePreview(
-      //               AppEraAssets.loggiaSize,
-      //               TextEditingController(
-      //                   text: block['loggia_size'].toString()),
-      //               ' sqm',
-      //               (value) {}),
-      //         ],
-      //       ),
-      //       sb10(),
-      //       description(text: block['paragraph']),
-      //     ],
-      //   );
-      // }
     }
     return preview;
   }
 
+  // ignore: non_constant_identifier_names
   HomebuildPreview() {
     List<Widget> preview = [
       Container(),

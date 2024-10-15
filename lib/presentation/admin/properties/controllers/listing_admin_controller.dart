@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 import '../../../../repository/listing.dart';
-import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
-import '../../landingpage/controllers/landingpage_controller.dart';
 
 enum AdminEditState {loading,loaded,picker}
 

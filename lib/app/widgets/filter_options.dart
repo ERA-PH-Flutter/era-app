@@ -79,7 +79,7 @@ class FilterController extends GetxController {
 class PriceRangeFilter extends StatelessWidget {
   final FilterController controller;
 
-  PriceRangeFilter({required this.controller});
+  const PriceRangeFilter({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +118,7 @@ class RoomsAndBedsFilter extends StatelessWidget {
   final RxInt bathrooms;
   final RxInt garage;
 
-  RoomsAndBedsFilter(
+  const RoomsAndBedsFilter(
       {super.key,
       required this.bedrooms,
       required this.bathrooms,

@@ -1,13 +1,11 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/services/local_storage.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import '../../presentation/global.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
@@ -45,7 +43,7 @@ class QuickLinksModel {
   ];
 
   initialize() async {
-    List<Widget> items = [];-
+    List<Widget> items = [];
     // for(int index = 0;index < categories.length;index++){
     //   items.add(await quickSearchIcon(categories[index][0], categories[index][1], categories[index][2]));
     // }

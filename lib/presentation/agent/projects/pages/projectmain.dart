@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
@@ -22,7 +21,6 @@ import 'package:get/get.dart';
 import '../../../../app/constants/assets.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/widgets/app_textfield.dart';
-import '../../../../app/widgets/filter_options.dart';
 import '../controllers/projects_controller.dart';
 
 class ProjectMain extends GetView<ProjectsController> {

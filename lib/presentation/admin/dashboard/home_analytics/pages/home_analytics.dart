@@ -39,7 +39,7 @@ class HomeAnalytics extends GetView<HomeAController> {
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
       
             ],
           ),

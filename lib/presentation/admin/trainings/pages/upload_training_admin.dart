@@ -52,7 +52,7 @@ class UploadTrainingAdmin extends GetView<TrainingController> {
               sb20(),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(AppColors.white),
+                  backgroundColor: WidgetStateProperty.all(AppColors.white),
                 ),
                 onPressed: () {
                   controller.addToPreview(

@@ -2,10 +2,8 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../presentation/agent/agents/controllers/agents_binding.dart';
 import '../../../presentation/agent/home/controllers/home_binding.dart';

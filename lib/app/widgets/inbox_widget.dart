@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,8 @@ import '../../presentation/global.dart';
 import 'custom_appbar.dart';
 
 class InboxWidget extends StatelessWidget {
+  const InboxWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -23,7 +24,7 @@ class InboxWidget extends StatelessWidget {
             itemCount: snapshot.data?.docs.length,
             itemBuilder: (context, index) {
               final message = Message.fromJson(data![index]);
-              if(data![index]['to'] == "all" || data[index]['to'] == user!.id){
+              if(data[index]['to'] == "all" || data[index]['to'] == user!.id){
                 return Column(
                   children: [
                     ListTile(
@@ -55,6 +56,7 @@ class InboxWidget extends StatelessWidget {
                   ],
                 );
               }
+              return Container();
             },
           );
         }
@@ -66,16 +68,13 @@ class InboxWidget extends StatelessWidget {
   }
 }
 
-//IM not sure where to put the from?
 class Message {
   final String title;
-  // final String from;
   final String subject;
   final String time;
 
   Message({
     required this.title,
-    //  required this.from,
     required this.subject,
     required this.time,
   });
@@ -86,35 +85,8 @@ class Message {
 }
 
 class InboxScreen extends StatelessWidget {
-  final List<Message> messages = [
-    Message(
-        title: 'NEWS FROM ERA PH',
-        //   from: 'ADMIN',
-        subject:
-            'It is a ssong established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-        time: '10:30 AM'),
-    Message(
-        title: 'NEWS FROM ERA PH',
 
-        //   from: 'ADMIN',
-        subject:
-            'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-        time: '10:30 AM'),
-    Message(
-        title: 'NEWS FROM ERA PH',
-
-        //   from: 'ADMIN',
-        subject:
-            'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-        time: '10:30 AM'),
-    Message(
-        title: 'NEWS FROM ERA PH',
-
-        //    from: 'ADMIN',
-        subject:
-            'It is a long establishedss fact that a reader will be distracted by the readable content of a page when looking at its layout.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layoutsss.',
-        time: '10:30 AM'),
-  ];
+  const InboxScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

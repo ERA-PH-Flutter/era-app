@@ -123,7 +123,7 @@ class ListedBy extends StatelessWidget {
                     height: 40.h,
                   ),
                   sbw10(),
-                  Container(
+                  SizedBox(
                     width: 250.w,
                     child: EraText(
                       text: whatsapp!,
@@ -162,7 +162,7 @@ class ListedBy extends StatelessWidget {
                     height: 40.h,
                   ),
                   sbw10(),
-                  Container(
+                  SizedBox(
                     width: 250.w,
                     child: EraText(
                       text: email!,

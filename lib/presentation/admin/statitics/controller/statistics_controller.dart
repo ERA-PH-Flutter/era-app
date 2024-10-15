@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class StatisticsController extends GetxController {
@@ -32,20 +30,24 @@ class StatisticsController extends GetxController {
 
   double get averagePrice {
     if (listings.isEmpty) return 0;
+    // ignore: avoid_types_as_parameter_names
     return listings.fold(0, (sum, listing) => sum + listing.price) /
         listings.length;
   }
 
   int get totalLeads {
+    // ignore: avoid_types_as_parameter_names
     return listings.fold(0, (sum, listing) => sum + listing.leads);
   }
 
   int get totalViews {
+    // ignore: avoid_types_as_parameter_names
     return listings.fold(0, (sum, listing) => sum + listing.views);
   }
 
   double get averagePricePerSqm {
     if (listings.isEmpty) return 0;
+    // ignore: avoid_types_as_parameter_names
     return listings.fold(0, (sum, listing) => sum + listing.pricePerSqm) /
         listings.length;
   }

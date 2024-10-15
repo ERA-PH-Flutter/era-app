@@ -27,7 +27,6 @@ class AI{
       print(results);
       results = results.replaceAll('`', "");
       var res = results.split("WHERE")[1].replaceAll("'","").replaceAll(" ","").replaceAll(',',' ').split("AND");
-      print("res : " + res.toString());
       Query query = FirebaseFirestore.instance.collection('users');
       // for(int i = 0;i<res.length;i++){
       //
@@ -48,19 +47,21 @@ class AI{
               .where('full_name', isLessThanOrEqualTo:  '${res.first.split('=')[1]}\uf8ff');
         }
         var docs = (await query.get()).docs;
-        docs.forEach((doc){
+        for (var doc in docs) {
           Map<String,dynamic> a = doc.data() as Map<String,dynamic>;
           if(a['location'] == res[1].split('=')[1]){
             print(doc);
             list.add(doc);
           }
-        });
+        }
         toReturn = list;
       }else{
         toReturn = [];
       }
       //print(toReturn);
-    }).catchError((e,ex) => print(ex));
+    }).catchError((e,ex){
+      print(ex);
+    });
     BaseController().hideLoading();
     return toReturn;
   }
@@ -80,7 +81,9 @@ class AI{
       .then((value)async{
         toReturn = await process(value?.output!);
         print(value?.output);
-      }).catchError((e,ex) => print(ex));
+      }).catchError((e,ex){
+        print(ex);
+      });
     BaseController().hideLoading();
     return toReturn;
   }
@@ -196,7 +199,9 @@ class AI{
         .then((value)async{
       toReturn = value?.output!;
       print(value?.output);
-    }).catchError((e) => print(e));
+    }).catchError((e){
+      print(e);
+    });
     BaseController().hideLoading();
     return toReturn;
   }

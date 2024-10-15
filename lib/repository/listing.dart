@@ -1,12 +1,9 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
-import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/foundation.dart';
 
-import '../presentation/global.dart';
 
 class Listing {
   FirebaseFirestore db = FirebaseFirestore.instance;

@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:map_location_picker/map_location_picker.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:reorderables/reorderables.dart';
 import '../../../../../app/constants/screens.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
@@ -585,7 +585,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 },
                 title: "Add Listing Success",
                 description: "Listing has been uploaded to the database.");
-          } catch (e, ex) {
+          } catch (e) {
             print(e);
           }
         }, 'CREATE LISTING'),
@@ -632,6 +632,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
 
   static Widget dropDownAddlistings({
     RxnString? selectedItem,
+    // ignore: non_constant_identifier_names
     List<String>? Types,
     Function(String?)? onChanged,
     String? name,
@@ -703,6 +704,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
 
   static Widget dropDownAddlistings1({
     RxnString? selectedItem,
+    // ignore: non_constant_identifier_names
     List<String>? Types,
     Function(String?)? onChanged,
     String? name,

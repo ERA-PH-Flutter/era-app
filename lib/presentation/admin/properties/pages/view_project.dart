@@ -1,6 +1,4 @@
-import 'dart:typed_data';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -15,7 +13,6 @@ import '../../../../app/constants/assets.dart';
 import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/app_textfield.dart';
-import '../../../../app/widgets/search_widget.dart';
 import '../../landingpage/controllers/landingpage_controller.dart';
 
 class ViewProject extends StatefulWidget {
@@ -68,7 +65,7 @@ class _ViewProjectState extends State<ViewProject> {
                   if (snapshot.hasData) {
                     var data = snapshot.data!.docs;
 
-                    return Container(
+                    return SizedBox(
                       height: Get.height,
                       child: ReorderableListView.builder(
                         key: Key('viewProjects'),
@@ -99,6 +96,7 @@ class _ViewProjectState extends State<ViewProject> {
                         itemBuilder: (context, index) {
                           var d = data[index].data();
                           var developerName = "";
+                          // ignore: unused_local_variable
                           var image = '';
                           d['data'].forEach((lego) {
                             if (lego['type'] == "Developer Name") {

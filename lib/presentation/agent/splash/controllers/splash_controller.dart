@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/user.dart';

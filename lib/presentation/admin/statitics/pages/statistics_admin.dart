@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/statitics/controller/statistics_controller.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,13 +8,12 @@ import 'package:get/get.dart';
 
 import '../../../../app/constants/colors.dart';
 
+//ignore: must_be_immutable
 class StatisticsAdmin extends GetView<StatisticsController> {
   StatisticsAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(StatisticsController());
-
     return Container(
       color: Colors.grey[100],
       height: Get.height - 150.h,

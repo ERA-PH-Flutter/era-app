@@ -109,17 +109,6 @@ class LoginPageController extends GetxController with BaseController {
     }
   }
 
-  googleLogin() async {
-    var googleLogin = await Authentication().signInWithGoogle();
-    if (googleLogin != null) {
-      user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
-      Get.offAllNamed(RouteString.home);
-    } else {
-      showSuccessDialog(
-          hitApi: () {}, title: "Failed", description: "Something went wrong");
-    }
-  }
-
   Future getImageGallery() async {
     try {
       final imagePick = await picker.pickImage(source: ImageSource.gallery);
@@ -132,9 +121,7 @@ class LoginPageController extends GetxController with BaseController {
   }
 
   Future signUp() async {
- 
     showLoading();
-    print(email.text);
     await Authentication().signup(email: emailAd.text, password: 'eraaccount');
     var id = await Authentication()
         .login(email: emailAd.text, password: 'eraaccount');

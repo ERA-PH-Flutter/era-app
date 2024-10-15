@@ -11,7 +11,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../listings/add-edit_listings/pages/addlistings.dart';
 import '../controllers/authentication_controller.dart';
-import 'nextPage.dart';
 
 class CreateAccount extends GetView<LoginPageController> {
   const CreateAccount({super.key});

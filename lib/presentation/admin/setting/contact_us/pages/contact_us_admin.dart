@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/presentation/admin/setting/sell_property/controller/sell_property_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,10 +13,8 @@ class ContactUsAdmin extends GetView<ContactUsAController> {
 
   @override
   Widget build(BuildContext context) {
-    ContactUsAController controller = Get.put(ContactUsAController());
     return SingleChildScrollView(
       child: Container(
-        //height: Get.height - 150.h,
         alignment: Alignment.topCenter,
         padding:
             EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),

@@ -3,10 +3,7 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
-import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -68,7 +65,7 @@ class CompanyNews extends GetView<CompanyNewsController> {
                       image: controller.news[i].image,
                       description: controller.news[i].description));
                 },
-                child: Container(
+                child: SizedBox(
                   height: 600.h,
                   child: Stack(
                     children: [

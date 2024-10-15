@@ -1,11 +1,11 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
-import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+//ignore: must_be_immutable
 class Piechart extends StatelessWidget {
   var downPayment;
   var interestAmount;
@@ -74,7 +74,7 @@ class Piechart extends StatelessWidget {
       AppColors.blue4,
       AppColors.grey,
     ];
-    List<String> titles = ['PRINCIPAL', 'INTEREST', 'DOWNPAYMENT'];
+    //List<String> titles = ['PRINCIPAL', 'INTEREST', 'DOWNPAYMENT'];
     return List<PieChartSectionData>.generate(3, (i) {
       const radius = 100.0;
       final fontSize = 15.sp;

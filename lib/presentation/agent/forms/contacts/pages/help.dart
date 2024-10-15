@@ -4,7 +4,6 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,12 +11,11 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../app/constants/sized_box.dart';
-import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../global.dart';
 import '../controllers/contacts_controller.dart';
 
 class Help extends GetView<ContactusController> {
-  Help({super.key});
+  const Help({super.key});
 
   @override
   Widget build(BuildContext context) {

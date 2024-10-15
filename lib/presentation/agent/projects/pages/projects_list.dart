@@ -1,4 +1,3 @@
-import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

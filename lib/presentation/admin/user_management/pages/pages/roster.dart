@@ -3,8 +3,6 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/app/models/realestatelisting.dart';
-import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
@@ -12,7 +10,6 @@ import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
 
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 
@@ -326,7 +323,7 @@ class Roster extends GetView<AgentAdminController> {
                                                 width: Get.width,
                                                 onTap: () async {
                                                   var messageDoc = FirebaseFirestore.instance.collection('messages').doc();
-                                                  var message = await messageDoc.set({
+                                                  await messageDoc.set({
                                                     'date' : DateTime.now(),
                                                     'from' : "${user!.firstname ?? "ERA Admin"} ${user!.lastname ?? ""}",
                                                     "title" : controller.title.text,

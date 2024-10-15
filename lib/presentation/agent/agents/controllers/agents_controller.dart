@@ -118,12 +118,12 @@ class AgentsController extends GetxController with BaseController {
 
   Future<void> getImageGallery() async {
     try {
-      final List<XFile>? imagePicks = await picker.pickMultiImage();
-      if (imagePicks != null && imagePicks.isNotEmpty) {
+      final List<XFile> imagePicks = await picker.pickMultiImage();
+      if (imagePicks.isNotEmpty) {
         showLoading();
         image.value = File(imagePicks[0].path);
         try {
-          var ref = await FirebaseStorage.instance
+          await FirebaseStorage.instance
               .ref('users/images/${user!.id}.png')
               .delete();
         } catch (e) {
@@ -159,7 +159,7 @@ class AgentsController extends GetxController with BaseController {
       if (imagePick != null) {
         image.value = File(imagePick.path);
         try {
-          var ref = await FirebaseStorage.instance
+          await FirebaseStorage.instance
               .ref('users/images/${user!.id}.png')
               .delete();
         } catch (e) {

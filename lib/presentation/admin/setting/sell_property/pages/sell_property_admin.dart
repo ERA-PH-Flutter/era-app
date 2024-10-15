@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/setting/sell_property/controller/sell_property_controller.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
 
   @override
   Widget build(BuildContext context) {
-    SellPropertyAController controller = Get.put(SellPropertyAController());
     return SingleChildScrollView(
       child: Container(
         //height: Get.height - 150.h,

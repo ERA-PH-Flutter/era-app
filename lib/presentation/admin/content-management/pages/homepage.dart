@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:eraphilippines/app/constants/assets.dart';
@@ -21,7 +20,7 @@ import '../../../../app/widgets/button.dart';
 import '../../../global.dart';
 
 class HomePage extends GetView<ContentManagementController> {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -220,11 +219,9 @@ class HomePage extends GetView<ContentManagementController> {
   }
 
   _error() {
-    return Container(
-      child: EraText(
-        text: 'error',
-        color: AppColors.black,
-      ),
+    return EraText(
+      text: 'error',
+      color: AppColors.black,
     );
   }
 

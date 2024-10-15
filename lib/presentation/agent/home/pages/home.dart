@@ -1,5 +1,4 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 
 import 'package:eraphilippines/app/services/firebase_database.dart';
@@ -9,19 +8,13 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 
-import 'package:eraphilippines/app/widgets/custom_image_viewer.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 
 import 'package:eraphilippines/app/widgets/project_views.dart';
-import 'package:eraphilippines/app/widgets/quick_links.dart';
-import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_view_binding.dart';
 import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
-import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
-import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/listing.dart';
 
 import 'package:flutter/material.dart';

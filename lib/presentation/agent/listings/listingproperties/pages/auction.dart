@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../app/widgets/filteredsearch_box.dart';
-import '../../../../../app/widgets/quick_links.dart';
 import '../../searchresult/controllers/searchresult_controller.dart';
 import '../controllers/listing_controller.dart';
 

@@ -17,11 +17,11 @@ class SoldPropertiesController extends GetxController{
   @override
   void onInit()async{
     List<Listing> listings = await Database().searchListingsByUserId(Get.arguments);
-    listings.forEach((listing){
+    for (var listing in listings) {
       if(listing.isSold ?? false){
         soldListings.add(listing);
       }
-    });
+    }
     if(soldListings.isEmpty){
       soldState.value = SoldState.empty;
     }else{

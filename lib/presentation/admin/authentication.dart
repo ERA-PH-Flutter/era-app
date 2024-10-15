@@ -3,7 +3,6 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/presentation/agent/authentication/controllers/authentication_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +14,7 @@ import '../../repository/user.dart';
 import '../agent/utility/controller/base_controller.dart';
 import '../global.dart';
 
+//ignore: must_be_immutable
 class AuthenticationPage extends GetView {
   AuthenticationPage({super.key});
   var email = TextEditingController();
@@ -22,7 +22,6 @@ class AuthenticationPage extends GetView {
   RxBool isPasswordNotVisible = true.obs;
   @override
   Widget build(BuildContext context) {
-    LoginPageController controller = Get.put(LoginPageController());
     return Scaffold(
       backgroundColor: Color(0xFFFFFFFF),
       body: SafeArea(
@@ -116,7 +115,7 @@ class AuthenticationPage extends GetView {
                                       width: 300.w,
                                       onTap: ()async{
                                         BaseController().showLoading();
-                                        var login = await Authentication().login(email: email.text,password: pass.text);
+                                        await Authentication().login(email: email.text,password: pass.text);
                                         if(FirebaseAuth.instance.currentUser != null){
                                           BaseController().hideLoading();
                                           user = await EraUser().getById( FirebaseAuth.instance.currentUser!.uid);

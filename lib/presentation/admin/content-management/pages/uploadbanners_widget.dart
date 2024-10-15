@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/constants/theme.dart';
@@ -68,9 +66,9 @@ class UploadBannersWidget extends StatelessWidget {
                     await addListingsController.pickImageFromWeb();
                     if (onImageSelectedMany != null) {
                       List<Uint8List> listUint = [];
-                      addListingsController.images.forEach((image){
+                      for (var image in addListingsController.images) {
                         listUint.add(image);
-                      });
+                      }
                       onImageSelectedMany!(listUint);
                       return;
                     }

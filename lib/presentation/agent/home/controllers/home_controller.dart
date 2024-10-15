@@ -1,11 +1,8 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_controller.dart';
-import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
-import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/router/route_string.dart';

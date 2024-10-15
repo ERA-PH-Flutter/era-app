@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
-import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/presentation/admin/news/controller/new_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

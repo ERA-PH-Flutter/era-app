@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../constants/colors.dart';
 import 'app_text.dart';
 
+//ignore: must_be_immutable
 class EraPlaceSearch extends StatefulWidget {
   TextEditingController textFieldController;
   Function(LatLng coords)  callback;

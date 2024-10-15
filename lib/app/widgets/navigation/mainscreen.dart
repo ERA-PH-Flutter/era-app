@@ -2,7 +2,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/widgets/navigation/app_nav_items.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/agent/home/pages/home.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
@@ -19,6 +18,8 @@ var selectedIndex = 0.obs;
 class MainScreen extends StatelessWidget {
   final PageController pageController = PageController();
 
+  MainScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class MainScreen extends StatelessWidget {
             onPageChanged: (index) {
               selectedIndex.value = index;
             },
-            children: [
+            children: const [
               Scaffold(body: Home()),
               Scaffold(body: ProjectMain()),
               Scaffold(body: SearchResult()),

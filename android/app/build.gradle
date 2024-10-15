@@ -54,8 +54,8 @@ android {
         applicationId "com.eraphilippines.android"
         minSdkVersion 23
         targetSdkVersion 34
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 3
+        versionName "2.1"
     }
     signingConfigs {
         release {

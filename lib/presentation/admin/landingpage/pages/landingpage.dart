@@ -20,7 +20,6 @@ import 'package:eraphilippines/presentation/admin/properties/pages/propertylisti
 import 'package:eraphilippines/presentation/admin/setting/log_list/pages/log_list_admin.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/view_project.dart';
 import 'package:eraphilippines/presentation/admin/setting/sell_property/pages/sell_property_admin.dart';
-import 'package:eraphilippines/presentation/admin/statitics/pages/statistics_admin_old.dart';
 import 'package:eraphilippines/presentation/admin/trainings/pages/upload_training_admin.dart';
 import 'package:eraphilippines/presentation/admin/trainings/pages/view_all_training.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
@@ -111,7 +110,7 @@ class LandingPage extends GetView<LandingPageController> {
           child: _buildSidebarMenu(),
         ),
         Expanded(
-          child: _screens[controller.selectedSectionIndex.value] ?? Container(),
+          child: _screens[controller.selectedSectionIndex.value],
         ),
       ],
     );
@@ -125,11 +124,9 @@ class LandingPage extends GetView<LandingPageController> {
   }
 
   _empty() {
-    return Container(
-      child: EraText(
-        text: 'No content available',
-        color: AppColors.black,
-      ),
+    return EraText(
+      text: 'No content available',
+      color: AppColors.black,
     );
   }
 
@@ -357,7 +354,6 @@ class LandingPage extends GetView<LandingPageController> {
     required index,
     required expandedController
   }) {
-    var cont = ExpansionTileController();
     return ExpansionTile(
       onExpansionChanged: ((newState) {
         print(index);
@@ -381,7 +377,7 @@ class LandingPage extends GetView<LandingPageController> {
         height: 80.h,
         color: AppColors.blue,
       ),
-      subtitle: Container(
+      subtitle: SizedBox(
         height: 40.h,
         width: Get.width,
         child: EraText(

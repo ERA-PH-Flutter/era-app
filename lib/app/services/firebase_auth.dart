@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
 class Authentication{
   FirebaseAuth auth = FirebaseAuth.instance;
   Authentication();
@@ -33,21 +33,6 @@ class Authentication{
       return "success";
     } on FirebaseAuthException catch(e){
       return "Error : $e";
-    }
-  }
-  Future<dynamic> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      return auth.currentUser!.uid;
-    } on FirebaseAuthException catch (e) {
-      print(e);
-      return null;
     }
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +16,6 @@ import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.da
 import 'package:eraphilippines/presentation/agent/agents/pages/settingAgent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../app/constants/screens.dart';
@@ -30,7 +28,6 @@ import '../../../../repository/user.dart';
 import '../../../global.dart';
 
 import '../../home/controllers/home_binding.dart';
-import '../../utility/controller/base_controller.dart';
 import '../controllers/agent_dashboard_controller.dart';
 
 class AgentDashBoard extends GetView<AgentDashboardController> {

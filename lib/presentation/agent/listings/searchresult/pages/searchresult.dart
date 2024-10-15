@@ -9,10 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../../app/constants/screens.dart';
-import '../../../../../app/services/firebase_database.dart';
 import '../../../../../app/widgets/filteredsearch_box.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
-import '../../../../../app/widgets/quick_links.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
 

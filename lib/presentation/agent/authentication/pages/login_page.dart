@@ -164,51 +164,12 @@ class LoginPage extends GetView<LoginPageController> {
                 SizedBox(height: 10.h),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Expanded(
-                    //     child: Container(
-                    //   margin: const EdgeInsets.only(left: 40.0, right: 10.0),
-                    //   child: Divider(
-                    //     color: Colors.black,
-                    //     height: 36,
-                    //   ),
-                    // )),
+                  children: const [
 
-                    // Expanded(
-                    //     child: Container(
-                    //   margin: const EdgeInsets.only(left: 10.0, right: 40.0),
-                    //   child: Divider(
-                    //     color: Colors.black,
-                    //     height: 36,
-                    //   ),
-                    // )),
                   ],
                 ),
 
                 SizedBox(height: 20.h),
-                // Button(
-                //   onTap: () {
-                //     controller.googleLogin();
-                //   },
-                //   borderRadius: BorderRadius.circular(20),
-                //   text: "Sign in with Google",
-                //   bgColor: AppColors.blue,
-                //   fontSize: 25.sp,
-                //   fontWeight: FontWeight.w500,
-                //   width: Get.width,
-                // ),
-                // SizedBox(height: 30.h),
-                // Button(
-                //   onTap: () {
-                //     Get.toNamed("/createaccount");
-                //   },
-                //   borderRadius: BorderRadius.circular(20),
-                //   text: "Create Account",
-                //   bgColor: AppColors.kRedColor,
-                //   fontSize: 25.sp,
-                //   fontWeight: FontWeight.w500,
-                //   width: Get.width,
-                // ),
               ],
             ),
           ),

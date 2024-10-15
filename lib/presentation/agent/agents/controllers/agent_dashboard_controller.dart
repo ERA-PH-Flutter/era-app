@@ -19,10 +19,6 @@ class AgentDashboardController extends GetxController{
     var news = [];
     ScrollController scrollController = ScrollController();
     RxBool scrolling = false.obs;
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   @override
   void onInit()async{

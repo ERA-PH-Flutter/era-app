@@ -23,6 +23,7 @@ import '../../../../global.dart';
 import '../../favorites/controllers/fav_controller.dart';
 import '../controllers/listing_controller.dart';
 
+//ignore: must_be_immutable
 class PropertyInformation extends GetView<ListingController> {
   final Listing listing;
   var init = true;
@@ -374,7 +375,7 @@ class PropertyInformation extends GetView<ListingController> {
             height: 30.h,
           ),
 
-          Container(
+          SizedBox(
             height: Get.height / 1.4,
             width: Get.width,
             child: FutureBuilder(

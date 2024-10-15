@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-import '../../repository/listing.dart';
 import '../models/listing_filters.dart';
 
 class EraFunctions {

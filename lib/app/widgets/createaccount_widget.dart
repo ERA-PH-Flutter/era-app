@@ -69,6 +69,7 @@ class SharedWidgets {
     );
   }
 
+  // ignore: non_constant_identifier_names
   static Widget dropDown(RxnString selectedItem, List<String> Types,
       Function(String?) onChanged, String name, String hintText) {
     return Column(

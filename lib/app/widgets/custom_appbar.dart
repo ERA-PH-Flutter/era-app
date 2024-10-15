@@ -5,9 +5,7 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/inbox_widget.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agents_binding.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
-import 'package:eraphilippines/presentation/agent/projects/controllers/projects_binding.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +18,7 @@ import '../../presentation/agent/authentication/pages/login_page.dart';
 import '../services/firebase_auth.dart';
 import 'navigation/customenavigationbar.dart';
 
+//ignore: must_be_immutable
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppbar({
     super.key,

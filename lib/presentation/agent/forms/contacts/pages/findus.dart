@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../../app/constants/sized_box.dart';
 import '../controllers/contacts_controller.dart';
 
+//ignore: must_be_immutable
 class FindUs extends GetView<ContactusController> {
   String? title;
 
@@ -76,7 +77,7 @@ class FindUs extends GetView<ContactusController> {
                       height: 40.h,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 250.w,
                     child: EraText(
                       text: '+639177710572',
@@ -111,7 +112,7 @@ class FindUs extends GetView<ContactusController> {
                       height: 40.h,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 250.w,
                     child: EraText(
                       text: 'sales@eraphilippines.com',

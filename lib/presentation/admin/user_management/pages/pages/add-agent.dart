@@ -93,7 +93,7 @@ class AddAgent extends GetView<AgentAdminController> {
                           lineHeight: 0.5,
                         ),
                         sb10(),
-                        Container(
+                        SizedBox(
                           height: 125.h,
                           width: Get.width / 5.1 - 4.w,
                           child: TextformfieldWidget(
@@ -107,7 +107,7 @@ class AddAgent extends GetView<AgentAdminController> {
                     ),
                   ),
                   sbw25(),
-                  Container(
+                  SizedBox(
                     height: 126.h,
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(

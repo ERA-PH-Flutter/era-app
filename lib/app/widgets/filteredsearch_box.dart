@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/listing_filters.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
@@ -25,6 +24,7 @@ import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../services/ai_search.dart';
 
+//ignore: must_be_immutable
 class FilteredSearchBox extends StatelessWidget {
   FilteredSearchBox({super.key});
   var showFullSearch = false.obs;
@@ -290,7 +290,7 @@ class FilteredSearchBox extends StatelessWidget {
                                           color: AppColors.black,
                                         ),
                                       );
-                                    }).toList(),
+                                    }),
                                   ],
                                   onChanged: (value) {
                                     selectedPriceRange.value = value!;

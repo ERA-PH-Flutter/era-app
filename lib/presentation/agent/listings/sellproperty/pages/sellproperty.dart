@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -9,16 +8,10 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
-import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../../app/constants/assets.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../global.dart';
 import '../../../home/controllers/home_binding.dart';
@@ -223,7 +216,7 @@ class SellProperty extends GetView<SellPropertyController> {
                                   controller.desc.clear();
                                   Get.back();
                                 });
-                          } catch (e, ex) {
+                          } catch (e) {
                             print(e);
                           }
                         },

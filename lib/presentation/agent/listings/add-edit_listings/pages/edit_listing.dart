@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -10,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:map_location_picker/map_location_picker.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:reorderables/reorderables.dart';
 import '../../../../../app/constants/screens.dart';
 import '../../../../../app/models/geocode.dart';

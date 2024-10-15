@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import '../../../presentation/agent/listings/favorites/controllers/fav_controller.dart';
 import '../../../repository/listing.dart';
 
+//ignore: must_be_immutable
 class FavItems extends StatelessWidget {
   final Listing listing;
   final int index;

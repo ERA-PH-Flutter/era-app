@@ -4,7 +4,6 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/sold_properties/custom_sort.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/listing.dart';
@@ -14,7 +13,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../app/constants/assets.dart';
 import '../../../../app/constants/screens.dart';
-import '../../../../app/constants/sized_box.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../controllers/agent_listings_controller.dart';
@@ -22,7 +20,7 @@ import '../controllers/agent_listings_controller.dart';
 class AgentsMyListing extends GetView<AgentListingsController> {
   final String? by;
 
-  AgentsMyListing({super.key, this.by});
+  const AgentsMyListing({super.key, this.by});
 
   @override
   Widget build(BuildContext context) {

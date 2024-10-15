@@ -7,11 +7,9 @@ class CustomerReviews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: EraText(
-        text: 'Customer Reviews',
-        color: AppColors.kRedColor,
-      ),
+    return EraText(
+      text: 'Customer Reviews',
+      color: AppColors.kRedColor,
     );
   }
 }

@@ -102,7 +102,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 126.h,
                     width: Get.width / 2.5,
                     child: AddListings.dropDownAddlistings(
@@ -150,7 +150,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                     fontWeight: FontWeight.w500,
                     color: AppColors.black),
                 SizedBox(height: 5.h),
-                Container(
+                SizedBox(
                   width: Get.width,
                   child: EraPlaceSearch(
                     textFieldController:
@@ -180,7 +180,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      SizedBox(
                         height: 126.h,
                         width: Get.width / 5.1 - 4.w,
                         child: AddListings.dropDownAddlistings(
@@ -195,7 +195,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                     ],
                   ),
                   sbw25(),
-                  Container(
+                  SizedBox(
                     height: 126.h,
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(
@@ -208,7 +208,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                         hintText: 'Edit View'),
                   ),
                   sbw25(),
-                  Container(
+                  SizedBox(
                     height: 126.h,
                     width: Get.width / 5.1 - 4.w,
                     child: AddListings.dropDownAddlistings(

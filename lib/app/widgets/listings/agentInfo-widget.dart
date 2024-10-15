@@ -1,13 +1,10 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
-import 'package:eraphilippines/presentation/agent/agents/pages/settingAgent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../presentation/agent/agents/pages/agentsDashBoard.dart';
 import '../../constants/sized_box.dart';
 import '../app_text.dart';
 
@@ -90,7 +87,7 @@ class AgentInfoWidget {
               height: 20.h,
             ),
             sbw5(),
-            Container(
+            SizedBox(
               width: 190.w,
               child: EraText(
                 text: text!,

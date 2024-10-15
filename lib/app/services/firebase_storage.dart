@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -49,7 +47,7 @@ class CloudStorage {
         await file.delete();
       }
     } catch (e) {
-
+      print(e);
     }
   }
 
@@ -183,7 +181,8 @@ class CloudStorage {
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putFile(file);
       return '$target/${customName ?? uploadFilename}';
-    } catch (e,ex) {
+    } catch (e) {
+      print(e);
       return "";
     }
   }
@@ -206,8 +205,8 @@ class CloudStorage {
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putData(file);
       return '$target/${customName ?? uploadFilename}';
-    } catch (e,ex) {
-      return "";
+    } catch (e) {
+      return "$e";
     }
   }
 

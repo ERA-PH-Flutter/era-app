@@ -1,12 +1,8 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:carousel_slider_plus/carousel_slider_plus.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
-import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
@@ -15,23 +11,16 @@ import 'package:eraphilippines/app/widgets/project_views.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
-import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/listing_controller.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/projects_list.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../../../app/models/geocode.dart';
 import '../../../../app/services/firebase_storage.dart';
 import '../../../../app/widgets/era_place_search.dart';
 import '../../../../repository/logs.dart';
 import '../../../../repository/project.dart';
-import '../../../agent/projects/pages/haraya.dart';
 import '../../../global.dart';
 import '../../landingpage/controllers/landingpage_controller.dart';
 
@@ -658,7 +647,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                             },
                             title: 'ADD LOCATION',
                             children: [
-                              Container(
+                              SizedBox(
                                 width: Get.width,
                                 child: EraPlaceSearch(
                                   textFieldController: textController,
@@ -1134,7 +1123,6 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                               Button(
                                 onTap: () {
-                                  String? message;
                                   if (height.text.isNotEmpty) {
                                     controller.projectLego.add({
                                       'type': 'Space',
@@ -1313,112 +1301,6 @@ Widget infoTile(
 showError(error) {
   BaseController()
       .showErroDialog(description: error, onTap: () {}, width: Get.width / 2.5);
-}
-
-//preview
-Widget _buildBulbImage({ListingsAdminController? controller, int? index}) {
-  return Obx(() => controller!.addBlurImage[index!] != null
-      ? Image.memory(
-          controller.addBlurImage[index]!,
-          width: Get.width / 3,
-          height: Get.height / 2.5,
-          fit: BoxFit.cover,
-        )
-      : Container());
-}
-//preview
-
-Widget _buildBlurbTitle(
-    {required ListingsAdminController controller, required int index}) {
-  return Obx(() => EraText(
-        text: controller.addBlurbTitle[index],
-        color: AppColors.black,
-        fontSize: EraTheme.paragraph,
-        maxLines: 1,
-      ));
-}
-
-Widget _buildBlurbpParagraph(
-    {required ListingsAdminController controller, required int index}) {
-  return Obx(() => EraText(
-        text: controller.addBlurbParagraph[index],
-        color: AppColors.black,
-        fontSize: EraTheme.paragraph,
-        maxLines: 10,
-      ));
-}
-
-Widget _buildBlurb(int index, ListingsAdminController controller) {
-  return Column(
-    children: [
-      _buildTextField(
-          controller: controller.blurbTitle,
-          label: 'Blurb Title*',
-          onChanged: (value) {
-            controller.updateBlurbTitle(index, value);
-          }),
-      _buildBlurbTitle(controller: controller, index: index),
-      sb20(),
-      UploadBannersWidget(
-          text: 'Upload Blurb Image',
-          maxImages: 1,
-          padding: EdgeInsets.zero,
-          onImageSelected: (Uint8List image) {
-            controller.updateBlurbImage(index, image);
-          }),
-      sb20(),
-      TextformfieldWidget(
-        controller: controller.blurbParagraphController[index],
-        hintText: 'Blurb Paragraph *',
-        maxLines: 10,
-        textInputAction: TextInputAction.newline,
-        keyboardType: TextInputType.multiline,
-        onChanged: (value) {
-          controller.updateBlurbParagraph(index, value);
-        },
-      ),
-      sb20(),
-    ],
-  );
-}
-
-Widget _buildText({
-  RxString? text,
-}) {
-  return Obx(() => EraText(
-        text: text!.value,
-        color: AppColors.black,
-        fontSize: EraTheme.paragraph,
-        maxLines: 50,
-      ));
-}
-
-Widget _buildImagePreview(
-  RxList<Uint8List> images,
-) {
-  return Stack(
-    children: [
-      Obx(() => images.isNotEmpty
-          ? Image.memory(
-              images.first,
-              width: Get.width / 2.5,
-              height: Get.height / 2.5,
-              fit: BoxFit.cover,
-            )
-          : Container()),
-      Positioned(
-        top: 5.h,
-        right: 0,
-        child: IconButton(
-          onPressed: () => images.clear(),
-          icon: Icon(
-            CupertinoIcons.clear,
-            color: AppColors.black,
-          ),
-        ),
-      )
-    ],
-  );
 }
 
 Widget _buildTextField({

@@ -7,7 +7,6 @@ import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/listings/agentlistview.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
@@ -20,7 +19,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../app/constants/screens.dart';
-import '../../../../app/services/ai_search.dart';
 
 class FindAgents extends GetView<AgentsController> {
   const FindAgents({super.key});
@@ -127,7 +125,7 @@ class FindAgents extends GetView<AgentsController> {
                                             fontWeight: FontWeight.w500,
                                             color: AppColors.white),
                                         SizedBox(height: 5.h),
-                                        Container(
+                                        SizedBox(
                                           height: 50.h,
                                           child: TextformfieldWidget(
                                             style: TextStyle(

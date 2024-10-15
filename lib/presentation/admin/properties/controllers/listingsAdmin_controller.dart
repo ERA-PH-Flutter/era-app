@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
@@ -16,7 +15,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:number_paginator/number_paginator.dart';
 import '../../../../app/services/local_storage.dart';
-import '../../landingpage/controllers/landingpage_controller.dart';
 
 enum ListingsAState { loading, loaded, error, empty }
 
@@ -298,12 +296,12 @@ class ListingsAdminController extends GetxController {
         for (var image in imagePick) {
           images.add(File(image.path));
           if (Get.currentRoute == '/editListings') {
-            imagePick.forEach((image) async {
+            for (var image in imagePick) {
               var a = await CloudStorage().upload(
                   file: File(image.path), target: 'listings/${user!.id}');
               listing?.photos!.add(a);
               await listing!.updateListing();
-            });
+            }
           }
         }
       }
@@ -373,13 +371,6 @@ class ListingsAdminController extends GetxController {
       addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
     }
   }
-
-  @override
-  // void onClose() {
-  //   //arguments = null;
-  //   Get.delete<SearchResultController>(force: true);
-  //   super.onClose();
-  // }
 
   loadData(loadedData) {
     loadedData = loadedData ?? [];

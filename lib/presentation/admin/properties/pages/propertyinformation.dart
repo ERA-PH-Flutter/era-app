@@ -1,5 +1,4 @@
 import 'package:eraphilippines/app/constants/strings.dart';
-import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
@@ -75,7 +74,7 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                   ),
                   child: Stack(
                     children: [
-                      Container(
+                      SizedBox(
                         width: Get.width,
                         height: Get.height,
                         child: CloudStorage().imageLoader(
@@ -311,7 +310,7 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                               ),
                             ),
                             sb30(),
-                            Container(
+                            SizedBox(
                               width: 600.w,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,

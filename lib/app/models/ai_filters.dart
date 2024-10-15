@@ -10,7 +10,7 @@ class AiFilters{
   });
   operate(datas){
     var val;
-    var res = null;
+    var res;
     try{
       val = int.parse(value);
     }catch(e){

@@ -50,9 +50,9 @@ class Database {
     }
     await query.get().then((snapshot) {
       var a = snapshot.docs;
-      a.forEach((b) {
+      for (var b in a) {
         searchData.add(b.data());
-      });
+      }
     });
     return searchData;
   }

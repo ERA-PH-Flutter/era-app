@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/app/models/realestatelisting.dart';
 import 'package:eraphilippines/app/widgets/agent_profile_card.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -12,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AgentProfileAdmin extends GetView<AgentAdminController> {
-  AgentProfileAdmin({super.key});
+  const AgentProfileAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +109,7 @@ class AgentProfileAdmin extends GetView<AgentAdminController> {
   }
 }
 
+// ignore: non_constant_identifier_names
 Widget FavoritesSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,

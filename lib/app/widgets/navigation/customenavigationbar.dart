@@ -1,11 +1,8 @@
 import 'dart:io';
 
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
-import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
-import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/searchresult.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projects_list.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
@@ -69,7 +66,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
           child: PageView(
             controller: pageViewController,
             physics: NeverScrollableScrollPhysics(),
-            children: [
+            children: const [
               Home(),
               ProjectsList(),
               SearchResult(),

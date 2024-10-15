@@ -33,27 +33,4 @@ class AgentListingsController extends GetxController{
     }
 
   }
-  /*
-  filter(category)async{
-    if(category == "favorites"){
-      listings.map((listing){
-        if(user!.favorites.contains(listing.id)){
-          return listing;
-        }
-      });
-    }else if(category == "sold"){
-      listings.map((listing){
-        if(listing.isSold ?? false){
-          return listing;
-        }
-      });
-    }else if(category == "archive"){
-      listings.map((listing){
-        if(user!.archives.contains(listing.id)){
-          return listing;
-        }
-      });
-    }
-  }
-  */
 }

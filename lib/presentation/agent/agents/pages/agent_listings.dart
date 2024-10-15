@@ -17,7 +17,7 @@ import '../../../../app/widgets/listings/agentInfo-widget.dart';
 import '../controllers/agent_listings_controller.dart';
 
 class AgentListings extends GetView<AgentListingsController> {
-  AgentListings({super.key});
+  const AgentListings({super.key});
 
   @override
   Widget build(BuildContext context) {

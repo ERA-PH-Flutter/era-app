@@ -13,6 +13,7 @@ import '../../constants/assets.dart';
 import '../../widgets/app_text.dart';
 import '../../widgets/listings/listedBy_widget.dart';
 
+//ignore: must_be_immutable
 class ListingItemss extends StatelessWidget {
   final String? name;
   final String? image;

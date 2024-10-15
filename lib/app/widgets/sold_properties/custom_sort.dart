@@ -8,11 +8,11 @@ class CustomSortPopup extends StatelessWidget {
 
   final List<PopupMenuEntry<String>> menuItems;
   const CustomSortPopup({
-    Key? key,
+    super.key,
     required this.title,
     required this.onSelected,
     required this.menuItems,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

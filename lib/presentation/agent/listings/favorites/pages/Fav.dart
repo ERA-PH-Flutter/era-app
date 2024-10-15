@@ -7,7 +7,6 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -374,9 +373,7 @@ class Fav extends GetView<FavController> {
     var pdfFileName =
         '${user!.firstname}_${user!.lastname}_${DateTime.now().microsecondsSinceEpoch}_listing.pdf';
     var downloadsFolder = Directory('/storage/emulated/0/Download');
-
-    File pdfFile =
-        await (await File('${downloadsFolder.path}/$pdfFileName').create())
+    await (await File('${downloadsFolder.path}/$pdfFileName').create())
             .writeAsBytes(await a.readAsBytes());
     //launchUrl(pdfFile.path); todo missy
     controller.showSuccessDialog(
@@ -466,54 +463,54 @@ class Fav extends GetView<FavController> {
     );
   }
 
-  Widget _sortByButton() {
-    return PopupMenuButton<String>(
-      color: AppColors.white,
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(AppColors.blue),
-        shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-      ),
-      icon: EraText(
-        text: 'Sort by',
-        color: AppColors.white,
-        fontSize: 15.sp,
-      ),
-      onSelected: (String result) {
-        print(result);
-      },
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-        PopupMenuItem<String>(
-          value: 'Category',
-          child: EraText(text: 'Category', color: AppColors.black),
-        ),
-        PopupMenuItem<String>(
-          value: 'date_modified',
-          child: EraText(text: 'Date', color: AppColors.black),
-        ),
-        PopupMenuItem<String>(
-          value: 'Location',
-          child: EraText(text: 'Location', color: AppColors.black),
-        ),
-        PopupMenuItem<String>(
-          value: 'Amount',
-          child: EraText(text: 'Amount', color: AppColors.black),
-        ),
-        const PopupMenuDivider(),
-        const PopupMenuItem<String>(
-          value: 'ascending',
-          child: Text('Ascending'),
-        ),
-        const PopupMenuItem<String>(
-          value: 'descending',
-          child: Text('Descending'),
-        ),
-      ],
-    );
-  }
+  // Widget _sortByButton() {
+  //   return PopupMenuButton<String>(
+  //     color: AppColors.white,
+  //     style: ButtonStyle(
+  //       backgroundColor: WidgetStateProperty.all(AppColors.blue),
+  //       shape: WidgetStateProperty.all(
+  //         RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(5),
+  //         ),
+  //       ),
+  //     ),
+  //     icon: EraText(
+  //       text: 'Sort by',
+  //       color: AppColors.white,
+  //       fontSize: 15.sp,
+  //     ),
+  //     onSelected: (String result) {
+  //       print(result);
+  //     },
+  //     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+  //       PopupMenuItem<String>(
+  //         value: 'Category',
+  //         child: EraText(text: 'Category', color: AppColors.black),
+  //       ),
+  //       PopupMenuItem<String>(
+  //         value: 'date_modified',
+  //         child: EraText(text: 'Date', color: AppColors.black),
+  //       ),
+  //       PopupMenuItem<String>(
+  //         value: 'Location',
+  //         child: EraText(text: 'Location', color: AppColors.black),
+  //       ),
+  //       PopupMenuItem<String>(
+  //         value: 'Amount',
+  //         child: EraText(text: 'Amount', color: AppColors.black),
+  //       ),
+  //       const PopupMenuDivider(),
+  //       const PopupMenuItem<String>(
+  //         value: 'ascending',
+  //         child: Text('Ascending'),
+  //       ),
+  //       const PopupMenuItem<String>(
+  //         value: 'descending',
+  //         child: Text('Descending'),
+  //       ),
+  //     ],
+  //   );
+  // }
   popMenu({
     required String text,
     isActive = false,
