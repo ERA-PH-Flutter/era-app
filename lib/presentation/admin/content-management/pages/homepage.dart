@@ -240,7 +240,7 @@ class HomePage extends GetView<ContentManagementController> {
             shrinkWrap: true,
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 8,
+              crossAxisCount: 5,
             ),
             itemCount: controller.categoryIcons.length,
             itemBuilder: (context, index) {
@@ -309,13 +309,19 @@ class HomePage extends GetView<ContentManagementController> {
                                       ),
                                     )),
                                 Roster.menuOptions("CHANGE ICON", () async {
-                                  var i = await ImagePicker().pickImage(source: ImageSource.gallery);
+                                  var i = await ImagePicker()
+                                      .pickImage(source: ImageSource.gallery);
 
-                                  if(i != null){
-                                    controller.homepageState.value = HomepageState.loading;
-                                    print( await CloudStorage().uploadCustom(file: await i.readAsBytes(),customName: controller.categoryIcons[index]));
+                                  if (i != null) {
+                                    controller.homepageState.value =
+                                        HomepageState.loading;
+                                    print(await CloudStorage().uploadCustom(
+                                        file: await i.readAsBytes(),
+                                        customName:
+                                            controller.categoryIcons[index]));
                                   }
-                                  controller.homepageState.value = HomepageState.loaded;
+                                  controller.homepageState.value =
+                                      HomepageState.loaded;
                                   // controller.pickImageFromWeb().then((value) {
                                   //   if (value != null) {
                                   //     controller.changeCategoryIcon[index] = value;

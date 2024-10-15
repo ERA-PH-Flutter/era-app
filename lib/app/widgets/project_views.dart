@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
@@ -36,36 +35,28 @@ class ProjectViews {
     height,
     width,
     image,
-  }){
+  }) {
     return Container(
       height: height,
       width: width,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: image
-          )
-      ),
+      decoration: BoxDecoration(image: DecorationImage(image: image)),
     );
   }
+
   build() {
-    return CustomScrollView(
-        shrinkWrap: true,
-        slivers: [
+    return CustomScrollView(shrinkWrap: true, slivers: [
       SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
             var data = project.data![index];
 
             if (data['type'] == "Banner Images") {
-              if(kIsWeb){
+              if (kIsWeb) {
                 return _buildImage(
-                  image: MemoryImage(
-                      data['image']
-                  ),
-                  height: 250.h,
-                  width: Get.width
-                );
-              }else{
+                    image: MemoryImage(data['image']),
+                    height: 250.h,
+                    width: Get.width);
+              } else {
                 return CloudStorage().imageLoaderProvider(
                   ref: data['image'],
                   height: 250.h,
@@ -80,14 +71,11 @@ class ProjectViews {
                 fontSize: EraTheme.small,
               );
             } else if (data['type'] == "Project Logo") {
-              if(kIsWeb){
+              if (kIsWeb) {
                 return _buildImage(
-                    image: MemoryImage(
-                        data['image']
-                    ),
+                    image: MemoryImage(data['image']),
                     height: 250.h,
-                    width: Get.width
-                );
+                    width: Get.width);
               }
               return CloudStorage().imageLoaderProvider(
                 ref: data['image'],
@@ -95,14 +83,13 @@ class ProjectViews {
                 width: 241.h,
               );
             } else if (data['type'] == "3D Virtual") {
-              if(kIsWeb){
+              if (kIsWeb) {
                 return Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 25.w, vertical: 15.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 15.h),
                   color: AppColors.hint.withOpacity(0.3),
                   child: Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       title(
                         text: data['title'],
@@ -124,7 +111,7 @@ class ProjectViews {
                     ],
                   ),
                 );
-              }else{
+              } else {
                 var webViewController = WebViewController();
                 webViewController
                   ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -157,7 +144,7 @@ class ProjectViews {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               var params =
-                              const PlatformWebViewControllerCreationParams();
+                                  const PlatformWebViewControllerCreationParams();
                               WebViewController.fromPlatformCreationParams(
                                 params,
                                 onPermissionRequest:
@@ -194,24 +181,19 @@ class ProjectViews {
                       text: data['title'],
                     ),
                     sb30(),
-                    Builder(
-                      builder:(context){
-                        if(kIsWeb){
-                          return _buildImage(
-                              image: MemoryImage(
-                                  data['image']
-                              ),
-                              height: 250.h,
-                              width: Get.width
-                          );
-                        }
-                        return CloudStorage().imageLoaderProvider(
-                          ref: data['image'],
-                          height: 250.h,
-                          width: Get.width,
-                        );
+                    Builder(builder: (context) {
+                      if (kIsWeb) {
+                        return _buildImage(
+                            image: MemoryImage(data['image']),
+                            height: 250.h,
+                            width: Get.width);
                       }
-                    ),
+                      return CloudStorage().imageLoaderProvider(
+                        ref: data['image'],
+                        height: 250.h,
+                        width: Get.width,
+                      );
+                    }),
                     sb20(),
                     description(text: data['description']),
                   ],
@@ -249,15 +231,12 @@ class ProjectViews {
                       ),
                       sb30(),
                       Builder(
-                        builder: (context){
-                          if(kIsWeb){
+                        builder: (context) {
+                          if (kIsWeb) {
                             return _buildImage(
-                                image: MemoryImage(
-                                    data['image']
-                                ),
+                                image: MemoryImage(data['image']),
                                 height: 250.h,
-                                width: Get.width
-                            );
+                                width: Get.width);
                           }
                           return CloudStorage().imageLoaderProvider(
                             ref: data['image'],
@@ -272,7 +251,6 @@ class ProjectViews {
                   ),
                 );
               } else if (data['sub_type'] == 'gallery') {
-
                 return SizedBox(
                   height: 350.h,
                   child: Stack(
@@ -284,9 +262,9 @@ class ProjectViews {
                               context: context,
                               builder: (BuildContext context) {
                                 final PageController pageController =
-                                PageController(
-                                    initialPage: data['images']
-                                        .indexOf(currentImage.value));
+                                    PageController(
+                                        initialPage: data['images']
+                                            .indexOf(currentImage.value));
                                 return Dialog(
                                   insetPadding: EdgeInsets.symmetric(
                                       horizontal: 5.w, vertical: 180.h),
@@ -298,9 +276,9 @@ class ProjectViews {
                                           right: 0.w,
                                           left: 0.w,
                                           child: Obx(
-                                                () => EraText(
+                                            () => EraText(
                                               text:
-                                              "${data['images'].indexOf(currentImage.value) + 1} / ${data['images'].length}",
+                                                  "${data['images'].indexOf(currentImage.value) + 1} / ${data['images'].length}",
                                               textAlign: TextAlign.center,
                                               color: Colors.white,
                                               fontSize: 18.sp,
@@ -332,17 +310,17 @@ class ProjectViews {
                                           controller: pageController,
                                           onPageChanged: (index) {
                                             currentImage.value =
-                                            data['images'][index];
+                                                data['images'][index];
                                           },
                                           itemBuilder: (context, index) =>
                                               Center(
-                                                child: CloudStorage()
-                                                    .imageLoaderProvider(
-                                                  ref: data['images'][index],
-                                                  height: Get.height,
-                                                  width: Get.width,
-                                                ),
-                                              ),
+                                            child: CloudStorage()
+                                                .imageLoaderProvider(
+                                              ref: data['images'][index],
+                                              height: Get.height,
+                                              width: Get.width,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                       Positioned(
@@ -352,27 +330,24 @@ class ProjectViews {
                                         child: Obx(() {
                                           return Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             children: List.generate(
                                               data['images'].length,
-                                                  (index) {
+                                              (index) {
                                                 bool isActive = data['images']
-                                                [index] ==
+                                                        [index] ==
                                                     currentImage.value;
                                                 return Container(
-                                                  margin:
-                                                  EdgeInsets.symmetric(
+                                                  margin: EdgeInsets.symmetric(
                                                       horizontal: 3.w),
-                                                  width:
-                                                  isActive ? 12.w : 8.w,
-                                                  height:
-                                                  isActive ? 12.h : 8.h,
+                                                  width: isActive ? 12.w : 8.w,
+                                                  height: isActive ? 12.h : 8.h,
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     color: isActive
                                                         ? Colors.white
                                                         : Colors.white
-                                                        .withOpacity(0.5),
+                                                            .withOpacity(0.5),
                                                   ),
                                                 );
                                               },
@@ -389,13 +364,11 @@ class ProjectViews {
                           child: SizedBox(
                             width: Get.width,
                             height: 320.h,
-                            child:  Builder(
-                              builder: (context){
-                                if(kIsWeb){
+                            child: Builder(
+                              builder: (context) {
+                                if (kIsWeb) {
                                   return _buildImage(
-                                    image:MemoryImage(
-                                        data['images'][index]
-                                    ),
+                                    image: MemoryImage(data['images'][index]),
                                     width: Get.width,
                                     height: 250.h,
                                   );
@@ -429,7 +402,7 @@ class ProjectViews {
                                   },
                                   child: Container(
                                     margin:
-                                    EdgeInsets.symmetric(horizontal: 5.w),
+                                        EdgeInsets.symmetric(horizontal: 5.w),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: AppColors.hint,
@@ -437,17 +410,16 @@ class ProjectViews {
                                       ),
                                     ),
                                     child: Builder(
-                                      builder: (context){
-                                        if(kIsWeb){
+                                      builder: (context) {
+                                        if (kIsWeb) {
                                           return _buildImage(
-                                            image:MemoryImage(
-                                                image
-                                            ),
+                                            image: MemoryImage(image),
                                             width: Get.width / 6,
                                             height: 70.h,
                                           );
                                         }
-                                        return CloudStorage().imageLoaderProvider(
+                                        return CloudStorage()
+                                            .imageLoaderProvider(
                                           ref: image,
                                           width: Get.width / 6,
                                           height: 70.h,
@@ -477,15 +449,12 @@ class ProjectViews {
                       ),
                       sb30(),
                       Builder(
-                        builder: (context){
-                          if(kIsWeb){
+                        builder: (context) {
+                          if (kIsWeb) {
                             return _buildImage(
-                                image: MemoryImage(
-                                    data['image']
-                                ),
+                                image: MemoryImage(data['image']),
                                 height: 250.h,
-                                width: Get.width
-                            );
+                                width: Get.width);
                           }
                           return CloudStorage().imageLoaderProvider(
                             ref: data['image'],
@@ -501,7 +470,7 @@ class ProjectViews {
                 );
               } else if (data['sub_type'] == 'gallery') {
                 currentImage.value;
-                return  SizedBox(
+                return SizedBox(
                   height: 350.h,
                   child: Stack(
                     children: [
@@ -512,9 +481,9 @@ class ProjectViews {
                               context: context,
                               builder: (BuildContext context) {
                                 final PageController pageController =
-                                PageController(
-                                    initialPage: data['images']
-                                        .indexOf(currentImage.value));
+                                    PageController(
+                                        initialPage: data['images']
+                                            .indexOf(currentImage.value));
                                 return Dialog(
                                   insetPadding: EdgeInsets.symmetric(
                                       horizontal: 5.w, vertical: 180.h),
@@ -526,9 +495,9 @@ class ProjectViews {
                                           right: 0.w,
                                           left: 0.w,
                                           child: Obx(
-                                                () => EraText(
+                                            () => EraText(
                                               text:
-                                              "${data['images'].indexOf(currentImage.value) + 1} / ${data['images'].length}",
+                                                  "${data['images'].indexOf(currentImage.value) + 1} / ${data['images'].length}",
                                               textAlign: TextAlign.center,
                                               color: Colors.white,
                                               fontSize: 18.sp,
@@ -560,30 +529,27 @@ class ProjectViews {
                                           controller: pageController,
                                           onPageChanged: (index) {
                                             currentImage.value =
-                                            data['images'][index];
+                                                data['images'][index];
                                           },
                                           itemBuilder: (context, index) =>
                                               Center(
-                                                child: Builder(
-                                                    builder:(context){
-                                                      if(kIsWeb){
-                                                        return _buildImage(
-                                                          image: MemoryImage(
-                                                              data['images'][index]
-                                                          ),
-                                                          height: Get.height,
-                                                          width: Get.width,
-                                                        );
-                                                      }
-                                                      return CloudStorage()
-                                                          .imageLoaderProvider(
-                                                        ref: data['images'][index],
-                                                        height: Get.height,
-                                                        width: Get.width,
-                                                      );
-                                                    }
-                                                ),
-                                              ),
+                                            child: Builder(builder: (context) {
+                                              if (kIsWeb) {
+                                                return _buildImage(
+                                                  image: MemoryImage(
+                                                      data['images'][index]),
+                                                  height: Get.height,
+                                                  width: Get.width,
+                                                );
+                                              }
+                                              return CloudStorage()
+                                                  .imageLoaderProvider(
+                                                ref: data['images'][index],
+                                                height: Get.height,
+                                                width: Get.width,
+                                              );
+                                            }),
+                                          ),
                                         ),
                                       ),
                                       Positioned(
@@ -593,27 +559,24 @@ class ProjectViews {
                                         child: Obx(() {
                                           return Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             children: List.generate(
                                               data['images'].length,
-                                                  (index) {
+                                              (index) {
                                                 bool isActive = data['images']
-                                                [index] ==
+                                                        [index] ==
                                                     currentImage.value;
                                                 return Container(
-                                                  margin:
-                                                  EdgeInsets.symmetric(
+                                                  margin: EdgeInsets.symmetric(
                                                       horizontal: 3.w),
-                                                  width:
-                                                  isActive ? 12.w : 8.w,
-                                                  height:
-                                                  isActive ? 12.h : 8.h,
+                                                  width: isActive ? 12.w : 8.w,
+                                                  height: isActive ? 12.h : 8.h,
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     color: isActive
                                                         ? Colors.white
                                                         : Colors.white
-                                                        .withOpacity(0.5),
+                                                            .withOpacity(0.5),
                                                   ),
                                                 );
                                               },
@@ -630,26 +593,22 @@ class ProjectViews {
                           child: SizedBox(
                             width: Get.width,
                             height: 320.h,
-                            child: Builder(
-                                builder:(context){
-                                  if(kIsWeb){
-                                    return _buildImage(
-                                      image: MemoryImage(
-                                          data['images'][index]
-                                      ),
-                                      height: 250.h,
-                                      width: Get.width,
-                                    );
-                                  }
-                                  return CloudStorage().imageLoaderProvider(
-                                    ref: currentImage.value.isEmpty
-                                        ? data['images'][index]
-                                        : currentImage.value,
-                                    height: 250.h,
-                                    width: Get.width,
-                                  );
-                                }
-                            ),
+                            child: Builder(builder: (context) {
+                              if (kIsWeb) {
+                                return _buildImage(
+                                  image: MemoryImage(data['images'][index]),
+                                  height: 250.h,
+                                  width: Get.width,
+                                );
+                              }
+                              return CloudStorage().imageLoaderProvider(
+                                ref: currentImage.value.isEmpty
+                                    ? data['images'][index]
+                                    : currentImage.value,
+                                height: 250.h,
+                                width: Get.width,
+                              );
+                            }),
                           ),
                         ),
                       ),
@@ -671,7 +630,7 @@ class ProjectViews {
                                   },
                                   child: Container(
                                     margin:
-                                    EdgeInsets.symmetric(horizontal: 5.w),
+                                        EdgeInsets.symmetric(horizontal: 5.w),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: AppColors.hint,
@@ -679,17 +638,16 @@ class ProjectViews {
                                       ),
                                     ),
                                     child: Builder(
-                                      builder: (context){
-                                        if(kIsWeb){
+                                      builder: (context) {
+                                        if (kIsWeb) {
                                           return _buildImage(
-                                            image: MemoryImage(
-                                              image
-                                            ),
+                                            image: MemoryImage(image),
                                             width: Get.width / 6,
                                             height: 70.h,
                                           );
                                         }
-                                        return CloudStorage().imageLoaderProvider(
+                                        return CloudStorage()
+                                            .imageLoaderProvider(
                                           ref: image,
                                           width: Get.width / 6,
                                           height: 70.h,
@@ -724,12 +682,10 @@ class ProjectViews {
                             return ClipRRect(
                               borderRadius: BorderRadius.circular(30),
                               child: Builder(
-                                builder: (context){
-                                  if(kIsWeb){
+                                builder: (context) {
+                                  if (kIsWeb) {
                                     return _buildImage(
-                                      image: MemoryImage(
-                                        image
-                                      ),
+                                      image: MemoryImage(image),
                                       width: Get.width,
                                       height: Get.height,
                                     );
@@ -795,9 +751,9 @@ class ProjectViews {
         ),
       ),
       SliverToBoxAdapter(
-        child:  Builder(
-          builder: (context){
-            if(kIsWeb){
+        child: Builder(
+          builder: (context) {
+            if (kIsWeb) {
               return Container();
             }
             return Column(
@@ -878,10 +834,15 @@ class ProjectViews {
     ];
     for (var block in project.data!) {
       if (block['type'] == "Project Logo") {
-        preview[0] = CloudStorage().imageLoaderProvider(
-          ref: block['image'],
-          height: 170.h,
+        preview[0] = Container(
           width: Get.width,
+          color: AppColors.black,
+          child: CloudStorage().imageLoaderProvider(
+            ref: block['image'],
+            height: 170.h,
+            width: Get.width,
+            color: AppColors.black,
+          ),
         );
       }
       if (block['type'] == "Developer Name") {
@@ -931,7 +892,7 @@ class ProjectViews {
               bgColor: AppColors.kRedColor,
               borderRadius: BorderRadius.circular(30),
             ),
-            sb10()
+            sb50()
           ],
         );
       }

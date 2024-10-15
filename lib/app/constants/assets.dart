@@ -34,29 +34,18 @@ class AppEraAssets {
   static String factory = "${w}4_factory.png";
   static String farm = "${w}4_farm.png";
   static String hotel = "${w}4_hotel.png";
-  static String housenlot = "${w}4_house and lot.png";
+
   static String house1 = "${w}4_house.png";
   static String lot = "${w}4_lot.png";
   static String industrial = "${w}4_insdustrial lot.png";
   static String office = "${w}4_office.png";
   static String parkingLot = "${w}4_parking lot.png";
-  static String residential = "${w}4_residential.png";
-  static String townhouse = "${w}4_townhouse.png";
-  static String resort = "${w}4_resort.png";
-  static String warehouse = "${w}4_warehouse.png";
-  static String penthouse = "${w}4_penthouse.png";
-  static String beachHouse = "${w}4_beach house.png";
-  static String loft = "${w}loft.jpg";
-  static String bedspace = "${w}4_bedspace.png";
-  static String room = "${w}4_room.png";
-  static String memorial = "${w}4_memorial.png";
-  static String coworking = "${w}4_coworking space.png";
-  static String studio = "${w}4_studio.png";
 
-  // static String land = "${l}__Land.png";
-  // static String waterfront = "${l}__Waterfront.png";
-  // static String retail = "${l}4_retail.png";
-  // static String lotF = "${l}lot.png";
+  static String resort = "${w}4_resort.png";
+
+  static String beachHouse = "${w}4_beach house.png";
+  static String school = "${w}4_school.png";
+
   //appbar
   static String menubar = "${l}menubar.png";
 

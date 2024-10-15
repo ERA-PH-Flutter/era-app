@@ -36,13 +36,20 @@ class ContentManagementController extends GetxController with BaseController {
         if (settings!.banners != null) {
           for (int i = 0; i < settings!.banners!.length; i++) {
             bannersImages.add(settings!.banners![i]);
-            images.add(await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
+            images.add(await CloudStorage()
+                .getFileBytes(docRef: settings!.banners![i]));
           }
         }
-      }else{
-        settings = era_settings.Settings.fromJSON((await FirebaseFirestore.instance.collection('settings').doc('main').get()).data()!);
+      } else {
+        settings = era_settings.Settings.fromJSON((await FirebaseFirestore
+                .instance
+                .collection('settings')
+                .doc('main')
+                .get())
+            .data()!);
         for (int i = 0; i < settings!.banners!.length; i++) {
-          images.add(await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
+          images.add(
+              await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
         }
       }
       //await getImages();
@@ -136,23 +143,23 @@ class ContentManagementController extends GetxController with BaseController {
     AppEraAssets.factory,
     AppEraAssets.farm,
     AppEraAssets.hotel,
-    AppEraAssets.housenlot,
+    //AppEraAssets.housenlot,
     AppEraAssets.house1,
     AppEraAssets.lot,
     AppEraAssets.industrial,
     AppEraAssets.office,
     AppEraAssets.parkingLot,
-    AppEraAssets.residential,
-    AppEraAssets.townhouse,
+    // AppEraAssets.residential,
+    //AppEraAssets.townhouse,
     AppEraAssets.resort,
-    AppEraAssets.warehouse,
-    AppEraAssets.penthouse,
+    // AppEraAssets.warehouse,
+    // AppEraAssets.penthouse,
     AppEraAssets.beachHouse,
-    AppEraAssets.loft,
-    AppEraAssets.bedspace,
-    AppEraAssets.room,
-    AppEraAssets.memorial,
-    AppEraAssets.coworking,
-    AppEraAssets.studio,
+    //  AppEraAssets.loft,
+    AppEraAssets.school,
+    //  AppEraAssets.room,
+//AppEraAssets.memorial,
+    // AppEraAssets.coworking,
+    // AppEraAssets.studio,
   ];
 }
