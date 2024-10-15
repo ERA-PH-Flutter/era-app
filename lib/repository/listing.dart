@@ -1,9 +1,7 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-
 
 class Listing {
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -15,7 +13,7 @@ class Listing {
   double? floorArea;
   int? beds;
   int? baths;
-  int? area;
+  double? area;
   String? status;
   String? view;
   String? location;
@@ -72,7 +70,7 @@ class Listing {
         floorArea: json["floor_area"].toString().toDouble(),
         location: json["location"],
         status: json["status"],
-        area: json["area"],
+        area: json["area"].toString().toDouble(),
         beds: json["beds"],
         view: json["view"],
         ppsqm: json["ppsqm"].toString().toDouble(),
@@ -114,7 +112,7 @@ class Listing {
       "sub_category": subCategory,
       "leads": leads,
       "by": by,
-      "id" : id,
+      "id": id,
       "owner": "admin", //todo change to owner field
       "description": description,
       "views": 0,
@@ -124,7 +122,7 @@ class Listing {
       "is_sold": isSold ?? false,
       "latLng": latLng ?? [0, 0],
       "address": address ?? "",
-      "property_id" : propertyId
+      "property_id": propertyId
     };
   }
 
@@ -136,17 +134,16 @@ class Listing {
   addListing(images, userId) async {
     photos = [];
     for (int i = 0; i < images!.length; i++) {
-      if(kIsWeb){
+      if (kIsWeb) {
         photos!.add(await CloudStorage()
             .uploadFromMemory(file: images![i], target: 'listings/$userId'));
-      }else{
+      } else {
         photos!.add(await CloudStorage()
             .upload(file: images![i], target: 'listings/$userId'));
       }
-
     }
     DocumentReference<Map<String, dynamic>> doc =
-      db.collection('listings').doc();
+        db.collection('listings').doc();
     id = doc.id;
     await doc.set(toMap());
   }
@@ -156,9 +153,9 @@ class Listing {
   }
 
   deleteListings() async {
-    try{
+    try {
       await db.collection("listings").doc(id).delete();
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
