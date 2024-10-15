@@ -18,7 +18,7 @@ class ListingItemss extends StatelessWidget {
   final String? name;
   final String? image;
   final String type;
-  final int areas;
+  final double areas;
   final int beds;
   final int baths;
   final int cars;
@@ -290,7 +290,9 @@ class ListingItemss extends StatelessWidget {
                       ),
                       SizedBox(height: 15.w),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 14.w,),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 14.w,
+                        ),
                         child: EraText(
                           text: name ?? "Test",
                           fontSize: EraTheme.header - 5.sp,

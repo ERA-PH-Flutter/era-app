@@ -3,7 +3,6 @@ import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-
 class FindingProperties extends StatelessWidget {
   final List<RealEstateListing> listingModels;
 
@@ -27,20 +26,19 @@ class FindingProperties extends StatelessWidget {
           fromSold: false,
           image: listingModels[i].image,
           type: listingModels[i].type,
-          areas: listingModels[i].areas,
+          areas: listingModels[i].areas.toDouble(),
           beds: listingModels[i].beds,
           baths: listingModels[i].baths,
           cars: listingModels[i].cars,
           description: listingModels[i].description,
           price: listingModels[i].price.toDouble(),
-         
           showListedby: true,
           listedBy: 'Listed By',
           agentImage: '${listingModels[i].user.image}',
           agentFirstName: ' ${listingModels[i].user.firstname}',
           agentLastName: '${listingModels[i].user.lastname}',
           role: '${listingModels[i].user.role}',
-          onTap: ()async{
+          onTap: () async {
             Get.toNamed('/propertyInfo', arguments: listingModels[i]);
           },
           isSold: false,

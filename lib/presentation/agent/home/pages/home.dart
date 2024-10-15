@@ -475,7 +475,8 @@ class Home extends GetView<HomeController> {
                                       ),
                                       SizedBox(width: 2.w),
                                       EraText(
-                                        text: '${listing.area} sqm',
+                                        text:
+                                            '${listing.area!.toStringAsFixed(listing.area!.truncateToDouble() == listing.area ? 0 : 1)} sqm',
                                         fontSize: EraTheme.paragraph - 1.sp,
                                         fontWeight: FontWeight.w500,
                                         color: AppColors.black,

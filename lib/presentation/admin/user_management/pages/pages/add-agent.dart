@@ -35,7 +35,8 @@ class AddAgent extends GetView<AgentAdminController> {
               height: 20.h,
             ),
             EraText(
-              text: '${controller.agentListingssss != null ? "EDIT" : "ADD"} AGENT',
+              text:
+                  '${controller.agentListingssss != null ? "EDIT" : "ADD"} AGENT',
               fontSize: EraTheme.header,
               color: AppColors.black,
             ),
@@ -190,7 +191,7 @@ class AddAgent extends GetView<AgentAdminController> {
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Button(
                   onTap: () async {
-                    if(controller.agentListingssss == null){
+                    if (controller.agentListingssss == null) {
                       BaseController().showLoading();
                       try {
                         await Authentication().signup(
@@ -201,48 +202,52 @@ class AddAgent extends GetView<AgentAdminController> {
                             password: controller.passwordA.text);
                         //var image = await CloudStorage().upload(file: controller.images, target: 'users/test/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}');
                         await EraUser(
-                            id: id,
-                            firstname: controller.fNameA.text,
-                            lastname: controller.lNameA.text,
-                            email: controller.emailAdressA.text,
-                            birthday: controller.dateBirthA.text,
-                            whatsApp: controller.phoneNA.text,
-                            gender: controller.sexA.text,
-                            location: controller.officeLA.text,
-                            licence: controller.licensedNumA.text,
-                            position: controller.selectedAgentType.value,
-                            description: controller.descriptionA.text,
-                            eraId: "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5,"0")}",
-                            status: "approved")
+                                id: id,
+                                firstname: controller.fNameA.text,
+                                lastname: controller.lNameA.text,
+                                email: controller.emailAdressA.text,
+                                birthday: controller.dateBirthA.text,
+                                whatsApp: controller.phoneNA.text,
+                                gender: controller.sexA.text,
+                                location: controller.officeLA.text,
+                                licence: controller.licensedNumA.text,
+                                position: controller.selectedAgentType.value,
+                                description: controller.descriptionA.text,
+                                eraId:
+                                    "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
+                                status: "approved")
                             .add();
                         await Logs(
-                          title: "${user!.firstname} ${user!.lastname} added an agent with ID ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5,"0")}",
-                          type: "account"
-                        ).add();
+                                title:
+                                    "${user!.firstname} ${user!.lastname} added an agent with ID ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
+                                type: "account")
+                            .add();
                         settings!.agentCount = settings!.agentCount! + 1;
                         await settings!.update();
                         BaseController().showSuccessDialog(
                             title: "Add Agent Success",
                             description: "Agent added successfully!",
                             hitApi: () {
-                              Get.back();Get.back();
+                              Get.back();
+                              Get.back();
                             });
                       } catch (e) {
                         BaseController().showSuccessDialog(
                             title: "Error!",
                             description: "$e",
                             hitApi: () {
-                              Get.back();Get.back();
+                              Get.back();
+                              Get.back();
                             });
                       }
-                    }
-                    else{
+                    } else {
                       BaseController().showLoading();
                       BaseController().showSuccessDialog(
                           title: "Edit Agent Success",
                           description: "Agent edited successfully!",
                           hitApi: () {
-                            Get.back();Get.back();
+                            Get.back();
+                            Get.back();
                           });
                       try {
                         await controller.updateValues();
@@ -251,7 +256,8 @@ class AddAgent extends GetView<AgentAdminController> {
                             title: "Error!",
                             description: "$e",
                             hitApi: () {
-                              Get.back();Get.back();
+                              Get.back();
+                              Get.back();
                             });
                       }
                     }
@@ -263,8 +269,8 @@ class AddAgent extends GetView<AgentAdminController> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 Builder(
-                  builder: (context){
-                    if(controller.agentListingssss == null){
+                  builder: (context) {
+                    if (controller.agentListingssss == null) {
                       return Button(
                         onTap: () {
                           controller.clearfield();
@@ -275,7 +281,7 @@ class AddAgent extends GetView<AgentAdminController> {
                         bgColor: AppColors.hint,
                         borderRadius: BorderRadius.circular(30),
                       );
-                    }else{
+                    } else {
                       return Container();
                     }
                   },
@@ -319,11 +325,11 @@ class AddAgent extends GetView<AgentAdminController> {
   }
 
   static Widget buildTextFormField2(
-    String text,
-    TextEditingController controller,
-    String text2,
-    TextEditingController controller2,
-  ) {
+      String text,
+      TextEditingController controller,
+      String text2,
+      TextEditingController controller2,
+      {void Function(String)? onChanged}) {
     return Row(
       children: [
         Column(
@@ -365,6 +371,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 controller: controller2,
                 fontSize: 18.sp,
                 maxLines: 1,
+                onChanged: onChanged,
               ),
             ),
           ],
@@ -458,6 +465,7 @@ class AddAgent extends GetView<AgentAdminController> {
     String? text,
     TextEditingController? controller,
     String? text2,
+    void Function(String)? onChanged,
     TextEditingController? controller2,
     String? text3,
     TextEditingController? controller3,
@@ -484,6 +492,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 fontSize: 18.sp,
                 maxLines: 1,
                 keyboardType: keyboardType ?? TextInputType.text,
+                onChanged: onChanged,
               ),
             ),
           ],

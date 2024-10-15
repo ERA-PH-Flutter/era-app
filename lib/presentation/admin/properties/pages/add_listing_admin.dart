@@ -67,6 +67,20 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                   addListingsController.propertyNameController,
                   'Property Cost *',
                   addListingsController.propertyCostController,
+                  onChanged: (value) {
+                    value = value.replaceAll(',', '');
+                    if (value.isNotEmpty) {
+                      final formattedValue = value.replaceAllMapped(
+                          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                          (Match m) => '${m[1]},');
+                      addListingsController.propertyCostController.value =
+                          TextEditingValue(
+                        text: formattedValue,
+                        selection: TextSelection.collapsed(
+                            offset: formattedValue.length),
+                      );
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 10.h,
@@ -74,6 +88,21 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                 AddAgent.buildTextFormField4(
                     text: 'Price per sqm *',
                     controller: addListingsController.pricePerSqmController,
+                    onChanged: (value) {
+                      value = value.replaceAll(',', '');
+
+                      if (value.isNotEmpty) {
+                        final formattedValue = value.replaceAllMapped(
+                            RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                            (Match m) => '${m[1]},');
+                        addListingsController.pricePerSqmController.value =
+                            TextEditingValue(
+                          text: formattedValue,
+                          selection: TextSelection.collapsed(
+                              offset: formattedValue.length),
+                        );
+                      }
+                    },
                     text2: 'Area*',
                     controller2: addListingsController.areaController,
                     text3: 'Rooms *',
@@ -279,23 +308,20 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                     return AddAgent.buildUploadPhoto();
                   } else {
                     return ReorderableWrap(
-                   onReorder: (oldIndex, newIndex) {
-                      // if (oldIndex < newIndex) {
-                      //   newIndex -= 1;
-                      // }
-                      //testing
-                      if (oldIndex != newIndex) {
-                     
-
-                        var oldImage = addListingsController.images[oldIndex];
-                        var newImage = addListingsController.images[newIndex];
-                        addListingsController.images[oldIndex] = newImage;
-                        addListingsController.images[newIndex] = oldImage;
-
-                       } else {
-                        print('No change in order, indices are the same.');
-                      }
-                    },
+                      onReorder: (oldIndex, newIndex) {
+                        // if (oldIndex < newIndex) {
+                        //   newIndex -= 1;
+                        // }
+                        //testing
+                        if (oldIndex != newIndex) {
+                          var oldImage = addListingsController.images[oldIndex];
+                          var newImage = addListingsController.images[newIndex];
+                          addListingsController.images[oldIndex] = newImage;
+                          addListingsController.images[newIndex] = oldImage;
+                        } else {
+                          print('No change in order, indices are the same.');
+                        }
+                      },
                       children: List.generate(
                           addListingsController.images.length, (index) {
                         return Stack(
@@ -500,6 +526,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                   .toDouble(),
                               ppsqm: addListingsController
                                   .pricePerSqmController.text
+                                  .replaceAll(',', '')
                                   .toDouble(),
                               beds: addListingsController.bedsController.text
                                   .toInt(),
@@ -508,7 +535,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                               cars: addListingsController.carsController.text
                                   .toInt(),
                               area: addListingsController.areaController.text
-                                  .toInt(),
+                                  .toDouble(),
                               status: addListingsController.selectedOfferT.value
                                   .toString(),
                               propertyId:

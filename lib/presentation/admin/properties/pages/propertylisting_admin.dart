@@ -199,9 +199,11 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                     SizedBox(
                       width: 250.w,
                       child: SearchWidget.build(() async {
-                        controller.addEditListingsStateAd.value = AddEditListingsStateAd.loading;
+                        controller.addEditListingsStateAd.value =
+                            AddEditListingsStateAd.loading;
                         controller.streamSearch = controller.searchStream();
-                        controller.addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
+                        controller.addEditListingsStateAd.value =
+                            AddEditListingsStateAd.loaded;
                       }),
                     ),
                   ],
@@ -211,12 +213,13 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
             ),
           ),
           sb40(),
-          Obx((){
-            if(controller.addEditListingsStateAd.value == AddEditListingsStateAd.loaded){
+          Obx(() {
+            if (controller.addEditListingsStateAd.value ==
+                AddEditListingsStateAd.loaded) {
               return StreamBuilder(
                 stream: controller.streamSearch,
-                builder: (context,snapshot){
-                  if(snapshot.hasData){
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
                     var data = snapshot.data!.docs;
                     return GridView.builder(
                       physics: const ScrollPhysics(),
@@ -239,13 +242,22 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                             margin: EdgeInsets.only(bottom: 16.h),
                             padding: EdgeInsets.zero,
                             child: Container(
-                              padding:  settings!.featuredListings!.contains(listing.id) ? EdgeInsets.all(5) : EdgeInsets.zero,
+                              padding: settings!.featuredListings!
+                                      .contains(listing.id)
+                                  ? EdgeInsets.all(5)
+                                  : EdgeInsets.zero,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border: settings!.featuredListings!.contains(listing.id) ? Border.all(
-                                    color: AppColors.kRedColor,
-                                    width: 3.w,
-                                  ) : Border.all(width: 0,color: AppColors.kRedColor.withOpacity(0)),
+                                  border: settings!.featuredListings!
+                                          .contains(listing.id)
+                                      ? Border.all(
+                                          color: AppColors.kRedColor,
+                                          width: 3.w,
+                                        )
+                                      : Border.all(
+                                          width: 0,
+                                          color: AppColors.kRedColor
+                                              .withOpacity(0)),
                                   color: Colors.white,
                                   boxShadow: const [
                                     BoxShadow(
@@ -253,12 +265,12 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                         spreadRadius: 1,
                                         blurRadius: 10,
                                         color: Colors.black12)
-                                  ]
-                              ),
+                                  ]),
                               child: Stack(
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       CloudStorage().imageLoaderProvider(
                                         height: 400.h,
@@ -268,8 +280,8 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                         width: Get.width - 400.w,
                                         ref: listing.photos != null
                                             ? (listing.photos!.isNotEmpty
-                                            ? listing.photos!.first
-                                            : AppStrings.noUserImageWhite)
+                                                ? listing.photos!.first
+                                                : AppStrings.noUserImageWhite)
                                             : AppStrings.noUserImageWhite,
                                       ),
                                       SizedBox(
@@ -278,18 +290,21 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                       Container(
                                         width: Get.width,
                                         height: 30.h,
-                                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 14.w),
                                         child: EraText(
                                           textOverflow: TextOverflow.ellipsis,
-                                          text:
-                                          listing.name! == "" ? "No Name" : listing.name!,
+                                          text: listing.name! == ""
+                                              ? "No Name"
+                                              : listing.name!,
                                           fontSize: EraTheme.header - 5.sp,
                                           color: AppColors.kRedColor,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 14.w),
                                         child: EraText(
                                           text: listing.type!,
                                           fontSize: EraTheme.header - 12.sp,
@@ -313,8 +328,10 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                               ),
                                               SizedBox(width: 2.w),
                                               EraText(
-                                                text: '${listing.area} sqm',
-                                                fontSize: EraTheme.paragraph - 1.sp,
+                                                text:
+                                                    '${listing.area!.toStringAsFixed(listing.area!.truncateToDouble() == listing.area ? 0 : 1)} sqm',
+                                                fontSize:
+                                                    EraTheme.paragraph - 1.sp,
                                                 fontWeight: FontWeight.w500,
                                                 color: AppColors.black,
                                               ),
@@ -362,7 +379,8 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                         height: 5.h,
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 14.w),
                                         child: EraText(
                                           text: 'Description:',
                                           fontSize: EraTheme.header - 8.sp,
@@ -375,7 +393,8 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                         height: 2.h,
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 14.w),
                                         child: Text(
                                           listing.description == ""
                                               ? "No description."
@@ -393,10 +412,12 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                         height: 5.h,
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 14.w),
                                         child: EraText(
                                           text: NumberFormat.currency(
-                                              locale: 'en_PH', symbol: 'PHP ')
+                                                  locale: 'en_PH',
+                                                  symbol: 'PHP ')
                                               .format(
                                             listing.price.toString() == ""
                                                 ? 0
@@ -413,19 +434,24 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                             if (snapshot.hasData) {
                                               var user1 = snapshot.data;
                                               return Padding(
-                                                padding:
-                                                EdgeInsets.symmetric(horizontal: 14.w),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 14.w),
                                                 child: ListedBy(
                                                     image: user1!.image ??
-                                                        AppStrings.noUserImageWhite,
+                                                        AppStrings
+                                                            .noUserImageWhite,
                                                     agentFirstName:
-                                                    user1.firstname ?? "No Name",
-                                                    agentType: user1.role ?? "Agent",
-                                                    agentLastName: user1.lastname ?? ""),
+                                                        user1.firstname ??
+                                                            "No Name",
+                                                    agentType:
+                                                        user1.role ?? "Agent",
+                                                    agentLastName:
+                                                        user1.lastname ?? ""),
                                               );
                                             } else {
                                               return Center(
-                                                child: CircularProgressIndicator(),
+                                                child:
+                                                    CircularProgressIndicator(),
                                               );
                                             }
                                           }),
@@ -435,73 +461,124 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                       top: 10.h,
                                       right: 15.h,
                                       child: IconButton(
-                                        onPressed: (){
+                                        onPressed: () {
                                           more.value = true;
                                         },
-                                        icon: Icon(Icons.more_horiz_rounded,color: Colors.white,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
-                                      )
-                                  ),
-                                  Obx((){
-                                    if(more.value == true){
+                                        icon: Icon(
+                                          Icons.more_horiz_rounded,
+                                          color: Colors.white,
+                                          shadows: const [
+                                            BoxShadow(
+                                                offset: Offset(0, 0),
+                                                color: Colors.white,
+                                                blurRadius: 5,
+                                                spreadRadius: 1)
+                                          ],
+                                        ),
+                                      )),
+                                  Obx(() {
+                                    if (more.value == true) {
                                       return Wrap(
                                         children: [
                                           Container(
-                                              margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10.w,
+                                                  vertical: 15.h),
                                               decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10.r),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.r),
                                                   color: Colors.white,
                                                   boxShadow: const [
                                                     BoxShadow(
-                                                        offset: Offset(0,0),
+                                                        offset: Offset(0, 0),
                                                         blurRadius: 5,
                                                         spreadRadius: 1,
-                                                        color: Colors.black38
-                                                    )
-                                                  ]
-                                              ),
-
-                                              width:Get.width,
-                                              child: Column(
-                                                  children:[
-                                                    Container(
-                                                        alignment: Alignment.centerRight,
-                                                        child: IconButton(
-                                                          onPressed: (){
-                                                            more.value = false;
-                                                          },
-                                                          icon: Icon(Icons.close,size: 25.sp,color: Colors.black,shadows: const [BoxShadow(offset: Offset(0,0),color:Colors.white,blurRadius: 5,spreadRadius: 1)],),
-                                                        )
-                                                    ),
-                                                    _menuOptions("Edit",()async{
-                                                      Get.put(ListingsController());
-                                                      var c = Get.find<AddListingsController>();
-                                                      await c.assignData(listing.id, isWeb: true);
-                                                      Get.find<LandingPageController>().onSectionSelected(8);
-                                                    },Icons.edit),
-                                                    _menuOptions(settings!.featuredListings!.contains(listing.id) ? "Remove from Featured" : "Add to Featured",()async{
-                                                      controller.addEditListingsStateAd.value = AddEditListingsStateAd.loading;
-                                                      await settings!.addToFeaturedListings(listing.id);
-                                                      await Logs(
-                                                      title: "${user!.firstname} ${user!.lastname} ${settings!.featuredListings!.contains(listing.id) ? "removed" : "added"} a listing to featured, with ID ${listing.propertyId}",
-                                                      type: "listing"
-                                                      ).add();
-                                                      controller.addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
-                                                    },Icons.add_circle),
-                                                    _menuOptions("Delete",()async{
-                                                      listing.photos!.isNotEmpty ? await CloudStorage().deleteAll(fileList: listing.photos!) : null;
-                                                      await listing.deleteListings();
-                                                      await Logs(
-                                                          title: "${user!.firstname} ${user!.lastname} added a listing with ID ${listing.propertyId}",
-                                                          type: "listing"
-                                                      ).add();
-                                                    },Icons.delete_rounded),
-                                                    SizedBox(height: 20.h,)
-                                                  ]
-                                              )
-                                          ),
+                                                        color: Colors.black38)
+                                                  ]),
+                                              width: Get.width,
+                                              child: Column(children: [
+                                                Container(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: IconButton(
+                                                      onPressed: () {
+                                                        more.value = false;
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.close,
+                                                        size: 25.sp,
+                                                        color: Colors.black,
+                                                        shadows: const [
+                                                          BoxShadow(
+                                                              offset:
+                                                                  Offset(0, 0),
+                                                              color:
+                                                                  Colors.white,
+                                                              blurRadius: 5,
+                                                              spreadRadius: 1)
+                                                        ],
+                                                      ),
+                                                    )),
+                                                _menuOptions("Edit", () async {
+                                                  Get.put(ListingsController());
+                                                  var c = Get.find<
+                                                      AddListingsController>();
+                                                  await c.assignData(listing.id,
+                                                      isWeb: true);
+                                                  Get.find<
+                                                          LandingPageController>()
+                                                      .onSectionSelected(8);
+                                                }, Icons.edit),
+                                                _menuOptions(
+                                                    settings!.featuredListings!
+                                                            .contains(
+                                                                listing.id)
+                                                        ? "Remove from Featured"
+                                                        : "Add to Featured",
+                                                    () async {
+                                                  controller
+                                                          .addEditListingsStateAd
+                                                          .value =
+                                                      AddEditListingsStateAd
+                                                          .loading;
+                                                  await settings!
+                                                      .addToFeaturedListings(
+                                                          listing.id);
+                                                  await Logs(
+                                                          title:
+                                                              "${user!.firstname} ${user!.lastname} ${settings!.featuredListings!.contains(listing.id) ? "removed" : "added"} a listing to featured, with ID ${listing.propertyId}",
+                                                          type: "listing")
+                                                      .add();
+                                                  controller
+                                                          .addEditListingsStateAd
+                                                          .value =
+                                                      AddEditListingsStateAd
+                                                          .loaded;
+                                                }, Icons.add_circle),
+                                                _menuOptions("Delete",
+                                                    () async {
+                                                  listing.photos!.isNotEmpty
+                                                      ? await CloudStorage()
+                                                          .deleteAll(
+                                                              fileList: listing
+                                                                  .photos!)
+                                                      : null;
+                                                  await listing
+                                                      .deleteListings();
+                                                  await Logs(
+                                                          title:
+                                                              "${user!.firstname} ${user!.lastname} added a listing with ID ${listing.propertyId}",
+                                                          type: "listing")
+                                                      .add();
+                                                }, Icons.delete_rounded),
+                                                SizedBox(
+                                                  height: 20.h,
+                                                )
+                                              ])),
                                         ],
                                       );
-                                    }else{
+                                    } else {
                                       return Container();
                                     }
                                   }),
@@ -512,8 +589,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                         );
                       },
                     );
-                  }
-                  else{
+                  } else {
                     print(controller.searchStream());
                     return Center(
                       child: CircularProgressIndicator(),
@@ -521,8 +597,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                   }
                 },
               );
-
-            }else{
+            } else {
               return Center(
                 child: CircularProgressIndicator(),
               );
@@ -545,42 +620,42 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
     );
   }
 
-  _menuOptions(text,callback,icon){
+  _menuOptions(text, callback, icon) {
     var isHover = false.obs;
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      onEnter: (event){
+      onEnter: (event) {
         isHover.value = true;
       },
-      onExit: (event){
+      onExit: (event) {
         isHover.value = false;
       },
       child: GestureDetector(
         onTap: callback,
-        child: Obx(()=>Container(
-          alignment: Alignment.center,
-          width: Get.width,
-          color: isHover.value ? AppColors.kRedColor : Colors.white,
-          padding: EdgeInsets.symmetric(
-              vertical: 15.h
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 25.sp,
-                color: isHover.value ? Colors.white : Colors.black,
+        child: Obx(() => Container(
+              alignment: Alignment.center,
+              width: Get.width,
+              color: isHover.value ? AppColors.kRedColor : Colors.white,
+              padding: EdgeInsets.symmetric(vertical: 15.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
+                    size: 25.sp,
+                    color: isHover.value ? Colors.white : Colors.black,
+                  ),
+                  SizedBox(
+                    width: 15.w,
+                  ),
+                  EraText(
+                    text: text,
+                    fontSize: 18.sp,
+                    color: isHover.value ? Colors.white : Colors.black,
+                  ),
+                ],
               ),
-              SizedBox(width: 15.w,),
-              EraText(
-                text: text,
-                fontSize: 18.sp,
-                color: isHover.value ? Colors.white : Colors.black,
-              ),
-            ],
-          ),
-        )),
+            )),
       ),
     );
   }

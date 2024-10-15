@@ -65,24 +65,24 @@ class AddListingsController extends GetxController with BaseController {
     "Factory",
     "Farm",
     "Hotel",
-    "House and Lot",
+    //"House and Lot",
     "House",
     "Lot",
     "Industrial Lot",
     "Office",
     "Parking Lot",
-    "Residential",
+    //"Residential",
     "Resort",
-    "Townhouse",
-    "Warehouse",
-    "Penthouse",
+    // "Townhouse",
+    //"Warehouse",
+    //"Penthouse",
     "Beach House",
-    "Loft",
-    "Bedspace",
-    "Room",
-    "Memorial",
-    "Coworking Space",
-    "Studio",
+    // "Loft",
+    "School",
+    //"Room",
+    //"Memorial",
+    /// "Coworking Space",
+    // "Studio",
   ];
 
   var propertyT = [
@@ -337,7 +337,7 @@ class AddListingsController extends GetxController with BaseController {
       listing!.beds = bedsController.text.toInt();
       listing!.baths = bathsController.text.toInt();
       listing!.cars = carsController.text.toInt();
-      listing!.area = areaController.text.toInt();
+      listing!.area = areaController.text.toDouble();
       listing!.status = selectedOfferT.value.toString();
       listing!.location = add == null ? locationController.text : add.city;
       listing!.type = selectedPropertyT.value.toString();
@@ -351,7 +351,7 @@ class AddListingsController extends GetxController with BaseController {
       await listing!.updateListing();
 
       !kIsWeb ? hideLoading() : null;
-    } catch (e,ex) {
+    } catch (e, ex) {
       print(ex);
       print(e);
     }

@@ -1,4 +1,3 @@
-
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
@@ -209,7 +208,8 @@ class FindProperties extends GetView<ListingController> {
                                 ),
                                 SizedBox(width: 2.w),
                                 EraText(
-                                  text: '${listing.area} sqm',
+                                  text:
+                                      '${listing.area!.toStringAsFixed(listing.area!.truncateToDouble() == listing.area ? 0 : 1)} sqm',
                                   fontSize: EraTheme.paragraph - 1.sp,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.black,

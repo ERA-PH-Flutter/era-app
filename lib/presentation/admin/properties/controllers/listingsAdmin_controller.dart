@@ -176,13 +176,19 @@ class ListingsAdminController extends GetxController {
         .uploadFromMemory(file: file, target: 'projects');
   }
 
-  Future<int> getOrderCount()async{
+  Future<int> getOrderCount() async {
     try {
-      return (await FirebaseFirestore
-          .instance
-          .collection('projects').orderBy('order_id')
-          .get()).docs.last.data()['order_id'].toString().toInt() + 1;
-    }catch(e){
+      return (await FirebaseFirestore.instance
+                  .collection('projects')
+                  .orderBy('order_id')
+                  .get())
+              .docs
+              .last
+              .data()['order_id']
+              .toString()
+              .toInt() +
+          1;
+    } catch (e) {
       return 1;
     }
   }
@@ -309,6 +315,7 @@ class ListingsAdminController extends GetxController {
       return e;
     }
   }
+
   var oldImages = [];
   @override
   void onInit() async {
@@ -317,17 +324,22 @@ class ListingsAdminController extends GetxController {
         if (['Banner Images', 'Project Logo', 'Blurb']
             .contains(projectsData![i]['type'])) {
           oldImages.add(projectsData![i]['image']);
-          projectsData![i]['image'] = await CloudStorage().getFileBytes(docRef: projectsData![i]['image']);
+          projectsData![i]['image'] = await CloudStorage()
+              .getFileBytes(docRef: projectsData![i]['image']);
         } else if (['Carousel'].contains(projectsData![i]['type'])) {
           oldImages += projectsData![i]['images'];
-          projectsData![i]['images'] = await CloudStorage().getFilesBytes(docRefs: projectsData![i]['images']);
-        } else if (['Outdoor Amenities', 'Indoor Amenities'].contains(projectsData![i]['type'])) {
+          projectsData![i]['images'] = await CloudStorage()
+              .getFilesBytes(docRefs: projectsData![i]['images']);
+        } else if (['Outdoor Amenities', 'Indoor Amenities']
+            .contains(projectsData![i]['type'])) {
           if (projectsData?[i]['sub_type'] == 'blurb') {
             oldImages.add(projectsData![i]['image']);
-            projectsData![i]['image'] = await CloudStorage().getFileBytes(docRef: projectsData![i]['image']);
+            projectsData![i]['image'] = await CloudStorage()
+                .getFileBytes(docRef: projectsData![i]['image']);
           } else {
             oldImages += projectsData![i]['images'];
-            projectsData![i]['images'] = await CloudStorage().getFilesBytes(docRefs: projectsData?[i]['images']);
+            projectsData![i]['images'] = await CloudStorage()
+                .getFilesBytes(docRefs: projectsData?[i]['images']);
           }
         }
       }
@@ -365,8 +377,7 @@ class ListingsAdminController extends GetxController {
       } else {
         addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
       }
-    }
-    else {
+    } else {
       listingState.value = ListingsAState.loaded;
       addEditListingsStateAd.value = AddEditListingsStateAd.loaded;
     }
@@ -403,6 +414,7 @@ class ListingsAdminController extends GetxController {
     addListingsController.bathsController.text = listing!.baths.toString();
     addListingsController.carsController.text = listing!.cars.toString();
     addListingsController.areaController.text = listing!.area.toString();
+
     addListingsController.selectedOfferT.value =
         addListingsController.offerT.contains(listing!.status)
             ? listing!.status

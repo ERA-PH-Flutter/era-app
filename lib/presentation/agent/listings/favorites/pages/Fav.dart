@@ -67,7 +67,7 @@ class Fav extends GetView<FavController> {
               children: [
                 Padding(
                   padding:
-                  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                   child: EraText(
                     text: 'MY FAVORITES',
                     fontSize: 25.sp,
@@ -87,43 +87,67 @@ class Fav extends GetView<FavController> {
                           print(result);
                         },
                         menuItems: [
-                          popMenu(text: 'Category',isActive: controller.sortBy.value == 'category',onTap: (){
-                            controller.sortBy.value = 'category';
-                            controller.favState.value = FavState.loading;
-                            controller.favoritesList.sort((a,b)=> a.type!.compareTo(b.type!));
-                            controller.favState.value = FavState.loaded;
-                          }),
-                          popMenu(text: 'Date',isActive: controller.sortBy.value == 'date',onTap: (){
-                            controller.sortBy.value = 'date';
-                            controller.favState.value = FavState.loading;
-                            controller.favoritesList.sort((a,b)=> a.dateCreated!.compareTo(b.dateCreated!));
-                            controller.favState.value = FavState.loaded;
-                          }),
-                          popMenu(text: 'Location',isActive: controller.sortBy.value == 'location',onTap: (){
-                            controller.sortBy.value = 'location';
-                            controller.favState.value = FavState.loading;
-                            controller.favoritesList.sort((a,b)=> a.location!.compareTo(b.location!));
-                            controller.favState.value = FavState.loaded;
-                          }),
-                          popMenu(text: 'Price',isActive: controller.sortBy.value == 'price',onTap: (){
-                            controller.sortBy.value = 'price';
-                            controller.favState.value = FavState.loading;
-                            controller.favoritesList.sort((a,b)=> a.price!.compareTo(b.price!));
-                            controller.favState.value = FavState.loaded;
-                          }),
+                          popMenu(
+                              text: 'Category',
+                              isActive: controller.sortBy.value == 'category',
+                              onTap: () {
+                                controller.sortBy.value = 'category';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList
+                                    .sort((a, b) => a.type!.compareTo(b.type!));
+                                controller.favState.value = FavState.loaded;
+                              }),
+                          popMenu(
+                              text: 'Date',
+                              isActive: controller.sortBy.value == 'date',
+                              onTap: () {
+                                controller.sortBy.value = 'date';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList.sort((a, b) =>
+                                    a.dateCreated!.compareTo(b.dateCreated!));
+                                controller.favState.value = FavState.loaded;
+                              }),
+                          popMenu(
+                              text: 'Location',
+                              isActive: controller.sortBy.value == 'location',
+                              onTap: () {
+                                controller.sortBy.value = 'location';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList.sort((a, b) =>
+                                    a.location!.compareTo(b.location!));
+                                controller.favState.value = FavState.loaded;
+                              }),
+                          popMenu(
+                              text: 'Price',
+                              isActive: controller.sortBy.value == 'price',
+                              onTap: () {
+                                controller.sortBy.value = 'price';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList.sort(
+                                    (a, b) => a.price!.compareTo(b.price!));
+                                controller.favState.value = FavState.loaded;
+                              }),
                           PopupMenuDivider(),
-                          popMenu(text: 'Ascending',isActive: controller.sortOrder.value == 'asc',onTap: (){
-                            controller.sortOrder.value = 'asc';
-                            controller.favState.value = FavState.loading;
-                            controller.favoritesList.value = controller.favoritesList.reversed.toList();
-                            controller.favState.value = FavState.loaded;
-                          }),
-                          popMenu(text: 'Descending',isActive: controller.sortOrder.value == 'desc',onTap: (){
-                            controller.sortOrder.value = 'desc';
-                            controller.favState.value = FavState.loading;
-                            controller.favoritesList.value = controller.favoritesList.reversed.toList();
-                            controller.favState.value = FavState.loaded;
-                          }),
+                          popMenu(
+                              text: 'Ascending',
+                              isActive: controller.sortOrder.value == 'asc',
+                              onTap: () {
+                                controller.sortOrder.value = 'asc';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList.value =
+                                    controller.favoritesList.reversed.toList();
+                                controller.favState.value = FavState.loaded;
+                              }),
+                          popMenu(
+                              text: 'Descending',
+                              isActive: controller.sortOrder.value == 'desc',
+                              onTap: () {
+                                controller.sortOrder.value = 'desc';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList.value =
+                                    controller.favoritesList.reversed.toList();
+                                controller.favState.value = FavState.loaded;
+                              }),
                         ],
                       ),
                       SizedBox(
@@ -190,7 +214,8 @@ class Fav extends GetView<FavController> {
                     SizedBox(
                       child: GridView.builder(
                         scrollDirection: Axis.vertical,
-                        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: EraTheme.paddingWidth),
                         physics: const ScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate:
@@ -363,8 +388,10 @@ class Fav extends GetView<FavController> {
     print(controller.screenshotControllers.length);
     for (var sc in controller.screenshotControllers) {
       var a = await sc.capture();
-      if(a != null){
-        var file = await File("${tempDir.path}/${DateTime.now().microsecondsSinceEpoch}.png").writeAsBytes(a);
+      if (a != null) {
+        var file = await File(
+                "${tempDir.path}/${DateTime.now().microsecondsSinceEpoch}.png")
+            .writeAsBytes(a);
         listOfFiles.add(file);
       }
       //print(listOfFiles);
@@ -374,7 +401,7 @@ class Fav extends GetView<FavController> {
         '${user!.firstname}_${user!.lastname}_${DateTime.now().microsecondsSinceEpoch}_listing.pdf';
     var downloadsFolder = Directory('/storage/emulated/0/Download');
     await (await File('${downloadsFolder.path}/$pdfFileName').create())
-            .writeAsBytes(await a.readAsBytes());
+        .writeAsBytes(await a.readAsBytes());
     //launchUrl(pdfFile.path); todo missy
     controller.showSuccessDialog(
         title: "Success",
@@ -439,7 +466,7 @@ class Fav extends GetView<FavController> {
                     image: listing.photos?.first,
                     name: listing.name ?? "Test",
                     type: listing.type!,
-                    areas: listing.area!,
+                    areas: listing.area ?? 0,
                     beds: listing.beds ?? 0,
                     baths: listing.baths ?? 0,
                     cars: listing.cars ?? 0,
@@ -511,26 +538,28 @@ class Fav extends GetView<FavController> {
   //     ],
   //   );
   // }
-  popMenu({
-    required String text,
-    isActive = false,
-    required onTap,
-    style
-  }){
+  popMenu({required String text, isActive = false, required onTap, style}) {
     return PopupMenuItem<String>(
       onTap: onTap,
       value: text.toString().toLowerCase(),
-      child: Obx((){
+      child: Obx(() {
         controller.sortBy.value;
         controller.sortOrder.value;
         return Row(
           children: [
-            isActive ? Row(
-              children: [
-                Icon(Icons.check,color: AppColors.blue,),
-                SizedBox(width: 5.w,)
-              ],
-            ) : Container(),
+            isActive
+                ? Row(
+                    children: [
+                      Icon(
+                        Icons.check,
+                        color: AppColors.blue,
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      )
+                    ],
+                  )
+                : Container(),
             Text(
               text,
               style: style ?? TextStyle(),
