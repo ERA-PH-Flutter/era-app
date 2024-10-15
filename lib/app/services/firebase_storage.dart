@@ -29,10 +29,8 @@ class CloudStorage {
     try {
       final bytes = await ref.child(docRef).getData();
 
-      final Directory appDirectory = Directory('/storage/emulated/0/Download');
-      // if (!await appDirectory.exists()) {
-      //   await appDirectory.create(recursive: true);
-      // }
+      //final Directory appDirectory = Directory('/storage/emulated/0/Download');
+      final appDirectory = await getTemporaryDirectory();
       final String imagePath = '${appDirectory.path}/${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(100)}.jpg';
       final File file = File(imagePath);
       file.create();

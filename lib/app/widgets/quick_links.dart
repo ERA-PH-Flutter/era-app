@@ -45,7 +45,7 @@ class QuickLinksModel {
   ];
 
   initialize() async {
-    List<Widget> items = [];
+    List<Widget> items = [];-
     // for(int index = 0;index < categories.length;index++){
     //   items.add(await quickSearchIcon(categories[index][0], categories[index][1], categories[index][2]));
     // }
