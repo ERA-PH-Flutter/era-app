@@ -52,4 +52,11 @@ class AiFilters{
     });
     return res;
   }
+  toMap(){
+    return {
+      'value' : value,
+      'field' : field,
+      'operator' : operator
+    };
+  }
 }

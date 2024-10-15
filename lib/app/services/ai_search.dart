@@ -79,7 +79,7 @@ class AI{
     var toReturn;
     await gemini.text(prompt)
       .then((value)async{
-        toReturn = await process(value?.output!);
+        //toReturn = await process(value?.output!);
         print(value?.output);
       }).catchError((e,ex){
         print(ex);
@@ -188,21 +188,76 @@ class AI{
     });
     return ac;
   }
-  calculateMortage({
-    amount,downPayment, loanTerm, interest, monthly
-  })async
-  {
-    var prompt = "Calculate mortgage given this data, property amount = $amount php, down payment = $downPayment, loan term = $loanTerm years, interest rate = $interest%, give me the monthly payment, give the value directly, give the number computed only, remove unnecessary explanation";
-    BaseController().showLoading();
-    var toReturn;
-    await gemini.text(prompt)
-        .then((value)async{
-      toReturn = value?.output!;
-      print(value?.output);
-    }).catchError((e){
-      print(e);
-    });
-    BaseController().hideLoading();
-    return toReturn;
+  checkOperator(value){
+    if([String,int,bool].contains(value.runtimeType)){
+      return [value,"="];
+    }
+    if(value['min'] != null && value['max'] != null){
+      return [value['min'],"="];
+    }
+    if(value['min'] != null){
+      return [value['min'],">"];
+    }
+    if(value['max'] != null){
+      return [value['max'],"<"];
+    }
+  }
+
+  process2({
+    prompt
+  })async{
+    if(prompt != null){
+      print(prompt);
+      Query query = FirebaseFirestore.instance.collection('listings');
+      List<AiFilters> prompts = [];
+      prompt!.forEach((key,value){
+        var val = checkOperator(value);
+        prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
+      });
+      for(int i = 0;i<(prompts.length > 3 ? 3 : prompts.length);i++){
+        print(prompts[i].toMap());
+        if(prompts[i].operator == ">"){
+          query = query.where(prompts[i].field,isGreaterThanOrEqualTo: prompts[i].value);
+        }
+        if(prompts[i].operator == "<"){
+          query = query.where(prompts[i].field,isLessThanOrEqualTo: prompts[i].value);
+        }
+        if(prompts[i].operator == "="){
+          query = query.where(prompts[i].field,isEqualTo: prompts[i].value);
+        }
+      }
+      var data = [];
+      // if(prompt.length > 4){
+      //   prompts.removeRange(0, 2);
+      //   await query.get().then((QuerySnapshot snapshot){
+      //     var a = snapshot.docs;
+      //     for (var b in a) {
+      //       bool isValid = true;
+      //       for(int i = 0;i<prompts.length;i++){
+      //         if(prompts[i].operator == ">"){
+      //           isValid = prompts[i].value < b[prompts[i].field];
+      //         }
+      //         if(prompts[i].operator == "<"){
+      //           isValid = prompts[i].value > b[prompts[i].field];
+      //         }
+      //         if(prompts[i].operator == "="){
+      //           isValid = prompts[i].value == b[prompts[i].field];
+      //         }
+      //       }
+      //       isValid ? data.add(b) : null;
+      //     }
+      //   });
+      // }
+      // else{
+      //
+      // }
+      await query.get().then((QuerySnapshot snapshot){
+        var a = snapshot.docs;
+        for (var b in a) {
+          data.add(b.data());
+        }
+      });
+      return data;
+    }
   }
 }

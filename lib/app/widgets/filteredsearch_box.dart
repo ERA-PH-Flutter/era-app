@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/listing_filters.dart';
@@ -11,15 +12,12 @@ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart'
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
-
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import '../../presentation/global.dart';
-
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../services/ai_search.dart';
@@ -111,14 +109,15 @@ class FilteredSearchBox extends StatelessWidget {
                 onSuffixTap: () async {
                   var data;
                   var searchQuery = "";
-                  data = await AI(query: aiSearchController.text).search();
+                  // data = await AI(query: aiSearchController.text).search();
+                  BaseController().showLoading();
+                  data = await AI(query: '').process2(prompt:jsonDecode((await GetConnect().get('https://api.eraphilippines.com/gemini.php?prompt=${aiSearchController.text}')).body.toLowerCase()));
                   searchQuery = aiSearchController.text;
+                  print(searchQuery);
                   selectedIndex.value = 2;
                   pageViewController = PageController(initialPage: 2);
                   currentRoute = '/searchresult';
-                  Get.offAll(BaseScaffold(),
-                      binding: SearchResultBinding(),
-                      arguments: [data, searchQuery]);
+                  Get.offAll(BaseScaffold(), binding: SearchResultBinding(), arguments: [data, searchQuery]);
                 }),
           SizedBox(height: 5.h),
           GestureDetector(
