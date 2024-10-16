@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/listing_filters.dart';
@@ -12,18 +14,28 @@ import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import '../../presentation/global.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../services/ai_search.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 //ignore: must_be_immutable
-class FilteredSearchBox extends StatelessWidget {
+class FilteredSearchBox extends StatefulWidget {
   FilteredSearchBox({super.key});
+
+  @override
+  State<FilteredSearchBox> createState() => _FilteredSearchBoxState();
+}
+
+class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var showFullSearch = false.obs;
   var expanded = false.obs;
   var aiSearchController = TextEditingController();
@@ -31,7 +43,6 @@ class FilteredSearchBox extends StatelessWidget {
   var priceController = TextEditingController();
   var propertyController = TextEditingController();
   var projectsController = TextEditingController();
-
   var bedrooms = 0.obs;
   var bathrooms = 0.obs;
   var garage = 0.obs;
@@ -89,6 +100,38 @@ class FilteredSearchBox extends StatelessWidget {
     " 50M - 100M",
     " 100M - 1B",
   ];
+  stt.SpeechToText speech = stt.SpeechToText();
+  bool speechEnabled = false;
+  String lastWords = '';
+  bool speechStarted = false;
+  @override
+  void initState(){
+    super.initState();
+    initSpeech();
+  }
+  initSpeech() async {
+    speechEnabled = await speech.initialize();
+  }
+  void startListening() async {
+    Timer? timer;
+    await speech.listen(onResult: (result){
+      aiSearchController.text = result.recognizedWords;
+      setState(() {
+
+      });
+    });
+
+  }
+  aiSearch()async{
+    var searchQuery = "";
+    BaseController().showLoading();
+    searchQuery = aiSearchController.text;
+    var data = await AI(query: '').process2(q: searchQuery);
+    selectedIndex.value = 2;
+    pageViewController = PageController(initialPage: 2);
+    currentRoute = '/searchresult';
+    Get.offAll(BaseScaffold(), binding: SearchResultBinding(), arguments: [data, searchQuery]);
+  }
   @override
   Widget build(BuildContext context) {
     return BoxWidget.build(
@@ -96,26 +139,87 @@ class FilteredSearchBox extends StatelessWidget {
         children: [
           SizedBox(height: 10.h),
           if (!showFullSearch.value)
-            AppTextField(
-                onPressed: () {},
-                controller: aiSearchController,
-                hint: 'Use AI Search',
-                svgIcon: AppEraAssets.ai3,
-                bgColor: AppColors.white,
-                isSuffix: true,
-                obscureText: false,
-                suffixIcons: AppEraAssets.send,
-                onSuffixTap: () async {
-                  var searchQuery = "";
-                  // data = await AI(query: aiSearchController.text).search();
-                  BaseController().showLoading();
-                  searchQuery = aiSearchController.text;
-                  var data = await AI(query: '').process2(q: searchQuery);
-                  selectedIndex.value = 2;
-                  pageViewController = PageController(initialPage: 2);
-                  currentRoute = '/searchresult';
-                  Get.offAll(BaseScaffold(), binding: SearchResultBinding(), arguments: [data, searchQuery]);
-                }),
+            CupertinoTextField(
+              style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.w400, fontSize: 20.sp),
+              controller: aiSearchController,
+              placeholder: 'Use AI Search',
+              prefix: Row(
+                children: [
+                  SizedBox(width: 10.w,),
+                  Image.asset(
+                    AppEraAssets.ai3,
+                    height: 30.h,
+                    color: AppColors.kRedColor,
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.r),
+                color: AppColors.white,
+              ),
+              suffix: Row(
+                children: [
+                  GestureDetector(
+                    onTap: ()async{
+                      await Permission.audio.request().isGranted;
+                      if(speechStarted){
+                        aiSearchController.text = "";
+                        speechStarted = false;
+                        speech.stop();
+                        setState(() {
+
+                        });
+                      }else{
+                        speechStarted = true;
+                        setState(() {
+
+                        });
+                        if ( speechEnabled ) {
+                          startListening();
+                        }else{
+                           await initSpeech();
+                           startListening();
+                        }
+                      }
+                    },
+                    child: speechStarted ? Icon(Icons.hearing): Icon(Icons.mic,size: 25.sp,),
+                  ),
+                  SizedBox(width: 10.w,),
+                  GestureDetector(
+                    onTap: () async {
+                      await aiSearch();
+                    },
+                    child: Image.asset(
+                      AppEraAssets.send,
+                      height: 27.5.h,
+                      color: AppColors.kRedColor,
+                    ),
+                  ),
+                  SizedBox(width: 10.w,),
+                ],
+              ),
+            ),
+            // AppTextField(
+            //     onPressed: () {},
+            //     controller: aiSearchController,
+            //     hint: 'Use AI Search',
+            //     svgIcon: AppEraAssets.ai3,
+            //     bgColor: AppColors.white,
+            //     isSuffix: true,
+            //     obscureText: false,
+            //     suffixIcons: AppEraAssets.send,
+            //     onSuffixTap: () async {
+            //       var searchQuery = "";
+            //       // data = await AI(query: aiSearchController.text).search();
+            //       BaseController().showLoading();
+            //       searchQuery = aiSearchController.text;
+            //       var data = await AI(query: '').process2(q: searchQuery);
+            //       selectedIndex.value = 2;
+            //       pageViewController = PageController(initialPage: 2);
+            //       currentRoute = '/searchresult';
+            //       Get.offAll(BaseScaffold(), binding: SearchResultBinding(), arguments: [data, searchQuery]);
+            //     }),
           SizedBox(height: 5.h),
           GestureDetector(
             onTap: () {

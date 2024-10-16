@@ -190,16 +190,16 @@ class AI{
   }
   checkOperator(value){
     if([String,int,bool].contains(value.runtimeType)){
-      return [value,"="];
+      return [value.toLowerCase(),"="];
     }
     if(value['min'] != null && value['max'] != null){
       return [value['min'],"="];
     }
     if(value['min'] != null){
-      return [value['min'],">"];
+      return [value['min'],"<"];
     }
     if(value['max'] != null){
-      return [value['max'],"<"];
+      return [value['max'],">"];
     }
   }
 
