@@ -140,65 +140,68 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
         children: [
           SizedBox(height: 10.h),
           if (!showFullSearch.value)
-            CupertinoTextField(
-              style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w400, fontSize: 20.sp),
-              controller: aiSearchController,
-              placeholder: 'Use AI Search',
-              prefix: Row(
-                children: [
-                  SizedBox(width: 10.w,),
-                  Image.asset(
-                    AppEraAssets.ai3,
-                    height: 30.h,
-                    color: AppColors.kRedColor,
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.r),
-                color: AppColors.white,
-              ),
-              suffix: Row(
-                children: [
-                  GestureDetector(
-                    onTap: ()async{
-                      await Permission.audio.request().isGranted;
-                      if(speechStarted){
-                        aiSearchController.text = "";
-                        speechStarted = false;
-                        speech.stop();
-                        setState(() {
-
-                        });
-                      }else{
-                        speechStarted = true;
-                        setState(() {
-
-                        });
-                        if ( speechEnabled ) {
-                          startListening();
-                        }else{
-                           await initSpeech();
-                           startListening();
-                        }
-                      }
-                    },
-                    child: speechStarted ? Icon(Icons.hearing): Icon(Icons.mic,size: 25.sp,),
-                  ),
-                  SizedBox(width: 10.w,),
-                  GestureDetector(
-                    onTap: () async {
-                      await aiSearch();
-                    },
-                    child: Image.asset(
-                      AppEraAssets.send,
-                      height: 27.5.h,
+            SizedBox(
+              height: 48.h,
+              child: CupertinoTextField(
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w400, fontSize: 20.sp),
+                controller: aiSearchController,
+                placeholder: 'Use AI Search',
+                prefix: Row(
+                  children: [
+                    SizedBox(width: 10.w,),
+                    Image.asset(
+                      AppEraAssets.ai3,
+                      height: 30.h,
                       color: AppColors.kRedColor,
                     ),
-                  ),
-                  SizedBox(width: 10.w,),
-                ],
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.r),
+                  color: AppColors.white,
+                ),
+                suffix: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: ()async{
+                        await Permission.audio.request().isGranted;
+                        if(speechStarted){
+                          aiSearchController.text = "";
+                          speechStarted = false;
+                          speech.stop();
+                          setState(() {
+
+                          });
+                        }else{
+                          speechStarted = true;
+                          setState(() {
+
+                          });
+                          if ( speechEnabled ) {
+                            startListening();
+                          }else{
+                             await initSpeech();
+                             startListening();
+                          }
+                        }
+                      },
+                      child: speechStarted ? Icon(Icons.hearing): Icon(Icons.mic,size: 25.sp,),
+                    ),
+                    SizedBox(width: 10.w,),
+                    GestureDetector(
+                      onTap: () async {
+                        await aiSearch();
+                      },
+                      child: Image.asset(
+                        AppEraAssets.send,
+                        height: 27.5.h,
+                        color: AppColors.kRedColor,
+                      ),
+                    ),
+                    SizedBox(width: 10.w,),
+                  ],
+                ),
               ),
             ),
             // AppTextField(
