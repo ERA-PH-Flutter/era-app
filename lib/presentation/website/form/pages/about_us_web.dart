@@ -36,9 +36,10 @@ class AboutUsWeb extends StatelessWidget {
                         children: [
                           sb30(),
                           _buildTitle('Join Us Today!',
-                              fontSize: EraTheme.headerWeb,
+                              fontSize: EraTheme.headerWeb + 20.sp,
                               fontWeight: FontWeight.bold,
                               color: AppColors.white),
+                          sb20(),
                           _buildDescription(
                               color: AppColors.white,
                               'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.'),
@@ -186,7 +187,7 @@ class AboutUsWeb extends StatelessWidget {
               imageUrl:
                   'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
               fit: BoxFit.cover,
-              height: Get.height - 300.h,
+              height: Get.height - 330.h,
               width: Get.width,
             ),
           ),
@@ -250,7 +251,7 @@ class AboutUsWeb extends StatelessWidget {
       child: EraText(
         text: text,
         maxLines: 50,
-        fontSize: fontSize ?? EraTheme.paragraphWeb - 15.sp,
+        fontSize: fontSize ?? EraTheme.text15,
         fontWeight: fontWeight ?? FontWeight.w500,
         color: color ?? AppColors.hint,
         textOverflow: TextOverflow.ellipsis,

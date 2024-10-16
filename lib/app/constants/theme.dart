@@ -23,4 +23,6 @@ class EraTheme {
   static double headerWeb = 50.sp;
   static double subHeaderWeb = 40.sp;
   static double paragraphWeb = 30.sp;
+
+  static double text15 = 15.sp;
 }
