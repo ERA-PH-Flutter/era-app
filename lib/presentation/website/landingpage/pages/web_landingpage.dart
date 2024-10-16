@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 
 import '../../../../router/route_string.dart';
 import '../../../admin/authentication.dart';
+import '../../form/pages/sell_property_web.dart';
 
 class WebsiteLandingPage extends GetView<WebLandingPageController> {
   const WebsiteLandingPage({super.key});
@@ -186,7 +187,7 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
               children: const [
                 HomeWeb(), //0
                 AboutUsWeb(), //01
-
+                SellPropertyWeb(),
                 BuyWeb(),
                 AboutUsWeb(), //01
                 AboutUsWeb(), //01

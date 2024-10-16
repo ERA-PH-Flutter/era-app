@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,13 @@ class SellPropertyWeb extends StatelessWidget {
                       Expanded(flex: 1, child: Container()),
                     ],
                   ),
+                ),
+                sb80(),
+                Image.asset(
+                  AppEraAssets.eraPh,
+                  fit: BoxFit.cover,
+                  height: 250.h,
+                  width: 250.w,
                 ),
               ],
             ),

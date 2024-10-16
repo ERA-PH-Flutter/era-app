@@ -168,7 +168,7 @@ class AboutUsWeb extends StatelessWidget {
                               'Other Services',
                             ),
                             sb20(),
-                            ..._buildOtherServices()
+                            ..._buildOtherServices(),
                           ],
                         ),
                       ),
@@ -186,7 +186,7 @@ class AboutUsWeb extends StatelessWidget {
               imageUrl:
                   'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
               fit: BoxFit.cover,
-              height: Get.height - 350.h,
+              height: Get.height - 300.h,
               width: Get.width,
             ),
           ),
