@@ -203,10 +203,10 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       currentRoute = '/aboutus';
                                       Get.offAllNamed("/aboutus");
                                     }, Get.currentRoute == '/aboutus'),
-                                    _buildMenuCard('JOIN ERA', () {
+                                    user == null ? _buildMenuCard('JOIN ERA', () {
                                       currentRoute = '/joinEra';
                                       Get.offAllNamed("/joinEra");
-                                    }, Get.currentRoute == '/joinEra'),
+                                    }, Get.currentRoute == '/joinEra') : Container(),
                                     _buildMenuCard('SELL PROPERTY', () {
                                       currentRoute = '/sellProperty';
                                       Get.offAllNamed("/sellProperty");

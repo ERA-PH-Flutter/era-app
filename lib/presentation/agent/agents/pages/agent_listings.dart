@@ -58,42 +58,42 @@ class AgentListings extends GetView<AgentListingsController> {
                 fontWeight: FontWeight.w600,
               ),
               //TO DO: nikko not final this is for sorting
-              CustomSortPopup(
-                title: 'Sort by',
-                onSelected: (String result) {
-                  print(result);
-                },
-                menuItems: const [
-                  PopupMenuItem<String>(
-                    value: 'Category',
-                    child:
-                        Text('Category', style: TextStyle(color: Colors.black)),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'date_modified',
-                    child: Text('Date', style: TextStyle(color: Colors.black)),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'Location',
-                    child:
-                        Text('Location', style: TextStyle(color: Colors.black)),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'Amount',
-                    child:
-                        Text('Amount', style: TextStyle(color: Colors.black)),
-                  ),
-                  PopupMenuDivider(),
-                  PopupMenuItem<String>(
-                    value: 'ascending',
-                    child: Text('Ascending'),
-                  ),
-                  PopupMenuItem<String>(
-                    value: 'descending',
-                    child: Text('Descending'),
-                  ),
-                ],
-              ),
+              // CustomSortPopup(
+              //   title: 'Sort by',
+              //   onSelected: (String result) {
+              //     print(result);
+              //   },
+              //   menuItems: const [
+              //     PopupMenuItem<String>(
+              //       value: 'Category',
+              //       child:
+              //           Text('Category', style: TextStyle(color: Colors.black)),
+              //     ),
+              //     PopupMenuItem<String>(
+              //       value: 'date_modified',
+              //       child: Text('Date', style: TextStyle(color: Colors.black)),
+              //     ),
+              //     PopupMenuItem<String>(
+              //       value: 'Location',
+              //       child:
+              //           Text('Location', style: TextStyle(color: Colors.black)),
+              //     ),
+              //     PopupMenuItem<String>(
+              //       value: 'Amount',
+              //       child:
+              //           Text('Amount', style: TextStyle(color: Colors.black)),
+              //     ),
+              //     PopupMenuDivider(),
+              //     PopupMenuItem<String>(
+              //       value: 'ascending',
+              //       child: Text('Ascending'),
+              //     ),
+              //     PopupMenuItem<String>(
+              //       value: 'descending',
+              //       child: Text('Descending'),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
           Row(

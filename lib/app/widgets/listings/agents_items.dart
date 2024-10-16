@@ -38,18 +38,17 @@ class AgentsItems extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        toggleSelected();
+        //toggleSelected();
       },
       child: Stack(
         clipBehavior: Clip.none,
         children: [
           Obx(
-            () => AnimatedContainer(
-              duration: Duration(milliseconds: 2000),
-              curve: Curves.fastEaseInToSlowEaseOut,
+            () => Container(
+              // duration: Duration(milliseconds: 2000),
+              // curve: Curves.fastEaseInToSlowEaseOut,
               height: selected.value ? 350.h : 335.h,
-              width: 500
-                  .w, // margin: EdgeInsets.only(top: 120.h, left: 60.w, right: 60.w),
+              width: 500.w, // margin: EdgeInsets.only(top: 120.h, left: 60.w, right: 60.w),
               margin: selected.value
                   ? EdgeInsets.only(top: 250.h, left: 40.w, right: 40.w)
                   : EdgeInsets.only(top: 200.h, left: 40.w, right: 40.w),
@@ -163,6 +162,7 @@ class AgentsItems extends StatelessWidget {
                         Button(
                           text: 'VIEW LISTING',
                           fontSize: 13.sp,
+                          height: 43.h,
                           onTap: () {
                             Get.to(AgentListings(),
                                 binding: AgentListingsBinding(),
@@ -265,8 +265,7 @@ class AgentsItems extends StatelessWidget {
                                             fontSize: 12.sp,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.black,
-                                            textOverflow:
-                                                TextOverflow.ellipsis,
+                                            textOverflow: TextOverflow.ellipsis,
                                             maxLines: 3,
                                           ),
                                         ),
@@ -281,6 +280,7 @@ class AgentsItems extends StatelessWidget {
                         sb10(),
                         Button(
                           text: 'VIEW LISTINGS',
+                          height: 43.h,
                           fontSize: 15.sp,
                           onTap: () {
                             Get.to(AgentListings(),
@@ -313,11 +313,11 @@ class AgentsItems extends StatelessWidget {
                                 '${agentInfo.image ?? AppStrings.noUserImageWhite}'),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            return AnimatedContainer(
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.easeIn,
+                            return Container(
+                              // duration: Duration(milliseconds: 500),
+                              // curve: Curves.easeIn,
                               height: 200.h,
-                              width: 50.w,
+                              //width: 50.w,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(
@@ -338,7 +338,7 @@ class AgentsItems extends StatelessWidget {
                     ),
                   )
                 : Positioned(
-                    top: 50.h,
+                    top: 30.h,
                     left: 100.w,
                     right: 100.w,
                     child: ClipRRect(
@@ -349,19 +349,19 @@ class AgentsItems extends StatelessWidget {
                                 '${agentInfo.image ?? AppStrings.noUserImageWhite}'),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            return AnimatedContainer(
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.easeIn,
-                              height: 200.h,
-                              width: 50.w,
+                            return Container(
+                              // duration: Duration(milliseconds: 500),
+                              // curve: Curves.easeIn,
+                              height: 250.h,
+                              width: 200.w,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                     snapshot.data!,
                                   ),
-                                  fit: BoxFit.cover,
+                                  //fit: BoxFit.cover,
                                 ),
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             );
                           } else {

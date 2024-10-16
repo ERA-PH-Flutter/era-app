@@ -29,6 +29,7 @@ import '../../../../app/constants/strings.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
 
+import '../../../global.dart';
 import '../controllers/home_controller.dart';
 
 class Home extends GetView<HomeController> {
@@ -728,57 +729,68 @@ class Home extends GetView<HomeController> {
             ],
           ),
         ),
-        SizedBox(
-          height: 20.h,
-        ),
-
-        /// join us today
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20.r)),
-              color: AppColors.blue2,
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      EraText(
-                          text: 'Join Us Today',
-                          fontSize: 30.sp,
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold),
-                      EraText(
-                          text:
-                              'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
-                          fontSize: 15.sp,
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w500),
-                    ],
+        Builder(
+          builder: (context){
+            if(user == null){
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 20.h,
                   ),
-                ),
-                sb30(),
-                Button(
-                  text: 'BECOME AN ERA AGENT',
-                  onTap: () {
-                    Get.to(JoinEra());
-                  },
-                  bgColor: AppColors.kRedColor,
-                  width: Get.width - 195.w,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                sb40(),
-              ],
-            ),
-          ),
+
+                  /// join us today
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20.r)),
+                        color: AppColors.blue2,
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding:
+                            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                EraText(
+                                    text: 'Join Us Today',
+                                    fontSize: 30.sp,
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.bold),
+                                EraText(
+                                    text:
+                                    'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
+                                    fontSize: 15.sp,
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w500),
+                              ],
+                            ),
+                          ),
+                          sb30(),
+                          Button(
+                            text: 'BECOME AN ERA AGENT',
+                            onTap: () {
+                              Get.to(JoinEra());
+                            },
+                            bgColor: AppColors.kRedColor,
+                            width: Get.width - 195.w,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          sb40(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+            return Container();
+          },
         ),
         sb40(),
       ],
