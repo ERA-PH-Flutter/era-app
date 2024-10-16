@@ -206,180 +206,178 @@ class AI{
   process2({
     String q = ''
   })async{
-    if(q != null){
-      Map<String, dynamic> body = {
-        "contents": [
-          {
-            "role": "user",
-            "parts": [
-              {"text": q}
-            ]
-          }
-        ],
-        "tools": [
-          {
-            "functionDeclarations": [
-              {
-                "name": "writeMySQL",
-                "description": "",
-                "parameters": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "Apartment",
-                        "Condominium",
-                        "House and lot",
-                        "Townhouse",
-                        "Commercial",
-                        "Industrial",
-                        "Agricultural",
-                        "Land",
-                        "Foreclosed",
-                        "Pre selling",
-                        "Rent to own",
-                        "Others"
-                      ]
-                    },
-                    "sub_category": {
-                      "type": "string",
-                      "enum": [
-                        "Apartment",
-                        "House",
-                        "Lot",
-                        "Office",
-                        "Retail",
-                        "Warehouse",
-                        "Commercial",
-                        "Residential",
-                        "Condominium",
-                        "Townhouse",
-                        "Others"
-                      ]
-                    },
-                    "view": {
-                      "type": "string",
-                      "enum": [
-                        "sunset",
-                        "sunrise",
-                        "mountain",
-                        "beach",
-                        "city",
-                        "Others"
-                      ]
-                    },
-                    "amenities": {
-                      "type": "string"
-                    },
-                    "status": {
-                      "type": "string",
-                      "enum": ["sale", "rent", "Others"]
-                    },
-                    "location": {
-                      "type": "string"
-                    },
-                    "area": {
-                      "type": "object",
-                      "properties": {
-                        "min": {"type": "number"},
-                        "max": {"type": "number"}
-                      }
-                    },
-                    "beds": {
-                      "type": "object",
-                      "properties": {
-                        "min": {"type": "number"},
-                        "max": {"type": "number"}
-                      }
-                    },
-                    "baths": {
-                      "type": "object",
-                      "properties": {
-                        "min": {"type": "number"},
-                        "max": {"type": "number"}
-                      }
-                    },
-                    "balcony": {
-                      "type": "object",
-                      "properties": {
-                        "min": {"type": "number"},
-                        "max": {"type": "number"}
-                      }
-                    },
-                    "garage": {
-                      "type": "object",
-                      "properties": {
-                        "min": {"type": "number"},
-                        "max": {"type": "number"}
-                      }
-                    },
-                    "price": {
-                      "type": "object",
-                      "properties": {
-                        "min": {"type": "number"},
-                        "max": {"type": "number"}
-                      }
+    Map<String, dynamic> body = {
+      "contents": [
+        {
+          "role": "user",
+          "parts": [
+            {"text": q}
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "functionDeclarations": [
+            {
+              "name": "writeMySQL",
+              "description": "",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "Apartment",
+                      "Condominium",
+                      "House and lot",
+                      "Townhouse",
+                      "Commercial",
+                      "Industrial",
+                      "Agricultural",
+                      "Land",
+                      "Foreclosed",
+                      "Pre selling",
+                      "Rent to own",
+                      "Others"
+                    ]
+                  },
+                  "sub_category": {
+                    "type": "string",
+                    "enum": [
+                      "Apartment",
+                      "House",
+                      "Lot",
+                      "Office",
+                      "Retail",
+                      "Warehouse",
+                      "Commercial",
+                      "Residential",
+                      "Condominium",
+                      "Townhouse",
+                      "Others"
+                    ]
+                  },
+                  "view": {
+                    "type": "string",
+                    "enum": [
+                      "sunset",
+                      "sunrise",
+                      "mountain",
+                      "beach",
+                      "city",
+                      "Others"
+                    ]
+                  },
+                  "amenities": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": ["sale", "rent", "Others"]
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "area": {
+                    "type": "object",
+                    "properties": {
+                      "min": {"type": "number"},
+                      "max": {"type": "number"}
+                    }
+                  },
+                  "beds": {
+                    "type": "object",
+                    "properties": {
+                      "min": {"type": "number"},
+                      "max": {"type": "number"}
+                    }
+                  },
+                  "baths": {
+                    "type": "object",
+                    "properties": {
+                      "min": {"type": "number"},
+                      "max": {"type": "number"}
+                    }
+                  },
+                  "balcony": {
+                    "type": "object",
+                    "properties": {
+                      "min": {"type": "number"},
+                      "max": {"type": "number"}
+                    }
+                  },
+                  "garage": {
+                    "type": "object",
+                    "properties": {
+                      "min": {"type": "number"},
+                      "max": {"type": "number"}
+                    }
+                  },
+                  "price": {
+                    "type": "object",
+                    "properties": {
+                      "min": {"type": "number"},
+                      "max": {"type": "number"}
                     }
                   }
                 }
               }
-            ]
-          }
-        ],
-        "toolConfig": {
-          "functionCallingConfig": {"mode": "ANY"}
-        },
-        "generationConfig": {
-          "temperature": 1,
-          "topK": 64,
-          "topP": 0.95,
-          "maxOutputTokens": 8192,
-          "responseMimeType": "text/plain"
+            }
+          ]
         }
-      };
-      var prompt = (await GetConnect().post(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAGrHQ2vwgVgYB6bOP4QyQrRjdIaaGi1Sw',
-        body,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      )).body['candidates'][0]['content']['parts'][0]['functionCall']['args'];
-      print(prompt);
-      Query query = FirebaseFirestore.instance.collection('listings');
-      List<AiFilters> prompts = [];
-      prompt!.forEach((key,value){
-        if(['type','sub_category','view','status'].contains(key)){
-          if(value != "Others" && q.toLowerCase().contains(value.toString().toLowerCase())){
-            var val = checkOperator(value);
-            prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
-          }
-        }else{
+      ],
+      "toolConfig": {
+        "functionCallingConfig": {"mode": "ANY"}
+      },
+      "generationConfig": {
+        "temperature": 1,
+        "topK": 64,
+        "topP": 0.95,
+        "maxOutputTokens": 8192,
+        "responseMimeType": "text/plain"
+      }
+    };
+    var prompt = (await GetConnect().post(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAGrHQ2vwgVgYB6bOP4QyQrRjdIaaGi1Sw',
+      body,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    )).body['candidates'][0]['content']['parts'][0]['functionCall']['args'];
+    print(prompt);
+    Query query = FirebaseFirestore.instance.collection('listings');
+    List<AiFilters> prompts = [];
+    prompt!.forEach((key,value){
+      if(['type','sub_category','view','status'].contains(key)){
+        if(value != "Others" && q.toLowerCase().contains(value.toString().toLowerCase())){
           var val = checkOperator(value);
           prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
         }
-
-      });
-      for(int i = 0;i<(prompts.length);i++){
-        print(prompts[i].toMap());
-        if(prompts[i].operator == ">"){
-          query = query.where(prompts[i].field,isGreaterThanOrEqualTo: prompts[i].value);
-        }
-        if(prompts[i].operator == "<"){
-          query = query.where(prompts[i].field,isLessThanOrEqualTo: prompts[i].value);
-        }
-        if(prompts[i].operator == "="){
-          query = query.where(prompts[i].field,isEqualTo: prompts[i].value);
-        }
+      }else{
+        var val = checkOperator(value);
+        prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
       }
-      var data = [];
-      await query.get().then((QuerySnapshot snapshot){
-        var a = snapshot.docs;
-        for (var b in a) {
-          data.add(b.data());
-        }
-      });
-      return data;
+
+    });
+    for(int i = 0;i<(prompts.length);i++){
+      print(prompts[i].toMap());
+      if(prompts[i].operator == ">"){
+        query = query.where(prompts[i].field,isGreaterThanOrEqualTo: prompts[i].value);
+      }
+      if(prompts[i].operator == "<"){
+        query = query.where(prompts[i].field,isLessThanOrEqualTo: prompts[i].value);
+      }
+      if(prompts[i].operator == "="){
+        query = query.where(prompts[i].field,isEqualTo: prompts[i].value);
+      }
     }
-  }
+    var data = [];
+    await query.get().then((QuerySnapshot snapshot){
+      var a = snapshot.docs;
+      for (var b in a) {
+        data.add(b.data());
+      }
+    });
+    return data;
+    }
 }

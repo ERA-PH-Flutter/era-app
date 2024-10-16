@@ -58,7 +58,7 @@ class Listing {
       this.latLng,
       this.propertyId,
       this.address});
-  factory Listing.fromJSON(Map<String, dynamic> json) {
+  factory Listing.fromJSON(json) {
     return Listing(
         id: json["id"],
         name: json["name"] ?? "",
