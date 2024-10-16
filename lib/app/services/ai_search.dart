@@ -319,6 +319,9 @@ class AI{
                       "min": {"type": "number"},
                       "max": {"type": "number"}
                     }
+                  },
+                  "name": {
+                    "type": "string",
                   }
                 }
               }
@@ -361,14 +364,22 @@ class AI{
     });
     for(int i = 0;i<(prompts.length);i++){
       print(prompts[i].toMap());
+      if(prompts[i].field == "name"){
+      query = query.where('name', isGreaterThanOrEqualTo: prompts[i].value.toString().capitalize)
+        .where('name', isLessThanOrEqualTo:  '${prompts[i].value.toString().capitalize}\uf8ff');
+        continue;
+      }
       if(prompts[i].operator == ">"){
         query = query.where(prompts[i].field,isGreaterThanOrEqualTo: prompts[i].value);
+        continue;
       }
       if(prompts[i].operator == "<"){
         query = query.where(prompts[i].field,isLessThanOrEqualTo: prompts[i].value);
+        continue;
       }
       if(prompts[i].operator == "="){
         query = query.where(prompts[i].field,isEqualTo: prompts[i].value);
+        continue;
       }
     }
     var data = [];

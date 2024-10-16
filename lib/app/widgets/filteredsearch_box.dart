@@ -62,11 +62,11 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var selectedPriceSearch = RxnString();
   var selectedPropertyTypeSearch = RxnString();
   var propertyTypeSearch = [
-    "Pre-selling",
-    "Residential",
+    //"Pre-selling",
+    //"Residential",
     "Commercial",
-    "Rental",
-    "Auction",
+    //"Rental",
+    //"Auction",
   ];
   var location = [
     "Manila",
