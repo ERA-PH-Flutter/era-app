@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/listing_filters.dart';
@@ -107,13 +106,11 @@ class FilteredSearchBox extends StatelessWidget {
                 obscureText: false,
                 suffixIcons: AppEraAssets.send,
                 onSuffixTap: () async {
-                  var data;
                   var searchQuery = "";
                   // data = await AI(query: aiSearchController.text).search();
                   BaseController().showLoading();
-                  data = await AI(query: '').process2(prompt:jsonDecode((await GetConnect().get('https://api.eraphilippines.com/gemini.php?prompt=${aiSearchController.text}')).body.toLowerCase()));
                   searchQuery = aiSearchController.text;
-                  print(searchQuery);
+                  var data = await AI(query: '').process2(q: searchQuery);
                   selectedIndex.value = 2;
                   pageViewController = PageController(initialPage: 2);
                   currentRoute = '/searchresult';

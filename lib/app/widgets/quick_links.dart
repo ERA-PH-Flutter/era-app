@@ -44,9 +44,6 @@ class QuickLinksModel {
 
   initialize() async {
     List<Widget> items = [];
-    // for(int index = 0;index < categories.length;index++){
-    //   items.add(await quickSearchIcon(categories[index][0], categories[index][1], categories[index][2]));
-    // }
     var ql = Get.find<LocalStorageService>().images!['quick_links'];
     for (int index = 0; index < ql.length; index++) {
       items.add(await quickSearchIcon(
