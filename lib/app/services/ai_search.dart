@@ -351,7 +351,7 @@ class AI{
       if(['type','sub_category','view','status'].contains(key)){
         if(value != "Others" && q.toLowerCase().contains(value.toString().toLowerCase())){
           var val = checkOperator(value);
-          prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
+          prompts.add(AiFilters(field: key, value: val[0].toString().capitalizeFirst, operator: val[1]));
         }
       }else{
         var val = checkOperator(value);
