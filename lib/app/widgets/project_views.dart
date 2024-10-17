@@ -836,12 +836,10 @@ class ProjectViews {
       if (block['type'] == "Project Logo") {
         preview[0] = Container(
           width: Get.width,
-          color: AppColors.black,
           child: CloudStorage().imageLoaderProvider(
             ref: block['image'],
             height: 170.h,
             width: Get.width,
-            color: AppColors.black,
           ),
         );
       }

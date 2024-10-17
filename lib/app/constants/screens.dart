@@ -7,21 +7,17 @@ import 'package:get/get.dart';
 class Screens {
   static Widget loading({height}) {
     return SizedBox(
-      height: height ?? Get.height - 250.h,
-      child: Center(
-          child: CircularProgressIndicator(
-        backgroundColor: AppColors.white,
-        valueColor: AlwaysStoppedAnimation<Color>(AppColors.black),
-      )
-          // Image.asset(
-          //     'assets/images/loading.gif',
-          //     gaplessPlayback: true,
-          //     height: 100.h,
-          //     width: 100.h,
-          //     fit: BoxFit.fill
-          // ),
-          ),
-    );
+        height: height ?? Get.height - 250.h,
+        child: Center(
+          child: Image.asset('assets/icons/loading_animation.gif',
+              gaplessPlayback: true,
+              height: 100.h,
+              width: 100.h,
+              fit: BoxFit.fill),
+          //   CircularProgressIndicator(
+          // backgroundColor: AppColors.white,
+          // valueColor: AlwaysStoppedAnimation<Color>(AppColors.black),
+        ));
   }
 
   static Widget error() {

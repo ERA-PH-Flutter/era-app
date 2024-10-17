@@ -17,7 +17,7 @@ enum SearchResultState {
 class SearchResultController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var searchResultState = SearchResultState.loading.obs;
-  var aiSearchController = TextEditingController();
+  var aiSearchControllers = TextEditingController();
   var data = [].obs;
   var searchQuery = ''.obs;
   var expanded = false.obs;

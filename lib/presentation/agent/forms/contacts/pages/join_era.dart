@@ -1,21 +1,21 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
+import 'package:eraphilippines/presentation/agent/forms/contacts/controllers/contacts_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../../app/widgets/button.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../global.dart';
 import '../../../home/controllers/home_binding.dart';
 
-class JoinEra extends StatelessWidget {
+class JoinEra extends GetView<ContactusController> {
   const JoinEra({super.key});
 
   @override
@@ -23,7 +23,7 @@ class JoinEra extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppbar(),
       body: WillPopScope(
-        onWillPop: ()async{
+        onWillPop: () async {
           // selectedIndex.value = 0;
           // pageViewController = PageController(initialPage: 0);
           // currentRoute = '/home';
@@ -36,12 +36,20 @@ class JoinEra extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CachedNetworkImage(
-                  imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-                  fit: BoxFit.cover,
-                  height: 250.h,
-                  width: Get.width,
+                // CachedNetworkImage(
+                //   imageUrl:
+                //       'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+                //   fit: BoxFit.cover,
+                //   height: 250.h,
+                //   width: Get.width,
+                // ),
+                YoutubePlayer(
+                  controller: controller.youtubePlayerController,
+                  bottomActions: const [
+                    CurrentPosition(),
+                    ProgressBar(isExpanded: true),
+                    RemainingDuration(),
+                  ],
                 ),
                 SizedBox(height: 15.h),
                 Padding(
@@ -77,7 +85,8 @@ class JoinEra extends StatelessWidget {
                 _buildDescription('•   Favourable Commission Terms'),
                 _buildDescription('•   Advanced Digital Platforms'),
                 _buildDescription('•   Administrative Support'),
-                _buildDescription('•   Access to our office spaces & facilities'),
+                _buildDescription(
+                    '•   Access to our office spaces & facilities'),
                 sb30(),
                 Container(
                   padding:
