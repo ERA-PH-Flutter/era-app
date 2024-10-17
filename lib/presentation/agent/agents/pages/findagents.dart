@@ -19,6 +19,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../app/constants/screens.dart';
+import '../../../../app/services/ai_search.dart';
 
 class FindAgents extends GetView<AgentsController> {
   const FindAgents({super.key});

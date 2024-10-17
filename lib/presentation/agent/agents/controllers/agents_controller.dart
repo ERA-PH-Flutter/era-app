@@ -57,6 +57,7 @@ class AgentsController extends GetxController with BaseController {
     super.onInit();
   }
   aiSearch(query)async{
+    BaseController().showLoading();
     results.clear();
     resultText.value = "SEARCH RESULTS";
     agentState.value = AgentsState.loading;
@@ -68,7 +69,7 @@ class AgentsController extends GetxController with BaseController {
         }
       });
     }
-
+    BaseController().hideLoading();
     if (results.isNotEmpty) {
       agentState.value = AgentsState.loaded;
     } else {

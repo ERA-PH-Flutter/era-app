@@ -458,7 +458,6 @@ class Home extends GetView<HomeController> {
                   ),
                 ),
               ),
-              //TODO: Nikko
               GestureDetector(
                 onTap: () {
                   selectedIndex.value = 2;

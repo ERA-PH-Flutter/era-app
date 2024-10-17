@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,16 @@ class Screens {
     return Container();
   }
 
-  static empty() {
-    return Container();
+  static empty({height}) {
+    return SizedBox(
+      height: height,
+      child: Center(
+        child: EraText(
+          text: "No Data Found!",
+          color: Colors.black,
+          fontSize: 20.sp,
+        ),
+      ),
+    );
   }
 }

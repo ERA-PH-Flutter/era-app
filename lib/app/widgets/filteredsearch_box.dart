@@ -1,12 +1,8 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
-import 'package:eraphilippines/app/models/listing_filters.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
-import 'package:eraphilippines/app/services/functions.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
@@ -22,7 +18,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import '../../presentation/global.dart';
-import '../../repository/listing.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../services/ai_search.dart';
@@ -127,7 +122,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
     var searchQuery = "";
     BaseController().showLoading();
     searchQuery = aiSearchController.text;
-    var data = await AI(query: '').process2(q: searchQuery);
+    var data = await AI(query: searchQuery).listingSearch();
     selectedIndex.value = 2;
     pageViewController = PageController(initialPage: 2);
     currentRoute = '/searchresult';

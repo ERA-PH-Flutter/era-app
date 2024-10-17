@@ -174,10 +174,6 @@ class ProjectMain extends GetView<ProjectsController> {
                                         "With price less than: ${searchController.priceController.text}";
                                   }
                                 } else {
-                                  data = await AI(
-                                          query: searchController
-                                              .aiSearchController.text)
-                                      .search();
                                   searchQuery =
                                       searchController.aiSearchController.text;
                                 }
