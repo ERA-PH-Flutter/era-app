@@ -194,19 +194,19 @@ class AI{
     return data;
   }
   faqSearch()async{
+    BaseController().showLoading();
     var data = {
       "question": {
         "type": "string"
       },
-      "type": {
-        "type": "string"
-      },
     };
-    var result = await geminiSearch(data,name: "faqSearch");
+    var result = await geminiSearch(data,name: "faqSearch",description:'use the prompt and parse it');
     Query firebaseQuery = FirebaseFirestore.instance.collection('faq');
+    print(result);
     result!.forEach((key, value) {
-      firebaseQuery = firebaseQuery.where(key,isGreaterThanOrEqualTo: value).where(key,isLessThanOrEqualTo: '$value\uf8ff');
+      firebaseQuery = firebaseQuery.where(key,isGreaterThanOrEqualTo: value).where(key,isLessThanOrEqualTo: '$value\uf8ff').orderBy('type');
     });
+    BaseController().hideLoading();
     return (await firebaseQuery.get()).docs;
   }
 
@@ -224,7 +224,7 @@ class AI{
       return [value['max'], ">"];
     }
   }
-  geminiSearch(data,{name=''})async{
+  geminiSearch(data,{name='',description=''})async{
     Map<String, dynamic> body = {
       "contents": [
         {
@@ -239,7 +239,7 @@ class AI{
           "functionDeclarations": [
             {
               "name": name,
-              "description": "",
+              "description": description,
               "parameters": {
                 "type": "object",
                 "properties": data

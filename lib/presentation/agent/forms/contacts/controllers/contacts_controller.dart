@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../../app/services/local_storage.dart';
@@ -16,7 +17,9 @@ class ContactusController extends GetxController {
   TextEditingController name = TextEditingController();
   TextEditingController number = TextEditingController();
   TextEditingController emailA = TextEditingController();
+  TextEditingController aiSearch = TextEditingController();
   TextEditingController message = TextEditingController();
+  var faqs = [].obs;
   final Uri emailUrl = Uri.parse(
       'mailto:sales@eraphilippines.com?subject=Your%20Subject&body=Your%20Message');
 
@@ -29,7 +32,11 @@ class ContactusController extends GetxController {
     'Sales',
     'Tech Support',
   ];
-
+  @override
+  onInit()async{
+    super.onInit();
+    faqs.value = (await FirebaseFirestore.instance.collection('faq').orderBy('type').get()).docs;
+  }
   submitContact()async{
     print("a");
     try {
