@@ -74,6 +74,7 @@ class SplashController extends GetxController {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
     var shortestSide = MediaQuery.of(Get.context!).size.shortestSide;
+    currentRoute = '/home';
     kIsWeb && user != null
         ? Get.toNamed(RouteString.landingPage)
         : kIsWeb

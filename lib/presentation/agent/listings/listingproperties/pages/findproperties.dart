@@ -28,10 +28,11 @@ class FindProperties extends GetView<ListingController> {
       appBar: CustomAppbar(),
       body: WillPopScope(
         onWillPop: () async {
-          selectedIndex.value = 0;
-          pageViewController = PageController(initialPage: 0);
-          currentRoute = '/home';
-          Get.offAll(BaseScaffold(), binding: HomeBinding());
+          // selectedIndex.value = 0;
+          // pageViewController = PageController(initialPage: 0);
+          // currentRoute = '/home';
+          // Get.offAll(BaseScaffold(), binding: HomeBinding());
+          Get.back();
           return Future.value(false);
         },
         child: SingleChildScrollView(

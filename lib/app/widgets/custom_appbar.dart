@@ -144,117 +144,137 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                   SizedBox(width: 10.w),
                   GestureDetector(
                     onTap: () {
-                      controller.isShowing
-                          ? controller.hide()
-                          : controller.show();
-                    },
-                    child: OverlayPortal(
-                      controller: controller,
-                      overlayChildBuilder: (BuildContext context) {
-                        return Positioned(
-                          top: 120,
-                          right: 0,
-                          child: Wrap(
+                      // controller.isShowing
+                      //     ? controller.hide()
+                      //     : controller.show();
+                      controller.show();
+                      showDialog(
+                        context: Get.context!,
+                        barrierColor: Colors.transparent,
+                        builder: (context){
+                          return  Stack(
                             children: [
-                              Container(
-                                width: 240.w,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 12.w, vertical: 10.h),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(13.r),
-                                  color: Colors.white.withOpacity(0.9),
-                                ),
-                                child: Column(
+                              Positioned(
+                                top: 98.h,
+                                right: 0,
+                                child: Wrap(
                                   children: [
-                                    user != null
-                                        ? _buildMenuCard('MY DASHBOARD', () {
+                                    Container(
+                                      width: 240.w,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 12.w, vertical: 10.h),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(13.r),
+                                        color: Colors.white.withOpacity(0.9),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(1, 1),
+                                            color: Colors.black.withOpacity(0.8),
+                                            blurRadius: 5,
+
+                                          )
+                                        ]
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          _buildMenuCard('HOME', () {
+                                            currentRoute = '/home';
+                                            selectedIndex.value = 0;
+                                            pageViewController = PageController(initialPage: 0);
+                                            Get.offAndToNamed('/base');
+                                          }, currentRoute == '/home'),
+                                          user != null
+                                              ? _buildMenuCard('MY DASHBOARD', () {
                                             currentRoute = '/agentDashBoard';
                                             Get.offAllNamed("/agentDashBoard");
                                           },
-                                            Get.currentRoute ==
-                                                '/agentDashBoard')
-                                        : Container(),
-                                    _buildMenuCard('FIND PROPERTIES', () {
-                                      currentRoute = '/findproperties';
-                                      Get.offAllNamed("/findproperties");
-                                    }, Get.currentRoute == '/findproperties'),
-                                    _buildMenuCard('PROJECTS', () {
-                                      selectedIndex.value = 1;
-                                      pageViewController =
-                                          PageController(initialPage: 1);
-                                      currentRoute = '/project-main';
-                                      Get.off(BaseScaffold(),
-                                          binding: HomeBinding());
-                                    },
-                                        currentRoute == '/project-main' ||
-                                            Get.currentRoute ==
-                                                '/project-main'),
-                                    _buildMenuCard('FIND AGENTS', () {
-                                      selectedIndex.value = 3;
-                                      pageViewController =
-                                          PageController(initialPage: 3);
-                                      currentRoute = '/findagents';
-                                      Get.offAll(BaseScaffold(),
-                                          binding: HomeBinding());
-                                    },
-                                        Get.currentRoute == '/findagents' ||
-                                            currentRoute == '/findagents'),
-                                    _buildMenuCard('ABOUT US', () {
-                                      currentRoute = '/aboutus';
-                                      Get.offAllNamed("/aboutus");
-                                    }, Get.currentRoute == '/aboutus'),
-                                    user == null ? _buildMenuCard('JOIN ERA', () {
-                                      currentRoute = '/joinEra';
-                                      Get.offAllNamed("/joinEra");
-                                    }, Get.currentRoute == '/joinEra') : Container(),
-                                    _buildMenuCard('SELL PROPERTY', () {
-                                      currentRoute = '/sellProperty';
-                                      Get.offAllNamed("/sellProperty");
-                                    }, Get.currentRoute == '/sellProperty'),
-                                    _buildMenuCard('CONTACT US', () {
-                                      currentRoute = '/direct-contactus';
-                                      Get.offAllNamed("/direct-contactus");
-                                    }, Get.currentRoute == '/direct-contactus'),
-                                    _buildMenuCard('MORTGAGE CALCULATOR', () {
-                                      currentRoute = '/mortageCalculator';
-                                      Get.offAllNamed("/mortageCalculator");
-                                    },
-                                        Get.currentRoute ==
-                                            '/mortageCalculator'),
-                                    Divider(
-                                      thickness: 1,
-                                      color: Colors.grey,
+                                              Get.currentRoute ==
+                                                  '/agentDashBoard')
+                                              : Container(),
+                                          _buildMenuCard('FIND PROPERTIES', () {
+                                            currentRoute = '/findproperties';
+                                            Get.offAllNamed("/findproperties");
+                                          }, Get.currentRoute == '/findproperties'),
+                                          _buildMenuCard('PROJECTS', () {
+                                            selectedIndex.value = 1;
+                                            pageViewController =
+                                                PageController(initialPage: 1);
+                                            currentRoute = '/project-main';
+                                            Get.off(BaseScaffold(),
+                                                binding: HomeBinding());
+                                          },
+                                              currentRoute == '/project-main' ||
+                                                  Get.currentRoute ==
+                                                      '/project-main'),
+                                          _buildMenuCard('FIND AGENTS', () {
+                                            selectedIndex.value = 3;
+                                            pageViewController =
+                                                PageController(initialPage: 3);
+                                            currentRoute = '/findagents';
+                                            Get.offAll(BaseScaffold(),
+                                                binding: HomeBinding());
+                                          },
+                                              Get.currentRoute == '/findagents' ||
+                                                  currentRoute == '/findagents'),
+                                          _buildMenuCard('ABOUT US', () {
+                                            currentRoute = '/aboutus';
+                                            Get.offAllNamed("/aboutus");
+                                          }, Get.currentRoute == '/aboutus'),
+                                          user == null ? _buildMenuCard('JOIN ERA', () {
+                                            currentRoute = '/joinEra';
+                                            Get.offAllNamed("/joinEra");
+                                          }, Get.currentRoute == '/joinEra') : Container(),
+                                          _buildMenuCard('SELL PROPERTY', () {
+                                            currentRoute = '/sellProperty';
+                                            Get.offAllNamed("/sellProperty");
+                                          }, Get.currentRoute == '/sellProperty'),
+                                          _buildMenuCard('CONTACT US', () {
+                                            currentRoute = '/direct-contactus';
+                                            Get.offAllNamed("/direct-contactus");
+                                          }, Get.currentRoute == '/direct-contactus'),
+                                          _buildMenuCard('MORTGAGE CALCULATOR', () {
+                                            currentRoute = '/mortageCalculator';
+                                            Get.offAllNamed("/mortageCalculator");
+                                          },
+                                              Get.currentRoute ==
+                                                  '/mortageCalculator'),
+                                          Divider(
+                                            thickness: 1,
+                                            color: Colors.grey,
+                                          ),
+                                          Obx(() {
+                                            doLogout.value;
+                                            return _buildMenuCard(
+                                                user == null ? "LOGIN" : "LOGOUT",
+                                                    () async {
+                                                  if (user == null) {
+                                                    selectedIndex.value = 0;
+                                                    Get.toNamed("/loginpage");
+                                                  } else {
+                                                    BaseController().showLoading();
+                                                    doLogout.value = true;
+                                                    user = null;
+                                                    await Authentication().logout();
+                                                    Get.to(LoginPage(),
+                                                        binding: LoginPageBinding());
+                                                  }
+                                                }, Get.currentRoute == '/loginpage');
+                                          })
+                                        ],
+                                      ),
                                     ),
-                                    Obx(() {
-                                      doLogout.value;
-                                      return _buildMenuCard(
-                                          user == null ? "LOGIN" : "LOGOUT",
-                                          () async {
-                                        if (user == null) {
-                                          selectedIndex.value = 0;
-                                          Get.toNamed("/loginpage");
-                                        } else {
-                                          BaseController().showLoading();
-                                          doLogout.value = true;
-                                          user = null;
-                                          await Authentication().logout();
-                                          Get.to(LoginPage(),
-                                              binding: LoginPageBinding());
-                                        }
-                                      }, Get.currentRoute == '/loginpage');
-                                    })
                                   ],
                                 ),
                               ),
                             ],
-                          ),
-                        );
-                      },
-                      child: Image.asset(
-                        AppEraAssets.menubar,
-                        height: 65,
-                        width: 65,
-                      ),
+                          );
+                        }
+                      );
+                    },
+                    child: Image.asset(
+                      AppEraAssets.menubar,
+                      height: 65,
+                      width: 65,
                     ),
                   )
                   // Obx((){

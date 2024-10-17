@@ -57,9 +57,11 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               return Future.value(false);
             } else {
               selectedIndex.value = 0;
-              pageViewController = PageController(initialPage: 0);
+              pageViewController.animateToPage(0,
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.easeInOut);
               currentRoute = '/home';
-              Get.offAll(BaseScaffold(), binding: HomeBinding());
+              //Get.to(BaseScaffold(), binding: HomeBinding());
               return Future.value(false);
             }
           },
@@ -92,12 +94,9 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                   //Get.put(ProjectsListController());
                 } else if (index == 2) {
                   currentRoute = '/searchresult';
-                  //Get.deleteAll();
-                  //SearchResultBinding().dependencies();
+
                 } else if (index == 3) {
                   currentRoute = '/findagents';
-                  //Get.deleteAll();
-                  //Get.put(AgentsController());
                 } else if (index == 4) {
                   currentRoute = '/about';
                 }

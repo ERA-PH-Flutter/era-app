@@ -57,9 +57,9 @@ class SearchResultController extends GetxController {
   ];
   @override
   void onInit() async {
-    data.clear();
     searchResultState.value = SearchResultState.loading;
     quickLinks.value = await QuickLinksModel().initialize();
+    data.clear();
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {
         var tempData = [];
