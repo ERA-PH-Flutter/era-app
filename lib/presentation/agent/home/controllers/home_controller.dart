@@ -12,9 +12,12 @@ import 'package:get/get.dart';
 
 import '../../../../app/models/propertieslisting.dart';
 import '../../../../app/services/local_storage.dart';
+import '../../../../app/widgets/project_views.dart';
 import '../../../../repository/listing.dart';
 import '../../../../repository/news.dart';
 import '../../../../repository/project.dart';
+import '../../../admin/properties/controllers/project_view_binding.dart';
+import '../../projects/pages/project_view.dart';
 
 enum HomeState {
   loading,
@@ -37,7 +40,7 @@ class HomeController extends GetxController {
   List<Listing> listings = [];
   var listingImages = [];
   final List<Widget> images = [];
-  List projects = [];
+  List<Widget> projects = [];
   Widget? quickLinks;
 
   var data = [].obs;
@@ -113,7 +116,24 @@ class HomeController extends GetxController {
   getProjects()async{
     if (settings!.featuredProjects != null) {
       for (int i = 0; i < settings!.featuredProjects!.length; i++) {
-        projects.add(await Project.getById(settings!.featuredProjects![i]));
+        var pr = await Project.getById(settings!.featuredProjects![i]);
+        projects.add(
+          GestureDetector(
+            onTap: () {
+              Get.to(ProjectView(),
+                  binding: ProjectViewBinding(),
+                  arguments: pr);
+            },
+            child: Wrap(
+              children: [
+                Column(
+                  children: ProjectViews(project: pr)
+                      .HomebuildPreview(),
+                ),
+              ],
+            ),
+          )
+        );
       }
     }
   }

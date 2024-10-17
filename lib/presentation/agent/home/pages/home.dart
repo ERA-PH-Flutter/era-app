@@ -6,6 +6,7 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/company/company_items.dart';
 import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
@@ -214,127 +215,7 @@ class Home extends GetView<HomeController> {
         //     return Center(child: Text('No projects available'));
         //   }
         // }),
-        Builder(builder: (context) {
-          List<Widget> projects = [];
-          for (int i = 0; i < controller.projects.length; i++) {
-            projects.add(GestureDetector(
-              onTap: () {
-                Get.to(ProjectView(),
-                    binding: ProjectViewBinding(),
-                    arguments: controller.projects[i]);
-              },
-              child: Wrap(
-                children: [
-                  Column(
-                    children: ProjectViews(project: controller.projects[i])
-                        .HomebuildPreview(),
-                  ),
-                ],
-              ),
-            ));
-          }
-          return Column(children: projects);
-        }),
-        // Wrap(
-        //   children: [
-        //     ListView.builder(
-        //         shrinkWrap: true,
-        //         itemCount: controller.projects.length,
-        //         itemBuilder: (context, index) {
-        //           return GestureDetector(
-        //             onTap: () {
-        //               Get.to(ProjectView(),
-        //                   binding: ProjectViewBinding(),
-        //                   arguments: controller.projects[index]);
-        //             },
-        //             child: Wrap(
-        //               children: [
-        //                 Column(
-        //                   children:
-        //                       ProjectViews(project: controller.projects[index])
-        //                           .HomebuildPreview(),
-        //                 ),
-        //               ],
-        //             ),
-        //           );
-        //         }),
-        //   ],
-        // ),
-        // sb90(),
-
-        /// Projects
-        // Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     sb20(),
-        //     ProjectDivider(textImage: ProjectTextImageModels.textImageModels),
-        //     sb20(),
-        //     CarouselSliderWidget(images: CarouselModels.carouselModels),
-        //     sb40(),
-        //     Button(
-        //       text: 'LEARN MORE',
-        //       onTap: () {
-        //         Get.toNamed("/haraya");
-        //       },
-        //       bgColor: AppColors.kRedColor,
-        //       borderRadius: BorderRadius.circular(30),
-        //     ),
-        //     //laya
-        //     sb90(),
-        //     ProjectDivider(
-        //       textImage: ProjectTextImageModels.textImageModels2,
-        //     ),
-        //     sb20(),
-        //     //temporary carousel
-        //     CarouselSliderWidget(
-        //         images: CarouselModels.layaCarouselImages,
-        //         color: AppColors.carouselBgColor),
-        //     sb40(),
-        //     Button(
-        //       text: 'LEARN MORE',
-        //       onTap: () {
-        //         Get.toNamed("/laya");
-        //       },
-        //       bgColor: AppColors.kRedColor,
-        //       borderRadius: BorderRadius.circular(30),
-        //     ),
-        //     //laya
-
-        //     sb90(),
-        //     ProjectDivider(
-        //       textImage: ProjectTextImageModels.textImageModels3,
-        //     ),
-        //     sb20(),
-        //     CarouselSliderWidget(
-        //         images: CarouselModels.aureliaCarouselImages,
-        //         color: AppColors.carouselBgColor),
-        //     sb40(),
-        //     Button(
-        //       text: 'LEARN MORE',
-        //       onTap: () {
-        //         Get.toNamed("/aurelia");
-        //       },
-        //       bgColor: AppColors.kRedColor,
-        //       borderRadius: BorderRadius.circular(30),
-        //     ),
-        //     sb10(),
-        //   ],
-        // ),
-        // Padding(
-        //   padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.center,
-        //     children: [
-        //       sb30(),
-        //       viewOtherProjects(
-        //           text: 'View other projects',
-        //           onTap: () => Get.toNamed("/project-main")),
-        //       sb20(),
-        //     ],
-        //   ),
-        // ),
-        // sb30(),
-
+        Column(children: controller.projects),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
           child: Column(
@@ -580,15 +461,8 @@ class Home extends GetView<HomeController> {
               //TODO: Nikko
               GestureDetector(
                 onTap: () {
-                  // Get.offAll(BaseScaffold(),
-                  //     binding: SearchResultBinding(),
-                  //     routeName: ("/searchresult"));
-                  Get.toNamed(
-                    "/searchresult",
-                  );
-                  // Get.deleteAll();
-
-                  // );
+                  selectedIndex.value = 2;
+                  pageViewController.jumpToPage(2);
                 },
                 child: viewOtherProjects(
                   text: 'View more listings',
