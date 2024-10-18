@@ -14,8 +14,11 @@ class ProjectsListController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var projectsListState = ProjectsListState.loading.obs;
   var projects = [].obs;
+  RxInt count = 2.obs;
+  int pageSize = 0;
   @override
   void onInit() async {
+    pageSize = count.value;
     projects.value = (await FirebaseFirestore.instance
             .collection('projects')
             .orderBy('order_id')

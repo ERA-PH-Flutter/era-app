@@ -25,6 +25,8 @@ class AgentsController extends GetxController with BaseController {
   var resultText = "".obs;
   var results = [].obs;
   var agentCount = [].obs;
+  var count = 10.obs;
+  var pageSize = 1;
   var selectedLocation = RxnString();
   TextEditingController agentId = TextEditingController();
   TextEditingController agentLocation = TextEditingController();
@@ -41,6 +43,7 @@ class AgentsController extends GetxController with BaseController {
 
   @override
   void onInit() async {
+    pageSize = count.value;
     try {
       var randomUser =
           (await FirebaseFirestore.instance.collection('users').where('status',isEqualTo: 'approved').get()).docs;

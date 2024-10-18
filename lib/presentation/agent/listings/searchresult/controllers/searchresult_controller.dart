@@ -20,6 +20,8 @@ class SearchResultController extends GetxController {
   var aiSearchController = TextEditingController();
   var data = [].obs;
   var searchQuery = ''.obs;
+  RxInt count = 10.obs;
+  int pageSize = 10 ;
   var expanded = false.obs;
   var quickLinks = Column().obs;
 
@@ -81,13 +83,6 @@ class SearchResultController extends GetxController {
       searchResultState.value = SearchResultState.error;
     }
     super.onInit();
-  }
-
-  @override
-  void onClose() {
-    //arguments = null;
-    Get.delete<SearchResultController>(force: true);
-    super.onClose();
   }
 
   loadData(loadedData) {

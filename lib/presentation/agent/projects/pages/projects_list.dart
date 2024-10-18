@@ -3,6 +3,7 @@ import 'package:eraphilippines/presentation/agent/utility/controller/base_contro
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:number_pagination/number_pagination.dart';
 
 import '../../../../app/constants/assets.dart';
 import '../../../../app/constants/colors.dart';
@@ -126,21 +127,51 @@ class ProjectsList extends GetView<ProjectsListController> {
     return Obx((){
       List<Widget> projects = [];
       for (int i = 0; i < controller.projects.value.length; i++) {
-        projects.add(GestureDetector(
-          onTap: () {
-            Get.to(ProjectView(),
-                binding: ProjectViewBinding(),
-                arguments: controller.projects[i]);
-          },
-          child: Wrap(children: [
-            Column(
-              children: ProjectViews(project: controller.projects[i])
-                  .buildPreview(),
-            ),
-          ]),
-        ));
+        if(i >= controller.count.value - controller.pageSize && i < controller.count.value){
+          projects.add(GestureDetector(
+            onTap: () {
+              Get.to(ProjectView(),
+                  binding: ProjectViewBinding(),
+                  arguments: controller.projects[i]);
+            },
+            child: Wrap(children: [
+              Column(
+                children: ProjectViews(project: controller.projects[i])
+                    .buildPreview(),
+              ),
+            ]),
+          ));
+        }
       }
-      return Column(children: projects);
+      return LoadMore(
+        length: (controller.projects.length / controller.pageSize).floor(),
+        child: Column(children: projects)
+      );
     });
+  }
+  LoadMore({
+    child,
+    length,
+  }){
+    return Column(
+      children: [
+        child,
+        NumberPagination(
+          fontSize: 18.sp,
+          buttonRadius:10.r,
+          controlButtonSize: Size(30 ,30),
+          numberButtonSize: Size(35, 35),
+          sectionSpacing:1.w,
+          betweenNumberButtonSpacing: 1,
+          totalPages: length,
+          currentPage: (controller.count.value / controller.pageSize).floor(),
+          visiblePagesCount: length < 4 ? length : 4,
+          onPageChanged: (page){
+            controller.count.value = controller.pageSize * page;
+          },
+        ),
+        SizedBox(height: 30.h),
+      ],
+    );
   }
 }

@@ -17,9 +17,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:number_pagination/number_pagination.dart';
 
 import '../../../../app/constants/screens.dart';
 import '../../../../app/services/ai_search.dart';
+import '../../../../app/widgets/listings/agents_items.dart';
 
 class FindAgents extends GetView<AgentsController> {
   const FindAgents({super.key});
@@ -359,8 +361,52 @@ class FindAgents extends GetView<AgentsController> {
             color: AppColors.blue,
           )),
       Obx(
-        () => AgentListView(agentsModels: controller.results.value),
+        (){
+          return LoadMore(
+            length: (controller.results.length / controller.pageSize).floor(),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: controller.results.length,
+              itemBuilder: (context, index) {
+                if(index >= controller.count.value - controller.pageSize && index < controller.count.value){
+                  return AgentsItems(
+                    agentInfo: controller.results[index],
+                    onTap: () {},
+                  );
+                }
+                return Container();
+              },
+            ),
+          );
+        },
       )
     ]);
+  }
+
+  LoadMore({
+    child,
+    length,
+  }){
+    return Column(
+      children: [
+        child,
+        NumberPagination(
+          fontSize: 18.sp,
+          buttonRadius:10.r,
+          controlButtonSize: Size(30 ,30),
+          numberButtonSize: Size(35, 35),
+          sectionSpacing:1.w,
+          betweenNumberButtonSpacing: 1,
+          totalPages: length,
+          currentPage: (controller.count.value / controller.pageSize).floor(),
+          visiblePagesCount: length < 4 ? length : 4,
+          onPageChanged: (page){
+            controller.count.value = controller.pageSize * page;
+          },
+        ),
+        SizedBox(height: 50.h),
+      ],
+    );
   }
 }
