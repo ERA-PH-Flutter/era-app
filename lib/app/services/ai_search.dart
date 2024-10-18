@@ -141,7 +141,9 @@ class AI{
         "type": "string",
       }
     };
-    var result = await geminiSearch(geminiData,name: "getListing");
+    var result = await geminiSearch(geminiData,name: "getListing",description: "Assign accordingly do not assign value if not specified");
+    print(query);
+    print(result);
     Query firebaseQuery = FirebaseFirestore.instance.collection('listings');
     List<AiFilters> prompts = [];
     result!.forEach((key, value) {
