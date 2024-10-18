@@ -12,13 +12,16 @@ class SharedWidgets {
     TextInputType? textInputType,
     String? name,
     TextEditingController? controller,
+    int? MaxLines,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         EraText(text: name ?? "", fontSize: 18.sp, color: AppColors.black),
         TextFormField(
+          maxLines: MaxLines,
           controller: controller,
+          textInputAction: TextInputAction.newline,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(color: AppColors.hint, fontSize: 18.sp),

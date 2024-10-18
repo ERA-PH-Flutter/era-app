@@ -18,6 +18,8 @@ class SearchResultController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var searchResultState = SearchResultState.loading.obs;
   var aiSearchController = TextEditingController();
+  var aiSearchAgentsController = TextEditingController();
+
   var data = [].obs;
   var searchQuery = ''.obs;
   RxInt count = 10.obs;
@@ -72,10 +74,8 @@ class SearchResultController extends GetxController {
         }
         loadData(tempData);
       } else {
-
         loadData(Get.arguments[0]);
         searchQuery.value = Get.arguments[1];
-
       }
     } catch (e, ex) {
       print(e);
@@ -89,7 +89,7 @@ class SearchResultController extends GetxController {
     loadedData = loadedData ?? [];
     print(loadedData);
     loadedData.forEach((d) {
-      if(d != null){
+      if (d != null) {
         if (!(d['is_sold'] ?? false)) {
           data.add(d);
         }

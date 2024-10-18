@@ -93,6 +93,13 @@ class ContentManagementController extends GetxController with BaseController {
   TextEditingController titleController = TextEditingController();
   TextEditingController description = TextEditingController();
 
+  //joinera
+  TextEditingController videoLinkJoinEra = TextEditingController();
+  TextEditingController descriptionJoinEra = TextEditingController();
+
+  //agentpage
+  TextEditingController videoLinkAgent = TextEditingController();
+
   Future getImageGallery() async {
     try {
       final imagePick = await picker.pickMultiImage();
