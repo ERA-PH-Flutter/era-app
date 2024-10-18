@@ -34,7 +34,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../global.dart';
-import '../../content-management/pages/join_era copy.dart';
+import '../../content-management/pages/find_agent_page.dart';
 import '../../content-management/pages/join_era.dart';
 import '../../statitics/pages/statistics_admin.dart';
 
