@@ -62,8 +62,8 @@ class FindAgents extends GetView<AgentsController> {
                           if (!searchResultController.showFullSearch.value) {
                             return AppTextField(
                                 onPressed: () {},
-                                controller:
-                                    searchResultController.aiSearchController,
+                                controller: searchResultController
+                                    .aiSearchAgentsController,
                                 hint: 'Use AI Search',
                                 svgIcon: AppEraAssets.ai3,
                                 bgColor: AppColors.white,
@@ -72,7 +72,7 @@ class FindAgents extends GetView<AgentsController> {
                                 onSuffixTap: () async {
                                   await controller.aiSearch(
                                       searchResultController
-                                          .aiSearchController.text);
+                                          .aiSearchAgentsController.text);
                                 },
                                 suffixIcons: AppEraAssets.send);
                           }
@@ -245,7 +245,8 @@ class FindAgents extends GetView<AgentsController> {
                   SizedBox(height: 20.h),
                   FutureBuilder(
                     future: FirebaseFirestore.instance
-                        .collection('users').where('status',isEqualTo: 'approved')
+                        .collection('users')
+                        .where('status', isEqualTo: 'approved')
                         .count()
                         .get(),
                     builder: (data, snapshot) {

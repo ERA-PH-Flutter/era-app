@@ -34,6 +34,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../global.dart';
+import '../../content-management/pages/join_era copy.dart';
+import '../../content-management/pages/join_era.dart';
 import '../../statitics/pages/statistics_admin.dart';
 
 class LandingPage extends GetView<LandingPageController> {
@@ -61,6 +63,9 @@ class LandingPage extends GetView<LandingPageController> {
     UploadTrainingAdmin(), //18
     ViewProject(), //19
     LogListAdmin(), //20
+    FindAgentPage(), //21
+    JoinEraPage(), //22
+
     // UploadNews(), //14
     // UploadNews(), //15
   ];
@@ -228,86 +233,82 @@ class LandingPage extends GetView<LandingPageController> {
   Widget _buildSidebarMenu() => ListView(
         children: [
           _buildExpansionTile(
-            text: "STATISTICS",
-            image: AppEraAssets.statistics,
-            children: [
-              _buildMenuItem('MANAGE STATISTICS', 13),
-            ],
-            index: 0,
-            expandedController: controller.expandedControllers[0]
-          ),
+              text: "STATISTICS",
+              image: AppEraAssets.statistics,
+              children: [
+                _buildMenuItem('MANAGE STATISTICS', 13),
+              ],
+              index: 0,
+              expandedController: controller.expandedControllers[0]),
           _buildExpansionTile(
-            text: "USERS",
-            image: AppEraAssets.dashboard,
-            children: [
-              _buildMenuItem('ROSTER', 0),
-              _buildMenuItem('ADD AGENT', 1),
-              _buildMenuItem('APPROVAL NEW AGENT', 2),
-              //     _buildMenuItem('VIEW AGENTS/BROKERS', 3),
-            ],
-            index: 1,
-              expandedController: controller.expandedControllers[1]
-          ),
+              text: "USERS",
+              image: AppEraAssets.dashboard,
+              children: [
+                _buildMenuItem('ROSTER', 0),
+                _buildMenuItem('ADD AGENT', 1),
+                _buildMenuItem('APPROVAL NEW AGENT', 2),
+                //     _buildMenuItem('VIEW AGENTS/BROKERS', 3),
+              ],
+              index: 1,
+              expandedController: controller.expandedControllers[1]),
           _buildExpansionTile(
-            text: "PROPERTIES",
-            image: AppEraAssets.agentDash,
-            children: [
-              _buildMenuItem('ADD PROJECTS', 4),
-              _buildMenuItem('VIEW PROJECT', 19),
+              text: "PROPERTIES",
+              image: AppEraAssets.agentDash,
+              children: [
+                _buildMenuItem('ADD PROJECTS', 4),
+                _buildMenuItem('VIEW PROJECT', 19),
 
-              _buildMenuItem('PROPERTY LISTINGS', 5),
-              // _buildMenuItem('PROPERTY INFORMATION', 6),
-              _buildMenuItem('ADD LISTINGS', 7),
-              //_buildMenuItem('EDIT LISTINGS', 8),
-            ],
-            index: 2,
-              expandedController: controller.expandedControllers[2]
-          ),
+                _buildMenuItem('PROPERTY LISTINGS', 5),
+                // _buildMenuItem('PROPERTY INFORMATION', 6),
+                _buildMenuItem('ADD LISTINGS', 7),
+                //_buildMenuItem('EDIT LISTINGS', 8),
+              ],
+              index: 2,
+              expandedController: controller.expandedControllers[2]),
           _buildExpansionTile(
-            text: "CONTENT",
-            image: AppEraAssets.listingDash,
-            children: [
-              _buildMenuItem('HOMEPAGE', 9),
-              //  _buildMenuItem('ADD ABOUT US', 10),
-            ],
-            index: 3,
-              expandedController: controller.expandedControllers[3]
-          ),
-          _buildExpansionTile(
-            text: "NEWS",
-            image: AppEraAssets.news,
-            children: [
-              _buildMenuItem('VIEW ALL NEWS', 11),
-              _buildMenuItem('ADD NEWS', 12),
-            ],
-            index: 4,
-              expandedController: controller.expandedControllers[4]
-          ),
-          _buildExpansionTile(
-            text: "FAQS",
-            image: AppEraAssets.helpDash,
-            children: [
-              _buildMenuItem('General FAQ’S', 14),
-              // _buildMenuItem('Agent FAQ’s', 12),
-              // _buildMenuItem('Customer FAQ’s', 13),
-            ],
-            index: 5,
-              expandedController: controller.expandedControllers[5]
-          ),
-          _buildExpansionTile(
-            text: "SETTINGS",
-            image: AppEraAssets.settingDash,
-            children: [
-              _buildMenuItem('SELLING PROPERTY', 15),
-              _buildMenuItem('CONTACT US MANAGEMENT', 16),
-              _buildMenuItem('ACTIVITY LIST', 20),
+              text: "CONTENT",
+              image: AppEraAssets.listingDash,
+              children: [
+                _buildMenuItem('HOMEPAGE', 9),
+                _buildMenuItem('FIND AGENTS', 21),
 
-              // _buildMenuItem('Agent FAQ’s', 12),
-              // _buildMenuItem('Customer FAQ’s', 13),
-            ],
-            index: 6,
-              expandedController: controller.expandedControllers[6]
-          ),
+                //  _buildMenuItem('ADD ABOUT US', 10),
+                _buildMenuItem('JOIN ERA', 22),
+              ],
+              index: 3,
+              expandedController: controller.expandedControllers[3]),
+          _buildExpansionTile(
+              text: "NEWS",
+              image: AppEraAssets.news,
+              children: [
+                _buildMenuItem('VIEW ALL NEWS', 11),
+                _buildMenuItem('ADD NEWS', 12),
+              ],
+              index: 4,
+              expandedController: controller.expandedControllers[4]),
+          _buildExpansionTile(
+              text: "FAQS",
+              image: AppEraAssets.helpDash,
+              children: [
+                _buildMenuItem('General FAQ’S', 14),
+                // _buildMenuItem('Agent FAQ’s', 12),
+                // _buildMenuItem('Customer FAQ’s', 13),
+              ],
+              index: 5,
+              expandedController: controller.expandedControllers[5]),
+          _buildExpansionTile(
+              text: "SETTINGS",
+              image: AppEraAssets.settingDash,
+              children: [
+                _buildMenuItem('SELLING PROPERTY', 15),
+                _buildMenuItem('CONTACT US MANAGEMENT', 16),
+                _buildMenuItem('ACTIVITY LIST', 20),
+
+                // _buildMenuItem('Agent FAQ’s', 12),
+                // _buildMenuItem('Customer FAQ’s', 13),
+              ],
+              index: 6,
+              expandedController: controller.expandedControllers[6]),
           // _buildExpansionTile(
           //   text: "TRAINING",
           //   image: AppEraAssets.trainings,
@@ -347,21 +348,20 @@ class LandingPage extends GetView<LandingPageController> {
         );
       });
 
-  Widget _buildExpansionTile({
-    required String text,
-    required String image,
-    required List<Widget> children,
-    required index,
-    required expandedController
-  }) {
+  Widget _buildExpansionTile(
+      {required String text,
+      required String image,
+      required List<Widget> children,
+      required index,
+      required expandedController}) {
     return ExpansionTile(
       onExpansionChanged: ((newState) {
         print(index);
         if (newState) {
           controller.selectedTile = index;
-          for (int i = 0;i<controller.expandedControllers.length;i++) {
-            if(i != index){
-              if(controller.expandedControllers[i].isExpanded){
+          for (int i = 0; i < controller.expandedControllers.length; i++) {
+            if (i != index) {
+              if (controller.expandedControllers[i].isExpanded) {
                 controller.expandedControllers[i].collapse();
               }
             }
