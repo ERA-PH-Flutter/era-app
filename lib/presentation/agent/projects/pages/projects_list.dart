@@ -12,20 +12,14 @@ import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/services/ai_search.dart';
-import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/app_text.dart';
 import '../../../../app/widgets/app_textfield.dart';
 import '../../../../app/widgets/box_widget.dart';
-import '../../../../app/widgets/navigation/customenavigationbar.dart';
 import '../../../../app/widgets/project_views.dart';
 
-import '../../../../app/widgets/search_widget.dart';
 import '../../../../repository/project.dart';
 import '../../../admin/properties/controllers/project_list_controller.dart';
 import '../../../admin/properties/controllers/project_view_binding.dart';
-import '../../../global.dart';
-import '../../home/controllers/home_binding.dart';
-import '../../listings/add-edit_listings/pages/addlistings.dart';
 import '../../listings/searchresult/controllers/searchresult_controller.dart';
 //todo add text
 

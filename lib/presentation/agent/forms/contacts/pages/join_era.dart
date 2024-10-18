@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -12,8 +11,6 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../../app/widgets/button.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
-import '../../../../global.dart';
-import '../../../home/controllers/home_binding.dart';
 
 class JoinEra extends GetView<ContactusController> {
   const JoinEra({super.key});

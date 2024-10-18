@@ -5,7 +5,6 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
-import 'package:eraphilippines/app/widgets/listings/agentlistview.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
@@ -20,7 +19,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:number_pagination/number_pagination.dart';
 
 import '../../../../app/constants/screens.dart';
-import '../../../../app/services/ai_search.dart';
 import '../../../../app/widgets/listings/agents_items.dart';
 
 class FindAgents extends GetView<AgentsController> {

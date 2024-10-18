@@ -32,6 +32,7 @@ dependencies:
   device_info_plus: ^10.1.2
   full_screen_image: ^2.0.0
   circle_nav_bar: ^2.1.0+1
+  number_pagination: ^1.1.5
   reorderables: ^0.6.0
   intl: ^0.19.0
   image_picker: ^1.1.2
@@ -45,6 +46,7 @@ dependencies:
   url_launcher: ^6.3.0
   google_maps_flutter: ^2.9.0
   speech_to_text: ^7.0.0
+  youtube_player_flutter: ^9.1.1
 
   #firebase
   firebase_core: ^3.2.0

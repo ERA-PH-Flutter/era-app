@@ -6,7 +6,6 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/pieChart.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +13,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
-import '../../../../global.dart';
-import '../../../home/controllers/home_binding.dart';
 import '../controllers/MortageCalculator_controller.dart';
 
 class MortageCalculator extends GetView<MortageCalculatorController> {

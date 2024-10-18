@@ -6,9 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
-import '../../../../../app/widgets/navigation/customenavigationbar.dart';
-import '../../../../global.dart';
-import '../../../home/controllers/home_binding.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});

@@ -14,7 +14,6 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../presentation/agent/forms/contacts/pages/help.dart';
-import '../../../presentation/agent/home/controllers/home_binding.dart';
 import '../../../presentation/agent/home/pages/home.dart';
 import '../../../presentation/global.dart';
 import 'package:circle_nav_bar/circle_nav_bar.dart';

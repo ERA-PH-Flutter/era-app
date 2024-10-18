@@ -13,11 +13,8 @@ import '../../../../../app/services/firebase_database.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../app/widgets/filteredsearch_box.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
-import '../../../../../app/widgets/navigation/customenavigationbar.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
-import '../../../../global.dart';
-import '../../../home/controllers/home_binding.dart';
 
 class FindProperties extends GetView<ListingController> {
   const FindProperties({super.key});

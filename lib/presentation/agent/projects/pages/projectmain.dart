@@ -2,7 +2,6 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/carousel_models.dart';
 import 'package:eraphilippines/app/models/projects_models.dart';
-import 'package:eraphilippines/app/services/ai_search.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';

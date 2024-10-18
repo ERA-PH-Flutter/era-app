@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
@@ -25,7 +24,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 //ignore: must_be_immutable
 class FilteredSearchBox extends StatefulWidget {
-  FilteredSearchBox({super.key});
+  const FilteredSearchBox({super.key});
 
   @override
   State<FilteredSearchBox> createState() => _FilteredSearchBoxState();
@@ -109,7 +108,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
     speechEnabled = await speech.initialize();
   }
   void startListening() async {
-    Timer? timer;
     await speech.listen(onResult: (result){
       aiSearchController.text = result.recognizedWords;
       setState(() {

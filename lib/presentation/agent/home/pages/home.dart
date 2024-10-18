@@ -11,10 +11,7 @@ import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 
-import 'package:eraphilippines/app/widgets/project_views.dart';
-import 'package:eraphilippines/presentation/admin/properties/controllers/project_view_binding.dart';
 import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
 import 'package:eraphilippines/repository/listing.dart';
 

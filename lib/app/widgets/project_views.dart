@@ -834,7 +834,7 @@ class ProjectViews {
     ];
     for (var block in project.data!) {
       if (block['type'] == "Project Logo") {
-        preview[0] = Container(
+        preview[0] = SizedBox(
           width: Get.width,
           child: CloudStorage().imageLoaderProvider(
             ref: block['image'],

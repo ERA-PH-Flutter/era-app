@@ -23,11 +23,9 @@ import '../../../../app/constants/sized_box.dart';
 import '../../../../app/models/navbaritems.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../../../../app/widgets/navigation/app_nav_items.dart';
-import '../../../../app/widgets/navigation/customenavigationbar.dart';
 import '../../../../repository/user.dart';
 import '../../../global.dart';
 
-import '../../home/controllers/home_binding.dart';
 import '../controllers/agent_dashboard_controller.dart';
 
 class AgentDashBoard extends GetView<AgentDashboardController> {
