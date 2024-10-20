@@ -8,10 +8,10 @@ class Screens {
     return SizedBox(
         height: height ?? Get.height - 250.h,
         child: Center(
-          child: Image.asset('assets/icons/loading_animation.gif',
+          child: Image.asset('assets/icons/loading.gif',
               gaplessPlayback: true,
-              height: 100.h,
-              width: 100.h,
+              height: 50.h,
+              width: 50.h,
               fit: BoxFit.fill),
           //   CircularProgressIndicator(
           // backgroundColor: AppColors.white,

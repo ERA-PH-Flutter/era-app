@@ -17,6 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:number_pagination/number_pagination.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/constants/screens.dart';
 import '../../../../app/widgets/listings/agents_items.dart';
@@ -34,11 +35,19 @@ class FindAgents extends GetView<AgentsController> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            CachedNetworkImage(
-              imageUrl:
-                  'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-              fit: BoxFit.cover,
-              width: Get.width,
+            // CachedNetworkImage(
+            //   imageUrl:
+            //       'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+            //   fit: BoxFit.cover,
+            //   width: Get.width,
+            // ),
+            YoutubePlayer(
+              controller: controller.youtubePlayerController,
+              bottomActions: const [
+                CurrentPosition(),
+                ProgressBar(isExpanded: true),
+                RemainingDuration(),
+              ],
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -360,7 +369,7 @@ class FindAgents extends GetView<AgentsController> {
             color: AppColors.blue,
           )),
       Obx(
-        (){
+        () {
           return LoadMore(
             length: (controller.results.length / controller.pageSize).floor(),
             child: ListView.builder(
@@ -368,7 +377,8 @@ class FindAgents extends GetView<AgentsController> {
               physics: NeverScrollableScrollPhysics(),
               itemCount: controller.results.length,
               itemBuilder: (context, index) {
-                if(index >= controller.count.value - controller.pageSize && index < controller.count.value){
+                if (index >= controller.count.value - controller.pageSize &&
+                    index < controller.count.value) {
                   return AgentsItems(
                     agentInfo: controller.results[index],
                     onTap: () {},
@@ -386,21 +396,21 @@ class FindAgents extends GetView<AgentsController> {
   LoadMore({
     child,
     length,
-  }){
+  }) {
     return Column(
       children: [
         child,
         NumberPagination(
           fontSize: 18.sp,
-          buttonRadius:10.r,
-          controlButtonSize: Size(30 ,30),
+          buttonRadius: 10.r,
+          controlButtonSize: Size(30, 30),
           numberButtonSize: Size(35, 35),
-          sectionSpacing:1.w,
+          sectionSpacing: 1.w,
           betweenNumberButtonSpacing: 1,
           totalPages: length,
           currentPage: (controller.count.value / controller.pageSize).floor(),
           visiblePagesCount: length < 4 ? length : 4,
-          onPageChanged: (page){
+          onPageChanged: (page) {
             controller.count.value = controller.pageSize * page;
           },
         ),

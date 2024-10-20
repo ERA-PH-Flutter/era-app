@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
@@ -32,6 +33,8 @@ class AgentsController extends GetxController with BaseController {
   TextEditingController agentLocation = TextEditingController();
   TextEditingController agentName = TextEditingController();
 
+  late YoutubePlayerController youtubePlayerController;
+
   void toggleSortDirection() {
     isAscending.value = !isAscending.value;
     updateSortOption(isAscending.value ? 'name_ascending' : 'name_descending');
@@ -45,8 +48,11 @@ class AgentsController extends GetxController with BaseController {
   void onInit() async {
     pageSize = count.value;
     try {
-      var randomUser =
-          (await FirebaseFirestore.instance.collection('users').where('status',isEqualTo: 'approved').get()).docs;
+      var randomUser = (await FirebaseFirestore.instance
+              .collection('users')
+              .where('status', isEqualTo: 'approved')
+              .get())
+          .docs;
       randomUser.shuffle();
       for (int i = 0;
           i < (randomUser.length > 6 ? 6 : randomUser.length);
@@ -58,16 +64,24 @@ class AgentsController extends GetxController with BaseController {
       agentState.value = AgentsState.error;
     }
     super.onInit();
+    youtubePlayerController = YoutubePlayerController(
+      initialVideoId: 'UcbQCfRCoeA',
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        mute: false,
+      ),
+    );
   }
-  aiSearch(query)async{
+
+  aiSearch(query) async {
     BaseController().showLoading();
     results.clear();
     resultText.value = "SEARCH RESULTS";
     agentState.value = AgentsState.loading;
     var aiSearchResult = await AI(query: query).userSearch();
-    if(aiSearchResult.isNotEmpty){
-      aiSearchResult.forEach((user){
-        if(user.data()['status'] == "approved"){
+    if (aiSearchResult.isNotEmpty) {
+      aiSearchResult.forEach((user) {
+        if (user.data()['status'] == "approved") {
           results.add(EraUser.fromJSON(user.data()));
         }
       });
@@ -79,6 +93,7 @@ class AgentsController extends GetxController with BaseController {
       agentState.value = AgentsState.empty;
     }
   }
+
   search() async {
     results.clear();
     resultText.value = "SEARCH RESULTS";
@@ -155,7 +170,6 @@ class AgentsController extends GetxController with BaseController {
   }
 
   Future<void> getImagePic(previousPicture) async {
-
     try {
       final XFile? imagePick =
           await picker.pickImage(source: ImageSource.camera);
