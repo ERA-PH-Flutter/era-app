@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 
 import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/theme.dart';
+import '../../../../app/widgets/button.dart';
 import '../../../../app/widgets/createaccount_widget.dart';
 import '../../../../app/widgets/textformfield_widget.dart';
 
@@ -19,8 +20,10 @@ class SellPropertyWeb extends GetView<FormWebController> {
   @override
   Widget build(BuildContext context) {
     Get.put(FormWebController());
-    return SingleChildScrollView(
+    return Container(
+      width: Get.width,
       child: Stack(
+        alignment: Alignment.center,
         children: [
           Column(
             children: [
@@ -31,7 +34,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [Color(0xFFC50000), Color(0xFF8C0909)])),
-                height: Get.height - 500.h, // Consider reducing this height
+                height: Get.height - 500.h,
                 width: Get.width - 200.h,
                 child: Row(
                   children: [
@@ -60,133 +63,144 @@ class SellPropertyWeb extends GetView<FormWebController> {
                 ),
               ),
               sb80(),
-              SizedBox(
-                height: Get.height, // Adjust this height
-                width: Get.width,
-                child: Column(
-                  children: [
-                    Image.asset(
-                      AppEraAssets.eraPh,
-                      fit: BoxFit.cover,
-                      width: 250.w,
-                    ),
-                    EraText(
-                      text: 'Share your property details',
-                      color: AppColors.blue,
-                      fontSize: EraTheme.headerWeb,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    sb30(),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      width: Get.width - 200.w,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          EraText(
-                            text: 'Are you looking to sell your property?',
-                            color: AppColors.hint,
-                            fontSize: EraTheme.text15 + 3.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          sb10(),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                                child: Obx(() => Checkbox(
-                                      value: controller.isCheckedYes.value,
-                                      onChanged: (value) {
-                                        controller.isCheckedYes.value =
-                                            !controller.isCheckedYes.value;
-                                      },
-                                    )),
-                              ),
-                              sbw10(),
-                              Expanded(
-                                child: EraText(
-                                  text: 'YES',
-                                  color: AppColors.hint,
-                                  fontSize: EraTheme.text15 + 3.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                                child: Obx(() => Checkbox(
-                                      value: controller.isCheckedNotNow.value,
-                                      onChanged: (value) {
-                                        controller.isCheckedNotNow.value =
-                                            !controller.isCheckedNotNow.value;
-                                      },
-                                    )),
-                              ),
-                              sbw10(),
-                              Expanded(
-                                child: EraText(
-                                  text: 'NOT NOW',
-                                  color: AppColors.hint,
-                                  fontSize: EraTheme.text15,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                          sb20(),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: EraTheme.paddingWidthXSmall),
-                            child: Column(
-                              children: [
-                                SharedWidgets.textFormfield(
-                                    textInputType: TextInputType.text,
-                                    hintText: 'Name',
-                                    controller: controller.phoneNum),
-                                sb30(),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: Get.width / 2.3,
-                                      child: SharedWidgets.textFormfield(
-                                          textInputType: TextInputType.text,
-                                          hintText: 'Email',
-                                          controller: controller.emailAd),
-                                    ),
-                                    sbw30(),
-                                    SizedBox(
-                                      width: Get.width / 2.3,
-                                      child: SharedWidgets.textFormfield(
-                                          textInputType: TextInputType.text,
-                                          hintText: 'Name',
-                                          controller: controller.name),
-                                    ),
-                                  ],
-                                ),
-                                sb50(),
-                                TextformfieldWidget(
-                                  hintText: 'Enter Description',
-                                  maxLines: 13,
-                                  color: AppColors.hint,
-                                  keyboardType: TextInputType.multiline,
-                                  textInputAction: TextInputAction.newline,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                        BorderSide(color: AppColors.hint),
-                                  ),
-                                ),
-                              ],
+              Column(
+                children: [
+                  Image.asset(
+                    AppEraAssets.eraPh,
+                    fit: BoxFit.cover,
+                    width: 250.w,
+                  ),
+                  EraText(
+                    text: 'Share your property details',
+                    color: AppColors.blue,
+                    fontSize: EraTheme.headerWeb,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  sb30(),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    width: Get.width - 200.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        EraText(
+                          text: 'Are you looking to sell your property?',
+                          color: AppColors.hint,
+                          fontSize: EraTheme.text15 + 3.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        sb10(),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                              child: Obx(() => Checkbox(
+                                    value: controller.isCheckedYes.value,
+                                    onChanged: (value) {
+                                      controller.isCheckedYes.value =
+                                          !controller.isCheckedYes.value;
+                                    },
+                                  )),
                             ),
+                            sbw10(),
+                            Expanded(
+                              child: EraText(
+                                text: 'YES',
+                                color: AppColors.hint,
+                                fontSize: EraTheme.text15 + 3.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                              child: Obx(() => Checkbox(
+                                    value: controller.isCheckedNotNow.value,
+                                    onChanged: (value) {
+                                      controller.isCheckedNotNow.value =
+                                          !controller.isCheckedNotNow.value;
+                                    },
+                                  )),
+                            ),
+                            sbw10(),
+                            Expanded(
+                              child: EraText(
+                                text: 'NOT NOW',
+                                color: AppColors.hint,
+                                fontSize: EraTheme.text15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                        sb20(),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: EraTheme.paddingWidthXSmall - 10.w),
+                          child: Column(
+                            children: [
+                              SharedWidgets.textFormfield(
+                                  textInputType: TextInputType.text,
+                                  hintText: 'Name',
+                                  controller: controller.phoneNum),
+                              sb30(),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: Get.width / 2.3 + 10.w,
+                                    child: SharedWidgets.textFormfield(
+                                        textInputType: TextInputType.text,
+                                        hintText: 'Email',
+                                        controller: controller.emailAd),
+                                  ),
+                                  sbw30(),
+                                  SizedBox(
+                                    width: Get.width / 2.3 + 10.w,
+                                    child: SharedWidgets.textFormfield(
+                                        textInputType: TextInputType.text,
+                                        hintText: 'Name',
+                                        controller: controller.name),
+                                  ),
+                                ],
+                              ),
+                              sb50(),
+                              TextformfieldWidget(
+                                hintText: 'Enter Description',
+                                maxLines: 13,
+                                color: AppColors.hint,
+                                keyboardType: TextInputType.multiline,
+                                textInputAction: TextInputAction.newline,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(color: AppColors.hint),
+                                ),
+                              ),
+                              sb50(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Button(
+                                    alignment: Alignment.centerLeft,
+                                    onTap: () async {},
+                                    margin: EdgeInsets.symmetric(horizontal: 5),
+                                    width: 250.w,
+                                    text: 'S E N D',
+                                    fontSize: EraTheme.buttonText,
+                                    bgColor: AppColors.kRedColor,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

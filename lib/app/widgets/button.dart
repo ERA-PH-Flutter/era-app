@@ -21,23 +21,24 @@ class Button extends StatelessWidget {
   final BorderRadius? borderRadius;
   final BoxBorder? border;
   final Color? color;
+  final AlignmentGeometry? alignment;
 
-  const Button({
-    super.key,
-    this.onTap,
-    this.text,
-    this.bgColor,
-    this.fontWeight,
-    this.fontSize,
-    this.style,
-    this.height,
-    this.width,
-    this.margin,
-    this.padding,
-    this.borderRadius,
-    this.border,
-    this.color,
-  });
+  const Button(
+      {super.key,
+      this.onTap,
+      this.text,
+      this.bgColor,
+      this.fontWeight,
+      this.fontSize,
+      this.style,
+      this.height,
+      this.width,
+      this.margin,
+      this.padding,
+      this.borderRadius,
+      this.border,
+      this.color,
+      this.alignment});
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +46,7 @@ class Button extends StatelessWidget {
       onTap: onTap,
       child: Center(
         child: Container(
+          alignment: alignment,
           margin: margin ?? EdgeInsets.zero,
           height: height ?? EraTheme.buttonHeightSmall,
           width: width ?? Get.width - 220.w,

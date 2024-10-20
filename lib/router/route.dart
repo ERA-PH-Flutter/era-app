@@ -234,10 +234,10 @@ appRoutes() => [
         page: () => WebsiteLandingPage(),
       ),
 
-      GetPage(
-        name: RouteString.webLoginPage,
-        page: () => AuthenticationPageWeb(),
-      ),
+      // GetPage(
+      //   name: RouteString.webLoginPage,
+      //   page: () => AuthenticationPageWeb(),
+      // ),
     ];
 
 class MyMiddleware extends GetMiddleware {}

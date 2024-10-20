@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../../../app/services/local_storage.dart';
 
 // enum BuyWebState { loading, loaded, error, empty }
@@ -25,6 +26,7 @@ class FormWebController extends GetxController {
   var isCheckedYes = false.obs;
   var isCheckedNotNow = false.obs;
 
+  late YoutubePlayerController youtubePlayerController;
   TextEditingController name = TextEditingController();
   TextEditingController phoneNum = TextEditingController();
   TextEditingController emailAd = TextEditingController();
@@ -34,5 +36,17 @@ class FormWebController extends GetxController {
   // void onInit() {
   //   buylandingState.value = BuyWebState.loaded;
   //   super.onInit();
+  // }
+
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   youtubePlayerController = YoutubePlayerController(
+  //     initialVideoId: 'UcbQCfRCoeA',
+  //     flags: YoutubePlayerFlags(
+  //       autoPlay: true,
+  //       mute: false,
+  //     ),
+  //   );
   // }
 }

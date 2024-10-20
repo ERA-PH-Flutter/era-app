@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/presentation/website/authentication.dart';
 import 'package:eraphilippines/presentation/website/buy_website/pages/buy_web.dart';
 
 import 'package:eraphilippines/presentation/website/form/pages/about_us_web.dart';
@@ -46,7 +47,8 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
                     width: 300.w,
                     onTap: () {
                       // controller.login();
-                      Get.toNamed(RouteString.webLoginPage);
+                      showAuthenticationDialog();
+                      //  Get.toNamed(RouteString.webLoginPage);
                       print('print click!!!');
                     },
                     text: "AGENT/BROKER LOGIN",
@@ -99,15 +101,19 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
                                                 '${controller.currentPage(1)}');
                                             controller.currentPage(1);
                                           }, false),
-                                          _buildMenuCard('Sell', () {}, false),
                                           _buildMenuCard('Rent', () {}, false),
+                                          _buildMenuCard('Sell', () {}, false),
                                           _buildMenuCard(
                                               'Projects', () {}, false),
                                           _buildMenuCard('News', () {}, false),
                                           _buildMenuCard(
+                                              'About Us', () {}, false),
+                                          _buildMenuCard(
                                               'Contact Us', () {}, false),
                                           _buildMenuCard(
-                                              'Join Era', () {}, false),
+                                              'Find Agents', () {}, false),
+                                          _buildMenuCard('Mortgage Calculator',
+                                              () {}, false),
                                         ],
                                       ),
                                     ),
@@ -229,42 +235,48 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
               }),
           sbw10(),
           navLink(
-              text: 'Find Properties'.toUpperCase(),
+              text: 'Buy'.toUpperCase(),
               onPressed: () {
                 controller.currentPage(1);
               }),
           sbw10(),
           navLink(
-              text: 'Projects'.toUpperCase(),
+              text: 'Rent'.toUpperCase(),
               onPressed: () {
                 controller.currentPage(2);
               }),
           navLink(
-              text: 'Find Agents'.toUpperCase(),
+              text: 'Sell'.toUpperCase(),
               onPressed: () {
                 controller.currentPage(3);
               }),
           sbw10(),
           navLink(
-              text: 'About us'.toUpperCase(),
+              text: 'Projects'.toUpperCase(),
               onPressed: () {
                 controller.currentPage(4);
               }),
           sbw10(),
           navLink(
-              text: 'Join Era'.toUpperCase(),
+              text: 'News'.toUpperCase(),
               onPressed: () {
                 controller.currentPage(5);
               }),
           sbw10(),
           navLink(
-              text: 'Sell Property'.toUpperCase(),
+              text: 'About Us'.toUpperCase(),
               onPressed: () {
                 controller.currentPage(5);
               }),
           sbw10(),
           navLink(
               text: 'Contact Us'.toUpperCase(),
+              onPressed: () {
+                controller.currentPage(1);
+              }),
+          sbw10(),
+          navLink(
+              text: 'Find Agents'.toUpperCase(),
               onPressed: () {
                 controller.currentPage(1);
               }),

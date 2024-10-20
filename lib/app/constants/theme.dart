@@ -25,4 +25,6 @@ class EraTheme {
   static double paragraphWeb = 30.sp;
 
   static double text15 = 15.sp;
+
+  static double buttonText = 30.sp;
 }

@@ -4,15 +4,18 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/theme.dart';
+import '../controllers/form_web_controller.dart';
 
-class AboutUsWeb extends StatelessWidget {
+class AboutUsWeb extends GetView<FormWebController> {
   const AboutUsWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(FormWebController());
     return SingleChildScrollView(
       child: Stack(
         children: [
@@ -183,7 +186,21 @@ class AboutUsWeb extends StatelessWidget {
             top: 10.h,
             right: 100.w,
             left: Get.width * 0.5,
-            child: CachedNetworkImage(
+            child:
+                // SizedBox(
+                //   height: Get.height - 330.h,
+                //   width: Get.width,
+                //   child: YoutubePlayer(
+                //     controller: controller.youtubePlayerController,
+                //     bottomActions: const [
+                //       CurrentPosition(),
+                //       ProgressBar(isExpanded: true),
+                //       RemainingDuration(),
+                //       FullScreenButton(),
+                //     ],
+                //   ),
+                // )
+                CachedNetworkImage(
               imageUrl:
                   'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
               fit: BoxFit.cover,
