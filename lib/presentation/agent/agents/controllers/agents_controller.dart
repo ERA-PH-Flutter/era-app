@@ -67,6 +67,7 @@ class AgentsController extends GetxController with BaseController {
     youtubePlayerController = YoutubePlayerController(
       initialVideoId: 'UcbQCfRCoeA',
       flags: YoutubePlayerFlags(
+        enableCaption: false,
         autoPlay: true,
         mute: false,
       ),

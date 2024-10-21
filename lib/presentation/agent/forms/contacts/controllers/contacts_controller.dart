@@ -42,6 +42,7 @@ class ContactusController extends GetxController {
     youtubePlayerController = YoutubePlayerController(
       initialVideoId: 'UcbQCfRCoeA',
       flags: YoutubePlayerFlags(
+        enableCaption: false,
         autoPlay: true,
         mute: false,
       ),

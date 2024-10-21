@@ -1,4 +1,3 @@
-
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
@@ -19,25 +18,33 @@ class UploadBannersWidget extends StatelessWidget {
   final EdgeInsets? padding;
   final Function(Uint8List)? onImageSelected;
   final Function(List<Uint8List>)? onImageSelectedMany;
-  const UploadBannersWidget(
-      {super.key, this.text, required this.maxImages, this.onImageSelected,this.padding,this.onImageSelectedMany});
+
+  const UploadBannersWidget({
+    super.key,
+    this.text,
+    required this.maxImages,
+    this.onImageSelected,
+    this.padding,
+    this.onImageSelectedMany,
+  });
 
   @override
   Widget build(BuildContext context) {
     Get.delete<AddListingsController>();
     AddListingsController addListingsController =
         Get.put(AddListingsController());
+
     return Padding(
-      padding:
-          padding ?? EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+      padding: padding ??
+          EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Reusing textBuild function
               AddListings.textBuild(text ?? 'UPLOAD BANNERS', EraTheme.header,
-                  FontWeight.w600, AppColors.black,padding: EdgeInsets.zero),
+                  FontWeight.w600, AppColors.black,
+                  padding: EdgeInsets.zero),
               Obx(() => AddListings.textBuild(
                   '${addListingsController.images.length}/$maxImages',
                   22.sp,
@@ -46,6 +53,7 @@ class UploadBannersWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 20.h),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -62,30 +70,32 @@ class UploadBannersWidget extends StatelessWidget {
                   ),
                 ),
                 onPressed: () async {
-                  if (maxImages != 1) {
-                    await addListingsController.pickImageFromWeb();
-                    if (onImageSelectedMany != null) {
-                      List<Uint8List> listUint = [];
-                      for (var image in addListingsController.images) {
-                        listUint.add(image);
-                      }
-                      onImageSelectedMany!(listUint);
-                      return;
-                    }
-                  } else {
-                    try {
-                      final imagePick = await ImagePicker()
-                          .pickImage(source: ImageSource.gallery);
-                      var image = await imagePick!.readAsBytes();
-                      if (onImageSelected != null) {
-                        onImageSelected!(image);
+                  try {
+                    if (maxImages != 1) {
+                      await addListingsController.pickImageFromWeb();
+                      if (onImageSelectedMany != null) {
+                        List<Uint8List> listUint = [];
+                        for (var image in addListingsController.images) {
+                          listUint.add(image);
+                        }
+                        onImageSelectedMany!(listUint);
                         return;
                       }
-                      //con.selectedImage = image;
-                      addListingsController.images.value = [image];
-                    } catch (e) {
-                      print(e);
+                    } else {
+                      final imagePick = await ImagePicker()
+                          .pickImage(source: ImageSource.gallery);
+                      if (imagePick != null) {
+                        var image = await imagePick.readAsBytes();
+                        if (onImageSelected != null) {
+                          onImageSelected!(image);
+                        }
+                        addListingsController.images.value = [
+                          image
+                        ]; // Add selected image
+                      }
                     }
+                  } catch (e) {
+                    print('Error picking image: $e'); // Error handling
                   }
                 },
                 icon: Icon(
@@ -102,6 +112,8 @@ class UploadBannersWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10.h),
+
+          // Image GridView
           Obx(() {
             if (addListingsController.images.isEmpty) {
               return _buildUploadPhoto();
@@ -126,10 +138,10 @@ class UploadBannersWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: MemoryImage(
-                                addListingsController.images[index],
-                              )),
+                            fit: BoxFit.cover,
+                            image: MemoryImage(
+                                addListingsController.images[index]),
+                          ),
                         ),
                       ),
                       Positioned(
@@ -141,7 +153,8 @@ class UploadBannersWidget extends StatelessWidget {
                             color: AppColors.black,
                           ),
                           onPressed: () {
-                            addListingsController.images.removeAt(index);
+                            addListingsController.images
+                                .removeAt(index); // Remove image
                           },
                         ),
                       ),
@@ -151,14 +164,6 @@ class UploadBannersWidget extends StatelessWidget {
               );
             }
           }),
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 20.w),
-          //   child: EraText(
-          //     text: 'Photo must be at least 300px X 300px',
-          //     fontSize: 15.sp,
-          //     color: AppColors.hint,
-          //   ),
-          // ),
         ],
       ),
     );
@@ -183,9 +188,7 @@ class UploadBannersWidget extends StatelessWidget {
             child: Image.asset(AppEraAssets.uploadAdmin),
           ),
         ),
-        SizedBox(
-          height: 20.h,
-        ),
+        SizedBox(height: 20.h),
       ],
     );
   }
