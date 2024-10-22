@@ -31,7 +31,12 @@ class FormWebController extends GetxController {
   TextEditingController phoneNum = TextEditingController();
   TextEditingController emailAd = TextEditingController();
   TextEditingController message = TextEditingController();
+  var selectedValue = RxnString();
 
+  var items = [
+    'Agent',
+    'Broker',
+  ];
   // @override
   // void onInit() {
   //   buylandingState.value = BuyWebState.loaded;

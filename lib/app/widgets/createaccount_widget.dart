@@ -90,7 +90,7 @@ class SharedWidgets {
               ),
             ),
             dropdownColor: AppColors.white,
-            focusColor: AppColors.hint,
+            focusColor: AppColors.white,
             value: selectedItem.value,
             style: TextStyle(color: Colors.white),
             iconEnabledColor: Colors.black,

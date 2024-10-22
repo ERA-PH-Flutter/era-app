@@ -183,27 +183,23 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
   }
 
   _loaded() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Row(
-        children: [
-          Obx(() {
-            return IndexedStack(
-              index: controller.currentPage.value,
-              children: const [
-                HomeWeb(), //0
-                AboutUsWeb(), //01
-                SellPropertyWeb(),
-                BuyWeb(),
-                AboutUsWeb(), //01
-                AboutUsWeb(), //01
-                JoinEraWeb()
-                // BuyWeb(),
-              ],
-            );
-          })
-        ],
-      ),
+    return Row(
+      children: [
+        Obx(() {
+          return IndexedStack(
+            index: controller.currentPage.value,
+            children: const [
+              HomeWeb(), //0
+              AboutUsWeb(), //01
+              SellPropertyWeb(),
+              BuyWeb(),
+              AboutUsWeb(), //01
+              AboutUsWeb(), //01
+              JoinEraWeb()
+            ],
+          );
+        })
+      ],
     );
   }
 

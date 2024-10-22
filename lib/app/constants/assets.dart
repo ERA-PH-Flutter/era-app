@@ -3,6 +3,9 @@ String w = "quickLinks/";
 String i = "assets/images/";
 
 class AppEraAssets {
+  //web images
+  static String careerEra = "${i}Career-at-ERA.png";
+
   static String noImageWhite = "${i}no_img_user.png";
 
   //era ph logo
