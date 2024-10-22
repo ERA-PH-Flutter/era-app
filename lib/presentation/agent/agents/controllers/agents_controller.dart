@@ -70,6 +70,7 @@ class AgentsController extends GetxController with BaseController {
         enableCaption: false,
         autoPlay: true,
         mute: false,
+        forceHD: true,
       ),
     );
   }

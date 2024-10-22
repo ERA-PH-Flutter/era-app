@@ -45,6 +45,7 @@ class ContactusController extends GetxController {
         enableCaption: false,
         autoPlay: true,
         mute: false,
+        forceHD: true,
       ),
     );
     faqs.value = (await FirebaseFirestore.instance
