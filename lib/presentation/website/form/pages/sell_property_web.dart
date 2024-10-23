@@ -12,6 +12,7 @@ import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/button.dart';
 import '../../../../app/widgets/createaccount_widget.dart';
 import '../../../../app/widgets/textformfield_widget.dart';
+import 'about_us_web.dart';
 
 class SellPropertyWeb extends GetView<FormWebController> {
   const SellPropertyWeb({super.key});
@@ -170,11 +171,12 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                 sb50(),
                                 //contentpadding todo
                                 TextformfieldWidget(
-                                  hintText: 'Enter Description',
-                                  maxLines: 13,
-                                  color: AppColors.hint,
                                   keyboardType: TextInputType.multiline,
                                   textInputAction: TextInputAction.newline,
+                                  hintText: 'Enter Description',
+                                  hintstlye: TextStyle(),
+                                  maxLines: 13,
+                                  color: AppColors.hint,
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide:

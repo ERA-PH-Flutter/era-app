@@ -72,7 +72,8 @@ class HomeWeb extends GetView<HomeWebController> {
     return SingleChildScrollView(
       child: Container(
         width: Get.width,
-        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+        padding: EdgeInsets.symmetric(
+            horizontal: EraTheme.paddingWidthAdmin + 10.sp),
         child: Column(
           children: [
             sb20(),

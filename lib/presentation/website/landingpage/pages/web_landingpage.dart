@@ -11,6 +11,7 @@ import 'package:eraphilippines/presentation/website/form/pages/about_us_web.dart
 import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
 import 'package:eraphilippines/presentation/website/home_website/pages/home_web.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controllers/web_landingpage_controller.dart';
+import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,21 +41,26 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
                   Image.asset(
                     AppEraAssets.eraPh,
                     height: 120.h,
+                    width: 230.h,
                   ),
                   navigation(),
-                  Button(
-                    borderRadius: BorderRadius.circular(20),
-                    width: 300.w,
-                    onTap: () {
-                      // controller.login();
-                      showAuthenticationDialog();
-                      //  Get.toNamed(RouteString.webLoginPage);
-                      print('print click!!!');
-                    },
-                    text: "AGENT/BROKER LOGIN",
-                    bgColor: AppColors.kRedColor,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
+                  Container(
+                    width: Get.width / 4,
+                    child: Button(
+                      margin: EdgeInsets.only(left: 30.w),
+                      borderRadius: BorderRadius.circular(20),
+                      width: 300.w,
+                      onTap: () {
+                        // controller.login();
+                        showAuthenticationDialog();
+                        //  Get.toNamed(RouteString.webLoginPage);
+                        print('print click!!!');
+                      },
+                      text: "AGENT/BROKER LOGIN",
+                      bgColor: AppColors.kRedColor,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               )
@@ -193,9 +199,8 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
               AboutUsWeb(), //01
               SellPropertyWeb(),
               BuyWeb(),
-              AboutUsWeb(), //01
-              AboutUsWeb(), //01
-              JoinEraWeb()
+              JoinEraWeb(),
+              CompanyNewsWeb(),
             ],
           );
         })

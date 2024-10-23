@@ -62,7 +62,7 @@ class TextformfieldWidget extends StatelessWidget {
       textInputAction: textInputAction ?? TextInputAction.none,
       decoration: InputDecoration(
         contentPadding:
-            EdgeInsets.only(top: 10.h, bottom: 0.h, left: 10.w, right: 0.w),
+            EdgeInsets.only(top: 20.h, bottom: 0.h, left: 10.w, right: 0.w),
         suffixIcon: suffixIcon,
         hintText: hintText,
         hintStyle: hintstlye ??
