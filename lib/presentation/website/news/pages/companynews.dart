@@ -89,12 +89,13 @@ class CompanyNewsWeb extends GetView<NewsController> {
                           children: [
                             EraText(
                               text: controller.news[i].title,
-                              fontSize: EraTheme.subHeaderWeb,
+                              fontSize: EraTheme.subHeaderWeb - 10.sp,
                               color: AppColors.kRedColor,
                               fontWeight: FontWeight.bold,
                               textOverflow: TextOverflow.ellipsis,
                               maxLines: 3,
                             ),
+                            sb10(),
                             EraText(
                               text: controller.news[i].description,
                               fontSize: EraTheme.paragraphWeb - 5.sp,
