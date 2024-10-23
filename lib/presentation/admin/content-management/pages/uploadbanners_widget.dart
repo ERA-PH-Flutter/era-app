@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:reorderables/reorderables.dart';
 
 import '../../../../app/constants/theme.dart';
 
@@ -118,49 +119,53 @@ class UploadBannersWidget extends StatelessWidget {
             if (addListingsController.images.isEmpty) {
               return _buildUploadPhoto();
             } else {
-              return GridView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: maxImages == 1 ? 1 : 3,
-                  mainAxisSpacing: 10.h,
-                  crossAxisSpacing: 10.h,
-                  mainAxisExtent: maxImages == 1 ? 500.h : null,
-                ),
-                itemCount: addListingsController.images.length,
-                itemBuilder: (context, index) {
+              return ReorderableWrap(
+                onReorder: (oldIndex, newIndex) {
+                  // if (oldIndex < newIndex) {
+                  //   newIndex -= 1;
+                  // }
+                  //testing
+                  if (oldIndex != newIndex) {
+                    var oldImage = addListingsController.images[oldIndex];
+                    var newImage = addListingsController.images[newIndex];
+                    addListingsController.images[oldIndex] = newImage;
+                    addListingsController.images[newIndex] = oldImage;
+                  } else {
+                    print('No change in order, indices are the same.');
+                  }
+                },
+                children:
+                    List.generate(addListingsController.images.length, (index) {
                   return Stack(
                     children: [
                       Container(
+                        key: ValueKey(index),
                         margin: EdgeInsets.only(right: 10.w, bottom: 10.w),
                         alignment: Alignment.center,
+                        height: 400.h,
+                        width: 500.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
                             fit: BoxFit.cover,
                             image: MemoryImage(
-                                addListingsController.images[index]),
+                              addListingsController.images[index],
+                            ),
                           ),
                         ),
                       ),
                       Positioned(
-                        top: 0,
-                        right: 5.w,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.cancel,
-                            color: AppColors.black,
-                          ),
-                          onPressed: () {
-                            addListingsController.images
-                                .removeAt(index); // Remove image
-                          },
-                        ),
-                      ),
+                          top: 5.h,
+                          right: 0,
+                          child: IconButton(
+                            icon: Icon(Icons.cancel),
+                            onPressed: () {
+                              addListingsController.images.removeAt(index);
+                            },
+                          ))
                     ],
                   );
-                },
+                }),
               );
             }
           }),
