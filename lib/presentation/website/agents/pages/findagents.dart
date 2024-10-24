@@ -7,12 +7,14 @@ import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/listings/agentlistview.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
+import 'package:eraphilippines/presentation/website/agents/controllers/agents_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,17 +23,19 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/services/ai_search.dart';
 
-class FindAgents extends GetView<AgentsController> {
-  const FindAgents({super.key});
+class FindAgentsWeb extends GetView<AgentsWebController> {
+  const FindAgentsWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(AgentsWebController());
     SearchResultController searchResultController =
         Get.put(SearchResultController());
     ProjectsController projectsController = Get.put(ProjectsController());
-    return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Container(
+        width: Get.width,
         child: Column(
           children: [
             CachedNetworkImage(
@@ -273,12 +277,12 @@ class FindAgents extends GetView<AgentsController> {
                   ),
                   SizedBox(height: 20.h),
                   Obx(() => switch (controller.agentState.value) {
-                        AgentsState.loading => _loading(),
-                        AgentsState.loaded => _loaded(),
-                        AgentsState.error => _error(),
-                        AgentsState.empty => _empty(),
-                        AgentsState.blank => _blank(),
-                        AgentsState.noFeaturedAgent => _noFeaturedAgent(),
+                        AgentsStateWeb.loading => _loading(),
+                        AgentsStateWeb.loaded => _loaded(),
+                        AgentsStateWeb.error => _error(),
+                        AgentsStateWeb.empty => _empty(),
+                        AgentsStateWeb.blank => _blank(),
+                        AgentsStateWeb.noFeaturedAgent => _noFeaturedAgent(),
                       })
                 ],
               ),

@@ -19,7 +19,10 @@ import 'package:get/get.dart';
 
 import '../../../../router/route_string.dart';
 import '../../../admin/authentication.dart';
+import '../../agents/pages/findagents.dart';
+import '../../form/pages/contactus_web.dart';
 import '../../form/pages/sell_property_web.dart';
+import '../../mortageCalculator.dart/pages/MortageCalculator.dart';
 
 class WebsiteLandingPage extends GetView<WebLandingPageController> {
   const WebsiteLandingPage({super.key});
@@ -195,12 +198,16 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
           return IndexedStack(
             index: controller.currentPage.value,
             children: const [
+              FindAgentsWeb(),
+
+              ContactUsWeb(),
               HomeWeb(), //0
               AboutUsWeb(), //01
               SellPropertyWeb(),
               BuyWeb(),
               JoinEraWeb(),
-              CompanyNewsWeb(),
+              //    CompanyNewsWeb(),
+              MortageCalculatorWeb(),
             ],
           );
         })

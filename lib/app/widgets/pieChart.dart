@@ -33,8 +33,8 @@ class Piechart extends StatelessWidget {
             height: 21.h,
           ),
           SizedBox(
-            width: 200,
-            height: 200,
+            width: 250,
+            height: 250,
             child: PieChart(
               PieChartData(
                   centerSpaceRadius: 0,
@@ -62,7 +62,7 @@ class Piechart extends StatelessWidget {
         EraText(
           text: text,
           color: Colors.black,
-          fontSize: 13.sp,
+          fontSize: EraTheme.paragraph,
         )
       ],
     );
