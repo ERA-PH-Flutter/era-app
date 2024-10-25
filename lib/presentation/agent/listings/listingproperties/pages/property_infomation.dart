@@ -821,13 +821,13 @@ class PropertyInformation extends GetView<ListingController> {
         final RxInt currentPage = RxInt(initialIndex);
 
         return Dialog(
-          insetPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 180.h),
+          insetPadding: EdgeInsets.zero,
           child: Stack(
             alignment: Alignment.center,
             children: [
               Positioned(
-                top: 0.h,
-                right: 0.w,
+                top: 20.h,
+                right: 10.w,
                 left: 0.w,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -922,14 +922,14 @@ class PropertyInformation extends GetView<ListingController> {
                       ref: controller.images[index],
                       width: Get.width,
                       height: Get.height,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     );
                   },
                 ),
               ),
 
               Positioned(
-                bottom: 0.h,
+                bottom: 20.h,
                 child: Obx(() {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
