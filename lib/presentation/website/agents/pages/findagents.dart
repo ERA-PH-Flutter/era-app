@@ -2,15 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
-import 'package:eraphilippines/app/widgets/listings/agentlistview.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
@@ -19,15 +17,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/constants/screens.dart';
-import '../../../../app/services/ai_search.dart';
+import '../../../../app/widgets/listings_web/agentlistview.dart';
+import '../controllers/agentYT_controller.dart';
 
 class FindAgentsWeb extends GetView<AgentsWebController> {
   const FindAgentsWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
+    agentYtController ytController = Get.put(agentYtController());
     Get.put(AgentsWebController());
     SearchResultController searchResultController =
         Get.put(SearchResultController());
@@ -44,15 +45,29 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
               fit: BoxFit.cover,
               width: Get.width,
             ),
+            // SizedBox(
+            //   height: Get.height - 330.h,
+            //   width: Get.width,
+            //   child: YoutubePlayer(
+            //     controller: ytController.youtubePlayerController,
+            //     bottomActions: const [
+            //       CurrentPosition(),
+            //       ProgressBar(isExpanded: true),
+            //       RemainingDuration(),
+            //       FullScreenButton(),
+            //     ],
+            //   ),
+            // ),
+            sb50(),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: EraTheme.paddingWidth, vertical: 50.h),
+                  horizontal: EraTheme.paddingWidthAdmin + 10.sp),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   EraText(
                     text: 'Find an ERA Real Estate Agent',
-                    fontSize: EraTheme.header,
+                    fontSize: EraTheme.headerWeb,
                     fontWeight: FontWeight.w600,
                     color: AppColors.kRedColor,
                     textAlign: TextAlign.center,
@@ -182,70 +197,6 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                       ],
                     ),
                   ),
-                  // AgentListView(agentsModels:AgentsItems.agentsModels),
-                  // EraText(
-                  //   text: 'HAVE AN AGENT ALREADY?',
-                  //   fontSize: EraTheme.subHeader,
-                  //   fontWeight: FontWeight.w600,
-                  //   color: AppColors.blue,
-                  // ),
-                  // SizedBox(height: 5.h),
-                  // TextformfieldWidget(
-                  //   controller: controller.agentName,
-                  //   hintText: 'Type Name Here',
-                  //   maxLines: 1,
-                  //   keyboardType: TextInputType.text,
-                  //   hintstlye: TextStyle(
-                  //       color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
-                  // ),
-                  // SizedBox(height: 10.h),
-                  // EraText(
-                  //   text: 'SEARCH VIA AGENT ID',
-                  //   fontSize: EraTheme.subHeader,
-                  //   fontWeight: FontWeight.w600,
-                  //   color: AppColors.blue,
-                  // ),
-                  // SizedBox(height: 5.h),
-                  // TextformfieldWidget(
-                  //   controller: controller.agentId,
-                  //   hintText: 'Enter Agent ID',
-                  //   maxLines: 1,
-                  //   //agent id is a nuumber or not
-                  //   keyboardType: TextInputType.text,
-                  //   hintstlye: TextStyle(
-                  //       color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
-                  // ),
-                  // SizedBox(height: 10.h),
-                  // EraText(
-                  //   text: 'LOOKING FOR ONE?',
-                  //   fontSize: EraTheme.subHeader,
-                  //   fontWeight: FontWeight.w600,
-                  //   color: AppColors.blue,
-                  // ),
-                  // SizedBox(height: 5.h),
-                  // TextformfieldWidget(
-                  //   controller: controller.agentLocation,
-                  //   hintText: 'Type Your Location',
-                  //   maxLines: 1,
-                  //   keyboardType: TextInputType.text,
-                  //   hintstlye: TextStyle(
-                  //       color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
-                  // ),
-                  // SizedBox(height: 20.h),
-                  // Button(
-                  //   text: 'SEARCH',
-                  //   fontSize: 25.sp,
-                  //   onTap: () {
-                  //     controller.search();
-                  //   },
-                  //   bgColor: AppColors.kRedColor,
-                  //   height: 48.h,
-                  //   width: 500.w,
-                  //   fontWeight: FontWeight.w600,
-                  //   margin: EdgeInsets.symmetric(horizontal: 0),
-                  // ),
-
-                  //controller.agentCount.toString()} to count the number of agents
                   SizedBox(height: 20.h),
                   FutureBuilder(
                     future: FirebaseFirestore.instance
@@ -257,7 +208,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                       if (snapshot.hasData) {
                         return EraText(
                           text: "${snapshot.data!.count} ERA Agents",
-                          fontSize: EraTheme.small + 6.sp,
+                          fontSize: EraTheme.paragraphWeb + 6.sp,
                           fontWeight: FontWeight.bold,
                           color: AppColors.kRedColor,
                           textAlign: TextAlign.center,
@@ -270,7 +221,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                   EraText(
                     text:
                         "Your Go-To Professionals for Seamless Property Transactions",
-                    fontSize: EraTheme.small,
+                    fontSize: EraTheme.paragraphWeb,
                     fontWeight: FontWeight.w600,
                     color: AppColors.hint,
                     textAlign: TextAlign.start,
@@ -364,7 +315,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
             color: AppColors.blue,
           )),
       Obx(
-        () => AgentListView(agentsModels: controller.results.value),
+        () => AgentListViewWeb(agentInfo: controller.results.value),
       )
     ]);
   }

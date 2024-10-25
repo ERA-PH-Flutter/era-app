@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/services/ai_search.dart';
 import '../../../../app/services/firebase_database.dart';
@@ -57,6 +58,7 @@ class AgentsWebController extends GetxController with BaseController {
     } catch (e) {
       agentState.value = AgentsStateWeb.error;
     }
+
     super.onInit();
   }
 
