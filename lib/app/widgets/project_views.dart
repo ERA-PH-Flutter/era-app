@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import '../../presentation/agent/listings/listingproperties/pages/property_infomation.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../constants/sized_box.dart';
@@ -29,7 +30,9 @@ class ProjectViews {
     return true;
   }
 
-  var currentImage = ''.obs;
+  var currentImageIndoor = ''.obs;
+  var currentImageOutdoor = ''.obs;
+
   final RxInt currentPage = 0.obs;
   _buildImage({
     height,
@@ -263,8 +266,8 @@ class ProjectViews {
                               builder: (BuildContext context) {
                                 final PageController pageController =
                                     PageController(
-                                        initialPage: data['images']
-                                            .indexOf(currentImage.value));
+                                        initialPage: data['images'].indexOf(
+                                            currentImageOutdoor.value));
                                 return Dialog(
                                   insetPadding: EdgeInsets.symmetric(
                                       horizontal: 5.w, vertical: 180.h),
@@ -272,13 +275,13 @@ class ProjectViews {
                                   child: Stack(
                                     children: [
                                       Positioned(
-                                          top: 15.h,
-                                          right: 0.w,
+                                          top: 20.h,
+                                          right: 10.w,
                                           left: 0.w,
                                           child: Obx(
                                             () => EraText(
                                               text:
-                                                  "${data['images'].indexOf(currentImage.value) + 1} / ${data['images'].length}",
+                                                  "${data['images'].indexOf(currentImageOutdoor.value) + 1} / ${data['images'].length}",
                                               textAlign: TextAlign.center,
                                               color: Colors.white,
                                               fontSize: 18.sp,
@@ -309,22 +312,32 @@ class ProjectViews {
                                           itemCount: data['images'].length,
                                           controller: pageController,
                                           onPageChanged: (index) {
-                                            currentImage.value =
+                                            currentImageOutdoor.value =
                                                 data['images'][index];
                                           },
                                           itemBuilder: (context, index) =>
                                               Center(
-                                            child: CloudStorage()
-                                                .imageLoaderProvider(
-                                              ref: data['images'][index],
-                                              height: Get.height,
-                                              width: Get.width,
-                                            ),
+                                            child: Builder(builder: (context) {
+                                              if (kIsWeb) {
+                                                return _buildImage(
+                                                  image: MemoryImage(
+                                                      data['images'][index]),
+                                                  height: Get.height,
+                                                  width: Get.width,
+                                                );
+                                              }
+                                              return CloudStorage().imageLoader(
+                                                ref: data['images'][index],
+                                                height: Get.height,
+                                                width: Get.width,
+                                                fit: BoxFit.contain,
+                                              );
+                                            }),
                                           ),
                                         ),
                                       ),
                                       Positioned(
-                                        bottom: 0.h,
+                                        bottom: 20.h,
                                         left: 0,
                                         right: 0,
                                         child: Obx(() {
@@ -336,7 +349,7 @@ class ProjectViews {
                                               (index) {
                                                 bool isActive = data['images']
                                                         [index] ==
-                                                    currentImage.value;
+                                                    currentImageOutdoor.value;
                                                 return Container(
                                                   margin: EdgeInsets.symmetric(
                                                       horizontal: 3.w),
@@ -364,23 +377,31 @@ class ProjectViews {
                           child: SizedBox(
                             width: Get.width,
                             height: 320.h,
-                            child: Builder(
-                              builder: (context) {
-                                if (kIsWeb) {
-                                  return _buildImage(
-                                    image: MemoryImage(data['images'][index]),
-                                    width: Get.width,
-                                    height: 250.h,
-                                  );
-                                }
-                                return CloudStorage().imageLoaderProvider(
-                                    ref: currentImage.value.isEmpty
-                                        ? data['images'][index]
-                                        : currentImage.value,
-                                    height: 250.h,
-                                    width: Get.width);
-                              },
-                            ),
+                            child: Obx(() {
+                              final displayImage =
+                                  currentImageOutdoor.value.isNotEmpty
+                                      ? currentImageOutdoor.value
+                                      : data['images'].isNotEmpty
+                                          ? data['images'][0]
+                                          : null;
+
+                              if (displayImage == null) {
+                                return Container();
+                              }
+
+                              if (kIsWeb) {
+                                return _buildImage(
+                                  image: MemoryImage(displayImage),
+                                  width: Get.width,
+                                  height: 50.h,
+                                );
+                              }
+                              return CloudStorage().imageLoader(
+                                ref: displayImage,
+                                height: 250.h,
+                                width: Get.width,
+                              );
+                            }),
                           ),
                         ),
                       ),
@@ -395,10 +416,11 @@ class ProjectViews {
                             itemCount: data['images'].length,
                             itemBuilder: (context, index) {
                               final image = data['images'][index];
-                              final isSelected = currentImage.value == image;
+                              final isSelected =
+                                  currentImageOutdoor.value == image;
                               return GestureDetector(
                                   onTap: () {
-                                    currentImage.value = image;
+                                    currentImageOutdoor.value = image;
                                   },
                                   child: Container(
                                     margin:
@@ -469,7 +491,6 @@ class ProjectViews {
                   ),
                 );
               } else if (data['sub_type'] == 'gallery') {
-                currentImage.value;
                 return SizedBox(
                   height: 350.h,
                   child: Stack(
@@ -483,7 +504,7 @@ class ProjectViews {
                                 final PageController pageController =
                                     PageController(
                                         initialPage: data['images']
-                                            .indexOf(currentImage.value));
+                                            .indexOf(currentImageIndoor.value));
                                 return Dialog(
                                   insetPadding: EdgeInsets.symmetric(
                                       horizontal: 5.w, vertical: 180.h),
@@ -491,13 +512,13 @@ class ProjectViews {
                                   child: Stack(
                                     children: [
                                       Positioned(
-                                          top: 15.h,
-                                          right: 0.w,
+                                          top: 20.h,
+                                          right: 10.w,
                                           left: 0.w,
                                           child: Obx(
                                             () => EraText(
                                               text:
-                                                  "${data['images'].indexOf(currentImage.value) + 1} / ${data['images'].length}",
+                                                  "${data['images'].indexOf(currentImageIndoor.value) + 1} / ${data['images'].length}",
                                               textAlign: TextAlign.center,
                                               color: Colors.white,
                                               fontSize: 18.sp,
@@ -528,7 +549,7 @@ class ProjectViews {
                                           itemCount: data['images'].length,
                                           controller: pageController,
                                           onPageChanged: (index) {
-                                            currentImage.value =
+                                            currentImageIndoor.value =
                                                 data['images'][index];
                                           },
                                           itemBuilder: (context, index) =>
@@ -542,18 +563,18 @@ class ProjectViews {
                                                   width: Get.width,
                                                 );
                                               }
-                                              return CloudStorage()
-                                                  .imageLoaderProvider(
+                                              return CloudStorage().imageLoader(
                                                 ref: data['images'][index],
                                                 height: Get.height,
                                                 width: Get.width,
+                                                fit: BoxFit.contain,
                                               );
                                             }),
                                           ),
                                         ),
                                       ),
                                       Positioned(
-                                        bottom: 0.h,
+                                        bottom: 20.h,
                                         left: 0,
                                         right: 0,
                                         child: Obx(() {
@@ -565,7 +586,7 @@ class ProjectViews {
                                               (index) {
                                                 bool isActive = data['images']
                                                         [index] ==
-                                                    currentImage.value;
+                                                    currentImageIndoor.value;
                                                 return Container(
                                                   margin: EdgeInsets.symmetric(
                                                       horizontal: 3.w),
@@ -593,18 +614,26 @@ class ProjectViews {
                           child: SizedBox(
                             width: Get.width,
                             height: 320.h,
-                            child: Builder(builder: (context) {
+                            child: Obx(() {
+                              final displayImage =
+                                  currentImageOutdoor.value.isNotEmpty
+                                      ? currentImageOutdoor.value
+                                      : data['images'].isNotEmpty
+                                          ? data['images'][0]
+                                          : null;
+                              if (displayImage == null) {
+                                return Container();
+                              }
+
                               if (kIsWeb) {
                                 return _buildImage(
-                                  image: MemoryImage(data['images'][index]),
-                                  height: 250.h,
+                                  image: MemoryImage(displayImage),
                                   width: Get.width,
+                                  height: 50.h,
                                 );
                               }
                               return CloudStorage().imageLoaderProvider(
-                                ref: currentImage.value.isEmpty
-                                    ? data['images'][index]
-                                    : currentImage.value,
+                                ref: displayImage,
                                 height: 250.h,
                                 width: Get.width,
                               );
@@ -623,10 +652,11 @@ class ProjectViews {
                             itemCount: data['images'].length,
                             itemBuilder: (context, index) {
                               final image = data['images'][index];
-                              final isSelected = currentImage.value == image;
+                              final isSelected =
+                                  currentImageIndoor.value == image;
                               return GestureDetector(
                                   onTap: () {
-                                    currentImage.value = image;
+                                    currentImageIndoor.value = image;
                                   },
                                   child: Container(
                                     margin:
