@@ -405,26 +405,22 @@ class ProjectViews {
                           ),
                         ),
                       ),
-                      Positioned(
-                        bottom: 0.h,
-                        child: SizedBox(
-                          width: Get.width,
-                          height: 70.h,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: data['images'].length,
-                            itemBuilder: (context, index) {
-                              final image = data['images'][index];
-                              final isSelected =
-                                  currentImageOutdoor.value == image;
-                              return GestureDetector(
+                      Obx(
+                        () => Positioned(
+                          bottom: 0.h,
+                          child: SizedBox(
+                            width: Get.width,
+                            height: 70.h,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children:
+                                  List.generate(data['images'].length, (index) {
+                                final image = data['images'][index];
+                                final isSelected =
+                                    currentImageOutdoor.value == image;
+                                return GestureDetector(
                                   onTap: () {
                                     currentImageOutdoor.value = image;
-                                    print(
-                                        'isslected for image at index $index: $isSelected');
-                                    print(
-                                        'current selected image: ${currentImageOutdoor.value}');
                                   },
                                   child: Container(
                                     margin:
@@ -452,8 +448,10 @@ class ProjectViews {
                                         );
                                       },
                                     ),
-                                  ));
-                            },
+                                  ),
+                                );
+                              }),
+                            ),
                           ),
                         ),
                       ),
@@ -645,51 +643,52 @@ class ProjectViews {
                           ),
                         ),
                       ),
-                      Positioned(
-                        bottom: 0.h,
-                        child: SizedBox(
-                          width: Get.width,
-                          height: 70.h,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: data['images'].length,
-                            itemBuilder: (context, index) {
-                              final image = data['images'][index];
-                              final isSelected =
-                                  currentImageIndoor.value == image;
-                              return GestureDetector(
-                                  onTap: () {
-                                    currentImageIndoor.value = image;
-                                  },
-                                  child: Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 5.w),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: AppColors.hint,
-                                        width: isSelected ? 5.w : 1.w,
+                      Obx(
+                        () => Positioned(
+                          bottom: 0.h,
+                          child: SizedBox(
+                            width: Get.width,
+                            height: 70.h,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children:
+                                  List.generate(data['images'].length, (index) {
+                                final image = data['images'][index];
+                                final isSelected =
+                                    currentImageIndoor.value == image;
+                                return GestureDetector(
+                                    onTap: () {
+                                      currentImageIndoor.value = image;
+                                    },
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 5.w),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: AppColors.hint,
+                                          width: isSelected ? 5.w : 1.w,
+                                        ),
                                       ),
-                                    ),
-                                    child: Builder(
-                                      builder: (context) {
-                                        if (kIsWeb) {
-                                          return _buildImage(
-                                            image: MemoryImage(image),
+                                      child: Builder(
+                                        builder: (context) {
+                                          if (kIsWeb) {
+                                            return _buildImage(
+                                              image: MemoryImage(image),
+                                              width: Get.width / 6,
+                                              height: 70.h,
+                                            );
+                                          }
+                                          return CloudStorage()
+                                              .imageLoaderProvider(
+                                            ref: image,
                                             width: Get.width / 6,
                                             height: 70.h,
                                           );
-                                        }
-                                        return CloudStorage()
-                                            .imageLoaderProvider(
-                                          ref: image,
-                                          width: Get.width / 6,
-                                          height: 70.h,
-                                        );
-                                      },
-                                    ),
-                                  ));
-                            },
+                                        },
+                                      ),
+                                    ));
+                              }),
+                            ),
                           ),
                         ),
                       ),
