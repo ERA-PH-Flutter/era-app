@@ -746,24 +746,29 @@ class ProjectViews {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        infoTilePreview(
-                            AppEraAssets.floorArea,
-                            TextEditingController(
-                                text: data['floor_area'].toString()),
-                            ' sqm',
-                            (value) {}),
-                        infoTilePreview(
-                            AppEraAssets.numberOfBed,
-                            TextEditingController(
-                                text: data['beds'].toString()),
-                            '',
-                            (value) {}),
-                        infoTilePreview(
-                            AppEraAssets.loggiaSize,
-                            TextEditingController(
-                                text: data['loggia_size'].toString()),
-                            ' sqm',
-                            (value) {}),
+                        if (data['floor_area'] != null &&
+                            data['floor_area'] != 0)
+                          infoTilePreview(
+                              AppEraAssets.floorArea,
+                              TextEditingController(
+                                  text: data['floor_area'].toString()),
+                              ' sqm',
+                              (value) {}),
+                        if (data['beds'] != null && data['floor_area'] != 0)
+                          infoTilePreview(
+                              AppEraAssets.numberOfBed,
+                              TextEditingController(
+                                  text: data['beds'].toString()),
+                              '',
+                              (value) {}),
+                        if (data['loggia_size'] != null &&
+                            data['floor_area'] != 0)
+                          infoTilePreview(
+                              AppEraAssets.loggiaSize,
+                              TextEditingController(
+                                  text: data['loggia_size'].toString()),
+                              ' sqm',
+                              (value) {}),
                       ],
                     ),
                     sb20(),

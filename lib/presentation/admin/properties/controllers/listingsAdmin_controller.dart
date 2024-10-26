@@ -235,56 +235,10 @@ class ListingsAdminController extends GetxController {
     bannerPhotos.clear();
   }
 
-  //EraUser? user;
-  //EraUser? user;
-
-//   TextEditingController locationController = TextEditingController();
-//   TextEditingController propertyController = TextEditingController();
-//   TextEditingController priceController = TextEditingController();
-
-//   //projects
-//   TextEditingController propertyNameController = TextEditingController();
-//   TextEditingController developerController = TextEditingController();
-//   TextEditingController featuredPhotosController = TextEditingController();
-//   TextEditingController descriptionController = TextEditingController();
-
-//   TextEditingController addFeaturedDesc1 = TextEditingController();
-//   TextEditingController addFeaturedDesc2 = TextEditingController();
-//   TextEditingController addFeaturedDesc3 = TextEditingController();
-//   TextEditingController addFeaturedDesc4 = TextEditingController();
-
-//   TextEditingController outdoorAmenitiesController = TextEditingController();
-//   TextEditingController indoorAmenitiesController = TextEditingController();
-
-//   TextEditingController locationControllers = TextEditingController();
-
-//   TextEditingController areaController = TextEditingController();
-//   TextEditingController roomController = TextEditingController();
-//   TextEditingController balconyController = TextEditingController();
-//   TextEditingController areaController1 = TextEditingController();
-//   TextEditingController roomController2 = TextEditingController();
-//   TextEditingController balconyController3 = TextEditingController();
-//   TextEditingController areaController4 = TextEditingController();
-//   TextEditingController roomController5 = TextEditingController();
-//   TextEditingController balconyController6 = TextEditingController();
-
-//   TextEditingController carouselDesc = TextEditingController();
-//   TextEditingController carouselDesc2 = TextEditingController();
-//   TextEditingController carouselDesc3 = TextEditingController();
-
-// //
-//   TextEditingController vrUploadController = TextEditingController();
-//   TextEditingController vrUploadController2 = TextEditingController();
-
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();
   TextEditingController priceController = TextEditingController();
-//   TextEditingController propertyNameC = TextEditingController();
-//   TextEditingController descriptionTitleC = TextEditingController();
-//   TextEditingController descriptionC = TextEditingController();
-//   TextEditingController carouselTitleC = TextEditingController();
-//   TextEditingController carouselFooterC = TextEditingController();
-//   TextEditingController allDescriptionC = TextEditingController();
+
   var currentImage = <Uint8List>[].obs;
   Stream<QuerySnapshot<Map<String, dynamic>>> streamSearch = FirebaseFirestore
       .instance
