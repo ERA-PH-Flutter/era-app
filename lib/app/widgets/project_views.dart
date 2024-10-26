@@ -421,6 +421,10 @@ class ProjectViews {
                               return GestureDetector(
                                   onTap: () {
                                     currentImageOutdoor.value = image;
+                                    print(
+                                        'isslected for image at index $index: $isSelected');
+                                    print(
+                                        'current selected image: ${currentImageOutdoor.value}');
                                   },
                                   child: Container(
                                     margin:
@@ -616,8 +620,8 @@ class ProjectViews {
                             height: 320.h,
                             child: Obx(() {
                               final displayImage =
-                                  currentImageOutdoor.value.isNotEmpty
-                                      ? currentImageOutdoor.value
+                                  currentImageIndoor.value.isNotEmpty
+                                      ? currentImageIndoor.value
                                       : data['images'].isNotEmpty
                                           ? data['images'][0]
                                           : null;
