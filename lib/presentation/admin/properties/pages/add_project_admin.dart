@@ -30,7 +30,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
   @override
   Widget build(BuildContext context) {
     ListingsAdminController controller = Get.put(ListingsAdminController());
-    return Obx((){
+    return Obx(() {
       return switch (controller.listingState.value) {
         ListingsAState.loading => _loading(),
         ListingsAState.loaded => _loaded(),
@@ -39,7 +39,8 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
       };
     });
   }
-  _loaded(){
+
+  _loaded() {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
@@ -85,7 +86,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Button(
-                                    onTap: (){
+                                    onTap: () {
                                       projectsData = null;
                                       projectId = null;
                                       controller.projectLego.clear();
@@ -94,13 +95,16 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     margin: EdgeInsets.symmetric(horizontal: 5),
                                     width: 150.w,
                                     color: Colors.black,
-                                    border: Border.all(width: 2.w, color: AppColors.blue,),
+                                    border: Border.all(
+                                      width: 2.w,
+                                      color: AppColors.blue,
+                                    ),
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                   Button(
                                     onTap: () async {
                                       var hasDeveloperName = false;
-                                      var hasCarousel = false;
+                                      // var hasCarousel = false;
                                       var hasProjectLogo = false;
                                       var hasProjectTitled = false;
                                       for (var lego in controller.projectLego) {
@@ -110,185 +114,271 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                         if (lego['type'] == "Project Logo") {
                                           hasProjectLogo = true;
                                         }
-                                        if (lego['type'] == "Carousel") {
-                                          hasCarousel = true;
-                                        }
+                                        // if (lego['type'] == "Carousel") {
+                                        //   hasCarousel = true;
+                                        // }
                                         if (lego['type'] == "Developer Name") {
                                           hasDeveloperName = true;
                                         }
                                       }
                                       if (!hasDeveloperName ||
-                                          !hasCarousel ||
+                                          // !hasCarousel ||
                                           !hasProjectLogo ||
                                           !hasProjectTitled) {
                                         BaseController().showErroDialog(
                                             title: "Error",
                                             description:
-                                            "Project must have Title, Developer Name, Carousel and a Logo",
-                                            onTap:(){
-
-                                            }
-                                        );
+                                                "Project must have Title, Developer Name and a Logo",
+                                            onTap: () {});
                                         return;
                                       }
-                                      var titleController = TextEditingController();
-                                      if(projectsData != null){
+                                      var titleController =
+                                          TextEditingController();
+                                      if (projectsData != null) {
                                         titleController.text = pjTitle ?? "";
                                       }
                                       showCupertinoDialog(
-                                        context: Get.context!,
-                                        builder: (context){
-                                          return Dialog(
-                                            backgroundColor: Colors.white,
-                                            child: Wrap(
-                                              children: [
-                                                Container(
-                                                  width: Get.width/3,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(20.r)
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 21.h),
-                                                  child: Column(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          EraText(
-                                                            text: "Project Title",
-                                                            fontSize: 18.sp,
-                                                            color: Colors.black,
-                                                            fontWeight: FontWeight.w600,
-                                                          ),
-                                                          IconButton(
-                                                            onPressed: (){
-                                                              Get.back();
-                                                            },
-                                                            icon: Icon(Icons.cancel,size: 30.sp,color: Colors.red,),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      SizedBox(height: 5.h,),
-                                                      AppTextField(
-                                                        height: 48.h,
-                                                        isSuffix: false,
-                                                        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                                                        isPrefix: false,
-                                                        controller: titleController,
-                                                        hint: "Project Title",
-                                                      ),
-                                                      SizedBox(height: 15.h,),
-                                                      Button(
-                                                        width: Get.width,
-                                                        text: 'SUBMIT',
-                                                        bgColor: AppColors.blue,
-                                                        borderRadius: BorderRadius.circular(30),
-                                                        onTap: ()async{
-                                                          if(titleController.text.isNotEmpty){
-                                                            try {
-                                                              BaseController().showLoading();
-                                                              for (var lego in controller.projectLego) {
-                                                                if ([
-                                                                  'Banner Images',
-                                                                  'Project Logo',
-                                                                  'Blurb'
-                                                                ].contains(lego['type'])) {
-                                                                  lego['image'] = await controller.uploadSingle(lego['image']);
-                                                                } else if (['Carousel'].contains(lego['type'])) {
-                                                                  lego['images'] = await controller.uploadMultiple(lego['images']);
-                                                                } else if ([
-                                                                  'Outdoor Amenities',
-                                                                  'Indoor Amenities'
-                                                                ].contains(lego['type'])) {
-                                                                  if (lego['sub_type'] == 'blurb') {
-                                                                    lego['image'] = await controller.uploadSingle(lego['image']);
-                                                                  } else {
-                                                                    lego['images'] = await controller.uploadMultiple(lego['images']);
+                                          context: Get.context!,
+                                          builder: (context) {
+                                            return Dialog(
+                                              backgroundColor: Colors.white,
+                                              child: Wrap(
+                                                children: [
+                                                  Container(
+                                                    width: Get.width / 3,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    20.r)),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: EraTheme
+                                                                .paddingWidth,
+                                                            vertical: 21.h),
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            EraText(
+                                                              text:
+                                                                  "Project Title",
+                                                              fontSize: 18.sp,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                            IconButton(
+                                                              onPressed: () {
+                                                                Get.back();
+                                                              },
+                                                              icon: Icon(
+                                                                Icons.cancel,
+                                                                size: 30.sp,
+                                                                color:
+                                                                    Colors.red,
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5.h,
+                                                        ),
+                                                        AppTextField(
+                                                          height: 48.h,
+                                                          isSuffix: false,
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      EraTheme
+                                                                          .paddingWidth),
+                                                          isPrefix: false,
+                                                          controller:
+                                                              titleController,
+                                                          hint: "Project Title",
+                                                        ),
+                                                        SizedBox(
+                                                          height: 15.h,
+                                                        ),
+                                                        Button(
+                                                          width: Get.width,
+                                                          text: 'SUBMIT',
+                                                          bgColor:
+                                                              AppColors.blue,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(30),
+                                                          onTap: () async {
+                                                            if (titleController
+                                                                .text
+                                                                .isNotEmpty) {
+                                                              try {
+                                                                BaseController()
+                                                                    .showLoading();
+                                                                for (var lego
+                                                                    in controller
+                                                                        .projectLego) {
+                                                                  if ([
+                                                                    'Banner Images',
+                                                                    'Project Logo',
+                                                                    'Blurb'
+                                                                  ].contains(lego[
+                                                                      'type'])) {
+                                                                    lego['image'] =
+                                                                        await controller
+                                                                            .uploadSingle(lego['image']);
+                                                                  } else if ([
+                                                                    'Carousel'
+                                                                  ].contains(lego[
+                                                                      'type'])) {
+                                                                    lego['images'] =
+                                                                        await controller
+                                                                            .uploadMultiple(lego['images']);
+                                                                  } else if ([
+                                                                    'Outdoor Amenities',
+                                                                    'Indoor Amenities'
+                                                                  ].contains(lego[
+                                                                      'type'])) {
+                                                                    if (lego[
+                                                                            'sub_type'] ==
+                                                                        'blurb') {
+                                                                      lego['image'] =
+                                                                          await controller
+                                                                              .uploadSingle(lego['image']);
+                                                                    } else {
+                                                                      lego['images'] =
+                                                                          await controller
+                                                                              .uploadMultiple(lego['images']);
+                                                                    }
                                                                   }
                                                                 }
-                                                              }
-                                                              Project? project;
-                                                              if(projectsData == null){
-                                                                project = Project.fromJSON({
-                                                                  'uploaded_by': user == null
-                                                                      ? "UnknownAdmin"
-                                                                      : user!.id,
-                                                                  'title' : titleController.text,
-                                                                  'date_created': DateTime.now(),
-                                                                  'date_updated': DateTime.now(),
-                                                                  'order_id': await controller.getOrderCount(),
-                                                                  'data': controller.projectLego
-                                                                });
-                                                              }
-                                                              else{
-                                                                Project p = await Project.getById(projectId);
-                                                                project = Project.fromJSON({
-                                                                  'id' : p.id,
-                                                                  'title' : titleController.text,
-                                                                  'uploaded_by': p.uploadedBy,
-                                                                  'date_created': p.dateCreated,
-                                                                  'date_updated': DateTime.now(),
-                                                                  'order_id': p.orderId,
-                                                                  'data': controller.projectLego
-                                                                });
-                                                              }
-                                                              if(projectsData != null){
-                                                                print(project.toMap());
-                                                                await project.updateProject();
-                                                                await Logs(
-                                                                    title:
-                                                                    "${user!.firstname} ${user!.lastname} updated a project with ID ${project.id}",
-                                                                    type: "project")
-                                                                    .add();
-                                                                for (var pd in controller.oldImages) {
-                                                                  await CloudStorage().deleteFileDirect(docRef: pd);
-                                                                }
-                                                              }
-                                                              else{
-                                                                await project.add();
-                                                                await Logs(
-                                                                    title:
-                                                                    "${user!.firstname} ${user!.lastname} added a project with ID ${project.id}",
-                                                                    type: "project")
-                                                                    .add();
-                                                              }
-                                                              BaseController().showSuccessDialog(
-                                                                  title: "Success!",
-                                                                  description:
-                                                                  "Project ${projectsData != null ? 'update' : 'upload'} success!",
-                                                                  hitApi: () {
-                                                                    Get.back();
-                                                                    Get.back();
-                                                                    Get.back();
-                                                                    Get.find<LandingPageController>()
-                                                                        .onSectionSelected(19);
+                                                                Project?
+                                                                    project;
+                                                                if (projectsData ==
+                                                                    null) {
+                                                                  project = Project
+                                                                      .fromJSON({
+                                                                    'uploaded_by': user ==
+                                                                            null
+                                                                        ? "UnknownAdmin"
+                                                                        : user!
+                                                                            .id,
+                                                                    'title':
+                                                                        titleController
+                                                                            .text,
+                                                                    'date_created':
+                                                                        DateTime
+                                                                            .now(),
+                                                                    'date_updated':
+                                                                        DateTime
+                                                                            .now(),
+                                                                    'order_id':
+                                                                        await controller
+                                                                            .getOrderCount(),
+                                                                    'data': controller
+                                                                        .projectLego
                                                                   });
-                                                            } catch (e,ex) {
-                                                              print(ex);
-                                                              BaseController().showErroDialog(
-                                                                  onTap: () {
-                                                                    Get.back();
-                                                                  },
-                                                                  description: '$e');
+                                                                } else {
+                                                                  Project p =
+                                                                      await Project
+                                                                          .getById(
+                                                                              projectId);
+                                                                  project = Project
+                                                                      .fromJSON({
+                                                                    'id': p.id,
+                                                                    'title':
+                                                                        titleController
+                                                                            .text,
+                                                                    'uploaded_by':
+                                                                        p.uploadedBy,
+                                                                    'date_created':
+                                                                        p.dateCreated,
+                                                                    'date_updated':
+                                                                        DateTime
+                                                                            .now(),
+                                                                    'order_id':
+                                                                        p.orderId,
+                                                                    'data': controller
+                                                                        .projectLego
+                                                                  });
+                                                                }
+                                                                if (projectsData !=
+                                                                    null) {
+                                                                  print(project
+                                                                      .toMap());
+                                                                  await project
+                                                                      .updateProject();
+                                                                  await Logs(
+                                                                          title:
+                                                                              "${user!.firstname} ${user!.lastname} updated a project with ID ${project.id}",
+                                                                          type:
+                                                                              "project")
+                                                                      .add();
+                                                                  for (var pd
+                                                                      in controller
+                                                                          .oldImages) {
+                                                                    await CloudStorage()
+                                                                        .deleteFileDirect(
+                                                                            docRef:
+                                                                                pd);
+                                                                  }
+                                                                } else {
+                                                                  await project
+                                                                      .add();
+                                                                  await Logs(
+                                                                          title:
+                                                                              "${user!.firstname} ${user!.lastname} added a project with ID ${project.id}",
+                                                                          type:
+                                                                              "project")
+                                                                      .add();
+                                                                }
+                                                                BaseController()
+                                                                    .showSuccessDialog(
+                                                                        title:
+                                                                            "Success!",
+                                                                        description:
+                                                                            "Project ${projectsData != null ? 'update' : 'upload'} success!",
+                                                                        hitApi:
+                                                                            () {
+                                                                          Get.back();
+                                                                          Get.back();
+                                                                          Get.back();
+                                                                          Get.find<LandingPageController>()
+                                                                              .onSectionSelected(19);
+                                                                        });
+                                                              } catch (e, ex) {
+                                                                print(ex);
+                                                                BaseController()
+                                                                    .showErroDialog(
+                                                                        onTap:
+                                                                            () {
+                                                                          Get.back();
+                                                                        },
+                                                                        description:
+                                                                            '$e');
+                                                              }
+                                                            } else {
+                                                              BaseController()
+                                                                  .showErroDialog(
+                                                                      onTap:
+                                                                          () {},
+                                                                      description:
+                                                                          "Title is empty");
                                                             }
-                                                          }
-                                                          else{
-                                                            BaseController().showErroDialog(
-                                                                onTap: (){
-
-                                                                },
-                                                                description: "Title is empty"
-                                                            );
-                                                          }
-                                                        },
-                                                      )
-                                                    ],
+                                                          },
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }
-                                      );
+                                                ],
+                                              ),
+                                            );
+                                          });
                                     },
                                     margin: EdgeInsets.symmetric(horizontal: 5),
                                     width: 150.w,
@@ -307,7 +397,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                         width: Get.width,
                         child: DropdownButtonHideUnderline(
                           child: Obx(
-                                () => DropdownButton<String>(
+                            () => DropdownButton<String>(
                               focusColor: AppColors.hint.withOpacity(0.7),
                               dropdownColor: AppColors.white,
                               value: controller.selectedOption.isEmpty
@@ -437,7 +527,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 controller.projectLego.add({
                                   'type': "Project Title",
                                   'project_title':
-                                  controller.projectTitleController.text
+                                      controller.projectTitleController.text
                                 });
                                 controller.projectTitleController.clear();
                                 controller.selectedOption.value = "unselect";
@@ -463,7 +553,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 controller.projectLego.add({
                                   'type': "Developer Name",
                                   'developer_name':
-                                  controller.developerController.text
+                                      controller.developerController.text
                                 });
                                 controller.developerController.clear();
                                 controller.selectedOption.value = "unselect";
@@ -527,7 +617,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 message = 'Please enter valid paragraph!';
                               }
                               if (controller
-                                  .virtualLinkController.text.isEmpty ||
+                                      .virtualLinkController.text.isEmpty ||
                                   !controller.virtualLinkController.text
                                       .contains('http')) {
                                 message = 'Please enter valid link!';
@@ -536,7 +626,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 controller.projectLego.add({
                                   'type': "3D Virtual",
                                   'title':
-                                  controller.virtualTitleController.text,
+                                      controller.virtualTitleController.text,
                                   'description': controller
                                       .virtualParagraphController.text,
                                   'link': controller.virtualLinkController.text,
@@ -560,7 +650,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                               sb20(),
                               TextformfieldWidget(
                                 controller:
-                                controller.virtualParagraphController,
+                                    controller.virtualParagraphController,
                                 hintText: 'Virtual Paragraph *',
                                 maxLines: 10,
                                 textInputAction: TextInputAction.newline,
@@ -669,22 +759,22 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   EraText(
                                       text: 'Add Outdoor Amenities',
                                       color: AppColors.black),
                                   Obx(
-                                        () => DropdownButtonHideUnderline(
+                                    () => DropdownButtonHideUnderline(
                                       child: DropdownButton<String>(
                                           hint: EraText(
                                               text: 'Select Option',
                                               color: AppColors.black),
                                           value: controller
-                                              .selectedOutDoor.value.isEmpty
+                                                  .selectedOutDoor.value.isEmpty
                                               ? null
                                               : controller
-                                              .selectedOutDoor.value,
+                                                  .selectedOutDoor.value,
                                           items: [
                                             DropdownMenuItem(
                                                 value: 'blurb',
@@ -699,7 +789,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           ],
                                           onChanged: (value) {
                                             controller.selectedOutDoor.value =
-                                            value!;
+                                                value!;
                                           }),
                                     ),
                                   ),
@@ -712,7 +802,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     children: [
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           EraText(
                                               text: 'BLURB OUTDOOR AMENITIES',
@@ -738,7 +828,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           hintText: 'Blurb Paragraph *',
                                           maxLines: 10,
                                           textInputAction:
-                                          TextInputAction.newline,
+                                              TextInputAction.newline,
                                           keyboardType: TextInputType.multiline,
                                         ),
                                         sb20(),
@@ -750,7 +840,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   return UploadBannersWidget(
                                     padding: EdgeInsets.zero,
                                     text:
-                                    'Upload Outdoor Amenities Gallery Only',
+                                        'Upload Outdoor Amenities Gallery Only',
                                     maxImages: 10,
                                     onImageSelectedMany:
                                         (List<Uint8List> outdoorAmenities) {
@@ -811,7 +901,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     blurbParagraph.clear();
                                     blurbImage = null;
                                     controller.selectedOption.value =
-                                    "unselect";
+                                        "unselect";
                                   }
                                 },
                                 margin: EdgeInsets.symmetric(horizontal: 5),
@@ -832,22 +922,22 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   EraText(
                                       text: 'Add Indoor Amenities',
                                       color: AppColors.black),
                                   Obx(
-                                        () => DropdownButtonHideUnderline(
+                                    () => DropdownButtonHideUnderline(
                                       child: DropdownButton<String>(
                                           hint: EraText(
                                               text: 'Select Option',
                                               color: AppColors.black),
                                           value: controller
-                                              .selectedOutDoor.value.isEmpty
+                                                  .selectedOutDoor.value.isEmpty
                                               ? null
                                               : controller
-                                              .selectedOutDoor.value,
+                                                  .selectedOutDoor.value,
                                           items: [
                                             DropdownMenuItem(
                                                 value: 'blurb',
@@ -862,7 +952,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           ],
                                           onChanged: (value) {
                                             controller.selectedOutDoor.value =
-                                            value!;
+                                                value!;
                                           }),
                                     ),
                                   ),
@@ -875,7 +965,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     children: [
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           EraText(
                                               text: 'BLURB INDOOR AMENITIES',
@@ -901,7 +991,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                           hintText: 'Blurb Paragraph *',
                                           maxLines: 10,
                                           textInputAction:
-                                          TextInputAction.newline,
+                                              TextInputAction.newline,
                                           keyboardType: TextInputType.multiline,
                                         ),
                                         sb20(),
@@ -913,7 +1003,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                   return UploadBannersWidget(
                                     padding: EdgeInsets.zero,
                                     text:
-                                    'Upload Indoor Amenities Gallery Only',
+                                        'Upload Indoor Amenities Gallery Only',
                                     maxImages: 10,
                                     onImageSelectedMany:
                                         (List<Uint8List> outdoorAmenities) {
@@ -972,7 +1062,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     blurbImages = null;
                                     blurbImage = null;
                                     controller.selectedOption.value =
-                                    "unselect";
+                                        "unselect";
                                   }
                                 },
                                 margin: EdgeInsets.symmetric(horizontal: 5),
@@ -1013,16 +1103,16 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 children: [
                                   Padding(
                                     padding:
-                                    EdgeInsets.symmetric(horizontal: 25.w),
+                                        EdgeInsets.symmetric(horizontal: 25.w),
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         infoTile(
                                           AppEraAssets.floorArea,
                                           carouselFloorAreaC,
                                           'Floor Area',
-                                              (value) {
+                                          (value) {
                                             controller.addcarouselFa(value);
                                           },
                                         ),
@@ -1075,16 +1165,16 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                       'type': 'Carousel',
                                       'title': carouselTitle.text,
                                       'floor_area':
-                                      carouselFloorAreaC.text.isEmpty
-                                          ? 0
-                                          : carouselFloorAreaC.text,
+                                          carouselFloorAreaC.text.isEmpty
+                                              ? 0
+                                              : carouselFloorAreaC.text,
                                       'beds': carouselNumberOfBedC.text.isEmpty
                                           ? 0
                                           : carouselNumberOfBedC.text,
                                       'loggia_size':
-                                      carouselLoggiaSizeC.text.isEmpty
-                                          ? 0
-                                          : carouselLoggiaSizeC.text,
+                                          carouselLoggiaSizeC.text.isEmpty
+                                              ? 0
+                                              : carouselLoggiaSizeC.text,
                                       //'color' :
                                       'paragraph': carouselParagraph.text,
                                       'images': carouselImages,
@@ -1096,7 +1186,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     carouselParagraph.clear();
                                     carouselImages = null;
                                     controller.selectedOption.value =
-                                    "unselect";
+                                        "unselect";
                                   } else {
                                     showError(message);
                                   }
@@ -1130,7 +1220,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                     });
                                     height.clear();
                                     controller.selectedOption.value =
-                                    "unselect";
+                                        "unselect";
                                   } else {
                                     showError('Space value is empty!');
                                   }
@@ -1158,7 +1248,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                 newIndex -= 1;
                               }
                               final item =
-                              controller.projectLego.removeAt(oldIndex);
+                                  controller.projectLego.removeAt(oldIndex);
                               controller.projectLego.insert(newIndex, item);
                             },
                             itemCount: controller.projectLego.length,
@@ -1215,7 +1305,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                       fontWeight: FontWeight.w500,
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 20.h,bottom: 20.h),
+                      margin: EdgeInsets.only(top: 20.h, bottom: 20.h),
                       decoration: BoxDecoration(
                         color: Colors.grey[100],
                         borderRadius: BorderRadius.circular(12.r),
@@ -1228,15 +1318,13 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                         ],
                       ),
                       child: Obx(() {
-                        if (controller.projectLego.value.isNotEmpty){
+                        if (controller.projectLego.value.isNotEmpty) {
                           return ProjectViews(
-                            project: Project.fromJSON({
-                              'id' : projectId,
-                              'data' : controller.projectLego
-                            })
-                          ).build();
-                        }
-                        else {
+                              project: Project.fromJSON({
+                            'id': projectId,
+                            'data': controller.projectLego
+                          })).build();
+                        } else {
                           return Center(
                             child: Padding(
                               padding: EdgeInsets.all(10.w),
@@ -1257,19 +1345,28 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
       ),
     );
   }
-  _loading(){
+
+  _loading() {
     return Center(
       child: CircularProgressIndicator(),
     );
   }
-  _empty(){
+
+  _empty() {
     return Center(
-      child: EraText(text: "empty",color: Colors.black,),
+      child: EraText(
+        text: "empty",
+        color: Colors.black,
+      ),
     );
   }
-  _error(){
+
+  _error() {
     return Center(
-      child: EraText(text: "error",color: Colors.black,),
+      child: EraText(
+        text: "error",
+        color: Colors.black,
+      ),
     );
   }
 }
