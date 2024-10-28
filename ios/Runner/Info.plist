@@ -26,8 +26,12 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app uses the microphone to record audio for voice input.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Your app needs access to the photo library to select profile photos.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app uses speech recognition to transcribe your voice into text. This will help user search using gemini API.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -49,9 +53,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSSpeechRecognitionUsageDescription</key>
-    <string>This app uses speech recognition to transcribe your voice into text. This will help user search using gemini API.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>This app uses the microphone to record audio for voice input.</string>
 </dict>
 </plist>
