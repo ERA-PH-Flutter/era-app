@@ -313,15 +313,12 @@ class ListingsAdminController extends GetxController {
               .map((doc) {
             return doc.data();
           }).toList();
-          print(tempData);
           loadData(tempData);
         } else {
           loadData(Get.arguments[0]);
           searchQuery.value = Get.arguments[1];
         }
       } catch (e, ex) {
-        print(e);
-        print(ex);
         listingState.value = ListingsAState.error;
       }
       super.onInit();

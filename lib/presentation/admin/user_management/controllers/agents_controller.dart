@@ -149,7 +149,6 @@ class AgentAdminController extends GetxController with BaseController {
     images.removeAt(index);
 
     if (images.isEmpty) {
-      print("itsfine");
     }
   }
 

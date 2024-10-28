@@ -34,7 +34,6 @@ class AgentDashboardController extends GetxController{
     favorites.shuffle();
     await getNews();
     scrollController.addListener(()async{
-      print(scrolling);
       if(!scrolling.value){
         scrolling.value = true;
         await Future.delayed(Duration(seconds: 4)).then((val){

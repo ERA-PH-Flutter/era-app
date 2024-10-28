@@ -159,7 +159,6 @@ class LoginPageController extends GetxController with BaseController {
         //throw Error();
       }
     } catch (error, ex) {
-      print(ex);
     }
   }
 }

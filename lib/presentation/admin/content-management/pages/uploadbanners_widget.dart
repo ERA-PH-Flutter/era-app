@@ -96,7 +96,6 @@ class UploadBannersWidget extends StatelessWidget {
                       }
                     }
                   } catch (e) {
-                    print('Error picking image: $e'); // Error handling
                   }
                 },
                 icon: Icon(
@@ -131,7 +130,6 @@ class UploadBannersWidget extends StatelessWidget {
                     addListingsController.images[oldIndex] = newImage;
                     addListingsController.images[newIndex] = oldImage;
                   } else {
-                    print('No change in order, indices are the same.');
                   }
                 },
                 children:

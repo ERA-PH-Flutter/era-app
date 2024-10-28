@@ -62,7 +62,6 @@ class ContactusController extends GetxController {
   }
 
   submitContact() async {
-    print("a");
     try {
       var contactDoc =
           FirebaseFirestore.instance.collection('contact_us').doc();
@@ -86,7 +85,6 @@ class ContactusController extends GetxController {
             Get.back();
           });
     } catch (e, ex) {
-      print(ex);
     }
   }
 }

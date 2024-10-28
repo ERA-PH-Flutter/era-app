@@ -17,7 +17,6 @@ class ArchivedController extends GetxController {
         archiveListings.add( await Listing().getListing(user!.archives![i]));
       }
     }
-    print(archiveListings);
     if(archiveListings.isEmpty){
       archiveState.value = ArchiveState.empty;
     }else{

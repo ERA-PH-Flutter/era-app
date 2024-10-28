@@ -204,7 +204,6 @@ class ListingItemss extends StatelessWidget {
                                   builder: (context,
                                       AsyncSnapshot<EraUser> snapshot) {
                                     if (snapshot.hasData) {
-                                      print(snapshot.data!.firstname);
                                       return ListedBy(
                                         text: listedBy ?? '',
                                         image: snapshot.data!.image ??

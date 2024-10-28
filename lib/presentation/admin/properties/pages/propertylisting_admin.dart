@@ -57,7 +57,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                   fontWeight: FontWeight.w500,
                 ),
                 EraText(
-                  text: 'PROPERTY LIST',
+                  text: 'Fix Invalid ID',
                   fontSize: 15.sp,
                   color: AppColors.black,
                   fontWeight: FontWeight.w500,

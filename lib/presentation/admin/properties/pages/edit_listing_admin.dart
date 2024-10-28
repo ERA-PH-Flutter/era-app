@@ -311,7 +311,6 @@ class EditPropertyAdmin extends GetView<ListingsController> {
             ),
             SizedBox(height: 10.h),
             Obx(() {
-              print(addListingsController.listing!.photos);
               if (addListingsController.images.isEmpty) {
                 return AddAgent.buildUploadPhoto();
               } else {
@@ -339,7 +338,6 @@ class EditPropertyAdmin extends GetView<ListingsController> {
 
                         addListingsController.listing!.updateListing();
                       } else {
-                        print('No change in order, indices are the same.');
                       }
                     },
                     children: List.generate(addListingsController.images.length,
@@ -413,7 +411,6 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                                 .onSectionSelected(5);
                           });
                     } catch (e, ex) {
-                      print(ex);
                       BaseController().showErroDialog(
                           description: e.toString(), onTap: () {});
                     }

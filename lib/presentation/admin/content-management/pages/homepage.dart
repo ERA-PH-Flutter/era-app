@@ -99,7 +99,6 @@ class HomePage extends GetView<ContentManagementController> {
                             settings!.update();
                           }
                         } catch (e) {
-                          print(e);
                         }
                       },
                       icon: Icon(

@@ -84,7 +84,6 @@ class ArchivedListings extends StatelessWidget {
             itemBuilder: (context, i) => ArchivedItems(
               index: i,
               onLongPress: (index) {
-                print('Listing at index $index selected for reactivation');
               },
               listing: listingModels[i],
 

@@ -137,8 +137,6 @@ class AI{
       }
     };
     var result = await geminiSearch(geminiData,name: "getListing",description: "Assign accordingly do not assign value if not specified");
-    print(query);
-    print(result);
     Query firebaseQuery = FirebaseFirestore.instance.collection('listings');
     List<AiFilters> prompts = [];
     result!.forEach((key, value) {
@@ -199,7 +197,6 @@ class AI{
     };
     var result = await geminiSearch(data,name: "faqSearch",description:'use the prompt and parse it');
     Query firebaseQuery = FirebaseFirestore.instance.collection('faq');
-    print(result);
     result!.forEach((key, value) {
       firebaseQuery = firebaseQuery.where(key,isGreaterThanOrEqualTo: value).where(key,isLessThanOrEqualTo: '$value\uf8ff').orderBy('type');
     });

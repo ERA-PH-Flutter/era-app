@@ -69,7 +69,6 @@ class ProjectsList extends GetView<ProjectsListController> {
                                       onSuffixTap: () async {
                                         BaseController().showLoading();
                                         var projects = await AI(query: searchController.aiSearchController.text).projectSearch();
-                                        print(projects);
                                         if(projects.isNotEmpty){
                                           controller.projects.value = projects.map((proj){
                                             return Project.fromJSON(proj.data());

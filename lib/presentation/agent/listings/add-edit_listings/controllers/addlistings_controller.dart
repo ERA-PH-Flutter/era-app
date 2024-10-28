@@ -182,7 +182,6 @@ class AddListingsController extends GetxController with BaseController {
     images.removeAt(index);
 
     if (images.isEmpty) {
-      print("itsfine");
     }
   }
 
@@ -352,8 +351,6 @@ class AddListingsController extends GetxController with BaseController {
 
       !kIsWeb ? hideLoading() : null;
     } catch (e, ex) {
-      print(ex);
-      print(e);
     }
   }
 }

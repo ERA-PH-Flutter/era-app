@@ -148,7 +148,6 @@ class AgentsController extends GetxController with BaseController {
               .ref('users/images/${user!.id}.png')
               .delete();
         } catch (e) {
-          print(e);
         }
         var im = await CloudStorage().upload(
             file: image.value!,
@@ -183,7 +182,6 @@ class AgentsController extends GetxController with BaseController {
               .ref('users/images/${user!.id}.png')
               .delete();
         } catch (e) {
-          print(e);
         }
         await CloudStorage().deleteFileDirect(docRef: previousPicture);
         var im = await CloudStorage().upload(

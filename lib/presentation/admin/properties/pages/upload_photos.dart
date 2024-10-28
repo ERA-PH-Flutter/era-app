@@ -101,7 +101,6 @@ class UploadPhotos extends StatelessWidget {
               images.add(image);
             }
           } catch (e) {
-            print(e);
           }
         },
         icon: Icon(

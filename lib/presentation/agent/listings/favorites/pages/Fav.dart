@@ -84,7 +84,6 @@ class Fav extends GetView<FavController> {
                       CustomSortPopup(
                         title: 'Sort by',
                         onSelected: (String result) {
-                          print(result);
                         },
                         menuItems: [
                           popMenu(
@@ -385,7 +384,6 @@ class Fav extends GetView<FavController> {
   downloadPDF() async {
     final tempDir = await getTemporaryDirectory();
     List<File?> listOfFiles = [];
-    print(controller.screenshotControllers.length);
     for (var sc in controller.screenshotControllers) {
       var a = await sc.capture();
       if (a != null) {

@@ -53,10 +53,8 @@ class ContentManagementController extends GetxController with BaseController {
         }
       }
       //await getImages();
-      print(images);
       homepageState.value = HomepageState.loaded;
     } catch (e) {
-      print(e);
       homepageState.value = HomepageState.error;
     }
     super.onInit();

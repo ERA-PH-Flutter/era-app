@@ -57,7 +57,6 @@ class ListingController extends GetxController {
         searchQuery.value = Get.arguments[1];
       }
     } catch (e, ex) {
-      print(ex);
       listingState.value = ListingState.error;
     }
     super.onInit();

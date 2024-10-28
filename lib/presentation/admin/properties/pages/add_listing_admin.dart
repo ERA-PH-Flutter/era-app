@@ -319,7 +319,6 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                           addListingsController.images[oldIndex] = newImage;
                           addListingsController.images[newIndex] = oldImage;
                         } else {
-                          print('No change in order, indices are the same.');
                         }
                       },
                       children: List.generate(
@@ -571,8 +570,6 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                               description:
                                   "Listing has been uploaded to the database.");
                         } catch (e, ex) {
-                          print(e);
-                          print(ex);
                         }
                       },
                       margin: EdgeInsets.symmetric(horizontal: 5),

@@ -215,7 +215,6 @@ class SellProperty extends GetView<SellPropertyController> {
                                   Get.back();
                                 });
                           } catch (e) {
-                            print(e);
                           }
                         },
                         bgColor: AppColors.kRedColor,

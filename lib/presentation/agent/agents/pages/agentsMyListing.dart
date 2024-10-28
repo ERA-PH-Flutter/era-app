@@ -24,7 +24,6 @@ class AgentsMyListing extends GetView<AgentListingsController> {
 
   @override
   Widget build(BuildContext context) {
-    print(controller.user);
     return Scaffold(
       appBar: CustomAppbar(),
       body: SingleChildScrollView(
@@ -65,7 +64,6 @@ class AgentsMyListing extends GetView<AgentListingsController> {
               CustomSortPopup(
                 title: 'Sort by',
                 onSelected: (String result) {
-                  print(result);
                 },
                 menuItems: [
                   popMenu(
@@ -376,7 +374,6 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                                 ),
                                 Button.button3((Get.width - 90.w) / 2, 43.h,
                                     () {
-                                  print(controller.listings[index].id);
                                   BaseController().showSuccessDialog(
                                       title: "Confirm",
                                       description:

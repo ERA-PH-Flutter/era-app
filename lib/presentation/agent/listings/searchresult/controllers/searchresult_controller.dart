@@ -78,8 +78,6 @@ class SearchResultController extends GetxController {
         searchQuery.value = Get.arguments[1];
       }
     } catch (e, ex) {
-      print(e);
-      print(ex);
       searchResultState.value = SearchResultState.error;
     }
     super.onInit();
@@ -87,7 +85,6 @@ class SearchResultController extends GetxController {
 
   loadData(loadedData) {
     loadedData = loadedData ?? [];
-    print(loadedData);
     loadedData.forEach((d) {
       if (d != null) {
         if (!(d['is_sold'] ?? false)) {

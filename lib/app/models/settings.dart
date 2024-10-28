@@ -126,7 +126,6 @@ class Settings{
       id =  String.fromCharCodes(List.generate(10, (index) => Random().nextInt(33) + 89));
       await FirebaseFirestore.instance.collection('settings').doc('main').update(toMap());
     }catch(e){
-      print(e);
     }
   }
   toMap(){

@@ -44,7 +44,6 @@ class CloudStorage {
         await file.delete();
       }
     } catch (e) {
-      print(e);
     }
   }
 
@@ -177,7 +176,6 @@ class CloudStorage {
       await fileRef.putFile(file);
       return '$target/${customName ?? uploadFilename}';
     } catch (e) {
-      print(e);
       return "";
     }
   }
@@ -188,7 +186,6 @@ class CloudStorage {
       await fileRef.putData(file);
       return customName;
     } catch (e,ex) {
-      print(ex);
       return e.toString();
     }
   }

@@ -356,7 +356,6 @@ class LandingPage extends GetView<LandingPageController> {
       required expandedController}) {
     return ExpansionTile(
       onExpansionChanged: ((newState) {
-        print(index);
         if (newState) {
           controller.selectedTile = index;
           for (int i = 0; i < controller.expandedControllers.length; i++) {
