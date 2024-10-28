@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../app/models/settings.dart';
 import '../../../../app/services/firebase_database.dart';
@@ -54,7 +56,9 @@ class SplashController extends GetxController {
     splashState.value = kIsWeb ? SplashState.web : SplashState.loading;
     _typeWrittingAnimation();
     settings = Settings.fromJSON(await Database().getSettings());
-
+    if(Platform.isIOS){
+      await Permission.storage.request();
+    }
     if(!kIsWeb){
       if((store.settings == null)){
         await loadLocalImage();
