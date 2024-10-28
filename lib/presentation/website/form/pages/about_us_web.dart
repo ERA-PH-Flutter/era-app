@@ -28,9 +28,9 @@ class AboutUsWeb extends GetView<FormWebController> {
 
     return SingleChildScrollView(
         child: SizedBox(
-          width: Get.width,
-          child: Stack(
-                children: [
+      width: Get.width,
+      child: Stack(
+        children: [
           Column(
             children: [
               sb50(),
@@ -67,9 +67,9 @@ class AboutUsWeb extends GetView<FormWebController> {
               width: Get.width,
             ),
           ),
-                ],
-              ),
-        ));
+        ],
+      ),
+    ));
   }
 
   static Widget bottomWidget({required dynamic controller}) {
@@ -121,16 +121,16 @@ class AboutUsWeb extends GetView<FormWebController> {
                     'Tell us about yourself',
                   ),
                   SharedWidgets.textFormfield(
-                      textInputType: TextInputType.text,
+                      keyboardType: TextInputType.text,
                       hintText: 'Name',
                       controller: controller.phoneNum),
                   SharedWidgets.textFormfield(
-                      textInputType: TextInputType.text,
+                      keyboardType: TextInputType.text,
                       hintText: 'Phone Number',
                       controller: controller.emailAd),
                   sbw30(),
                   SharedWidgets.textFormfield(
-                      textInputType: TextInputType.text,
+                      keyboardType: TextInputType.text,
                       hintText: 'Email Address',
                       controller: controller.name),
                   sb30(),

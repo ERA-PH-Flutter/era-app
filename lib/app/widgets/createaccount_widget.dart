@@ -9,8 +9,9 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 class SharedWidgets {
   static Widget textFormfield({
     String? hintText,
-    TextInputType? textInputType,
+    TextInputType? keyboardType,
     String? name,
+    int? maxLines,
     TextEditingController? controller,
   }) {
     return Column(
@@ -18,6 +19,7 @@ class SharedWidgets {
       children: [
         EraText(text: name ?? "", fontSize: 18.sp, color: AppColors.black),
         TextFormField(
+          maxLines: maxLines,
           controller: controller,
           decoration: InputDecoration(
             hintText: hintText,
@@ -33,7 +35,8 @@ class SharedWidgets {
               borderSide: BorderSide(color: AppColors.hint),
             ),
           ),
-          keyboardType: textInputType ?? TextInputType.none,
+          keyboardType: keyboardType ?? TextInputType.none,
+          // textInputAction: TextInputAction.newline,
         ),
       ],
     );

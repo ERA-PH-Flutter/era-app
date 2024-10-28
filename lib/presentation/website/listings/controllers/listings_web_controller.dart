@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../app/services/local_storage.dart';
 
-enum BuyWebState { loading, loaded, error, empty }
+enum ListingsWebState { loading, loaded, error, empty }
 
 // enum AdminSection {
 //   agentProfile,
@@ -18,13 +17,13 @@ enum BuyWebState { loading, loaded, error, empty }
 //   aboutUs,
 // }
 
-class BuyWebController extends GetxController {
+class ListingsWebController extends GetxController {
   var store = Get.find<LocalStorageService>();
-  var buylandingState = BuyWebState.loading.obs;
+  var buylandingState = ListingsWebState.loading.obs;
 
   @override
   void onInit() {
-    buylandingState.value = BuyWebState.loaded;
+    buylandingState.value = ListingsWebState.loaded;
     super.onInit();
   }
 }

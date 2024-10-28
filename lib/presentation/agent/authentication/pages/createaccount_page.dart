@@ -48,7 +48,7 @@ class CreateAccount extends GetView<LoginPageController> {
                           Flexible(
                             child: SharedWidgets.textFormfield(
                                 name: 'First Name',
-                                textInputType: TextInputType.text,
+                                keyboardType: TextInputType.text,
                                 hintText: 'First Name',
                                 controller: controller.firstName),
                           ),
@@ -56,7 +56,7 @@ class CreateAccount extends GetView<LoginPageController> {
                           Flexible(
                             child: SharedWidgets.textFormfield(
                                 name: 'Last Name',
-                                textInputType: TextInputType.text,
+                                keyboardType: TextInputType.text,
                                 hintText: 'Last Name',
                                 controller: controller.lastName),
                           ),
@@ -103,7 +103,7 @@ class CreateAccount extends GetView<LoginPageController> {
                       sb20(),
                       SharedWidgets.textFormfield(
                         name: 'Age',
-                        textInputType: TextInputType.number,
+                        keyboardType: TextInputType.number,
                         hintText: 'Age',
                         controller: controller.age,
                       ),
@@ -144,7 +144,7 @@ class CreateAccount extends GetView<LoginPageController> {
                       ),
                       SharedWidgets.textFormfield(
                           name: 'example@mail.com',
-                          textInputType: TextInputType.text,
+                          keyboardType: TextInputType.text,
                           hintText: 'Email Address',
                           controller: controller.emailAd),
                       sb30(),

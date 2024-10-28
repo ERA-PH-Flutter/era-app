@@ -19,6 +19,8 @@ enum WebLandingState { loading, loaded, error, empty }
 // }
 
 class WebLandingPageController extends GetxController {
+  final PageController pageController = PageController();
+
   var store = Get.find<LocalStorageService>();
   var weblandingState = WebLandingState.loading.obs;
 

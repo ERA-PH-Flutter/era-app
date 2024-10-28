@@ -28,7 +28,8 @@ class MortageCalculatorWeb extends GetView<MortageCalculatorWController> {
       controller: controller.scrollController,
       child: Container(
         width: Get.width,
-        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
+        padding:
+            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin + 10.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -56,19 +56,19 @@ class SellProperty extends GetView<SellPropertyController> {
                     SizedBox(height: 20.h),
                     SharedWidgets.textFormfield(
                         name: 'Name',
-                        textInputType: TextInputType.text,
+                        keyboardType: TextInputType.text,
                         hintText: 'Name',
                         controller: controller.name),
                     SizedBox(height: 20.h),
                     SharedWidgets.textFormfield(
                         name: 'Phone Number',
-                        textInputType: TextInputType.number,
+                        keyboardType: TextInputType.number,
                         hintText: 'Phone Number',
                         controller: controller.phoneNum),
                     SizedBox(height: 20.h),
                     SharedWidgets.textFormfield(
                         name: 'Email Address',
-                        textInputType: TextInputType.text,
+                        keyboardType: TextInputType.text,
                         hintText: 'Email Address',
                         controller: controller.emailAd),
                     SizedBox(height: 20.h),
@@ -82,13 +82,13 @@ class SellProperty extends GetView<SellPropertyController> {
                     SizedBox(height: 20.h),
                     SharedWidgets.textFormfield(
                         name: 'Property Location',
-                        textInputType: TextInputType.text,
+                        keyboardType: TextInputType.text,
                         hintText: 'Property Location',
                         controller: controller.propertyLocation),
                     SizedBox(height: 20.h),
                     SharedWidgets.textFormfield(
                         name: 'Price',
-                        textInputType: TextInputType.number,
+                        keyboardType: TextInputType.number,
                         hintText: 'Price',
                         controller: controller.price),
                     sb30(),

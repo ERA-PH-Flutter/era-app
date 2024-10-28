@@ -59,7 +59,7 @@ class Nextpage extends GetView<LoginPageController> {
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
                           name: 'N/A if not applicable',
-                          textInputType: TextInputType.text,
+                          keyboardType: TextInputType.text,
                           hintText: 'Who is your Recruiter',
                           controller: controller.recruiter),
                       SizedBox(height: 20.h),
@@ -73,7 +73,7 @@ class Nextpage extends GetView<LoginPageController> {
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
                           name: 'Years of Experience',
-                          textInputType: TextInputType.number,
+                          keyboardType: TextInputType.number,
                           hintText: 'Years of Experience',
                           controller: controller.experience),
                       SizedBox(height: 20.h),

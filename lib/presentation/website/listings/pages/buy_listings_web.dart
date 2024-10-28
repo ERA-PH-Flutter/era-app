@@ -2,32 +2,28 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/presentation/website/buy_website/controllers/buy_web_controller.dart';
-import 'package:eraphilippines/presentation/website/home_website/controllers/home_web_controller.dart';
-
-import 'package:eraphilippines/presentation/website/landingpage/controllers/web_landingpage_controller.dart';
+import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class BuyWeb extends GetView<BuyWebController> {
+class BuyWeb extends GetView<ListingsWebController> {
   const BuyWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(BuyWebController());
+    Get.put(ListingsWebController());
     return Column(
       children: [
         WillPopScope(
           onWillPop: () => _onWillPop(),
           child: SafeArea(
             child: Obx(() => switch (controller.buylandingState.value) {
-                  BuyWebState.loading => _loading(),
-                  BuyWebState.loaded => _loaded(),
-                  BuyWebState.error => _error(),
-                  BuyWebState.empty => _empty()
+                  ListingsWebState.loading => _loading(),
+                  ListingsWebState.loaded => _loaded(),
+                  ListingsWebState.error => _error(),
+                  ListingsWebState.empty => _empty()
                 }),
           ),
         ),
