@@ -76,25 +76,6 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
         MortageCalculatorWeb(),
       ],
     );
-
-    // return Row(
-    //   children: [
-    //     Obx(() {
-    //       return IndexedStack(
-    //         index: controller.currentPage.value,
-    //         children: const [
-    //           FindAgentsWeb(), //0
-    //           ContactUsWeb(), //1
-    //           HomeWeb(), //2
-    //           AboutUsWeb(), //01
-    //           SellPropertyWeb(),
-    //           JoinEraWeb(),
-    //           MortageCalculatorWeb(),
-    //         ],
-    //       );
-    //     })
-    //   ],
-    // );
   }
 
   _error() {
@@ -113,7 +94,24 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
     );
   }
 }
- 
+     // return Row(
+    //   children: [
+    //     Obx(() {
+    //       return IndexedStack(
+    //         index: controller.currentPage.value,
+    //         children: const [
+    //           FindAgentsWeb(), //0
+    //           ContactUsWeb(), //1
+    //           HomeWeb(), //2
+    //           AboutUsWeb(), //01
+    //           SellPropertyWeb(),
+    //           JoinEraWeb(),
+    //           MortageCalculatorWeb(),
+    //         ],
+    //       );
+    //     })
+    //   ],
+    // );
 // drawer: Drawer(
 //   child: ListView(
 //     padding: EdgeInsets.zero,
