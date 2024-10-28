@@ -43,7 +43,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Row(
                 children: [
-                  !(Platform.isIOS) && Get.routing.route != null ? !Get.routing.route!.isFirst ?  Row(
+                  (Platform.isIOS) && Get.routing.route != null ? !Get.routing.route!.isFirst ?  Row(
                     children: [
                       SizedBox(width: 10.w,),
                       IconButton(
