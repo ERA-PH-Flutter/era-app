@@ -43,7 +43,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Row(
                 children: [
-                  (Platform.isIOS) && Get.routing.route != null ? !Get.routing.route!.isFirst ?  Row(
+                  (Platform.isIOS) && Navigator.canPop(context) && currentRoute != '/home'?  Row(
                     children: [
                       SizedBox(width: 10.w,),
                       IconButton(
@@ -53,7 +53,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                           },
                           icon: Icon(Icons.arrow_back_ios, size: 25.sp))
                     ],
-                  ) : Container() : Container(),
+                  ) : Container(),
                   leading ??
                       Transform.translate(
                           offset: Offset(-20.w, 0),
