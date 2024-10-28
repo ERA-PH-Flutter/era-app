@@ -1,10 +1,6 @@
-// ignore_for_file: unused_import
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../presentation/agent/agents/controllers/agents_binding.dart';
 import '../../../presentation/agent/home/controllers/home_binding.dart';
 import '../../../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';

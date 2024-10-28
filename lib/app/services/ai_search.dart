@@ -1,12 +1,7 @@
-// ignore_for_file: unused_import
-
-import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
-import 'package:eraphilippines/repository/user.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get/get.dart';
 
 class AI{

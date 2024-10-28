@@ -278,7 +278,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                             topLeft: Radius.circular(10.r),
                                             topRight: Radius.circular(10.r)),
                                         width: Get.width - 400.w,
-                                        ref: listing.photos != null
+                                        reference: listing.photos != null
                                             ? (listing.photos!.isNotEmpty
                                                 ? listing.photos!.first
                                                 : AppStrings.noUserImageWhite)

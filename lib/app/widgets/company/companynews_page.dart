@@ -39,7 +39,7 @@ class CompanyNewsPage extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
               CloudStorage().imageLoader(
-                ref: image!,
+                reference: image!,
                 height: 250.h,
                 width: Get.width,
               ),

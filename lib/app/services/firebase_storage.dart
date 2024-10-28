@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -26,9 +25,7 @@ class CloudStorage {
   }) async {
     try {
       final bytes = await ref.child(docRef).getData();
-
-      //final Directory appDirectory = Directory('/storage/emulated/0/Download');
-      final appDirectory = await getTemporaryDirectory();
+      final appDirectory = Platform.isAndroid ? await getTemporaryDirectory(): await getApplicationSupportDirectory();
       final String imagePath = '${appDirectory.path}/${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(100)}.jpg';
       final File file = File(imagePath);
       file.create();
@@ -91,18 +88,16 @@ class CloudStorage {
     }
   }
 
-  Widget imageLoader({ref, height, width, BoxFit? fit}){
+  Widget imageLoader({reference, height, width, BoxFit? fit}){
     return FutureBuilder(
-      future: getFileDirect(docRef: ref),
+      future: ref.child(reference).getData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return CachedNetworkImage(
-            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) => Icon(Icons.error),
-            imageUrl: snapshot.data!,
-            fit: fit ?? BoxFit.cover,
+          return Image.memory(
+            snapshot.data!,
             width: width,
             height: height,
+            fit: BoxFit.cover,
           );
         } else {
           return Center(
@@ -114,7 +109,7 @@ class CloudStorage {
   }
 
   imageLoaderProvider({
-    ref,
+    reference,
     height,
     width,
     borderRadius,
@@ -123,7 +118,7 @@ class CloudStorage {
     shadow,
   }) {
     return FutureBuilder(
-      future: getFileDirect(docRef: ref),
+      future: ref.child(reference).getData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
@@ -135,7 +130,7 @@ class CloudStorage {
                 boxShadow: shadow ?? [],
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: CachedNetworkImageProvider(
+                    image: MemoryImage(
                       snapshot.data!,
                     ))),
             child: child,

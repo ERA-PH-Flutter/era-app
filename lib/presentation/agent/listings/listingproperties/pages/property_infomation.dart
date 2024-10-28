@@ -129,7 +129,7 @@ class PropertyInformation extends GetView<ListingController> {
                         width: Get.width,
                         height: 320.h,
                         child: CloudStorage().imageLoader(
-                          ref: controller.currentImage.value == ''
+                          reference: controller.currentImage.value == ''
                               ? (controller.images.isNotEmpty
                                   ? controller.images.first
                                   : AppStrings.noUserImageWhite)
@@ -172,7 +172,7 @@ class PropertyInformation extends GetView<ListingController> {
                                     margin:
                                         EdgeInsets.symmetric(horizontal: 7.w),
                                     child: CloudStorage().imageLoader(
-                                      ref: controller.images[index],
+                                      reference: controller.images[index],
                                       width: Get.width / 6,
                                       height: Get.height,
                                     ),
@@ -422,7 +422,7 @@ class PropertyInformation extends GetView<ListingController> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10.r),
                                 child: CloudStorage().imageLoader(
-                                  ref: listing.photos != null
+                                  reference: listing.photos != null
                                       ? (listing.photos!.isNotEmpty
                                           ? listing.photos!.first
                                           : AppStrings.noUserImageWhite)
@@ -919,7 +919,7 @@ class PropertyInformation extends GetView<ListingController> {
                   },
                   itemBuilder: (context, index) {
                     return CloudStorage().imageLoader(
-                      ref: controller.images[index],
+                      reference: controller.images[index],
                       width: Get.width,
                       height: Get.height,
                       fit: BoxFit.contain,

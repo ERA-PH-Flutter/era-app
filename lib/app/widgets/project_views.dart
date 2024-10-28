@@ -15,7 +15,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../../presentation/agent/listings/listingproperties/pages/property_infomation.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../constants/sized_box.dart';
@@ -61,7 +60,7 @@ class ProjectViews {
                     width: Get.width);
               } else {
                 return CloudStorage().imageLoaderProvider(
-                  ref: data['image'],
+                  reference: data['image'],
                   height: 250.h,
                   width: Get.width,
                 );
@@ -81,7 +80,7 @@ class ProjectViews {
                     width: Get.width);
               }
               return CloudStorage().imageLoaderProvider(
-                ref: data['image'],
+                reference: data['image'],
                 height: 150.h,
                 width: 241.h,
               );
@@ -192,7 +191,7 @@ class ProjectViews {
                             width: Get.width);
                       }
                       return CloudStorage().imageLoaderProvider(
-                        ref: data['image'],
+                        reference: data['image'],
                         height: 250.h,
                         width: Get.width,
                       );
@@ -242,7 +241,7 @@ class ProjectViews {
                                 width: Get.width);
                           }
                           return CloudStorage().imageLoaderProvider(
-                            ref: data['image'],
+                            reference: data['image'],
                             height: 250.h,
                             width: Get.width,
                           );
@@ -327,7 +326,7 @@ class ProjectViews {
                                                 );
                                               }
                                               return CloudStorage().imageLoader(
-                                                ref: data['images'][index],
+                                                reference: data['images'][index],
                                                 height: Get.height,
                                                 width: Get.width,
                                                 fit: BoxFit.contain,
@@ -397,7 +396,7 @@ class ProjectViews {
                                 );
                               }
                               return CloudStorage().imageLoader(
-                                ref: displayImage,
+                                reference: displayImage,
                                 height: 250.h,
                                 width: Get.width,
                               );
@@ -442,7 +441,7 @@ class ProjectViews {
                                         }
                                         return CloudStorage()
                                             .imageLoaderProvider(
-                                          ref: image,
+                                          reference: image,
                                           width: Get.width / 6,
                                           height: 70.h,
                                         );
@@ -481,7 +480,7 @@ class ProjectViews {
                                 width: Get.width);
                           }
                           return CloudStorage().imageLoaderProvider(
-                            ref: data['image'],
+                            reference: data['image'],
                             height: 250.h,
                             width: Get.width,
                           );
@@ -566,7 +565,7 @@ class ProjectViews {
                                                 );
                                               }
                                               return CloudStorage().imageLoader(
-                                                ref: data['images'][index],
+                                                reference: data['images'][index],
                                                 height: Get.height,
                                                 width: Get.width,
                                                 fit: BoxFit.contain,
@@ -635,7 +634,7 @@ class ProjectViews {
                                 );
                               }
                               return CloudStorage().imageLoaderProvider(
-                                ref: displayImage,
+                                reference: displayImage,
                                 height: 250.h,
                                 width: Get.width,
                               );
@@ -680,7 +679,7 @@ class ProjectViews {
                                           }
                                           return CloudStorage()
                                               .imageLoaderProvider(
-                                            ref: image,
+                                            reference: image,
                                             width: Get.width / 6,
                                             height: 70.h,
                                           );
@@ -724,7 +723,7 @@ class ProjectViews {
                                     );
                                   }
                                   return CloudStorage().imageLoader(
-                                    ref: image,
+                                    reference: image,
                                     width: Get.width,
                                     height: Get.height,
                                   );
@@ -831,7 +830,7 @@ class ProjectViews {
       }
       if (block['type'] == "Project Logo") {
         preview[1] = CloudStorage().imageLoaderProvider(
-          ref: block['image'],
+          reference: block['image'],
           height: 170.h,
           width: Get.width,
         );
@@ -848,7 +847,7 @@ class ProjectViews {
               ),
               sb30(),
               CloudStorage().imageLoaderProvider(
-                ref: block['image'],
+                reference: block['image'],
                 height: 250.h,
                 width: Get.width,
               ),
@@ -875,7 +874,7 @@ class ProjectViews {
         preview[0] = SizedBox(
           width: Get.width,
           child: CloudStorage().imageLoaderProvider(
-            ref: block['image'],
+            reference: block['image'],
             height: 170.h,
             width: Get.width,
           ),
@@ -903,7 +902,7 @@ class ProjectViews {
                   items: block['images'].map<Widget>((image) {
                     return Container(
                       child: CloudStorage().imageLoader(
-                        ref: image,
+                        reference: image,
                         width: Get.width,
                         height: Get.height,
                       ),

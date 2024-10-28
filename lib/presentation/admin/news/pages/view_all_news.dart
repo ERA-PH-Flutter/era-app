@@ -111,7 +111,7 @@ class ViewAllNews extends GetView<NewsController> {
                                   child: Stack(
                                     children: [
                                       CloudStorage().imageLoaderProvider(
-                                          ref: news.image,
+                                          reference: news.image,
                                           height: 250.h,
                                           borderRadius:
                                               BorderRadius.circular(10.r)),

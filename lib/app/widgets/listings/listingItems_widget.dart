@@ -93,7 +93,7 @@ class ListingItemss extends StatelessWidget {
                         //  onTap: toggleSelected,
                         child: CloudStorage().imageLoaderProvider(
                           width: Get.width,
-                          ref: image ?? AppStrings.noUserImageWhite,
+                          reference: image ?? AppStrings.noUserImageWhite,
                           height: 195.h,
                         ),
                       ),
@@ -284,7 +284,7 @@ class ListingItemss extends StatelessWidget {
                         child: CloudStorage().imageLoaderProvider(
                           width: Get.width,
                           borderRadius: BorderRadius.circular(10.r),
-                          ref: image ?? AppStrings.noUserImageWhite,
+                          reference: image ?? AppStrings.noUserImageWhite,
                           height: 255.h,
                         ),
                       ),

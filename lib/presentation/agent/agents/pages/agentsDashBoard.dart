@@ -281,7 +281,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                             children: [
                               Positioned.fill(
                                 child: CloudStorage().imageLoaderProvider(
-                                    ref: controller
+                                    reference: controller
                                         .favorites[index].photos.first,
                                     height: 100.w,
                                     width: 100.w,
@@ -433,7 +433,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             CloudStorage().imageLoader(
-                              ref: controller.news[i].image,
+                              reference: controller.news[i].image,
                               height: 250.h,
                             ),
                             Spacer(),
@@ -644,7 +644,7 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                             children: [
                               Positioned.fill(
                                 child: CloudStorage().imageLoaderProvider(
-                                    ref:
+                                    reference:
                                         controller.listings[index].photos.first,
                                     height: 100.w,
                                     width: 100.w,
@@ -714,7 +714,7 @@ Widget iconAgents(String assetPath, Function()? onTap, String name) {
         CloudStorage().imageLoaderProvider(
             height: 110.h,
             width: 110.w,
-            ref: assetPath,
+            reference: assetPath,
             borderRadius: BorderRadius.circular(10.r)),
         ConstrainedBox(
           constraints: BoxConstraints(

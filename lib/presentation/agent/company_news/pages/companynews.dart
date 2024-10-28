@@ -72,7 +72,7 @@ class CompanyNews extends GetView<CompanyNewsController> {
                       Column(
                         children: [
                           CloudStorage().imageLoader(
-                            ref: controller.news[i].image,
+                            reference: controller.news[i].image,
                             height: 250.h,
                             width: Get.width,
                           ),

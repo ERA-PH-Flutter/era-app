@@ -47,7 +47,7 @@ class FavItems extends StatelessWidget {
                   CloudStorage().imageLoaderProvider(
                     width: 140.w,
                     height: Get.height,
-                    ref: '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
+                    reference: '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r),bottomLeft: Radius.circular(10.r)),
                   ),
                   SizedBox(width: 5.w,),

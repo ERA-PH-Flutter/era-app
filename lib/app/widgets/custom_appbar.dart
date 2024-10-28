@@ -43,29 +43,20 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Row(
                 children: [
-                  [
-                            '/haraya',
-                            '/aurelia',
-                            '/laya',
-                            '/agentMyListing',
-                            '/AgentListings',
-                            '/propertyInfo',
-                            '/editListings',
-                            '/addListings',
-                            '/fav',
-                            '/soldP',
-                            '/archived',
-                          ].contains(Get.currentRoute) &&
-                          (Platform.isIOS)
-                      ? IconButton(
+                  !(Platform.isIOS) && Get.routing.route != null ? !Get.routing.route!.isFirst ?  Row(
+                    children: [
+                      SizedBox(width: 10.w,),
+                      IconButton(
+                          padding: EdgeInsets.zero,
                           onPressed: () {
                             Get.back();
                           },
-                          icon: Icon(Icons.arrow_back_ios, size: 20.sp))
-                      : Visibility(visible: false, child: Container()),
+                          icon: Icon(Icons.arrow_back_ios, size: 25.sp))
+                    ],
+                  ) : Container() : Container(),
                   leading ??
                       Transform.translate(
-                          offset: Offset(-14, 1),
+                          offset: Offset(-20.w, 0),
                           child: IconButton(
                             icon: Image.asset(
                               'assets/images/eraph_logo.png',

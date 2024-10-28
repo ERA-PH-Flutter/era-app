@@ -249,7 +249,7 @@ class HomePage extends GetView<ContentManagementController> {
                 children: [
                   CloudStorage().imageLoaderProvider(
                       borderRadius: BorderRadius.circular(10.r),
-                      ref: controller.categoryIcons[index]),
+                      reference: controller.categoryIcons[index]),
                   Positioned(
                     top: 25.h,
                     right: 15.h,
@@ -352,35 +352,35 @@ class HomePage extends GetView<ContentManagementController> {
         _buildUploadPhoto(
             text: 'Preselling Preview Photo',
             image: settings!.preSellingPicture != null
-                ? CloudStorage().imageLoader(ref: settings!.preSellingPicture)
+                ? CloudStorage().imageLoader(reference: settings!.preSellingPicture)
                 : null,
             target: "pre-selling",
             previousImage: settings!.preSellingPicture),
         _buildUploadPhoto(
             text: 'Residential Preview Photo',
             image: settings!.residentialPicture != null
-                ? CloudStorage().imageLoader(ref: settings!.residentialPicture)
+                ? CloudStorage().imageLoader(reference: settings!.residentialPicture)
                 : null,
             target: "residential",
             previousImage: settings!.residentialPicture),
         _buildUploadPhoto(
             text: 'Commercial Preview Photo',
             image: settings!.commercialPicture != null
-                ? CloudStorage().imageLoader(ref: settings!.commercialPicture)
+                ? CloudStorage().imageLoader(reference: settings!.commercialPicture)
                 : null,
             target: "commercial",
             previousImage: settings!.commercialPicture),
         _buildUploadPhoto(
             text: 'Rental Preview Photo',
             image: settings!.rentalPicture != null
-                ? CloudStorage().imageLoader(ref: settings!.rentalPicture)
+                ? CloudStorage().imageLoader(reference: settings!.rentalPicture)
                 : null,
             target: "rental",
             previousImage: settings!.rentalPicture),
         _buildUploadPhoto(
             text: 'Auction Preview Photo',
             image: settings!.auctionPicture != null
-                ? CloudStorage().imageLoader(ref: settings!.auctionPicture)
+                ? CloudStorage().imageLoader(reference: settings!.auctionPicture)
                 : null,
             target: "auction",
             previousImage: settings!.auctionPicture),

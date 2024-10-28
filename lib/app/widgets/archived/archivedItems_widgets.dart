@@ -48,7 +48,7 @@ class ArchivedItems extends StatelessWidget {
             child: Row(
               children: [
                 CloudStorage().imageLoader(
-                  ref : '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
+                  reference : '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
                   width: 100.w,
                   height: Get.height,
                 ),

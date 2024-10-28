@@ -78,7 +78,7 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                         width: Get.width,
                         height: Get.height,
                         child: CloudStorage().imageLoader(
-                            ref: controller.listing!.photos!.isNotEmpty
+                            reference: controller.listing!.photos!.isNotEmpty
                                 ? controller.listing!.photos!.first
                                 : AppStrings.noUserImageWhite),
                       ),
@@ -104,7 +104,7 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                   child: CloudStorage().imageLoader(
                                       width: Get.width / 7,
                                       height: Get.height,
-                                      ref: controller
+                                      reference: controller
                                               .listing!.photos!.isNotEmpty
                                           ? controller.listing!.photos![index]
                                           : AppStrings.noUserImageWhite),
