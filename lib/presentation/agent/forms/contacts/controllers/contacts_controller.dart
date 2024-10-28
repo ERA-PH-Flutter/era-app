@@ -84,7 +84,7 @@ class ContactusController extends GetxController {
             selectedSubj.value = null;
             Get.back();
           });
-    } catch (e, ex) {
+    } catch (e) {
     }
   }
 }

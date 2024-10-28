@@ -77,7 +77,7 @@ class SearchResultController extends GetxController {
         loadData(Get.arguments[0]);
         searchQuery.value = Get.arguments[1];
       }
-    } catch (e, ex) {
+    } catch (e) {
       searchResultState.value = SearchResultState.error;
     }
     super.onInit();

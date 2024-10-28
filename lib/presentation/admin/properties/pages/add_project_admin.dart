@@ -351,7 +351,7 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                                                           Get.find<LandingPageController>()
                                                                               .onSectionSelected(19);
                                                                         });
-                                                              } catch (e, ex) {
+                                                              } catch (e) {
                                                                 BaseController()
                                                                     .showErroDialog(
                                                                         onTap:

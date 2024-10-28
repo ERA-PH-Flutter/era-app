@@ -318,7 +318,7 @@ class ListingsAdminController extends GetxController {
           loadData(Get.arguments[0]);
           searchQuery.value = Get.arguments[1];
         }
-      } catch (e, ex) {
+      } catch (e) {
         listingState.value = ListingsAState.error;
       }
       super.onInit();

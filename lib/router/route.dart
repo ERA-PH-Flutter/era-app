@@ -54,8 +54,8 @@ import '../presentation/agent/listings/sold_properties/controllers/sold_properti
 import '../presentation/agent/listings/sold_properties/pages/sold_properties.dart';
 import '../presentation/agent/projects/controllers/projects_binding.dart';
 import '../presentation/agent/projects/pages/projectmain.dart';
-import '../presentation/agent/tools/mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
-import '../presentation/agent/tools/mortageCalculator.dart/pages/MortageCalculator.dart';
+import '../presentation/agent/tools/mortageCalculator/controllers/MortageCalculator_binding.dart';
+import '../presentation/agent/tools/mortageCalculator/pages/mortage_calculator.dart';
 
 appRoutes() => [
       GetPage(

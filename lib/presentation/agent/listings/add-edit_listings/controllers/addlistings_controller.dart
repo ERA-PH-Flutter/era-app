@@ -350,7 +350,8 @@ class AddListingsController extends GetxController with BaseController {
       await listing!.updateListing();
 
       !kIsWeb ? hideLoading() : null;
-    } catch (e, ex) {
+    } catch (e) {
+
     }
   }
 }

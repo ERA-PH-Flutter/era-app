@@ -156,7 +156,6 @@ class Listing {
     try {
       await db.collection("listings").doc(id).delete();
     } catch (e) {
-      print(e);
     }
   }
 

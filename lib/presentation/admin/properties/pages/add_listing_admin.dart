@@ -569,7 +569,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                               title: "Add Listing Success",
                               description:
                                   "Listing has been uploaded to the database.");
-                        } catch (e, ex) {
+                        } catch (e) {
                         }
                       },
                       margin: EdgeInsets.symmetric(horizontal: 5),

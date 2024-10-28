@@ -44,6 +44,7 @@ class CloudStorage {
         await file.delete();
       }
     } catch (e) {
+
     }
   }
 
@@ -185,7 +186,7 @@ class CloudStorage {
       var fileRef = ref.child(customName);
       await fileRef.putData(file);
       return customName;
-    } catch (e,ex) {
+    } catch (e) {
       return e.toString();
     }
   }

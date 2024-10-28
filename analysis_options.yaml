@@ -3,6 +3,7 @@ analyzer:
     #avoid_print: ignore ignore
     constant_identifier_names: ignore
     deprecated_member_use: ignore
+    empty_catches: ignore
     file_names: ignore
     invalid_use_of_protected_member: ignore
     non_constant_identifier_names: ignore

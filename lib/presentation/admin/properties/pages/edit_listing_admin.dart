@@ -410,7 +410,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                             Get.find<LandingPageController>()
                                 .onSectionSelected(5);
                           });
-                    } catch (e, ex) {
+                    } catch (e) {
                       BaseController().showErroDialog(
                           description: e.toString(), onTap: () {});
                     }
