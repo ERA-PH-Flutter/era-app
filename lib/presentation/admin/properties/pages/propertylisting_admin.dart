@@ -47,11 +47,22 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
             SizedBox(
               height: 20.h,
             ),
-            EraText(
-              text: 'PROPERTY LIST',
-              fontSize: EraTheme.header,
-              color: AppColors.black,
-              fontWeight: FontWeight.w500,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children:[
+                EraText(
+                  text: 'PROPERTY LIST',
+                  fontSize: EraTheme.header,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w500,
+                ),
+                EraText(
+                  text: 'PROPERTY LIST',
+                  fontSize: 15.sp,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w500,
+                ),
+              ]
             ),
             SizedBox(height: 20),
             EraText(

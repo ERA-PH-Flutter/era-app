@@ -46,6 +46,15 @@ class AgentsController extends GetxController with BaseController {
 
   @override
   void onInit() async {
+    youtubePlayerController = YoutubePlayerController(
+      initialVideoId: 'UcbQCfRCoeA',
+      flags: YoutubePlayerFlags(
+        enableCaption: false,
+        autoPlay: true,
+        mute: false,
+        forceHD: true,
+      ),
+    );
     pageSize = count.value;
     try {
       var randomUser = (await FirebaseFirestore.instance
@@ -64,15 +73,6 @@ class AgentsController extends GetxController with BaseController {
       agentState.value = AgentsState.error;
     }
     super.onInit();
-    youtubePlayerController = YoutubePlayerController(
-      initialVideoId: 'UcbQCfRCoeA',
-      flags: YoutubePlayerFlags(
-        enableCaption: false,
-        autoPlay: true,
-        mute: false,
-        forceHD: true,
-      ),
-    );
   }
 
   aiSearch(query) async {
