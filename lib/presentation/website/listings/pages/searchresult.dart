@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,28 +15,27 @@ import '../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
 
-import '../controllers/searchresult_controller.dart';
-
-class SearchResult extends GetView<SearchResultController> {
-  const SearchResult({super.key});
+class BuyWeb extends GetView<ListingsWebController> {
+  const BuyWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
-    //final ProjectsController projectsController = Get.put(ProjectsController());
+    Get.put(ListingsWebController());
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidthAdmin + 10.w),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 height: 10.h,
               ),
               EraText(
                 text: "Property searches made simple.",
-                fontSize: 26.sp,
+                fontSize: EraTheme.headerWeb,
                 fontWeight: FontWeight.bold,
                 color: AppColors.kRedColor,
               ),
@@ -50,12 +50,12 @@ class SearchResult extends GetView<SearchResultController> {
                 }
                 return Container();
               }),
-              Obx(() => switch (controller.searchResultState.value) {
-                    SearchResultState.loading => Screens.loading(height: 500.h),
-                    SearchResultState.loaded => _loaded(),
-                    SearchResultState.empty => _empty(),
-                    SearchResultState.searching => _searching(),
-                    SearchResultState.error => _error(),
+              Obx(() => switch (controller.listingsWebState.value) {
+                    ListingsWebState.loading => Screens.loading(height: 500.h),
+                    ListingsWebState.loaded => _loaded(),
+                    ListingsWebState.empty => _empty(),
+                    ListingsWebState.searching => _searching(),
+                    ListingsWebState.error => _error(),
                   }),
             ],
           ),
@@ -82,13 +82,13 @@ class SearchResult extends GetView<SearchResultController> {
                 children: [
                   EraText(
                     text: 'Showcased Listings',
-                    fontSize: 23.sp,
+                    fontSize: EraTheme.headerWeb,
                     color: AppColors.kRedColor,
                     fontWeight: FontWeight.w800,
                   ),
                   EraText(
                     text: 'Explore Our Top Picks',
-                    fontSize: 17.sp,
+                    fontSize: EraTheme.paragraphWeb,
                     color: AppColors.black,
                     fontWeight: FontWeight.w300,
                   ),
@@ -113,8 +113,10 @@ class SearchResult extends GetView<SearchResultController> {
             }
           }),
           SizedBox(height: 10.h),
-          ListView.builder(
-            physics: const ScrollPhysics(),
+          GridView.builder(
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: controller.data.length,
             itemBuilder: (context, index) {
@@ -126,7 +128,11 @@ class SearchResult extends GetView<SearchResultController> {
                     Get.toNamed('/propertyInfo', arguments: listing);
                   },
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 16.h),
+                    height: 400.h,
+                    margin: EdgeInsets.only(
+                      bottom: 16.h,
+                      right: 20.w,
+                    ),
                     padding: EdgeInsets.zero,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -144,8 +150,9 @@ class SearchResult extends GetView<SearchResultController> {
                         ClipRRect(
                             borderRadius: BorderRadius.circular(10.r),
                             child: CloudStorage().imageLoader(
-                              height: 300.h,
+                              height: 400.h,
                               width: Get.width,
+                              fit: BoxFit.cover,
                               ref: listing.photos != null
                                   ? (listing.photos!.isNotEmpty
                                       ? listing.photos!.first
@@ -155,15 +162,12 @@ class SearchResult extends GetView<SearchResultController> {
                         SizedBox(
                           height: 17.h,
                         ),
-                        Container(
-                          width: Get.width,
-                          height: 30.h,
+                        Padding(
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: EraText(
-                            textOverflow: TextOverflow.ellipsis,
                             text:
                                 listing.name! == "" ? "No Name" : listing.name!,
-                            fontSize: EraTheme.header - 5.sp,
+                            fontSize: EraTheme.subHeader,
                             color: AppColors.kRedColor,
                             fontWeight: FontWeight.bold,
                           ),
@@ -172,7 +176,7 @@ class SearchResult extends GetView<SearchResultController> {
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: EraText(
                             text: listing.type!,
-                            fontSize: EraTheme.header - 12.sp,
+                            fontSize: EraTheme.paragraph,
                             color: AppColors.black,
                             fontWeight: FontWeight.bold,
                             lineHeight: 1,

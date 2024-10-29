@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 import '../../agents/pages/findagents.dart';
 import '../../form/pages/contactus_web.dart';
 import '../../form/pages/sell_property_web.dart';
-import '../../listings/pages/buy_listings_web.dart';
+import '../../listings/pages/searchresult.dart';
 import '../../mortageCalculator.dart/pages/MortageCalculator.dart';
 
 class WebsiteLandingPage extends GetView<WebLandingPageController> {
