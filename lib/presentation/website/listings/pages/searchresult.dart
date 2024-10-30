@@ -25,8 +25,8 @@ class BuyWeb extends GetView<ListingsWebController> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: EraTheme.paddingWidthAdmin + 10.w),
+          padding:
+              EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -114,8 +114,10 @@ class BuyWeb extends GetView<ListingsWebController> {
           }),
           SizedBox(height: 10.h),
           GridView.builder(
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisExtent: Get.height - 200.h,
+            ),
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: controller.data.length,
@@ -128,7 +130,6 @@ class BuyWeb extends GetView<ListingsWebController> {
                     Get.toNamed('/propertyInfo', arguments: listing);
                   },
                   child: Container(
-                    height: 400.h,
                     margin: EdgeInsets.only(
                       bottom: 16.h,
                       right: 20.w,
@@ -150,7 +151,7 @@ class BuyWeb extends GetView<ListingsWebController> {
                         ClipRRect(
                             borderRadius: BorderRadius.circular(10.r),
                             child: CloudStorage().imageLoader(
-                              height: 400.h,
+                              height: 350.h,
                               width: Get.width,
                               fit: BoxFit.cover,
                               ref: listing.photos != null

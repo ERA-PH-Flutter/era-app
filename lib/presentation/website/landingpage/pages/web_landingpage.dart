@@ -27,7 +27,7 @@ class WebsiteLandingPage extends GetView<WebLandingPageController> {
     Get.put(WebLandingPageController());
     return Scaffold(
       appBar: CustomAppBarWeb(
-        controller: controller,
+        webcontroller: controller,
         shortestSide: shortestSide,
         navItemSelected: (index) {
           controller.pageController.jumpToPage(index);

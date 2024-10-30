@@ -1,3 +1,5 @@
+import 'package:eraphilippines/app/widgets/company/company_items.dart';
+import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,12 +14,14 @@ import 'app_text.dart';
 import 'button.dart';
 
 class CustomAppBarWeb extends StatelessWidget implements PreferredSizeWidget {
-  final WebLandingPageController controller;
+  final WebLandingPageController webcontroller;
   final double shortestSide;
   final Function(int) navItemSelected;
 
+//    var controller = OverlayPortalController();
+
   CustomAppBarWeb({
-    required this.controller,
+    required this.webcontroller,
     required this.shortestSide,
     required this.navItemSelected,
   });
@@ -38,33 +42,36 @@ class CustomAppBarWeb extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget _buildWideScreenContent() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Image.asset(
-          AppEraAssets.eraPh,
-          height: 120.h,
-          width: 230.h,
-        ),
-        navigation(controller),
-        Container(
-          width: Get.width / 4,
-          child: Button(
-            margin: EdgeInsets.only(left: 30.w),
-            borderRadius: BorderRadius.circular(20),
-            width: 300.w,
-            onTap: () {
-              showAuthenticationDialog();
-              //  Get.toNamed(RouteString.webLoginPage);
-              print('Login button clicked!');
-            },
-            text: "AGENT/BROKER LOGIN",
-            bgColor: AppColors.kRedColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 1.9),
+      child: Row(
+        children: [
+          Image.asset(
+            AppEraAssets.eraPh,
+            height: 120.h,
+            width: 230.h,
           ),
-        ),
-      ],
+          navigation(webcontroller),
+          Spacer(),
+          Container(
+            width: Get.width / 4.3,
+            child: Button(
+              borderRadius: BorderRadius.circular(20),
+              width: 300.w,
+              onTap: () {
+                showAuthenticationDialog();
+                //  Get.toNamed(RouteString.webLoginPage);
+                print('Login button clicked!');
+              },
+              text: "AGENT/BROKER LOGIN",
+              bgColor: AppColors.kRedColor,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -80,15 +87,15 @@ class CustomAppBarWeb extends StatelessWidget implements PreferredSizeWidget {
             ),
             GestureDetector(
               onTap: () {
-                controller.controller.isShowing
-                    ? controller.controller.hide()
-                    : controller.controller.show();
+                webcontroller.controller.isShowing
+                    ? webcontroller.controller.hide()
+                    : webcontroller.controller.show();
               },
               child: OverlayPortal(
-                controller: controller.controller,
+                controller: webcontroller.controller,
                 overlayChildBuilder: (BuildContext context) {
                   return Positioned(
-                    top: 103,
+                    top: 103.h,
                     right: 0,
                     child: Wrap(
                       children: [
@@ -152,68 +159,146 @@ class CustomAppBarWeb extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget navigation(WebLandingPageController controller) {
-    return Flexible(
-      child: Wrap(
-        children: [
-          navLink(
-              text: 'Home'.toUpperCase(), onPressed: () => navItemSelected(0)),
-          sbw10(),
-          navLink(
-              text: 'Buy'.toUpperCase(), onPressed: () => navItemSelected(1)),
-          sbw10(),
-          navLink(
-              text: 'Rent'.toUpperCase(), onPressed: () => navItemSelected(2)),
-          sbw10(),
-          navLink(
-              text: 'Sell'.toUpperCase(), onPressed: () => navItemSelected(3)),
-          sbw10(),
-          navLink(
-              text: 'Projects'.toUpperCase(),
-              onPressed: () => navItemSelected(4)),
-          sbw10(),
-          navLink(
-              text: 'News'.toUpperCase(), onPressed: () => navItemSelected(5)),
-          sbw10(),
-          navLink(
-              text: 'About Us'.toUpperCase(),
-              onPressed: () => navItemSelected(6)),
-          sbw10(),
-          navLink(
-              text: 'Contact Us'.toUpperCase(),
-              onPressed: () => navItemSelected(7)),
-          sbw10(),
-          navLink(
-              text: 'Find Agents'.toUpperCase(),
-              onPressed: () => navItemSelected(8)),
-          sbw10(),
-          navLink(
-              text: 'Mortgage Calculator'.toUpperCase(),
-              onPressed: () => navItemSelected(9)),
-        ],
-      ),
+    return Row(
+      children: [
+        navLink(
+            isSelected: selectedIndex == 0,
+            text: 'Home'.toUpperCase(),
+            onPressed: () => navItemSelected(0)),
+        sbw10(),
+        navLink(
+            isSelected: selectedIndex == 0,
+            text: 'Buy'.toUpperCase(),
+            onPressed: () => navItemSelected(1)),
+        sbw10(),
+        navLink(
+            isSelected: selectedIndex == 0,
+            text: 'Rent'.toUpperCase(),
+            onPressed: () => navItemSelected(2)),
+        sbw10(),
+        navLink(
+            isSelected: selectedIndex == 0,
+            text: 'Sell'.toUpperCase(),
+            onPressed: () => navItemSelected(3)),
+        sbw10(),
+        navLink(
+            isSelected: selectedIndex == 0,
+            text: 'Projects'.toUpperCase(),
+            onPressed: () => navItemSelected(4)),
+        sbw10(),
+        navLink(
+            isSelected: selectedIndex == 0,
+            text: 'Find Agents'.toUpperCase(),
+            onPressed: () => navItemSelected(5)),
+        sbw10(),
+        GestureDetector(
+          onTap: () {
+            controller.controller.isShowing
+                ? controller.controller.hide()
+                : controller.controller.show();
+          },
+          child: OverlayPortal(
+            controller: webcontroller.controller,
+            overlayChildBuilder: (BuildContext context) {
+              return Positioned(
+                top: 70.h,
+                right: Get.width / 2.4,
+                child: Wrap(
+                  children: [
+                    Card(
+                      color: AppColors.white,
+                      elevation: 7,
+                      child: Container(
+                        height: 270.w,
+                        width: 200.w,
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
+                        child: Column(
+                          children: [
+                            _buildMenuCard(
+                                color: AppColors.hint,
+                                'NEWS',
+                                () => navItemSelected(6),
+                                false),
+                            _buildMenuCard(
+                                color: AppColors.hint,
+                                'ABOUT US',
+                                () => navItemSelected(7),
+                                false),
+                            _buildMenuCard(
+                                color: AppColors.hint,
+                                'CONTACT US',
+                                () => navItemSelected(8),
+                                false),
+                            _buildMenuCard(
+                                color: AppColors.hint,
+                                'MORTGAGE CALCULATOR',
+                                () => navItemSelected(9),
+                                false),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            child: Container(
+              width: 100.w,
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  EraText(
+                    text: 'MORE',
+                    color: AppColors.hint,
+                    fontWeight: FontWeight.bold,
+                    fontSize: EraTheme.subHeader,
+                  ),
+                  Icon(
+                    Icons.arrow_drop_down,
+                    color: AppColors.kRedColor,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   Widget navLink({
     required String text,
     required Function onPressed,
+    required bool isSelected,
   }) {
-    return TextButton(
-      onPressed: () => onPressed(),
-      child: EraText(
-        text: text,
-        color: AppColors.hint,
-        fontWeight: FontWeight.bold,
-        fontSize: EraTheme.subHeader - 5.sp,
-      ),
+    return Column(
+      children: [
+        TextButton(
+          onPressed: () => onPressed(),
+          child: EraText(
+            text: text,
+            color: AppColors.hint,
+            fontWeight: FontWeight.bold,
+            fontSize: EraTheme.subHeader,
+          ),
+        ),
+        if (isSelected)
+          Container(height: 5.h, color: AppColors.kRedColor)
+        else
+          SizedBox.shrink(),
+      ],
     );
   }
 
-  Widget _buildMenuCard(String title, Function onTap, bool isSelected) {
+  Widget _buildMenuCard(String title, Function onTap, bool isSelected,
+      {Color? color}) {
     return ListTile(
       title: Text(
         title,
         style: TextStyle(
+          color: color ?? Colors.black,
           fontSize: 18.sp,
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),

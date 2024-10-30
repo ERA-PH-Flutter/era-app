@@ -7,8 +7,8 @@ import '../../app/constants/theme.dart';
 class BottomWidgets {
   static Widget bigCircle() {
     return Container(
-      width: 30.w,
-      height: 30.h,
+      width: 35.w,
+      height: 35.h,
       decoration: BoxDecoration(
         color: const Color(0xFF0e6937),
         shape: BoxShape.circle,

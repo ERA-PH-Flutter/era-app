@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -51,11 +52,10 @@ class QuickLinksModel {
       children: [
         TextListing(
           text: 'Quick Links',
-          fontSize: 18.sp,
+          fontSize: EraTheme.subHeaderWeb,
           fontWeight: FontWeight.w500,
           color: AppColors.black,
         ),
-        SizedBox(height: 10.h),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -88,8 +88,8 @@ class QuickLinksModel {
       child: Column(
         children: [
           Container(
-            height: 100.h,
-            width: 100.h,
+            height: 200.h,
+            width: 150.h,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.r),
                 image: DecorationImage(

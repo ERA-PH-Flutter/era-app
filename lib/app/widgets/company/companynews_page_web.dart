@@ -30,7 +30,7 @@ class CompanyNewsPageWeb extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppBarWeb(
-        controller: controller,
+        webcontroller: controller,
         shortestSide: shortestSide,
         navItemSelected: (index) {
           controller.pageController.jumpToPage(index);

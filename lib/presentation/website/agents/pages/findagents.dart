@@ -61,7 +61,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
             sb50(),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: EraTheme.paddingWidthAdmin + 10.sp),
+                  horizontal: EraTheme.paddingWidthAdmin * 3),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
