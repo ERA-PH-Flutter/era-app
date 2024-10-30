@@ -12,7 +12,7 @@ class SharedWidgets {
     TextInputType? textInputType,
     String? name,
     TextEditingController? controller,
-    int? MaxLines,
+    int? MaxLines = 1,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
