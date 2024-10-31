@@ -122,7 +122,7 @@ class LoginPageController extends GetxController with BaseController {
 
   Future signUp() async {
     showLoading();
-    await Authentication().signup(email: emailAd.text, password: 'eraaccount');
+    await Authentication().signup(email: emailAd.text, password: password.text);
     var id = await Authentication()
         .login(email: emailAd.text, password: 'eraaccount');
     var user = EraUser(
