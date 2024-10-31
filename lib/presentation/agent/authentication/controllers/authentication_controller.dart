@@ -104,6 +104,7 @@ class LoginPageController extends GetxController with BaseController {
             Get.back();
             Get.back();
           },
+          okayButton: "Okay",
           title: "Failed",
           description: "$login");
     }
