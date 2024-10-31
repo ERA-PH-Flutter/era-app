@@ -13,7 +13,7 @@ class Authentication{
         password: password,
       );
     }on FirebaseAuthException catch(e){
-      return "error $e";
+      return "error -${e.code}";
     }
     return auth.currentUser!.uid;
   }

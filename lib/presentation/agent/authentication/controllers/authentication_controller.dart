@@ -99,6 +99,13 @@ class LoginPageController extends GetxController with BaseController {
       }
     }
     else {
+      var e = login.toString().split("error -")[0];
+      var errorText = "An error occurred.";
+      if (e == 'user-not-found') {
+        errorText = 'No user found for that email.';
+      }else if (e == 'wrong-password') {
+        errorText = 'Wrong password provided.';
+      }
       showSuccessDialog(
           hitApi: () {
             Get.back();
@@ -106,7 +113,7 @@ class LoginPageController extends GetxController with BaseController {
           },
           okayButton: "Okay",
           title: "Failed",
-          description: "$login");
+          description: errorText);
     }
   }
 
