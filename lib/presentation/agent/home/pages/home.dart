@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 
@@ -25,6 +26,7 @@ import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/strings.dart';
 import '../../../../app/constants/theme.dart';
+import '../../../../app/widgets/custom_image_viewer.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
 
 import '../../../global.dart';
@@ -55,27 +57,20 @@ class Home extends GetView<HomeController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-            height: 320.h,
+            height: 245.h,
+            width: Get.width,
             child: Stack(
               children: [
                 Positioned.fill(
                   child: CarouselSlider(
                       controller: controller.innerController,
                       items: controller.images.map((image) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(0),
-                          ),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0),
-                              child: image),
-                        );
+                        return image;
                       }).toList(),
                       options: CarouselOptions(
                         autoPlayInterval: Duration(seconds: 7),
                         autoPlay: true,
                         viewportFraction: 1,
-                        aspectRatio: 1.2,
                         onPageChanged: (index, reason) =>
                             controller.carouselIndex.value = index,
                       )),
@@ -104,7 +99,7 @@ class Home extends GetView<HomeController> {
                 Positioned(
                   left: 10.w,
                   child: Container(
-                    height: 320.h,
+                    height: 240.h,
                     alignment: Alignment.center,
                     child: GestureDetector(
                       onTap: () {
@@ -122,7 +117,7 @@ class Home extends GetView<HomeController> {
                 Positioned(
                   right: 10.w,
                   child: Container(
-                    height: 320.h,
+                    height: 240.h,
                     alignment: Alignment.center,
                     child: GestureDetector(
                       onTap: () {
@@ -600,8 +595,8 @@ class Home extends GetView<HomeController> {
           ),
         ),
         Builder(
-          builder: (context){
-            if(user == null){
+          builder: (context) {
+            if (user == null) {
               return Column(
                 children: [
                   SizedBox(
@@ -610,7 +605,8 @@ class Home extends GetView<HomeController> {
 
                   /// join us today
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(20.r)),
@@ -619,8 +615,8 @@ class Home extends GetView<HomeController> {
                       child: Column(
                         children: [
                           Padding(
-                            padding:
-                            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: EraTheme.paddingWidth),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -634,7 +630,7 @@ class Home extends GetView<HomeController> {
                                     fontWeight: FontWeight.bold),
                                 EraText(
                                     text:
-                                    'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
+                                        'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
                                     fontSize: 15.sp,
                                     color: AppColors.white,
                                     fontWeight: FontWeight.w500),
