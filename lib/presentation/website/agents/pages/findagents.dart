@@ -34,6 +34,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
         Get.put(SearchResultController());
     ProjectsController projectsController = Get.put(ProjectsController());
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 2),
       width: Get.width,
       child: Column(
         children: [
@@ -59,7 +60,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
           sb50(),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: EraTheme.paddingWidthAdmin * 3),
+                horizontal: EraTheme.paddingWidthAdmin * 1),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

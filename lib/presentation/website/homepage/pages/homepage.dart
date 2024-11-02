@@ -1,13 +1,12 @@
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/website/homepage/controller/homepage_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:footer/footer.dart';
-import 'package:footer/footer_view.dart';
+
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/web/navbar.dart';
@@ -79,8 +78,8 @@ class HomePages extends GetResponsiveView<HomsController> {
               children: [
                 _columnListing(),
                 _columnNews(),
-                _columnListing(),
-                _columnListing(),
+                _columnAboutUs(),
+                _columnERAph(),
               ],
             ),
           ),
@@ -187,6 +186,110 @@ class HomePages extends GetResponsiveView<HomsController> {
           text: 'Security Policy',
           color: AppColors.blue2,
         ),
+      ],
+    );
+  }
+
+  Widget _columnAboutUs() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'ABOUT US',
+          color: AppColors.blue2,
+          fontSize: EraTheme.subHeaderWeb,
+          fontWeight: FontWeight.bold,
+        ),
+        sb20(),
+        EraText(
+          text: 'Join As Agent',
+          color: AppColors.blue2,
+        ),
+        sb10(),
+        EraText(
+          text: 'Why Us?',
+          color: AppColors.blue2,
+        ),
+        sb10(),
+        EraText(
+          text: 'ERA Teach Tools',
+          color: AppColors.blue2,
+        ),
+        sb10(),
+        EraText(
+          text: 'Ultimate Agent',
+          color: AppColors.blue2,
+        ),
+        sb10(),
+        EraText(
+          text: 'Training',
+          color: AppColors.blue2,
+        ),
+        EraText(
+          text: 'Our Services',
+          color: AppColors.blue2,
+        ),
+        EraText(
+          text: 'Contact Us',
+          color: AppColors.blue2,
+        ),
+      ],
+    );
+  }
+
+  Widget _columnERAph() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'ERA PHILLIPINES',
+          color: AppColors.blue2,
+          fontSize: EraTheme.subHeaderWeb,
+          fontWeight: FontWeight.bold,
+        ),
+        sb20(),
+        Row(
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  AppEraAssets.eraPh,
+                  height: 150.h,
+                  width: 150.w,
+                )
+              ],
+            ),
+            sb10(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EraText(
+                  text: 'Address',
+                  color: AppColors.blue2,
+                ),
+                sb10(),
+                EraText(
+                  text: 'ERA APAC Centre 3000',
+                  color: AppColors.blue2,
+                ),
+                sb10(),
+                EraText(
+                  text: 'Somewhere in the Philippines',
+                  color: AppColors.blue2,
+                ),
+                sb30(),
+                EraText(
+                  text: 'Phone: +63 123 456 7890',
+                  color: AppColors.blue2,
+                ),
+                EraText(
+                  text: 'Email: ear@era.com.ph',
+                  color: AppColors.blue2,
+                ),
+              ],
+            ),
+          ],
+        )
       ],
     );
   }
