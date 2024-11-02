@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../custom_appbar_web.dart';
+import '../web/navbar.dart';
 
 class CompanyNewsPageWeb extends StatelessWidget {
   final String? title;
@@ -29,14 +29,14 @@ class CompanyNewsPageWeb extends StatelessWidget {
     var shortestSide = MediaQuery.of(context).size.shortestSide;
 
     return Scaffold(
-      appBar: CustomAppBarWeb(
-        webcontroller: controller,
-        shortestSide: shortestSide,
-        navItemSelected: (index) {
-          controller.pageController.jumpToPage(index);
-          Get.back();
-        },
-      ),
+      // appBar: NavbarWeb(
+      //   webcontroller: controller,
+      //   shortestSide: shortestSide,
+      //   navItemSelected: (index) {
+      //     controller.pageController.jumpToPage(index);
+      //     Get.back();
+      //   },
+      // ),
       body: Padding(
         padding: EdgeInsets.all(EraTheme.paddingWidthAdmin + 10.w),
         child: SingleChildScrollView(

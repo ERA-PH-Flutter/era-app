@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -9,11 +8,9 @@ import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
-import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
-import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
+
 import 'package:eraphilippines/presentation/website/home_website/controllers/home_web_controller.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controllers/web_landingpage_controller.dart';
+
 import 'package:eraphilippines/repository/listing.dart';
 
 import 'package:flutter/material.dart';
@@ -69,13 +66,11 @@ class HomeWeb extends GetView<HomeWebController> {
   }
 
   _loaded() {
-    LandingPageController controllers = Get.put(LandingPageController());
-    ListingsAdminController Lcontroller = Get.put(ListingsAdminController());
     return SingleChildScrollView(
       child: Container(
         width: Get.width,
-        padding: EdgeInsets.symmetric(
-            horizontal: EraTheme.paddingWidthAdmin + 10.sp),
+        padding:
+            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
         child: Column(
           children: [
             sb20(),
@@ -261,9 +256,6 @@ class HomeWeb extends GetView<HomeWebController> {
                                 await Database().addViews(listing.id);
                                 Get.toNamed('/propertyInfo',
                                     arguments: listing);
-
-                                Lcontroller.listing = listing;
-                                controllers.onSectionSelected(6);
                               },
                               child: Container(
                                 width: 378.w,
@@ -635,7 +627,7 @@ class HomeWeb extends GetView<HomeWebController> {
                             Button(
                               text: 'BECOME AN ERA AGENT',
                               onTap: () {
-                                Get.to(JoinEra());
+                                // Get.to(JoinEra());
                               },
                               bgColor: AppColors.kRedColor,
                               width: 250.w,

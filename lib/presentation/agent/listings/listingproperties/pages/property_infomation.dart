@@ -18,8 +18,11 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
+import '../../../../../app/widgets/web/base_layout.dart';
+import '../../../../../app/widgets/web/navbar.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
+import '../../../../website/homepage/controller/homepage_controller.dart';
 import '../../favorites/controllers/fav_controller.dart';
 import '../controllers/listing_controller.dart';
 
@@ -31,6 +34,8 @@ class PropertyInformation extends GetView<ListingController> {
     required this.listing,
   });
   final FavController favoritesController = Get.put(FavController());
+  final HomsController homsController = Get.put(HomsController());
+
   @override
   Widget build(BuildContext context) {
     controller.images.clear();
@@ -39,9 +44,8 @@ class PropertyInformation extends GetView<ListingController> {
         controller.images.add(photo);
       }
     });
-    return Scaffold(
-      appBar: CustomAppbar(),
-      body: SingleChildScrollView(
+    return BaseLayout(
+      child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

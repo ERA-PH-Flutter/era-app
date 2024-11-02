@@ -1,33 +1,23 @@
 import 'dart:io';
 
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
-import 'package:eraphilippines/presentation/admin/content-management/pages/homepage.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agent_listings_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
-import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/searchresult.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projects_list.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
-import 'package:eraphilippines/app/widgets/navigation/app_nav_items.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../presentation/agent/forms/contacts/pages/help.dart';
-import '../../../presentation/agent/home/controllers/home_binding.dart';
 import '../../../presentation/agent/home/pages/home.dart';
-import '../../../presentation/agent/projects/controllers/projects_controller.dart';
 import '../../../presentation/global.dart';
-import '../../../router/route.dart';
 import 'package:circle_nav_bar/circle_nav_bar.dart';
 
 var selectedIndex = 0.obs;
@@ -39,7 +29,7 @@ void changeIndex(int index) {
   Widget nextPage;
   switch (index) {
     case 0:
-      nextPage = HomePage();
+      // nextPage = HomePage();
 
       break;
     case 1:
@@ -108,7 +98,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               ProjectsList(),
               SearchResult(),
               FindAgents(),
-              Help(),
+              //   Help(),
             ],
           ),
         ),

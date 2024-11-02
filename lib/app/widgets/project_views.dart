@@ -6,8 +6,6 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_view_binding.dart';
-import 'package:eraphilippines/presentation/agent/forms/contacts/pages/findus.dart';
-import 'package:eraphilippines/presentation/agent/forms/contacts/pages/inquiry.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
 import 'package:eraphilippines/repository/project.dart';
 import 'package:flutter/cupertino.dart';
@@ -618,12 +616,12 @@ class ProjectViews {
       SliverToBoxAdapter(
         child: Column(
           children: [
-            Inquiry(),
+            // Inquiry(),
             SizedBox(height: 40.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: FindUs(),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 10.w),
+            //   child: FindUs(),
+            // ),
             SizedBox(height: 180.h),
           ],
         ),

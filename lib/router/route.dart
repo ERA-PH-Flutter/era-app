@@ -1,24 +1,10 @@
-import 'package:eraphilippines/presentation/admin/authentication.dart';
-import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/controllers/home_analytics_binding.dart';
-import 'package:eraphilippines/presentation/admin/dashboard/home_analytics/pages/home_analytics.dart';
-import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_binding.dart';
-import 'package:eraphilippines/presentation/admin/landingpage/pages/landingpage.dart';
-import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_bindings.dart';
-import 'package:eraphilippines/presentation/admin/properties/pages/edit_listing_admin.dart';
-import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_bindings.dart';
-import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
-import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
 import 'package:eraphilippines/presentation/agent/authentication/pages/nextPage.dart';
-import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/aurelia.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/laya.dart';
+
 import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
-import 'package:eraphilippines/presentation/website/authentication.dart';
-import 'package:eraphilippines/presentation/website/landingpage/pages/web_landingpage.dart';
+
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 import '../presentation/agent/agents/controllers/agents_binding.dart';
@@ -28,12 +14,7 @@ import '../presentation/agent/agents/pages/findagents.dart';
 import '../presentation/agent/authentication/controllers/authentication_binding.dart';
 import '../presentation/agent/authentication/pages/createaccount_page.dart';
 import '../presentation/agent/authentication/pages/login_page.dart';
-import '../presentation/agent/company_news/controllers/companynews_binding.dart';
-import '../presentation/agent/company_news/pages/companynews.dart';
-import '../presentation/agent/forms/contacts/controllers/contacts_binding.dart';
-import '../presentation/agent/forms/contacts/pages/aboutus.dart';
-import '../presentation/agent/forms/contacts/pages/direct-contactus.dart';
-import '../presentation/agent/forms/contacts/pages/help.dart';
+
 import '../presentation/agent/home/controllers/home_binding.dart';
 import '../presentation/agent/home/pages/home.dart';
 import '../presentation/agent/listings/add-edit_listings/controllers/addlistings_bindings.dart';
@@ -53,10 +34,8 @@ import '../presentation/agent/listings/sellproperty/controllers/sellproperty_bin
 import '../presentation/agent/listings/sellproperty/pages/sellproperty.dart';
 import '../presentation/agent/listings/sold_properties/controllers/sold_properties_binding.dart';
 import '../presentation/agent/listings/sold_properties/pages/sold_properties.dart';
-import '../presentation/agent/projects/controllers/projects_binding.dart';
-import '../presentation/agent/projects/pages/projectmain.dart';
-import '../presentation/agent/tools/mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
-import '../presentation/agent/tools/mortageCalculator.dart/pages/MortageCalculator.dart';
+
+import '../presentation/website/homepage/pages/homepage.dart';
 
 appRoutes() => [
       GetPage(
@@ -73,34 +52,7 @@ appRoutes() => [
           binding: LoginPageBinding()),
 
       //projects
-      GetPage(
-          name: RouteString.haraya,
-          page: () => const HarayaProject(),
-          binding: ProjectsBinding()),
 
-      GetPage(
-          name: RouteString.laya,
-          page: () => const LayaProject(),
-          binding: ProjectsBinding()),
-
-      GetPage(
-          name: RouteString.aurelia,
-          page: () => const AureliaProject(),
-          binding: ProjectsBinding()),
-
-      GetPage(
-        name: RouteString.projectmain,
-        page: () => const ProjectMain(),
-        binding: ProjectsBinding(),
-      ),
-      // GetPage(
-      //     name: RouteString.contactus,
-      //     page: () => const ContactUs(),
-      //     binding: ContactUsBinding()),
-      GetPage(
-          name: RouteString.aboutus,
-          page: () => const AboutUs(),
-          binding: ContactUsBinding()),
       GetPage(
           name: RouteString.createaccount,
           page: () => const CreateAccount(),
@@ -121,22 +73,12 @@ appRoutes() => [
           name: RouteString.rentsearchresult,
           page: () => const SearchResult(),
           binding: SearchResultBinding()),
-      GetPage(
-          name: RouteString.help,
-          page: () => Help(),
-          binding: ContactUsBinding()),
-      GetPage(
-        name: RouteString.joinEra,
-        page: () => JoinEra(),
-      ),
+
       GetPage(
           name: RouteString.findagents,
           page: () => const FindAgents(),
           binding: AgentsBinding()),
-      GetPage(
-          name: RouteString.companynews,
-          page: () => const CompanyNews(),
-          binding: CompanyNewsBinding()),
+
       GetPage(
           name: RouteString.propertyInfo,
           page: () => PropertyInformation(
@@ -160,14 +102,7 @@ appRoutes() => [
           name: RouteString.editListings,
           page: () => EditListing(),
           binding: AddListingsBinding()),
-      GetPage(
-          name: RouteString.mortageCalculator,
-          page: () => MortageCalculator(),
-          binding: MortageCalculatorBinding()),
-      GetPage(
-          name: RouteString.directContactUs,
-          page: () => DirectContactUs(),
-          binding: ContactUsBinding()),
+
       GetPage(
         name: RouteString.fav,
         page: () => Fav(),
@@ -196,48 +131,11 @@ appRoutes() => [
         name: RouteString.termsAndConditions,
         page: () => TermsCondition(),
       ),
-//admin
-      GetPage(
-          name: RouteString.landingPage,
-          page: () => LandingPage(),
-          binding: LandingpageBinding()),
-      GetPage(
-          name: RouteString.homeAnalytics,
-          page: () => const HomeAnalytics(),
-          binding: HomeAnalyticsBinding()),
-
-      GetPage(
-          name: RouteString.addAgent,
-          page: () => AddAgent(),
-          binding: AgentAdminBindings()),
-
-      GetPage(
-        name: RouteString.adminLogin,
-        page: () => AuthenticationPage(),
-      ),
-      GetPage(
-        name: RouteString.agentProfileAdmin,
-        page: () => AgentProfileAdmin(),
-        binding: AgentAdminBindings(),
-      ),
-
-      GetPage(
-        name: RouteString.editListingsAd,
-        page: () => EditPropertyAdmin(),
-        binding: ListingsAdminBindings(),
-      ),
-
-      //website
 
       GetPage(
         name: RouteString.webLandingPage,
-        page: () => WebsiteLandingPage(),
+        page: () => HomePages(),
       ),
-
-      // GetPage(
-      //   name: RouteString.webLoginPage,
-      //   page: () => AuthenticationPageWeb(),
-      // ),
     ];
 
 class MyMiddleware extends GetMiddleware {}

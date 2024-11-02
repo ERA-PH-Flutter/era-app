@@ -110,16 +110,16 @@ class FilteredSearchBox extends StatelessWidget {
                 obscureText: false,
                 suffixIcons: AppEraAssets.send,
                 onSuffixTap: () async {
-                  var data;
-                  var searchQuery = "";
-                  data = await AI(query: aiSearchController.text).search();
-                  searchQuery = aiSearchController.text;
-                  selectedIndex.value = 2;
-                  pageViewController = PageController(initialPage: 2);
-                  currentRoute = '/searchresult';
-                  Get.offAll(BaseScaffold(),
-                      binding: SearchResultBinding(),
-                      arguments: [data, searchQuery]);
+                  // var data;
+                  // var searchQuery = "";
+                  // data = await AI(query: aiSearchController.text).search();
+                  // searchQuery = aiSearchController.text;
+                  // selectedIndex.value = 2;
+                  // pageViewController = PageController(initialPage: 2);
+                  // currentRoute = '/searchresult';
+                  // Get.offAll(BaseScaffold(),
+                  //     binding: SearchResultBinding(),
+                  //     arguments: [data, searchQuery]);
                 }),
           SizedBox(height: 5.h),
           GestureDetector(
