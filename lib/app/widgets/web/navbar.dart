@@ -1,4 +1,4 @@
-import 'package:eraphilippines/presentation/website/homepage/controller/homepage_controller.dart';
+import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,9 +21,10 @@ class Navbar extends GetResponsiveView<HomsController> {
   Widget desktop() {
     return Obx(
       () => Container(
+        color: AppColors.white,
         padding: EdgeInsets.symmetric(
             horizontal: EraTheme.paddingWidthAdmin * 2.7.w),
-        height: 100.h,
+        height: Get.height,
         width: Get.width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -32,7 +33,7 @@ class Navbar extends GetResponsiveView<HomsController> {
               color: AppColors.white,
               child: Image.asset(
                 AppEraAssets.eraPh,
-                height: 120.h,
+                height: Get.height,
               ),
             ),
             Expanded(
@@ -156,12 +157,12 @@ class Navbar extends GetResponsiveView<HomsController> {
               controller: controller.controllerOverlay,
               overlayChildBuilder: (BuildContext context) {
                 return Positioned(
-                  top: 70.h,
+                  top: 80.h,
                   right: Get.width / 1.9 + 10.w,
                   child: Wrap(
                     children: [
                       Container(
-                        height: 270.w,
+                        height: Get.height,
                         width: 200.w,
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
                         decoration: BoxDecoration(
@@ -169,6 +170,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                           color: Colors.white,
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: controller.items.sublist(5).map((item) {
                             return ListTile(
                               title: Column(

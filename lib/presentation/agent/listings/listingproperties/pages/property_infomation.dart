@@ -22,7 +22,7 @@ import '../../../../../app/widgets/web/base_layout.dart';
 import '../../../../../app/widgets/web/navbar.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
-import '../../../../website/homepage/controller/homepage_controller.dart';
+import '../../../../website/landingpage/controller/homepage_controller.dart';
 import '../../favorites/controllers/fav_controller.dart';
 import '../controllers/listing_controller.dart';
 

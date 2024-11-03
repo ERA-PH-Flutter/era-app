@@ -1,4 +1,4 @@
-import 'package:eraphilippines/presentation/website/home_website/controllers/home_web_controller.dart';
+import 'package:eraphilippines/presentation/website/home/controllers/home_web_controller.dart';
 import 'package:get/get.dart';
 
 class HomeWebBinding extends Bindings {

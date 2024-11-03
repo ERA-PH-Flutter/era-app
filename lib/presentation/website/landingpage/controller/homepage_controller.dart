@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 import '../../../agent/agents/bindings/agent_listings_binding.dart';
@@ -8,7 +9,7 @@ import '../../form/pages/about_us_web.dart';
 import '../../form/pages/contactus_web.dart';
 import '../../form/pages/join_era_web.dart';
 import '../../form/pages/sell_property_web.dart';
-import '../../home_website/pages/home_web.dart';
+import '../../home/pages/home_web.dart';
 import '../../listings/controllers/buyweb_binding.dart';
 import '../../listings/pages/buy_web_listings.dart';
 import '../../mortageCalculator.dart/pages/MortageCalculator.dart';
@@ -17,6 +18,11 @@ class HomsController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxInt navBarSelectedIndex = 0.obs;
   RxBool isMoreSelected = false.obs;
+  var isNavbarVisible = true.obs;
+
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  var controllerOverlay = OverlayPortalController();
+  ScrollController scrollController = ScrollController();
 
   RxList<Widget> pages = [
     BuyWeb(), //0
@@ -29,8 +35,19 @@ class HomsController extends GetxController {
     MortageCalculatorWeb(),
   ].obs;
 
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  var controllerOverlay = OverlayPortalController();
+  HomsController() {
+    scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      if (isNavbarVisible.value) isNavbarVisible.value = false;
+    } else if (scrollController.position.userScrollDirection ==
+        ScrollDirection.forward) {
+      if (!isNavbarVisible.value) isNavbarVisible.value = true;
+    }
+  }
 
   final items = [
     'HOME',

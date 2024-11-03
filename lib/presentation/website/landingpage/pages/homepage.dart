@@ -2,7 +2,7 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/presentation/website/homepage/controller/homepage_controller.dart';
+import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -38,29 +38,77 @@ class HomePages extends GetResponsiveView<HomsController> {
   Widget desktop() {
     Get.put(HomsController());
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Navbar(),
+      body: CustomScrollView(
+        controller: controller.scrollController,
+        slivers: [
+          Obx(
+            () => SliverAppBar(
+              automaticallyImplyLeading: false,
+              collapsedHeight: 150.h,
+              backgroundColor: AppColors.white,
+              floating: false,
+              pinned: controller.isNavbarVisible.value,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Navbar(),
+                background: Container(
+                  color: AppColors.white,
                 ),
-                Obx(
-                  () => SizedBox(
-                    width: Get.width,
-                    child: controller.pages[controller.selectedIndex.value],
-                  ),
-                ),
-                _buildFooter(),
-              ],
+              ),
             ),
-          ],
-        ),
+          ),
+          SliverList(
+              delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return Stack(
+                children: [
+                  Column(
+                    children: [
+                      Obx(
+                        () => SizedBox(
+                          width: Get.width,
+                          child:
+                              controller.pages[controller.selectedIndex.value],
+                        ),
+                      ),
+                      _buildFooter(),
+                    ],
+                  ),
+                ],
+              );
+            },
+            childCount: 1,
+          ))
+        ],
       ),
     );
   }
+  //@override
+  // Widget desktop() {
+  //   Get.put(HomsController());
+  //   return Scaffold(
+  //     body: SingleChildScrollView(
+  //       child: Stack(
+  //         children: [
+  //           Column(
+  //             children: [
+  //               Align(
+  //                 alignment: Alignment.topCenter,
+  //                 child: Navbar(),
+  //               ),
+  //               Obx(
+  //                 () => SizedBox(
+  //                   width: Get.width,
+  //                   child: controller.pages[controller.selectedIndex.value],
+  //                 ),
+  //               ),
+  //               _buildFooter(),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildFooter() {
     return Column(

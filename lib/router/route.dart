@@ -35,7 +35,7 @@ import '../presentation/agent/listings/sellproperty/pages/sellproperty.dart';
 import '../presentation/agent/listings/sold_properties/controllers/sold_properties_binding.dart';
 import '../presentation/agent/listings/sold_properties/pages/sold_properties.dart';
 
-import '../presentation/website/homepage/pages/homepage.dart';
+import '../presentation/website/landingpage/pages/homepage.dart';
 
 appRoutes() => [
       GetPage(

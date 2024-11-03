@@ -9,7 +9,7 @@ import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 
-import 'package:eraphilippines/presentation/website/home_website/controllers/home_web_controller.dart';
+import 'package:eraphilippines/presentation/website/home/controllers/home_web_controller.dart';
 
 import 'package:eraphilippines/repository/listing.dart';
 
