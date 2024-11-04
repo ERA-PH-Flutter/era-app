@@ -53,7 +53,7 @@ class LoginPage extends GetView<LoginPageController> {
                         Column(
                           children: [
                             TextFormField(
-                              controller: controller.email,
+                              controller: controller.emailAd,
                               style: TextStyle(
                                   color: AppColors.black, fontSize: 15.sp),
                               decoration: InputDecoration(
@@ -76,7 +76,7 @@ class LoginPage extends GetView<LoginPageController> {
                             SizedBox(height: 20.h),
                             Obx(
                               () => TextFormField(
-                                controller: controller.password,
+                                controller: controller.passwordC,
                                 obscureText: !controller.passwordVisible.value,
                                 style: TextStyle(
                                     color: AppColors.black, fontSize: 15.sp),
@@ -164,11 +164,8 @@ class LoginPage extends GetView<LoginPageController> {
                 SizedBox(height: 10.h),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-
-                  ],
+                  children: const [],
                 ),
-
                 SizedBox(height: 20.h),
               ],
             ),

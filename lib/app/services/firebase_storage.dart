@@ -26,8 +26,11 @@ class CloudStorage {
   }) async {
     try {
       final bytes = await ref.child(docRef).getData();
-      final appDirectory = Platform.isAndroid ? await getTemporaryDirectory(): await getApplicationSupportDirectory();
-      final String imagePath = '${appDirectory.path}/${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(100)}.jpg';
+      final appDirectory = Platform.isAndroid
+          ? await getTemporaryDirectory()
+          : await getApplicationSupportDirectory();
+      final String imagePath =
+          '${appDirectory.path}/${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(100)}.jpg';
       final File file = File(imagePath);
       file.create();
       await file.writeAsBytes(bytes!);
@@ -44,9 +47,7 @@ class CloudStorage {
       if (await file.exists()) {
         await file.delete();
       }
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 
   Future<String> getFile({folder, name}) async {
@@ -76,6 +77,7 @@ class CloudStorage {
       return await ref.child(AppStrings.noUserImageWhite).getData();
     }
   }
+
   Future<Object?> getFilesBytes({
     required List docRefs,
   }) async {
@@ -83,22 +85,21 @@ class CloudStorage {
     try {
       for (var docRef in docRefs) {
         files.add(await ref.child(docRef).getData());
-      }return files;
+      }
+      return files;
     } catch (e) {
       return [];
     }
   }
 
-  Widget imageLoader({reference, height, width, BoxFit? fit}){
+  Widget imageLoader({reference, height, width, BoxFit? fit}) {
     return FutureBuilder(
       future: ref.child(reference).getDownloadURL(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CachedNetworkImage(
             imageUrl: snapshot.data!,
-            width: width,
-            height: height,
-            fit: BoxFit.cover,
+            fit: fit,
           );
         } else {
           return Center(
@@ -160,7 +161,7 @@ class CloudStorage {
     required List fileList,
   }) async {
     try {
-      for(int i = 0;i < fileList.length;i++){
+      for (int i = 0; i < fileList.length; i++) {
         await ref.child(fileList[i]).delete();
       }
       return "success";
@@ -181,8 +182,8 @@ class CloudStorage {
       return "";
     }
   }
-  Future<String> uploadCustom(
-      {required  file, required customName}) async {
+
+  Future<String> uploadCustom({required file, required customName}) async {
     try {
       var fileRef = ref.child(customName);
       await fileRef.putData(file);
@@ -191,11 +192,13 @@ class CloudStorage {
       return e.toString();
     }
   }
+
   Future<String> uploadFromMemory(
       {required file, required String target, customName}) async {
     try {
       var filename = "${Random().nextInt(100)}";
-      var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename.png";
+      var uploadFilename =
+          "${DateTime.now().microsecondsSinceEpoch}_$filename.png";
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putData(file);
       return '$target/${customName ?? uploadFilename}';

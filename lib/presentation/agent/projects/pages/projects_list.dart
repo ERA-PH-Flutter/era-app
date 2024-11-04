@@ -27,7 +27,10 @@ class ProjectsList extends GetView<ProjectsListController> {
   const ProjectsList({super.key});
   @override
   Widget build(BuildContext context) {
-    final SearchResultController searchController = Get.put(SearchResultController());
+    final SearchResultController searchController =
+        Get.put(SearchResultController());
+    // naglagay ako dito kasi pag nag search ako sa search bar, nung listings then pupunta ako sa projects may error. kaya nilagay ko yung get.put(SearchResultController()); dito
+    Get.put(ProjectsListController());
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
@@ -45,7 +48,8 @@ class ProjectsList extends GetView<ProjectsListController> {
                 Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: EraTheme.paddingWidth),
                       child: EraText(
                         text: 'Find Cutting-Edge Real Estate Projects',
                         fontSize: 30.sp,
@@ -56,7 +60,8 @@ class ProjectsList extends GetView<ProjectsListController> {
                     ),
                     sb10(),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: EraTheme.paddingWidth),
                       child: BoxWidget.build(
                         child: Column(
                           children: [
@@ -64,22 +69,31 @@ class ProjectsList extends GetView<ProjectsListController> {
                             Obx(() {
                               if (!searchController.showFullSearch.value) {
                                 return Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.w),
                                   child: AppTextField(
                                       onSuffixTap: () async {
                                         BaseController().showLoading();
-                                        var projects = await AI(query: searchController.aiSearchController.text).projectSearch();
-                                        if(projects.isNotEmpty){
-                                          controller.projects.value = projects.map((proj){
-                                            return Project.fromJSON(proj.data());
+                                        var projects = await AI(
+                                                query: searchController
+                                                    .aiSearchController.text)
+                                            .projectSearch();
+                                        if (projects.isNotEmpty) {
+                                          controller.projects.value =
+                                              projects.map((proj) {
+                                            return Project.fromJSON(
+                                                proj.data());
                                           }).toList();
-                                          controller.projectsListState.value = ProjectsListState.loaded;
-                                        }else{
-                                          controller.projectsListState.value = ProjectsListState.empty;
+                                          controller.projectsListState.value =
+                                              ProjectsListState.loaded;
+                                        } else {
+                                          controller.projectsListState.value =
+                                              ProjectsListState.empty;
                                         }
                                         BaseController().hideLoading();
                                       },
-                                      controller: searchController.aiSearchController,
+                                      controller:
+                                          searchController.aiSearchController,
                                       hint: 'Use AI Search',
                                       svgIcon: AppEraAssets.ai3,
                                       bgColor: AppColors.white,
@@ -90,7 +104,6 @@ class ProjectsList extends GetView<ProjectsListController> {
                               }
                               return Container();
                             }),
-            
                             SizedBox(height: 10.h),
                           ],
                         ),
@@ -117,10 +130,11 @@ class ProjectsList extends GetView<ProjectsListController> {
   }
 
   _loaded() {
-    return Obx((){
+    return Obx(() {
       List<Widget> projects = [];
       for (int i = 0; i < controller.projects.value.length; i++) {
-        if(i >= controller.count.value - controller.pageSize && i < controller.count.value){
+        if (i >= controller.count.value - controller.pageSize &&
+            i < controller.count.value) {
           projects.add(GestureDetector(
             onTap: () {
               Get.to(ProjectView(),
@@ -137,29 +151,29 @@ class ProjectsList extends GetView<ProjectsListController> {
         }
       }
       return LoadMore(
-        length: (controller.projects.length / controller.pageSize).floor(),
-        child: Column(children: projects)
-      );
+          length: (controller.projects.length / controller.pageSize).floor(),
+          child: Column(children: projects));
     });
   }
+
   LoadMore({
     child,
     length,
-  }){
+  }) {
     return Column(
       children: [
         child,
         NumberPagination(
           fontSize: 18.sp,
-          buttonRadius:10.r,
-          controlButtonSize: Size(30 ,30),
+          buttonRadius: 10.r,
+          controlButtonSize: Size(30, 30),
           numberButtonSize: Size(35, 35),
-          sectionSpacing:1.w,
+          sectionSpacing: 1.w,
           betweenNumberButtonSpacing: 1,
           totalPages: length,
           currentPage: (controller.count.value / controller.pageSize).floor(),
           visiblePagesCount: length < 4 ? length : 4,
-          onPageChanged: (page){
+          onPageChanged: (page) {
             controller.count.value = controller.pageSize * page;
           },
         ),

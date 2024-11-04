@@ -269,13 +269,13 @@ class ProjectViews {
                                             currentImageOutdoor.value));
                                 return Dialog(
                                   insetPadding: EdgeInsets.symmetric(
-                                      horizontal: 5.w, vertical: 180.h),
+                                      horizontal: 5.w, vertical: 0.h),
                                   backgroundColor: Colors.transparent,
                                   child: Stack(
                                     children: [
                                       Positioned(
                                           top: 20.h,
-                                          right: 10.w,
+                                          right: 0.w,
                                           left: 0.w,
                                           child: Obx(
                                             () => EraText(
@@ -288,7 +288,7 @@ class ProjectViews {
                                             ),
                                           )),
                                       Positioned(
-                                        top: 0.h,
+                                        top: 5.h,
                                         right: 0.w,
                                         child: IconButton(
                                           color: AppColors.blue3,
@@ -326,7 +326,8 @@ class ProjectViews {
                                                 );
                                               }
                                               return CloudStorage().imageLoader(
-                                                reference: data['images'][index],
+                                                reference: data['images']
+                                                    [index],
                                                 height: Get.height,
                                                 width: Get.width,
                                                 fit: BoxFit.contain,
@@ -336,7 +337,7 @@ class ProjectViews {
                                         ),
                                       ),
                                       Positioned(
-                                        bottom: 20.h,
+                                        bottom: 30,
                                         left: 0,
                                         right: 0,
                                         child: Obx(() {
@@ -565,7 +566,8 @@ class ProjectViews {
                                                 );
                                               }
                                               return CloudStorage().imageLoader(
-                                                reference: data['images'][index],
+                                                reference: data['images']
+                                                    [index],
                                                 height: Get.height,
                                                 width: Get.width,
                                                 fit: BoxFit.contain,
@@ -902,10 +904,9 @@ class ProjectViews {
                   items: block['images'].map<Widget>((image) {
                     return Container(
                       child: CloudStorage().imageLoader(
-                        reference: image,
-                        width: Get.width,
-                        height: Get.height,
-                      ),
+                          reference: image,
+                          width: Get.width,
+                          fit: BoxFit.cover),
                     );
 
                     //CloudStorage().imageLoader(ref: image);

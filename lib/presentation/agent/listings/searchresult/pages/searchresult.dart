@@ -48,7 +48,7 @@ class SearchResult extends GetView<SearchResultController> {
               Obx(() {
                 return controller.quickLinks.value;
               }),
-              Obx((){
+              Obx(() {
                 return switch (controller.searchResultState.value) {
                   SearchResultState.loading => Screens.loading(height: 500.h),
                   SearchResultState.loaded => _loaded(),
@@ -113,18 +113,22 @@ class SearchResult extends GetView<SearchResultController> {
             }
           }),
           SizedBox(height: 10.h),
-          Obx((){
+          Obx(() {
             controller.count.value;
             return LoadMore(
-              length: (controller.data.length / controller.pageSize).floor(),
-              child:  ListView.builder(
-                physics: const ScrollPhysics(),
+              length: (controller.data.length / controller.pageSize).floor() > 0
+                  ? (controller.data.length / controller.pageSize).floor()
+                  : 1,
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: controller.data.length,
                 itemBuilder: (context, index) {
                   if (controller.data[index] != null) {
-                    if(index >= controller.count.value - controller.pageSize && index < controller.count.value){
-                      Listing listing = Listing.fromJSON(controller.data[index]);
+                    if (index >= controller.count.value - controller.pageSize &&
+                        index < controller.count.value) {
+                      Listing listing =
+                          Listing.fromJSON(controller.data[index]);
                       return GestureDetector(
                         onTap: () async {
                           // await Database().addViews(listing.id);
@@ -153,8 +157,8 @@ class SearchResult extends GetView<SearchResultController> {
                                     width: Get.width,
                                     reference: listing.photos != null
                                         ? (listing.photos!.isNotEmpty
-                                        ? listing.photos!.first
-                                        : AppStrings.noUserImageWhite)
+                                            ? listing.photos!.first
+                                            : AppStrings.noUserImageWhite)
                                         : AppStrings.noUserImageWhite,
                                   )),
                               SizedBox(
@@ -166,8 +170,9 @@ class SearchResult extends GetView<SearchResultController> {
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: EraText(
                                   textOverflow: TextOverflow.ellipsis,
-                                  text:
-                                  listing.name! == "" ? "No Name" : listing.name!,
+                                  text: listing.name! == ""
+                                      ? "No Name"
+                                      : listing.name!,
                                   fontSize: EraTheme.header - 5.sp,
                                   color: AppColors.kRedColor,
                                   fontWeight: FontWeight.bold,
@@ -200,7 +205,7 @@ class SearchResult extends GetView<SearchResultController> {
                                       SizedBox(width: 2.w),
                                       EraText(
                                         text:
-                                        '${listing.area!.toStringAsFixed(listing.area!.truncateToDouble() == listing.area ? 0 : 1)} sqm',
+                                            '${listing.area!.toStringAsFixed(listing.area!.truncateToDouble() == listing.area ? 0 : 1)} sqm',
                                         fontSize: EraTheme.paragraph - 1.sp,
                                         fontWeight: FontWeight.w500,
                                         color: AppColors.black,
@@ -281,7 +286,7 @@ class SearchResult extends GetView<SearchResultController> {
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: EraText(
                                   text: NumberFormat.currency(
-                                      locale: 'en_PH', symbol: 'PHP ')
+                                          locale: 'en_PH', symbol: 'PHP ')
                                       .format(
                                     listing.price.toString() == ""
                                         ? 0
@@ -298,15 +303,16 @@ class SearchResult extends GetView<SearchResultController> {
                                     if (snapshot.hasData) {
                                       var user1 = snapshot.data;
                                       return Padding(
-                                        padding:
-                                        EdgeInsets.symmetric(horizontal: 14.w),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 14.w),
                                         child: ListedBy(
                                             image: user1!.image ??
                                                 AppStrings.noUserImageWhite,
                                             agentFirstName:
-                                            user1.firstname ?? "No Name",
+                                                user1.firstname ?? "No Name",
                                             agentType: user1.role ?? "Agent",
-                                            agentLastName: user1.lastname ?? ""),
+                                            agentLastName:
+                                                user1.lastname ?? ""),
                                       );
                                     } else {
                                       return Center(
@@ -355,24 +361,25 @@ class SearchResult extends GetView<SearchResultController> {
   LoadMore({
     child,
     length,
-  }){
+  }) {
     return Column(
       children: [
         child,
-        NumberPagination(
-          fontSize: 18.sp,
-          buttonRadius:10.r,
-          controlButtonSize: Size(30 ,30),
-          numberButtonSize: Size(35, 35),
-          sectionSpacing:1.w,
-          betweenNumberButtonSpacing: 1,
-          totalPages: length,
-          currentPage: (controller.count.value / controller.pageSize).floor(),
-          visiblePagesCount: length < 3 ? length : 3,
-          onPageChanged: (page){
-            controller.count.value = controller.pageSize * page;
-          },
-        ),
+        if (length > 0 && controller.pageSize > 0)
+          NumberPagination(
+            fontSize: 18.sp,
+            buttonRadius: 10.r,
+            controlButtonSize: Size(30, 30),
+            numberButtonSize: Size(35, 35),
+            sectionSpacing: 1.w,
+            betweenNumberButtonSpacing: 1,
+            totalPages: length,
+            currentPage: (controller.count.value / controller.pageSize).floor(),
+            visiblePagesCount: length < 3 ? length : 3,
+            onPageChanged: (page) {
+              controller.count.value = controller.pageSize * page;
+            },
+          ),
         SizedBox(height: 100.h),
       ],
     );
