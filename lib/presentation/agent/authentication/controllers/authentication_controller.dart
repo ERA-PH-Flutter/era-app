@@ -45,8 +45,8 @@ class LoginPageController extends GetxController with BaseController {
   List<String> specialityType = ['Rental', 'Primary', 'Resale', 'Others'];
   List<String> transaction = ['1-5', '6-10', 'More than 10'];
 
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  // TextEditingController email = TextEditingController();
+  // TextEditingController password = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController whatsAppController = TextEditingController();
 
@@ -67,16 +67,16 @@ class LoginPageController extends GetxController with BaseController {
   login() async {
     showLoading();
     var login = await Authentication()
-        .login(email: email.text.trim(), password: password.text.trim());
+        .login(email: emailAd.text, password: passwordC.text);
     if (!login.contains("error")) {
       var id = FirebaseAuth.instance.currentUser!.uid;
       user = await EraUser().getById(id);
-      if(user!.status == "approved"){
+      if (user!.status == "approved") {
         Get.find<LocalStorageService>().userID = id;
         selectedIndex.value = 0;
         pageViewController = PageController(initialPage: 0);
-        Get.offAll(BaseScaffold(),binding: HomeBinding());
-      }else if(user!.status == "pending"){
+        Get.offAll(BaseScaffold(), binding: HomeBinding());
+      } else if (user!.status == "pending") {
         await FirebaseAuth.instance.signOut();
         user = null;
         showSuccessDialog(
@@ -85,8 +85,9 @@ class LoginPageController extends GetxController with BaseController {
               Get.back();
             },
             title: "Account Pending",
-            description: "Wait for ERA Admin to approve and review your account!");
-      }else{
+            description:
+                "Wait for ERA Admin to approve and review your account!");
+      } else {
         await FirebaseAuth.instance.signOut();
         user = null;
         showSuccessDialog(
@@ -97,13 +98,12 @@ class LoginPageController extends GetxController with BaseController {
             title: "Failed",
             description: "Account is deleted or Block by admin!");
       }
-    }
-    else {
+    } else {
       var e = login.toString().split("error -")[0];
       var errorText = "An error occurred.";
       if (e == 'user-not-found') {
         errorText = 'No user found for that email.';
-      }else if (e == 'wrong-password') {
+      } else if (e == 'wrong-password') {
         errorText = 'Wrong password provided.';
       }
       showSuccessDialog(
@@ -130,7 +130,8 @@ class LoginPageController extends GetxController with BaseController {
 
   Future signUp() async {
     showLoading();
-    await Authentication().signup(email: emailAd.text, password: password.text);
+    await Authentication()
+        .signup(email: emailAd.text, password: passwordC.text);
     var id = await Authentication()
         .login(email: emailAd.text, password: 'eraaccount');
     var user = EraUser(
@@ -166,7 +167,6 @@ class LoginPageController extends GetxController with BaseController {
       } else {
         //throw Error();
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 }

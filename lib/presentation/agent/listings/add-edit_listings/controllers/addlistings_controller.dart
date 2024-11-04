@@ -168,7 +168,15 @@ class AddListingsController extends GetxController with BaseController {
       final imagePick = await picker.pickMultiImage();
       if (imagePick.isNotEmpty) {
         for (var image in imagePick) {
+          var file = File(image.path);
+          if (file.lengthSync() > 5242880) {
+            AddListings.showErroDialogs(
+              title: "Error",
+              description: "Image size should not exceed 5MB",
+            );
+          }
           images.add(await image.readAsBytes());
+          images.add(file);
         }
       }
       return images;
@@ -181,8 +189,7 @@ class AddListingsController extends GetxController with BaseController {
   removeAt(int index) {
     images.removeAt(index);
 
-    if (images.isEmpty) {
-    }
+    if (images.isEmpty) {}
   }
 
   removeMode() {
@@ -350,8 +357,6 @@ class AddListingsController extends GetxController with BaseController {
       await listing!.updateListing();
 
       !kIsWeb ? hideLoading() : null;
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 }
