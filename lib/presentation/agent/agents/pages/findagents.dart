@@ -188,68 +188,6 @@ class FindAgents extends GetView<AgentsController> {
                       ],
                     ),
                   ),
-                  // AgentListView(agentsModels:AgentsItems.agentsModels),
-                  // EraText(
-                  //   text: 'HAVE AN AGENT ALREADY?',
-                  //   fontSize: EraTheme.subHeader,
-                  //   fontWeight: FontWeight.w600,
-                  //   color: AppColors.blue,
-                  // ),
-                  // SizedBox(height: 5.h),
-                  // TextformfieldWidget(
-                  //   controller: controller.agentName,
-                  //   hintText: 'Type Name Here',
-                  //   maxLines: 1,
-                  //   keyboardType: TextInputType.text,
-                  //   hintstlye: TextStyle(
-                  //       color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
-                  // ),
-                  // SizedBox(height: 10.h),
-                  // EraText(
-                  //   text: 'SEARCH VIA AGENT ID',
-                  //   fontSize: EraTheme.subHeader,
-                  //   fontWeight: FontWeight.w600,
-                  //   color: AppColors.blue,
-                  // ),
-                  // SizedBox(height: 5.h),
-                  // TextformfieldWidget(
-                  //   controller: controller.agentId,
-                  //   hintText: 'Enter Agent ID',
-                  //   maxLines: 1,
-                  //   //agent id is a nuumber or not
-                  //   keyboardType: TextInputType.text,
-                  //   hintstlye: TextStyle(
-                  //       color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
-                  // ),
-                  // SizedBox(height: 10.h),
-                  // EraText(
-                  //   text: 'LOOKING FOR ONE?',
-                  //   fontSize: EraTheme.subHeader,
-                  //   fontWeight: FontWeight.w600,
-                  //   color: AppColors.blue,
-                  // ),
-                  // SizedBox(height: 5.h),
-                  // TextformfieldWidget(
-                  //   controller: controller.agentLocation,
-                  //   hintText: 'Type Your Location',
-                  //   maxLines: 1,
-                  //   keyboardType: TextInputType.text,
-                  //   hintstlye: TextStyle(
-                  //       color: AppColors.hint, fontSize: EraTheme.paragraph + 2.sp),
-                  // ),
-                  // SizedBox(height: 20.h),
-                  // Button(
-                  //   text: 'SEARCH',
-                  //   fontSize: 25.sp,
-                  //   onTap: () {
-                  //     controller.search();
-                  //   },
-                  //   bgColor: AppColors.kRedColor,
-                  //   height: 48.h,
-                  //   width: 500.w,
-                  //   fontWeight: FontWeight.w600,
-                  //   margin: EdgeInsets.symmetric(horizontal: 0),
-                  // ),
 
                   //controller.agentCount.toString()} to count the number of agents
                   SizedBox(height: 20.h),
@@ -372,7 +310,10 @@ class FindAgents extends GetView<AgentsController> {
       Obx(
         () {
           return LoadMore(
-            length: (controller.results.length / controller.pageSize).floor(),
+            length:
+                (controller.results.length / controller.pageSize).floor() > 0
+                    ? (controller.results.length / controller.pageSize).floor()
+                    : 1,
             child: ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -401,20 +342,21 @@ class FindAgents extends GetView<AgentsController> {
     return Column(
       children: [
         child,
-        NumberPagination(
-          fontSize: 18.sp,
-          buttonRadius: 10.r,
-          controlButtonSize: Size(30, 30),
-          numberButtonSize: Size(35, 35),
-          sectionSpacing: 1.w,
-          betweenNumberButtonSpacing: 1,
-          totalPages: length,
-          currentPage: (controller.count.value / controller.pageSize).floor(),
-          visiblePagesCount: length < 4 ? length : 4,
-          onPageChanged: (page) {
-            controller.count.value = controller.pageSize * page;
-          },
-        ),
+        if (length > 0 && controller.pageSize > 0)
+          NumberPagination(
+            fontSize: 18.sp,
+            buttonRadius: 10.r,
+            controlButtonSize: Size(30, 30),
+            numberButtonSize: Size(35, 35),
+            sectionSpacing: 1.w,
+            betweenNumberButtonSpacing: 1,
+            totalPages: length,
+            currentPage: (controller.count.value / controller.pageSize).floor(),
+            visiblePagesCount: length < 4 ? length : 4,
+            onPageChanged: (page) {
+              controller.count.value = controller.pageSize * page;
+            },
+          ),
         SizedBox(height: 50.h),
       ],
     );
