@@ -134,7 +134,7 @@ class LoginPageController extends GetxController with BaseController {
       await Authentication()
           .signup(email: emailAd.text, password: passwordC.text);
       var id = await Authentication()
-          .login(email: emailAd.text, password: 'eraaccount');
+          .login(email: emailAd.text, password: passwordC.text);
       var user = EraUser(
         id: id,
         firstname: firstName.text,
