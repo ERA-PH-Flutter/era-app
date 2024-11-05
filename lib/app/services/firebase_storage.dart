@@ -100,6 +100,8 @@ class CloudStorage {
           return CachedNetworkImage(
             imageUrl: snapshot.data!,
             fit: fit ?? BoxFit.cover,
+            height: height,
+            width: width,
           );
         } else {
           return Center(
