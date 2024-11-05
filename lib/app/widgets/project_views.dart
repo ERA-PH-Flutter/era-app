@@ -318,19 +318,26 @@ class ProjectViews {
                                               Center(
                                             child: Builder(builder: (context) {
                                               if (kIsWeb) {
-                                                return _buildImage(
-                                                  image: MemoryImage(
-                                                      data['images'][index]),
-                                                  height: Get.height,
-                                                  width: Get.width,
+                                                return Wrap(
+                                                  children: [
+                                                    _buildImage(
+                                                      image: MemoryImage(
+                                                          data['images']
+                                                              [index]),
+                                                      height: Get.height,
+                                                      width: Get.width,
+                                                    )
+                                                  ],
                                                 );
                                               }
-                                              return CloudStorage().imageLoader(
-                                                reference: data['images']
-                                                    [index],
-                                                height: Get.height,
-                                                width: Get.width,
-                                                fit: BoxFit.cover,
+                                              return Wrap(
+                                                children: [
+                                                  CloudStorage().imageLoader(
+                                                    reference: data['images']
+                                                        [index],
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ],
                                               );
                                             }),
                                           ),
@@ -558,19 +565,26 @@ class ProjectViews {
                                               Center(
                                             child: Builder(builder: (context) {
                                               if (kIsWeb) {
-                                                return _buildImage(
-                                                  image: MemoryImage(
-                                                      data['images'][index]),
-                                                  height: Get.height,
-                                                  width: Get.width,
+                                                return Wrap(
+                                                  children: [
+                                                    _buildImage(
+                                                      image: MemoryImage(
+                                                          data['images']
+                                                              [index]),
+                                                      height: Get.height,
+                                                      width: Get.width,
+                                                    )
+                                                  ],
                                                 );
                                               }
-                                              return CloudStorage().imageLoader(
-                                                reference: data['images']
-                                                    [index],
-                                                height: Get.height,
-                                                width: Get.width,
-                                                fit: BoxFit.cover,
+                                              return Wrap(
+                                                children: [
+                                                  CloudStorage().imageLoader(
+                                                    reference: data['images']
+                                                        [index],
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ],
                                               );
                                             }),
                                           ),
@@ -906,6 +920,7 @@ class ProjectViews {
                       child: CloudStorage().imageLoader(
                           reference: image,
                           width: Get.width,
+                          height: Get.height,
                           fit: BoxFit.cover),
                     );
 

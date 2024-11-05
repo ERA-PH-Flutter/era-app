@@ -823,7 +823,7 @@ class PropertyInformation extends GetView<ListingController> {
         return Dialog(
           insetPadding: EdgeInsets.zero,
           child: Stack(
-            alignment: Alignment.center,
+            //  alignment: Alignment.center,
             children: [
               Positioned(
                 top: 20.h,
@@ -906,7 +906,7 @@ class PropertyInformation extends GetView<ListingController> {
               //   ),
               // ),
 
-              Positioned.fill(
+              Positioned(
                 top: 60.h,
                 left: 0.w,
                 right: 0.w,
@@ -918,11 +918,16 @@ class PropertyInformation extends GetView<ListingController> {
                     currentPage.value = index;
                   },
                   itemBuilder: (context, index) {
-                    return CloudStorage().imageLoader(
-                      reference: controller.images[index],
-                      width: Get.width,
-                      height: Get.height,
-                      fit: BoxFit.contain,
+                    return Center(
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+                          CloudStorage().imageLoader(
+                            reference: controller.images[index],
+                            fit: BoxFit.cover,
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
@@ -930,6 +935,8 @@ class PropertyInformation extends GetView<ListingController> {
 
               Positioned(
                 bottom: 20.h,
+                left: 0,
+                right: 0,
                 child: Obx(() {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
