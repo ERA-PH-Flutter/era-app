@@ -99,7 +99,7 @@ class CloudStorage {
         if (snapshot.hasData) {
           return CachedNetworkImage(
             imageUrl: snapshot.data!,
-            fit: fit,
+            fit: fit ?? BoxFit.cover,
           );
         } else {
           return Center(
@@ -118,6 +118,7 @@ class CloudStorage {
     color,
     child,
     shadow,
+    fit,
   }) {
     return FutureBuilder(
       future: ref.child(reference).getDownloadURL(),
@@ -131,7 +132,7 @@ class CloudStorage {
                 color: color ?? AppColors.white,
                 boxShadow: shadow ?? [],
                 image: DecorationImage(
-                    fit: BoxFit.cover,
+                    fit: fit ?? BoxFit.cover,
                     image: CachedNetworkImageProvider(
                       snapshot.data!,
                     ))),

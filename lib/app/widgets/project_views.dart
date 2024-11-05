@@ -330,7 +330,7 @@ class ProjectViews {
                                                     [index],
                                                 height: Get.height,
                                                 width: Get.width,
-                                                fit: BoxFit.contain,
+                                                fit: BoxFit.cover,
                                               );
                                             }),
                                           ),
@@ -570,7 +570,7 @@ class ProjectViews {
                                                     [index],
                                                 height: Get.height,
                                                 width: Get.width,
-                                                fit: BoxFit.contain,
+                                                fit: BoxFit.cover,
                                               );
                                             }),
                                           ),
