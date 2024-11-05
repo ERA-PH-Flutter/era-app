@@ -56,13 +56,15 @@ class SplashController extends GetxController {
     splashState.value = kIsWeb ? SplashState.web : SplashState.loading;
     _typeWrittingAnimation();
     settings = Settings.fromJSON(await Database().getSettings());
-    if(Platform.isIOS){
-      await Permission.storage.request();
-    }
+
     if(!kIsWeb){
+      if(Platform.isIOS){
+        await Permission.storage.request();
+      }
       if((store.settings == null)){
         await loadLocalImage();
-      }if(store.settings == null){
+      }
+      if(store.settings == null){
         await loadLocalImage();
       }else if(settings!.id != store.settings!.id){
         await loadLocalImage();

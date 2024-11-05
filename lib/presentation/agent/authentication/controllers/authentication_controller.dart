@@ -130,30 +130,30 @@ class LoginPageController extends GetxController with BaseController {
 
   Future signUp() async {
     showLoading();
-    await Authentication()
-        .signup(email: emailAd.text, password: passwordC.text);
-    var id = await Authentication()
-        .login(email: emailAd.text, password: 'eraaccount');
-    var user = EraUser(
-      id: id,
-      firstname: firstName.text,
-      lastname: lastName.text,
-      age: age.text.toInt(),
-      gender: selectedGender.value,
-      whatsApp: fullContactNo.value,
-      email: emailAd.text,
-    );
-    var userInfo = EraUserInfo(
-        id: id,
-        status: selectedStatus.value,
-        recruiter: recruiter.text,
-        education: selectedEducation.value,
-        experience: experience.text.toInt(),
-        transaction: selectedTransaction.value,
-        pastTransaction: selectedTransaction.value,
-        specialization: selectedSpeciality.value);
-    await Authentication().logout();
     try {
+      await Authentication()
+          .signup(email: emailAd.text, password: passwordC.text);
+      var id = await Authentication()
+          .login(email: emailAd.text, password: 'eraaccount');
+      var user = EraUser(
+        id: id,
+        firstname: firstName.text,
+        lastname: lastName.text,
+        age: age.text.toInt(),
+        gender: selectedGender.value,
+        whatsApp: fullContactNo.value,
+        email: emailAd.text,
+      );
+      var userInfo = EraUserInfo(
+          id: id,
+          status: selectedStatus.value,
+          recruiter: recruiter.text,
+          education: selectedEducation.value,
+          experience: experience.text.toInt(),
+          transaction: selectedTransaction.value,
+          pastTransaction: selectedTransaction.value,
+          specialization: selectedSpeciality.value);
+      await Authentication().logout();
       if (id != null) {
         await user.add();
         await userInfo.add();
@@ -167,6 +167,10 @@ class LoginPageController extends GetxController with BaseController {
       } else {
         //throw Error();
       }
-    } catch (error) {}
+    } catch (error) {
+      BaseController().showErroDialog(onTap: (){
+
+      },description: error.toString());
+    }
   }
 }
