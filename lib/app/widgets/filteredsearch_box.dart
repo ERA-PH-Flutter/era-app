@@ -56,11 +56,11 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var selectedPriceSearch = RxnString();
   var selectedPropertyTypeSearch = RxnString();
   var propertyTypeSearch = [
-    //"Pre-selling",
-    //"Residential",
+    "Pre-selling",
+    "Residential",
     "Commercial",
-    //"Rental",
-    //"Auction",
+    "Rental",
+    "Auction",
   ];
   var location = [
     "Manila",
@@ -502,7 +502,12 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             query = query.where('location', isEqualTo: selectedLocation.value?.toLowerCase());
                           }
                           if (selectedPropertyTypeSearch.value != null) {
-                            query = query.where('type', isEqualTo: selectedPropertyTypeSearch.value!.capitalizeFirst);
+                            if(selectedPropertyTypeSearch.value == "Commercial"){
+                              query = query.where('type', isEqualTo: selectedPropertyTypeSearch.value!.capitalizeFirst);
+                            }else{
+                              query = query.where('sub_category', isEqualTo: selectedPropertyTypeSearch.value!.toLowerCase());
+                            }
+
                           }
                           if (areaMin.text != "" && areaMax.text != "") {
                             query = query.where('price',
