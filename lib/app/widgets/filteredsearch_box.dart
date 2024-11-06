@@ -505,7 +505,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             if(selectedPropertyTypeSearch.value == "Commercial"){
                               query = query.where('type', isEqualTo: selectedPropertyTypeSearch.value!.capitalizeFirst);
                             }else{
-                              query = query.where('sub_category', isEqualTo: selectedPropertyTypeSearch.value!.toLowerCase());
+                              query = query.where('sub_category', isEqualTo: selectedPropertyTypeSearch.value!.capitalizeFirst);
                             }
 
                           }
