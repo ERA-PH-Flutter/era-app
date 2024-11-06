@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/services/ai_search.dart';
@@ -171,9 +172,20 @@ class AgentsController extends GetxController with BaseController {
   }
 
   Future<void> getImagePic(previousPicture) async {
+
     try {
-      final XFile? imagePick =
-          await picker.pickImage(source: ImageSource.camera);
+      final XFile? imagePick;
+      if(await Permission.photos.request().isGranted){
+         imagePick = await picker.pickImage(source: ImageSource.camera);
+      }else{
+        BaseController().showErroDialog(
+          description: "Permission not granted!",
+          onTap: (){
+
+          }
+        );
+        return;
+      }
 
       if (imagePick != null) {
         image.value = File(imagePick.path);
@@ -182,8 +194,13 @@ class AgentsController extends GetxController with BaseController {
               .ref('users/images/${user!.id}.png')
               .delete();
         } catch (e) {
+
         }
-        await CloudStorage().deleteFileDirect(docRef: previousPicture);
+        try{
+          await CloudStorage().deleteFileDirect(docRef: previousPicture);
+        }catch(e){
+
+        }
         var im = await CloudStorage().upload(
             file: image.value!,
             target: 'users/images',
@@ -199,8 +216,8 @@ class AgentsController extends GetxController with BaseController {
               Get.back();
             });
       }
-    } on PlatformException catch (e) {
-      showErroDialog(description: "Failed to pick image: ${e.message}");
+    } catch (e) {
+      showErroDialog(description: "Failed to pick image: ${e.toString()}");
     }
   }
 }
