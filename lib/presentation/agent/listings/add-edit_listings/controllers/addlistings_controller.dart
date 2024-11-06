@@ -168,23 +168,39 @@ class AddListingsController extends GetxController with BaseController {
       final imagePick = await picker.pickMultiImage();
       if (imagePick.isNotEmpty) {
         for (var image in imagePick) {
-          var file = File(image.path);
-          if (file.lengthSync() > 5242880) {
-            AddListings.showErroDialogs(
-              title: "Error",
-              description: "Image size should not exceed 5MB",
-            );
-          }
           images.add(await image.readAsBytes());
-          images.add(file);
         }
       }
       return images;
     } on PlatformException catch (e) {
       return e;
     }
-    //return webImages;
   }
+  //  Future pickImageFromWeb() async {
+  //   try {
+  //     final imagePick = await picker.pickMultiImage();
+  //     if (imagePick.isNotEmpty) {
+  //       for (var image in imagePick) {
+  //         Uint8List imageBytes = await image.readAsBytes();
+   //         Uint8List compressedImage = await compressImage(imageBytes);
+  //         images.add(compressedImage);
+  //       }
+  //     }
+  //     return images;
+  //   } on PlatformException catch (e) {
+  //     return e;
+  //   }
+  // }
+
+  // Future compressImage(Uint8List imageBytes) async {
+  //   var result = await FlutterImageCompress.compressWithList(
+  //     imageBytes,
+  //     minWidth: 600,
+  //     minHeight: 600,
+  //     quality: 80,
+  //   );
+  //   return imageBytes;
+  // }
 
   removeAt(int index) {
     images.removeAt(index);
