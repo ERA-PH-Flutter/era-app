@@ -87,9 +87,9 @@ class HomeWeb extends GetView<HomeWebController> {
                   ),
                 ),
                 sb10(),
-                Container(
-                  alignment: Alignment.center,
-                  width: Get.width,
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: EraTheme.paddingWidthAdmin * 5),
                   child: FilteredSearchBox(),
                 ),
                 sb15(),

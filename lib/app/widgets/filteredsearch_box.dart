@@ -23,6 +23,7 @@ import '../../presentation/global.dart';
 
 import '../constants/assets.dart';
 import '../constants/colors.dart';
+import '../constants/theme.dart';
 import '../services/ai_search.dart';
 
 class FilteredSearchBox extends StatelessWidget {
@@ -100,27 +101,30 @@ class FilteredSearchBox extends StatelessWidget {
         children: [
           SizedBox(height: 10.h),
           if (!showFullSearch.value)
-            AppTextField(
-                onPressed: () {},
-                controller: aiSearchController,
-                hint: 'Use AI Search',
-                svgIcon: AppEraAssets.ai3,
-                bgColor: AppColors.white,
-                isSuffix: true,
-                obscureText: false,
-                suffixIcons: AppEraAssets.send,
-                onSuffixTap: () async {
-                  // var data;
-                  // var searchQuery = "";
-                  // data = await AI(query: aiSearchController.text).search();
-                  // searchQuery = aiSearchController.text;
-                  // selectedIndex.value = 2;
-                  // pageViewController = PageController(initialPage: 2);
-                  // currentRoute = '/searchresult';
-                  // Get.offAll(BaseScaffold(),
-                  //     binding: SearchResultBinding(),
-                  //     arguments: [data, searchQuery]);
-                }),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: AppTextField(
+                  onPressed: () {},
+                  controller: aiSearchController,
+                  hint: 'Use AI Search',
+                  svgIcon: AppEraAssets.ai3,
+                  bgColor: AppColors.white,
+                  isSuffix: true,
+                  obscureText: false,
+                  suffixIcons: AppEraAssets.send,
+                  onSuffixTap: () async {
+                    // var data;
+                    // var searchQuery = "";
+                    // data = await AI(query: aiSearchController.text).search();
+                    // searchQuery = aiSearchController.text;
+                    // selectedIndex.value = 2;
+                    // pageViewController = PageController(initialPage: 2);
+                    // currentRoute = '/searchresult';
+                    // Get.offAll(BaseScaffold(),
+                    //     binding: SearchResultBinding(),
+                    //     arguments: [data, searchQuery]);
+                  }),
+            ),
           SizedBox(height: 5.h),
           GestureDetector(
             onTap: () {
@@ -297,6 +301,7 @@ class FilteredSearchBox extends StatelessWidget {
                             ),
                           ],
                         ),
+                        sb20(),
                         Obx(
                           () => Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -315,6 +320,7 @@ class FilteredSearchBox extends StatelessWidget {
                                           isForSale.value = value ?? 0;
                                         }),
                                   ),
+                                  sbw5(),
                                   EraText(
                                       text: 'BUY',
                                       color: AppColors.white.withOpacity(0.6),
@@ -336,6 +342,7 @@ class FilteredSearchBox extends StatelessWidget {
                                           isForSale.value = value ?? 0;
                                         }),
                                   ),
+                                  sbw5(),
                                   EraText(
                                       text: 'RENT',
                                       color: AppColors.white.withOpacity(0.6),
@@ -346,7 +353,7 @@ class FilteredSearchBox extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 10.h),
+                        sb20(),
                         SizedBox(
                           width: Get.width,
                           height: 53.h,

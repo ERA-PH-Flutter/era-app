@@ -24,7 +24,7 @@ class AgentListViewWeb extends StatelessWidget {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        mainAxisExtent: Get.height - 300.h,
+        mainAxisExtent: Get.height - 350.h,
       ),
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),

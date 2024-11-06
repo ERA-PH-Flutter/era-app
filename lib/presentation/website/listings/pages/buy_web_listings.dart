@@ -37,11 +37,12 @@ class BuyWeb extends GetView<ListingsWebController> {
             fontWeight: FontWeight.bold,
             color: AppColors.kRedColor,
           ),
-          SizedBox(
-            height: 10.h,
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: EraTheme.paddingWidthAdmin * 5),
+            child: FilteredSearchBox(),
           ),
-          FilteredSearchBox(),
-          SizedBox(height: 10.h),
+          sb50(),
           Obx(() {
             if (controller.showFullSearch.value == false) {
               return controller.quickLinks ?? Container();
