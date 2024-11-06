@@ -1,7 +1,7 @@
 analyzer:
   errors:
     #avoid_print: ignore ignore
-    constant_identifier_names: ignore
+    constant_identifier_names: true
     deprecated_member_use: ignore
     empty_catches: ignore
     file_names: ignore

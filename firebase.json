@@ -1,1 +1,49 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"era-philippines","appId":"1:257014263809:android:193a889a88338716a5d000","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"era-philippines","configurations":{"android":"1:257014263809:android:193a889a88338716a5d000","ios":"1:257014263809:ios:d6c71c3d03513eb0a5d000","web":"1:257014263809:web:a0cba9c3920db78ca5d000"}}}}},"database":{"rules":"database.rules.json"},"storage":{"rules":"storage.rules"},"firestore":{"rules":"firestore.rules","indexes":"firestore.indexes.json"}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "era-philippines",
+          "appId": "1:257014263809:android:193a889a88338716a5d000",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "era-philippines",
+          "configurations": {
+            "android": "1:257014263809:android:193a889a88338716a5d000",
+            "ios": "1:257014263809:ios:d6c71c3d03513eb0a5d000",
+            "web": "1:257014263809:web:a0cba9c3920db78ca5d000"
+          }
+        }
+      }
+    }
+  },
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
+}
