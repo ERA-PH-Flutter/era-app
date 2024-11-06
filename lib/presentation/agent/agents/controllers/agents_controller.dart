@@ -175,17 +175,18 @@ class AgentsController extends GetxController with BaseController {
 
     try {
       final XFile? imagePick;
-      if(await Permission.photos.request().isGranted){
-         imagePick = await picker.pickImage(source: ImageSource.camera);
-      }else{
-        BaseController().showErroDialog(
-          description: "Permission not granted!",
-          onTap: (){
-
-          }
-        );
-        return;
-      }
+      imagePick = await picker.pickImage(source: ImageSource.camera);
+      // if(await Permission.camera.request().isGranted){
+      //
+      // }else{
+      //   BaseController().showErroDialog(
+      //     description: "Permission not granted!",
+      //     onTap: (){
+      //
+      //     }
+      //   );
+      //   return;
+      // }
 
       if (imagePick != null) {
         image.value = File(imagePick.path);

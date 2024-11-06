@@ -130,6 +130,7 @@ appRoutes() => [
       GetPage(
         name: RouteString.joinEra,
         page: () => JoinEra(),
+        binding: ContactUsBinding()
       ),
       GetPage(
           name: RouteString.findagents,
