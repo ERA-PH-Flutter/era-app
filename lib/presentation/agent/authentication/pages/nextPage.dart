@@ -111,62 +111,64 @@ class Nextpage extends GetView<LoginPageController> {
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                         onTap: () {
-                          if (controller.selectedStatus.value == null) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
+                          if (controller.formKey.currentState!.validate()) {
+                            if (controller.selectedStatus.value == null) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
 
-                          if (controller.recruiter.text.isEmpty) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
+                            if (controller.recruiter.text.isEmpty) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
 
-                          if (controller.selectedEducation.value == null) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
+                            if (controller.selectedEducation.value == null) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
+                            if (controller.experience.text.isEmpty) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
+                            if (controller.selectedTransaction.value == null) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description:
+                                    "All fields are required! Only Description is optional",
+                              );
+                              return;
+                            }
+                            if (controller.selectedTransaction5years.value ==
+                                null) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description:
+                                    "All fields are required! Only Description is optional",
+                              );
+                              return;
+                            }
+                            if (controller.selectedSpeciality.value == null) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description:
+                                    "All fields are required! Only Description is optional",
+                              );
+                              return;
+                            }
+                            controller.signUp();
                           }
-                          if (controller.experience.text.isEmpty) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
-                          if (controller.selectedTransaction.value == null) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description:
-                                  "All fields are required! Only Description is optional",
-                            );
-                            return;
-                          }
-                          if (controller.selectedTransaction5years.value ==
-                              null) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description:
-                                  "All fields are required! Only Description is optional",
-                            );
-                            return;
-                          }
-                          if (controller.selectedSpeciality.value == null) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description:
-                                  "All fields are required! Only Description is optional",
-                            );
-                            return;
-                          }
-                          controller.signUp();
                         },
                         borderRadius: BorderRadius.circular(20),
                       ),

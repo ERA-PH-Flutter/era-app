@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../app/services/local_storage.dart';
 import '../../../../repository/project.dart';
@@ -12,9 +13,11 @@ enum ProjectsListState {
 
 class ProjectsListController extends GetxController {
   var store = Get.find<LocalStorageService>();
+  ScrollController scrollController = ScrollController();
+
   var projectsListState = ProjectsListState.loading.obs;
   var projects = [].obs;
-  RxInt count = 2.obs;
+  RxInt count = 5.obs;
   int pageSize = 0;
   @override
   void onInit() async {

@@ -20,206 +20,217 @@ class CreateAccount extends GetView<LoginPageController> {
       backgroundColor: AppColors.kRedColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SharedWidgets.backgroundColumn(),
-              SharedWidgets.paddingText('CREATE AN ACCOUNT', FontWeight.bold),
-              Container(
-                height: Get.height - 100.h,
-                margin: EdgeInsets.only(top: 50.h),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50),
+          child: Form(
+            key: controller.formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              children: [
+                SharedWidgets.backgroundColumn(),
+                SharedWidgets.paddingText('CREATE AN ACCOUNT', FontWeight.bold),
+                Container(
+                  height: Get.height - 100.h,
+                  margin: EdgeInsets.only(top: 50.h),
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(50),
+                      topRight: Radius.circular(50),
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      right: 25.w, left: 25.w, top: 25.h, bottom: 25.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 20.h),
-                      Flex(
-                        direction: Axis.horizontal,
-                        children: [
-                          Flexible(
-                            child: SharedWidgets.textFormfield(
-                                name: 'First Name',
-                                textInputType: TextInputType.text,
-                                hintText: 'First Name',
-                                controller: controller.firstName),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        right: 25.w, left: 25.w, top: 25.h, bottom: 25.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 20.h),
+                        Flex(
+                          direction: Axis.horizontal,
+                          children: [
+                            Flexible(
+                              child: SharedWidgets.textFormfield(
+                                  name: 'First Name',
+                                  textInputType: TextInputType.text,
+                                  hintText: 'First Name',
+                                  controller: controller.firstName),
+                            ),
+                            SizedBox(width: 10.w),
+                            Flexible(
+                              child: SharedWidgets.textFormfield(
+                                  name: 'Last Name',
+                                  textInputType: TextInputType.text,
+                                  hintText: 'Last Name',
+                                  controller: controller.lastName),
+                            ),
+                          ],
+                        ),
+                        sb20(),
+                        EraText(
+                            text: 'Password',
+                            fontSize: 18.sp,
+                            color: AppColors.black),
+                        //password
+                        Obx(
+                          () => TextFormField(
+                            validator: (value) {
+                              if (value == null) return null;
+                              if (value.length < 10) {
+                                return 'Use at least 10 characters';
+                              }
+                              return null;
+                            },
+                            controller: controller.passwordC,
+                            obscureText: !controller.passwordVisible.value,
+                            style: TextStyle(
+                                color: AppColors.black, fontSize: 18.sp),
+                            decoration: InputDecoration(
+                              hintText: 'Password',
+                              hintStyle: TextStyle(
+                                  color: AppColors.hint, fontSize: 18.sp),
+                              labelStyle: TextStyle(color: AppColors.hint),
+                              filled: false,
+                              suffixIcon: IconButton(
+                                icon: Icon(controller.passwordVisible.value
+                                    ? CupertinoIcons.eye_fill
+                                    : CupertinoIcons.eye_slash_fill),
+                                onPressed: () {
+                                  controller.passwordVisible.value =
+                                      !controller.passwordVisible.value;
+                                },
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: AppColors.hint),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: AppColors.hint),
+                              ),
+                            ),
                           ),
-                          SizedBox(width: 10.w),
-                          Flexible(
-                            child: SharedWidgets.textFormfield(
-                                name: 'Last Name',
-                                textInputType: TextInputType.text,
-                                hintText: 'Last Name',
-                                controller: controller.lastName),
-                          ),
-                        ],
-                      ),
-                      sb20(),
-                      EraText(
-                          text: 'Password',
-                          fontSize: 18.sp,
-                          color: AppColors.black),
-                      //password
-                      Obx(
-                        () => TextFormField(
-                          controller: controller.passwordC,
-                          obscureText: !controller.passwordVisible.value,
+                        ),
+                        sb20(),
+                        SharedWidgets.textFormfield(
+                          name: 'Age',
+                          textInputType: TextInputType.number,
+                          hintText: 'Age',
+                          controller: controller.age,
+                        ),
+                        SizedBox(height: 20.h),
+                        SharedWidgets.dropDown(
+                            controller.selectedGender,
+                            controller.genderType,
+                            (value) => controller.selectedGender.value = value!,
+                            'Gender',
+                            'Gender'),
+                        SizedBox(height: 30.h),
+                        IntlPhoneField(
+                          pickerDialogStyle: PickerDialogStyle(
+                              backgroundColor: Colors.white, width: Get.width),
+                          focusNode: FocusNode(),
                           style: TextStyle(
-                              color: AppColors.black, fontSize: 18.sp),
+                            color: AppColors.black,
+                            fontSize: 18.sp,
+                            background: Paint()..color = AppColors.white,
+                          ),
                           decoration: InputDecoration(
-                            hintText: 'Password',
-                            hintStyle: TextStyle(
-                                color: AppColors.hint, fontSize: 18.sp),
-                            labelStyle: TextStyle(color: AppColors.hint),
-                            filled: false,
-                            suffixIcon: IconButton(
-                              icon: Icon(controller.passwordVisible.value
-                                  ? CupertinoIcons.eye_fill
-                                  : CupertinoIcons.eye_slash_fill),
-                              onPressed: () {
-                                controller.passwordVisible.value =
-                                    !controller.passwordVisible.value;
-                              },
-                            ),
-                            enabledBorder: OutlineInputBorder(
+                            fillColor: AppColors.white,
+                            filled: true,
+                            labelText: 'Phone Number',
+                            border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: AppColors.hint),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: AppColors.hint),
                             ),
                           ),
+                          keyboardType: TextInputType.phone,
+                          controller: controller.contactNo,
+                          initialCountryCode: 'PH',
+                          onChanged: (phone) {
+                            controller.contactNo.text = phone.number;
+
+                            controller.fullContactNo.value =
+                                '${phone.countryCode}${phone.number}';
+                          },
                         ),
-                      ),
-                      sb20(),
-                      SharedWidgets.textFormfield(
-                        name: 'Age',
-                        textInputType: TextInputType.number,
-                        hintText: 'Age',
-                        controller: controller.age,
-                      ),
-                      SizedBox(height: 20.h),
-                      SharedWidgets.dropDown(
-                          controller.selectedGender,
-                          controller.genderType,
-                          (value) => controller.selectedGender.value = value!,
-                          'Gender',
-                          'Gender'),
-                      SizedBox(height: 30.h),
-                      IntlPhoneField(
-                        pickerDialogStyle: PickerDialogStyle(
-                            backgroundColor: Colors.white, width: Get.width),
-                        focusNode: FocusNode(),
-                        style: TextStyle(
-                          color: AppColors.black,
+                        SharedWidgets.textFormfield(
+                            name: 'example@mail.com',
+                            textInputType: TextInputType.text,
+                            hintText: 'Email Address',
+                            controller: controller.emailAd),
+                        sb30(),
+                        Button(
+                          margin: EdgeInsets.zero,
+                          width: Get.width,
+                          bgColor: AppColors.kRedColor,
+                          text: 'CONTINUE',
                           fontSize: 18.sp,
-                          background: Paint()..color = AppColors.white,
+                          fontWeight: FontWeight.w600,
+                          onTap: () {
+                            if (controller.firstName.text.isEmpty) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
+
+                            if (controller.lastName.text.isEmpty) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
+
+                            if (controller.passwordC.text.isEmpty) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
+
+                            if (controller.age.text.isEmpty) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
+
+                            if (controller.selectedGender.value == null) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
+
+                            if (controller.contactNo.text.isEmpty) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
+
+                            if (controller.emailAd.text.isEmpty) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description: "All fields are required!",
+                              );
+                              return;
+                            }
+                            Get.toNamed('/nextPage');
+                          },
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                        decoration: InputDecoration(
-                          fillColor: AppColors.white,
-                          filled: true,
-                          labelText: 'Phone Number',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        keyboardType: TextInputType.phone,
-                        controller: controller.contactNo,
-                        initialCountryCode: 'PH',
-                        onChanged: (phone) {
-                          controller.contactNo.text = phone.number;
-
-                          controller.fullContactNo.value =
-                              '${phone.countryCode}${phone.number}';
-                        },
-                      ),
-                      SharedWidgets.textFormfield(
-                          name: 'example@mail.com',
-                          textInputType: TextInputType.text,
-                          hintText: 'Email Address',
-                          controller: controller.emailAd),
-                      sb30(),
-                      Button(
-                        margin: EdgeInsets.zero,
-                        width: Get.width,
-                        bgColor: AppColors.kRedColor,
-                        text: 'CONTINUE',
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w600,
-                        onTap: () {
-                          if (controller.firstName.text.isEmpty) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
-
-                          if (controller.lastName.text.isEmpty) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
-
-                          if (controller.passwordC.text.isEmpty) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
-
-                          if (controller.age.text.isEmpty) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
-
-                          if (controller.selectedGender.value == null) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
-
-                          if (controller.contactNo.text.isEmpty) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
-
-                          if (controller.emailAd.text.isEmpty) {
-                            AddListings.showErroDialogs(
-                              title: "Error",
-                              description: "All fields are required!",
-                            );
-                            return;
-                          }
-                          Get.toNamed('/nextPage');
-                        },
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      sb20(),
-                    ],
+                        sb20(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

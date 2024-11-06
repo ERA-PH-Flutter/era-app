@@ -34,7 +34,7 @@ class LoginPageController extends GetxController with BaseController {
   var selectedTransaction = RxnString();
   var selectedTransaction5years = RxnString();
   var fullContactNo = ''.obs;
-
+  var formKey = GlobalKey<FormState>();
   List<String> genderType = ['Female', 'Male'];
   List<String> educationType = ['High School', 'College', 'Masters', 'PhD'];
   List<String> statusType = [
@@ -63,6 +63,8 @@ class LoginPageController extends GetxController with BaseController {
   TextEditingController educationL = TextEditingController();
   TextEditingController experience = TextEditingController();
   TextEditingController specialization = TextEditingController();
+
+  var formkey = GlobalKey<FormState>();
 
   login() async {
     showLoading();
@@ -131,46 +133,69 @@ class LoginPageController extends GetxController with BaseController {
   Future signUp() async {
     showLoading();
     try {
-      await Authentication()
+      var result = await Authentication()
           .signup(email: emailAd.text, password: passwordC.text);
-      var id = await Authentication()
-          .login(email: emailAd.text, password: passwordC.text);
-      var user = EraUser(
-        id: id,
-        firstname: firstName.text,
-        lastname: lastName.text,
-        age: age.text.toInt(),
-        gender: selectedGender.value,
-        whatsApp: fullContactNo.value,
-        email: emailAd.text,
-      );
-      var userInfo = EraUserInfo(
-          id: id,
-          status: selectedStatus.value,
-          recruiter: recruiter.text,
-          education: selectedEducation.value,
-          experience: experience.text.toInt(),
-          transaction: selectedTransaction.value,
-          pastTransaction: selectedTransaction.value,
-          specialization: selectedSpeciality.value);
-      await Authentication().logout();
-      if (id != null) {
-        await user.add();
-        await userInfo.add();
-        showSuccessDialog(
-            title: "Create account Success!",
-            description:
-                "Account creation was successful please wait for admin approval!",
-            hitApi: () {
-              Get.offAllNamed(RouteString.loginpage);
-            });
+      if (!result.contains("error")) {
+        var user = EraUser(
+          id: result,
+          firstname: firstName.text,
+          lastname: lastName.text,
+          age: age.text.toInt(),
+          gender: selectedGender.value,
+          whatsApp: fullContactNo.value,
+          email: emailAd.text,
+        );
+        var userInfo = EraUserInfo(
+            id: result,
+            status: selectedStatus.value,
+            recruiter: recruiter.text,
+            education: selectedEducation.value,
+            experience: experience.text.toInt(),
+            transaction: selectedTransaction.value,
+            pastTransaction: selectedTransaction.value,
+            specialization: selectedSpeciality.value);
+
+        await Authentication().logout();
+        if (result != null) {
+          await user.add();
+          await userInfo.add();
+          showSuccessDialogProjects(
+              title: "Create account Success!",
+              description:
+                  "Account creation was successful please wait for admin approval!",
+              hitApi: () {
+                Get.offAllNamed(RouteString.loginpage);
+              });
+        }
       } else {
+        showSuccessDialog(
+            hitApi: () {
+              Get.back();
+            },
+            title: "Failed",
+            description: result.toString());
         //throw Error();
       }
     } catch (error) {
-      BaseController().showErroDialog(onTap: (){
-
-      },description: error.toString());
+      BaseController()
+          .showErroDialog(onTap: () {}, description: error.toString());
     }
+    reset();
+  }
+
+  void reset() {
+    firstName.clear();
+    passwordC.clear();
+    lastName.clear();
+    age.clear();
+    gender.clear();
+    contactNo.clear();
+    emailAd.clear();
+    status.clear();
+    recruiter.clear();
+    educationL.clear();
+    experience.clear();
+    specialization.clear();
+    selectedGender.value = null;
   }
 }

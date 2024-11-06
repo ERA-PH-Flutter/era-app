@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar_admin.dart';
+import 'package:eraphilippines/presentation/admin/dev_tool.dart';
 import 'package:eraphilippines/presentation/admin/setting/contact_us/pages/contact_us_admin.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/about_us.dart';
 import 'package:eraphilippines/presentation/admin/faqs/pages/general_faq.dart';
@@ -29,6 +30,7 @@ import 'package:eraphilippines/presentation/admin/user_management/pages/pages/ap
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/roster.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -65,7 +67,7 @@ class LandingPage extends GetView<LandingPageController> {
     LogListAdmin(), //20
     FindAgentPage(), //21
     JoinEraPage(), //22
-
+    DevTool(),
     // UploadNews(), //14
     // UploadNews(), //15
   ];
@@ -303,6 +305,8 @@ class LandingPage extends GetView<LandingPageController> {
                 _buildMenuItem('SELLING PROPERTY', 15),
                 _buildMenuItem('CONTACT US MANAGEMENT', 16),
                 _buildMenuItem('ACTIVITY LIST', 20),
+                if (user?.email == "sales@eraphilippines.com")
+                  _buildMenuItem('DEVELOPER TOOLS', 23),
 
                 // _buildMenuItem('Agent FAQ’s', 12),
                 // _buildMenuItem('Customer FAQ’s', 13),

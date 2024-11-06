@@ -43,6 +43,7 @@ class ProjectsList extends GetView<ProjectsListController> {
         },
         child: SafeArea(
           child: SingleChildScrollView(
+            controller: controller.scrollController,
             child: Column(
               children: [
                 Column(
@@ -175,6 +176,9 @@ class ProjectsList extends GetView<ProjectsListController> {
           visiblePagesCount: length < 4 ? length : 4,
           onPageChanged: (page) {
             controller.count.value = controller.pageSize * page;
+            controller.scrollController.jumpTo(
+              0,
+            );
           },
         ),
         SizedBox(height: 30.h),

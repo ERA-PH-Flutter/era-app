@@ -8,28 +8,38 @@ class Authentication {
     password,
   }) async {
     try {
-      await auth.signInWithEmailAndPassword(
+      final result = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      if (result.user != null) {
+        return result.user!.uid;
+      }
     } on FirebaseAuthException catch (e) {
-      return "error -${e.code}";
+      return "error: -${e.code}";
     }
-    return auth.currentUser!.uid;
+    return "error";
   }
 
   signup({
     email,
     password,
   }) async {
-    //i tried to use try and catch to see if there is an error but seems there's no error here.
     try {
-      await auth.createUserWithEmailAndPassword(
+      final result = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      if (result.user != null) {
+        return result.user!.uid;
+      }
     } on FirebaseAuthException catch (e) {
-      return "error -${e.code}";
+      if (e.code == 'weak-password') {
+        return 'error: The password provided is too weak. ';
+      } else if (e.code == 'email-already-in-use') {
+        return 'error: The account already exists for that email.';
+      }
+      return 'error: ${e.code}';
     }
-    return auth.currentUser!.uid;
+    return "error";
   }
 
   logout() async {
