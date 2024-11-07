@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/widgets/company/companynews_page_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -9,10 +10,13 @@ import '../../form/pages/about_us_web.dart';
 import '../../form/pages/contactus_web.dart';
 import '../../form/pages/join_era_web.dart';
 import '../../form/pages/sell_property_web.dart';
+import '../../home/controllers/home_web_binding.dart';
 import '../../home/pages/home_web.dart';
 import '../../listings/controllers/buyweb_binding.dart';
 import '../../listings/pages/buy_web_listings.dart';
 import '../../mortageCalculator.dart/pages/MortageCalculator.dart';
+import '../../projects/controllers/projects_binding.dart';
+import '../../projects/pages/project_view.dart';
 
 class HomsController extends GetxController {
   RxInt selectedIndex = 0.obs;
@@ -25,11 +29,18 @@ class HomsController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   RxList<Widget> pages = [
-    BuyWeb(), //0
-    FindAgentsWeb(), //0
-    ContactUsWeb(), //1
-    HomeWeb(), //2
-    AboutUsWeb(), //01
+    HomeWeb(), //0
+    BuyWeb(), //1
+
+    BuyWeb(), //2
+    BuyWeb(), //3
+//projects
+    ProjectViewWeb(),
+    FindAgentsWeb(), //04
+    CompanyNewsPageWeb(), //5
+    ContactUsWeb(), //6
+    //2
+    AboutUsWeb(), //7
     SellPropertyWeb(),
     JoinEraWeb(),
     MortageCalculatorWeb(),
@@ -55,22 +66,46 @@ class HomsController extends GetxController {
     'RENT',
     'SELL',
     'PROJECTS',
+    'FIND AGENTS',
     'NEWS',
     'ABOUT US',
     'CONTACT US',
-    'FIND AGENTS',
     'MORTGAGE CALCULATOR',
   ];
 
   void onIndexChanged() {
     switch (selectedIndex.value) {
       case 0:
-        BuyWebBinding().dependencies();
-
+        HomeWebBinding().dependencies();
+        //  BuyWebBinding().dependencies();
         break;
       case 1:
-        AgentListingsBinding().dependencies();
+        BuyWebBinding().dependencies();
       case 2:
+        BuyWebBinding().dependencies();
+        break;
+      case 3:
+        BuyWebBinding().dependencies();
+        break;
+      case 4:
+        ProjectsWebBinding().dependencies();
+        break;
+      case 5:
+        FormBinding().dependencies();
+        break;
+      case 6:
+        FormBinding().dependencies();
+        break;
+      case 7:
+        FormBinding().dependencies();
+        break;
+      case 8:
+        FormBinding().dependencies();
+        break;
+      case 9:
+        FormBinding().dependencies();
+        break;
+      case 10:
         FormBinding().dependencies();
         break;
     }

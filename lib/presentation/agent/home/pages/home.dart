@@ -10,7 +10,6 @@ import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 
-import 'package:eraphilippines/app/widgets/project_views.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_view_binding.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
@@ -171,35 +170,35 @@ class Home extends GetView<HomeController> {
         //       horizontal: EraTheme.paddingWidth, vertical: 15.h),
         //   child: ProjectMain.featuredProject(),
         // ),
-
-        Container(
-          height: Get.height,
-          child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: projectController.projects.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Get.to(ProjectView(),
-                        binding: ProjectViewBinding(),
-                        arguments: projectController.projects[index]);
-                  },
-                  child: Container(
-                    height: Get.height,
-                    child: Column(
-                      children: [
-                        Column(
-                          children: ProjectViews(
-                                  project: projectController.projects[index])
-                              .HomebuildPreview(),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }),
-        ),
+        //web code
+        // Container(
+        //   height: Get.height,
+        //   child: ListView.builder(
+        //       shrinkWrap: true,
+        //       physics: NeverScrollableScrollPhysics(),
+        //       itemCount: projectController.projects.length,
+        //       itemBuilder: (context, index) {
+        //         return GestureDetector(
+        //           onTap: () {
+        //             Get.to(ProjectView(),
+        //                 binding: ProjectViewBinding(),
+        //                 arguments: projectController.projects[index]);
+        //           },
+        //           child: Container(
+        //             height: Get.height,
+        //             child: Column(
+        //               children: [
+        //                 Column(
+        //                   children: ProjectViews(
+        //                           project: projectController.projects[index])
+        //                       .HomebuildPreview(),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //         );
+        //       }),
+        // ),
 
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),

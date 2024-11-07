@@ -18,12 +18,30 @@ class Navbar extends GetResponsiveView<HomsController> {
                 watchChangePoint: 300));
 
   @override
+  Widget phone() {
+    Get.put(HomsController());
+
+    return Container(
+        width: Get.width,
+        height: 56.h,
+        child: Row(
+          children: [
+            IconButton(
+                onPressed: () {
+                  print('Menu button clicked!');
+                  controller.scaffoldKey.currentState?.openEndDrawer();
+                },
+                icon: Icon(Icons.menu)),
+          ],
+        ));
+  }
+
+  @override
   Widget desktop() {
     return Obx(
       () => Container(
         color: AppColors.white,
-        padding: EdgeInsets.symmetric(
-            horizontal: EraTheme.paddingWidthAdmin * 2.7.w),
+        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth200),
         height: Get.height,
         width: Get.width,
         child: Row(
@@ -162,8 +180,8 @@ class Navbar extends GetResponsiveView<HomsController> {
                   child: Wrap(
                     children: [
                       Container(
-                        height: Get.height,
-                        width: 200.w,
+                        // height: Get.height,
+                        width: 220.w,
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(13.r),

@@ -9,106 +9,86 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/constants/theme.dart';
+import '../../../../app/widgets/web/mobile_drawer.dart';
 import '../../../../app/widgets/web/navbar.dart';
 
 class HomePages extends GetResponsiveView<HomsController> {
+  // Widget phone() {
+  //   Get.put(HomsController());
+  //   return Container(
+  //       width: Get.width,
+  //       height: 56.h,
+  //       child: Row(
+  //         children: [
+  //           IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
+  //         ],
+  //       ));
+  // }
   @override
   Widget phone() {
     Get.put(HomsController());
+
     return Scaffold(
       key: controller.scaffoldKey,
-      body: Stack(
-        children: [
-          Obx(() => Container(
-                width: Get.width,
-                height: Get.height,
-                child: controller.pages[controller.selectedIndex.value],
-              )),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Navbar(),
-          ),
-          //footer
-        ],
-      ),
+      endDrawer: AppDrawer(),
+      body: Stack(children: [
+        Obx(() => Container(
+            width: Get.width,
+            height: Get.height,
+            child: controller.pages[controller.selectedIndex.value])),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Navbar(),
+        )
+      ]),
     );
   }
 
   @override
   Widget desktop() {
     Get.put(HomsController());
-    return Scaffold(
-      body: CustomScrollView(
-        controller: controller.scrollController,
-        slivers: [
-          Obx(
-            () => SliverAppBar(
-              automaticallyImplyLeading: false,
-              collapsedHeight: 150.h,
-              backgroundColor: AppColors.white,
-              floating: false,
-              pinned: controller.isNavbarVisible.value,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Navbar(),
-                background: Container(
-                  color: AppColors.white,
-                ),
+    return CustomScrollView(
+      controller: controller.scrollController,
+      slivers: [
+        Obx(
+          () => SliverAppBar(
+            automaticallyImplyLeading: false,
+            collapsedHeight: 150.h,
+            backgroundColor: AppColors.white,
+            floating: false,
+            pinned: controller.isNavbarVisible.value,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Navbar(),
+              background: Container(
+                color: AppColors.white,
               ),
             ),
           ),
-          SliverList(
-              delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return Stack(
-                children: [
-                  Column(
-                    children: [
-                      Obx(
-                        () => SizedBox(
-                          width: Get.width,
-                          child:
-                              controller.pages[controller.selectedIndex.value],
-                        ),
+        ),
+        SliverList(
+            delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return Stack(
+              children: [
+                Column(
+                  children: [
+                    Obx(
+                      () => SizedBox(
+                        width: Get.width,
+                        child: controller.pages[controller.selectedIndex.value],
                       ),
-                      _buildFooter(),
-                    ],
-                  ),
-                ],
-              );
-            },
-            childCount: 1,
-          ))
-        ],
-      ),
+                    ),
+                    _buildFooter(),
+                  ],
+                ),
+              ],
+            );
+          },
+          childCount: 1,
+        ))
+      ],
     );
   }
-  //@override
-  // Widget desktop() {
-  //   Get.put(HomsController());
-  //   return Scaffold(
-  //     body: SingleChildScrollView(
-  //       child: Stack(
-  //         children: [
-  //           Column(
-  //             children: [
-  //               Align(
-  //                 alignment: Alignment.topCenter,
-  //                 child: Navbar(),
-  //               ),
-  //               Obx(
-  //                 () => SizedBox(
-  //                   width: Get.width,
-  //                   child: controller.pages[controller.selectedIndex.value],
-  //                 ),
-  //               ),
-  //               _buildFooter(),
-  //             ],
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget _buildFooter() {
     return Column(
@@ -138,9 +118,10 @@ class HomePages extends GetResponsiveView<HomsController> {
           color: Colors.white,
           padding: EdgeInsets.all(16.0),
           child: Center(
-            child: Text(
-              '© 2024 ERA Real Estate Philipines. All rights reserved.',
-              style: TextStyle(color: AppColors.blue2),
+            child: EraText(
+              text: '© 2024 ERA Real Estate Philipines. All rights reserved.',
+              color: AppColors.blue2,
+              fontSize: EraTheme.paragraphWeb - 10.sp,
             ),
           ),
         ),

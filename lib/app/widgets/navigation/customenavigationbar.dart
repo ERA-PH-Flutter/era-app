@@ -95,7 +95,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             physics: NeverScrollableScrollPhysics(),
             children: [
               Home(),
-              ProjectsList(),
+              //   ProjectsList(),
               SearchResult(),
               FindAgents(),
               //   Help(),

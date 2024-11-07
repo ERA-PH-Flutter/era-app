@@ -113,7 +113,7 @@ class BuyWeb extends GetView<ListingsWebController> {
           GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              mainAxisExtent: Get.height - 200.h,
+              mainAxisExtent: Get.height - 190.h,
             ),
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,

@@ -15,11 +15,20 @@ class NewsController extends GetxController {
   var news = [];
   @override
   void onInit() async {
-    await getNews();
+    // await getNews();
     newsState.value = NewsState.loaded;
     super.onInit();
   }
 
+  // getNews() async {
+  //   if (settings!.featuredNews!.isNotEmpty) {
+  //     for (int i = 0; i < settings!.featuredNews!.length; i++) {
+  //       settings!.featuredNews![i] != ''
+  //           ? news.add(await News(id: settings!.featuredNews![i]).getNews())
+  //           : null;
+  //     }
+  //   }
+  // }
   getNews() async {
     if (settings!.featuredNews!.isNotEmpty) {
       for (int i = 0; i < settings!.featuredNews!.length; i++) {

@@ -1,12 +1,13 @@
-import 'dart:convert';
-
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
+import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_view_binding.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
+import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:eraphilippines/repository/project.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +15,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../constants/assets.dart';
-import '../constants/colors.dart';
-import '../constants/sized_box.dart';
-import '../constants/theme.dart';
-import 'app_text.dart';
+
+import '../../constants/assets.dart';
+import '../../constants/sized_box.dart';
 
 class ProjectViews {
   Project project;
@@ -32,6 +31,8 @@ class ProjectViews {
   final RxInt currentPage = 0.obs;
 
   build() {
+    //` Get.put(ProjectViewWebController());
+
     return CustomScrollView(slivers: [
       SliverList(
         delegate: SliverChildBuilderDelegate(
@@ -179,170 +180,165 @@ class ProjectViews {
                   ),
                 );
               } else if (data['sub_type'] == 'gallery') {
-                return Obx(
-                  () => SizedBox(
-                    height: 350.h,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  final PageController pageController =
-                                      PageController(
-                                          initialPage: data['images']
-                                              .indexOf(currentImage.value));
-                                  return Dialog(
-                                    insetPadding: EdgeInsets.symmetric(
-                                        horizontal: 5.w, vertical: 180.h),
-                                    backgroundColor: Colors.transparent,
-                                    child: Stack(
-                                      children: [
-                                        Positioned(
-                                            top: 15.h,
-                                            right: 0.w,
-                                            left: 0.w,
-                                            child: Obx(
-                                              () => EraText(
-                                                text:
-                                                    "${data['images'].indexOf(currentImage.value) + 1} / ${data['images'].length}",
-                                                textAlign: TextAlign.center,
-                                                color: Colors.white,
-                                                fontSize: 18.sp,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            )),
-                                        Positioned(
-                                          top: 0.h,
+                return SizedBox(
+                  height: 350.h,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                final PageController pageController =
+                                    PageController(
+                                        initialPage: data['images']
+                                            .indexOf(currentImage.value));
+                                return Dialog(
+                                  insetPadding: EdgeInsets.symmetric(
+                                      horizontal: 5.w, vertical: 180.h),
+                                  backgroundColor: Colors.transparent,
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                          top: 15.h,
                                           right: 0.w,
-                                          child: IconButton(
-                                            color: AppColors.blue3,
-                                            onPressed: () {
-                                              Get.back();
-                                            },
-                                            icon: Icon(
-                                              CupertinoIcons.clear,
-                                              color: AppColors.white,
-                                              size: 30.sp,
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned.fill(
-                                          top: 60.h,
                                           left: 0.w,
-                                          right: 0.w,
-                                          bottom: 30.h,
-                                          child: PageView.builder(
-                                            itemCount: data['images'].length,
-                                            controller: pageController,
-                                            onPageChanged: (index) {
-                                              currentImage.value =
-                                                  data['images'][index];
-                                            },
-                                            itemBuilder: (context, index) =>
-                                                Center(
-                                              child: CloudStorage()
-                                                  .imageLoaderProvider(
-                                                ref: data['images'][index],
-                                                height: Get.height,
-                                                width: Get.width,
-                                              ),
+                                          child: Obx(
+                                            () => EraText(
+                                              text:
+                                                  "${data['images'].indexOf(currentImage.value) + 1} / ${data['images'].length}",
+                                              textAlign: TextAlign.center,
+                                              color: Colors.white,
+                                              fontSize: 18.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )),
+                                      Positioned(
+                                        top: 0.h,
+                                        right: 0.w,
+                                        child: IconButton(
+                                          color: AppColors.blue3,
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          icon: Icon(
+                                            CupertinoIcons.clear,
+                                            color: AppColors.white,
+                                            size: 30.sp,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned.fill(
+                                        top: 60.h,
+                                        left: 0.w,
+                                        right: 0.w,
+                                        bottom: 30.h,
+                                        child: PageView.builder(
+                                          itemCount: data['images'].length,
+                                          controller: pageController,
+                                          onPageChanged: (index) {
+                                            currentImage.value =
+                                                data['images'][index];
+                                          },
+                                          itemBuilder: (context, index) =>
+                                              Center(
+                                            child: CloudStorage()
+                                                .imageLoaderProvider(
+                                              ref: data['images'][index],
+                                              height: Get.height,
+                                              width: Get.width,
                                             ),
                                           ),
                                         ),
-                                        Positioned(
-                                          bottom: 0.h,
-                                          left: 0,
-                                          right: 0,
-                                          child: Obx(() {
-                                            return Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: List.generate(
-                                                data['images'].length,
-                                                (index) {
-                                                  bool isActive = data['images']
-                                                          [index] ==
-                                                      currentImage.value;
-                                                  return Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 3.w),
-                                                    width:
-                                                        isActive ? 12.w : 8.w,
-                                                    height:
-                                                        isActive ? 12.h : 8.h,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: isActive
-                                                          ? Colors.white
-                                                          : Colors.white
-                                                              .withOpacity(0.5),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                          }),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: Container(
-                              width: Get.width,
-                              height: 320.h,
-                              child: CloudStorage().imageLoaderProvider(
-                                ref: currentImage.value.isEmpty
-                                    ? data['images'][index]
-                                    : currentImage.value,
-                                height: 250.h,
-                                width: Get.width,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0.h,
+                                      ),
+                                      Positioned(
+                                        bottom: 0.h,
+                                        left: 0,
+                                        right: 0,
+                                        child: Obx(() {
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: List.generate(
+                                              data['images'].length,
+                                              (index) {
+                                                bool isActive = data['images']
+                                                        [index] ==
+                                                    currentImage.value;
+                                                return Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 3.w),
+                                                  width: isActive ? 12.w : 8.w,
+                                                  height: isActive ? 12.h : 8.h,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: isActive
+                                                        ? Colors.white
+                                                        : Colors.white
+                                                            .withOpacity(0.5),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        }),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
                           child: Container(
                             width: Get.width,
-                            height: 70.h,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: data['images'].length,
-                              itemBuilder: (context, index) {
-                                final image = data['images'][index];
-                                final isSelected = currentImage.value == image;
-                                return GestureDetector(
-                                    onTap: () {
-                                      currentImage.value = image;
-                                    },
-                                    child: Container(
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 5.w),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: AppColors.hint,
-                                          width: isSelected ? 5.w : 1.w,
-                                        ),
-                                      ),
-                                      child: CloudStorage().imageLoaderProvider(
-                                        ref: image,
-                                        width: Get.width / 6,
-                                        height: 70.h,
-                                      ),
-                                    ));
-                              },
+                            height: 320.h,
+                            child: CloudStorage().imageLoaderProvider(
+                              ref: currentImage.value.isEmpty
+                                  ? data['images'][index]
+                                  : currentImage.value,
+                              height: 250.h,
+                              width: Get.width,
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Positioned(
+                        bottom: 0.h,
+                        child: Container(
+                          width: Get.width,
+                          height: 70.h,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: data['images'].length,
+                            itemBuilder: (context, index) {
+                              final image = data['images'][index];
+                              final isSelected = currentImage.value == image;
+                              return GestureDetector(
+                                  onTap: () {
+                                    currentImage.value = image;
+                                  },
+                                  child: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 5.w),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: AppColors.hint,
+                                        width: isSelected ? 5.w : 1.w,
+                                      ),
+                                    ),
+                                    child: CloudStorage().imageLoaderProvider(
+                                      ref: image,
+                                      width: Get.width / 6,
+                                      height: 70.h,
+                                    ),
+                                  ));
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
@@ -677,55 +673,6 @@ class ProjectViews {
           ),
         );
       }
-      // if (block['type'] == "Carousel") {
-      //   preview[2] = Column(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: [
-      //       title(
-      //         text: block['title'],
-      //         textAlign: TextAlign.start,
-      //       ),
-      //       sb10(),
-      //       Container(
-      //           decoration: BoxDecoration(color: AppColors.carouselBgColor),
-      //           child: CarouselSlider(
-      //             items: block['images'].map<Widget>((image) {
-      //               return CloudStorage().imageLoader(ref: image);
-      //             }).toList(),
-      //             options: CarouselOptions(
-      //               enlargeCenterPage: true,
-      //               enlargeStrategy: CenterPageEnlargeStrategy.height,
-      //               autoPlay: true,
-      //               viewportFraction: 0.8,
-      //             ),
-      //           )),
-      //       sb20(),
-      //       Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //         children: [
-      //           infoTilePreview(
-      //               AppEraAssets.floorArea,
-      //               TextEditingController(text: block['floor_area'].toString()),
-      //               ' sqm',
-      //               (value) {}),
-      //           infoTilePreview(
-      //               AppEraAssets.numberOfBed,
-      //               TextEditingController(text: block['beds'].toString()),
-      //               '',
-      //               (value) {}),
-      //           infoTilePreview(
-      //               AppEraAssets.loggiaSize,
-      //               TextEditingController(
-      //                   text: block['loggia_size'].toString()),
-      //               ' sqm',
-      //               (value) {}),
-      //         ],
-      //       ),
-      //       sb10(),
-      //       description(text: block['paragraph']),
-      //     ],
-      //   );
-      // }
     }
     return preview;
   }
@@ -786,7 +733,7 @@ class ProjectViews {
             Button(
               text: 'LEARN MORE',
               onTap: () {
-                Get.to(ProjectView(),
+                Get.to(ProjectViewWeb(),
                     binding: ProjectViewBinding(), arguments: project);
               },
               bgColor: AppColors.kRedColor,

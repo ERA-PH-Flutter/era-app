@@ -24,7 +24,7 @@ class AboutUsWeb extends GetView<FormWebController> {
 
     final width = Get.width;
     final height = Get.height;
-    final paddingHorizontal = EraTheme.paddingWidthAdmin + 90.w;
+    final paddingHorizontal = EraTheme.paddingWidthAdmin;
 
     return SingleChildScrollView(
         child: SizedBox(
@@ -42,7 +42,7 @@ class AboutUsWeb extends GetView<FormWebController> {
             ],
           ),
           Positioned(
-            top: 10.h,
+            top: 30.h,
             right: 100.w,
             left: Get.width * 0.5,
             child:
@@ -62,9 +62,9 @@ class AboutUsWeb extends GetView<FormWebController> {
                 CachedNetworkImage(
               imageUrl:
                   'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-              fit: BoxFit.cover,
-              height: Get.height - 330.h,
-              width: Get.width,
+
+              // height: Get.height - 200.h,
+              // width: 600.w,
             ),
           ),
         ],
@@ -74,7 +74,8 @@ class AboutUsWeb extends GetView<FormWebController> {
 
   static Widget bottomWidget({required dynamic controller}) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
+        padding:
+            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,18 +273,20 @@ class AboutUsWeb extends GetView<FormWebController> {
 
   List<Widget> buildBulletPoints() {
     return [
-      buildDescription('• Training & Development', color: AppColors.white),
+      buildDescription('    • Training & Development', color: AppColors.white),
       sb10(),
-      buildDescription('• Reputable developer properties',
+      buildDescription('    • Reputable developer properties',
           color: AppColors.white),
       sb10(),
-      buildDescription('• Favourable Commission Terms', color: AppColors.white),
+      buildDescription('    • Favourable Commission Terms',
+          color: AppColors.white),
       sb10(),
-      buildDescription('• Advanced Digital Platforms', color: AppColors.white),
+      buildDescription('    • Advanced Digital Platforms',
+          color: AppColors.white),
       sb10(),
-      buildDescription('• Administrative Support', color: AppColors.white),
+      buildDescription('    • Administrative Support', color: AppColors.white),
       sb10(),
-      buildDescription('• Access to our office spaces & facilities',
+      buildDescription('    • Access to our office spaces & facilities',
           color: AppColors.white),
     ];
   }
@@ -303,12 +306,12 @@ class AboutUsWeb extends GetView<FormWebController> {
   }
 
   Widget _buildInfoSection(double paddingHorizontal, double height) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
-          child: Row(
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth200),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
               _buildLeftImageSection(height),
               sbw30(),
@@ -316,8 +319,8 @@ class AboutUsWeb extends GetView<FormWebController> {
               _buildTextColumn1(),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -328,8 +331,7 @@ class AboutUsWeb extends GetView<FormWebController> {
         imageUrl:
             'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
         fit: BoxFit.cover,
-        width: 400.w,
-        height: Get.height - 300.h,
+        height: Get.height - 100.h,
       ),
     );
   }
@@ -449,7 +451,7 @@ class AboutUsWeb extends GetView<FormWebController> {
       child: EraText(
         text: text,
         maxLines: 50,
-        fontSize: fontSize ?? EraTheme.text15,
+        fontSize: fontSize ?? EraTheme.text20,
         fontWeight: fontWeight ?? FontWeight.w500,
         color: color ?? AppColors.hint,
         textOverflow: TextOverflow.ellipsis,
@@ -458,32 +460,35 @@ class AboutUsWeb extends GetView<FormWebController> {
   }
 
   Widget buildJoinUsSection() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        sb30(),
-        buildTitle('Join Us Today!',
-            fontSize: EraTheme.headerWeb + 20.sp,
-            fontWeight: FontWeight.bold,
-            color: AppColors.white),
-        sb20(),
-        buildDescription(
-          'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
-          color: AppColors.white,
-        ),
-        sb20(),
-        buildDescription(
-          'ERA Real Estate was founded on the principle of collaboration...',
-          color: AppColors.white,
-        ),
-        sb20(),
-        buildDescription('Why Join Us?',
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth + 10.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          sb30(),
+          buildTitle('Join Us Today!',
+              fontSize: EraTheme.headerWeb + 20.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.white),
+          buildDescription(
+            'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
             color: AppColors.white,
-            fontSize: EraTheme.subHeaderWeb - 4.sp,
-            fontWeight: FontWeight.w600),
-        ...buildBulletPoints(),
-        sb30(),
-      ],
+          ),
+          sb20(),
+          buildDescription(
+            'ERA Real Estate was founded on the principle of collaboration. The idea that by working together and supporting one another, we can create a stronger, more knowledgeable community of real estate professionals who are better prepared serve your unique needs.',
+            color: AppColors.white,
+          ),
+          sb20(),
+          buildDescription('Why Join Us?',
+              color: AppColors.white,
+              fontSize: EraTheme.subHeaderWeb - 4.sp,
+              fontWeight: FontWeight.w600),
+          ...buildBulletPoints(),
+          sb30(),
+        ],
+      ),
     );
   }
 
@@ -496,7 +501,7 @@ class AboutUsWeb extends GetView<FormWebController> {
           colors: const [Color(0xFFC50000), Color(0xFF8C0909)],
         ),
       ),
-      height: height - 350.h,
+      height: height - 250.h,
       width: width - 200.h,
       child: Row(
         children: [
