@@ -13,6 +13,8 @@ import * as sharp from "sharp";
 import { Storage } from "@google-cloud/storage";
 import * as fs from "fs";
 import * as path from "path";
+import { onCall } from "firebase-functions/https";
+import { tmpdir } from 'os';
 
 admin.initializeApp();
 const storage = new Storage();
@@ -24,9 +26,21 @@ export const generateThumbnail = functions.storage.onObjectFinalized({
 
     const bucket = storage.bucket(object.bucket);
     const filePath = object.data.name || "";
+
+    const allowedDirectories = ['projects', 'news', 'banners', 'listings']
+
+    const filePathSplit = filePath.split('/')
+
+
+    // only allow 
+    if (!allowedDirectories.includes(filePathSplit[0]) || filePathSplit.includes('thumbnails')) return
+
     const fileName = path.basename(filePath);
+    const fileDir = path.dirname(filePath);
+
     const thumbnailFileName = `thumb_${fileName}`;
-    const thumbnailFilePath = `thumbnails/${thumbnailFileName}`;
+    const thumbnailFilePath = `${fileDir}/thumbnails/thumb_${fileName}`;
+
     console.log(`Thumbnail generation started ${thumbnailFilePath}`)
 
 
@@ -54,4 +68,56 @@ export const generateThumbnail = functions.storage.onObjectFinalized({
     fs.unlinkSync(thumbTempFilePath);
 
     console.log(`Thumbnail generation complete ${thumbnailFilePath}`)
+});
+
+
+export const migrateGenerateThumbnail = onCall({
+    region: 'asia-southeast1',
+    memory: '1GiB'
+}, async (e) => {
+    const storage = admin.storage().bucket();
+
+    // const directories = ['projects','news','banners','listings']
+    const directories = ['projects']
+    let count: number = 0;
+    for (const directory of directories) {
+
+        if (count > 2) break;
+        count++;
+        const [files] = await storage.getFiles({ prefix: directory });
+        const projectImages = files.map(async (file) => {
+            const fileName = file.name;
+            const filePathSplit = fileName.split('/')
+
+            if (fileName.startsWith("thumb_") || filePathSplit.includes('thumbnails')) {
+                console.log("Thumbnail already exists.");
+                return;
+            }
+            const fileDir = path.dirname(fileName);
+            const tempFilePath = path.join(tmpdir(), fileName);
+
+            await file.download({ destination: tempFilePath });
+
+
+            const thumbFileName = `${fileDir}/thumbnails/thumb_${fileName}`;
+            const thumbTempFilePath = path.join(tmpdir(), thumbFileName);
+
+
+            await sharp(tempFilePath)
+                .resize({ width: 400 })
+                .toFile(thumbTempFilePath);
+
+            // Upload the thumbnail to Firebase Storage
+            await storage.upload(thumbTempFilePath, {
+                destination: path.join(fileDir, thumbFileName),
+                metadata: {
+                    contentType: 'image/jpeg',
+                },
+            });
+            fs.unlinkSync(tempFilePath);
+            fs.unlinkSync(thumbTempFilePath);
+        });
+        await Promise.all(projectImages);
+    }
+    console.log(`Thumbnail generation migration complete`);
 });
