@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 
@@ -26,9 +25,9 @@ import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/strings.dart';
 import '../../../../app/constants/theme.dart';
-import '../../../../app/widgets/custom_image_viewer.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
 
+import '../../../../app/widgets/image/image_widget.dart';
 import '../../../global.dart';
 import '../controllers/home_controller.dart';
 
@@ -298,17 +297,15 @@ class Home extends GetView<HomeController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10.r),
-                                child: CloudStorage().imageLoader(
-                                  reference: listing.photos != null
-                                      ? (listing.photos!.isNotEmpty
-                                          ? listing.photos!.first
-                                          : AppStrings.noUserImageWhite)
-                                      : AppStrings.noUserImageWhite,
-                                  width: Get.width,
-                                  height: 300.h,
-                                ),
+                              ClipRect(
+                                child: ImageWidget(
+                                    thumbnailUrl: listing.photos != null
+                                        ? (listing.photos!.isNotEmpty
+                                            ? listing.photos!.first
+                                            : AppStrings.noUserImageWhite)
+                                        : AppStrings.noUserImageWhite,
+                                    width: Get.width,
+                                    height: 300.h),
                               ),
                               sb17(),
                               Container(
@@ -534,10 +531,14 @@ class Home extends GetView<HomeController> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              CloudStorage().imageLoader(
-                                reference: controller.news[i].image,
+                              ImageWidget(
+                                thumbnailUrl: controller.news[i].image,
                                 height: 250.h,
                               ),
+                              // CloudStorage().imageLoader(
+                              //   reference: controller.news[i].image,
+                              //   height: 250.h,
+                              // ),
                               Spacer(),
                             ],
                           ),

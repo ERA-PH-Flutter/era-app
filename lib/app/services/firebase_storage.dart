@@ -6,6 +6,7 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class CloudStorage {
   final ref = FirebaseStorage.instance.ref();
@@ -30,7 +31,7 @@ class CloudStorage {
           ? await getTemporaryDirectory()
           : await getApplicationSupportDirectory();
       final String imagePath =
-          '${appDirectory.path}/${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(100)}.jpg';
+          '${appDirectory.path}/${Uuid().v4()}_${Random().nextInt(100)}.jpg';
       final File file = File(imagePath);
       file.create();
       await file.writeAsBytes(bytes!);
@@ -177,7 +178,7 @@ class CloudStorage {
       {required File file, required String target, customName}) async {
     try {
       var filename = file.path.split("/")[file.path.split("/").length - 1];
-      var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename";
+      var uploadFilename = "${Uuid().v4()}_$filename";
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putFile(file);
       return '$target/${customName ?? uploadFilename}';
@@ -200,8 +201,7 @@ class CloudStorage {
       {required file, required String target, customName}) async {
     try {
       var filename = "${Random().nextInt(100)}";
-      var uploadFilename =
-          "${DateTime.now().microsecondsSinceEpoch}_$filename.png";
+      var uploadFilename = "${Uuid().v4()}_$filename.png";
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putData(file);
       return '$target/${customName ?? uploadFilename}';
@@ -213,8 +213,7 @@ class CloudStorage {
   Future<String> uploadImage({required File image}) async {
     try {
       var filename = image.path.split("/")[image.path.split("/").length - 1];
-      var imageRef = ref.child(
-          'listings/${"${DateTime.now().microsecondsSinceEpoch}_$filename"}');
+      var imageRef = ref.child('listings/${"${Uuid().v4()}_$filename"}');
       await imageRef.putFile(image);
       return await imageRef.getDownloadURL();
     } catch (e) {

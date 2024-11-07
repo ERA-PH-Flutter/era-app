@@ -9,6 +9,7 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
+import 'package:eraphilippines/app/widgets/image/image_widget.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
@@ -128,13 +129,21 @@ class PropertyInformation extends GetView<ListingController> {
                       child: SizedBox(
                         width: Get.width,
                         height: 320.h,
-                        child: CloudStorage().imageLoader(
-                          reference: controller.currentImage.value == ''
+                        child: ImageWidget(
+                          thumbnailUrl: controller.currentImage.value == ''
                               ? (controller.images.isNotEmpty
                                   ? controller.images.first
                                   : AppStrings.noUserImageWhite)
                               : controller.currentImage.value,
                         ),
+
+                        // CloudStorage().imageLoader(
+                        //   reference: controller.currentImage.value == ''
+                        //       ? (controller.images.isNotEmpty
+                        //           ? controller.images.first
+                        //           : AppStrings.noUserImageWhite)
+                        //       : controller.currentImage.value,
+                        // ),
                       ),
                     )),
                     Positioned(
@@ -171,11 +180,17 @@ class PropertyInformation extends GetView<ListingController> {
                                         : null,
                                     margin:
                                         EdgeInsets.symmetric(horizontal: 7.w),
-                                    child: CloudStorage().imageLoader(
-                                      reference: controller.images[index],
-                                      width: Get.width / 6,
+                                    child: ImageWidget(
+                                      thumbnailUrl: controller.images[index],
                                       height: Get.height,
+                                      width: Get.width / 6,
                                     ),
+
+                                    //  CloudStorage().imageLoader(
+                                    //   reference: controller.images[index],
+                                    //   width: Get.width / 6,
+                                    //   height: Get.height,
+                                    // ),
                                   ),
                                 );
                               },
@@ -421,15 +436,23 @@ class PropertyInformation extends GetView<ListingController> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10.r),
-                                child: CloudStorage().imageLoader(
-                                  reference: listing.photos != null
+                                child: ImageWidget(
+                                  thumbnailUrl: listing.photos != null
                                       ? (listing.photos!.isNotEmpty
                                           ? listing.photos!.first
                                           : AppStrings.noUserImageWhite)
                                       : AppStrings.noUserImageWhite,
-                                  width: Get.width,
-                                  height: 300.h,
                                 ),
+
+                                // CloudStorage().imageLoader(
+                                //   reference: listing.photos != null
+                                //       ? (listing.photos!.isNotEmpty
+                                //           ? listing.photos!.first
+                                //           : AppStrings.noUserImageWhite)
+                                //       : AppStrings.noUserImageWhite,
+                                //   width: Get.width,
+                                //   height: 300.h,
+                                // ),
                               ),
                               sb17(),
                               Container(
@@ -922,10 +945,14 @@ class PropertyInformation extends GetView<ListingController> {
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         children: [
-                          CloudStorage().imageLoader(
-                            reference: controller.images[index],
+                          ImageWidget(
+                            thumbnailUrl: controller.images[index],
                             fit: BoxFit.cover,
                           ),
+                          // CloudStorage().imageLoader(
+                          //   reference: controller.images[index],
+                          //   fit: BoxFit.cover,
+                          // ),
                         ],
                       ),
                     );

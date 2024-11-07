@@ -20,6 +20,7 @@ import '../constants/colors.dart';
 import '../constants/sized_box.dart';
 import '../constants/theme.dart';
 import 'app_text.dart';
+import 'image/image_widget.dart';
 
 class ProjectViews {
   Project project;
@@ -54,16 +55,23 @@ class ProjectViews {
 
             if (data['type'] == "Banner Images") {
               if (kIsWeb) {
+                //im not sure
                 return _buildImage(
                     image: MemoryImage(data['image']),
                     height: 250.h,
                     width: Get.width);
               } else {
-                return CloudStorage().imageLoaderProvider(
-                  reference: data['image'],
+                return ImageWidget(
+                  thumbnailUrl: data['image'],
                   height: 250.h,
                   width: Get.width,
                 );
+
+                // CloudStorage().imageLoaderProvider(
+                //   reference: data['image'],
+                //   height: 250.h,
+                //   width: Get.width,
+                // );
               }
             } else if (data['type'] == "Developer Name") {
               return EraText(
@@ -79,11 +87,16 @@ class ProjectViews {
                     height: 250.h,
                     width: Get.width);
               }
-              return CloudStorage().imageLoaderProvider(
-                reference: data['image'],
+              return ImageWidget(
+                thumbnailUrl: data['image'],
                 height: 150.h,
-                width: 241.h,
+                width: 241.w,
               );
+              // CloudStorage().imageLoaderProvider(
+              //   reference: data['image'],
+              //   height: 150.h,
+              //   width: 241.h,
+              // );
             } else if (data['type'] == "3D Virtual") {
               if (kIsWeb) {
                 return Container(
@@ -190,11 +203,16 @@ class ProjectViews {
                             height: 250.h,
                             width: Get.width);
                       }
-                      return CloudStorage().imageLoaderProvider(
-                        reference: data['image'],
+                      return ImageWidget(
+                        thumbnailUrl: data['image'],
                         height: 250.h,
                         width: Get.width,
                       );
+                      // CloudStorage().imageLoaderProvider(
+                      //   reference: data['image'],
+                      //   height: 250.h,
+                      //   width: Get.width,
+                      // );
                     }),
                     sb20(),
                     description(text: data['description']),
@@ -240,11 +258,17 @@ class ProjectViews {
                                 height: 250.h,
                                 width: Get.width);
                           }
-                          return CloudStorage().imageLoaderProvider(
-                            reference: data['image'],
+                          return ImageWidget(
+                            thumbnailUrl: data['image'],
                             height: 250.h,
                             width: Get.width,
                           );
+
+                          // CloudStorage().imageLoaderProvider(
+                          //   reference: data['image'],
+                          //   height: 250.h,
+                          //   width: Get.width,
+                          // );
                         },
                       ),
                       sb20(),
@@ -332,11 +356,16 @@ class ProjectViews {
                                               }
                                               return Wrap(
                                                 children: [
-                                                  CloudStorage().imageLoader(
-                                                    reference: data['images']
+                                                  ImageWidget(
+                                                    thumbnailUrl: data['images']
                                                         [index],
                                                     fit: BoxFit.cover,
                                                   ),
+                                                  // CloudStorage().imageLoader(
+                                                  //   reference: data['images']
+                                                  //       [index],
+                                                  //   fit: BoxFit.cover,
+                                                  // ),
                                                 ],
                                               );
                                             }),
@@ -403,11 +432,17 @@ class ProjectViews {
                                   height: 50.h,
                                 );
                               }
-                              return CloudStorage().imageLoader(
-                                reference: displayImage,
+                              return ImageWidget(
+                                thumbnailUrl: displayImage,
                                 height: 250.h,
                                 width: Get.width,
                               );
+
+                              // CloudStorage().imageLoader(
+                              //   reference: displayImage,
+                              //   height: 250.h,
+                              //   width: Get.width,
+                              // );
                             }),
                           ),
                         ),
@@ -447,12 +482,18 @@ class ProjectViews {
                                             height: 70.h,
                                           );
                                         }
-                                        return CloudStorage()
-                                            .imageLoaderProvider(
-                                          reference: image,
-                                          width: Get.width / 6,
+                                        return ImageWidget(
+                                          thumbnailUrl: image,
                                           height: 70.h,
+                                          width: Get.width / 6,
                                         );
+
+                                        // CloudStorage()
+                                        //     .imageLoaderProvider(
+                                        //   reference: image,
+                                        //   width: Get.width / 6,
+                                        //   height: 70.h,
+                                        // );
                                       },
                                     ),
                                   ),
@@ -487,11 +528,17 @@ class ProjectViews {
                                 height: 250.h,
                                 width: Get.width);
                           }
-                          return CloudStorage().imageLoaderProvider(
-                            reference: data['image'],
+                          return ImageWidget(
+                            thumbnailUrl: data['image'],
                             height: 250.h,
                             width: Get.width,
                           );
+
+                          // CloudStorage().imageLoaderProvider(
+                          //   reference: data['image'],
+                          //   height: 250.h,
+                          //   width: Get.width,
+                          // );
                         },
                       ),
                       sb20(),
@@ -579,11 +626,14 @@ class ProjectViews {
                                               }
                                               return Wrap(
                                                 children: [
-                                                  CloudStorage().imageLoader(
-                                                    reference: data['images']
-                                                        [index],
-                                                    fit: BoxFit.cover,
+                                                  ImageWidget(
+                                                    thumbnailUrl: data['image'],
                                                   ),
+                                                  // CloudStorage().imageLoader(
+                                                  //   reference: data['images']
+                                                  //       [index],
+                                                  //   fit: BoxFit.cover,
+                                                  // ),
                                                 ],
                                               );
                                             }),
@@ -649,11 +699,17 @@ class ProjectViews {
                                   height: 50.h,
                                 );
                               }
-                              return CloudStorage().imageLoaderProvider(
-                                reference: displayImage,
+                              return ImageWidget(
+                                thumbnailUrl: displayImage,
                                 height: 250.h,
                                 width: Get.width,
                               );
+
+                              // CloudStorage().imageLoaderProvider(
+                              //   reference: displayImage,
+                              //   height: 250.h,
+                              //   width: Get.width,
+                              // );
                             }),
                           ),
                         ),
@@ -693,12 +749,18 @@ class ProjectViews {
                                               height: 70.h,
                                             );
                                           }
-                                          return CloudStorage()
-                                              .imageLoaderProvider(
-                                            reference: image,
-                                            width: Get.width / 6,
+                                          return ImageWidget(
+                                            thumbnailUrl: image,
                                             height: 70.h,
+                                            width: Get.width / 6,
                                           );
+
+                                          // CloudStorage()
+                                          //     .imageLoaderProvider(
+                                          //   reference: image,
+                                          //   width: Get.width / 6,
+                                          //   height: 70.h,
+                                          // );
                                         },
                                       ),
                                     ));
@@ -738,11 +800,17 @@ class ProjectViews {
                                       height: Get.height,
                                     );
                                   }
-                                  return CloudStorage().imageLoader(
-                                    reference: image,
-                                    width: Get.width,
+                                  return ImageWidget(
+                                    thumbnailUrl: image,
                                     height: Get.height,
+                                    width: Get.width,
                                   );
+
+                                  // CloudStorage().imageLoader(
+                                  //   reference: image,
+                                  //   width: Get.width,
+                                  //   height: Get.height,
+                                  // );
                                 },
                               ),
                             );
@@ -845,11 +913,17 @@ class ProjectViews {
         );
       }
       if (block['type'] == "Project Logo") {
-        preview[1] = CloudStorage().imageLoaderProvider(
-          reference: block['image'],
+        preview[1] = ImageWidget(
+          thumbnailUrl: block['image'],
           height: 170.h,
           width: Get.width,
         );
+
+        // CloudStorage().imageLoaderProvider(
+        //   reference: block['image'],
+        //   height: 170.h,
+        //   width: Get.width,
+        // );
       }
       if (block['type'] == "Blurb") {
         preview[2] = Container(
@@ -862,11 +936,16 @@ class ProjectViews {
                 text: block['title'],
               ),
               sb30(),
-              CloudStorage().imageLoaderProvider(
-                reference: block['image'],
+              ImageWidget(
+                thumbnailUrl: block['image'],
                 height: 250.h,
                 width: Get.width,
               ),
+              // CloudStorage().imageLoaderProvider(
+              //   reference: block['image'],
+              //   height: 250.h,
+              //   width: Get.width,
+              // ),
               sb20(),
               description(text: block['description']),
               sb40(),
@@ -889,11 +968,16 @@ class ProjectViews {
       if (block['type'] == "Project Logo") {
         preview[0] = SizedBox(
           width: Get.width,
-          child: CloudStorage().imageLoaderProvider(
-            reference: block['image'],
+          child: ImageWidget(
+            thumbnailUrl: block['image'],
             height: 170.h,
             width: Get.width,
           ),
+          // CloudStorage().imageLoaderProvider(
+          //   reference: block['image'],
+          //   height: 170.h,
+          //   width: Get.width,
+          // ),
         );
       }
       if (block['type'] == "Developer Name") {
@@ -917,11 +1001,15 @@ class ProjectViews {
                 child: CarouselSlider(
                   items: block['images'].map<Widget>((image) {
                     return Container(
-                      child: CloudStorage().imageLoader(
-                          reference: image,
-                          width: Get.width,
-                          height: Get.height,
-                          fit: BoxFit.cover),
+                      child: ImageWidget(
+                        thumbnailUrl: image,
+                      ),
+
+                      // CloudStorage().imageLoader(
+                      //     reference: image,
+                      //     width: Get.width,
+                      //     height: Get.height,
+                      //     fit: BoxFit.cover),
                     );
 
                     //CloudStorage().imageLoader(ref: image);

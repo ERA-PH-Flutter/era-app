@@ -23,10 +23,10 @@ class SearchResultController extends GetxController {
   var data = [].obs;
   var searchQuery = ''.obs;
   RxInt count = 10.obs;
-  int pageSize = 10 ;
+  int pageSize = 0;
   var expanded = false.obs;
   var quickLinks = Column().obs;
-
+  ScrollController scrollController = ScrollController();
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -61,6 +61,8 @@ class SearchResultController extends GetxController {
   ];
   @override
   void onInit() async {
+    pageSize = count.value;
+
     searchResultState.value = SearchResultState.loading;
     quickLinks.value = await QuickLinksModel().initialize();
     data.clear();

@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:number_pagination/number_pagination.dart';
 import '../../../../../app/constants/screens.dart';
 import '../../../../../app/widgets/filteredsearch_box.dart';
+import '../../../../../app/widgets/image/image_widget.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
@@ -24,6 +25,7 @@ class SearchResult extends GetView<SearchResultController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        controller: controller.scrollController,
         scrollDirection: Axis.vertical,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
@@ -70,7 +72,7 @@ class SearchResult extends GetView<SearchResultController> {
 
   _loaded() {
     return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
+      // scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -116,9 +118,7 @@ class SearchResult extends GetView<SearchResultController> {
           Obx(() {
             controller.count.value;
             return LoadMore(
-              length: (controller.data.length / controller.pageSize).floor() > 0
-                  ? (controller.data.length / controller.pageSize).floor()
-                  : 1,
+              length: (controller.data.length / controller.pageSize).floor(),
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -151,16 +151,27 @@ class SearchResult extends GetView<SearchResultController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  child: CloudStorage().imageLoader(
-                                    height: 300.h,
-                                    width: Get.width,
-                                    reference: listing.photos != null
-                                        ? (listing.photos!.isNotEmpty
-                                            ? listing.photos!.first
-                                            : AppStrings.noUserImageWhite)
-                                        : AppStrings.noUserImageWhite,
-                                  )),
+                                borderRadius: BorderRadius.circular(10.r),
+                                child: ImageWidget(
+                                  thumbnailUrl: listing.photos != null
+                                      ? (listing.photos!.isNotEmpty
+                                          ? listing.photos!.first
+                                          : AppStrings.noUserImageWhite)
+                                      : AppStrings.noUserImageWhite,
+                                  height: 300.h,
+                                  width: Get.width,
+                                ),
+
+                                // CloudStorage().imageLoader(
+                                //   height: 300.h,
+                                //   width: Get.width,
+                                //   reference: listing.photos != null
+                                //       ? (listing.photos!.isNotEmpty
+                                //           ? listing.photos!.first
+                                //           : AppStrings.noUserImageWhite)
+                                //       : AppStrings.noUserImageWhite,
+                                // ),
+                              ),
                               SizedBox(
                                 height: 17.h,
                               ),
@@ -365,21 +376,23 @@ class SearchResult extends GetView<SearchResultController> {
     return Column(
       children: [
         child,
-        if (length > 0 && controller.pageSize > 0)
-          NumberPagination(
-            fontSize: 18.sp,
-            buttonRadius: 10.r,
-            controlButtonSize: Size(30, 30),
-            numberButtonSize: Size(35, 35),
-            sectionSpacing: 1.w,
-            betweenNumberButtonSpacing: 1,
-            totalPages: length,
-            currentPage: (controller.count.value / controller.pageSize).floor(),
-            visiblePagesCount: length < 3 ? length : 3,
-            onPageChanged: (page) {
-              controller.count.value = controller.pageSize * page;
-            },
-          ),
+        NumberPagination(
+          fontSize: 18.sp,
+          buttonRadius: 10.r,
+          controlButtonSize: Size(30, 30),
+          numberButtonSize: Size(35, 35),
+          sectionSpacing: 1.w,
+          betweenNumberButtonSpacing: 1,
+          totalPages: length,
+          currentPage: (controller.count.value / controller.pageSize).floor(),
+          visiblePagesCount: length < 3 ? length : 3,
+          onPageChanged: (page) {
+            controller.count.value = controller.pageSize * page;
+            controller.scrollController.jumpTo(
+              0,
+            );
+          },
+        ),
         SizedBox(height: 100.h),
       ],
     );
