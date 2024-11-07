@@ -1,7 +1,8 @@
 analyzer:
   errors:
     #avoid_print: ignore ignore
-    constant_identifier_names: true
+    constant_identifier_names: ignore
+    use_key_in_widget_constructors: false
     deprecated_member_use: ignore
     empty_catches: ignore
     file_names: ignore
