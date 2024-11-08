@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/widgets/company/companynews_page_web.dart';
+import 'package:eraphilippines/presentation/website/projects/pages/projects_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,7 @@ class HomsController extends GetxController {
     BuyWeb(), //2
     BuyWeb(), //3
 //projects
-    ProjectViewWeb(),
+    ProjectsList(),
     FindAgentsWeb(), //04
     CompanyNewsPageWeb(), //5
     ContactUsWeb(), //6

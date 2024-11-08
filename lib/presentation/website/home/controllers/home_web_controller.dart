@@ -5,7 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
+import 'package:eraphilippines/app/widgets/web/project_views_web.dart';
 import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/presentation/website/projects/controllers/project_views_binding.dart';
+import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:eraphilippines/repository/news.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,18 +16,20 @@ import '../../../../../app/services/local_storage.dart';
 import 'package:eraphilippines/app/models/settings.dart' as era_settings;
 
 import '../../../../app/constants/strings.dart';
+import '../../../../app/constants/theme.dart';
 import '../../../../repository/listing.dart';
+import '../../../../repository/project.dart';
 
 enum HomeWebState { loading, loaded, error, empty }
 
 class HomeWebController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var homelandingState = HomeWebState.loading.obs;
-//  final List<String> images = [];
-  //final List<String> images = [];
+
+  List<Widget> projects = [];
+
   var listingImages = [];
   List<Listing> listings = [];
-  //var images = <Uint8List>[].obs;
   var news = [];
   Widget? quickLinks;
   final List<String> bannersImages = [];
@@ -69,7 +74,7 @@ class HomeWebController extends GetxController {
       await getListings();
       await getNews();
       await getImages();
-
+      await getProjects();
       homelandingState.value = HomeWebState.loaded;
     } catch (e) {
       print(e);
@@ -141,5 +146,30 @@ class HomeWebController extends GetxController {
             .toString()
             .notEmpty(AppStrings.noImageWhite),
         label: 'AUCTION'));
+  }
+
+  getProjects() async {
+    if (settings!.featuredProjects != null) {
+      for (int i = 0; i < settings!.featuredProjects!.length; i++) {
+        var pr = await Project.getById(settings!.featuredProjects![i]);
+        projects.add(GestureDetector(
+          onTap: () {
+            Get.to(ProjectViewWeb(),
+                binding: ProjectViewWebBinding(), arguments: pr);
+          },
+          child: Wrap(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: EraTheme.paddingWidthAdmin * 3),
+                child: Column(
+                  children: ProjectViewsWeb(project: pr).HomebuildPreview(),
+                ),
+              ),
+            ],
+          ),
+        ));
+      }
+    }
   }
 }

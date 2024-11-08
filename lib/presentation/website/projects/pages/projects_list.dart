@@ -1,33 +1,115 @@
-import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
+import 'package:eraphilippines/app/widgets/web/project_views_web.dart';
+import 'package:eraphilippines/presentation/website/projects/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:number_pagination/number_pagination.dart';
 
+import '../../../../app/constants/assets.dart';
+import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/screens.dart';
-import '../../../../app/widgets/web/project_views_web.dart';
-import '../../../admin/properties/controllers/project_list_controller.dart';
+
+import '../../../../app/constants/sized_box.dart';
+import '../../../../app/constants/theme.dart';
+import '../../../../app/widgets/app_text.dart';
+import '../../../../app/widgets/app_textfield.dart';
+import '../../../../app/widgets/box_widget.dart';
+
 import '../../../admin/properties/controllers/project_view_binding.dart';
+import '../../../agent/listings/searchresult/controllers/searchresult_controller.dart';
 //todo add text
 
-class ProjectsList extends GetView<ProjectsListController> {
+class ProjectsList extends GetView<ProjectsListWebController> {
   const ProjectsList({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: WillPopScope(
-        onWillPop: () {
-          Get.back();
-          return Future.value(false);
-        },
-        child: SafeArea(
-          child: Obx(() => switch (controller.projectsListState.value) {
-                ProjectsListState.loading => _loading(),
-                ProjectsListState.loaded => _loaded(),
-                ProjectsListState.error => _error(),
-                ProjectsListState.empty => _empty()
-              }),
+    final SearchResultController searchController =
+        Get.put(SearchResultController());
+    Get.put(ProjectsListWebController());
+    return WillPopScope(
+      onWillPop: () {
+        Get.back();
+        return Future.value(false);
+      },
+      child: SafeArea(
+        child: SingleChildScrollView(
+          controller: controller.scrollController,
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                    child: EraText(
+                      text: 'Find Cutting-Edge Real Estate Projects',
+                      fontSize: 30.sp,
+                      color: AppColors.kRedColor,
+                      fontWeight: FontWeight.bold,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  sb10(),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                    child: BoxWidget.build(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 10.h),
+                          Obx(() {
+                            if (!searchController.showFullSearch.value) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: AppTextField(
+                                    onSuffixTap: () async {
+                                      // BaseController().showLoading();
+                                      // var projects = await AI(
+                                      //         query: searchController
+                                      //             .aiSearchController.text)
+                                      //     .projectSearch();
+                                      // if (projects.isNotEmpty) {
+                                      //   controller.projects.value =
+                                      //       projects.map((proj) {
+                                      //     return Project.fromJSON(
+                                      //         proj.data());
+                                      //   }).toList();
+                                      //   controller.projectsListState.value =
+                                      //       ProjectsListState.loaded;
+                                      // } else {
+                                      //   controller.projectsListState.value =
+                                      //       ProjectsListState.empty;
+                                      // }
+                                      // BaseController().hideLoading();
+                                    },
+                                    controller:
+                                        searchController.aiSearchController,
+                                    hint: 'Use AI Search',
+                                    svgIcon: AppEraAssets.ai3,
+                                    bgColor: AppColors.white,
+                                    isSuffix: true,
+                                    obscureText: false,
+                                    suffixIcons: AppEraAssets.send),
+                              );
+                            }
+                            return Container();
+                          }),
+                          SizedBox(height: 10.h),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Obx(() => switch (controller.projectsListState.value) {
+                    ProjectsListState.loading => _loading(),
+                    ProjectsListState.loaded => _loaded(),
+                    ProjectsListState.error => Screens.error(),
+                    ProjectsListState.empty => Screens.empty(height: 240.h)
+                  }),
+            ],
+          ),
         ),
       ),
     );
@@ -38,33 +120,58 @@ class ProjectsList extends GetView<ProjectsListController> {
   }
 
   _loaded() {
-    return Container(
-      height: Get.height - 200.h,
-      child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: controller.projects.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Get.to(ProjectViewWeb(),
-                    binding: ProjectViewBinding(),
-                    arguments: controller.projects[index]);
-              },
-              child: Container(
-                child: Column(
-                  children: ProjectViews(project: controller.projects[index])
-                      .buildPreview(),
-                ),
+    return Obx(() {
+      List<Widget> projects = [];
+      for (int i = 0; i < controller.projects.value.length; i++) {
+        if (i >= controller.count.value - controller.pageSize &&
+            i < controller.count.value) {
+          projects.add(GestureDetector(
+            onTap: () {
+              Get.to(ProjectViewWeb(),
+                  binding: ProjectViewBinding(),
+                  arguments: controller.projects[i]);
+            },
+            child: Wrap(children: [
+              Column(
+                children: ProjectViewsWeb(project: controller.projects[i])
+                    .buildPreview(),
               ),
-            );
-          }),
-    );
+            ]),
+          ));
+        }
+      }
+      return LoadMore(
+          length: (controller.projects.length / controller.pageSize).floor(),
+          child: Column(children: projects));
+    });
   }
 
-  _error() {
-    //todo add error screen
-  }
-  _empty() {
-    //todo add empty screen
+  LoadMore({
+    child,
+    length,
+  }) {
+    return Column(
+      children: [
+        child,
+        NumberPagination(
+          fontSize: 18.sp,
+          buttonRadius: 10.r,
+          controlButtonSize: Size(30, 30),
+          numberButtonSize: Size(35, 35),
+          sectionSpacing: 1.w,
+          betweenNumberButtonSpacing: 1,
+          totalPages: length,
+          currentPage: (controller.count.value / controller.pageSize).floor(),
+          visiblePagesCount: length < 4 ? length : 4,
+          onPageChanged: (page) {
+            controller.count.value = controller.pageSize * page;
+            controller.scrollController.jumpTo(
+              0,
+            );
+          },
+        ),
+        SizedBox(height: 30.h),
+      ],
+    );
   }
 }

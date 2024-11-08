@@ -19,9 +19,9 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../constants/assets.dart';
 import '../../constants/sized_box.dart';
 
-class ProjectViews {
+class ProjectViewsWeb {
   Project project;
-  ProjectViews({required this.project});
+  ProjectViewsWeb({required this.project});
   Future<bool> loadLink(link, webViewController) async {
     await webViewController.loadRequest(Uri.parse(link));
     return true;
@@ -686,21 +686,20 @@ class ProjectViews {
     ];
     for (var block in project.data!) {
       if (block['type'] == "Project Logo") {
-        preview[0] = CloudStorage().imageLoaderProvider(
-          ref: block['image'],
-          height: 91.h,
-          width: 241.h,
-        );
+        preview[0] = CloudStorage().imageLoader(
+            ref: block['image'],
+            height: Get.height / 2,
+            width: Get.width,
+            fit: BoxFit.contain);
       }
       if (block['type'] == "Developer Name") {
         preview[1] = Padding(
           padding: EdgeInsets.only(top: 20.h),
           child: EraText(
-            textAlign: TextAlign.center,
-            text: block['developer_name'],
-            color: AppColors.hint,
-            fontSize: EraTheme.small,
-          ),
+              textAlign: TextAlign.center,
+              text: block['developer_name'],
+              color: AppColors.hint,
+              fontSize: EraTheme.subHeaderWeb),
         );
       }
       if (block['type'] == "Carousel") {
@@ -708,13 +707,19 @@ class ProjectViews {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                padding: EdgeInsets.only(top: 30.h, bottom: 30.h),
+                height: Get.height,
+                padding: EdgeInsets.only(
+                    right: EraTheme.paddingWidthAdmin * 2,
+                    left: EraTheme.paddingWidthAdmin * 2,
+                    top: EraTheme.paddingWidth20,
+                    bottom: EraTheme.paddingWidth20),
                 decoration: BoxDecoration(color: AppColors.carouselBgColor),
                 child: CarouselSlider(
                   items: block['images'].map<Widget>((image) {
                     return Container(
                       child: CloudStorage().imageLoader(
                         ref: image,
+                        fit: BoxFit.cover,
                         width: Get.width,
                         height: Get.height,
                       ),
@@ -727,17 +732,23 @@ class ProjectViews {
                     enlargeStrategy: CenterPageEnlargeStrategy.height,
                     autoPlay: true,
                     viewportFraction: 0.8,
+                    height: Get.height / 1.2,
                   ),
                 )),
             sb40(),
-            Button(
-              text: 'LEARN MORE',
-              onTap: () {
-                Get.to(ProjectViewWeb(),
-                    binding: ProjectViewBinding(), arguments: project);
-              },
-              bgColor: AppColors.kRedColor,
-              borderRadius: BorderRadius.circular(30),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: EraTheme.paddingWidthAdmin * 3),
+              child: Button(
+                height: 60.h,
+                text: 'LEARN MORE',
+                onTap: () {
+                  Get.to(ProjectViewWeb(),
+                      binding: ProjectViewBinding(), arguments: project);
+                },
+                bgColor: AppColors.kRedColor,
+                borderRadius: BorderRadius.circular(30),
+              ),
             ),
             sb10()
           ],

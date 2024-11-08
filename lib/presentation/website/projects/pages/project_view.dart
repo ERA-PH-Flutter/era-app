@@ -37,7 +37,7 @@ class ProjectViewWeb extends GetView<ProjectViewWebController> {
     return SingleChildScrollView(
       child: Container(
         height: Get.height,
-        child: ProjectViews(project: Get.arguments).build(),
+        child: ProjectViewsWeb(project: Get.arguments).build(),
       ),
     );
   }

@@ -11,8 +11,8 @@ import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
-import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/website/projects/controllers/projects_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -32,7 +32,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
     Get.put(AgentsWebController());
     SearchResultController searchResultController =
         Get.put(SearchResultController());
-    ProjectsController projectsController = Get.put(ProjectsController());
+    ProjectsWebController projectsController = Get.put(ProjectsWebController());
     return Container(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       width: Get.width,

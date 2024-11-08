@@ -12,7 +12,7 @@ import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
-import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
+import 'package:eraphilippines/presentation/website/projects/controllers/projects_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -28,7 +28,7 @@ class FindAgents extends GetView<AgentsController> {
   Widget build(BuildContext context) {
     SearchResultController searchResultController =
         Get.put(SearchResultController());
-    ProjectsController projectsController = Get.put(ProjectsController());
+    ProjectsWebController projectsController = Get.put(ProjectsWebController());
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

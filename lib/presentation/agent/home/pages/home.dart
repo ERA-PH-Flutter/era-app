@@ -10,9 +10,7 @@ import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 
-import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
-import 'package:eraphilippines/presentation/admin/properties/controllers/project_view_binding.dart';
-import 'package:eraphilippines/presentation/agent/projects/pages/project_view.dart';
+import 'package:eraphilippines/presentation/website/projects/controllers/project_list_controller.dart';
 
 import 'package:eraphilippines/repository/listing.dart';
 
@@ -51,8 +49,6 @@ class Home extends GetView<HomeController> {
   }
 
   _loaded() {
-    ProjectsListController projectController =
-        Get.put(ProjectsListController());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
