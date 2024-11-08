@@ -8,6 +8,7 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/add_project_admin.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -125,7 +126,14 @@ class SettingsPage extends GetView<AgentsController> {
                                           title:
                                               "${user!.firstname} ${user!.lastname}",
                                         ).add();
-                                        Authentication().logout();
+                                        BaseController().showSuccessDialog(
+                                          title: "Delete Success!",
+                                          description: "Account has been Deleted!",
+                                          okayButton: "Okay",
+                                          hitApi: (){
+                                            Authentication().logout();
+                                          }
+                                        );
                                       },
                                       width: 140.w,
                                       bgColor: AppColors.kRedColor,
