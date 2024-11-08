@@ -1003,6 +1003,7 @@ class ProjectViews {
                     return Container(
                       child: ImageWidget(
                         thumbnailUrl: image,
+                        fit: BoxFit.cover,
                       ),
 
                       // CloudStorage().imageLoader(

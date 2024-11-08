@@ -33,6 +33,7 @@ class FindAgents extends GetView<AgentsController> {
     ProjectsController projectsController = Get.put(ProjectsController());
     return Scaffold(
       body: SingleChildScrollView(
+        controller: controller.scrollController,
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
@@ -355,6 +356,7 @@ class FindAgents extends GetView<AgentsController> {
             visiblePagesCount: length < 4 ? length : 4,
             onPageChanged: (page) {
               controller.count.value = controller.pageSize * page;
+              controller.scrollController.jumpTo(0);
             },
           ),
         SizedBox(height: 50.h),

@@ -48,7 +48,8 @@ class AgentsItems extends StatelessWidget {
               // duration: Duration(milliseconds: 2000),
               // curve: Curves.fastEaseInToSlowEaseOut,
               height: selected.value ? 350.h : 335.h,
-              width: 500.w, // margin: EdgeInsets.only(top: 120.h, left: 60.w, right: 60.w),
+              width: 500
+                  .w, // margin: EdgeInsets.only(top: 120.h, left: 60.w, right: 60.w),
               margin: selected.value
                   ? EdgeInsets.only(top: 250.h, left: 40.w, right: 40.w)
                   : EdgeInsets.only(top: 200.h, left: 40.w, right: 40.w),
@@ -72,8 +73,9 @@ class AgentsItems extends StatelessWidget {
                           color: AppColors.blue,
                         ),
                         EraText(
-                          text:
-                              agentInfo.role == 'agent' ? 'ERA Infinity Agent' : 'ERA Infinity Broker',
+                          text: agentInfo.role == 'agent'
+                              ? 'ERA Infinity Agent'
+                              : 'ERA Infinity Broker',
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.black,
@@ -178,7 +180,7 @@ class AgentsItems extends StatelessWidget {
                     )
                   : Column(
                       children: [
-                        SizedBox(height: 44.h),
+                        SizedBox(height: 50.h),
                         EraText(
                           text: '${agentInfo.firstname} ${agentInfo.lastname}',
                           fontSize: 20.sp,
@@ -188,8 +190,9 @@ class AgentsItems extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                         EraText(
-                          text:
-                              agentInfo.role == 'agent' ? 'ERA Infinity Agent' : 'ERA Infinity Broker',
+                          text: agentInfo.role == 'agent'
+                              ? 'ERA Infinity Agent'
+                              : 'ERA Infinity Broker',
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                           color: AppColors.black,
@@ -352,14 +355,14 @@ class AgentsItems extends StatelessWidget {
                             return Container(
                               // duration: Duration(milliseconds: 500),
                               // curve: Curves.easeIn,
-                              height: 250.h,
+                              height: 200.h,
                               width: 200.w,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                     snapshot.data!,
                                   ),
-                                  //fit: BoxFit.cover,
+                                  fit: BoxFit.cover,
                                 ),
                                 borderRadius: BorderRadius.circular(10),
                               ),

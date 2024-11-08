@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/services/ai_search.dart';
@@ -33,6 +32,8 @@ class AgentsController extends GetxController with BaseController {
   TextEditingController agentId = TextEditingController();
   TextEditingController agentLocation = TextEditingController();
   TextEditingController agentName = TextEditingController();
+
+  ScrollController scrollController = ScrollController();
 
   late YoutubePlayerController youtubePlayerController;
 
@@ -148,8 +149,7 @@ class AgentsController extends GetxController with BaseController {
           await FirebaseStorage.instance
               .ref('users/images/${user!.id}.png')
               .delete();
-        } catch (e) {
-        }
+        } catch (e) {}
         var im = await CloudStorage().upload(
             file: image.value!,
             target: 'users/images',
@@ -172,7 +172,6 @@ class AgentsController extends GetxController with BaseController {
   }
 
   Future<void> getImagePic(previousPicture) async {
-
     try {
       final XFile? imagePick;
       imagePick = await picker.pickImage(source: ImageSource.camera);
@@ -194,14 +193,10 @@ class AgentsController extends GetxController with BaseController {
           await FirebaseStorage.instance
               .ref('users/images/${user!.id}.png')
               .delete();
-        } catch (e) {
-
-        }
-        try{
+        } catch (e) {}
+        try {
           await CloudStorage().deleteFileDirect(docRef: previousPicture);
-        }catch(e){
-
-        }
+        } catch (e) {}
         var im = await CloudStorage().upload(
             file: image.value!,
             target: 'users/images',

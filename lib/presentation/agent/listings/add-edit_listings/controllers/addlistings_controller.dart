@@ -86,17 +86,22 @@ class AddListingsController extends GetxController with BaseController {
   ];
 
   var propertyT = [
-    "House and Lot",
-    "Condominium",
-    "Townhouse",
-    "Commercial",
-    "Industrial",
-    "Agricultural",
-    "Land",
-    "Foreclosed",
-    "Pre-selling",
-    "Rent to Own",
-    "Others",
+    'Pre-Selling',
+    'Residential',
+    'Commercial',
+    'Rental',
+    'Auction',
+    // "House and Lot",
+    // "Condominium",
+    // "Townhouse",
+    // "Commercial",
+    // "Industrial",
+    // "Agricultural",
+    // "Land",
+    // "Foreclosed",
+    // "Pre-selling",
+    // "Rent to Own",
+    // "Others",
   ];
 
   var offerT = [
@@ -182,7 +187,7 @@ class AddListingsController extends GetxController with BaseController {
   //     if (imagePick.isNotEmpty) {
   //       for (var image in imagePick) {
   //         Uint8List imageBytes = await image.readAsBytes();
-   //         Uint8List compressedImage = await compressImage(imageBytes);
+  //         Uint8List compressedImage = await compressImage(imageBytes);
   //         images.add(compressedImage);
   //       }
   //     }
