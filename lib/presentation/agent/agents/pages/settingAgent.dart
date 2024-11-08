@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/add_project_admin.dart';
@@ -118,10 +119,13 @@ class SettingsPage extends GetView<AgentsController> {
                                     Button(
                                       text: 'DELETE',
                                       onTap: () async {
+                                        user!.status = "deleted";
+                                        await user!.update();
                                         await Logs(
                                           title:
                                               "${user!.firstname} ${user!.lastname}",
                                         ).add();
+                                        Authentication().logout();
                                       },
                                       width: 140.w,
                                       bgColor: AppColors.kRedColor,
