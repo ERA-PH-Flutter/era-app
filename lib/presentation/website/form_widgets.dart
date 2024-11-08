@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,13 +24,11 @@ class BottomWidgets {
   static Widget eraJoinTitle({
     required String text,
   }) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: EraTheme.paragraphWeb - 10.sp,
-        color: AppColors.hint,
-        fontWeight: FontWeight.bold,
-      ),
+    return EraText(
+      text: text,
+      fontSize: EraTheme.paragraphWeb - 10.sp,
+      color: AppColors.hint,
+      fontWeight: FontWeight.bold,
     );
   }
 }

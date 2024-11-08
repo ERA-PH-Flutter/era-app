@@ -26,7 +26,7 @@ import '../../../../app/models/carousel_models.dart';
 import '../../../../app/services/firebase_storage.dart';
 import '../../../../app/widgets/carousel/carousel_slider.dart';
 
-import '../../../../app/widgets/company/companynews_page_web.dart';
+import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
 import '../../../../app/widgets/project_divider.dart';
 

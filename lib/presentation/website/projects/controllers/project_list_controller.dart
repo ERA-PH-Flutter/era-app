@@ -15,7 +15,6 @@ class ProjectsListWebController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var projectsListState = ProjectsListState.loading.obs;
   var projects = [].obs;
-  @override
   RxInt count = 5.obs;
   int pageSize = 0;
   @override

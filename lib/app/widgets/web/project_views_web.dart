@@ -640,15 +640,16 @@ class ProjectViewsWeb {
             textAlign: TextAlign.center,
             text: block['developer_name'],
             color: AppColors.hint,
-            fontSize: EraTheme.small,
+            fontSize: EraTheme.subHeaderWeb,
           ),
         );
       }
       if (block['type'] == "Project Logo") {
-        preview[2] = CloudStorage().imageLoaderProvider(
+        preview[2] = CloudStorage().imageLoader(
           ref: block['image'],
-          height: 120.h,
           width: Get.width,
+          fit: BoxFit.contain,
+          height: Get.height / 2,
         );
       }
       if (block['type'] == "Blurb") {
@@ -664,7 +665,7 @@ class ProjectViewsWeb {
               sb30(),
               CloudStorage().imageLoaderProvider(
                 ref: block['image'],
-                height: 250.h,
+                height: Get.height,
                 width: Get.width,
               ),
               sb20(),
@@ -765,7 +766,7 @@ class ProjectViewsWeb {
       child: EraText(
         text: text,
         color: color ?? AppColors.kRedColor,
-        fontSize: EraTheme.header + 3.sp,
+        fontSize: EraTheme.headerWeb,
         fontWeight: FontWeight.bold,
         textAlign: textAlign ?? TextAlign.center,
       ),
@@ -778,7 +779,7 @@ class ProjectViewsWeb {
       child: EraText(
         text: text,
         color: color ?? AppColors.black,
-        fontSize: EraTheme.subHeader - 2.sp,
+        fontSize: EraTheme.paragraphWeb,
         fontWeight: FontWeight.w500,
         maxLines: 20,
       ),

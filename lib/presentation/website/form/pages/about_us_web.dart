@@ -101,67 +101,69 @@ class AboutUsWeb extends GetView<FormWebController> {
   static Widget buildFormWidget({required dynamic controller}) {
     return Expanded(
       flex: 1,
-      child: Container(
-        alignment: Alignment.centerLeft,
-        width: Get.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: EraTheme.paddingWidthXSmall - 10.w),
-              child: Column(
-                children: [
-                  SharedWidgets.dropDown(
-                    controller.selectedValue,
-                    controller.items,
-                    (value) {
-                      controller.selectedValue.value = value;
-                    },
-                    '',
-                    'Tell us about yourself',
-                  ),
-                  SharedWidgets.textFormfield(
-                      keyboardType: TextInputType.text,
-                      hintText: 'Name',
-                      controller: controller.phoneNum),
-                  SharedWidgets.textFormfield(
-                      keyboardType: TextInputType.text,
-                      hintText: 'Phone Number',
-                      controller: controller.emailAd),
-                  sbw30(),
-                  SharedWidgets.textFormfield(
-                      keyboardType: TextInputType.text,
-                      hintText: 'Email Address',
-                      controller: controller.name),
-                  sb30(),
-                  TextformfieldWidget(
-                    hintText: 'Enter Description',
-                    maxLines: 13,
-                    color: AppColors.hint,
-                    keyboardType: TextInputType.multiline,
-                    textInputAction: TextInputAction.newline,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: AppColors.hint),
+      child: Material(
+        child: Container(
+          alignment: Alignment.centerLeft,
+          width: Get.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: EraTheme.paddingWidthXSmall - 10.w),
+                child: Column(
+                  children: [
+                    SharedWidgets.dropDown(
+                      controller.selectedValue,
+                      controller.items,
+                      (value) {
+                        controller.selectedValue.value = value;
+                      },
+                      '',
+                      'Tell us about yourself',
                     ),
-                  ),
-                  sb50(),
-                  Button(
-                    alignment: Alignment.centerLeft,
-                    onTap: () async {},
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    width: Get.width,
-                    text: 'GET IN TOUCH',
-                    fontSize: EraTheme.buttonText,
-                    bgColor: AppColors.kRedColor,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  sb50(),
-                ],
+                    SharedWidgets.textFormfield(
+                        keyboardType: TextInputType.text,
+                        hintText: 'Name',
+                        controller: controller.phoneNum),
+                    SharedWidgets.textFormfield(
+                        keyboardType: TextInputType.text,
+                        hintText: 'Phone Number',
+                        controller: controller.emailAd),
+                    sbw30(),
+                    SharedWidgets.textFormfield(
+                        keyboardType: TextInputType.text,
+                        hintText: 'Email Address',
+                        controller: controller.name),
+                    sb30(),
+                    TextformfieldWidget(
+                      hintText: 'Enter Description',
+                      maxLines: 13,
+                      color: AppColors.hint,
+                      keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.newline,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: AppColors.hint),
+                      ),
+                    ),
+                    sb50(),
+                    Button(
+                      alignment: Alignment.centerLeft,
+                      onTap: () async {},
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      width: Get.width,
+                      text: 'GET IN TOUCH',
+                      fontSize: EraTheme.buttonText,
+                      bgColor: AppColors.kRedColor,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    sb50(),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

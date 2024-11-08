@@ -58,7 +58,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
           //   ),
           // ),
           sb50(),
-          Container(
+          Material(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

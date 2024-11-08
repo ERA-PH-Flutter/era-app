@@ -8,7 +8,7 @@ enum NewsState {
   loaded,
 }
 
-class NewsController extends GetxController {
+class NewsWebController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var newsState = NewsState.loading.obs;
 

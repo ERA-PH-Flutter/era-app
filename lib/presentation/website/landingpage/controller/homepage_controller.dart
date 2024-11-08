@@ -1,4 +1,4 @@
-import 'package:eraphilippines/app/widgets/company/companynews_page_web.dart';
+import 'package:eraphilippines/app/widgets/web/companynews_page_web.dart';
 import 'package:eraphilippines/presentation/website/projects/pages/projects_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -15,7 +15,9 @@ import '../../home/controllers/home_web_binding.dart';
 import '../../home/pages/home_web.dart';
 import '../../listings/controllers/buyweb_binding.dart';
 import '../../listings/pages/buy_web_listings.dart';
+import '../../mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
 import '../../mortageCalculator.dart/pages/MortageCalculator.dart';
+import '../../news/bindings/news_binding.dart';
 import '../../projects/controllers/projects_binding.dart';
 import '../../projects/pages/project_view.dart';
 
@@ -34,16 +36,16 @@ class HomsController extends GetxController {
     BuyWeb(), //1
 
     BuyWeb(), //2
-    BuyWeb(), //3
+    SellPropertyWeb(), //3
 //projects
     ProjectsList(),
     FindAgentsWeb(), //04
     CompanyNewsPageWeb(), //5
+    AboutUsWeb(),
     ContactUsWeb(), //6
     //2
-    AboutUsWeb(), //7
-    SellPropertyWeb(),
-    JoinEraWeb(),
+    //7
+
     MortageCalculatorWeb(),
   ].obs;
 
@@ -86,16 +88,16 @@ class HomsController extends GetxController {
         BuyWebBinding().dependencies();
         break;
       case 3:
-        BuyWebBinding().dependencies();
+        FormBinding().dependencies();
         break;
       case 4:
         ProjectsWebBinding().dependencies();
         break;
       case 5:
-        FormBinding().dependencies();
+        AgentListingsBinding().dependencies();
         break;
       case 6:
-        FormBinding().dependencies();
+        NewsBinding().dependencies();
         break;
       case 7:
         FormBinding().dependencies();
@@ -104,11 +106,11 @@ class HomsController extends GetxController {
         FormBinding().dependencies();
         break;
       case 9:
-        FormBinding().dependencies();
+        MortageCalculatorBinding().dependencies();
         break;
-      case 10:
-        FormBinding().dependencies();
-        break;
+      // case 10:
+      //   FormBinding().dependencies();
+      //   break;
     }
   }
 

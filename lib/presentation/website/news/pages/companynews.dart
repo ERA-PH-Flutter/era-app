@@ -10,17 +10,17 @@ import 'package:get/get.dart';
 
 import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
-import '../../../../app/widgets/company/companynews_page_web.dart';
+import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../form/controllers/form_web_controller.dart';
 import '../../form/pages/about_us_web.dart';
 import '../controllers/news_controller.dart';
 
-class CompanyNewsWeb extends GetView<NewsController> {
+class CompanyNewsWeb extends GetView<NewsWebController> {
   const CompanyNewsWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(NewsController());
+    Get.put(NewsWebController());
     return SafeArea(
       child: Obx(() => switch (controller.newsState.value) {
             NewsState.loading => _loading(),

@@ -27,12 +27,13 @@ class ProjectsList extends GetView<ProjectsListWebController> {
     final SearchResultController searchController =
         Get.put(SearchResultController());
     Get.put(ProjectsListWebController());
-    return WillPopScope(
-      onWillPop: () {
-        Get.back();
-        return Future.value(false);
-      },
-      child: SafeArea(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth200),
+      child: WillPopScope(
+        onWillPop: () {
+          Get.back();
+          return Future.value(false);
+        },
         child: SingleChildScrollView(
           controller: controller.scrollController,
           child: Column(
@@ -52,8 +53,8 @@ class ProjectsList extends GetView<ProjectsListWebController> {
                   ),
                   sb10(),
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: EraTheme.paddingWidthAdmin * 5),
                     child: BoxWidget.build(
                       child: Column(
                         children: [
@@ -153,6 +154,7 @@ class ProjectsList extends GetView<ProjectsListWebController> {
     return Column(
       children: [
         child,
+        sb50(),
         NumberPagination(
           fontSize: 18.sp,
           buttonRadius: 10.r,
@@ -165,12 +167,17 @@ class ProjectsList extends GetView<ProjectsListWebController> {
           visiblePagesCount: length < 4 ? length : 4,
           onPageChanged: (page) {
             controller.count.value = controller.pageSize * page;
+            print(controller.count.value);
             controller.scrollController.jumpTo(
               0,
             );
+            // controller.scrollController.jumpTo(
+            //   0,
+            // );
+            print('scroll jump to: ${controller.pageSize}');
           },
         ),
-        SizedBox(height: 30.h),
+        sb50(),
       ],
     );
   }
