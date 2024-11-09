@@ -5,7 +5,6 @@ import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
-import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -402,7 +401,7 @@ class PropertyInformation extends GetView<ListingController> {
               builder: (context, snapshot) {
                 var docs = snapshot.data!.docs;
                 var newDocs = [];
-                for (int i = 0; i < (docs.length < 3 ? docs.length : 4); i++) {
+                for (int i = 0; i < (docs.length < 4 ? docs.length : 4); i++) {
                   newDocs.add(Listing.fromJSON(docs[i].data()));
                 }
                 if (snapshot.hasData) {
@@ -442,6 +441,9 @@ class PropertyInformation extends GetView<ListingController> {
                                           ? listing.photos!.first
                                           : AppStrings.noUserImageWhite)
                                       : AppStrings.noUserImageWhite,
+                                  fit: BoxFit.cover,
+                                  height: 300.h,
+                                  width: Get.width,
                                 ),
 
                                 // CloudStorage().imageLoader(

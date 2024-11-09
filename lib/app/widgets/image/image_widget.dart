@@ -36,8 +36,8 @@ class ImageWidget extends StatelessWidget {
           return Image.network(
             snapshot.data!,
             fit: fit ?? BoxFit.cover,
-            height: height ?? Get.height,
-            width: width ?? Get.width,
+            height: height,
+            width: width,
           );
         }
       },
