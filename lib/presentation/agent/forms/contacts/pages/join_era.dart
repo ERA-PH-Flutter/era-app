@@ -42,7 +42,7 @@ class JoinEra extends GetView<ContactusController> {
                 // ),
                 YoutubePlayer(
                   controller: controller.youtubePlayerController,
-                  bottomActions: const [
+                  bottomActions:  [
                     CurrentPosition(),
                     ProgressBar(isExpanded: true),
                     RemainingDuration(),

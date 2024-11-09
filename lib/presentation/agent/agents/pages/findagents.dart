@@ -45,7 +45,7 @@ class FindAgents extends GetView<AgentsController> {
             // ),
             YoutubePlayer(
               controller: controller.youtubePlayerController,
-              bottomActions: const [
+              bottomActions:  [
                 CurrentPosition(),
                 ProgressBar(isExpanded: true),
                 RemainingDuration(),
