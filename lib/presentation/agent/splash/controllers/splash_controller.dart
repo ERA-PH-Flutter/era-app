@@ -52,9 +52,9 @@ class SplashController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-    init();
+  void update([List<Object>? ids, bool condition = true]) {
+    super.update(ids, condition);
+    print('here update');
   }
 
   init() async {
