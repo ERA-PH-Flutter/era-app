@@ -384,13 +384,13 @@ class SearchResult extends GetView<SearchResultController> {
           sectionSpacing: 1.w,
           betweenNumberButtonSpacing: 1,
           totalPages: length,
-          currentPage: (controller.count.value / controller.pageSize).floor(),
+          currentPage: (controller.count.value / (controller.pageSize == 0 ? 1 : controller.pageSize)).floor(),
           visiblePagesCount: length < 3 ? length : 3,
           onPageChanged: (page) {
-            controller.count.value = controller.pageSize * page;
-            controller.scrollController.jumpTo(
-              0,
-            );
+            controller.count.value = controller.pageSize * (page == 0 ? 1 : page);
+            // controller.scrollController.jumpTo(
+            //   0,
+            // );
           },
         ),
         SizedBox(height: 100.h),

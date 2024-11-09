@@ -9,6 +9,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/add_project_admin.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -132,6 +133,7 @@ class SettingsPage extends GetView<AgentsController> {
                                           okayButton: "Okay",
                                           hitApi: (){
                                             Authentication().logout();
+                                            Get.toNamed(RouteString.loginpage);
                                           }
                                         );
                                       },
