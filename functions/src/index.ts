@@ -127,12 +127,11 @@ export const migrateGenerateThumbnail = onCall({
 
 export const deleteUser = onCall(async (req) => {
     const uid = req.auth?.uid// Assuming the UID is passed in the request body
-    console.log(`uid ${uid}`)
     try {
         if (uid != null) {
-            await admin.auth().deleteUser(uid);
             const documentRef = admin.firestore().collection('users').doc(uid);
             await documentRef.delete();
+            await admin.auth().deleteUser(uid);
         }
         else {
             console.error('Cannot delete user')

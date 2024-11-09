@@ -48,6 +48,16 @@ class SplashController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    init();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    init();
+  }
+
+  init() async {
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         AwesomeNotifications().requestPermissionToSendNotifications();
@@ -57,16 +67,16 @@ class SplashController extends GetxController {
     _typeWrittingAnimation();
     settings = Settings.fromJSON(await Database().getSettings());
 
-    if(!kIsWeb){
-      if(Platform.isIOS){
+    if (!kIsWeb) {
+      if (Platform.isIOS) {
         await Permission.storage.request();
       }
-      if((store.settings == null)){
+      if ((store.settings == null)) {
         await loadLocalImage();
       }
-      if(store.settings == null){
+      if (store.settings == null) {
         await loadLocalImage();
-      }else if(settings!.id != store.settings!.id){
+      } else if (settings!.id != store.settings!.id) {
         await loadLocalImage();
       }
     }
@@ -90,7 +100,8 @@ class SplashController extends GetxController {
                 : Get.offAndToNamed('/base');
   }
 
-  loadLocalImage()async{//delete old files
+  loadLocalImage() async {
+    //delete old files
     // if(store.images != null){
     //   var images = store.images;
     //   for (var banner in images?['banners']) {
@@ -106,26 +117,32 @@ class SplashController extends GetxController {
     //   await CloudStorage().deleteFile(images?['pre_selling']);
     // }
     //load new files
-    Map<String,dynamic> savedData = {
-      "banners" : [],
-      "quick_links" : [],
-      "residential" : "",
-      "auction" : "",
-      "commercial" : "",
-      "rental" : "",
-      "pre_selling" : "",
+    Map<String, dynamic> savedData = {
+      "banners": [],
+      "quick_links": [],
+      "residential": "",
+      "auction": "",
+      "commercial": "",
+      "rental": "",
+      "pre_selling": "",
     };
     //download carousel
     for (var banner in settings!.banners!) {
-      savedData['banners'].add( await CloudStorage().downloadAndSave(docRef: banner,folder: 'banners'));
+      savedData['banners'].add(await CloudStorage()
+          .downloadAndSave(docRef: banner, folder: 'banners'));
     }
     //download quickLinks
     savedData['quick_links'] = await QuickLinksModel().download();
-    savedData['rental'] = ( await CloudStorage().downloadAndSave(docRef: settings!.rentalPicture!,folder: 'rental'));
-    savedData['auction'] = ( await CloudStorage().downloadAndSave(docRef: settings!.auctionPicture!,folder: 'auction'));
-    savedData['commercial'] = ( await CloudStorage().downloadAndSave(docRef: settings!.commercialPicture!,folder: 'commercial'));
-    savedData['residential'] = ( await CloudStorage().downloadAndSave(docRef: settings!.residentialPicture!,folder: 'residential'));
-    savedData['pre_selling'] = ( await CloudStorage().downloadAndSave(docRef: settings!.preSellingPicture!, folder: 'pre_selling'));
+    savedData['rental'] = (await CloudStorage()
+        .downloadAndSave(docRef: settings!.rentalPicture!, folder: 'rental'));
+    savedData['auction'] = (await CloudStorage()
+        .downloadAndSave(docRef: settings!.auctionPicture!, folder: 'auction'));
+    savedData['commercial'] = (await CloudStorage().downloadAndSave(
+        docRef: settings!.commercialPicture!, folder: 'commercial'));
+    savedData['residential'] = (await CloudStorage().downloadAndSave(
+        docRef: settings!.residentialPicture!, folder: 'residential'));
+    savedData['pre_selling'] = (await CloudStorage().downloadAndSave(
+        docRef: settings!.preSellingPicture!, folder: 'pre_selling'));
     store.images = savedData;
     store.settings = settings;
   }
