@@ -129,10 +129,14 @@ export const deleteUser = onCall(async (req) => {
     const uid = req.auth?.uid; // Assuming the UID is passed in the request body
 
     try {
-        if (uid != null)
+        if (uid != null) {
             await admin.auth().deleteUser(uid);
-        else
+            const documentRef = admin.firestore().collection('users').doc(uid);
+            await documentRef.delete();
+        }
+        else {
             console.error('Cannot delete user')
+        }
     } catch (error) {
         console.error('Error deleting user:', error);
     }

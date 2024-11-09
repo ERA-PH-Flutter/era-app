@@ -120,20 +120,18 @@ class SettingsPage extends GetView<AgentsController> {
                                     Button(
                                       text: 'DELETE',
                                       onTap: () async {
-                                        user!.status = "deleted";
-                                        await user!.update();
                                         await Logs(
                                           title:
                                               "${user!.firstname} ${user!.lastname}",
                                         ).add();
                                         BaseController().showSuccessDialog(
-                                          title: "Delete Success!",
-                                          description: "Account has been Deleted!",
-                                          okayButton: "Okay",
-                                          hitApi: (){
-                                            Authentication().logout();
-                                          }
-                                        );
+                                            title: "Delete Success!",
+                                            description:
+                                                "Account has been Deleted!",
+                                            okayButton: "Okay",
+                                            hitApi: () {
+                                              Authentication().logout();
+                                            });
                                       },
                                       width: 140.w,
                                       bgColor: AppColors.kRedColor,
