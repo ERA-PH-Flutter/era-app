@@ -51,12 +51,6 @@ class SplashController extends GetxController {
     init();
   }
 
-  @override
-  void update([List<Object>? ids, bool condition = true]) {
-    super.update(ids, condition);
-    print('here update');
-  }
-
   init() async {
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {

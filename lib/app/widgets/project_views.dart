@@ -995,33 +995,39 @@ class ProjectViews {
         preview[2] = Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-                padding: EdgeInsets.only(top: 30.h, bottom: 30.h),
-                decoration: BoxDecoration(color: AppColors.carouselBgColor),
-                child: CarouselSlider(
-                  items: block['images'].map<Widget>((image) {
-                    return Container(
-                      child: ImageWidget(
-                        thumbnailUrl: image,
-                        fit: BoxFit.cover,
+            Wrap(
+              children: [
+                Container(
+                    padding: EdgeInsets.only(top: 30.h, bottom: 30.h),
+                    decoration: BoxDecoration(color: AppColors.carouselBgColor),
+                    child: CarouselSlider(
+                      items: block['images'].map<Widget>((image) {
+                        return Container(
+                          child: ImageWidget(
+                            thumbnailUrl: image,
+                            fit: BoxFit.cover,
+                            width: Get.width,
+                            height: Get.height,
+                          ),
+
+                          // CloudStorage().imageLoader(
+                          //     reference: image,
+                          //     width: Get.width,
+                          //     height: Get.height,
+                          //     fit: BoxFit.cover),
+                        );
+
+                        //CloudStorage().imageLoader(ref: image);
+                      }).toList(),
+                      options: CarouselOptions(
+                        enlargeCenterPage: true,
+                        enlargeStrategy: CenterPageEnlargeStrategy.height,
+                        autoPlay: true,
+                        viewportFraction: 0.8,
                       ),
-
-                      // CloudStorage().imageLoader(
-                      //     reference: image,
-                      //     width: Get.width,
-                      //     height: Get.height,
-                      //     fit: BoxFit.cover),
-                    );
-
-                    //CloudStorage().imageLoader(ref: image);
-                  }).toList(),
-                  options: CarouselOptions(
-                    enlargeCenterPage: true,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                    autoPlay: true,
-                    viewportFraction: 0.8,
-                  ),
-                )),
+                    )),
+              ],
+            ),
             sb40(),
             Button(
               text: 'LEARN MORE',

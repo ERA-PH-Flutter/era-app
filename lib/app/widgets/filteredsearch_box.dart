@@ -55,13 +55,13 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var selectedPriceRange = "".obs;
   var selectedPriceSearch = RxnString();
   var selectedPropertyTypeSearch = RxnString();
-  var propertyTypeSearch = [
-    "Pre-selling",
-    "Residential",
-    "Commercial",
-    "Rental",
-    "Auction",
-  ];
+  // var propertyTypeSearch = [
+  //   "Pre-selling",
+  //   "Residential",
+  //   "Commercial",
+  //   "Rental",
+  //   "Auction",
+  // ];
   var location = [
     "Manila",
     "Quezon City",
@@ -100,23 +100,23 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   String lastWords = '';
   bool speechStarted = false;
   @override
-  void initState(){
+  void initState() {
     super.initState();
     initSpeech();
   }
+
   initSpeech() async {
     speechEnabled = await speech.initialize();
   }
+
   void startListening() async {
-    await speech.listen(onResult: (result){
+    await speech.listen(onResult: (result) {
       aiSearchController.text = result.recognizedWords;
-      setState(() {
-
-      });
+      setState(() {});
     });
-
   }
-  aiSearch()async{
+
+  aiSearch() async {
     var searchQuery = "";
     BaseController().showLoading();
     searchQuery = aiSearchController.text;
@@ -124,8 +124,10 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
     selectedIndex.value = 2;
     pageViewController = PageController(initialPage: 2);
     currentRoute = '/searchresult';
-    Get.offAll(BaseScaffold(), binding: SearchResultBinding(), arguments: [data, searchQuery]);
+    Get.offAll(BaseScaffold(),
+        binding: SearchResultBinding(), arguments: [data, searchQuery]);
   }
+
   @override
   Widget build(BuildContext context) {
     return BoxWidget.build(
@@ -142,7 +144,9 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                 placeholder: 'Use AI Search',
                 prefix: Row(
                   children: [
-                    SizedBox(width: 10.w,),
+                    SizedBox(
+                      width: 10.w,
+                    ),
                     Image.asset(
                       AppEraAssets.ai3,
                       height: 30.h,
@@ -157,31 +161,34 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                 suffix: Row(
                   children: [
                     GestureDetector(
-                      onTap: ()async{
+                      onTap: () async {
                         await Permission.audio.request().isGranted;
-                        if(speechStarted){
+                        if (speechStarted) {
                           aiSearchController.text = "";
                           speechStarted = false;
                           speech.stop();
-                          setState(() {
-
-                          });
-                        }else{
+                          setState(() {});
+                        } else {
                           speechStarted = true;
-                          setState(() {
-
-                          });
-                          if ( speechEnabled ) {
+                          setState(() {});
+                          if (speechEnabled) {
                             startListening();
-                          }else{
-                             await initSpeech();
-                             startListening();
+                          } else {
+                            await initSpeech();
+                            startListening();
                           }
                         }
                       },
-                      child: speechStarted ? Icon(Icons.hearing): Icon(Icons.mic,size: 25.sp,),
+                      child: speechStarted
+                          ? Icon(Icons.hearing)
+                          : Icon(
+                              Icons.mic,
+                              size: 25.sp,
+                            ),
                     ),
-                    SizedBox(width: 10.w,),
+                    SizedBox(
+                      width: 10.w,
+                    ),
                     GestureDetector(
                       onTap: () async {
                         await aiSearch();
@@ -192,31 +199,33 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                         color: AppColors.kRedColor,
                       ),
                     ),
-                    SizedBox(width: 10.w,),
+                    SizedBox(
+                      width: 10.w,
+                    ),
                   ],
                 ),
               ),
             ),
-            // AppTextField(
-            //     onPressed: () {},
-            //     controller: aiSearchController,
-            //     hint: 'Use AI Search',
-            //     svgIcon: AppEraAssets.ai3,
-            //     bgColor: AppColors.white,
-            //     isSuffix: true,
-            //     obscureText: false,
-            //     suffixIcons: AppEraAssets.send,
-            //     onSuffixTap: () async {
-            //       var searchQuery = "";
-            //       // data = await AI(query: aiSearchController.text).search();
-            //       BaseController().showLoading();
-            //       searchQuery = aiSearchController.text;
-            //       var data = await AI(query: '').process2(q: searchQuery);
-            //       selectedIndex.value = 2;
-            //       pageViewController = PageController(initialPage: 2);
-            //       currentRoute = '/searchresult';
-            //       Get.offAll(BaseScaffold(), binding: SearchResultBinding(), arguments: [data, searchQuery]);
-            //     }),
+          // AppTextField(
+          //     onPressed: () {},
+          //     controller: aiSearchController,
+          //     hint: 'Use AI Search',
+          //     svgIcon: AppEraAssets.ai3,
+          //     bgColor: AppColors.white,
+          //     isSuffix: true,
+          //     obscureText: false,
+          //     suffixIcons: AppEraAssets.send,
+          //     onSuffixTap: () async {
+          //       var searchQuery = "";
+          //       // data = await AI(query: aiSearchController.text).search();
+          //       BaseController().showLoading();
+          //       searchQuery = aiSearchController.text;
+          //       var data = await AI(query: '').process2(q: searchQuery);
+          //       selectedIndex.value = 2;
+          //       pageViewController = PageController(initialPage: 2);
+          //       currentRoute = '/searchresult';
+          //       Get.offAll(BaseScaffold(), binding: SearchResultBinding(), arguments: [data, searchQuery]);
+          //     }),
           SizedBox(height: 5.h),
           GestureDetector(
             onTap: () {
@@ -257,7 +266,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                         AddListings.dropDownAddlistings1(
                             color: AppColors.white,
                             selectedItem: selectedPropertyTypeSearch,
-                            Types: propertyTypeSearch,
+                            Types: propertyT,
                             onChanged: (value) =>
                                 selectedPropertyTypeSearch.value = value!,
                             name: 'Property Type',
@@ -497,17 +506,24 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             data = await Database().getForRentListing();
                             searchQuery = "All For Rent Listings";
                           }
-                          Query query = FirebaseFirestore.instance.collection('listings');
+                          Query query =
+                              FirebaseFirestore.instance.collection('listings');
                           if (selectedLocation.value != null) {
-                            query = query.where('location', isEqualTo: selectedLocation.value?.toLowerCase());
+                            query = query.where('location',
+                                isEqualTo:
+                                    selectedLocation.value?.toLowerCase());
                           }
                           if (selectedPropertyTypeSearch.value != null) {
-                            if(selectedPropertyTypeSearch.value == "Commercial"){
-                              query = query.where('type', isEqualTo: selectedPropertyTypeSearch.value!.capitalizeFirst);
-                            }else{
-                              query = query.where('sub_category', isEqualTo: selectedPropertyTypeSearch.value!.capitalizeFirst);
+                            if (selectedPropertyTypeSearch.value ==
+                                "Commercial") {
+                              query = query.where('type',
+                                  isEqualTo: selectedPropertyTypeSearch
+                                      .value!.capitalizeFirst);
+                            } else {
+                              query = query.where('sub_category',
+                                  isEqualTo: selectedPropertyTypeSearch
+                                      .value!.capitalizeFirst);
                             }
-
                           }
                           if (areaMin.text != "" && areaMax.text != "") {
                             query = query.where('price',
@@ -516,51 +532,73 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                 isLessThanOrEqualTo: areaMax.text.toInt());
                           }
                           if (selectedPriceRange.value != "") {
-                            var price = selectedPriceRange.value.replaceAll(",", "").split(" - ");
+                            var price = selectedPriceRange.value
+                                .replaceAll(",", "")
+                                .split(" - ");
                             query = query.where('price',
                                 isGreaterThanOrEqualTo: price[0].contains('M')
-                                    ? price[0].replaceAll("M", "").toInt() * 1000000
+                                    ? price[0].replaceAll("M", "").toInt() *
+                                        1000000
                                     : price[0].toInt());
                             query = query.where('price',
                                 isLessThanOrEqualTo: price[1].contains('M')
-                                    ? price[1].replaceAll("M", "").toInt() * 1000000
+                                    ? price[1].replaceAll("M", "").toInt() *
+                                        1000000
                                     : price[1].toInt());
                           }
-                          if(areaMin.text != "" && areaMax.text != "" && selectedPriceRange.value == ""){
-                            query = query.where('price',isLessThanOrEqualTo:areaMax.text);
-                            query = query.where('price',isGreaterThanOrEqualTo:areaMin.text);
+                          if (areaMin.text != "" &&
+                              areaMax.text != "" &&
+                              selectedPriceRange.value == "") {
+                            query = query.where('price',
+                                isLessThanOrEqualTo: areaMax.text);
+                            query = query.where('price',
+                                isGreaterThanOrEqualTo: areaMin.text);
                           }
                           if (selectedSubProperty.value != "") {
-                            query = query.where('sub_category',isLessThanOrEqualTo:selectedSubProperty.value.toLowerCase());
+                            query = query.where('sub_category',
+                                isLessThanOrEqualTo:
+                                    selectedSubProperty.value.toLowerCase());
                           }
                           if (bedrooms.value != 0) {
-                            query = query.where('beds',isLessThanOrEqualTo:bedrooms.value);
+                            query = query.where('beds',
+                                isLessThanOrEqualTo: bedrooms.value);
                           }
                           if (bathrooms.value != 0) {
-                            query = query.where('baths',isLessThanOrEqualTo:bathrooms.value);
+                            query = query.where('baths',
+                                isLessThanOrEqualTo: bathrooms.value);
                           }
                           if (garage.value != 0) {
-                            query = query.where('garage',isLessThanOrEqualTo:garage.value);
+                            query = query.where('garage',
+                                isLessThanOrEqualTo: garage.value);
                           }
                           if (ppsqmMin.text.isNotEmpty &&
                               ppsqmMax.text.isNotEmpty) {
-                            query = query.where('ppsqm',isLessThanOrEqualTo:ppsqmMax.text.toInt());
-                            query = query.where('ppsqm',isGreaterThanOrEqualTo:ppsqmMin.text.toInt());
+                            query = query.where('ppsqm',
+                                isLessThanOrEqualTo: ppsqmMax.text.toInt());
+                            query = query.where('ppsqm',
+                                isGreaterThanOrEqualTo: ppsqmMin.text.toInt());
                           }
                           if (floorAreaMax.text.isNotEmpty &&
                               floorAreaMin.text.isNotEmpty) {
-                            query = query.where('floor_area',isLessThanOrEqualTo:floorAreaMax.text.toInt());
-                            query = query.where('floor_area',isGreaterThanOrEqualTo:floorAreaMin.text.toInt());
+                            query = query.where('floor_area',
+                                isLessThanOrEqualTo: floorAreaMax.text.toInt());
+                            query = query.where('floor_area',
+                                isGreaterThanOrEqualTo:
+                                    floorAreaMin.text.toInt());
                           }
                           if (lotAreaMin.text.isNotEmpty &&
                               lotAreaMax.text.isNotEmpty) {
-                            query = query.where('area',isLessThanOrEqualTo:lotAreaMin.text.toInt());
-                            query = query.where('area',isGreaterThanOrEqualTo:lotAreaMax.text.toInt());
+                            query = query.where('area',
+                                isLessThanOrEqualTo: lotAreaMin.text.toInt());
+                            query = query.where('area',
+                                isGreaterThanOrEqualTo:
+                                    lotAreaMax.text.toInt());
                           }
-                          data =
-                              (await query.get()).docs.map((QueryDocumentSnapshot doc) {
-                                return doc.data();
-                              }).toList();
+                          data = (await query.get())
+                              .docs
+                              .map((QueryDocumentSnapshot doc) {
+                            return doc.data();
+                          }).toList();
                           //print(listings);
                           // if (listings.isNotEmpty && isForSale.value == 0) {
                           //   data = await EraFunctions.filter(listings, filters);
