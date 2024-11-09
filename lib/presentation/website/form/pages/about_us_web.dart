@@ -103,6 +103,7 @@ class AboutUsWeb extends GetView<FormWebController> {
       flex: 1,
       child: Material(
         child: Container(
+          color: Colors.transparent,
           alignment: Alignment.centerLeft,
           width: Get.width,
           child: Column(

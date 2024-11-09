@@ -28,7 +28,7 @@ class ProjectsList extends GetView<ProjectsListWebController> {
         Get.put(SearchResultController());
     Get.put(ProjectsListWebController());
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth200),
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       child: WillPopScope(
         onWillPop: () {
           Get.back();
@@ -38,70 +38,61 @@ class ProjectsList extends GetView<ProjectsListWebController> {
           controller: controller.scrollController,
           child: Column(
             children: [
-              Column(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                    child: EraText(
-                      text: 'Find Cutting-Edge Real Estate Projects',
-                      fontSize: 30.sp,
-                      color: AppColors.kRedColor,
-                      fontWeight: FontWeight.bold,
-                      textAlign: TextAlign.center,
-                    ),
+              EraText(
+                text: 'Find Cutting-Edge Real Estate Projects',
+                fontSize: EraTheme.headerWeb,
+                color: AppColors.kRedColor,
+                fontWeight: FontWeight.bold,
+                textAlign: TextAlign.center,
+              ),
+              sb10(),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: EraTheme.paddingWidthAdmin * 5),
+                child: BoxWidget.build(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10.h),
+                      Obx(() {
+                        if (!searchController.showFullSearch.value) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            child: AppTextField(
+                                onSuffixTap: () async {
+                                  // BaseController().showLoading();
+                                  // var projects = await AI(
+                                  //         query: searchController
+                                  //             .aiSearchController.text)
+                                  //     .projectSearch();
+                                  // if (projects.isNotEmpty) {
+                                  //   controller.projects.value =
+                                  //       projects.map((proj) {
+                                  //     return Project.fromJSON(
+                                  //         proj.data());
+                                  //   }).toList();
+                                  //   controller.projectsListState.value =
+                                  //       ProjectsListState.loaded;
+                                  // } else {
+                                  //   controller.projectsListState.value =
+                                  //       ProjectsListState.empty;
+                                  // }
+                                  // BaseController().hideLoading();
+                                },
+                                controller: searchController.aiSearchController,
+                                hint: 'Use AI Search',
+                                svgIcon: AppEraAssets.ai3,
+                                bgColor: AppColors.white,
+                                isSuffix: true,
+                                obscureText: false,
+                                suffixIcons: AppEraAssets.send),
+                          );
+                        }
+                        return Container();
+                      }),
+                      SizedBox(height: 10.h),
+                    ],
                   ),
-                  sb10(),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: EraTheme.paddingWidthAdmin * 5),
-                    child: BoxWidget.build(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 10.h),
-                          Obx(() {
-                            if (!searchController.showFullSearch.value) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: AppTextField(
-                                    onSuffixTap: () async {
-                                      // BaseController().showLoading();
-                                      // var projects = await AI(
-                                      //         query: searchController
-                                      //             .aiSearchController.text)
-                                      //     .projectSearch();
-                                      // if (projects.isNotEmpty) {
-                                      //   controller.projects.value =
-                                      //       projects.map((proj) {
-                                      //     return Project.fromJSON(
-                                      //         proj.data());
-                                      //   }).toList();
-                                      //   controller.projectsListState.value =
-                                      //       ProjectsListState.loaded;
-                                      // } else {
-                                      //   controller.projectsListState.value =
-                                      //       ProjectsListState.empty;
-                                      // }
-                                      // BaseController().hideLoading();
-                                    },
-                                    controller:
-                                        searchController.aiSearchController,
-                                    hint: 'Use AI Search',
-                                    svgIcon: AppEraAssets.ai3,
-                                    bgColor: AppColors.white,
-                                    isSuffix: true,
-                                    obscureText: false,
-                                    suffixIcons: AppEraAssets.send),
-                              );
-                            }
-                            return Container();
-                          }),
-                          SizedBox(height: 10.h),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
               Obx(() => switch (controller.projectsListState.value) {
                     ProjectsListState.loading => _loading(),

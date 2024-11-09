@@ -654,7 +654,8 @@ class ProjectViewsWeb {
       }
       if (block['type'] == "Blurb") {
         preview[3] = Container(
-          padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+          color: AppColors.black,
+          padding: EdgeInsets.symmetric(vertical: 15.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

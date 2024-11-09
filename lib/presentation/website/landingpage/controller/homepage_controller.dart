@@ -9,7 +9,6 @@ import '../../agents/pages/findagents.dart';
 import '../../form/controllers/form_web_binding.dart';
 import '../../form/pages/about_us_web.dart';
 import '../../form/pages/contactus_web.dart';
-import '../../form/pages/join_era_web.dart';
 import '../../form/pages/sell_property_web.dart';
 import '../../home/controllers/home_web_binding.dart';
 import '../../home/pages/home_web.dart';
@@ -19,7 +18,6 @@ import '../../mortageCalculator.dart/controllers/MortageCalculator_binding.dart'
 import '../../mortageCalculator.dart/pages/MortageCalculator.dart';
 import '../../news/bindings/news_binding.dart';
 import '../../projects/controllers/projects_binding.dart';
-import '../../projects/pages/project_view.dart';
 
 class HomsController extends GetxController {
   RxInt selectedIndex = 0.obs;
