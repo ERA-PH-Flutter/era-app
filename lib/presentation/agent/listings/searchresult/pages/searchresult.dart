@@ -118,7 +118,9 @@ class SearchResult extends GetView<SearchResultController> {
           Obx(() {
             controller.count.value;
             return LoadMore(
-              length: (controller.data.length / controller.pageSize).floor(),
+              length: (controller.data.length / controller.pageSize).floor() > 0
+                  ? (controller.data.length / controller.pageSize).floor()
+                  : 1,
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -376,23 +378,24 @@ class SearchResult extends GetView<SearchResultController> {
     return Column(
       children: [
         child,
-        NumberPagination(
-          fontSize: 18.sp,
-          buttonRadius: 10.r,
-          controlButtonSize: Size(30, 30),
-          numberButtonSize: Size(35, 35),
-          sectionSpacing: 1.w,
-          betweenNumberButtonSpacing: 1,
-          totalPages: length,
-          currentPage: (controller.count.value / controller.pageSize).floor(),
-          visiblePagesCount: length < 3 ? length : 3,
-          onPageChanged: (page) {
-            controller.count.value = controller.pageSize * page;
-            controller.scrollController.jumpTo(
-              0,
-            );
-          },
-        ),
+        if (length > 0 && controller.pageSize > 0)
+          NumberPagination(
+            fontSize: 18.sp,
+            buttonRadius: 10.r,
+            controlButtonSize: Size(30, 30),
+            numberButtonSize: Size(35, 35),
+            sectionSpacing: 1.w,
+            betweenNumberButtonSpacing: 1,
+            totalPages: length,
+            currentPage: (controller.count.value / controller.pageSize).floor(),
+            visiblePagesCount: length < 3 ? length : 3,
+            onPageChanged: (page) {
+              controller.count.value = controller.pageSize * page;
+              controller.scrollController.jumpTo(
+                0,
+              );
+            },
+          ),
         SizedBox(height: 100.h),
       ],
     );
