@@ -126,8 +126,8 @@ export const migrateGenerateThumbnail = onCall({
 
 
 export const deleteUser = onCall(async (req) => {
-    const uid = req.auth?.uid; // Assuming the UID is passed in the request body
-
+    const uid = req.auth?.uid// Assuming the UID is passed in the request body
+    console.log(`uid ${uid}`)
     try {
         if (uid != null) {
             await admin.auth().deleteUser(uid);
@@ -138,6 +138,6 @@ export const deleteUser = onCall(async (req) => {
             console.error('Cannot delete user')
         }
     } catch (error) {
-        console.error('Error deleting user:', error);
+        console.error(`Error deleting user: ${uid}`, error);
     }
 });
