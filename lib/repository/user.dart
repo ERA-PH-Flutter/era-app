@@ -117,7 +117,8 @@ class EraUser {
 
   delete() async {
     HttpsCallable callable =
-        FirebaseFunctions.instance.httpsCallable('deleteUser');
+        FirebaseFunctions.instanceFor(region: 'asia-southeast1')
+            .httpsCallable('deleteUser');
 
     try {
       await callable.call();
