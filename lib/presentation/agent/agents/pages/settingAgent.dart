@@ -120,6 +120,7 @@ class SettingsPage extends GetView<AgentsController> {
                                     Button(
                                       text: 'DELETE',
                                       onTap: () async {
+                                        await user!.delete();
                                         await Logs(
                                           title:
                                               "${user!.firstname} ${user!.lastname}",
