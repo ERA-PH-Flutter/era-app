@@ -1,11 +1,11 @@
 name: eraphilippines
 description: "ERA Philippines"
-publish_to: 'none'
+publish_to: "none"
 
-version: 1.1.6
+version: 1.1.6+6
 
 environment:
-  sdk: '>=3.3.3 <4.0.0'
+  sdk: ">=3.3.3 <4.0.0"
 
 dependencies:
   flutter:
@@ -22,7 +22,7 @@ dependencies:
   cached_network_image: ^3.3.1
   carousel_slider_plus: ^7.0.0
   curved_navigation_bar: ^1.0.6
-  flutter_gemini: ^2.0.4  
+  flutter_gemini: ^2.0.4
   smooth_page_indicator: ^1.2.0+3
   screenshot: ^3.0.0
   image_to_pdf_converter: 0.0.1
@@ -58,11 +58,11 @@ dependencies:
   #flutter_typeahead: ^4.8.0
   #dropdown_search: ^5.0.6
   #rename: ^3.0.2
-  
+
   dio: any
   flutter_cache_manager: ^3.4.1
   cloud_functions: ^5.1.4
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,7 +71,7 @@ dev_dependencies:
 flutter_launcher_icons:
   image_path_android: "assets/images/logowhite.png"
   image_path_ios: "assets/images/logowhite.png" #//1024x1024
-  android: "launcher_icon"  
+  android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
 
