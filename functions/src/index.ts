@@ -142,27 +142,11 @@ export const deleteUser = onCall({ region: 'asia-southeast1', }, async (req) => 
 });
 
 
-export const testFunctionQuery = onCall({ region: 'asia-southeast1', enforceAppCheck: false, }, async (req) => {
-    const uid = req.auth?.uid// Assuming the UID is passed in the request body
+export const projectQuery = onCall({ region: 'asia-southeast1', enforceAppCheck: false, }, async (req) => {
+    const uid = req.auth?.uid
     try {
-        // if (uid != null) {
         const searchQuery: string = (req.data['searchQuery'] ?? '').trim()
-        console.log(`searchQuery ${searchQuery}`)
         let projectsDocs = (await admin.firestore().collection('projects').get()).docs;
-        console.log(`projectsDocs ${projectsDocs.length}`)
-
-        // for (const [key, value] of Object.entries(prompts)) {
-        //     projectQuery = projectQuery
-        //         .where(
-        //             'data', '>', prompt
-        //         )
-        //         .where(
-        //             'data',
-        //             '<',
-        //             '.${prompts[i].field}.${prompts[i].value.toString().capitalize}\uf8ff',
-        //         );
-        // }
-
         const rankedDocuments = [];
         for (const doc of projectsDocs) {
             const documentId = doc.id;
@@ -172,26 +156,9 @@ export const testFunctionQuery = onCall({ region: 'asia-southeast1', enforceAppC
             // Tokenize the search query and the document
             const queryTokens = searchQuery.split(',').map((e) => e.toLocaleLowerCase());
             const documentTokens = jsonString.toLocaleLowerCase();
-            console.log(`documentTokens ${documentTokens}`)
-            console.log(`queryTokens ${queryTokens}`)
 
             // Calculate a simple score based on token overlapF
-            let score = 0;
-            for (const queryToken of queryTokens) {
-                if (documentTokens.includes(queryToken)) {
-                    score++;
-                    console.log(`queryToken ${queryToken}   score ${score}`)
-
-                }
-                const splitQuery = queryToken.split(' ').map((e) => e.toLocaleLowerCase())
-                for (const val of splitQuery) {
-                    if (documentTokens.includes(val)) {
-                        score = score + .5;
-                    }
-                    console.log(`splitQuery ${splitQuery}  ${val} score ${score}`)
-
-                }
-            }
+            let score = calculateScore(queryTokens, documentTokens);
 
             if (score < 1) continue
             rankedDocuments.push({
@@ -200,7 +167,41 @@ export const testFunctionQuery = onCall({ region: 'asia-southeast1', enforceAppC
                 score: score
             });
 
-            console.log(`documentId ${documentId} score ${score}`)
+        }
+
+        // Sort the documents by score in descending order
+        rankedDocuments.sort((a, b) => b.score - a.score);
+
+        return rankedDocuments.map((e) => e.documentId)
+    } catch (error) {
+        console.error(`Error ${uid}`, error);
+        return []
+    }
+});
+export const listingQuery = onCall({ region: 'asia-southeast1', enforceAppCheck: false, }, async (req) => {
+    const uid = req.auth?.uid
+    try {
+        const searchQuery: string = (req.data['searchQuery'] ?? '').trim()
+        let projectsDocs = (await admin.firestore().collection('projects').get()).docs;
+        const rankedDocuments = [];
+        for (const doc of projectsDocs) {
+            const documentId = doc.id;
+            const documentData = doc.data();
+            const jsonString = JSON.stringify(documentData);
+
+            // Tokenize the search query and the document
+            const queryTokens = searchQuery.split(',').map((e) => e.toLocaleLowerCase());
+            const documentTokens = jsonString.toLocaleLowerCase();
+
+            // Calculate a simple score based on token overlapF
+            let score = calculateScore(queryTokens, documentTokens);
+
+            if (score < 1) continue
+            rankedDocuments.push({
+                documentId: documentId,
+                documentData: jsonString,
+                score: score
+            });
 
         }
 
@@ -208,13 +209,23 @@ export const testFunctionQuery = onCall({ region: 'asia-southeast1', enforceAppC
         rankedDocuments.sort((a, b) => b.score - a.score);
 
         return rankedDocuments.map((e) => e.documentId)
-        // }
-        // else {
-        //     console.error('Cannot delete user')
-        //     return []
-        // }
     } catch (error) {
         console.error(`Error ${uid}`, error);
         return []
     }
 });
+function calculateScore(queryTokens: string[], documentTokens: string) {
+    let score = 0;
+    for (const queryToken of queryTokens) {
+        if (documentTokens.includes(queryToken)) {
+            score++;
+        }
+        const splitQuery = queryToken.split(' ').map((e) => e.toLocaleLowerCase());
+        for (const val of splitQuery) {
+            if (documentTokens.includes(val)) {
+                score = score + .5;
+            }
+        }
+    }
+    return score;
+}
