@@ -28,9 +28,9 @@ class FindAgents extends GetView<AgentsController> {
 
   @override
   Widget build(BuildContext context) {
-    SearchResultController searchResultController =
-        Get.put(SearchResultController());
-    ProjectsController projectsController = Get.put(ProjectsController());
+    final SearchResultController searchResultController =
+        Get.find<SearchResultController>();
+    ProjectsController projectsController = Get.find<ProjectsController>();
     return Scaffold(
       body: SingleChildScrollView(
         controller: controller.scrollController,

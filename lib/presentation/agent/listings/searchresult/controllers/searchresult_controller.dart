@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/services/ai_search.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class SearchResultController extends GetxController {
   var aiSearchController = TextEditingController();
   var aiSearchAgentsController = TextEditingController();
 
-  var data = [].obs;
+  RxList<Listing> data = <Listing>[].obs;
   var searchQuery = ''.obs;
   RxInt count = 10.obs;
   int pageSize = 0;
@@ -60,7 +61,12 @@ class SearchResultController extends GetxController {
     " 100>",
   ];
   @override
-  void onInit() async {
+  void onInit() {
+    initListing();
+    super.onInit();
+  }
+
+  Future<void> initListing() async {
     pageSize = count.value;
 
     searchResultState.value = SearchResultState.loading;
@@ -74,31 +80,37 @@ class SearchResultController extends GetxController {
               (await Listing().getListing(settings!.featuredListings![i]))
                   .toMap());
         }
-        loadData(tempData);
+        loadData(tempData.map((e) => Listing.fromJSON(e)).toList());
       } else {
-        loadData(Get.arguments[0]);
+        loadData(Get.arguments[0].map((e) => Listing.fromJSON));
         searchQuery.value = Get.arguments[1];
       }
     } catch (e) {
       searchResultState.value = SearchResultState.error;
     }
-    super.onInit();
   }
 
-  loadData(loadedData) {
-    loadedData = loadedData ?? [];
-    loadedData.forEach((d) {
-      if (d != null) {
-        if (!(d['is_sold'] ?? false)) {
-          data.add(d);
-        }
+  Future loadData(List<Listing> loadedData) async {
+    loadedData = loadedData;
+    for (var d in loadedData) {
+      if (!(d.isSold ?? false)) {
+        data.add(d);
       }
-    });
+    }
     //data.assignAll(loadedData);
     if (data.isEmpty) {
       searchResultState.value = SearchResultState.empty;
     } else {
       searchResultState.value = SearchResultState.loaded;
     }
+  }
+
+  Future searchListingType(String type) async {
+    searchResultState.value = SearchResultState.loading;
+    List<Listing> listings = await AI(query: type).listingSearch();
+    data.value = listings;
+    searchQuery.value = type.toString();
+    searchResultState.value =
+        listings.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
   }
 }

@@ -182,7 +182,7 @@ export const listingQuery = onCall({ region: 'asia-southeast1', enforceAppCheck:
     const uid = req.auth?.uid
     try {
         const searchQuery: string = (req.data['searchQuery'] ?? '').trim()
-        let projectsDocs = (await admin.firestore().collection('projects').get()).docs;
+        let projectsDocs = (await admin.firestore().collection('listings').get()).docs;
         const rankedDocuments = [];
         for (const doc of projectsDocs) {
             const documentId = doc.id;

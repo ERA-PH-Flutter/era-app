@@ -2,13 +2,19 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/services/local_storage.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
+import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
+import 'package:eraphilippines/repository/listing.dart';
+import 'package:eraphilippines/repository/project.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../presentation/global.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
+import '../services/ai_search.dart';
 import '../services/firebase_storage.dart';
 import 'app_text_listing.dart';
 import 'navigation/customenavigationbar.dart';
@@ -85,19 +91,15 @@ class QuickLinksModel {
   Future<Widget> quickSearchIcon(String icon, target, type) async {
     return GestureDetector(
       onTap: () async {
-        var listings = (await FirebaseFirestore.instance
-                .collection('listings')
-                .where(target ?? 'category', isEqualTo: type)
-                .get())
-            .docs;
-        var data = listings.map((listing) {
-          return listing.data();
-        }).toList();
         selectedIndex.value = 2;
-        pageViewController = PageController(initialPage: 2);
         currentRoute = '/searchresult';
-        Get.offAll(BaseScaffold(),
-            binding: HomeBinding(), arguments: [data, 'All $type listings!']);
+        pageViewController.animateToPage(
+          2,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+
+        Get.find<SearchResultController>().searchListingType(type);
       },
       child: Column(
         children: [

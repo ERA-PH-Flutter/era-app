@@ -46,8 +46,7 @@ class ProjectMain extends GetView<ProjectsController> {
 
   Widget projectMainContainer(ProjectsModels2 project) {
     final SearchResultController searchController =
-        Get.put(SearchResultController());
-
+        Get.find<SearchResultController>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

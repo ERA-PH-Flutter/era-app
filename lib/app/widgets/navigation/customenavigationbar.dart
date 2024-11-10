@@ -1,9 +1,12 @@
 import 'dart:io';
 
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
+import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/searchresult.dart';
+import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projects_list.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,6 +36,10 @@ class _BaseScaffoldState extends State<BaseScaffold> {
   @override
   void initState() {
     Get.put(HomeController());
+    Get.put(ProjectsListController());
+    Get.put(ProjectsController());
+    Get.put(SearchResultController());
+
     super.initState();
   }
 
@@ -81,6 +88,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               tabDurationMillSec: 300,
               onTap: (index) {
                 selectedIndex.value = index;
+                print('here init 1');
                 if (index == 0) {
                   currentRoute = '/home';
                   //Get.deleteAll();
@@ -92,8 +100,9 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                   //Get.deleteAll();
                   //Get.put(ProjectsListController());
                 } else if (index == 2) {
-                  currentRoute = '/searchresult';
+                  Get.find<SearchResultController>().initListing();
 
+                  currentRoute = '/searchresult';
                 } else if (index == 3) {
                   currentRoute = '/findagents';
                 } else if (index == 4) {

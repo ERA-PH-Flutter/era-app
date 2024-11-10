@@ -17,7 +17,7 @@ class Commercial extends GetView<ListingController> {
   @override
   Widget build(BuildContext context) {
     final SearchResultController searchController =
-        Get.put(SearchResultController());
+        Get.find<SearchResultController>();
 
     return Scaffold(
       appBar: CustomAppbar(),

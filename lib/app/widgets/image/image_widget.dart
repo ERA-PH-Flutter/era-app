@@ -24,8 +24,6 @@ class ImageWidget extends StatelessWidget {
                   height: 28,
                   child: CircularProgressIndicator.adaptive()));
         } else if (snapshot.hasError) {
-          print(
-              'ImageWidget: ${snapshot.error} thumbnails error:${thumbnailUrl}');
           return CloudStorage().imageLoader(
             reference: thumbnailUrl,
             height: height,
@@ -33,10 +31,8 @@ class ImageWidget extends StatelessWidget {
             fit: fit ?? BoxFit.cover,
           );
         } else if (!snapshot.hasData || snapshot.data == null) {
-          print('ImageWidget: ${snapshot.data}');
           return Icon(Icons.broken_image);
         } else {
-          print('ImageWidget: ${snapshot.data}');
           return Image.network(
             snapshot.data!,
             fit: fit ?? BoxFit.cover,
