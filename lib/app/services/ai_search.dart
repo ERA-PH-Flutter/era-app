@@ -73,34 +73,31 @@ class AI {
       "type": {
         "type": "string",
         "enum": [
-          "Apartment",
-          "Condominium",
-          "House and lot",
-          "Townhouse",
+          "Pre-Selling",
+          "Residential",
           "Commercial",
-          "Industrial",
-          "Agricultural",
-          "Land",
-          "Foreclosed",
-          "Pre selling",
-          "Rent to own",
-          "Others"
+          "Rental",
+          "Auction",
         ]
       },
       "sub_category": {
         "type": "string",
         "enum": [
+          "Agricultural",
           "Apartment",
+          "Commercial",
+          "Condominium",
+          "Factory",
+          "Farm",
+          "Hotel",
           "House",
           "Lot",
+          "Industrial Lot",
           "Office",
-          "Retail",
-          "Warehouse",
-          "Commercial",
-          "Residential",
-          "Condominium",
-          "Townhouse",
-          "Others"
+          "Parking Lot",
+          "Resort",
+          "Beach House",
+          "School",
         ]
       },
       "view": {
