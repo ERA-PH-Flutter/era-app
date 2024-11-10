@@ -1,13 +1,5 @@
-import 'package:eraphilippines/app/services/ai_search.dart';
-import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
-import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import '../../../presentation/agent/agents/controllers/agents_binding.dart';
-import '../../../presentation/agent/home/controllers/home_binding.dart';
-import '../../../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
-import '../../../presentation/agent/projects/controllers/projects_binding.dart';
 import '../../../presentation/global.dart';
 import 'customenavigationbar.dart';
 

@@ -39,7 +39,6 @@ class _BaseScaffoldState extends State<BaseScaffold> {
     Get.put(ProjectsListController());
     Get.put(ProjectsController());
     Get.put(SearchResultController());
-
     super.initState();
   }
 
