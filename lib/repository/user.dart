@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:eraphilippines/presentation/global.dart';
 
 class EraUser {
@@ -49,42 +50,40 @@ class EraUser {
       this.favorites,
       this.office,
       this.birthday,
-
       this.archives});
 
   factory EraUser.fromJSON(Map<String, dynamic> json) {
     return EraUser(
-        id: json['id'],
-        firstname: json['first_name'],
-        lastname: json['last_name'],
-        role: json['role'],
-        email: json['email'],
-        whatsApp: json['whats_app'],
-        image: json['image'],
-        deviceId: json['device_id'],
-        lastLogin: json['last_login'],
-        status: json['status'],
-        eraId: json['era_id'],
-        age: json['age'],
-        gender: json['gender'],
-        favorites: json['favorites'],
-        archives: json['archives'],
-        location: json['location'],
-        position: json['position'],
-        description: json['description'],
-        licence: json['licence'],
-        dateCreated: (json["date_created"] == null)
-            ? DateTime.now()
-            : json["date_created"].runtimeType == Timestamp
-            ? json["date_created"].toDate()
-            : json["date_created"],
-        dateUpdated: (json["date_updated"] == null)
-            ? DateTime.now()
-            : json["date_updated"].runtimeType == Timestamp
-            ? json["date_updated"].toDate()
-            : json["date_updated"],
+      id: json['id'],
+      firstname: json['first_name'],
+      lastname: json['last_name'],
+      role: json['role'],
+      email: json['email'],
+      whatsApp: json['whats_app'],
+      image: json['image'],
+      deviceId: json['device_id'],
+      lastLogin: json['last_login'],
+      status: json['status'],
+      eraId: json['era_id'],
+      age: json['age'],
+      gender: json['gender'],
+      favorites: json['favorites'],
+      archives: json['archives'],
+      location: json['location'],
+      position: json['position'],
+      description: json['description'],
+      licence: json['licence'],
+      dateCreated: (json["date_created"] == null)
+          ? DateTime.now()
+          : json["date_created"].runtimeType == Timestamp
+              ? json["date_created"].toDate()
+              : json["date_created"],
+      dateUpdated: (json["date_updated"] == null)
+          ? DateTime.now()
+          : json["date_updated"].runtimeType == Timestamp
+              ? json["date_updated"].toDate()
+              : json["date_updated"],
     );
-
   }
   factory EraUser.empty() {
     return EraUser(
@@ -102,10 +101,9 @@ class EraUser {
   }
 
   add() async {
-    if(id!=null){
+    if (id != null) {
       await db.collection('users').doc(id).set(toMap());
-
-    }else{
+    } else {
       var doc = db.collection('users').doc();
       doc.set(toMap());
       id = doc.id;
@@ -118,9 +116,15 @@ class EraUser {
   }
 
   delete() async {
-    status = "deleted";
-    await update();
-    //delete info too
+    HttpsCallable callable =
+        FirebaseFunctions.instanceFor(region: 'asia-southeast1')
+            .httpsCallable('deleteUser');
+
+    try {
+      await callable.call();
+    } catch (e) {
+      print('Error calling function: $e');
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -141,13 +145,12 @@ class EraUser {
       'favorites': favorites ?? [],
       'archives': archives ?? [],
       'full_name': "${firstname?.toLowerCase()} ${lastname?.toLowerCase()}",
-      'location' : location ?? "",
-      'position' : position ?? "ASC",
-      'description' : description ?? "",
-      'license' : licence ?? "",
+      'location': location ?? "",
+      'position': position ?? "ASC",
+      'description': description ?? "",
+      'license': licence ?? "",
       "date_created": dateCreated ?? DateTime.now(),
       "date_updated": DateTime.now(),
-
     };
   }
 

@@ -1,3 +1,4 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,7 +12,16 @@ class DevTool extends StatelessWidget {
   Widget build(BuildContext context) {
     return Button(
       text: 'MIGRATE IMAGE THUMBNAIL',
-      onTap: () {},
+      onTap: ()async  {
+   HttpsCallable callable =
+        FirebaseFunctions.instance.httpsCallable('migrateGenerateThumbnail');
+
+    try {
+      await callable.call();
+    } catch (e) {
+      print('Error calling function: $e');
+    }
+      },
       width: 200.w,
       bgColor: AppColors.kRedColor,
       borderRadius: BorderRadius.circular(30),

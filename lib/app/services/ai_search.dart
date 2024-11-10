@@ -1,39 +1,88 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/repository/project.dart';
 import 'package:get/get.dart';
 
-class AI{
+class AI {
   String query;
   String key = 'AIzaSyAGrHQ2vwgVgYB6bOP4QyQrRjdIaaGi1Sw';
-  AI({
-    required this.query
-  });
-  userSearch()async {
+  AI({required this.query});
+  userSearch() async {
     var data = {
-      "full_name": {
-        "type": "string"
-      },
-      "location": {
-        "type": "number"
-      },
-      "id": {
-        "type": "string"
-      }
+      "full_name": {"type": "string"},
+      "location": {"type": "number"},
+      "id": {"type": "string"}
     };
-    var result = await geminiSearch(data,name: "userSearch");
+    var result = await geminiSearch(data, name: "userSearch");
     Query firebaseQuery = FirebaseFirestore.instance.collection('users');
     result!.forEach((key, value) {
-      firebaseQuery = firebaseQuery.where(key,isGreaterThanOrEqualTo: value).where(key,isLessThanOrEqualTo: '$value\uf8ff');
+      firebaseQuery = firebaseQuery
+          .where(key, isGreaterThanOrEqualTo: value)
+          .where(key, isLessThanOrEqualTo: '$value\uf8ff');
     });
     return (await firebaseQuery.get()).docs;
   }
-  projectSearch()async{
-    Query firebaseQuery = FirebaseFirestore.instance.collection('projects');
-    firebaseQuery = firebaseQuery.where('title',isGreaterThanOrEqualTo: query.capitalize).where('title',isLessThanOrEqualTo: '${query.capitalize}\uf8ff');
-    return (await firebaseQuery.get()).docs;
+
+  projectSearch() async {
+    print('result gemini here');
+    var geminiData = {
+      "title": {
+        "type": "string",
+      },
+      "developer_name": {
+        "type": "string",
+      },
+      "location": {
+        "type": "string",
+      },
+    };
+    var result = await geminiSearch(geminiData,
+            name: "getProject",
+            description:
+                "Assign accordingly do not assign value if not specified") ??
+        [];
+    print('result gemini here1 $result');
+
+    // Query firebaseQuery = FirebaseFirestore.instance.collection('projects');
+    // List<AiFilters> prompts = [];
+    // (result ?? {}).forEach((key, value) {
+    //   var val = checkOperator(value);
+    //   prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
+    // });
+
+    try {
+      HttpsCallable callable =
+          FirebaseFunctions.instanceFor(region: 'asia-southeast1')
+              .httpsCallable('testFunctionQuery');
+      final res = await callable.call({
+        'searchQuery': [
+          result.values.toList(),
+          ...[query]
+        ].join(',')
+      });
+      final data = (await FirebaseFirestore.instance
+              .collection('projects')
+              .orderBy('order_id')
+              .get())
+          .docs
+          .map((e) => Project.fromJSON({...e.data(), 'id': e.id}));
+      print('result gemini here12 ${res.data}');
+
+      final projectIds = res.data ?? [];
+      print('result gemini here32 ${projectIds}');
+      print('data ${data.map((e) => e.id)}');
+      return data.where((e) => projectIds.contains(e.id));
+
+      // print('resultSearchQuery ${res.data}');
+      // return data;
+    } catch (e) {
+      print('Error calling function: $e');
+      return [];
+    }
   }
+
   listingSearch() async {
     var geminiData = {
       "type": {
@@ -71,25 +120,14 @@ class AI{
       },
       "view": {
         "type": "string",
-        "enum": [
-          "sunset",
-          "sunrise",
-          "mountain",
-          "beach",
-          "city",
-          "Others"
-        ]
+        "enum": ["sunset", "sunrise", "mountain", "beach", "city", "Others"]
       },
-      "amenities": {
-        "type": "string"
-      },
+      "amenities": {"type": "string"},
       "status": {
         "type": "string",
         "enum": ["sale", "rent", "Others"]
       },
-      "location": {
-        "type": "string"
-      },
+      "location": {"type": "string"},
       "area": {
         "type": "object",
         "properties": {
@@ -136,7 +174,9 @@ class AI{
         "type": "string",
       }
     };
-    var result = await geminiSearch(geminiData,name: "getListing",description: "Assign accordingly do not assign value if not specified");
+    var result = await geminiSearch(geminiData,
+        name: "getListing",
+        description: "Assign accordingly do not assign value if not specified");
     Query firebaseQuery = FirebaseFirestore.instance.collection('listings');
     List<AiFilters> prompts = [];
     result!.forEach((key, value) {
@@ -144,9 +184,10 @@ class AI{
         if (value != "Others" &&
             query.toLowerCase().contains(value.toString().toLowerCase())) {
           var val = checkOperator(value);
-          prompts.add(AiFilters(field: key, value: val[0]
-              .toString()
-              .capitalizeFirst, operator: val[1]));
+          prompts.add(AiFilters(
+              field: key,
+              value: val[0].toString().capitalizeFirst,
+              operator: val[1]));
         }
       } else {
         var val = checkOperator(value);
@@ -156,26 +197,27 @@ class AI{
     for (int i = 0; i < (prompts.length); i++) {
       print(prompts[i].toMap());
       if (prompts[i].field == "name") {
-        firebaseQuery = firebaseQuery.where('name', isGreaterThanOrEqualTo: prompts[i].value
-            .toString()
-            .capitalize)
-            .where('name', isLessThanOrEqualTo: '${prompts[i].value
-            .toString()
-            .capitalize}\uf8ff');
+        firebaseQuery = firebaseQuery
+            .where('name',
+                isGreaterThanOrEqualTo: prompts[i].value.toString().capitalize)
+            .where('name',
+                isLessThanOrEqualTo:
+                    '${prompts[i].value.toString().capitalize}\uf8ff');
         continue;
       }
       if (prompts[i].operator == ">") {
-        firebaseQuery = firebaseQuery.where(
-            prompts[i].field, isGreaterThanOrEqualTo: prompts[i].value);
+        firebaseQuery = firebaseQuery.where(prompts[i].field,
+            isGreaterThanOrEqualTo: prompts[i].value);
         continue;
       }
       if (prompts[i].operator == "<") {
-        firebaseQuery = firebaseQuery.where(
-            prompts[i].field, isLessThanOrEqualTo: prompts[i].value);
+        firebaseQuery = firebaseQuery.where(prompts[i].field,
+            isLessThanOrEqualTo: prompts[i].value);
         continue;
       }
       if (prompts[i].operator == "=") {
-        firebaseQuery = firebaseQuery.where(prompts[i].field, isEqualTo: prompts[i].value);
+        firebaseQuery =
+            firebaseQuery.where(prompts[i].field, isEqualTo: prompts[i].value);
         continue;
       }
     }
@@ -188,17 +230,20 @@ class AI{
     });
     return data;
   }
-  faqSearch()async{
+
+  faqSearch() async {
     BaseController().showLoading();
     var data = {
-      "question": {
-        "type": "string"
-      },
+      "question": {"type": "string"},
     };
-    var result = await geminiSearch(data,name: "faqSearch",description:'use the prompt and parse it');
+    var result = await geminiSearch(data,
+        name: "faqSearch", description: 'use the prompt and parse it');
     Query firebaseQuery = FirebaseFirestore.instance.collection('faq');
     result!.forEach((key, value) {
-      firebaseQuery = firebaseQuery.where(key,isGreaterThanOrEqualTo: value).where(key,isLessThanOrEqualTo: '$value\uf8ff').orderBy('type');
+      firebaseQuery = firebaseQuery
+          .where(key, isGreaterThanOrEqualTo: value)
+          .where(key, isLessThanOrEqualTo: '$value\uf8ff')
+          .orderBy('type');
     });
     BaseController().hideLoading();
     return (await firebaseQuery.get()).docs;
@@ -218,7 +263,8 @@ class AI{
       return [value['max'], ">"];
     }
   }
-  geminiSearch(data,{name='',description=''})async{
+
+  geminiSearch(data, {name = '', description = ''}) async {
     Map<String, dynamic> body = {
       "contents": [
         {
@@ -234,10 +280,7 @@ class AI{
             {
               "name": name,
               "description": description,
-              "parameters": {
-                "type": "object",
-                "properties": data
-              }
+              "parameters": {"type": "object", "properties": data}
             }
           ]
         }
@@ -253,12 +296,12 @@ class AI{
         "responseMimeType": "text/plain"
       }
     };
-    return (await GetConnect().post(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key',
-        body,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-    )).body['candidates'][0]['content']['parts'][0]['functionCall']['args'];
+    final result = (await GetConnect().post(
+            'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key',
+            body,
+            headers: {'Content-Type': 'application/json'}))
+        .body['candidates']?[0]['content']?['parts']?[0]?['functionCall']?['args'];
+    print('result gemini $result');
+    return result ?? {};
   }
 }

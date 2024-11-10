@@ -7,6 +7,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -512,7 +513,7 @@ class EditListing extends GetView<AddListingsController> {
 
         AddListings.dropDownAddlistings(
           selectedItem: controller.selectedPropertyT,
-          Types: controller.propertyT,
+          Types: propertyT,
           onChanged: (value) => controller.selectedPropertyT.value = value!,
           name: 'Property Type',
           hintText: 'Edit Property Type',
@@ -520,7 +521,7 @@ class EditListing extends GetView<AddListingsController> {
 
         AddListings.dropDownAddlistings(
           selectedItem: controller.selectedPropertySubCategory,
-          Types: controller.subCategory,
+          Types: subCategory,
           onChanged: (value) =>
               controller.selectedPropertySubCategory.value = value!,
           name: 'Sub Category',
