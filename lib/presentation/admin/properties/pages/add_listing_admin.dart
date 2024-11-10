@@ -121,7 +121,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                       child: AddListings.dropDownAddlistings(
                           padding: EdgeInsets.zero,
                           selectedItem: addListingsController.selectedPropertyT,
-                          Types: addListingsController.propertyT,
+                          Types: propertyT,
                           onChanged: (value) => addListingsController
                               .selectedPropertyT.value = value!,
                           name: 'Property Type *',
@@ -224,7 +224,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                             padding: EdgeInsets.zero,
                             selectedItem: addListingsController
                                 .selectedPropertySubCategory,
-                            Types: addListingsController.subCategory,
+                            Types: subCategory,
                             onChanged: (value) => addListingsController
                                 .selectedPropertySubCategory.value = value!,
                             name: 'Subcategory Type *',
@@ -318,8 +318,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                           var newImage = addListingsController.images[newIndex];
                           addListingsController.images[oldIndex] = newImage;
                           addListingsController.images[newIndex] = oldImage;
-                        } else {
-                        }
+                        } else {}
                       },
                       children: List.generate(
                           addListingsController.images.length, (index) {
@@ -569,8 +568,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                               title: "Add Listing Success",
                               description:
                                   "Listing has been uploaded to the database.");
-                        } catch (e) {
-                        }
+                        } catch (e) {}
                       },
                       margin: EdgeInsets.symmetric(horizontal: 5),
                       width: 150.w,

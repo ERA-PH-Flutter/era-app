@@ -108,7 +108,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                     child: AddListings.dropDownAddlistings(
                         padding: EdgeInsets.zero,
                         selectedItem: addListingsController.selectedPropertyT,
-                        Types: addListingsController.propertyT,
+                        Types: propertyT,
                         onChanged: (value) =>
                             addListingsController.selectedPropertyT.value,
                         name: 'Property Type *',
@@ -215,7 +215,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                         padding: EdgeInsets.zero,
                         selectedItem:
                             addListingsController.selectedPropertySubCategory,
-                        Types: addListingsController.subCategory,
+                        Types: subCategory,
                         onChanged: (value) => addListingsController
                             .selectedPropertySubCategory.value,
                         name: 'Subcategory Type *',
@@ -337,8 +337,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                         addListingsController.images[newIndex] = oldImage;
 
                         addListingsController.listing!.updateListing();
-                      } else {
-                      }
+                      } else {}
                     },
                     children: List.generate(addListingsController.images.length,
                         (index) {

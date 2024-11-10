@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Project{
+class Project {
   FirebaseFirestore db = FirebaseFirestore.instance;
   String? id;
   List? data;
@@ -9,17 +9,17 @@ class Project{
   String? uploadedBy;
   int? orderId;
   String? title;
-  Project({
-    this.id,
-    this.data,
-    this.dateCreated,
-    this.dateUpdated,
-    this.uploadedBy,
-    this.orderId,
-    this.title
-  });
+  Project(
+      {this.id,
+      this.data,
+      this.dateCreated,
+      this.dateUpdated,
+      this.uploadedBy,
+      this.orderId,
+      this.title});
 
-  factory Project.fromJSON(Map<String, dynamic> json){
+  factory Project.fromJSON(Map<String, dynamic> json) {
+    print('result gemini fromJson project id ${json['id']}');
     return Project(
       id: json['id'],
       data: json['data'],
@@ -29,45 +29,49 @@ class Project{
       dateCreated: (json["date_created"] == null)
           ? DateTime.now()
           : json["date_created"].runtimeType == Timestamp
-          ? json["date_created"].toDate()
-          : json["date_created"],
+              ? json["date_created"].toDate()
+              : json["date_created"],
       dateUpdated: (json["date_updated"] == null)
           ? DateTime.now()
           : json["date_updated"].runtimeType == Timestamp
-          ? json["date_updated"].toDate()
-          : json["date_updated"],
+              ? json["date_updated"].toDate()
+              : json["date_updated"],
     );
   }
-  getProject()async{
-    return Project.fromJSON((await db.collection('project').doc(id).get()).data() ?? {});
+  getProject() async {
+    return Project.fromJSON(
+        (await db.collection('project').doc(id).get()).data() ?? {});
   }
-  add()async{
+
+  add() async {
     var projDocs = db.collection('projects').doc();
     id = projDocs.id;
-    await projDocs.set(
-        toMap()
-    );
+    await projDocs.set(toMap());
   }
-  static getById(id)async{
+
+  static getById(id) async {
     return Project.fromJSON(
-        (await FirebaseFirestore.instance.collection('projects').doc(id).get()).data()!
-    );
+        (await FirebaseFirestore.instance.collection('projects').doc(id).get())
+            .data()!);
   }
-  updateProject()async{
+
+  updateProject() async {
     await db.collection('projects').doc(id).update(toMap());
   }
-  deleteProject()async{
+
+  deleteProject() async {
     await db.collection('projects').doc(id).delete();
   }
-  Map<String,dynamic> toMap(){
+
+  Map<String, dynamic> toMap() {
     return {
-      'id' : id,
-      'data' : data,
-      'order_id' : orderId,
+      'id': id,
+      'data': data,
+      'order_id': orderId,
       'title': title,
-      'date_created' : dateCreated ?? DateTime.now(),
-      'date_updated' : DateTime.now(),
-      'uploaded_by' : uploadedBy,
+      'date_created': dateCreated ?? DateTime.now(),
+      'date_updated': DateTime.now(),
+      'uploaded_by': uploadedBy,
     };
   }
 }

@@ -372,11 +372,9 @@ class ListingsAdminController extends GetxController {
             : null;
     addListingsController.locationController.text = listing!.location ?? "";
     addListingsController.selectedPropertyT.value =
-        addListingsController.propertyT.contains(listing!.type)
-            ? listing!.type
-            : null;
+        propertyT.contains(listing!.type) ? listing!.type : null;
     addListingsController.selectedPropertySubCategory.value =
-        addListingsController.subCategory.contains(listing!.subCategory)
+        subCategory.contains(listing!.subCategory)
             ? listing!.subCategory
             : null;
     addListingsController.descController.text = listing!.description ?? "";

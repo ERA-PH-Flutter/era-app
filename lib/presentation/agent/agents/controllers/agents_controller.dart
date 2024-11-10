@@ -29,6 +29,7 @@ class AgentsController extends GetxController with BaseController {
   var count = 10.obs;
   var pageSize = 1;
   var selectedLocation = RxnString();
+  var isDeleting = false.obs;
   TextEditingController agentId = TextEditingController();
   TextEditingController agentLocation = TextEditingController();
   TextEditingController agentName = TextEditingController();

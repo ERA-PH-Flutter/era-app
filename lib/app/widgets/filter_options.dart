@@ -186,7 +186,7 @@ class PropertyTypeFilter extends StatelessWidget {
       children: [
         SharedWidgets.dropDown(
             addListingsController.selectedPropertySubCategory,
-            addListingsController.subCategory,
+            subCategory,
             (value) => subCategory.value = value!,
             'Subcategory',
             'Subcategory'),
@@ -343,13 +343,13 @@ void openFilterDialog({
                     onTap: () {
                       Get.back();
                       Get.showSnackbar(GetSnackBar(
-                        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 10.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: EraTheme.paddingWidth, vertical: 10.h),
                         backgroundColor: AppColors.kRedColor,
                         title: 'Success',
                         message: 'Filter Applied',
                         duration: Duration(seconds: 2),
                       ));
-
                     },
                     text: 'Apply Filters',
                     bgColor: AppColors.blue,

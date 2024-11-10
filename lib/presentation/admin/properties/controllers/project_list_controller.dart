@@ -38,44 +38,6 @@ class ProjectsListController extends GetxController {
   var selectedLocation = RxnString();
   var selectedDeveloper = RxnString();
 
-  var propertType = [
-    "House and Lot",
-    "Condominium",
-    "Townhouse",
-    "Commercial",
-    "Industrial",
-    "Agricultural",
-    "Land",
-    "Foreclosed",
-    "Pre-selling",
-    "Rent to Own",
-    "Others",
-  ];
-
-  var location = [
-    "Manila",
-    "Quezon City",
-    "Caloocan",
-    "Makati",
-    "Valenzuela",
-    "San Juan",
-    "Parañaque",
-    "Navotas",
-    "Taguig",
-    "Davao",
-    "Las Piñas",
-    "Pasig",
-    "Mandaluyong",
-    "Pateros",
-    "Marikina",
-    "Muntinlupa",
-    "Malabon",
-    "Fort Bonifacio",
-    "Binondo",
-    "Rizal",
-    "Antipolo",
-    "Santa Ana",
-  ];
   var developerType = [
     "Shang Properties",
   ];

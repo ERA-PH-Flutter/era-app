@@ -18,7 +18,11 @@ class ImageWidget extends StatelessWidget {
       future: _fetchThumbnail(thumbnailUrl),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(
+              child: SizedBox(
+                  width: 28,
+                  height: 28,
+                  child: CircularProgressIndicator.adaptive()));
         } else if (snapshot.hasError) {
           print(
               'ImageWidget: ${snapshot.error} thumbnails error:${thumbnailUrl}');

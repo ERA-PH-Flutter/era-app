@@ -7,6 +7,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/era_place_search.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -421,14 +422,14 @@ class AddListings extends GetView<AddListingsController> with BaseController {
         ),
         dropDownAddlistings(
           selectedItem: controller.selectedPropertyT,
-          Types: controller.propertyT,
+          Types: propertyT,
           onChanged: (value) => controller.selectedPropertyT.value = value!,
           name: 'Property Type',
           hintText: 'Select Property Type',
         ),
         dropDownAddlistings(
           selectedItem: controller.selectedPropertySubCategory,
-          Types: controller.subCategory,
+          Types: subCategory,
           onChanged: (value) =>
               controller.selectedPropertySubCategory.value = value!,
           name: 'Sub Category',
@@ -585,8 +586,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 },
                 title: "Add Listing Success",
                 description: "Listing has been uploaded to the database.");
-          } catch (e) {
-          }
+          } catch (e) {}
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
       ],
