@@ -24,7 +24,7 @@ class CloudStorage {
   Future<String> downloadAndSave({
     required String docRef,
     required String folder,
-  }) async {
+  }) async
     try {
       final bytes = await ref.child(docRef).getData();
       final appDirectory = Platform.isAndroid
