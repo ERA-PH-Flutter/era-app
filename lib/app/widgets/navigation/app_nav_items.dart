@@ -44,7 +44,6 @@ class AppNavItems extends StatelessWidget {
       return GestureDetector(
         onTap: index != null
             ? () async {
-                print('here init 21');
                 if (index == 1) {
                   selectedIndex.value = 0;
                   pageViewController.animateToPage(0,
@@ -58,7 +57,6 @@ class AppNavItems extends StatelessWidget {
                       duration: Duration(milliseconds: 500),
                       curve: Curves.easeInOut);
                 } else if (index == 3) {
-                  print('here init init click');
                   selectedIndex.value = 2;
                   currentRoute = '/searchresult';
                   pageViewController.animateToPage(2,

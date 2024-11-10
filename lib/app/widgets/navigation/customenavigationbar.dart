@@ -88,17 +88,14 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               tabDurationMillSec: 300,
               onTap: (index) {
                 selectedIndex.value = index;
-                print('here init 1');
                 if (index == 0) {
                   currentRoute = '/home';
-                  //Get.deleteAll();
-                  //Get.put(HomeController());
+   
                   Get.put(BaseController());
                 } else if (index == 1) {
                   //currentRoute = '/project-main';
                   currentRoute = '/project-list';
-                  //Get.deleteAll();
-                  //Get.put(ProjectsListController());
+            
                 } else if (index == 2) {
                   Get.find<SearchResultController>().initListing();
 

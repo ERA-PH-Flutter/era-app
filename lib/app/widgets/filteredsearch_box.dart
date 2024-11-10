@@ -118,7 +118,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   }
 
   aiSearch() async {
-    print('here init init init 1');
     var searchQuery = "";
     BaseController().showLoading();
     searchQuery = aiSearchController.text;
@@ -128,6 +127,12 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
         SearchResultState.loading;
     Get.find<SearchResultController>().data.value = data;
     BaseController().hideLoading();
+    selectedIndex.value = 2;
+    pageViewController.animateToPage(
+      2,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
 
     Get.find<SearchResultController>().searchResultState.value =
         data.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
