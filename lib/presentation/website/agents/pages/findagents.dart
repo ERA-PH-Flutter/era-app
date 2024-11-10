@@ -58,168 +58,159 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
           //   ),
           // ),
           sb50(),
-          Material(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: EraTheme.paddingWidthAdmin * 5),
-                  child: Column(
-                    children: [
-                      EraText(
-                        text: 'Find an ERA Real Estate Agent',
-                        fontSize: EraTheme.headerWeb,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.kRedColor,
-                        textAlign: TextAlign.center,
-                      ),
-                      BoxWidget.build(
-                        child: Column(
-                          children: [
-                            SizedBox(height: 10.h),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: EraTheme.paddingWidthAdmin * 5),
+                child: Column(
+                  children: [
+                    EraText(
+                      text: 'Find an ERA Real Estate Agent',
+                      fontSize: EraTheme.headerWeb,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.kRedColor,
+                      textAlign: TextAlign.center,
+                    ),
+                    BoxWidget.build(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 10.h),
 
-                            Obx(() {
-                              if (!searchResultController
-                                  .showFullSearch.value) {
-                                return AppTextField(
-                                    onPressed: () {},
-                                    controller: searchResultController
-                                        .aiSearchController,
-                                    hint: 'Use AI Search',
-                                    svgIcon: AppEraAssets.ai3,
-                                    bgColor: AppColors.white,
-                                    isSuffix: true,
-                                    obscureText: false,
-                                    onSuffixTap: () async {
-                                      await controller.aiSearch(
-                                          searchResultController
-                                              .aiSearchController.text);
-                                    },
-                                    suffixIcons: AppEraAssets.send);
-                              }
-                              return Container();
-                            }),
+                          Obx(() {
+                            if (!searchResultController.showFullSearch.value) {
+                              return AppTextField(
+                                  onPressed: () {},
+                                  controller:
+                                      searchResultController.aiSearchController,
+                                  hint: 'Use AI Search',
+                                  svgIcon: AppEraAssets.ai3,
+                                  bgColor: AppColors.white,
+                                  isSuffix: true,
+                                  obscureText: false,
+                                  onSuffixTap: () async {
+                                    await controller.aiSearch(
+                                        searchResultController
+                                            .aiSearchController.text);
+                                  },
+                                  suffixIcons: AppEraAssets.send);
+                            }
+                            return Container();
+                          }),
 
-                            SizedBox(height: 5.h),
-                            GestureDetector(
-                              onTap: () {
-                                searchResultController.expanded.value =
-                                    !searchResultController.expanded.value;
-                                searchResultController.showFullSearch.value =
-                                    !searchResultController
-                                        .showFullSearch.value;
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.all(10.0.h),
-                                child: Obx(() => EraText(
-                                      text:
-                                          searchResultController.expanded.value
-                                              ? "Back to AI Search"
-                                              : "Filtered Search",
-                                      fontSize: 15.sp,
-                                      textDecoration: TextDecoration.underline,
-                                    )),
-                              ),
+                          SizedBox(height: 5.h),
+                          GestureDetector(
+                            onTap: () {
+                              searchResultController.expanded.value =
+                                  !searchResultController.expanded.value;
+                              searchResultController.showFullSearch.value =
+                                  !searchResultController.showFullSearch.value;
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(10.0.h),
+                              child: Obx(() => EraText(
+                                    text: searchResultController.expanded.value
+                                        ? "Back to AI Search"
+                                        : "Filtered Search",
+                                    fontSize: 15.sp,
+                                    textDecoration: TextDecoration.underline,
+                                  )),
                             ),
+                          ),
 
-                            //FILTERED SEARCH
-                            Obx(() {
-                              if (searchResultController.showFullSearch.value) {
-                                return Column(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        SizedBox(height: 10.h),
-                                        AddListings.dropDownAddlistings1(
-                                            color: AppColors.white,
-                                            selectedItem:
-                                                controller.selectedLocation,
-                                            Types: projectsController.location,
-                                            onChanged: (value) => controller
-                                                .selectedLocation
-                                                .value = value!,
-                                            name: 'Location',
-                                            hintText: 'Select Location'),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            EraText(
-                                                text: 'Name',
+                          //FILTERED SEARCH
+                          Obx(() {
+                            if (searchResultController.showFullSearch.value) {
+                              return Column(
+                                children: [
+                                  Column(
+                                    children: [
+                                      SizedBox(height: 10.h),
+                                      AddListings.dropDownAddlistings1(
+                                          color: AppColors.white,
+                                          selectedItem:
+                                              controller.selectedLocation,
+                                          Types: projectsController.location,
+                                          onChanged: (value) => controller
+                                              .selectedLocation.value = value!,
+                                          name: 'Location',
+                                          hintText: 'Select Location'),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          EraText(
+                                              text: 'Name',
+                                              fontSize: 20.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.white),
+                                          SizedBox(height: 5.h),
+                                          Container(
+                                            height: 50.h,
+                                            child: TextformfieldWidget(
+                                              style: TextStyle(
                                                 fontSize: 20.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: AppColors.white),
-                                            SizedBox(height: 5.h),
-                                            Container(
-                                              height: 50.h,
-                                              child: TextformfieldWidget(
-                                                style: TextStyle(
-                                                  fontSize: 20.sp,
-                                                  color: AppColors.hint,
-                                                  height: 0.0,
-                                                  fontFamily: GoogleFonts.lato(
-                                                          fontWeight:
-                                                              FontWeight.w400)
-                                                      .fontFamily,
-                                                ),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: EraTheme
-                                                            .paddingWidth),
-                                                radius: 99,
-                                                controller:
-                                                    controller.agentName,
-                                                hintText:
-                                                    '  Find Agent by Name',
-                                                maxLines: 1,
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                hintstlye: TextStyle(
-                                                  textBaseline:
-                                                      TextBaseline.alphabetic,
-                                                  fontSize: 20.sp,
-                                                  color: AppColors.hint,
-                                                  height: 0.0,
-                                                  fontFamily: GoogleFonts.lato(
-                                                          fontWeight:
-                                                              FontWeight.w400)
-                                                      .fontFamily,
-                                                ),
+                                                color: AppColors.hint,
+                                                height: 0.0,
+                                                fontFamily: GoogleFonts.lato(
+                                                        fontWeight:
+                                                            FontWeight.w400)
+                                                    .fontFamily,
+                                              ),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: EraTheme
+                                                          .paddingWidth),
+                                              radius: 99,
+                                              controller: controller.agentName,
+                                              hintText: '  Find Agent by Name',
+                                              maxLines: 1,
+                                              keyboardType: TextInputType.text,
+                                              hintstlye: TextStyle(
+                                                textBaseline:
+                                                    TextBaseline.alphabetic,
+                                                fontSize: 20.sp,
+                                                color: AppColors.hint,
+                                                height: 0.0,
+                                                fontFamily: GoogleFonts.lato(
+                                                        fontWeight:
+                                                            FontWeight.w400)
+                                                    .fontFamily,
                                               ),
                                             ),
-                                            SizedBox(height: 20.h),
-                                          ],
-                                        ),
-                                        SizedBox(height: 20.h),
-                                        SearchWidget.build(() {
-                                          controller.search();
-                                        }),
-                                        SizedBox(height: 20.h),
-                                      ],
-                                    ),
-                                  ],
-                                );
-                              }
-                              return Container();
-                            }),
-                          ],
-                        ),
+                                          ),
+                                          SizedBox(height: 20.h),
+                                        ],
+                                      ),
+                                      SizedBox(height: 20.h),
+                                      SearchWidget.build(() {
+                                        controller.search();
+                                      }),
+                                      SizedBox(height: 20.h),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            }
+                            return Container();
+                          }),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                sb50(),
-                Obx(() => switch (controller.agentState.value) {
-                      AgentsStateWeb.loading => _loading(),
-                      AgentsStateWeb.loaded => _loaded(),
-                      AgentsStateWeb.error => _error(),
-                      AgentsStateWeb.empty => _empty(),
-                      AgentsStateWeb.blank => _blank(),
-                      AgentsStateWeb.noFeaturedAgent => _noFeaturedAgent(),
-                    })
-              ],
-            ),
+              ),
+              sb50(),
+              Obx(() => switch (controller.agentState.value) {
+                    AgentsStateWeb.loading => _loading(),
+                    AgentsStateWeb.loaded => _loaded(),
+                    AgentsStateWeb.error => _error(),
+                    AgentsStateWeb.empty => _empty(),
+                    AgentsStateWeb.blank => _blank(),
+                    AgentsStateWeb.noFeaturedAgent => _noFeaturedAgent(),
+                  })
+            ],
           ),
         ],
       ),

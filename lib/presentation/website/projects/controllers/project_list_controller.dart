@@ -17,7 +17,6 @@ class ProjectsListWebController extends GetxController {
   var projects = [].obs;
   RxInt count = 5.obs;
   int pageSize = 0;
-  @override
   void onInit() async {
     pageSize = count.value;
     projects.value = (await FirebaseFirestore.instance

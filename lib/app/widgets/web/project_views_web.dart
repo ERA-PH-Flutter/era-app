@@ -654,7 +654,6 @@ class ProjectViewsWeb {
       }
       if (block['type'] == "Blurb") {
         preview[3] = Container(
-          color: AppColors.black,
           padding: EdgeInsets.symmetric(vertical: 15.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -744,6 +743,7 @@ class ProjectViewsWeb {
               child: Button(
                 height: 60.h,
                 text: 'LEARN MORE',
+                fontSize: EraTheme.paragraphWeb,
                 onTap: () {
                   Get.to(ProjectViewWeb(),
                       binding: ProjectViewBinding(), arguments: project);

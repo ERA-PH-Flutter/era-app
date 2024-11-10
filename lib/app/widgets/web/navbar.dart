@@ -1,8 +1,10 @@
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../presentation/website/authentication.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
 import '../../constants/theme.dart';
@@ -40,7 +42,6 @@ class Navbar extends GetResponsiveView<HomsController> {
   Widget desktop() {
     return Obx(
       () => Container(
-        color: AppColors.white,
         padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth200),
         height: Get.height,
         width: Get.width,
@@ -54,13 +55,14 @@ class Navbar extends GetResponsiveView<HomsController> {
                 height: Get.height,
               ),
             ),
-            Expanded(
-                child: Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: _buildNavItems(controller.items.sublist(0, 5)),
-            )),
+            ),
             //_showOverlay(),
             Spacer(),
+            //  if()
+
             Padding(
               padding: EdgeInsets.only(right: 20.w),
               child: Button(
@@ -68,6 +70,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                 width: 300.w,
                 onTap: () {
                   print('Login button clicked!');
+                  showAuthenticationDialog();
                 },
                 text: "AGENT/BROKER LOGIN",
                 bgColor: AppColors.kRedColor,
@@ -95,39 +98,36 @@ class Navbar extends GetResponsiveView<HomsController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            EraText(
-              text: item,
-              color: controller.isMoreSelected.value == true
-                  ? Colors.black
-                  : controller.navBarSelectedIndex.value ==
-                          controller.items.indexOf(item)
-                      ? AppColors.kRedColor
-                      : Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: EraTheme.subHeader,
+            Container(
+              padding: EdgeInsets.only(left: 20.w),
+              child: EraText(
+                text: item,
+                color: controller.isMoreSelected.value == true
+                    ? Colors.black
+                    : controller.navBarSelectedIndex.value ==
+                            controller.items.indexOf(item)
+                        ? AppColors.kRedColor
+                        : Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: EraTheme.subHeader,
+              ),
             ),
             SizedBox(height: 4),
             AnimatedContainer(
               duration: Duration(milliseconds: 500),
               height: 2,
               width: 20,
-              color:
-
-                  // controller.navBarSelectedIndex.value ==
-                  //         controller.items.indexOf(item)
-                  //     ? AppColors.kRedColor
-                  //     : Colors.transparent
-                  controller.isMoreSelected.value == true
-                      ? Colors.transparent
-                      : controller.navBarSelectedIndex.value ==
-                              controller.items.indexOf(item)
-                          ? AppColors.kRedColor
-                          : Colors.transparent,
+              color: controller.isMoreSelected.value == true
+                  ? Colors.transparent
+                  : controller.navBarSelectedIndex.value ==
+                          controller.items.indexOf(item)
+                      ? AppColors.kRedColor
+                      : Colors.transparent,
             ),
           ],
         ),
       ));
-      if (item == 'PROJECTS') {
+      if (item == 'HELP') {
         navItems.add(
           _showOverlay(),
         );
@@ -146,37 +146,40 @@ class Navbar extends GetResponsiveView<HomsController> {
             : controller.controllerOverlay.show();
       },
       child: controller.isMoreSelected.value == false
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    EraText(
-                      text: 'MORE',
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: EraTheme.subHeader,
-                    ),
-                    Icon(Icons.arrow_drop_down),
-                  ],
-                ),
-                SizedBox(height: 4),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 500),
-                  height: 2,
-                  width: 20,
-                  color: controller.isMoreSelected.value
-                      ? AppColors.kRedColor
-                      : Colors.transparent,
-                ),
-              ],
+          ? Container(
+              padding: EdgeInsets.only(left: 20.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      EraText(
+                        text: 'MORE',
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: EraTheme.subHeader,
+                      ),
+                      Icon(Icons.arrow_drop_down),
+                    ],
+                  ),
+                  SizedBox(height: 4),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 500),
+                    height: 2,
+                    width: 20,
+                    color: controller.isMoreSelected.value
+                        ? AppColors.kRedColor
+                        : Colors.transparent,
+                  ),
+                ],
+              ),
             )
           : OverlayPortal(
               controller: controller.controllerOverlay,
               overlayChildBuilder: (BuildContext context) {
                 return Positioned(
                   top: 80.h,
-                  right: Get.width / 1.9 + 10.w,
+                  right: Get.width / 2.1,
                   child: Wrap(
                     children: [
                       Container(
@@ -194,6 +197,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                               title: Column(
                                 children: [
                                   EraText(
+                                    textAlign: TextAlign.center,
                                     text: item,
                                     color:
                                         controller.navBarSelectedIndex.value ==
@@ -234,11 +238,14 @@ class Navbar extends GetResponsiveView<HomsController> {
                 children: [
                   Row(
                     children: [
-                      EraText(
-                        text: 'MORE',
-                        color: AppColors.kRedColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: EraTheme.subHeader,
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.w),
+                        child: EraText(
+                          text: 'MORE',
+                          color: AppColors.kRedColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: EraTheme.subHeader,
+                        ),
                       ),
                       Icon(Icons.arrow_drop_down),
                     ],

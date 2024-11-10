@@ -4,6 +4,7 @@ import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.da
 import 'package:eraphilippines/presentation/agent/authentication/pages/nextPage.dart';
 
 import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
+import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
 
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
@@ -136,6 +137,12 @@ appRoutes() => [
         name: RouteString.webLandingPage,
         page: () => HomePages(),
       ),
+      GetPage(
+        name: RouteString.companyNewsWeb,
+        page: () => CompanyNewsWeb(),
+      ),
+
+      GetPage(name: RouteString.homs, page: () => HomePages()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

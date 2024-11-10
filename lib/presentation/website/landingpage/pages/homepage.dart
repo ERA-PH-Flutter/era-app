@@ -13,21 +13,11 @@ import '../../../../app/widgets/web/mobile_drawer.dart';
 import '../../../../app/widgets/web/navbar.dart';
 
 class HomePages extends GetResponsiveView<HomsController> {
-  // Widget phone() {
-  //   Get.put(HomsController());
-  //   return Container(
-  //       width: Get.width,
-  //       height: 56.h,
-  //       child: Row(
-  //         children: [
-  //           IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-  //         ],
-  //       ));
-  // }
+  HomePages({super.key});
+
   @override
   Widget phone() {
     Get.put(HomsController());
-
     return Scaffold(
       key: controller.scaffoldKey,
       endDrawer: AppDrawer(),
@@ -35,7 +25,7 @@ class HomePages extends GetResponsiveView<HomsController> {
         Obx(() => Container(
             width: Get.width,
             height: Get.height,
-            child: controller.pages[controller.selectedIndex.value])),
+            child: controller.pages[selectedIndex.value])),
         Align(
           alignment: Alignment.topCenter,
           child: Navbar(),
@@ -47,46 +37,48 @@ class HomePages extends GetResponsiveView<HomsController> {
   @override
   Widget desktop() {
     Get.put(HomsController());
-    return CustomScrollView(
-      controller: controller.scrollController,
-      slivers: [
-        Obx(
-          () => SliverAppBar(
-            automaticallyImplyLeading: false,
-            collapsedHeight: 150.h,
-            backgroundColor: AppColors.white,
-            floating: false,
-            pinned: controller.isNavbarVisible.value,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Navbar(),
-              background: Container(
-                color: AppColors.white,
+    return Scaffold(
+      body: CustomScrollView(
+        controller: controller.scrollController,
+        slivers: [
+          Obx(
+            () => SliverAppBar(
+              automaticallyImplyLeading: false,
+              collapsedHeight: 150.h,
+              backgroundColor: AppColors.white,
+              floating: false,
+              pinned: controller.isNavbarVisible.value,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Navbar(),
+                background: Container(
+                  color: AppColors.white,
+                ),
               ),
             ),
           ),
-        ),
-        SliverList(
-            delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return Stack(
-              children: [
-                Column(
-                  children: [
-                    Obx(
-                      () => SizedBox(
-                        width: Get.width,
-                        child: controller.pages[controller.selectedIndex.value],
+          SliverList(
+              delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return Stack(
+                children: [
+                  Column(
+                    children: [
+                      Obx(
+                        () => SizedBox(
+                          width: Get.width,
+                          child: controller.pages[selectedIndex.value],
+                        ),
                       ),
-                    ),
-                    _buildFooter(),
-                  ],
-                ),
-              ],
-            );
-          },
-          childCount: 1,
-        ))
-      ],
+                      _buildFooter(),
+                    ],
+                  ),
+                ],
+              );
+            },
+            childCount: 1,
+          ))
+        ],
+      ),
     );
   }
 

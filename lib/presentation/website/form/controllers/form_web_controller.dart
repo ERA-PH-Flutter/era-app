@@ -24,6 +24,7 @@ import '../../../agent/utility/controller/base_controller.dart';
 class FormWebController extends GetxController {
   var store = Get.find<LocalStorageService>();
   //var buylandingState = BuyWebState.loading.obs;
+  var faqs = [].obs;
 
   var isCheckedYes = false.obs;
   var isCheckedNotNow = false.obs;
@@ -92,15 +93,20 @@ class FormWebController extends GetxController {
   //   super.onInit();
   // }
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   youtubePlayerController = YoutubePlayerController(
-  //     initialVideoId: 'UcbQCfRCoeA',
-  //     flags: YoutubePlayerFlags(
-  //       autoPlay: true,
-  //       mute: false,
-  //     ),
-  //   );
-  // }
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    // youtubePlayerController = YoutubePlayerController(
+    //   initialVideoId: 'UcbQCfRCoeA',
+    //   flags: YoutubePlayerFlags(
+    //     autoPlay: true,
+    //     mute: false,
+    //   ),
+    // );
+    faqs.value = (await FirebaseFirestore.instance
+            .collection('faq')
+            .orderBy('type')
+            .get())
+        .docs;
+  }
 }

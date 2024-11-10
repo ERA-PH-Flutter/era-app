@@ -15,7 +15,7 @@ class AppDrawer extends GetView<HomsController> {
           ListTile(
             title: drawerText(text: 'Home'.toUpperCase()),
             onTap: () {
-              controller.selectedIndex.value = 0;
+              selectedIndex.value = 0;
               controller.navBarSelectedIndex.value = 0;
               //  Navigator.pop(context);
             },
@@ -23,7 +23,7 @@ class AppDrawer extends GetView<HomsController> {
           ListTile(
             title: drawerText(text: 'Buy'.toUpperCase()),
             onTap: () {
-              controller.selectedIndex.value = 1;
+              selectedIndex.value = 1;
               controller.navBarSelectedIndex.value = 1;
 
               //  Navigator.pop(context);
@@ -32,42 +32,42 @@ class AppDrawer extends GetView<HomsController> {
           ListTile(
             title: drawerText(text: 'Sell'.toUpperCase()),
             onTap: () {
-              controller.selectedIndex.value = 2;
+              selectedIndex.value = 2;
               controller.navBarSelectedIndex.value = 2;
             },
           ),
           ListTile(
             title: drawerText(text: 'Rent'.toUpperCase()),
             onTap: () {
-              controller.selectedIndex.value = 3;
+              selectedIndex.value = 3;
               controller.navBarSelectedIndex.value = 3;
             },
           ),
           ListTile(
             title: drawerText(text: 'Projects'.toUpperCase()),
             onTap: () {
-              controller.selectedIndex.value = 4;
+              selectedIndex.value = 4;
               controller.navBarSelectedIndex.value = 4;
             },
           ),
           ListTile(
             title: drawerText(text: 'News'.toUpperCase()),
             onTap: () {
-              controller.selectedIndex.value = 5;
+              selectedIndex.value = 5;
               controller.navBarSelectedIndex.value = 5;
             },
           ),
           ListTile(
             title: drawerText(text: 'Contact Us'.toUpperCase()),
             onTap: () {
-              controller.selectedIndex.value = 6;
+              selectedIndex.value = 6;
               controller.navBarSelectedIndex.value = 6;
             },
           ),
           ListTile(
             title: drawerText(text: 'Join Era'.toUpperCase()),
             onTap: () {
-              controller.selectedIndex.value = 7;
+              selectedIndex.value = 7;
               controller.navBarSelectedIndex.value = 7;
             },
           ),

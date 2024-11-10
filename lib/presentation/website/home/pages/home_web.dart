@@ -4,7 +4,6 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/app/models/projects_models.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -12,23 +11,21 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/website/home/controllers/home_web_controller.dart';
 
 import 'package:eraphilippines/repository/listing.dart';
+import 'package:eraphilippines/router/route_string.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/strings.dart';
-import '../../../../app/models/carousel_models.dart';
 import '../../../../app/services/firebase_storage.dart';
-import '../../../../app/widgets/carousel/carousel_slider.dart';
 
+import '../../../../app/widgets/navigation/customenavigationbar.dart';
 import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
-import '../../../../app/widgets/project_divider.dart';
 
 List<String> imagePaths = [
   'assets/images/image.png',
@@ -89,7 +86,7 @@ class HomeWeb extends GetView<HomeWebController> {
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: EraTheme.paddingWidthAdmin * 5),
-                  child: Material(child: FilteredSearchBox()),
+                  child: FilteredSearchBox(),
                 ),
                 sb15(),
                 controller.quickLinks!,
@@ -119,7 +116,7 @@ class HomeWeb extends GetView<HomeWebController> {
                   textAlign: TextAlign.center,
                   text: 'Connect worlds, build dreams with ERA Philippines;',
                   color: AppColors.kRedColor,
-                  fontSize: EraTheme.header + 20.sp,
+                  fontSize: EraTheme.subHeaderWeb,
                   fontWeight: FontWeight.bold,
                 ),
                 sb10(),
@@ -127,7 +124,7 @@ class HomeWeb extends GetView<HomeWebController> {
                   textAlign: TextAlign.center,
                   text: 'Your REAL ESTATE agency partner for life!',
                   color: AppColors.kRedColor,
-                  fontSize: EraTheme.header + 20.sp,
+                  fontSize: EraTheme.subHeaderWeb,
                   fontWeight: FontWeight.bold,
                 ),
                 sb5(),
@@ -143,7 +140,7 @@ class HomeWeb extends GetView<HomeWebController> {
                   text:
                       'Whether you\'re buying, selling, or investing, we offer unparalleled expertise and commitment to turn your real estate goals into reality.',
                   color: AppColors.black.withOpacity(0.7),
-                  fontSize: EraTheme.paragraphWeb,
+                  fontSize: EraTheme.subHeaderWeb,
                   fontWeight: FontWeight.bold,
                 ),
                 sb15(),
@@ -152,7 +149,7 @@ class HomeWeb extends GetView<HomeWebController> {
                   text:
                       'Trust ERA Philippines to guide you through every step of your journey with professionalism and care.',
                   color: AppColors.black.withOpacity(0.7),
-                  fontSize: EraTheme.paragraphWeb,
+                  fontSize: EraTheme.subHeaderWeb,
                   fontWeight: FontWeight.bold,
                 ),
                 sb70(),
@@ -206,7 +203,7 @@ class HomeWeb extends GetView<HomeWebController> {
                                 sb17(),
                                 Container(
                                   width: Get.width,
-                                  height: 30.h,
+                                  // height: 50.h,
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 14.w),
                                   child: EraText(
@@ -214,7 +211,7 @@ class HomeWeb extends GetView<HomeWebController> {
                                     text: listing.name! == ""
                                         ? "No Name"
                                         : listing.name!,
-                                    fontSize: EraTheme.header - 5.sp,
+                                    fontSize: EraTheme.subHeaderWeb,
                                     color: AppColors.kRedColor,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -224,7 +221,7 @@ class HomeWeb extends GetView<HomeWebController> {
                                       EdgeInsets.symmetric(horizontal: 14.w),
                                   child: EraText(
                                     text: listing.type!,
-                                    fontSize: EraTheme.header - 12.sp,
+                                    fontSize: EraTheme.subHeaderWeb - 10.sp,
                                     color: AppColors.black,
                                     fontWeight: FontWeight.bold,
                                     lineHeight: 1,
@@ -293,8 +290,8 @@ class HomeWeb extends GetView<HomeWebController> {
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 14.w),
                                   child: EraText(
-                                    text: 'Description:',
-                                    fontSize: EraTheme.header - 8.sp,
+                                    text: 'Descriptions:',
+                                    fontSize: EraTheme.paragraphWeb,
                                     color: AppColors.black,
                                     fontWeight: FontWeight.w600,
                                     lineHeight: 1,
@@ -374,12 +371,16 @@ class HomeWeb extends GetView<HomeWebController> {
                         children: [
                           EraText(
                               text: 'COMPANY NEWS',
-                              fontSize: EraTheme.header + 5.sp,
+                              fontSize: EraTheme.subHeaderWeb,
                               fontWeight: FontWeight.bold,
                               color: AppColors.kRedColor),
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed("/companynews");
+                              // HomsController controller =
+                              //     Get.find<HomsController>();
+                              // controller.goToCompanyNewsPage();
+                              selectedIndex.value = 9;
+                              Get.toNamed(RouteString.homs);
                             },
                             child: EraText(
                                 text: 'See all',
@@ -395,7 +396,7 @@ class HomeWeb extends GetView<HomeWebController> {
                       EraText(
                         text:
                             'Stay updated with ERA Philippines\' latest services and innovations in real estate excellence',
-                        fontSize: EraTheme.subHeader - 2.sp,
+                        fontSize: EraTheme.paragraphWeb,
                         fontWeight: FontWeight.w500,
                         color: AppColors.hint,
                       ),

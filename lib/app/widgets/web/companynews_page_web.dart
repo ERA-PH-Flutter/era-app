@@ -23,7 +23,6 @@ class CompanyNewsPageWeb extends GetView<NewsWebController> {
 
   @override
   Widget build(BuildContext context) {
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
     Get.put(NewsWebController());
     return
         // appBar: NavbarWeb(

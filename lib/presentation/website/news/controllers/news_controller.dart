@@ -15,7 +15,7 @@ class NewsWebController extends GetxController {
   var news = [];
   @override
   void onInit() async {
-    // await getNews();
+    await getNews();
     newsState.value = NewsState.loaded;
     super.onInit();
   }

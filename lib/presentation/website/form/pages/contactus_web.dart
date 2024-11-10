@@ -71,63 +71,61 @@ class ContactUsWeb extends GetView<FormWebController> {
   }
 
   Widget contactsWeb() {
-    return Material(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SharedWidgets.textFormfield(
-            hintText: 'Full Name',
-            controller: controller.nameC,
-            keyboardType: TextInputType.text,
-          ),
-          // SharedWidgets.textFormfield(
-          //   controller: controller.numberC,
-          //   hintText: '000-000-0000',
-          //   keyboardType: TextInputType.number,
-          // ),
-          SharedWidgets.textFormfield(
-            controller: controller.emailAC,
-            hintText: 'Email',
-            keyboardType: TextInputType.emailAddress,
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SharedWidgets.textFormfield(
+          hintText: 'Full Name',
+          controller: controller.nameC,
+          keyboardType: TextInputType.text,
+        ),
+        // SharedWidgets.textFormfield(
+        //   controller: controller.numberC,
+        //   hintText: '000-000-0000',
+        //   keyboardType: TextInputType.number,
+        // ),
+        SharedWidgets.textFormfield(
+          controller: controller.emailAC,
+          hintText: 'Email',
+          keyboardType: TextInputType.emailAddress,
+        ),
 
-          SharedWidgets.dropDown(
-            controller.selectedSubj,
-            controller.subject,
-            (value) {
-              controller.selectedSubj.value = value;
-            },
-            '',
-            'Select Subject Type',
-          ),
-          // AddListings.dropDownAddlistings(
-          //   selectedItem: controller.selectedSubj,
-          //   Types: controller.subject,
-          //   onChanged: (value) => controller.selectedSubj.value = value!,
-          //   name: 'Subject Type',
-          //   hintText: 'Select Subject Type',
-          //   color: AppColors.black,
-          //   padding: EdgeInsets.zero,
-          // ),
-          SharedWidgets.textFormfield(
-            controller: controller.messageC,
-            hintText: 'Type your message here',
-            keyboardType: TextInputType.multiline,
-            maxLines: 5,
-          ),
+        SharedWidgets.dropDown(
+          controller.selectedSubj,
+          controller.subject,
+          (value) {
+            controller.selectedSubj.value = value;
+          },
+          '',
+          'Select Subject Type',
+        ),
+        // AddListings.dropDownAddlistings(
+        //   selectedItem: controller.selectedSubj,
+        //   Types: controller.subject,
+        //   onChanged: (value) => controller.selectedSubj.value = value!,
+        //   name: 'Subject Type',
+        //   hintText: 'Select Subject Type',
+        //   color: AppColors.black,
+        //   padding: EdgeInsets.zero,
+        // ),
+        SharedWidgets.textFormfield(
+          controller: controller.messageC,
+          hintText: 'Type your message here',
+          keyboardType: TextInputType.multiline,
+          maxLines: 5,
+        ),
 
-          sb30(),
-          Button.button2(
-            Get.width,
-            53.h,
-            () async {
-              await controller.submitContact();
-            },
-            'Send',
-          ),
-          sb30(),
-        ],
-      ),
+        sb30(),
+        Button.button2(
+          Get.width,
+          53.h,
+          () async {
+            await controller.submitContact();
+          },
+          'Send',
+        ),
+        sb30(),
+      ],
     );
   }
 
