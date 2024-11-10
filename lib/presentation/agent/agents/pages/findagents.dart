@@ -355,7 +355,7 @@ class FindAgents extends GetView<AgentsController> {
             currentPage: (controller.count.value / controller.pageSize).floor(),
             visiblePagesCount: length < 4 ? length : 4,
             onPageChanged: (page) {
-              controller.count.value = controller.pageSize * page;
+              controller.count.value = controller.pageSize * (page == 0 ? 1 : page);
               controller.scrollController.jumpTo(0);
             },
           ),

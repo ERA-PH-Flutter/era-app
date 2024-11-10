@@ -6,11 +6,10 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/admin/properties/pages/add_project_admin.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
-import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -119,47 +118,28 @@ class SettingsPage extends GetView<AgentsController> {
                                       bgColor: AppColors.hint,
                                       color: AppColors.white,
                                     ),
-                                    Obx(
-                                      () => !controller.isDeleting.value
-                                          ? Button(
-                                              text: 'DELETE',
-                                              onTap: () async {
-                                                controller.isDeleting.value =
-                                                    true;
-                                                await user!.delete();
-                                                await Logs(
-                                                  title:
-                                                      "${user!.firstname} ${user!.lastname}",
-                                                ).add();
-                                                BaseController()
-                                                    .showSuccessDialog(
-                                                        title:
-                                                            "Delete Success!",
-                                                        description:
-                                                            "Account has been Deleted!",
-                                                        okayButton: "Okay",
-                                                        hitApi: () {
-                                                          Authentication()
-                                                              .logout();
-                                                          user = null;
-
-                                                          selectedIndex.value =
-                                                              0;
-                                                          currentRoute =
-                                                              '/home';
-                                                          Get.offAll(
-                                                              BaseScaffold(),
-                                                              binding:
-                                                                  HomeBinding());
-                                                        });
-                                                controller.isDeleting.value =
-                                                    false;
-                                              },
-                                              width: 140.w,
-                                              bgColor: AppColors.kRedColor,
-                                            )
-                                          : CircularProgressIndicator(),
-                                    ),
+                                    Button(
+                                      text: 'DELETE',
+                                      onTap: () async {
+                                        user!.status = "deleted";
+                                        await user!.update();
+                                        await Logs(
+                                          title:
+                                              "${user!.firstname} ${user!.lastname}",
+                                        ).add();
+                                        BaseController().showSuccessDialog(
+                                          title: "Delete Success!",
+                                          description: "Account has been Deleted!",
+                                          okayButton: "Okay",
+                                          hitApi: (){
+                                            Authentication().logout();
+                                            Get.toNamed(RouteString.loginpage);
+                                          }
+                                        );
+                                      },
+                                      width: 140.w,
+                                      bgColor: AppColors.kRedColor,
+                                    )
                                   ],
                                 )
                               ],

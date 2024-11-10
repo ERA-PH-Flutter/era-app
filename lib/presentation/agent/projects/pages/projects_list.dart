@@ -82,7 +82,8 @@ class ProjectsList extends GetView<ProjectsListController> {
                                         if (projects.isNotEmpty) {
                                           controller.projects.value =
                                               projects.map((proj) {
-                                            return proj;
+                                            return Project.fromJSON(
+                                                proj.data());
                                           }).toList();
                                           controller.projectsListState.value =
                                               ProjectsListState.loaded;
@@ -160,29 +161,26 @@ class ProjectsList extends GetView<ProjectsListController> {
     child,
     length,
   }) {
-    print(' controller.pageSize ${controller.pageSize}');
-    print(' controller.pageSize length ${length}');
     return Column(
       children: [
         child,
-        if (length != 0)
-          NumberPagination(
-            fontSize: 18.sp,
-            buttonRadius: 10.r,
-            controlButtonSize: Size(30, 30),
-            numberButtonSize: Size(35, 35),
-            sectionSpacing: 1.w,
-            betweenNumberButtonSpacing: 1,
-            totalPages: length,
-            currentPage: (controller.count.value / controller.pageSize).floor(),
-            visiblePagesCount: length < 4 ? length : 4,
-            onPageChanged: (page) {
-              controller.count.value = controller.pageSize * page;
-              controller.scrollController.jumpTo(
-                0,
-              );
-            },
-          ),
+        NumberPagination(
+          fontSize: 18.sp,
+          buttonRadius: 10.r,
+          controlButtonSize: Size(30, 30),
+          numberButtonSize: Size(35, 35),
+          sectionSpacing: 1.w,
+          betweenNumberButtonSpacing: 1,
+          totalPages: length,
+          currentPage: (controller.count.value / controller.pageSize).floor(),
+          visiblePagesCount: length < 4 ? length : 4,
+          onPageChanged: (page) {
+            controller.count.value = controller.pageSize * (page == 0 ? 1 : page);
+            controller.scrollController.jumpTo(
+              0,
+            );
+          },
+        ),
         SizedBox(height: 30.h),
       ],
     );

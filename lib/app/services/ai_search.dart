@@ -26,7 +26,6 @@ class AI {
   }
 
   projectSearch() async {
-    print('result gemini here');
     var geminiData = {
       "title": {
         "type": "string",
@@ -43,19 +42,11 @@ class AI {
             description:
                 "Assign accordingly do not assign value if not specified") ??
         [];
-    print('result gemini here1 $result');
-
-    // Query firebaseQuery = FirebaseFirestore.instance.collection('projects');
-    // List<AiFilters> prompts = [];
-    // (result ?? {}).forEach((key, value) {
-    //   var val = checkOperator(value);
-    //   prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
-    // });
 
     try {
       HttpsCallable callable =
           FirebaseFunctions.instanceFor(region: 'asia-southeast1')
-              .httpsCallable('testFunctionQuery');
+              .httpsCallable('projectQuery');
       final res = await callable.call({
         'searchQuery': [
           result.values.toList(),
@@ -68,15 +59,9 @@ class AI {
               .get())
           .docs
           .map((e) => Project.fromJSON({...e.data(), 'id': e.id}));
-      print('result gemini here12 ${res.data}');
 
       final projectIds = res.data ?? [];
-      print('result gemini here32 ${projectIds}');
-      print('data ${data.map((e) => e.id)}');
       return data.where((e) => projectIds.contains(e.id));
-
-      // print('resultSearchQuery ${res.data}');
-      // return data;
     } catch (e) {
       print('Error calling function: $e');
       return [];
@@ -88,34 +73,31 @@ class AI {
       "type": {
         "type": "string",
         "enum": [
-          "Apartment",
-          "Condominium",
-          "House and lot",
-          "Townhouse",
+          "Pre-Selling",
+          "Residential",
           "Commercial",
-          "Industrial",
-          "Agricultural",
-          "Land",
-          "Foreclosed",
-          "Pre selling",
-          "Rent to own",
-          "Others"
+          "Rental",
+          "Auction",
         ]
       },
       "sub_category": {
         "type": "string",
         "enum": [
+          "Agricultural",
           "Apartment",
+          "Commercial",
+          "Condominium",
+          "Factory",
+          "Farm",
+          "Hotel",
           "House",
           "Lot",
+          "Industrial Lot",
           "Office",
-          "Retail",
-          "Warehouse",
-          "Commercial",
-          "Residential",
-          "Condominium",
-          "Townhouse",
-          "Others"
+          "Parking Lot",
+          "Resort",
+          "Beach House",
+          "School",
         ]
       },
       "view": {
@@ -194,6 +176,7 @@ class AI {
         prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
       }
     });
+
     for (int i = 0; i < (prompts.length); i++) {
       print(prompts[i].toMap());
       if (prompts[i].field == "name") {
@@ -250,9 +233,6 @@ class AI {
   }
 
   checkOperator(value) {
-    if ([String, int, bool].contains(value.runtimeType)) {
-      return [value.toLowerCase(), "="];
-    }
     if (value['min'] != null && value['max'] != null) {
       return [value['min'], "="];
     }
@@ -261,6 +241,9 @@ class AI {
     }
     if (value['max'] != null) {
       return [value['max'], ">"];
+    }
+    if ([String, int, bool].contains(value.runtimeType)) {
+      return [value.toLowerCase(), "="];
     }
   }
 
