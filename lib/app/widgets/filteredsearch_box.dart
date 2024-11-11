@@ -118,24 +118,30 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   }
 
   aiSearch() async {
-    var searchQuery = "";
-    BaseController().showLoading();
-    searchQuery = aiSearchController.text;
-    var data = await AI(query: searchQuery).listingSearch();
-    currentRoute = '/searchresult';
-    Get.find<SearchResultController>().searchResultState.value =
-        SearchResultState.loading;
-    Get.find<SearchResultController>().data.value = data;
-    BaseController().hideLoading();
-    selectedIndex.value = 2;
-    pageViewController.animateToPage(
-      2,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
+    try {
+      var searchQuery = "";
+      BaseController().showLoading();
+      searchQuery = aiSearchController.text;
+      var data = await AI(query: searchQuery).listingSearch();
+      currentRoute = '/searchresult';
+      Get.find<SearchResultController>().searchResultState.value =
+          SearchResultState.loading;
+      Get.find<SearchResultController>().data.value = data;
+      BaseController().hideLoading();
+      selectedIndex.value = 2;
+      pageViewController.animateToPage(
+        2,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
 
-    Get.find<SearchResultController>().searchResultState.value =
-        data.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
+      Get.find<SearchResultController>().searchResultState.value =
+          data.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
+    } catch (e) {
+      print('error AI search $e');
+    } finally {
+      BaseController().hideLoading();
+    }
   }
 
   @override

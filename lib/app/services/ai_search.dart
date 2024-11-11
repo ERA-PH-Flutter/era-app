@@ -198,9 +198,14 @@ class AI {
         prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
       }
     });
-    final listingData = (await firebaseQuery.get())
-        .docs
-        .map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
+    Iterable<Listing> listingData = [];
+    try {
+      listingData = (await firebaseQuery.get())
+          .docs
+          .map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
+    } catch (e) {
+      return [];
+    }
 
     final Map<Listing, double> filteredData = {};
 
