@@ -77,7 +77,11 @@ class Roster extends GetView<AgentAdminController> {
                       List<EraUser> users = [];
                       for (var doc in snapshot.data!.docs) {
                         if (doc.data()['status'] == "approved") {
-                          users.add(EraUser.fromJSON(doc.data()));
+                          users.add(
+                            EraUser.fromJSON(
+                              {...doc.data(), 'id': doc.id},
+                            ),
+                          );
                         }
                       }
                       return rosterGridview(listingModels: users);
@@ -373,7 +377,8 @@ class Roster extends GetView<AgentAdminController> {
                                   controllers.onSectionSelected(1);
                                 }, Icons.edit),
                                 menuOptions("Delete", () async {
-                                  await listingModels[i].delete();
+                                  await listingModels[i].deleteOtherUser(
+                                      userId: listingModels[i].id ?? '');
                                   await Logs(
                                           title:
                                               "${user!.firstname} ${user!.lastname} remove an agent with ID ${listingModels[i].eraId}",
