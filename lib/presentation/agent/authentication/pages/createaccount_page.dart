@@ -189,30 +189,6 @@ class CreateAccount extends GetView<LoginPageController> {
                               return;
                             }
 
-                            if (controller.age.text.isEmpty) {
-                              AddListings.showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
-
-                            if (controller.selectedGender.value == null) {
-                              AddListings.showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
-
-                            if (controller.contactNo.text.isEmpty) {
-                              AddListings.showErroDialogs(
-                                title: "Error",
-                                description: "All fields are required!",
-                              );
-                              return;
-                            }
-
                             if (controller.emailAd.text.isEmpty) {
                               AddListings.showErroDialogs(
                                 title: "Error",

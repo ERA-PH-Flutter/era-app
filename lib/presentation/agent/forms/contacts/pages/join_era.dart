@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -33,21 +34,21 @@ class JoinEra extends GetView<ContactusController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // CachedNetworkImage(
-                //   imageUrl:
-                //       'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-                //   fit: BoxFit.cover,
-                //   height: 250.h,
-                //   width: Get.width,
-                // ),
-                YoutubePlayer(
-                  controller: controller.youtubePlayerController,
-                  bottomActions: const [
-                    CurrentPosition(),
-                    ProgressBar(isExpanded: true),
-                    RemainingDuration(),
-                  ],
+                CachedNetworkImage(
+                  imageUrl:
+                      'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+                  fit: BoxFit.cover,
+                  height: 250.h,
+                  width: Get.width,
                 ),
+                // YoutubePlayer(
+                //   controller: controller.youtubePlayerController,
+                //   bottomActions: const [
+                //     CurrentPosition(),
+                //     ProgressBar(isExpanded: true),
+                //     RemainingDuration(),
+                //   ],
+                // ),
                 SizedBox(height: 15.h),
                 Padding(
                   padding:
