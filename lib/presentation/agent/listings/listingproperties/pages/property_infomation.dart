@@ -362,7 +362,7 @@ class PropertyInformation extends GetView<ListingController> {
                     listingId: listing.id,
                     image: user1!.image ?? AppStrings.noUserImageWhite,
                     agentFirstName: user1.firstname ?? "",
-                    agentType: user1.role ?? "Agent",
+                    agentRole: user1.role ?? "Agent",
                     agentLastName: user1.lastname ?? "",
                     whatsapp: user1.whatsApp,
                     whatsappIcon: AppEraAssets.whatsappIcon,

@@ -47,23 +47,20 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
             SizedBox(
               height: 20.h,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children:[
-                EraText(
-                  text: 'PROPERTY LIST',
-                  fontSize: EraTheme.header,
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w500,
-                ),
-                EraText(
-                  text: 'Fix Invalid ID',
-                  fontSize: 15.sp,
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w500,
-                ),
-              ]
-            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              EraText(
+                text: 'PROPERTY LIST',
+                fontSize: EraTheme.header,
+                color: AppColors.black,
+                fontWeight: FontWeight.w500,
+              ),
+              EraText(
+                text: 'Fix Invalid ID',
+                fontSize: 15.sp,
+                color: AppColors.black,
+                fontWeight: FontWeight.w500,
+              ),
+            ]),
             SizedBox(height: 20),
             EraText(
               text: ' SEARCH',
@@ -454,7 +451,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                                     agentFirstName:
                                                         user1.firstname ??
                                                             "No Name",
-                                                    agentType:
+                                                    agentRole:
                                                         user1.role ?? "Agent",
                                                     agentLastName:
                                                         user1.lastname ?? ""),

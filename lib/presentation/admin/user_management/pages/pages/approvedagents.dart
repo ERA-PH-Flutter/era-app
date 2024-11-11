@@ -63,7 +63,7 @@ class ApprovedAgents extends GetView<AgentAdminController> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisExtent: 400.h, crossAxisCount: 3, crossAxisSpacing: 10.w),
       itemCount: listingModels.length,
-      itemBuilder: (context, i){
+      itemBuilder: (context, i) {
         return Wrap(
           children: [
             Card(
@@ -78,12 +78,12 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                   ListTile(
                     leading: listingModels[i].image != null
                         ? CircleAvatar(
-                      backgroundImage:
-                      NetworkImage(listingModels[i].image!),
-                    )
+                            backgroundImage:
+                                NetworkImage(listingModels[i].image!),
+                          )
                         : CircleAvatar(
-                      child: Icon(Icons.person),
-                    ),
+                            child: Icon(Icons.person),
+                          ),
                     title: EraText(
                       text: 'Agent Name',
                       color: AppColors.hint,
@@ -91,7 +91,7 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                     ),
                     subtitle: EraText(
                       text:
-                      "${listingModels[i].firstname!} ${listingModels[i].lastname!}",
+                          "${listingModels[i].firstname!} ${listingModels[i].lastname!}",
                       color: AppColors.black,
                       fontSize: 20.sp,
                     ),
@@ -149,9 +149,12 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                     listing: '${listingModels[i].role}',
                   ),
                   FutureBuilder(
-                    future: FirebaseFirestore.instance.collection('user_info').doc(listingModels[i].id).get(),
-                    builder: (context,snapshot){
-                      if(snapshot.hasData){
+                    future: FirebaseFirestore.instance
+                        .collection('user_info')
+                        .doc(listingModels[i].id)
+                        .get(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
                         var data = snapshot.data!.data();
                         return Column(
                           children: [
@@ -174,7 +177,7 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                             ),
                           ],
                         );
-                      }else{
+                      } else {
                         return Center(
                           child: CircularProgressIndicator(),
                         );
@@ -199,15 +202,16 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                               ),
                             ),
                             backgroundColor:
-                            WidgetStateProperty.all(AppColors.white),
+                                WidgetStateProperty.all(AppColors.white),
                           ),
-                          onPressed: () async{
+                          onPressed: () async {
                             listingModels[i].status = "declined";
                             await listingModels[i].update();
                             await Logs(
-                                title: "${user!.firstname} ${user!.lastname} decline an agent with email ${listingModels[i].email}",
-                                type: "account"
-                            ).add();
+                                    title:
+                                        "${user!.firstname} ${user!.lastname} decline an agent with email ${listingModels[i].email}",
+                                    type: "account")
+                                .add();
                           },
                           icon: Icon(
                             Icons.cancel,
@@ -231,7 +235,7 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                               ),
                             ),
                             backgroundColor:
-                            WidgetStateProperty.all(AppColors.blue),
+                                WidgetStateProperty.all(AppColors.blue),
                           ),
                           onPressed: () {
                             Get.dialog(AlertDialog(
@@ -248,7 +252,7 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                   children: [
                                     EraText(
                                       text:
-                                      'Before you approve this agent, please choose what type of agent you want to this user to be.',
+                                          'Before you approve this agent, please choose what type of agent you want to this user to be.',
                                       color: AppColors.black,
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.bold,
@@ -257,10 +261,17 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                     SharedWidgets.dropDown(
                                         controller.selectedAgentType,
                                         controller.agentType,
-                                            (value) => controller
+                                        (value) => controller
                                             .selectedAgentType.value = value!,
                                         'Agent Type',
                                         'Agent Type'),
+                                    SharedWidgets.dropDown(
+                                        controller.selectedAgentRole,
+                                        controller.agentRole,
+                                        (value) => controller
+                                            .selectedAgentRole.value = value!,
+                                        'Agent Role',
+                                        'Agent Role'),
                                   ],
                                 ),
                               ),
@@ -279,17 +290,18 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                   width: 20.w,
                                 ),
                                 GestureDetector(
-                                  onTap: ()async{
+                                  onTap: () async {
                                     listingModels[i].position =
                                         controller.selectedAgentType.value;
                                     listingModels[i].eraId =
-                                    "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5,"0")}";
+                                        "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}";
                                     listingModels[i].status = "approved";
                                     await listingModels[i].update();
                                     await Logs(
-                                        title: "${user!.firstname} ${user!.lastname} approved an agent with ID ${listingModels[i].eraId}",
-                                        type: "account"
-                                    ).add();
+                                            title:
+                                                "${user!.firstname} ${user!.lastname} approved an agent with ID ${listingModels[i].eraId}",
+                                            type: "account")
+                                        .add();
                                     Get.back();
                                   },
                                   child: EraText(

@@ -212,7 +212,7 @@ class ListingItemss extends StatelessWidget {
                                             snapshot.data?.firstname ?? '',
                                         agentLastName:
                                             snapshot.data?.lastname ?? '',
-                                        agentType: role ?? 'Agent',
+                                        agentRole: role ?? 'Agent',
                                       );
                                     } else {
                                       return Center(
@@ -411,7 +411,7 @@ class ListingItemss extends StatelessWidget {
                           image: agentImage ?? "",
                           agentFirstName: agentFirstName ?? '',
                           agentLastName: agentLastName ?? '',
-                          agentType: role ?? '',
+                          agentRole: role ?? '',
                         ),
                       SizedBox(height: 20.h),
                       Builder(builder: (context) {
