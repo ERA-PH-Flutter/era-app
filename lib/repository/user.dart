@@ -115,6 +115,18 @@ class EraUser {
     await db.collection('users').doc(id).update(toMap());
   }
 
+  deleteOtherUser({required String userId}) async {
+    HttpsCallable callable =
+        FirebaseFunctions.instanceFor(region: 'asia-southeast1')
+            .httpsCallable('deleteOtherUser');
+
+    try {
+      await callable.call({'userId': userId});
+    } catch (e) {
+      print('Error calling function: $e');
+    }
+  }
+
   delete() async {
     HttpsCallable callable =
         FirebaseFunctions.instanceFor(region: 'asia-southeast1')

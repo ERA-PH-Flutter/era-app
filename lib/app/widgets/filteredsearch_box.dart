@@ -118,24 +118,30 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   }
 
   aiSearch() async {
-    var searchQuery = "";
-    BaseController().showLoading();
-    searchQuery = aiSearchController.text;
-    var data = await AI(query: searchQuery).listingSearch();
-    currentRoute = '/searchresult';
-    Get.find<SearchResultController>().searchResultState.value =
-        SearchResultState.loading;
-    Get.find<SearchResultController>().data.value = data;
-    BaseController().hideLoading();
-    selectedIndex.value = 2;
-    pageViewController.animateToPage(
-      2,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
+    try {
+      var searchQuery = "";
+      BaseController().showLoading();
+      searchQuery = aiSearchController.text;
+      var data = await AI(query: searchQuery).listingSearch();
+      currentRoute = '/searchresult';
+      Get.find<SearchResultController>().searchResultState.value =
+          SearchResultState.loading;
+      Get.find<SearchResultController>().data.value = data;
+      BaseController().hideLoading();
+      selectedIndex.value = 2;
+      pageViewController.animateToPage(
+        2,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
 
-    Get.find<SearchResultController>().searchResultState.value =
-        data.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
+      Get.find<SearchResultController>().searchResultState.value =
+          data.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
+    } catch (e) {
+      print('error AI search $e');
+    } finally {
+      BaseController().hideLoading();
+    }
   }
 
   @override
@@ -506,129 +512,97 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                         ),
                         SizedBox(height: 20.h),
                         SearchWidget.build(() async {
-                          BaseController().showLoading();
-                          var data;
-                          var searchQuery = "aaaa";
+                          String searchQuery = '';
+                          // BaseController().showLoading();
+                          // var data;
+                          // var searchQuery = "aaaa";
                           if (isForSale.value == 1) {
-                            data = await Database().getForSaleListing();
-                            searchQuery = "All For Sale Listings";
+                            searchQuery = " Sale. ";
                           } else if (isForSale.value == 2) {
-                            data = await Database().getForRentListing();
-                            searchQuery = "All For Rent Listings";
+                            searchQuery = " Rent. ";
                           }
-                          Query query =
-                              FirebaseFirestore.instance.collection('listings');
+                          // Query query =
+                          //     FirebaseFirestore.instance.collection('listings');
                           if (selectedLocation.value != null) {
-                            query = query.where('location',
-                                isEqualTo:
-                                    selectedLocation.value?.toLowerCase());
+                            searchQuery += ' ${selectedLocation.value}.';
                           }
                           if (selectedPropertyTypeSearch.value != null) {
-                            if (selectedPropertyTypeSearch.value ==
-                                "Commercial") {
-                              query = query.where('type',
-                                  isEqualTo: selectedPropertyTypeSearch
-                                      .value!.capitalizeFirst);
-                            } else {
-                              query = query.where('sub_category',
-                                  isEqualTo: selectedPropertyTypeSearch
-                                      .value!.capitalizeFirst);
-                            }
+                            searchQuery +=
+                                ' ${selectedPropertyTypeSearch.value}.';
                           }
                           if (areaMin.text != "" && areaMax.text != "") {
-                            query = query.where('price',
-                                isGreaterThanOrEqualTo: areaMin.text.toInt());
-                            query = query.where('price',
-                                isLessThanOrEqualTo: areaMax.text.toInt());
+                            searchQuery +=
+                                ' min ${areaMin.value} and max ${areaMax.text}.';
                           }
+                          if (areaMin.text != "" && areaMax.text != "") {
+                            searchQuery +=
+                                ' floor area min ${areaMin.value} and max ${areaMax.text}. ';
+                          }
+
                           if (selectedPriceRange.value != "") {
                             var price = selectedPriceRange.value
                                 .replaceAll(",", "")
                                 .split(" - ");
-                            query = query.where('price',
-                                isGreaterThanOrEqualTo: price[0].contains('M')
-                                    ? price[0].replaceAll("M", "").toInt() *
-                                        1000000
-                                    : price[0].toInt());
-                            query = query.where('price',
-                                isLessThanOrEqualTo: price[1].contains('M')
-                                    ? price[1].replaceAll("M", "").toInt() *
-                                        1000000
-                                    : price[1].toInt());
+
+                            searchQuery +=
+                                ' price min ${price[0].contains('M') ? price[0].replaceAll("M", "").toInt() * 1000000 : price[0].toInt()} and max ${price[1].contains('M') ? price[1].replaceAll("M", "").toInt() * 1000000 : price[1].toInt()}.';
                           }
-                          if (areaMin.text != "" &&
-                              areaMax.text != "" &&
-                              selectedPriceRange.value == "") {
-                            query = query.where('price',
-                                isLessThanOrEqualTo: areaMax.text);
-                            query = query.where('price',
-                                isGreaterThanOrEqualTo: areaMin.text);
-                          }
+
                           if (selectedSubProperty.value != "") {
-                            query = query.where('sub_category',
-                                isLessThanOrEqualTo:
-                                    selectedSubProperty.value.toLowerCase());
+                            searchQuery +=
+                                ' sub_category ${selectedSubProperty.value.toLowerCase()}.';
                           }
                           if (bedrooms.value != 0) {
-                            query = query.where('beds',
-                                isLessThanOrEqualTo: bedrooms.value);
+                            searchQuery += ' beds min ${bedrooms.value}.';
                           }
                           if (bathrooms.value != 0) {
-                            query = query.where('baths',
-                                isLessThanOrEqualTo: bathrooms.value);
+                            searchQuery += ' baths min ${bathrooms.value}.';
                           }
                           if (garage.value != 0) {
-                            query = query.where('garage',
-                                isLessThanOrEqualTo: garage.value);
+                            searchQuery += ' garage min ${garage.value}.';
                           }
+
                           if (ppsqmMin.text.isNotEmpty &&
                               ppsqmMax.text.isNotEmpty) {
-                            query = query.where('ppsqm',
-                                isLessThanOrEqualTo: ppsqmMax.text.toInt());
-                            query = query.where('ppsqm',
-                                isGreaterThanOrEqualTo: ppsqmMin.text.toInt());
+                            searchQuery +=
+                                ' ppsqm min ${ppsqmMin.text.toInt()} and max ${ppsqmMax.text.toInt()}.';
                           }
                           if (floorAreaMax.text.isNotEmpty &&
                               floorAreaMin.text.isNotEmpty) {
-                            query = query.where('floor_area',
-                                isLessThanOrEqualTo: floorAreaMax.text.toInt());
-                            query = query.where('floor_area',
-                                isGreaterThanOrEqualTo:
-                                    floorAreaMin.text.toInt());
+                            searchQuery +=
+                                ' floor_area min ${floorAreaMin.text.toInt()} and max ${floorAreaMax.text.toInt()}.';
                           }
                           if (lotAreaMin.text.isNotEmpty &&
                               lotAreaMax.text.isNotEmpty) {
-                            query = query.where('area',
-                                isLessThanOrEqualTo: lotAreaMin.text.toInt());
-                            query = query.where('area',
-                                isGreaterThanOrEqualTo:
-                                    lotAreaMax.text.toInt());
+                            searchQuery +=
+                                ' lot_area min ${lotAreaMin.text.toInt()} and max ${lotAreaMax.text.toInt()}.';
                           }
-                          data = (await query.get())
-                              .docs
-                              .map((QueryDocumentSnapshot doc) {
-                            return doc.data();
-                          }).toList();
-                          //print(listings);
-                          // if (listings.isNotEmpty && isForSale.value == 0) {
-                          //   data = await EraFunctions.filter(listings, filters);
-                          // } else if (isForSale.value == 0) {
-                          //   BaseController().showSuccessDialog(
-                          //       title: "Error",
-                          //       description:
-                          //           "No results found or invalid filter/s!",
-                          //       hitApi: () {
-                          //         Get.back();
-                          //         Get.back();
-                          //       });
-                          // }
 
-                          selectedIndex.value = 2;
-                          pageViewController = PageController(initialPage: 2);
-                          currentRoute = '/searchresult';
-                          Get.offAll(BaseScaffold(),
-                              binding: SearchResultBinding(),
-                              arguments: [data, searchQuery]);
+                          try {
+                            BaseController().showLoading();
+                            var data =
+                                await AI(query: searchQuery).listingSearch();
+                            Get.find<SearchResultController>()
+                                .searchResultState
+                                .value = SearchResultState.loading;
+
+                            Get.find<SearchResultController>().data.value =
+                                data;
+
+                            for (var element in data) {
+                              print('data location ${element.address}');
+                            }
+                            Get.find<SearchResultController>()
+                                    .searchResultState
+                                    .value =
+                                data.isEmpty
+                                    ? SearchResultState.empty
+                                    : SearchResultState.loaded;
+                          } catch (e) {
+                            print('error AI search $e');
+                          } finally {
+                            BaseController().hideLoading();
+                          }
                         }),
                         SizedBox(height: 20.h),
                       ],

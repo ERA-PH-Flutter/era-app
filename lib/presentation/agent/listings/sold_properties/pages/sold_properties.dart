@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
@@ -12,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../app/constants/screens.dart';
+import '../../../../../app/widgets/button.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../controllers/sold_properties_controller.dart';
 
@@ -263,6 +265,99 @@ class SoldProperties extends GetView<SoldPropertiesController> {
                             ),
                           ),
                         ),
+                        Positioned(
+                          top: Get.height / 3.5,
+                          right: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  context: Get.context!,
+                                  builder: (context) {
+                                    return Dialog(
+                                        child: Card(
+                                      color: AppColors.white,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          sb20(),
+                                          ListTile(
+                                            title: EraText(
+                                              textAlign: TextAlign.center,
+                                              text: 'Are you sure?',
+                                              fontSize: 20.sp,
+                                              color: AppColors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            subtitle: EraText(
+                                              textAlign: TextAlign.center,
+                                              text:
+                                                  'This will remove this property from sold list.',
+                                              fontSize: 15.sp,
+                                              color: AppColors.hint,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          sb20(),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Button(
+                                                width: 60.w,
+                                                height: 40.h,
+                                                text: 'YES',
+                                                color: AppColors.blue,
+                                                fontWeight: FontWeight.bold,
+                                                bgColor: AppColors.hint
+                                                    .withOpacity(0.1),
+                                                onTap: () {},
+                                              ),
+                                              sbw20(),
+                                              Button(
+                                                width: 60.w,
+                                                height: 40.h,
+                                                text: 'NO',
+                                                bgColor: AppColors.blue,
+                                                fontWeight: FontWeight.bold,
+                                                onTap: () {
+                                                  Get.back();
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                          sb30(),
+                                        ],
+                                      ),
+                                    ));
+                                  });
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8.w, vertical: 4.h),
+                              color: AppColors.blue,
+                              child: EraText(
+                                text: 'CLICK TO UNSOLD',
+                                color: Colors.white,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+
+                          // Button.button3(200.w, 35.h, () async {
+                          //   // await Database().listingMarkAsSold(listing.id);
+                          //   // controller.agentListingsState.value =
+                          //   //     AgentListingsState.loading;
+                          //   // await controller.loadListing();
+                          //   // Get.showSnackbar(GetSnackBar(
+                          //   //   title: "Success",
+                          //   //   message: "Listing has been mark as sold!",
+                          //   //   backgroundColor: AppColors.kRedColor,
+                          //   //   duration: Duration(seconds: 1, milliseconds: 500),
+                          //   // ));
+                          // }, 'CLICK TO UNSOLD', AppColors.blue,
+                          //     fontWeight: FontWeight.w500, fontSize: 15.sp),
+                        )
                       ],
                     ),
                   ),

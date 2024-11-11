@@ -141,6 +141,29 @@ export const deleteUser = onCall({ region: 'asia-southeast1', }, async (req) => 
     }
 });
 
+export const deleteOtherUser = onCall({ region: 'asia-southeast1', }, async (req) => {
+    const uid = req.auth?.uid// Assuming the UID is passed in the request body
+
+    try {
+        if (uid != null) {
+            const userId = req.data.userId ?? '' // Assuming the UID is passed in the request body
+            if (userId.length == 0) {
+                console.error('Cannot delete user')
+
+                return
+            }
+            const documentRef = admin.firestore().collection('users').doc(userId);
+            await documentRef.delete();
+            await admin.auth().deleteUser(userId);
+        }
+        else {
+            console.error('Cannot delete user')
+        }
+    } catch (error) {
+        console.error(`Error deleting user: ${uid}`, error);
+    }
+});
+
 
 export const projectQuery = onCall({ region: 'asia-southeast1', enforceAppCheck: false, }, async (req) => {
     const uid = req.auth?.uid
@@ -223,7 +246,7 @@ function calculateScore(queryTokens: string[], documentTokens: string) {
         const splitQuery = queryToken.split(' ').map((e) => e.toLocaleLowerCase());
         for (const val of splitQuery) {
             if (documentTokens.includes(val)) {
-                score = score + .5;
+                score = score + .3;
             }
         }
     }

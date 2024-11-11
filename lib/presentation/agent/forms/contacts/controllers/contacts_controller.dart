@@ -39,15 +39,15 @@ class ContactusController extends GetxController {
   @override
   onInit() async {
     super.onInit();
-    youtubePlayerController = YoutubePlayerController(
-      initialVideoId: 'UcbQCfRCoeA',
-      flags: YoutubePlayerFlags(
-        enableCaption: false,
-        autoPlay: true,
-        mute: false,
-        forceHD: true,
-      ),
-    );
+    // youtubePlayerController = YoutubePlayerController(
+    //   initialVideoId: 'UcbQCfRCoeA',
+    //   flags: YoutubePlayerFlags(
+    //     enableCaption: false,
+    //     autoPlay: true,
+    //     mute: false,
+    //     forceHD: true,
+    //   ),
+    // );
     faqs.value = (await FirebaseFirestore.instance
             .collection('faq')
             .orderBy('type')
@@ -84,7 +84,6 @@ class ContactusController extends GetxController {
             selectedSubj.value = null;
             Get.back();
           });
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 }

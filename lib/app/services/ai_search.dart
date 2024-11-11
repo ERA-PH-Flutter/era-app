@@ -107,7 +107,15 @@ class AI {
       },
       "view": {
         "type": "string",
-        "enum": ["sunset", "sunrise", "mountain", "beach", "city", "Others"]
+        "enum": [
+          "sunset",
+          "sunrise",
+          "sea view",
+          "mountain view",
+          "beach",
+          "city view",
+          "Others"
+        ]
       },
       "amenities": {"type": "string"},
       "status": {
@@ -143,6 +151,27 @@ class AI {
           "max": {"type": "number"}
         }
       },
+      "lot_area": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
+      "floor_area": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
+      "ppsqm": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
       "garage": {
         "type": "object",
         "properties": {
@@ -161,7 +190,6 @@ class AI {
         "type": "string",
       }
     };
-
     if (query.isEmpty) {
       return (await FirebaseFirestore.instance.collection('listings').get())
           .docs
@@ -171,7 +199,6 @@ class AI {
     var result = await geminiSearch(geminiData,
         name: "getListing",
         description: "Assign accordingly do not assign value if not specified");
-
     Query<Map<String, dynamic>> firebaseQuery =
         FirebaseFirestore.instance.collection('listings');
     List<AiFilters> prompts = [];
@@ -190,11 +217,16 @@ class AI {
         prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
       }
     });
-    final listingData = (await firebaseQuery.get())
-        .docs
-        .map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
+    Iterable<Listing> listingData = [];
+    try {
+      listingData = (await firebaseQuery.get())
+          .docs
+          .map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
+    } catch (e) {
+      return [];
+    }
 
-    final Set<Listing> filteredData = {};
+    final Map<Listing, double> filteredData = {};
 
     for (var data in listingData) {
       double score = 0;
@@ -209,63 +241,61 @@ class AI {
           }
           continue;
         }
-        if (prompts[i].field == "sub_category") {
-          if (data
-              .toMap()
-              .toString()
-              .toLowerCase()
-              .contains(prompts[i].value.toString().toLowerCase())) {
-            score++;
-          }
-          continue;
-        }
-        if (prompts[i].field == "type") {
-          if (data
-              .toMap()
-              .toString()
-              .toLowerCase()
-              .contains(prompts[i].value.toString().toLowerCase())) {
-            score++;
-          }
-          continue;
-        }
+
         if (prompts[i].operator == ">") {
           if ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value) {
-            score++;
+            score += .5;
           }
           continue;
         }
         if (prompts[i].operator == "<") {
           if ((data.toMap()[prompts[i].field] ?? 0) <= prompts[i].value) {
-            score++;
+            score += .5;
           }
           continue;
         }
         if (prompts[i].operator == "=") {
           if ((data.toMap()[prompts[i].field] ?? 0) == prompts[i].value) {
-            score++;
+            score += 1;
           }
           continue;
         }
       }
-      print('here 222 ${prompts.map((e) => '${e.field}, ${e.value}')}');
       final querySplit = query.split(' ').map((e) => e.toLowerCase());
       for (var split in querySplit) {
-        if ((data
-            .toMap()
-            .toString()
-            .toLowerCase()
-            .contains(split.toLowerCase()))) {
-          score = score + 0.5;
+        if (geminiData.toString().contains(split)) continue;
+
+        if (double.tryParse(split) == null) {
+          if ((data
+              .toMap()
+              .toString()
+              .toLowerCase()
+              .contains(split.toLowerCase()))) {
+            score = score + 0.3;
+          }
         }
+      }
+      // bonus if it matches exact query string from user
+      if ((data
+          .toMap()
+          .toString()
+          .toLowerCase()
+          .contains(query.trim().toLowerCase()))) {
+        score = score + .3;
       }
 
       if (score >= 1) {
-        filteredData.add(data);
+        filteredData[data] = score;
       }
     }
 
-    return filteredData.toList();
+    var sortedEntries = filteredData.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    Map<Listing, double> sortedScores = {
+      for (var entry in sortedEntries) entry.key: entry.value
+    };
+
+    return sortedScores.keys.toList();
   }
 
   faqSearch() async {
