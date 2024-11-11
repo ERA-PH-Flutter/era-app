@@ -49,39 +49,50 @@ class AddAgent extends GetView<AgentAdminController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: textFormfield(
-                          controller: controller.fNameA,
-                          hintText: 'First Name *',
-                          textInputType: TextInputType.text),
-                    ),
-                    sb20(),
-                    sbw20(),
-                    Expanded(
-                      child: textFormfield(
-                          controller: controller.lNameA,
-                          hintText: 'Last Name *',
-                          textInputType: TextInputType.text),
-                    ),
-                    sb20(),
-                    sbw20(),
-                    Expanded(
-                      child: textFormfield(
-                          controller: controller.phoneNA,
-                          hintText: 'PhoneNumber *',
-                          textInputType: TextInputType.number),
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10.w),
+                        child: textFormfield(
+                            controller: controller.fNameA,
+                            hintText: 'First Name *',
+                            textInputType: TextInputType.text),
+                      ),
                     ),
                     sb20(),
                     sbw20(),
                     Expanded(
                       flex: 1,
-                      child: dropDownListings(
-                        selectedItem: controller.selectedAgentType,
-                        Types: controller.agentType,
-                        onChanged: (value) =>
-                            controller.selectedAgentType.value = value!,
-                        hintText: 'Agent Position *',
+                      child: Container(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: textFormfield(
+                            controller: controller.lNameA,
+                            hintText: 'Last Name *',
+                            textInputType: TextInputType.text),
                       ),
                     ),
+
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10.w),
+                        child: textFormfield(
+                            controller: controller.phoneNA,
+                            hintText: 'PhoneNumber *',
+                            textInputType: TextInputType.number),
+                      ),
+                    ),
+                    // sb20(),
+                    // sbw20(),
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: dropDownListings(
+                    //     selectedItem: controller.selectedAgentType,
+                    //     Types: controller.agentType,
+                    //     onChanged: (value) =>
+                    //         controller.selectedAgentType.value = value!,
+                    //     hintText: 'Agent Position *',
+                    //   ),
+                    //   ),
                   ],
                 ),
                 sb20(),
