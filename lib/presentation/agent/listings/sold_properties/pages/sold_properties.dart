@@ -307,6 +307,7 @@ class SoldProperties extends GetView<SoldPropertiesController> {
                                                 height: 40.h,
                                                 text: 'YES',
                                                 color: AppColors.blue,
+                                                fontWeight: FontWeight.bold,
                                                 bgColor: AppColors.hint
                                                     .withOpacity(0.1),
                                                 onTap: () {},
@@ -317,6 +318,7 @@ class SoldProperties extends GetView<SoldPropertiesController> {
                                                 height: 40.h,
                                                 text: 'NO',
                                                 bgColor: AppColors.blue,
+                                                fontWeight: FontWeight.bold,
                                                 onTap: () {
                                                   Get.back();
                                                 },
