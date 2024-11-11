@@ -52,10 +52,20 @@ class AgentAdminController extends GetxController with BaseController {
   var images;
   final picker = ImagePicker();
   final removeImage = false.obs;
-  Stream<QuerySnapshot<Map<String, dynamic>>> searchStream = FirebaseFirestore.instance.collection('users').orderBy('full_name').snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> searchStream = FirebaseFirestore
+      .instance
+      .collection('users')
+      .orderBy('full_name')
+      .snapshots();
 
   var agentType = ['ASC', 'AMM', 'MM', 'SMM', 'MD', 'SMD', 'ADD', 'BDD'];
   var selectedAgentType = RxnString();
+
+  var agentRole = ['ERA Infinity Agent', ' ERA Infinity Broker'];
+  var selectedAgentRole = RxnString();
+
+  var selectedGender = RxnString();
+  var agentGender = ['Male', 'Female'];
 
   TextEditingController fNameA = TextEditingController();
   TextEditingController lNameA = TextEditingController();
@@ -72,6 +82,7 @@ class AgentAdminController extends GetxController with BaseController {
   TextEditingController officeLA = TextEditingController();
   TextEditingController licensedNumA = TextEditingController();
   TextEditingController parking = TextEditingController();
+  TextEditingController age = TextEditingController();
 
 // roster
   TextEditingController message = TextEditingController();
@@ -95,7 +106,8 @@ class AgentAdminController extends GetxController with BaseController {
     parking.clear();
     selectedAgentType.value = null;
   }
-  setValues(EraUser user){
+
+  setValues(EraUser user) {
     agentListingssss = user;
     fNameA.text = user.firstname!;
     lNameA.text = user.lastname!;
@@ -109,10 +121,11 @@ class AgentAdminController extends GetxController with BaseController {
     positionA.text = user.position!;
     descriptionA.text = user.description!;
     officeLA.text = user.office ?? "";
-    licensedNumA.text = user.licence?? "";
+    licensedNumA.text = user.licence ?? "";
     selectedAgentType.value = user.position ?? "ASC";
   }
-  updateValues()async{
+
+  updateValues() async {
     agentListingssss!.birthday = dateBirthA.text;
     agentListingssss!.firstname = fNameA.text;
     agentListingssss!.lastname = lNameA.text;
@@ -126,9 +139,10 @@ class AgentAdminController extends GetxController with BaseController {
     agentListingssss!.office = officeLA.text;
     await agentListingssss!.update();
     await Logs(
-        title: "${user!.firstname} ${user!.lastname} edited an agent with ID ${agentListingssss!.eraId}",
-        type: "account"
-    ).add();
+            title:
+                "${user!.firstname} ${user!.lastname} edited an agent with ID ${agentListingssss!.eraId}",
+            type: "account")
+        .add();
   }
 //create listing controller
 
@@ -148,8 +162,7 @@ class AgentAdminController extends GetxController with BaseController {
   removeAt(int index) {
     images.removeAt(index);
 
-    if (images.isEmpty) {
-    }
+    if (images.isEmpty) {}
   }
 
   removeMode() {
@@ -159,16 +172,30 @@ class AgentAdminController extends GetxController with BaseController {
   clearImage() {
     images.clear();
   }
-  Stream<QuerySnapshot<Map<String, dynamic>>> getStream(){
-    if(fNameA.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('users').where('full_name',isGreaterThanOrEqualTo: fNameA.text)
-          .where('full_name', isLessThanOrEqualTo:  '${fNameA.text}\uf8ff').orderBy('full_name').snapshots();
-    }else if(phoneNA.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('users').where('phone',isEqualTo: emailAdressA.text).snapshots();
-    }else if(emailAdressA.text.isNotEmpty){
-      return  FirebaseFirestore.instance.collection('users').where('email',isEqualTo: emailAdressA.text).snapshots();
-    }else{
-      return  FirebaseFirestore.instance.collection('users').orderBy('full_name').snapshots();
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getStream() {
+    if (fNameA.text.isNotEmpty) {
+      return FirebaseFirestore.instance
+          .collection('users')
+          .where('full_name', isGreaterThanOrEqualTo: fNameA.text)
+          .where('full_name', isLessThanOrEqualTo: '${fNameA.text}\uf8ff')
+          .orderBy('full_name')
+          .snapshots();
+    } else if (phoneNA.text.isNotEmpty) {
+      return FirebaseFirestore.instance
+          .collection('users')
+          .where('phone', isEqualTo: emailAdressA.text)
+          .snapshots();
+    } else if (emailAdressA.text.isNotEmpty) {
+      return FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: emailAdressA.text)
+          .snapshots();
+    } else {
+      return FirebaseFirestore.instance
+          .collection('users')
+          .orderBy('full_name')
+          .snapshots();
     }
   }
 }

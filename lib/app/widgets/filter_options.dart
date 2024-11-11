@@ -8,6 +8,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
+import 'package:eraphilippines/presentation/global.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -171,11 +172,8 @@ class RoomsAndBedsFilter extends StatelessWidget {
   }
 }
 
-// Reusable Property Type Widget
 class PropertyTypeFilter extends StatelessWidget {
-  //final FilterController controller;
-  final subCategory;
-  const PropertyTypeFilter({super.key, required this.subCategory});
+  const PropertyTypeFilter({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +185,8 @@ class PropertyTypeFilter extends StatelessWidget {
         SharedWidgets.dropDown(
             addListingsController.selectedPropertySubCategory,
             subCategory,
-            (value) => subCategory.value = value!,
+            (value) => addListingsController.selectedPropertySubCategory.value =
+                value!,
             'Subcategory',
             'Subcategory'),
       ],
@@ -309,9 +308,7 @@ void openFilterDialog({
                     color: AppColors.black,
                   ),
                   SizedBox(height: 10.h),
-                  PropertyTypeFilter(
-                    subCategory: subcategory,
-                  ),
+                  PropertyTypeFilter(),
                   //
                   SizedBox(height: 10.h),
                   //rooms and beds

@@ -36,6 +36,7 @@ class AddListingsController extends GetxController with BaseController {
   var selectedPropertySubCategory = RxnString();
   var selectedView = RxnString();
   Listing? listing;
+  var selectedsubCategory = RxnString();
 
   generateMarker(position) async {
     marker.value = {
@@ -49,11 +50,11 @@ class AddListingsController extends GetxController with BaseController {
   }
 
   var viewL = [
-    "SUNSET",
-    "SUNRISE",
-    "SEA VIEW",
-    "CITY VIEW",
-    "MOUNTAIN VIEW",
+    "Sunset",
+    "Sunrise",
+    "Sea View",
+    "City View",
+    "Mountain View",
     "N/A",
   ];
 

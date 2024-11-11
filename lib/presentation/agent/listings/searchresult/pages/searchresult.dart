@@ -315,7 +315,7 @@ class SearchResult extends GetView<SearchResultController> {
                                                 AppStrings.noUserImageWhite,
                                             agentFirstName:
                                                 user1.firstname ?? "No Name",
-                                            agentType: user1.role ?? "Agent",
+                                            agentRole: user1.role ?? "Agent",
                                             agentLastName:
                                                 user1.lastname ?? ""),
                                       );
