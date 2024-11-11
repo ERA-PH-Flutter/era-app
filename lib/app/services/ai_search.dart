@@ -151,6 +151,27 @@ class AI {
           "max": {"type": "number"}
         }
       },
+      "lot_area": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
+      "floor_area": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
+      "ppsqm": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
       "garage": {
         "type": "object",
         "properties": {
@@ -169,7 +190,6 @@ class AI {
         "type": "string",
       }
     };
-
     if (query.isEmpty) {
       return (await FirebaseFirestore.instance.collection('listings').get())
           .docs
@@ -179,7 +199,6 @@ class AI {
     var result = await geminiSearch(geminiData,
         name: "getListing",
         description: "Assign accordingly do not assign value if not specified");
-    print('gemini search ${result}');
     Query<Map<String, dynamic>> firebaseQuery =
         FirebaseFirestore.instance.collection('listings');
     List<AiFilters> prompts = [];
@@ -225,31 +244,35 @@ class AI {
 
         if (prompts[i].operator == ">") {
           if ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value) {
-            score++;
+            score += .5;
           }
           continue;
         }
         if (prompts[i].operator == "<") {
           if ((data.toMap()[prompts[i].field] ?? 0) <= prompts[i].value) {
-            score++;
+            score += .5;
           }
           continue;
         }
         if (prompts[i].operator == "=") {
           if ((data.toMap()[prompts[i].field] ?? 0) == prompts[i].value) {
-            score++;
+            score += 1;
           }
           continue;
         }
       }
       final querySplit = query.split(' ').map((e) => e.toLowerCase());
       for (var split in querySplit) {
-        if ((data
-            .toMap()
-            .toString()
-            .toLowerCase()
-            .contains(split.toLowerCase()))) {
-          score = score + 0.3;
+        if (geminiData.toString().contains(split)) continue;
+
+        if (double.tryParse(split) == null) {
+          if ((data
+              .toMap()
+              .toString()
+              .toLowerCase()
+              .contains(split.toLowerCase()))) {
+            score = score + 0.3;
+          }
         }
       }
       // bonus if it matches exact query string from user
@@ -258,7 +281,7 @@ class AI {
           .toString()
           .toLowerCase()
           .contains(query.trim().toLowerCase()))) {
-        score = score + .5;
+        score = score + .3;
       }
 
       if (score >= 1) {
