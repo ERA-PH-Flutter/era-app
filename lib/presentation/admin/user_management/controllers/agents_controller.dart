@@ -64,6 +64,9 @@ class AgentAdminController extends GetxController with BaseController {
   var agentRole = ['ERA Infinity Agent', ' ERA Infinity Broker'];
   var selectedAgentRole = RxnString();
 
+  var selectedGender = RxnString();
+  var agentGender = ['Male', 'Female'];
+
   TextEditingController fNameA = TextEditingController();
   TextEditingController lNameA = TextEditingController();
   TextEditingController emailAdressA = TextEditingController();
@@ -79,6 +82,7 @@ class AgentAdminController extends GetxController with BaseController {
   TextEditingController officeLA = TextEditingController();
   TextEditingController licensedNumA = TextEditingController();
   TextEditingController parking = TextEditingController();
+  TextEditingController age = TextEditingController();
 
 // roster
   TextEditingController message = TextEditingController();

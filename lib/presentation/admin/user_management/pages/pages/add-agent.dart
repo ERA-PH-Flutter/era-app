@@ -14,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../app/widgets/createaccount_widget.dart';
 import '../../../../../repository/logs.dart';
 import '../../../../../repository/user.dart';
 import '../../../../global.dart';
@@ -24,277 +25,316 @@ class AddAgent extends GetView<AgentAdminController> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 20.h,
-            ),
-            EraText(
-              text:
-                  '${controller.agentListingssss != null ? "EDIT" : "ADD"} AGENT',
-              fontSize: EraTheme.header,
-              color: AppColors.black,
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            buildTextFormField2('First Name *', controller.fNameA,
-                'Last Name *', controller.lNameA),
-            SizedBox(
-              height: 10.h,
-            ),
-            buildTextFormField3(
-                'Email Address *',
-                controller.emailAdressA,
-                'Date of Birth *',
-                controller.dateBirthA,
-                'Gender *',
-                controller.sexA, onTap: () async {
-              var date = await showDatePicker(
-                  context: Get.context!,
-                  firstDate: DateTime(1930),
-                  lastDate: DateTime(2005),
-                  currentDate: DateTime(2000));
-              controller.dateBirthA.text =
-                  DateFormat('MM dd, yyyy').format(date!);
-            }),
-            SizedBox(
-              height: 10.h,
-            ),
-            buildTextFormField2(
-              'Office Location *',
-              controller.officeLA,
-              'Licensed Number *',
-              controller.licensedNumA,
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 15.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        EraText(
-                          text: 'Phone Number *',
-                          fontSize: 18.sp,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w500,
-                          lineHeight: 0.5,
-                        ),
-                        sb10(),
-                        SizedBox(
-                          height: 125.h,
-                          width: Get.width / 5.1 - 4.w,
-                          child: TextformfieldWidget(
-                            controller: controller.phoneNA,
-                            fontSize: 18.sp,
-                            maxLines: 1,
-                            keyboardType: TextInputType.number,
-                          ),
-                        ),
-                      ],
+        scrollDirection: Axis.vertical,
+        child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: EraTheme.paddingWidthAdmin - 5.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20.h,
+                ),
+                EraText(
+                  text:
+                      '${controller.agentListingssss != null ? "EDIT" : "ADD"} AGENT',
+                  fontSize: EraTheme.header,
+                  color: AppColors.black,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: textFormfield(
+                          controller: controller.fNameA,
+                          hintText: 'First Name *',
+                          textInputType: TextInputType.text),
                     ),
-                  ),
-                  sbw25(),
-                  SizedBox(
-                    height: 126.h,
-                    width: Get.width / 5.1 - 4.w,
-                    child: AddListings.dropDownAddlistings(
-                        padding: EdgeInsets.zero,
+                    sb20(),
+                    sbw20(),
+                    Expanded(
+                      child: textFormfield(
+                          controller: controller.lNameA,
+                          hintText: 'Last Name *',
+                          textInputType: TextInputType.text),
+                    ),
+                    sb20(),
+                    sbw20(),
+                    Expanded(
+                      child: textFormfield(
+                          controller: controller.phoneNA,
+                          hintText: 'PhoneNumber *',
+                          textInputType: TextInputType.number),
+                    ),
+                    sb20(),
+                    sbw20(),
+                    Expanded(
+                      flex: 1,
+                      child: dropDownListings(
                         selectedItem: controller.selectedAgentType,
                         Types: controller.agentType,
                         onChanged: (value) =>
-                            controller.selectedAgentType.value,
-                        name: 'Position *',
-                        hintText: 'Select Position'),
-                  ),
-                  sbw25(),
-                  Padding(
-                    padding: EdgeInsets.only(top: 15.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        EraText(
-                          text: 'Password *',
-                          fontSize: 18.sp,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w500,
-                          lineHeight: 0.5,
-                        ),
-                        sb10(),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 15.w),
-                          height: 120.h,
-                          width: Get.width / 5.1 - 4.w,
-                          child: TextformfieldWidget(
-                            controller: controller.passwordA,
-                            fontSize: 12.sp,
-                            maxLines: 1,
-                            keyboardType: TextInputType.text,
-                          ),
-                        ),
-                      ],
+                            controller.selectedAgentType.value = value!,
+                        hintText: 'Agent Position *',
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 20.w),
-                  Padding(
-                    padding: EdgeInsets.only(top: 15.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        EraText(
-                          text: 'Confirm Password *',
-                          fontSize: 18.sp,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w500,
-                          lineHeight: 0.5,
-                        ),
-                        sb10(),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 15.w),
-                          height: 120.h,
-                          width: Get.width / 5.1 - 4.w,
-                          child: TextformfieldWidget(
-                            controller: controller.confirmPA,
-                            fontSize: 18.sp,
-                            maxLines: 1,
-                            keyboardType: TextInputType.text,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            buildTextFieldFormDesc('Description *', controller.descriptionA),
-            SizedBox(
-              height: 10.h,
-            ),
-            // buildUploadPhoto(onTap: () async{
-            //   controller.getImageGallery();
-            // }),
-            Padding(
-              padding: EdgeInsets.all(8.sp),
-              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                Button(
-                  onTap: () async {
-                    if (controller.agentListingssss == null) {
-                      BaseController().showLoading();
-                      try {
-                        await Authentication().signup(
-                            email: controller.emailAdressA.text,
-                            password: controller.passwordA.text);
-                        var id = await Authentication().login(
-                            email: controller.emailAdressA.text,
-                            password: controller.passwordA.text);
-                        //var image = await CloudStorage().upload(file: controller.images, target: 'users/test/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}');
-                        await EraUser(
-                                id: id,
-                                firstname: controller.fNameA.text,
-                                lastname: controller.lNameA.text,
-                                email: controller.emailAdressA.text,
-                                birthday: controller.dateBirthA.text,
-                                whatsApp: controller.phoneNA.text,
-                                gender: controller.sexA.text,
-                                location: controller.officeLA.text,
-                                licence: controller.licensedNumA.text,
-                                position: controller.selectedAgentType.value,
-                                description: controller.descriptionA.text,
-                                eraId:
-                                    "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
-                                status: "approved")
-                            .add();
-                        await Logs(
-                                title:
-                                    "${user!.firstname} ${user!.lastname} added an agent with ID ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
-                                type: "account")
-                            .add();
-                        settings!.agentCount = settings!.agentCount! + 1;
-                        await settings!.update();
-                        BaseController().showSuccessDialog(
-                            title: "Add Agent Success",
-                            description: "Agent added successfully!",
-                            hitApi: () {
-                              Get.back();
-                              Get.back();
-                            });
-                      } catch (e) {
-                        BaseController().showSuccessDialog(
-                            title: "Error!",
-                            description: "$e",
-                            hitApi: () {
-                              Get.back();
-                              Get.back();
-                            });
-                      }
-                    } else {
-                      BaseController().showLoading();
-                      BaseController().showSuccessDialog(
-                          title: "Edit Agent Success",
-                          description: "Agent edited successfully!",
-                          hitApi: () {
-                            Get.back();
-                            Get.back();
-                          });
-                      try {
-                        await controller.updateValues();
-                      } catch (e) {
-                        BaseController().showSuccessDialog(
-                            title: "Error!",
-                            description: "$e",
-                            hitApi: () {
-                              Get.back();
-                              Get.back();
-                            });
-                      }
-                    }
-                  },
-                  margin: EdgeInsets.symmetric(horizontal: 5),
-                  width: 150.w,
-                  text: controller.agentListingssss == null ? 'SUBMIT' : "EDIT",
-                  bgColor: AppColors.blue,
-                  borderRadius: BorderRadius.circular(30),
+                  ],
                 ),
-                Builder(
-                  builder: (context) {
-                    if (controller.agentListingssss == null) {
-                      return Button(
-                        onTap: () {
-                          controller.clearfield();
-                        },
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        width: 150.w,
-                        text: 'CLEAR FIELDS',
-                        bgColor: AppColors.hint,
-                        borderRadius: BorderRadius.circular(30),
-                      );
-                    } else {
-                      return Container();
-                    }
-                  },
-                )
-              ]),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-          ],
-        ),
-      ),
-    );
+                sb20(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: textFormfield(
+                          controller: controller.emailAdressA,
+                          hintText: 'Email Address *',
+                          textInputType: TextInputType.text),
+                    ),
+                    sb20(),
+                    sbw20(),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        padding: EdgeInsets.only(right: 10.w),
+                        child: textFormfield(
+                          hintText: 'Age *',
+                          textInputType: TextInputType.text,
+                          controller: controller.age,
+                        ),
+                      ),
+                    ),
+
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        padding: EdgeInsets.only(left: 10.w),
+                        child: dropDownListings(
+                          selectedItem: controller.selectedGender,
+                          Types: controller.agentGender,
+                          onChanged: (value) =>
+                              controller.selectedGender.value = value!,
+                          hintText: 'Gender *',
+                        ),
+                      ),
+                    ),
+
+                    //    Expanded(
+                    //   flex: 1,
+                    //   child: textFormfield(
+                    //     hintText: 'Age *',
+                    //     textInputType: TextInputType.text,
+                    //     controller: controller.age,
+                    //     // onTap: () async {
+                    //     //   var date = await showDatePicker(
+                    //     //       context: Get.context!,
+                    //     //       firstDate: DateTime(1930),
+                    //     //       lastDate: DateTime(2005),
+                    //     //       currentDate: DateTime(2000));
+                    //     //   controller.dateBirthA.text =
+                    //     //       DateFormat('MM dd, yyyy').format(date!);
+                    //     // }
+                    //   ),
+                    // ),
+                  ],
+                ),
+                sb20(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: dropDownListings(
+                        selectedItem: controller.selectedAgentType,
+                        Types: controller.agentType,
+                        onChanged: (value) =>
+                            controller.selectedAgentType.value = value!,
+                        hintText: 'Agent Type *',
+                      ),
+                    ),
+                    sb20(),
+                    sbw20(),
+                    Expanded(
+                      flex: 1,
+                      child: dropDownListings(
+                        selectedItem: controller.selectedAgentRole,
+                        Types: controller.agentRole,
+                        onChanged: (value) =>
+                            controller.selectedAgentRole.value = value!,
+                        hintText: 'Agent Role *',
+                      ),
+                    ),
+                    sb20(),
+                    sbw20(),
+                    Expanded(
+                      child: textFormfield(
+                          controller: controller.passwordA,
+                          hintText: 'Password *',
+                          textInputType: TextInputType.text),
+                    ),
+                    sb20(),
+                    sbw20(),
+                    Expanded(
+                      child: textFormfield(
+                          controller: controller.confirmPA,
+                          hintText: 'Confirm Password *',
+                          textInputType: TextInputType.text),
+                    ),
+                  ],
+                ),
+                sb20(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: textFormfield(
+                          controller: controller.officeLA,
+                          hintText: 'Office Location *',
+                          textInputType: TextInputType.text),
+                    ),
+                    sb20(),
+                    sbw20(),
+                    Expanded(
+                      child: textFormfield(
+                          controller: controller.licensedNumA,
+                          hintText: 'Licensed Number *',
+                          textInputType: TextInputType.text),
+                    ),
+                  ],
+                ),
+                sb20(),
+
+                textFormfield(
+                    controller: controller.descriptionA,
+                    hintText: 'Description *',
+                    textInputType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
+                    MaxLines: 10),
+
+                SizedBox(
+                  height: 10.h,
+                ),
+                // buildUploadPhoto(onTap: () async{
+                //   controller.getImageGallery();
+                // }),
+                Padding(
+                  padding: EdgeInsets.all(8.sp),
+                  child:
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    Button(
+                      onTap: () async {
+                        if (controller.agentListingssss == null) {
+                          BaseController().showLoading();
+                          try {
+                            await Authentication().signup(
+                                email: controller.emailAdressA.text,
+                                password: controller.passwordA.text);
+                            var id = await Authentication().login(
+                                email: controller.emailAdressA.text,
+                                password: controller.passwordA.text);
+                            //var image = await CloudStorage().upload(file: controller.images, target: 'users/test/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}');
+                            await EraUser(
+                                    id: id,
+                                    firstname: controller.fNameA.text,
+                                    lastname: controller.lNameA.text,
+                                    email: controller.emailAdressA.text,
+                                    birthday: controller.dateBirthA.text,
+                                    whatsApp: controller.phoneNA.text,
+                                    gender: controller.sexA.text,
+                                    location: controller.officeLA.text,
+                                    licence: controller.licensedNumA.text,
+                                    position:
+                                        controller.selectedAgentType.value,
+                                    description: controller.descriptionA.text,
+                                    eraId:
+                                        "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
+                                    status: "approved")
+                                .add();
+                            await Logs(
+                                    title:
+                                        "${user!.firstname} ${user!.lastname} added an agent with ID ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
+                                    type: "account")
+                                .add();
+                            settings!.agentCount = settings!.agentCount! + 1;
+                            await settings!.update();
+                            BaseController().showSuccessDialog(
+                                title: "Add Agent Success",
+                                description: "Agent added successfully!",
+                                hitApi: () {
+                                  Get.back();
+                                  Get.back();
+                                });
+                          } catch (e) {
+                            BaseController().showSuccessDialog(
+                                title: "Error!",
+                                description: "$e",
+                                hitApi: () {
+                                  Get.back();
+                                  Get.back();
+                                });
+                          }
+                        } else {
+                          BaseController().showLoading();
+                          BaseController().showSuccessDialog(
+                              title: "Edit Agent Success",
+                              description: "Agent edited successfully!",
+                              hitApi: () {
+                                Get.back();
+                                Get.back();
+                              });
+                          try {
+                            await controller.updateValues();
+                          } catch (e) {
+                            BaseController().showSuccessDialog(
+                                title: "Error!",
+                                description: "$e",
+                                hitApi: () {
+                                  Get.back();
+                                  Get.back();
+                                });
+                          }
+                        }
+                      },
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      width: 150.w,
+                      text: controller.agentListingssss == null
+                          ? 'SUBMIT'
+                          : "EDIT",
+                      bgColor: AppColors.blue,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    Builder(
+                      builder: (context) {
+                        if (controller.agentListingssss == null) {
+                          return Button(
+                            onTap: () {
+                              controller.clearfield();
+                            },
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            width: 150.w,
+                            text: 'CLEAR FIELDS',
+                            bgColor: AppColors.hint,
+                            borderRadius: BorderRadius.circular(30),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    )
+                  ]),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+              ],
+            )));
   }
 
   static Widget buildTextFormField(
@@ -639,6 +679,85 @@ class AddAgent extends GetView<AgentAdminController> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget dropDownListings(
+      {RxnString? selectedItem,
+      List<String>? Types,
+      Function(String?)? onChanged,
+      String? hintText}) {
+    return Obx(
+      () => DropdownButtonFormField<String>(
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: AppColors.hint),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: AppColors.hint),
+          ),
+        ),
+        dropdownColor: AppColors.white,
+        focusColor: AppColors.hint,
+        value: selectedItem?.value,
+        style: TextStyle(color: Colors.white),
+        iconEnabledColor: Colors.black,
+        isExpanded: true,
+        isDense: true,
+        hint: Align(
+          alignment: Alignment.centerLeft,
+          child: EraText(
+            text: hintText!,
+            textAlign: TextAlign.center,
+            color: Colors.grey,
+            fontSize: 20.sp,
+          ),
+        ),
+        items: Types!.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: EraText(
+              text: value,
+              color: AppColors.black,
+              fontSize: 20.sp,
+            ),
+          );
+        }).toList(),
+        onChanged: onChanged,
+      ),
+    );
+  }
+
+  Widget textFormfield({
+    String? hintText,
+    TextInputType? textInputType,
+    String? name,
+    TextEditingController? controller,
+    int? MaxLines,
+    onTap,
+    TextInputAction? textInputAction,
+  }) {
+    return TextFormField(
+      maxLines: MaxLines ?? 1,
+      controller: controller,
+      textInputAction: textInputAction ?? TextInputAction.none,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(color: AppColors.hint, fontSize: 18.sp),
+        labelStyle: TextStyle(color: AppColors.hint),
+        filled: false,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: AppColors.hint),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: AppColors.hint),
+        ),
+      ),
+      keyboardType: textInputType ?? TextInputType.none,
     );
   }
 }
