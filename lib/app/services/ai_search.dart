@@ -161,6 +161,13 @@ class AI {
         "type": "string",
       }
     };
+
+    if (query.isEmpty) {
+      return (await FirebaseFirestore.instance.collection('listings').get())
+          .docs
+          .map((e) => Listing.fromJSON(e.data()))
+          .toList();
+    }
     var result = await geminiSearch(geminiData,
         name: "getListing",
         description: "Assign accordingly do not assign value if not specified");
@@ -193,17 +200,9 @@ class AI {
     final Set<Listing> filteredData = {};
 
     for (var data in listingData) {
-      int score = 0;
+      double score = 0;
       for (int i = 0; i < (prompts.length); i++) {
         if (prompts[i].field == "name") {
-          // firebaseQuery = firebaseQuery
-          //     .where('name',
-          //         isGreaterThanOrEqualTo:
-          //             prompts[i].value.toString().capitalize)
-          //     .where('name',
-          //         isLessThanOrEqualTo:
-          //             '${prompts[i].value.toString().capitalize}\uf8ff');
-
           if (data
               .toMap()
               .toString()
@@ -214,14 +213,6 @@ class AI {
           continue;
         }
         if (prompts[i].field == "sub_category") {
-          // firebaseQuery = firebaseQuery
-          //     .where('sub_category',
-          //         isGreaterThanOrEqualTo:
-          //             prompts[i].value.toString().capitalize)
-          //     .where('sub_category',
-          //         isLessThanOrEqualTo:
-          //             '${prompts[i].value.toString().capitalize}\uf8ff');
-
           if (data
               .toMap()
               .toString()
@@ -260,6 +251,18 @@ class AI {
           continue;
         }
       }
+
+      final querySplit = query.split(' ').map((e) => e.toLowerCase());
+      // for (var split in querySplit) {
+      if ((data
+          .toMap()
+          .toString()
+          .toLowerCase()
+          .contains(query.toLowerCase()))) {
+        score++;
+      }
+      // }
+
       if (score >= 1) {
         filteredData.add(data);
       }
