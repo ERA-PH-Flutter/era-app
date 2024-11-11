@@ -54,7 +54,7 @@ class Roster extends GetView<AgentAdminController> {
             Padding(
               padding: EdgeInsets.only(left: Get.width - 520.w),
               child: Button(
-                onTap: ()async{
+                onTap: () async {
                   controller.agentState.value = AgentAdminState.loading;
                   controller.searchStream = controller.getStream();
                   // await Future.delayed(Duration(seconds: 1));
@@ -68,16 +68,16 @@ class Roster extends GetView<AgentAdminController> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            Obx((){
-              if(controller.agentState.value == AgentAdminState.loaded){
+            Obx(() {
+              if (controller.agentState.value == AgentAdminState.loaded) {
                 return StreamBuilder(
                   stream: controller.searchStream,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<EraUser> users = [];
                       for (var doc in snapshot.data!.docs) {
-                        if(doc.data()['status'] == "approved"){
-                          users.add( EraUser.fromJSON(doc.data()));
+                        if (doc.data()['status'] == "approved") {
+                          users.add(EraUser.fromJSON(doc.data()));
                         }
                       }
                       return rosterGridview(listingModels: users);
@@ -88,7 +88,7 @@ class Roster extends GetView<AgentAdminController> {
                     }
                   },
                 );
-              }else{
+              } else {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
@@ -144,7 +144,7 @@ class Roster extends GetView<AgentAdminController> {
                             image: "${listingModels[i].image}",
                             agentFirstName: "${listingModels[i].firstname}",
                             agentLastName: "${listingModels[i].lastname}",
-                            agentType: "${listingModels[i].role}",
+                            agentRole: "${listingModels[i].role}",
                           ),
                         ),
                       ),
@@ -242,7 +242,8 @@ class Roster extends GetView<AgentAdminController> {
                       return Wrap(
                         children: [
                           Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 15.h),
                               width: Get.width,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
@@ -300,52 +301,63 @@ class Roster extends GetView<AgentAdminController> {
                                                 maxLines: 1,
                                                 fontSize: 15.sp,
                                                 textInputAction:
-                                                TextInputAction.newline,
+                                                    TextInputAction.newline,
                                                 keyboardType:
-                                                TextInputType.multiline,
+                                                    TextInputType.multiline,
                                                 color: AppColors.hint,
                                               ),
                                               sb10(),
                                               TextformfieldWidget(
                                                 controller: controller.message,
                                                 hintText:
-                                                'Type your message here',
+                                                    'Type your message here',
                                                 maxLines: 5,
                                                 fontSize: 15.sp,
                                                 textInputAction:
-                                                TextInputAction.newline,
+                                                    TextInputAction.newline,
                                                 keyboardType:
-                                                TextInputType.multiline,
+                                                    TextInputType.multiline,
                                                 color: AppColors.hint,
                                               ),
                                               sb30(),
                                               Button(
                                                 width: Get.width,
                                                 onTap: () async {
-                                                  var messageDoc = FirebaseFirestore.instance.collection('messages').doc();
+                                                  var messageDoc =
+                                                      FirebaseFirestore.instance
+                                                          .collection(
+                                                              'messages')
+                                                          .doc();
                                                   await messageDoc.set({
-                                                    'date' : DateTime.now(),
-                                                    'from' : "${user!.firstname ?? "ERA Admin"} ${user!.lastname ?? ""}",
-                                                    "title" : controller.title.text,
-                                                    'subject' : controller.message.text,
-                                                    'to' : listingModels[i].id
+                                                    'date': DateTime.now(),
+                                                    'from':
+                                                        "${user!.firstname ?? "ERA Admin"} ${user!.lastname ?? ""}",
+                                                    "title":
+                                                        controller.title.text,
+                                                    'subject':
+                                                        controller.message.text,
+                                                    'to': listingModels[i].id
                                                   });
-                                                  BaseController().showSuccessDialog(
-                                                    title: "Success",
-                                                    description: "Message has been sent!",
-                                                    hitApi: (){
-                                                      controller.title.clear();
-                                                      controller.message.clear();
-                                                      Get.back();Get.back();
-                                                    }
-                                                  );
+                                                  BaseController()
+                                                      .showSuccessDialog(
+                                                          title: "Success",
+                                                          description:
+                                                              "Message has been sent!",
+                                                          hitApi: () {
+                                                            controller.title
+                                                                .clear();
+                                                            controller.message
+                                                                .clear();
+                                                            Get.back();
+                                                            Get.back();
+                                                          });
                                                 },
                                                 fontSize: EraTheme
                                                     .buttonFontSizeSmall,
                                                 text: 'SUBMIT',
                                                 bgColor: AppColors.blue,
                                                 borderRadius:
-                                                BorderRadius.circular(30),
+                                                    BorderRadius.circular(30),
                                               ),
                                             ],
                                           ),
@@ -356,15 +368,17 @@ class Roster extends GetView<AgentAdminController> {
                                   // todo open modal with message textfield title and description
                                 }, CupertinoIcons.chat_bubble_fill),
                                 menuOptions("Edit", () async {
-                                  Get.find<AgentAdminController>().setValues(listingModels[i]);
+                                  Get.find<AgentAdminController>()
+                                      .setValues(listingModels[i]);
                                   controllers.onSectionSelected(1);
                                 }, Icons.edit),
                                 menuOptions("Delete", () async {
                                   await listingModels[i].delete();
                                   await Logs(
-                                      title: "${user!.firstname} ${user!.lastname} remove an agent with ID ${listingModels[i].eraId}",
-                                      type: "account"
-                                  ).add();
+                                          title:
+                                              "${user!.firstname} ${user!.lastname} remove an agent with ID ${listingModels[i].eraId}",
+                                          type: "account")
+                                      .add();
                                 }, Icons.delete_rounded),
                               ])),
                         ],
