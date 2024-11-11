@@ -265,6 +265,7 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                             .selectedAgentType.value = value!,
                                         'Agent Type',
                                         'Agent Type'),
+                                    sb20(),
                                     SharedWidgets.dropDown(
                                         controller.selectedAgentRole,
                                         controller.agentRole,
