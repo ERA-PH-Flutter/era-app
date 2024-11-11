@@ -513,7 +513,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                         SizedBox(height: 20.h),
                         SearchWidget.build(() async {
                           String searchQuery = '';
-                          // BaseController().showLoading();
+                          BaseController().showLoading();
                           // var data;
                           // var searchQuery = "aaaa";
                           if (isForSale.value == 1) {
@@ -553,13 +553,13 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                 ' sub_category ${selectedSubProperty.value.toLowerCase()}.';
                           }
                           if (bedrooms.value != 0) {
-                            searchQuery += ' beds min ${bedrooms.value}.';
+                            searchQuery += ' beds equals ${bedrooms.value}.';
                           }
                           if (bathrooms.value != 0) {
-                            searchQuery += ' baths min ${bathrooms.value}.';
+                            searchQuery += ' baths equals ${bathrooms.value}.';
                           }
                           if (garage.value != 0) {
-                            searchQuery += ' garage min ${garage.value}.';
+                            searchQuery += ' garage equals ${garage.value}.';
                           }
 
                           if (ppsqmMin.text.isNotEmpty &&
@@ -579,7 +579,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                           }
 
                           try {
-                            BaseController().showLoading();
                             var data =
                                 await AI(query: searchQuery).listingSearch();
                             Get.find<SearchResultController>()
@@ -589,9 +588,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             Get.find<SearchResultController>().data.value =
                                 data;
 
-                            for (var element in data) {
-                              print('data location ${element.address}');
-                            }
                             Get.find<SearchResultController>()
                                     .searchResultState
                                     .value =
@@ -599,6 +595,9 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     ? SearchResultState.empty
                                     : SearchResultState.loaded;
                           } catch (e) {
+                            Get.find<SearchResultController>()
+                                .searchResultState
+                                .value = SearchResultState.loaded;
                             print('error AI search $e');
                           } finally {
                             BaseController().hideLoading();

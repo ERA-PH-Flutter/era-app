@@ -133,15 +133,13 @@ class AI {
       "beds": {
         "type": "object",
         "properties": {
-          "min": {"type": "number"},
-          "max": {"type": "number"}
+          "equals": {"type": "number"},
         }
       },
       "baths": {
         "type": "object",
         "properties": {
-          "min": {"type": "number"},
-          "max": {"type": "number"}
+          "equals": {"type": "number"},
         }
       },
       "balcony": {
@@ -175,8 +173,7 @@ class AI {
       "garage": {
         "type": "object",
         "properties": {
-          "min": {"type": "number"},
-          "max": {"type": "number"}
+          "equals": {"type": "number"},
         }
       },
       "price": {
@@ -190,6 +187,7 @@ class AI {
         "type": "string",
       }
     };
+    print('gemini search here 1 query ${query}');
     if (query.isEmpty) {
       return (await FirebaseFirestore.instance.collection('listings').get())
           .docs
@@ -199,6 +197,7 @@ class AI {
     var result = await geminiSearch(geminiData,
         name: "getListing",
         description: "Assign accordingly do not assign value if not specified");
+    print('gemini search result ${result}');
     Query<Map<String, dynamic>> firebaseQuery =
         FirebaseFirestore.instance.collection('listings');
     List<AiFilters> prompts = [];
@@ -227,7 +226,6 @@ class AI {
     }
 
     final Map<Listing, double> filteredData = {};
-
     for (var data in listingData) {
       double score = 0;
       for (int i = 0; i < (prompts.length); i++) {
@@ -264,6 +262,7 @@ class AI {
       final querySplit = query.split(' ').map((e) => e.toLowerCase());
       for (var split in querySplit) {
         if (geminiData.toString().contains(split)) continue;
+        print('gemini search  split ${split}');
 
         if (double.tryParse(split) == null) {
           if ((data
@@ -283,6 +282,7 @@ class AI {
           .contains(query.trim().toLowerCase()))) {
         score = score + .3;
       }
+      print('gemini search score ${score}');
 
       if (score >= 1) {
         filteredData[data] = score;
@@ -328,6 +328,9 @@ class AI {
     }
     if (value['max'] != null) {
       return [value['max'], ">"];
+    }
+    if (value['equals'] != null) {
+      return [value['equals'], "="];
     }
   }
 

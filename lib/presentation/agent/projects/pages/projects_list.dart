@@ -72,6 +72,7 @@ class ProjectsList extends GetView<ProjectsListController> {
                                       EdgeInsets.symmetric(horizontal: 10.w),
                                   child: AppTextField(
                                       onSuffixTap: () async {
+                               
                                         BaseController().showLoading();
                                         var projects = await AI(
                                                 query: searchController
