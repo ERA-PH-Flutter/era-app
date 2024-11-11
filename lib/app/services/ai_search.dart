@@ -172,7 +172,6 @@ class AI {
         name: "getListing",
         description: "Assign accordingly do not assign value if not specified");
 
-    print('listings query ${query} result gemini ${result}');
 
     Query<Map<String, dynamic>> firebaseQuery =
         FirebaseFirestore.instance.collection('listings');
@@ -192,7 +191,6 @@ class AI {
         prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
       }
     });
-    print('prompts ${prompts.map((e) => e.field.toString())}');
     final listingData = (await firebaseQuery.get())
         .docs
         .map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
@@ -252,7 +250,7 @@ class AI {
         }
       }
 
-      final querySplit = query.split(' ').map((e) => e.toLowerCase());
+      // final querySplit = query.split(' ').map((e) => e.toLowerCase());
       // for (var split in querySplit) {
       if ((data
           .toMap()
