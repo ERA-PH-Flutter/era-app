@@ -36,6 +36,7 @@ class AddListingsController extends GetxController with BaseController {
   var selectedPropertySubCategory = RxnString();
   var selectedView = RxnString();
   Listing? listing;
+  var selectedsubCategory = RxnString();
 
   generateMarker(position) async {
     marker.value = {
