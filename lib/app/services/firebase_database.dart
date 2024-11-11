@@ -141,4 +141,17 @@ class Database {
   // FAQ
 
   //CRUD NEWS
+
+  getAboutUsData()async{
+    return (await db.collection('cms').doc('about_us').get()).data();
+    // note para magets mo this will return map photo and description property
+  }
+  getFindAgentsData()async{
+    return (await db.collection('cms').doc('find_agents').get()).data();
+    // note para magets mo this will return map photo and video_link property
+  }
+  getJoinEraData()async{
+    return (await db.collection('cms').doc('join_era').get()).data();
+    // note para magets mo this will return map photo, description and video_link  property
+  }
 }
