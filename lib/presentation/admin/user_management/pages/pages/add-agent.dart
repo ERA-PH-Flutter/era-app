@@ -49,37 +49,34 @@ class AddAgent extends GetView<AgentAdminController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      flex: 2,
+                      flex: 1,
                       child: Padding(
-                        padding: EdgeInsets.only(left: 10.w),
+                        padding: EdgeInsets.only(right: 10.w),
                         child: textFormfield(
                             controller: controller.fNameA,
                             hintText: 'First Name *',
                             textInputType: TextInputType.text),
                       ),
                     ),
-                    sb20(),
-                    sbw20(),
+
                     Expanded(
                       flex: 1,
                       child: Container(
-                        padding: EdgeInsets.only(right: 10.w),
+                        padding: EdgeInsets.only(left: 10.w),
                         child: textFormfield(
                             controller: controller.lNameA,
                             hintText: 'Last Name *',
                             textInputType: TextInputType.text),
                       ),
                     ),
-
+                    sb20(),
+                    sbw20(),
                     Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 10.w),
-                        child: textFormfield(
-                            controller: controller.phoneNA,
-                            hintText: 'PhoneNumber *',
-                            textInputType: TextInputType.number),
-                      ),
+                      flex: 2,
+                      child: textFormfield(
+                          controller: controller.phoneNA,
+                          hintText: 'PhoneNumber *',
+                          textInputType: TextInputType.number),
                     ),
                     // sb20(),
                     // sbw20(),
