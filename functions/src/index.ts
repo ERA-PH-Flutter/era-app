@@ -223,7 +223,7 @@ function calculateScore(queryTokens: string[], documentTokens: string) {
         const splitQuery = queryToken.split(' ').map((e) => e.toLocaleLowerCase());
         for (const val of splitQuery) {
             if (documentTokens.includes(val)) {
-                score = score + .5;
+                score = score + .3;
             }
         }
     }
