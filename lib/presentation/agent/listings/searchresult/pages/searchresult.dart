@@ -77,8 +77,7 @@ class SearchResult extends GetView<SearchResultController> {
         children: [
           SizedBox(height: 5.h),
           Obx(() {
-            print(
-                'controller.searchQuery.value ${controller.searchQuery.value}');
+            print('here 222 ${controller.searchQuery.value}');
             if (controller.searchQuery.value == "") {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

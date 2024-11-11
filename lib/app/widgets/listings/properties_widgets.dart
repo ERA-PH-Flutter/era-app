@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_card.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -14,65 +15,29 @@ class PropertiesWidgets extends StatelessWidget {
   final List listingsModels;
 
   const PropertiesWidgets({super.key, required this.listingsModels});
-  void _onTap(BuildContext context, String label)async{
-    var data;
+  void _onTap(BuildContext context, String label) async {
     var searchQuery = "";
     if (label == "PRE-SELLING") {
-      var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('type', isEqualTo: 'Pre-selling')
-          .get())
-        .docs;
-        data = listings.map((listing) {
-        return listing.data();
-      }).toList();
-      searchQuery = "Pre Selling Listings";
+      searchQuery = "Pre-Selling Listings";
     } else if (label == "RESIDENTIAL") {
-      var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('sub_category', isEqualTo: 'Residential')
-          .get())
-          .docs;
-        data = listings.map((listing) {
-        return listing.data();
-      }).toList();
       searchQuery = "Residential Listings";
     } else if (label == "COMMERCIAL") {
-      var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('type', isEqualTo: 'Commercial')
-          .get())
-          .docs;
-        data = listings.map((listing) {
-        return listing.data();
-      }).toList();
       searchQuery = "Commercial Listings";
     } else if (label == "RENTAL") {
-      var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('sub_category', isEqualTo: 'Rent to Own')
-          .get())
-          .docs;
-        data = listings.map((listing) {
-        return listing.data();
-      }).toList();
       searchQuery = "Rental Listings";
     } else if (label == "AUCTION") {
-      var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('type', isEqualTo: 'Others')
-          .get())
-          .docs;
-        data = listings.map((listing) {
-        return listing.data();
-      }).toList();
       searchQuery = "Auction Listings";
     }
+
     selectedIndex.value = 2;
-    pageViewController = PageController(initialPage: 2);
     currentRoute = '/searchresult';
-    Get.offAll(BaseScaffold(),
-        arguments: [data, searchQuery],binding: SearchResultBinding());
+    pageViewController.animateToPage(
+      2,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+
+    Get.find<SearchResultController>().searchListingType(searchQuery);
   }
 
   @override

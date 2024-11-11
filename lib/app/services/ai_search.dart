@@ -172,7 +172,6 @@ class AI {
         name: "getListing",
         description: "Assign accordingly do not assign value if not specified");
 
-
     Query<Map<String, dynamic>> firebaseQuery =
         FirebaseFirestore.instance.collection('listings');
     List<AiFilters> prompts = [];
@@ -249,17 +248,17 @@ class AI {
           continue;
         }
       }
-
-      // final querySplit = query.split(' ').map((e) => e.toLowerCase());
-      // for (var split in querySplit) {
-      if ((data
-          .toMap()
-          .toString()
-          .toLowerCase()
-          .contains(query.toLowerCase()))) {
-        score++;
+      print('here 222 ${prompts.map((e) => '${e.field}, ${e.value}')}');
+      final querySplit = query.split(' ').map((e) => e.toLowerCase());
+      for (var split in querySplit) {
+        if ((data
+            .toMap()
+            .toString()
+            .toLowerCase()
+            .contains(split.toLowerCase()))) {
+          score = score + 0.5;
+        }
       }
-      // }
 
       if (score >= 1) {
         filteredData.add(data);
