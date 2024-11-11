@@ -58,7 +58,7 @@ class Listing {
       this.latLng,
       this.propertyId,
       this.address});
-  factory Listing.fromJSON(json) {
+  factory Listing.fromJSON(Map<String, dynamic> json) {
     return Listing(
         id: json["id"],
         name: json["name"] ?? "",
@@ -155,8 +155,7 @@ class Listing {
   deleteListings() async {
     try {
       await db.collection("listings").doc(id).delete();
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   deleteListingsById(listingId) async {

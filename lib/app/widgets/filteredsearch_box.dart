@@ -8,6 +8,7 @@ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart'
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -121,11 +122,20 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
     BaseController().showLoading();
     searchQuery = aiSearchController.text;
     var data = await AI(query: searchQuery).listingSearch();
-    selectedIndex.value = 2;
-    pageViewController = PageController(initialPage: 2);
     currentRoute = '/searchresult';
-    Get.offAll(BaseScaffold(),
-        binding: SearchResultBinding(), arguments: [data, searchQuery]);
+    Get.find<SearchResultController>().searchResultState.value =
+        SearchResultState.loading;
+    Get.find<SearchResultController>().data.value = data;
+    BaseController().hideLoading();
+    selectedIndex.value = 2;
+    pageViewController.animateToPage(
+      2,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+
+    Get.find<SearchResultController>().searchResultState.value =
+        data.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
   }
 
   @override

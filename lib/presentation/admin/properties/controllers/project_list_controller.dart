@@ -21,6 +21,7 @@ class ProjectsListController extends GetxController {
   int pageSize = 0;
   @override
   void onInit() async {
+  
     pageSize = count.value;
     projects.value = (await FirebaseFirestore.instance
             .collection('projects')

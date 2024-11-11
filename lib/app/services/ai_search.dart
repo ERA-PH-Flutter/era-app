@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/project.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +26,7 @@ class AI {
     return (await firebaseQuery.get()).docs;
   }
 
-  projectSearch() async {
+  Future<List<Project>> projectSearch() async {
     var geminiData = {
       "title": {
         "type": "string",
@@ -61,14 +62,18 @@ class AI {
           .map((e) => Project.fromJSON({...e.data(), 'id': e.id}));
 
       final projectIds = res.data ?? [];
-      return data.where((e) => projectIds.contains(e.id));
+      print('Error calling function: query ${query}');
+
+      print('Error calling function: res.data ${res.data}');
+
+      return data.where((e) => projectIds.contains(e.id)).toList();
     } catch (e) {
       print('Error calling function: $e');
       return [];
     }
   }
 
-  listingSearch() async {
+  Future<List<Listing>> listingSearch() async {
     var geminiData = {
       "type": {
         "type": "string",
@@ -156,10 +161,19 @@ class AI {
         "type": "string",
       }
     };
+
+    if (query.isEmpty) {
+      return (await FirebaseFirestore.instance.collection('listings').get())
+          .docs
+          .map((e) => Listing.fromJSON(e.data()))
+          .toList();
+    }
     var result = await geminiSearch(geminiData,
         name: "getListing",
         description: "Assign accordingly do not assign value if not specified");
-    Query firebaseQuery = FirebaseFirestore.instance.collection('listings');
+
+    Query<Map<String, dynamic>> firebaseQuery =
+        FirebaseFirestore.instance.collection('listings');
     List<AiFilters> prompts = [];
     result!.forEach((key, value) {
       if (['type', 'sub_category', 'view', 'status'].contains(key)) {
@@ -176,42 +190,82 @@ class AI {
         prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
       }
     });
+    final listingData = (await firebaseQuery.get())
+        .docs
+        .map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
 
-    for (int i = 0; i < (prompts.length); i++) {
-      print(prompts[i].toMap());
-      if (prompts[i].field == "name") {
-        firebaseQuery = firebaseQuery
-            .where('name',
-                isGreaterThanOrEqualTo: prompts[i].value.toString().capitalize)
-            .where('name',
-                isLessThanOrEqualTo:
-                    '${prompts[i].value.toString().capitalize}\uf8ff');
-        continue;
+    final Set<Listing> filteredData = {};
+
+    for (var data in listingData) {
+      double score = 0;
+      for (int i = 0; i < (prompts.length); i++) {
+        if (prompts[i].field == "name") {
+          if (data
+              .toMap()
+              .toString()
+              .toLowerCase()
+              .contains(prompts[i].value.toString().toLowerCase())) {
+            score++;
+          }
+          continue;
+        }
+        if (prompts[i].field == "sub_category") {
+          if (data
+              .toMap()
+              .toString()
+              .toLowerCase()
+              .contains(prompts[i].value.toString().toLowerCase())) {
+            score++;
+          }
+          continue;
+        }
+        if (prompts[i].field == "type") {
+          if (data
+              .toMap()
+              .toString()
+              .toLowerCase()
+              .contains(prompts[i].value.toString().toLowerCase())) {
+            score++;
+          }
+          continue;
+        }
+        if (prompts[i].operator == ">") {
+          if ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value) {
+            score++;
+          }
+          continue;
+        }
+        if (prompts[i].operator == "<") {
+          if ((data.toMap()[prompts[i].field] ?? 0) <= prompts[i].value) {
+            score++;
+          }
+          continue;
+        }
+        if (prompts[i].operator == "=") {
+          if ((data.toMap()[prompts[i].field] ?? 0) == prompts[i].value) {
+            score++;
+          }
+          continue;
+        }
       }
-      if (prompts[i].operator == ">") {
-        firebaseQuery = firebaseQuery.where(prompts[i].field,
-            isGreaterThanOrEqualTo: prompts[i].value);
-        continue;
+      print('here 222 ${prompts.map((e) => '${e.field}, ${e.value}')}');
+      final querySplit = query.split(' ').map((e) => e.toLowerCase());
+      for (var split in querySplit) {
+        if ((data
+            .toMap()
+            .toString()
+            .toLowerCase()
+            .contains(split.toLowerCase()))) {
+          score = score + 0.5;
+        }
       }
-      if (prompts[i].operator == "<") {
-        firebaseQuery = firebaseQuery.where(prompts[i].field,
-            isLessThanOrEqualTo: prompts[i].value);
-        continue;
-      }
-      if (prompts[i].operator == "=") {
-        firebaseQuery =
-            firebaseQuery.where(prompts[i].field, isEqualTo: prompts[i].value);
-        continue;
+
+      if (score >= 1) {
+        filteredData.add(data);
       }
     }
-    var data = [];
-    await firebaseQuery.get().then((QuerySnapshot snapshot) {
-      var a = snapshot.docs;
-      for (var b in a) {
-        data.add(b.data());
-      }
-    });
-    return data;
+
+    return filteredData.toList();
   }
 
   faqSearch() async {
@@ -233,6 +287,9 @@ class AI {
   }
 
   checkOperator(value) {
+    if ([String, int, bool].contains(value.runtimeType)) {
+      return [value.toLowerCase(), "="];
+    }
     if (value['min'] != null && value['max'] != null) {
       return [value['min'], "="];
     }
@@ -241,9 +298,6 @@ class AI {
     }
     if (value['max'] != null) {
       return [value['max'], ">"];
-    }
-    if ([String, int, bool].contains(value.runtimeType)) {
-      return [value.toLowerCase(), "="];
     }
   }
 

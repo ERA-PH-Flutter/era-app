@@ -2,7 +2,6 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -78,6 +77,7 @@ class SearchResult extends GetView<SearchResultController> {
         children: [
           SizedBox(height: 5.h),
           Obx(() {
+            print('here 222 ${controller.searchQuery.value}');
             if (controller.searchQuery.value == "") {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,11 @@ class SearchResult extends GetView<SearchResultController> {
           }),
           SizedBox(height: 10.h),
           Obx(() {
-            controller.count.value;
+            if (controller.data.isEmpty) {
+              return Center(
+                child: Text('No results found.'),
+              );
+            }
             return LoadMore(
               length: (controller.data.length / controller.pageSize).floor() > 0
                   ? (controller.data.length / controller.pageSize).floor()
@@ -126,11 +130,10 @@ class SearchResult extends GetView<SearchResultController> {
                 shrinkWrap: true,
                 itemCount: controller.data.length,
                 itemBuilder: (context, index) {
-                  if (controller.data[index] != null) {
+                  if (controller.data.isNotEmpty) {
                     if (index >= controller.count.value - controller.pageSize &&
                         index < controller.count.value) {
-                      Listing listing =
-                          Listing.fromJSON(controller.data[index]);
+                      Listing listing = controller.data[index];
                       return GestureDetector(
                         onTap: () async {
                           // await Database().addViews(listing.id);
@@ -163,16 +166,6 @@ class SearchResult extends GetView<SearchResultController> {
                                   height: 300.h,
                                   width: Get.width,
                                 ),
-
-                                // CloudStorage().imageLoader(
-                                //   height: 300.h,
-                                //   width: Get.width,
-                                //   reference: listing.photos != null
-                                //       ? (listing.photos!.isNotEmpty
-                                //           ? listing.photos!.first
-                                //           : AppStrings.noUserImageWhite)
-                                //       : AppStrings.noUserImageWhite,
-                                // ),
                               ),
                               SizedBox(
                                 height: 17.h,
@@ -339,6 +332,7 @@ class SearchResult extends GetView<SearchResultController> {
                       );
                     }
                   }
+
                   return Container();
                 },
               ),

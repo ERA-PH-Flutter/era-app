@@ -1,10 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import '../../../presentation/agent/agents/controllers/agents_binding.dart';
-import '../../../presentation/agent/home/controllers/home_binding.dart';
-import '../../../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
-import '../../../presentation/agent/projects/controllers/projects_binding.dart';
 import '../../../presentation/global.dart';
 import 'customenavigationbar.dart';
 
@@ -39,35 +34,41 @@ class AppNavItems extends StatelessWidget {
       );
     } else {
       return GestureDetector(
-        onTap: index != null ? (){
-          if(index == 1){
-              selectedIndex.value = 0;
-              pageViewController = PageController(initialPage: 0);
-              currentRoute = '/home';
-              Get.offAll(BaseScaffold(),binding: HomeBinding());
-
-          }else if(index == 2){
-              selectedIndex.value = 1;
-              currentRoute = '/project-main';
-              pageViewController = PageController(initialPage: 1);
-              Get.offAll(BaseScaffold(),binding: ProjectsBinding());
-          }else if(index == 3){
-              selectedIndex.value = 2;
-              currentRoute = '/searchresult';
-              pageViewController = PageController(initialPage: 2);
-              Get.offAll(BaseScaffold(),binding: SearchResultBinding());
-          }else if(index == 4){
-            selectedIndex.value = 3;
-            currentRoute = '/findagents';
-            pageViewController = PageController(initialPage: 3);
-            Get.offAll(BaseScaffold(),binding: AgentsBinding());
-          }else if(index == 5){
-            selectedIndex.value = 4;
-            currentRoute = '/help';
-            pageViewController = PageController(initialPage: 4);
-            Get.offAll(BaseScaffold());
-          }
-        } : null,
+        onTap: index != null
+            ? () async {
+                if (index == 1) {
+                  selectedIndex.value = 0;
+                  pageViewController.animateToPage(0,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeInOut);
+                  currentRoute = '/home';
+                } else if (index == 2) {
+                  selectedIndex.value = 1;
+                  currentRoute = '/project-main';
+                  pageViewController.animateToPage(1,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeInOut);
+                } else if (index == 3) {
+                  selectedIndex.value = 2;
+                  currentRoute = '/searchresult';
+                  pageViewController.animateToPage(2,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeInOut);
+                } else if (index == 4) {
+                  selectedIndex.value = 3;
+                  currentRoute = '/findagents';
+                  pageViewController.animateToPage(3,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeInOut);
+                } else if (index == 5) {
+                  selectedIndex.value = 4;
+                  currentRoute = '/help';
+                  pageViewController.animateToPage(4,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeInOut);
+                }
+              }
+            : null,
         child: Container(
           alignment: Alignment.center,
           child: Column(
@@ -83,7 +84,9 @@ class AppNavItems extends StatelessWidget {
                 label,
                 style: TextStyle(fontSize: 11.sp, color: CupertinoColors.white),
               ),
-              SizedBox(height: 7.5.h,)
+              SizedBox(
+                height: 7.5.h,
+              )
             ],
           ),
         ),

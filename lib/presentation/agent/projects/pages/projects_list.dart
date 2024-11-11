@@ -28,9 +28,7 @@ class ProjectsList extends GetView<ProjectsListController> {
   @override
   Widget build(BuildContext context) {
     final SearchResultController searchController =
-        Get.put(SearchResultController());
-    // naglagay ako dito kasi pag nag search ako sa search bar, nung listings then pupunta ako sa projects may error. kaya nilagay ko yung get.put(SearchResultController()); dito
-    Get.put(ProjectsListController());
+        Get.find<SearchResultController>();
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
@@ -80,11 +78,7 @@ class ProjectsList extends GetView<ProjectsListController> {
                                                     .aiSearchController.text)
                                             .projectSearch();
                                         if (projects.isNotEmpty) {
-                                          controller.projects.value =
-                                              projects.map((proj) {
-                                            return Project.fromJSON(
-                                                proj.data());
-                                          }).toList();
+                                          controller.projects.value = projects;
                                           controller.projectsListState.value =
                                               ProjectsListState.loaded;
                                         } else {
@@ -164,23 +158,25 @@ class ProjectsList extends GetView<ProjectsListController> {
     return Column(
       children: [
         child,
-        NumberPagination(
-          fontSize: 18.sp,
-          buttonRadius: 10.r,
-          controlButtonSize: Size(30, 30),
-          numberButtonSize: Size(35, 35),
-          sectionSpacing: 1.w,
-          betweenNumberButtonSpacing: 1,
-          totalPages: length,
-          currentPage: (controller.count.value / controller.pageSize).floor(),
-          visiblePagesCount: length < 4 ? length : 4,
-          onPageChanged: (page) {
-            controller.count.value = controller.pageSize * (page == 0 ? 1 : page);
-            controller.scrollController.jumpTo(
-              0,
-            );
-          },
-        ),
+        if (length != 0)
+          NumberPagination(
+            fontSize: 18.sp,
+            buttonRadius: 10.r,
+            controlButtonSize: Size(30, 30),
+            numberButtonSize: Size(35, 35),
+            sectionSpacing: 1.w,
+            betweenNumberButtonSpacing: 1,
+            totalPages: length,
+            currentPage: (controller.count.value / controller.pageSize).floor(),
+            visiblePagesCount: length < 4 ? length : 4,
+            onPageChanged: (page) {
+              controller.count.value =
+                  controller.pageSize * (page == 0 ? 1 : page);
+              controller.scrollController.jumpTo(
+                0,
+              );
+            },
+          ),
         SizedBox(height: 30.h),
       ],
     );
