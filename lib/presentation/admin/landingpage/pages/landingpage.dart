@@ -273,6 +273,7 @@ class LandingPage extends GetView<LandingPageController> {
               children: [
                 _buildMenuItem('HOMEPAGE', 9),
                 _buildMenuItem('FIND AGENTS', 21),
+
                 _buildMenuItem('ADD ABOUT US', 10),
                 _buildMenuItem('JOIN ERA', 22),
               ],

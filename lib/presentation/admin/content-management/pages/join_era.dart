@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/services/firebase_storage.dart';
 import '../../../../app/widgets/createaccount_widget.dart';
 
 class JoinEraPage extends GetView<ContentManagementController> {
@@ -47,7 +49,21 @@ class JoinEraPage extends GetView<ContentManagementController> {
             margin: EdgeInsets.only(right: 80.w),
             child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Button(
-                onTap: () {},
+                onTap: ()async{
+                  controller.showLoading();
+                  await FirebaseFirestore.instance.collection("cms").doc('join_era').set({
+                    "photo" : await CloudStorage().uploadFromMemory(file: controller.images.first, target: "cms"),
+                    'description' : controller.description.text,
+                    'video_link' : controller.videoLinkAgent.text
+                  });
+                  controller.showSuccessDialog(
+                      title: "Success!",
+                      description: "About us has been updated!",
+                      hitApi: (){
+                        Get.back();Get.back();
+                      }
+                  );
+                },
                 margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 150.w,
                 text: 'SUBMIT',

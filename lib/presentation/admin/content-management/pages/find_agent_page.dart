@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/createaccount_widget.dart';
 
 class FindAgentPage extends GetView<ContentManagementController> {
@@ -37,7 +40,20 @@ class FindAgentPage extends GetView<ContentManagementController> {
             margin: EdgeInsets.only(right: 80.w),
             child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Button(
-                onTap: () {},
+                onTap: () async {
+                  controller.showLoading();
+                  await FirebaseFirestore.instance.collection("cms").doc('find_agents').set({
+                    "photo" : await CloudStorage().uploadFromMemory(file: controller.images.first, target: "cms"),
+                    'video_link' : controller.videoLinkAgent.text
+                  });
+                  controller.showSuccessDialog(
+                      title: "Success!",
+                      description: "Find Agents has been updated!",
+                      hitApi: (){
+                        Get.back();Get.back();
+                      }
+                  );
+                },
                 margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 150.w,
                 text: 'SUBMIT',

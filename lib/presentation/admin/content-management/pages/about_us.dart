@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -11,6 +12,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/services/firebase_storage.dart';
+
 class AboutUsPage extends GetView<ContentManagementController> {
   const AboutUsPage({super.key});
 
@@ -23,7 +26,6 @@ class AboutUsPage extends GetView<ContentManagementController> {
           sb30(),
           UploadBannersWidget(text: 'UPLOAD IMAGE', maxImages: 1),
           sb10(),
-
           Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth + 43.sp),
@@ -35,7 +37,20 @@ class AboutUsPage extends GetView<ContentManagementController> {
             margin: EdgeInsets.only(right: 80.w),
             child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Button(
-                onTap: () {},
+                onTap: ()async{
+                  controller.showLoading();
+                  await FirebaseFirestore.instance.collection("cms").doc('about_us').set({
+                    'description' : controller.description.text,
+                    "photo" : await CloudStorage().uploadFromMemory(file: controller.images.first, target: "cms"),
+                  });
+                  controller.showSuccessDialog(
+                    title: "Success!",
+                    description: "About us has been updated!",
+                    hitApi: (){
+                      Get.back();Get.back();
+                    }
+                  );
+                },
                 margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 150.w,
                 text: 'SUBMIT',
