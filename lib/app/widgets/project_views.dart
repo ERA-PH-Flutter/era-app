@@ -915,8 +915,8 @@ class ProjectViews {
       if (block['type'] == "Project Logo") {
         preview[1] = ImageWidget(
           thumbnailUrl: block['image'],
-          height: 170.h,
           width: Get.width,
+          fit: BoxFit.cover,
         );
 
         // CloudStorage().imageLoaderProvider(

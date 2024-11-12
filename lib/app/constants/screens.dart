@@ -1,10 +1,11 @@
+import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class Screens {
-  static Widget loading({height}) {
+  static Widget loading({height, color}) {
     return SizedBox(
         height: height ?? Get.height - 250.h,
         child: Center(
@@ -32,6 +33,15 @@ class Screens {
           color: Colors.black,
           fontSize: 20.sp,
         ),
+      ),
+    );
+  }
+
+  static Widget loadingTwo() {
+    return Center(
+      child: CircularProgressIndicator(
+        backgroundColor: Colors.white,
+        valueColor: AlwaysStoppedAnimation<Color>(AppColors.hint),
       ),
     );
   }
