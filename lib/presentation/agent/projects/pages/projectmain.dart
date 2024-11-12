@@ -145,7 +145,7 @@ class ProjectMain extends GetView<ProjectsController> {
                                   name: 'Developer',
                                   hintText: 'Select Developer'),
 
-                              SearchWidget.build(() async {
+                           SearchWidget(onTap: () async {
                                 var data;
                                 var searchQuery = "";
                                 if (searchController.aiSearchController.text ==

@@ -12,6 +12,7 @@ import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 
 import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
 import 'package:eraphilippines/repository/listing.dart';
 
@@ -148,7 +149,9 @@ class Home extends GetView<HomeController> {
                 color: AppColors.kRedColor,
               ),
               sb10(),
-              FilteredSearchBox(),
+              FilteredSearchBox(
+                animateToPage2:true,
+              ),
               sb15(),
               controller.quickLinks!,
             ],

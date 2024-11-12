@@ -54,7 +54,7 @@ class Help extends GetView<ContactusController> {
                     controller: controller.aiSearch,
                   ),
                   SizedBox(height: 10.h),
-                  SearchWidget.build(() async{
+                     SearchWidget(onTap: () async{
                     controller.faqs.value = await AI(query:controller.aiSearch.text).faqSearch();
                   }),
                   SizedBox(height: 10.h),

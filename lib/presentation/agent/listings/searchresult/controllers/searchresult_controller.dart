@@ -113,4 +113,13 @@ class SearchResultController extends GetxController {
     searchResultState.value =
         listings.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
   }
+
+    Future searchListingQuery(String query) async {
+    searchResultState.value = SearchResultState.loading;
+    List<Listing> listings = await AI(query: query).listingSearch();
+    data.value = listings;
+    searchQuery.value = query.toString();
+    searchResultState.value =
+        listings.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
+  }
 }

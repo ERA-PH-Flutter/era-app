@@ -37,7 +37,7 @@ class SellingSearchresult extends GetView<SearchResultController> {
                     bgColor: AppColors.white,
                   ),
                   SizedBox(height: 10.h),
-                  SearchWidget.build(() {}),
+               SearchWidget(onTap: () {}),
                 ],
               )),
               SizedBox(height: 30.h),

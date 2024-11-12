@@ -173,7 +173,7 @@ class FindAgents extends GetView<AgentsController> {
                                       ],
                                     ),
                                     SizedBox(height: 20.h),
-                                    SearchWidget.build(() {
+                                    SearchWidget(onTap: () {
                                       controller.search();
                                     }),
                                     SizedBox(height: 20.h),

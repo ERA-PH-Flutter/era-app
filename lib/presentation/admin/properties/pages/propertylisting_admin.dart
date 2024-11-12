@@ -206,7 +206,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                     ),
                     SizedBox(
                       width: 250.w,
-                      child: SearchWidget.build(() async {
+                      child:     SearchWidget(onTap: () async {
                         controller.addEditListingsStateAd.value =
                             AddEditListingsStateAd.loading;
                         controller.streamSearch = controller.searchStream();

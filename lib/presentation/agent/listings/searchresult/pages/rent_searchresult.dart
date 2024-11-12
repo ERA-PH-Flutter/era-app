@@ -35,7 +35,7 @@ class RentSearchresult extends  GetView<SearchResultController>  {
                     svgIcon: AppEraAssets.send,
                     bgColor: AppColors.white,
                   ),
-                  SearchWidget.build(() {}),
+                  SearchWidget(onTap: () {}),
                 ],
               )),
               SizedBox(height: 30.h),
