@@ -14,12 +14,12 @@ class GeneralFaq extends GetView<FaqsController> {
   @override
   Widget build(BuildContext context) {
     FaqsController controller = Get.put(FaqsController());
-    return SingleChildScrollView(
-      child: Container(
-        height: Get.height - 150.h,
-        alignment: Alignment.topCenter,
-        padding:
-            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+    return Container(
+      height: Get.height,
+      alignment: Alignment.topCenter,
+      padding:
+          EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -110,14 +110,20 @@ class GeneralFaq extends GetView<FaqsController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
+              textInputAction: TextInputAction.newline,
+              maxLines: 1,
               controller: controller.typeController,
               decoration: InputDecoration(hintText: 'Enter Type'),
             ),
             TextField(
+              textInputAction: TextInputAction.newline,
+              maxLines: 1,
               controller: controller.titleController,
               decoration: InputDecoration(hintText: 'Enter title'),
             ),
             TextField(
+              textInputAction: TextInputAction.newline,
+              maxLines: 10,
               controller: controller.answerController,
               decoration: InputDecoration(hintText: 'Enter answer'),
             ),
@@ -163,6 +169,8 @@ class GeneralFaq extends GetView<FaqsController> {
               hintText: 'Edit Type',
               labelText: 'Type',
             ),
+            textInputAction: TextInputAction.newline,
+            maxLines: 1,
           ),
           TextField(
             controller: controller.titleController,
@@ -170,6 +178,8 @@ class GeneralFaq extends GetView<FaqsController> {
               hintText: 'Edit Title',
               labelText: 'Title',
             ),
+            textInputAction: TextInputAction.newline,
+            maxLines: 1,
           ),
           TextField(
             controller: controller.answerController,
@@ -177,6 +187,8 @@ class GeneralFaq extends GetView<FaqsController> {
               hintText: 'Edit Answer',
               labelText: 'Answer',
             ),
+            textInputAction: TextInputAction.newline,
+            maxLines: 10,
           ),
         ],
       ),
