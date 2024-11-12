@@ -149,13 +149,7 @@ class AI {
           "max": {"type": "number"}
         }
       },
-      "lot_area": {
-        "type": "object",
-        "properties": {
-          "min": {"type": "number"},
-          "max": {"type": "number"}
-        }
-      },
+  
       "floor_area": {
         "type": "object",
         "properties": {

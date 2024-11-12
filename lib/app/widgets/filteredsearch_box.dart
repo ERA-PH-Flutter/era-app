@@ -601,7 +601,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   if (lotAreaMin.text.isNotEmpty &&
                                       lotAreaMax.text.isNotEmpty) {
                                     searchQuery +=
-                                        ' lot_area min ${lotAreaMin.text.toInt()} and max ${lotAreaMax.text.toInt()}.';
+                                        ' area min ${lotAreaMin.text.toInt()} and max ${lotAreaMax.text.toInt()}.';
                                   }
 
                                   try {
