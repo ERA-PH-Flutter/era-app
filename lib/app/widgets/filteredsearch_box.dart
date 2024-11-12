@@ -500,8 +500,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   floorAreaMin: floorAreaMin,
                                   ppsqmMin: ppsqmMin,
                                   ppsqmMax: ppsqmMax,
-                                  areaMax: lotAreaMin,
-                                  areaMin: lotAreaMax);
+                                  areaMax: lotAreaMax,
+                                  areaMin: lotAreaMin);
                             },
                             label: EraText(
                               text: 'More Filters',
@@ -555,7 +555,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   if (areaMin.text != "" &&
                                       areaMax.text != "") {
                                     searchQuery +=
-                                        ' min ${areaMin.value} and max ${areaMax.text}.';
+                                        'area min ${areaMin.value} and max ${areaMax.text}.';
                                   }
                                   if (areaMin.text != "" &&
                                       areaMax.text != "") {
@@ -602,7 +602,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   if (lotAreaMin.text.isNotEmpty &&
                                       lotAreaMax.text.isNotEmpty) {
                                     searchQuery +=
-                                        ' area min ${lotAreaMin.text.toInt()} and max ${lotAreaMax.text.toInt()}.';
+                                        ' area min ${lotAreaMin.text.toInt()} and area max ${lotAreaMax.text.toInt()}.';
                                   }
 
                                   try {

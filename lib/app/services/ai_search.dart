@@ -149,7 +149,6 @@ class AI {
           "max": {"type": "number"}
         }
       },
-  
       "floor_area": {
         "type": "object",
         "properties": {
@@ -191,7 +190,9 @@ class AI {
     var result = await geminiSearch(geminiData,
         name: "getListing",
         description: "Assign accordingly do not assign value if not specified");
-    print('gemini search result ${result}');
+
+    print('gemini search here 1 result listing ${result}');
+
     Query<Map<String, dynamic>> firebaseQuery =
         FirebaseFirestore.instance.collection('listings');
     List<AiFilters> prompts = [];
@@ -206,11 +207,20 @@ class AI {
               operator: val[1]));
         }
       } else {
-        var val = checkOperator(value);
-        prompts.add(AiFilters(field: key, value: val[0], operator: val[1]));
+        List val = checkOperator(value);
+        print('gemini search here 1 val val ${val}');
+
+        for (int i = 0; i < val.length; i += 2) {
+          prompts
+              .add(AiFilters(field: key, value: val[i], operator: val[i + 1]));
+        }
       }
     });
     Iterable<Listing> listingData = [];
+    for (var element in prompts) {
+      print(
+          'gemini search result ${element.field} ${element.operator} ${element.value}');
+    }
     try {
       listingData = (await firebaseQuery.get())
           .docs
@@ -310,22 +320,28 @@ class AI {
     return (await firebaseQuery.get()).docs;
   }
 
-  checkOperator(value) {
+  List checkOperator(value) {
     if ([String, int, bool].contains(value.runtimeType)) {
       return [value.toLowerCase(), "="];
     }
     if (value['min'] != null && value['max'] != null) {
-      return [value['min'], "="];
+      return [
+        value['min'],
+        ">",
+        value['max'],
+        "<",
+      ];
     }
     if (value['min'] != null) {
-      return [value['min'], "<"];
+      return [value['min'], ">"];
     }
     if (value['max'] != null) {
-      return [value['max'], ">"];
+      return [value['max'], "<"];
     }
     if (value['equals'] != null) {
       return [value['equals'], "="];
     }
+    return [];
   }
 
   geminiSearch(data, {name = '', description = ''}) async {
