@@ -72,7 +72,6 @@ class ProjectsList extends GetView<ProjectsListController> {
                                       EdgeInsets.symmetric(horizontal: 10.w),
                                   child: AppTextField(
                                       onSuffixTap: () async {
-                               
                                         BaseController().showLoading();
                                         var projects = await AI(
                                                 query: searchController
@@ -147,7 +146,7 @@ class ProjectsList extends GetView<ProjectsListController> {
         }
       }
       return LoadMore(
-          length: (controller.projects.length / controller.pageSize).floor(),
+          length: (controller.projects.length / controller.pageSize).ceil(),
           child: Column(children: projects));
     });
   }
@@ -168,7 +167,7 @@ class ProjectsList extends GetView<ProjectsListController> {
             sectionSpacing: 1.w,
             betweenNumberButtonSpacing: 1,
             totalPages: length,
-            currentPage: (controller.count.value / controller.pageSize).floor(),
+            currentPage: (controller.count.value / controller.pageSize).ceil(),
             visiblePagesCount: length < 4 ? length : 4,
             onPageChanged: (page) {
               controller.count.value =

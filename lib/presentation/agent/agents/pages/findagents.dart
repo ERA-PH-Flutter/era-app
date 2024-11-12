@@ -310,8 +310,8 @@ class FindAgents extends GetView<AgentsController> {
         () {
           return LoadMore(
             length:
-                (controller.results.length / controller.pageSize).floor() > 0
-                    ? (controller.results.length / controller.pageSize).floor()
+                (controller.results.length / controller.pageSize).ceil() > 0
+                    ? (controller.results.length / controller.pageSize).ceil()
                     : 1,
             child: ListView.builder(
               shrinkWrap: true,
@@ -350,7 +350,7 @@ class FindAgents extends GetView<AgentsController> {
             sectionSpacing: 1.w,
             betweenNumberButtonSpacing: 1,
             totalPages: length,
-            currentPage: (controller.count.value / controller.pageSize).floor(),
+            currentPage: (controller.count.value / controller.pageSize).ceil(),
             visiblePagesCount: length < 4 ? length : 4,
             onPageChanged: (page) {
               controller.count.value =

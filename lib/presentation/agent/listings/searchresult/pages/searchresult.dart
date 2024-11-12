@@ -121,8 +121,8 @@ class SearchResult extends GetView<SearchResultController> {
               );
             }
             return LoadMore(
-              length: (controller.data.length / controller.pageSize).floor() > 0
-                  ? (controller.data.length / controller.pageSize).floor()
+              length: (controller.data.length / controller.pageSize).ceil() > 0
+                  ? (controller.data.length / controller.pageSize).ceil()
                   : 1,
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
@@ -380,7 +380,7 @@ class SearchResult extends GetView<SearchResultController> {
             sectionSpacing: 1.w,
             betweenNumberButtonSpacing: 1,
             totalPages: length,
-            currentPage: (controller.count.value / controller.pageSize).floor(),
+            currentPage: (controller.count.value / controller.pageSize).ceil(),
             visiblePagesCount: length < 3 ? length : 3,
             onPageChanged: (page) {
               controller.count.value = controller.pageSize * page;
