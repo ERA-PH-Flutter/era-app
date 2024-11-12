@@ -20,6 +20,7 @@ import '../../presentation/agent/listings/add-edit_listings/pages/addlistings.da
 import '../../presentation/global.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
+import '../constants/screens.dart';
 import '../services/ai_search.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -524,12 +525,12 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                         .searchResultState
                                         .value ==
                                     SearchResultState.loading) {
-                                  return SizedBox(
-                                      height: 56,
-                                      width: 56,
-                                      child:
-                                          CircularProgressIndicator.adaptive());
+                                  return Screens.loadingTwo();
                                 }
+
+                                //Screens.loading(
+                                //  height: 50.h,
+                                //);
                                 return SearchWidget(onTap: () async {
                                   String searchQuery = '';
 
@@ -672,7 +673,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     bathrooms.value = 0;
                                     garage.value = 0;
                                     isForSale.value = 0;
-                                    subCategory.clear();
+                                    subCategory = [];
                                     print('click!!');
                                   },
                                   icon: Icon(Icons.clear),
