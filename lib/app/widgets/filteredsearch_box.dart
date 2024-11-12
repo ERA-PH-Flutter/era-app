@@ -56,6 +56,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var selectedPriceRange = "".obs;
   var selectedPriceSearch = RxnString();
   var selectedPropertyTypeSearch = RxnString();
+
+  var isActiveSearch = false.obs;
   // var propertyTypeSearch = [
   //   "Pre-selling",
   //   "Residential",
@@ -487,7 +489,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             ),
                             onPressed: () {
                               openFilterDialog(
-                                  subcategory: selectedSubProperty,
+                                  // subcategory: selectedSubProperty,
                                   bathrooms: bathrooms,
                                   bedrooms: bedrooms,
                                   garage: garage,
@@ -511,99 +513,159 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                           ),
                         ),
                         SizedBox(height: 20.h),
-                        SearchWidget.build(() async {
-                          String searchQuery = '';
-                          BaseController().showLoading();
-                          // var data;
-                          // var searchQuery = "aaaa";
-                          if (isForSale.value == 1) {
-                            searchQuery = " Sale. ";
-                          } else if (isForSale.value == 2) {
-                            searchQuery = " Rent. ";
-                          }
-                          // Query query =
-                          //     FirebaseFirestore.instance.collection('listings');
-                          if (selectedLocation.value != null) {
-                            searchQuery += ' ${selectedLocation.value}.';
-                          }
-                          if (selectedPropertyTypeSearch.value != null) {
-                            searchQuery +=
-                                ' ${selectedPropertyTypeSearch.value}.';
-                          }
-                          if (areaMin.text != "" && areaMax.text != "") {
-                            searchQuery +=
-                                ' min ${areaMin.value} and max ${areaMax.text}.';
-                          }
-                          if (areaMin.text != "" && areaMax.text != "") {
-                            searchQuery +=
-                                ' floor area min ${areaMin.value} and max ${areaMax.text}. ';
-                          }
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: SearchWidget.build(() async {
+                                String searchQuery = '';
+                                BaseController().showLoading();
+                                // var data;
+                                // var searchQuery = "aaaa";
+                                if (isForSale.value == 1) {
+                                  searchQuery = " Sale. ";
+                                } else if (isForSale.value == 2) {
+                                  searchQuery = " Rent. ";
+                                }
+                                // Query query =
+                                //     FirebaseFirestore.instance.collection('listings');
+                                if (selectedLocation.value != null) {
+                                  searchQuery += ' ${selectedLocation.value}.';
+                                }
+                                if (selectedPropertyTypeSearch.value != null) {
+                                  searchQuery +=
+                                      ' ${selectedPropertyTypeSearch.value}.';
+                                }
+                                if (areaMin.text != "" && areaMax.text != "") {
+                                  searchQuery +=
+                                      ' min ${areaMin.value} and max ${areaMax.text}.';
+                                }
+                                if (areaMin.text != "" && areaMax.text != "") {
+                                  searchQuery +=
+                                      ' floor area min ${areaMin.value} and max ${areaMax.text}. ';
+                                }
 
-                          if (selectedPriceRange.value != "") {
-                            var price = selectedPriceRange.value
-                                .replaceAll(",", "")
-                                .split(" - ");
+                                if (selectedPriceRange.value != "") {
+                                  var price = selectedPriceRange.value
+                                      .replaceAll(",", "")
+                                      .split(" - ");
 
-                            searchQuery +=
-                                ' price min ${price[0].contains('M') ? price[0].replaceAll("M", "").toInt() * 1000000 : price[0].toInt()} and max ${price[1].contains('M') ? price[1].replaceAll("M", "").toInt() * 1000000 : price[1].toInt()}.';
-                          }
+                                  searchQuery +=
+                                      ' price min ${price[0].contains('M') ? price[0].replaceAll("M", "").toInt() * 1000000 : price[0].toInt()} and max ${price[1].contains('M') ? price[1].replaceAll("M", "").toInt() * 1000000 : price[1].toInt()}.';
+                                }
 
-                          if (selectedSubProperty.value != "") {
-                            searchQuery +=
-                                ' sub_category ${selectedSubProperty.value.toLowerCase()}.';
-                          }
-                          if (bedrooms.value != 0) {
-                            searchQuery += ' beds equals ${bedrooms.value}.';
-                          }
-                          if (bathrooms.value != 0) {
-                            searchQuery += ' baths equals ${bathrooms.value}.';
-                          }
-                          if (garage.value != 0) {
-                            searchQuery += ' garage equals ${garage.value}.';
-                          }
+                                if (selectedSubProperty.value != "") {
+                                  searchQuery +=
+                                      ' sub_category ${selectedSubProperty.value.toLowerCase()}.';
+                                }
+                                if (bedrooms.value != 0) {
+                                  searchQuery +=
+                                      ' beds equals ${bedrooms.value}.';
+                                }
+                                if (bathrooms.value != 0) {
+                                  searchQuery +=
+                                      ' baths equals ${bathrooms.value}.';
+                                }
+                                if (garage.value != 0) {
+                                  searchQuery +=
+                                      ' garage equals ${garage.value}.';
+                                }
 
-                          if (ppsqmMin.text.isNotEmpty &&
-                              ppsqmMax.text.isNotEmpty) {
-                            searchQuery +=
-                                ' ppsqm min ${ppsqmMin.text.toInt()} and max ${ppsqmMax.text.toInt()}.';
-                          }
-                          if (floorAreaMax.text.isNotEmpty &&
-                              floorAreaMin.text.isNotEmpty) {
-                            searchQuery +=
-                                ' floor_area min ${floorAreaMin.text.toInt()} and max ${floorAreaMax.text.toInt()}.';
-                          }
-                          if (lotAreaMin.text.isNotEmpty &&
-                              lotAreaMax.text.isNotEmpty) {
-                            searchQuery +=
-                                ' lot_area min ${lotAreaMin.text.toInt()} and max ${lotAreaMax.text.toInt()}.';
-                          }
+                                if (ppsqmMin.text.isNotEmpty &&
+                                    ppsqmMax.text.isNotEmpty) {
+                                  searchQuery +=
+                                      ' ppsqm min ${ppsqmMin.text.toInt()} and max ${ppsqmMax.text.toInt()}.';
+                                }
+                                if (floorAreaMax.text.isNotEmpty &&
+                                    floorAreaMin.text.isNotEmpty) {
+                                  searchQuery +=
+                                      ' floor_area min ${floorAreaMin.text.toInt()} and max ${floorAreaMax.text.toInt()}.';
+                                }
+                                if (lotAreaMin.text.isNotEmpty &&
+                                    lotAreaMax.text.isNotEmpty) {
+                                  searchQuery +=
+                                      ' lot_area min ${lotAreaMin.text.toInt()} and max ${lotAreaMax.text.toInt()}.';
+                                }
 
-                          try {
-                            var data =
-                                await AI(query: searchQuery).listingSearch();
-                            Get.find<SearchResultController>()
-                                .searchResultState
-                                .value = SearchResultState.loading;
+                                try {
+                                  var data = await AI(query: searchQuery)
+                                      .listingSearch();
+                                  Get.find<SearchResultController>()
+                                      .searchResultState
+                                      .value = SearchResultState.loading;
 
-                            Get.find<SearchResultController>().data.value =
-                                data;
+                                  Get.find<SearchResultController>()
+                                      .data
+                                      .value = data;
 
-                            Get.find<SearchResultController>()
-                                    .searchResultState
-                                    .value =
-                                data.isEmpty
-                                    ? SearchResultState.empty
-                                    : SearchResultState.loaded;
-                          } catch (e) {
-                            Get.find<SearchResultController>()
-                                .searchResultState
-                                .value = SearchResultState.loaded;
-                            print('error AI search $e');
-                          } finally {
-                            BaseController().hideLoading();
-                          }
-                        }),
-                        SizedBox(height: 20.h),
+                                  Get.find<SearchResultController>()
+                                          .searchResultState
+                                          .value =
+                                      data.isEmpty
+                                          ? SearchResultState.empty
+                                          : SearchResultState.loaded;
+                                } catch (e) {
+                                  Get.find<SearchResultController>()
+                                      .searchResultState
+                                      .value = SearchResultState.loaded;
+                                  print('error AI search $e');
+                                } finally {
+                                  BaseController().hideLoading();
+                                }
+                              }),
+                            ),
+                            if (selectedLocation.value != null ||
+                                selectedPropertyTypeSearch.value != null ||
+                                selectedPriceRange.value != "" ||
+                                areaMin.text != "" ||
+                                areaMax.text != "" ||
+                                selectedSubProperty.value != "" ||
+                                bedrooms.value != 0 ||
+                                bathrooms.value != 0 ||
+                                garage.value != 0 ||
+                                ppsqmMin.text.isNotEmpty ||
+                                ppsqmMax.text.isNotEmpty ||
+                                floorAreaMin.text.isNotEmpty ||
+                                floorAreaMax.text.isNotEmpty ||
+                                lotAreaMin.text.isNotEmpty ||
+                                lotAreaMax.text.isNotEmpty)
+                              Expanded(
+                                flex: 1,
+                                child: IconButton(
+                                  onPressed: () {
+                                    Get.find<SearchResultController>()
+                                        .initListing();
+                                    currentRoute = '/searchresult';
+                                    selectedPropertyTypeSearch.value = null;
+                                    selectedLocation.value = null;
+                                    selectedPriceRange.value = "";
+                                    aiSearchController.clear();
+                                    locationController.clear();
+                                    priceController.clear();
+                                    propertyController.clear();
+                                    projectsController.clear();
+                                    areaMin.clear();
+                                    areaMax.clear();
+                                    floorAreaMin.clear();
+                                    floorAreaMax.clear();
+                                    ppsqmMin.clear();
+                                    ppsqmMax.clear();
+                                    lotAreaMin.clear();
+                                    lotAreaMax.clear();
+                                    bedrooms.value = 0;
+                                    bathrooms.value = 0;
+                                    garage.value = 0;
+                                    isForSale.value = 0;
+                                    subCategory.clear();
+                                    print('click!!');
+                                  },
+                                  icon: Icon(Icons.clear),
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            SizedBox(height: 20.h),
+                          ],
+                        )
                       ],
                     ),
                   ),

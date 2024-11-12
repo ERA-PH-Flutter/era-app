@@ -8,6 +8,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -251,7 +252,7 @@ Widget _buildFloorAreaFilter({
 }
 
 void openFilterDialog({
-  required subcategory,
+  //required subcategory,
   required bedrooms,
   required bathrooms,
   required garage,
@@ -335,23 +336,41 @@ void openFilterDialog({
                       min: ppsqmMin,
                       max: ppsqmMax),
                   sb20(),
-                  Button(
-                    width: Get.width,
-                    onTap: () {
-                      Get.back();
-                      Get.showSnackbar(GetSnackBar(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: EraTheme.paddingWidth, vertical: 10.h),
-                        backgroundColor: AppColors.kRedColor,
-                        title: 'Success',
-                        message: 'Filter Applied',
-                        duration: Duration(seconds: 2),
-                      ));
-                    },
-                    text: 'Apply Filters',
-                    bgColor: AppColors.blue,
-                    fontSize: 20.sp,
-                    borderRadius: BorderRadius.circular(30),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Button(
+                          width: Get.width,
+                          onTap: () {
+                            Get.back();
+                            Get.showSnackbar(GetSnackBar(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: EraTheme.paddingWidth,
+                                  vertical: 10.h),
+                              backgroundColor: AppColors.kRedColor,
+                              title: 'Success',
+                              message: 'Filter Applied',
+                              duration: Duration(seconds: 2),
+                            ));
+
+                            //  bathrooms.value = 0;
+                            //     bedrooms.value = 0;
+                            //     garage.value = 0;
+                            //     floorAreaMax.clear();
+                            //     floorAreaMin.clear();
+                            //     ppsqmMin.clear();
+                            // selectedPropertySubCategory
+                          },
+                          text: 'Apply Filters',
+                          bgColor: AppColors.blue,
+                          fontSize: 20.sp,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      SizedBox(height: 20.h),
+                    ],
                   ),
                 ],
               )),
