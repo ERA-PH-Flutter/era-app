@@ -89,8 +89,8 @@ class ProjectViews {
               }
               return ImageWidget(
                 thumbnailUrl: data['image'],
-                height: 150.h,
-                width: 241.w,
+                fit: BoxFit.cover,
+                width: Get.width,
               );
               // CloudStorage().imageLoaderProvider(
               //   reference: data['image'],
@@ -966,18 +966,10 @@ class ProjectViews {
     ];
     for (var block in project.data!) {
       if (block['type'] == "Project Logo") {
-        preview[0] = SizedBox(
+        preview[0] = ImageWidget(
+          thumbnailUrl: block['image'],
           width: Get.width,
-          child: ImageWidget(
-            thumbnailUrl: block['image'],
-            height: 170.h,
-            width: Get.width,
-          ),
-          // CloudStorage().imageLoaderProvider(
-          //   reference: block['image'],
-          //   height: 170.h,
-          //   width: Get.width,
-          // ),
+          fit: BoxFit.cover,
         );
       }
       if (block['type'] == "Developer Name") {

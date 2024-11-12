@@ -252,7 +252,7 @@ Widget _buildFloorAreaFilter({
 }
 
 void openFilterDialog({
-  //required subcategory,
+  required subcategory,
   required bedrooms,
   required bathrooms,
   required garage,

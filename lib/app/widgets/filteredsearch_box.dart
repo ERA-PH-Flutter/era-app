@@ -492,7 +492,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             ),
                             onPressed: () {
                               openFilterDialog(
-                                  // subcategory: selectedSubProperty,
+                                  subcategory: selectedSubProperty,
                                   bathrooms: bathrooms,
                                   bedrooms: bedrooms,
                                   garage: garage,
@@ -673,7 +673,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     bathrooms.value = 0;
                                     garage.value = 0;
                                     isForSale.value = 0;
-                                    subCategory = [];
+                                    selectedSubProperty.value = "";
                                     print('click!!');
                                   },
                                   icon: Icon(Icons.clear),
