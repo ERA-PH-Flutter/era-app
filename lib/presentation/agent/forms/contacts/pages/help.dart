@@ -77,14 +77,14 @@ class Help extends GetView<ContactusController> {
                           fontWeight: FontWeight.w600,
                         ),
                         SizedBox(height: 20.h),
-                        expansionTile(controller.faqs[i].data()['type'],controller.faqs[i].data()['answer']),
+                        expansionTile(controller.faqs[i].data()['question'],controller.faqs[i].data()['answer']),
                         SizedBox(height: 15.h),
                       ],
                     ));
                   }else{
                     faqWidgets.add(Column(
                       children: [
-                        expansionTile(controller.faqs[i].data()['type'],controller.faqs[i].data()['answer']),
+                        expansionTile(controller.faqs[i].data()['question'],controller.faqs[i].data()['answer']),
                         SizedBox(height: 15.h),
                       ],
                     ));
