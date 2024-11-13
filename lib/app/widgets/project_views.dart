@@ -1,6 +1,5 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
-import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_view_binding.dart';
@@ -38,11 +37,17 @@ class ProjectViews {
     height,
     width,
     image,
+    fit,
   }) {
     return Container(
       height: height,
       width: width,
-      decoration: BoxDecoration(image: DecorationImage(image: image)),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: image,
+          fit: fit ?? BoxFit.cover,
+        ),
+      ),
     );
   }
 
@@ -57,9 +62,10 @@ class ProjectViews {
               if (kIsWeb) {
                 //im not sure
                 return _buildImage(
-                    image: MemoryImage(data['image']),
-                    height: 250.h,
-                    width: Get.width);
+                  image: MemoryImage(data['image']),
+                  height: 250.h,
+                  width: Get.width,
+                );
               } else {
                 return ImageWidget(
                   thumbnailUrl: data['image'],
@@ -84,7 +90,8 @@ class ProjectViews {
               if (kIsWeb) {
                 return _buildImage(
                     image: MemoryImage(data['image']),
-                    height: 250.h,
+                    fit: BoxFit.cover,
+                    height: 270.h,
                     width: Get.width);
               }
               return ImageWidget(
