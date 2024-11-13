@@ -30,7 +30,7 @@ class AddListingsController extends GetxController with BaseController {
   RxList images = [].obs;
   List imagesRef = [];
   final picker = ImagePicker();
-  final removeImage = false.obs;
+  final removeImage = true.obs;
   var selectedPropertyT = RxnString();
   var selectedOfferT = RxnString();
   var selectedPropertySubCategory = RxnString();

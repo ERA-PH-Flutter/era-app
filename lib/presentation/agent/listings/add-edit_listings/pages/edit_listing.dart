@@ -202,30 +202,30 @@ class EditListing extends GetView<AddListingsController> {
                               ),
                             ),
                           ),
-                          Obx(
-                            () => Visibility(
-                              visible: controller.removeImage.value,
-                              child: Positioned(
-                                top: 5,
-                                right: 5,
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    //controller.listing?.photos![index];
-                                    await FirebaseStorage.instance
-                                        .ref(controller.listing?.photos![index])
-                                        .delete();
-                                    controller.listing?.photos?.removeAt(index);
-                                    await controller.listing?.updateListing();
-                                    controller.removeAt(index);
-                                  },
-                                  child: Icon(
-                                    CupertinoIcons.xmark_circle_fill,
-                                    color: Colors.black.withOpacity(0.7),
+                          Obx(() => Visibility(
+                                visible: controller.removeImage.value,
+                                child: Positioned(
+                                  top: 5,
+                                  right: 5,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      //controller.listing?.photos![index];
+                                      await FirebaseStorage.instance
+                                          .ref(controller
+                                              .listing?.photos![index])
+                                          .delete();
+                                      controller.listing?.photos
+                                          ?.removeAt(index);
+                                      await controller.listing?.updateListing();
+                                      controller.removeAt(index);
+                                    },
+                                    child: Icon(
+                                      CupertinoIcons.xmark_circle_fill,
+                                      color: Colors.black.withOpacity(0.7),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          )
+                              ))
                         ],
                       );
                     })),

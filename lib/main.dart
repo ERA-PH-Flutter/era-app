@@ -1,6 +1,7 @@
 import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get/get.dart';
 import 'app/services/local_storage.dart';
@@ -9,6 +10,8 @@ import 'firebase_options.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await initServices();
   runApp(const App());
 }
