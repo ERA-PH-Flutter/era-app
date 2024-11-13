@@ -5,6 +5,8 @@
 .packages
 .pub-cache/
 .pub/
+/functions/lib/node_modules
+/functions/node_modules
 build/
 flutter/ephemeral/
 
