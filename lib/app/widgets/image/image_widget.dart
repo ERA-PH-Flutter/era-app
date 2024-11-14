@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:photo_view/photo_view.dart';
 
 class ImageWidget extends StatelessWidget {
   final String thumbnailUrl;
@@ -33,12 +34,22 @@ class ImageWidget extends StatelessWidget {
         } else if (!snapshot.hasData || snapshot.data == null) {
           return Icon(Icons.broken_image);
         } else {
-          return Image.network(
-            snapshot.data!,
-            fit: fit ?? BoxFit.cover,
-            height: height,
-            width: width,
+          return PhotoView(
+            imageProvider: Image.network(
+              snapshot.data!,
+              fit: fit ?? BoxFit.cover,
+              height: height,
+              width: width,
+            ).image,
+            backgroundDecoration: BoxDecoration(color: Colors.transparent),
+            minScale: PhotoViewComputedScale.contained * 0.8,
+            maxScale: PhotoViewComputedScale.covered * 2.0,
           );
+
+          // Image.network(
+          //   snapshot.data!,
+
+          // );
         }
       },
     );

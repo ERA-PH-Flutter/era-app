@@ -62,6 +62,7 @@ dependencies:
   dio: any
   flutter_cache_manager: ^3.4.1
   cloud_functions: ^5.1.4
+  photo_view: ^0.15.0
 
 dev_dependencies:
   flutter_test:
