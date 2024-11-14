@@ -19,6 +19,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
+import '../../../../../app/widgets/interactive_property_image.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 import '../../favorites/controllers/fav_controller.dart';
@@ -117,14 +118,17 @@ class PropertyInformation extends GetView<ListingController> {
                     Positioned(
                         child: GestureDetector(
                       onTap: () {
-                        showFullScreenImage(
-                            context,
-                            controller.images.indexOf(
-                                controller.currentImage.value == ''
-                                    ? (controller.images.isNotEmpty
-                                        ? controller.images.first
-                                        : AppStrings.noUserImageWhite)
-                                    : controller.currentImage.value));
+                        // InteractivePropertyImage(
+                        //     image: controller.currentImage.value);
+
+                        // showFullScreenImage(
+                        //     context,
+                        //     controller.images.indexOf(
+                        //         controller.currentImage.value == ''
+                        //             ? (controller.images.isNotEmpty
+                        //                 ? controller.images.first
+                        //                 : AppStrings.noUserImageWhite)
+                        //             : controller.currentImage.value));
                       },
                       child: SizedBox(
                         width: Get.width,
@@ -842,10 +846,9 @@ class PropertyInformation extends GetView<ListingController> {
     showDialog(
       context: context,
       builder: (context) {
+        final RxInt currentPage = RxInt(initialIndex);
         final PageController pageController =
             PageController(initialPage: initialIndex);
-        final RxInt currentPage = RxInt(initialIndex);
-
         return Dialog(
           insetPadding: EdgeInsets.zero,
           child: Stack(
@@ -944,27 +947,40 @@ class PropertyInformation extends GetView<ListingController> {
                     currentPage.value = index;
                   },
                   itemBuilder: (context, index) {
-                    return Center(
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        children: [
-                          InteractiveViewer(
-                            panEnabled: false, // Set it to false
-                            // boundaryMargin: EdgeInsets.all(100),
-                            minScale: 2,
-                            maxScale: 6,
-                            child: ImageWidget(
-                              thumbnailUrl: controller.images[index],
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          // CloudStorage().imageLoader(
-                          //   reference: controller.images[index],
-                          //   fit: BoxFit.cover,
-                          // ),
-                        ],
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(() => InteractivePropertyImage(
+                              image: controller.images[index],
+                            ));
+                      },
+                      child: ImageWidget(
+                        thumbnailUrl: controller.images[index],
+                        fit: BoxFit.contain,
                       ),
                     );
+
+                    // Center(
+                    //   child: Wrap(
+                    //     alignment: WrapAlignment.center,
+                    //     children: [
+
+                    //      InteractiveViewer(
+                    //         panEnabled: false, // Set it to false
+                    //         // boundaryMargin: EdgeInsets.all(100),
+                    //         minScale: 0.5,
+                    //         maxScale: 6,
+                    //         child: ImageWidget(
+                    //           thumbnailUrl: controller.images[index],
+                    //           fit: BoxFit.cover,
+                    //         ),
+                    //       ),
+                    //       // CloudStorage().imageLoader(
+                    //       //   reference: controller.images[index],
+                    //       //   fit: BoxFit.cover,
+                    //       // ),
+                    //     ],
+                    //   ),
+                    // );
                   },
                 ),
               ),
