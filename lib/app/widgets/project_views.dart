@@ -363,10 +363,15 @@ class ProjectViews {
                                               }
                                               return Wrap(
                                                 children: [
-                                                  ImageWidget(
-                                                    thumbnailUrl: data['images']
-                                                        [index],
-                                                    fit: BoxFit.cover,
+                                                  InteractiveViewer(
+                                                    clipBehavior: Clip.none,
+                                                    minScale: 1.0,
+                                                    maxScale: 4.0,
+                                                    child: ImageWidget(
+                                                      thumbnailUrl:
+                                                          data['images'][index],
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                   // CloudStorage().imageLoader(
                                                   //   reference: data['images']
@@ -633,8 +638,14 @@ class ProjectViews {
                                               }
                                               return Wrap(
                                                 children: [
-                                                  ImageWidget(
-                                                    thumbnailUrl: data['image'],
+                                                  InteractiveViewer(
+                                                    clipBehavior: Clip.none,
+                                                    minScale: 1.0,
+                                                    maxScale: 4.0,
+                                                    child: ImageWidget(
+                                                      thumbnailUrl:
+                                                          data['image'],
+                                                    ),
                                                   ),
                                                   // CloudStorage().imageLoader(
                                                   //   reference: data['images']

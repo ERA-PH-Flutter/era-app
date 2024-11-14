@@ -118,17 +118,11 @@ class PropertyInformation extends GetView<ListingController> {
                     Positioned(
                         child: GestureDetector(
                       onTap: () {
-                        // InteractivePropertyImage(
-                        //     image: controller.currentImage.value);
-
-                        // showFullScreenImage(
-                        //     context,
-                        //     controller.images.indexOf(
-                        //         controller.currentImage.value == ''
-                        //             ? (controller.images.isNotEmpty
-                        //                 ? controller.images.first
-                        //                 : AppStrings.noUserImageWhite)
-                        //             : controller.currentImage.value));
+                        Get.to(() => InteractivePropertyImage(
+                              images: controller.images.cast<String>(),
+                              initialImageIndex: controller.images
+                                  .indexOf(controller.currentImage.value),
+                            ));
                       },
                       child: SizedBox(
                         width: Get.width,
@@ -935,55 +929,55 @@ class PropertyInformation extends GetView<ListingController> {
               //   ),
               // ),
 
-              Positioned(
-                top: 60.h,
-                left: 0.w,
-                right: 0.w,
-                bottom: 30.h,
-                child: PageView.builder(
-                  controller: pageController,
-                  itemCount: controller.images.length,
-                  onPageChanged: (index) {
-                    currentPage.value = index;
-                  },
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Get.to(() => InteractivePropertyImage(
-                              image: controller.images[index],
-                            ));
-                      },
-                      child: ImageWidget(
-                        thumbnailUrl: controller.images[index],
-                        fit: BoxFit.contain,
-                      ),
-                    );
+              // Positioned(
+              //   top: 60.h,
+              //   left: 0.w,
+              //   right: 0.w,
+              //   bottom: 30.h,
+              //   child: PageView.builder(
+              //     controller: pageController,
+              //     itemCount: controller.images.length,
+              //     onPageChanged: (index) {
+              //       currentPage.value = index;
+              //     },
+              //     itemBuilder: (context, index) {
+              //       return GestureDetector(
+              //         onTap: () {
+              //           Get.to(() => InteractivePropertyImage(
+              //                 image: controller.images[index],
+              //               ));
+              //         },
+              //         child: ImageWidget(
+              //           thumbnailUrl: controller.images[index],
+              //           fit: BoxFit.contain,
+              //         ),
+              //       );
 
-                    // Center(
-                    //   child: Wrap(
-                    //     alignment: WrapAlignment.center,
-                    //     children: [
+              // Center(
+              //   child: Wrap(
+              //     alignment: WrapAlignment.center,
+              //     children: [
 
-                    //      InteractiveViewer(
-                    //         panEnabled: false, // Set it to false
-                    //         // boundaryMargin: EdgeInsets.all(100),
-                    //         minScale: 0.5,
-                    //         maxScale: 6,
-                    //         child: ImageWidget(
-                    //           thumbnailUrl: controller.images[index],
-                    //           fit: BoxFit.cover,
-                    //         ),
-                    //       ),
-                    //       // CloudStorage().imageLoader(
-                    //       //   reference: controller.images[index],
-                    //       //   fit: BoxFit.cover,
-                    //       // ),
-                    //     ],
-                    //   ),
-                    // );
-                  },
-                ),
-              ),
+              //      InteractiveViewer(
+              //         panEnabled: false, // Set it to false
+              //         // boundaryMargin: EdgeInsets.all(100),
+              //         minScale: 0.5,
+              //         maxScale: 6,
+              //         child: ImageWidget(
+              //           thumbnailUrl: controller.images[index],
+              //           fit: BoxFit.cover,
+              //         ),
+              //       ),
+              //       // CloudStorage().imageLoader(
+              //       //   reference: controller.images[index],
+              //       //   fit: BoxFit.cover,
+              //       // ),
+              //     ],
+              //   ),
+              // );
+              //     },
+              //   ),
+              // ),
 
               Positioned(
                 bottom: 20.h,

@@ -327,7 +327,7 @@ class AgentListings extends GetView<AgentListingsController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             EraText(
-              text: "This User don't have any listings!",
+              text: "This User doesn't have any listings",
               color: Colors.black,
               fontSize: 16.sp,
             ),

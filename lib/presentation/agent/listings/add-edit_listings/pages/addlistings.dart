@@ -580,7 +580,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 ]).addListing(controller.images, user!.id);
             settings!.listingCount = settings!.listingCount! + 1;
             await settings!.update();
-            controller.showSuccessDialog(
+            controller.showSuccessDialogProjects(
                 hitApi: () {
                   Get.offAllNamed(RouteString.agentDashBoard);
                 },
