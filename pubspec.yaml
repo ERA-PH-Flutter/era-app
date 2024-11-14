@@ -63,6 +63,7 @@ dependencies:
   flutter_cache_manager: ^3.4.1
   cloud_functions: ^5.1.4
   photo_view: ^0.15.0
+  interactive_viewer_2: ^0.0.10
 
 dev_dependencies:
   flutter_test:

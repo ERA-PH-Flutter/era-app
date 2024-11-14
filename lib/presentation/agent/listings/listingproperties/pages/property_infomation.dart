@@ -948,9 +948,15 @@ class PropertyInformation extends GetView<ListingController> {
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         children: [
-                          ImageWidget(
-                            thumbnailUrl: controller.images[index],
-                            fit: BoxFit.cover,
+                          InteractiveViewer(
+                            panEnabled: false, // Set it to false
+                            // boundaryMargin: EdgeInsets.all(100),
+                            minScale: 2,
+                            maxScale: 6,
+                            child: ImageWidget(
+                              thumbnailUrl: controller.images[index],
+                              fit: BoxFit.cover,
+                            ),
                           ),
                           // CloudStorage().imageLoader(
                           //   reference: controller.images[index],
