@@ -321,122 +321,111 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                               fontSize: 18.sp,
                               color: AppColors.white,
                             ),
-                            SizedBox(height: 5.h),
-                            Container(
-                              height: 50.h,
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(horizontal: 21.w),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(99),
-                              ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  alignment: Alignment.centerLeft,
-                                  dropdownColor: AppColors.white,
-                                  focusColor: AppColors.hint,
-                                  iconEnabledColor: Colors.black,
-                                  isExpanded: true,
-                                  value: selectedPriceRange.value.isEmpty
-                                      ? null
-                                      : selectedPriceRange.value,
-                                  hint: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: EraText(
-                                      text: 'Select Price Range',
-                                      textAlign: TextAlign.center,
-                                      color: Colors.grey,
-                                      fontSize: 20.sp,
-                                    ),
-                                  ),
-                                  items: [
-                                    DropdownMenuItem(
-                                      value: '2',
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Expanded(
-                                            child: TextformfieldWidget(
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 10.h),
-                                              controller: priceMin,
-                                              hintText: 'Min Price',
-                                              obscureText: false,
-                                              color: AppColors.black,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              borderSide: BorderSide.none,
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black,
-                                                    width: 1.0),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 10.w),
-                                          Expanded(
-                                            child: TextformfieldWidget(
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 10.h),
-                                              controller: priceMax,
-                                              hintText: 'Max Price',
-                                              obscureText: false,
-                                              color: AppColors.black,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              borderSide: BorderSide.none,
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black,
-                                                    width: 1.0),
-                                              ),
-                                            ),
-                                          ),
-                                          IconButton(
-                                            onPressed: () {
-                                              String customPriceRange =
-                                                  '${priceMin.text} - ${priceMax.text}';
-
-                                              selectedPriceRange.value.isEmpty
-                                                  ? selectedPriceRange.value =
-                                                      customPriceRange
-                                                  : selectedPriceRange.value =
-                                                      selectedPriceRange.value;
-                                              priceSearch = priceSearchCopy
-                                                ..add(customPriceRange);
-                                              Get.back();
-                                            },
-                                            style: ButtonStyle(
-                                              backgroundColor:
-                                                  WidgetStateProperty.all(
-                                                      AppColors.hint
-                                                          .withOpacity(0.5)),
-                                            ),
-                                            icon: Icon(Icons.check),
-                                          ),
-                                        ],
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: TextFormField(
+                                    onChanged: (value) {
+                                      value = value.replaceAll(',', '');
+                                      if (value.isNotEmpty) {
+                                        final formattedValue =
+                                            value.replaceAllMapped(
+                                                RegExp(
+                                                    r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                (Match m) => '${m[1]},');
+                                        priceMin.value = TextEditingValue(
+                                          text: formattedValue,
+                                          selection: TextSelection.collapsed(
+                                              offset: formattedValue.length),
+                                        );
+                                      }
+                                    },
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
+                                    controller: priceMin,
+                                    decoration: InputDecoration(
+                                      prefixIcon: Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 5.w,
+                                          top: 12.h,
+                                        ),
+                                        child: EraText(
+                                            textAlign: TextAlign.center,
+                                            text: 'PHP:',
+                                            fontSize: 18.sp,
+                                            color: AppColors.black),
+                                      ),
+                                      contentPadding: EdgeInsets.zero,
+                                      hintText: 'Min Price',
+                                      fillColor: AppColors.white,
+                                      filled: true,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                          color: AppColors.black,
+                                          width: 1.5,
+                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
                                       ),
                                     ),
-                                    ...priceSearch.map((price) {
-                                      return DropdownMenuItem<String>(
-                                        value: price,
-                                        child: EraText(
-                                          text: price,
-                                          color: AppColors.black,
-                                        ),
-                                      );
-                                    }),
-                                  ],
-                                  onChanged: (value) {
-                                    selectedPriceRange.value = value!;
-                                  },
+                                  ),
                                 ),
-                              ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 1,
+                                  child: TextFormField(
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
+                                    controller: priceMax,
+                                    onChanged: (value) {
+                                      value = value.replaceAll(',', '');
+                                      if (value.isNotEmpty) {
+                                        final formattedValue =
+                                            value.replaceAllMapped(
+                                                RegExp(
+                                                    r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                (Match m) => '${m[1]},');
+                                        priceMax.value = TextEditingValue(
+                                          text: formattedValue,
+                                          selection: TextSelection.collapsed(
+                                              offset: formattedValue.length),
+                                        );
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      //     prefixIcon: Icon(Icons.attach_money),
+                                      prefixIcon: Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 5.w,
+                                          top: 12.h,
+                                        ),
+                                        child: EraText(
+                                            textAlign: TextAlign.center,
+                                            text: 'PHP:',
+                                            fontSize: 18.sp,
+                                            color: AppColors.black),
+                                      ),
+                                      contentPadding: EdgeInsets.zero,
+                                      hintText: 'Max Price',
+                                      fillColor: AppColors.white,
+                                      filled: true,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                          color: AppColors.black,
+                                          width: 1.5,
+                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

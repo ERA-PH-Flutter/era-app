@@ -224,6 +224,7 @@ Widget _buildFloorAreaFilter({
                   keyboardType: TextInputType.number,
                   controller: min,
                   maxLines: 1,
+              
                 ),
               ),
             ],
