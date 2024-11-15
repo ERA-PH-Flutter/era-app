@@ -232,6 +232,9 @@ class AI {
     final Map<Listing, double> filteredData = {};
     for (var data in listingData) {
       double score = 0;
+      bool minMatch = true;
+      bool maxMatch = true;
+      bool equalsMatch = true;
       for (int i = 0; i < (prompts.length); i++) {
         if (prompts[i].field == "name") {
           if (data
@@ -245,28 +248,30 @@ class AI {
         }
 
         if (prompts[i].operator == ">") {
-          if ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value) {
-            score += .5;
-          }
+          score += .5;
+
+          minMatch =
+              ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value);
           continue;
         }
         if (prompts[i].operator == "<") {
-          if ((data.toMap()[prompts[i].field] ?? 0) <= prompts[i].value) {
-            score += .5;
-          }
+          score += .5;
+
+          maxMatch =
+              ((data.toMap()[prompts[i].field] ?? 0) <= prompts[i].value);
           continue;
         }
         if (prompts[i].operator == "=") {
-          if ((data.toMap()[prompts[i].field] ?? 0) == prompts[i].value) {
-            score += 1;
-          }
+          score++;
+          equalsMatch =
+              ((data.toMap()[prompts[i].field] ?? 0) == prompts[i].value);
           continue;
         }
       }
       final querySplit = query.split(' ').map((e) => e.toLowerCase());
       for (var split in querySplit) {
         if (geminiData.toString().contains(split)) continue;
-        print('gemini search  split ${split}');
+        print('gemini search split ${split}');
 
         if (double.tryParse(split) == null) {
           if ((data
@@ -278,17 +283,8 @@ class AI {
           }
         }
       }
-      // bonus if it matches exact query string from user
-      if ((data
-          .toMap()
-          .toString()
-          .toLowerCase()
-          .contains(query.trim().toLowerCase()))) {
-        score = score + .3;
-      }
-      print('gemini search score ${score}');
 
-      if (score >= 1) {
+      if (score >= 1 && (minMatch && maxMatch && equalsMatch)) {
         filteredData[data] = score;
       }
     }

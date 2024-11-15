@@ -46,6 +46,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var selectedSubProperty = "".obs;
   var areaMin = TextEditingController();
   var areaMax = TextEditingController();
+  var priceMin = TextEditingController();
+  var priceMax = TextEditingController();
   var floorAreaMin = TextEditingController();
   var floorAreaMax = TextEditingController();
   var ppsqmMin = TextEditingController();
@@ -90,7 +92,18 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
     "Antipolo",
     "Santa Ana",
   ];
-  var priceSearch = [
+
+  List<String> priceSearch = [
+    "1,000 - 100,000",
+    "100,000 - 500,000",
+    "100,000 - 1M",
+    "1M - 5M",
+    "10M - 50M",
+    "50M - 100M",
+    "100M - 1B",
+  ];
+
+  List<String> priceSearchCopy = [
     "1,000 - 100,000",
     "100,000 - 500,000",
     "100,000 - 1M",
@@ -348,7 +361,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                               contentPadding:
                                                   EdgeInsets.symmetric(
                                                       vertical: 10.h),
-                                              controller: areaMin,
+                                              controller: priceMin,
                                               hintText: 'Min Price',
                                               obscureText: false,
                                               color: AppColors.black,
@@ -369,7 +382,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                               contentPadding:
                                                   EdgeInsets.symmetric(
                                                       vertical: 10.h),
-                                              controller: areaMax,
+                                              controller: priceMax,
                                               hintText: 'Max Price',
                                               obscureText: false,
                                               color: AppColors.black,
@@ -386,16 +399,16 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                           ),
                                           IconButton(
                                             onPressed: () {
-                                              // String customPriceRange =
-                                              //     '${areaMin.text} - ${areaMax.text}';
+                                              String customPriceRange =
+                                                  '${priceMin.text} - ${priceMax.text}';
 
-                                              // selectedPriceRange.value.isEmpty
-                                              //     ? selectedPriceRange.value =
-                                              //         customPriceRange
-                                              //     : selectedPriceRange.value =
-                                              //         selectedPriceRange
-                                              //             .value;
-
+                                              selectedPriceRange.value.isEmpty
+                                                  ? selectedPriceRange.value =
+                                                      customPriceRange
+                                                  : selectedPriceRange.value =
+                                                      selectedPriceRange.value;
+                                              priceSearch = priceSearchCopy
+                                                ..add(customPriceRange);
                                               Get.back();
                                             },
                                             style: ButtonStyle(
@@ -555,12 +568,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   if (areaMin.text != "" &&
                                       areaMax.text != "") {
                                     searchQuery +=
-                                        'area min ${areaMin.value} and max ${areaMax.text}.';
-                                  }
-                                  if (areaMin.text != "" &&
-                                      areaMax.text != "") {
-                                    searchQuery +=
-                                        ' floor area min ${areaMin.value} and max ${areaMax.text}. ';
+                                        ' area min ${areaMin.text} and max ${areaMax.text}.';
                                   }
 
                                   if (selectedPriceRange.value != "") {
