@@ -71,8 +71,8 @@ dev_dependencies:
   flutter_lints: ^3.0.0
 
 flutter_launcher_icons:
-  image_path_android: "assets/images/logowhite.png"
-  image_path_ios: "assets/images/logowhite.png" #//1024x1024
+  image_path_android: "assets/images/new_logo.jpg"
+  image_path_ios: "assets/images/new_logo.jpg" #//1024x1024
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
