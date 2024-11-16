@@ -685,7 +685,7 @@ class PropertyInformation extends GetView<ListingController> {
                     : listing.ppsqm! >= 1000
                         ? '${listing.ppsqm! / 1000}K'
                         : '${listing.ppsqm}'),
-            iconsWidgets(AppEraAssets.area, '${listing.area} sqm'),
+            iconsWidgets(AppEraAssets.area, '${listing.lotArea} sqm'),
             iconsWidgets(AppEraAssets.bed, '${listing.beds}'),
           ],
         ),
@@ -737,7 +737,7 @@ class PropertyInformation extends GetView<ListingController> {
             shorterSummary(text: 'Beds', text2: '${listing.beds}'),
             shorterSummary(text: 'Baths', text2: '${listing.baths}'),
             shorterSummary(text: 'Garage', text2: '${listing.cars}'),
-            shorterSummary(text: 'Area', text2: '${listing.area} sqm'),
+            shorterSummary(text: 'Area', text2: '${listing.lotArea} sqm'),
             //shorterSummary('Offer Type', listing.type),
             shorterSummary(text: 'View', text2: listing.view ?? "None"),
             shorterSummary(

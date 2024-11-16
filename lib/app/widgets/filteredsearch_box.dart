@@ -33,6 +33,8 @@ class FilteredSearchBox extends StatefulWidget {
 }
 
 class _FilteredSearchBoxState extends State<FilteredSearchBox> {
+  var formKey = GlobalKey<FormState>();
+
   var showFullSearch = false.obs;
   var expanded = false.obs;
   var aiSearchController = TextEditingController();
@@ -321,111 +323,138 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                               fontSize: 18.sp,
                               color: AppColors.white,
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: TextFormField(
-                                    onChanged: (value) {
-                                      value = value.replaceAll(',', '');
-                                      if (value.isNotEmpty) {
-                                        final formattedValue =
-                                            value.replaceAllMapped(
-                                                RegExp(
-                                                    r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                                (Match m) => '${m[1]},');
-                                        priceMin.value = TextEditingValue(
-                                          text: formattedValue,
-                                          selection: TextSelection.collapsed(
-                                              offset: formattedValue.length),
-                                        );
-                                      }
-                                    },
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                    controller: priceMin,
-                                    decoration: InputDecoration(
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 5.w,
-                                          top: 12.h,
+                            Form(
+                              key: formKey,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextFormField(
+                                      // validator: (value) {
+                                      //   if (value == null) return null;
+
+                                      //   if (priceMin.text.isNotEmpty &&
+                                      //       priceMax.text.isNotEmpty) {
+                                      //     if (int.parse(priceMin.text
+                                      //             .replaceAll(',', '')) >
+                                      //         int.parse(priceMax.text
+                                      //             .replaceAll(',', ''))) {
+                                      //       return '';
+                                      //     }
+                                      //   }
+                                      //   return null;
+                                      // },
+                                      onChanged: (value) {
+                                        value = value.replaceAll(',', '');
+                                        if (value.isNotEmpty) {
+                                          final formattedValue =
+                                              value.replaceAllMapped(
+                                                  RegExp(
+                                                      r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                  (Match m) => '${m[1]},');
+                                          priceMin.value = TextEditingValue(
+                                            text: formattedValue,
+                                            selection: TextSelection.collapsed(
+                                                offset: formattedValue.length),
+                                          );
+                                        }
+                                      },
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
+                                      controller: priceMin,
+                                      decoration: InputDecoration(
+                                        constraints: const BoxConstraints(
+                                            maxHeight: 70, minHeight: 35),
+                                        isDense: true,
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.only(
+                                            left: 5.w,
+                                            top: 12.h,
+                                          ),
+                                          child: EraText(
+                                              textAlign: TextAlign.center,
+                                              text: 'PHP:',
+                                              fontSize: 18.sp,
+                                              color: AppColors.black),
                                         ),
-                                        child: EraText(
-                                            textAlign: TextAlign.center,
-                                            text: 'PHP:',
-                                            fontSize: 18.sp,
-                                            color: AppColors.black),
-                                      ),
-                                      contentPadding: EdgeInsets.zero,
-                                      hintText: 'Min Price',
-                                      fillColor: AppColors.white,
-                                      filled: true,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: BorderSide(
-                                          color: AppColors.black,
-                                          width: 1.5,
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 10.h, horizontal: 10.w),
+                                        hintText: 'Min Price',
+                                        fillColor: AppColors.white,
+                                        filled: true,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          borderSide: BorderSide(
+                                            color: AppColors.black,
+                                            width: 1.5,
+                                          ),
                                         ),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  flex: 1,
-                                  child: TextFormField(
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                    controller: priceMax,
-                                    onChanged: (value) {
-                                      value = value.replaceAll(',', '');
-                                      if (value.isNotEmpty) {
-                                        final formattedValue =
-                                            value.replaceAllMapped(
-                                                RegExp(
-                                                    r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                                (Match m) => '${m[1]},');
-                                        priceMax.value = TextEditingValue(
-                                          text: formattedValue,
-                                          selection: TextSelection.collapsed(
-                                              offset: formattedValue.length),
-                                        );
-                                      }
-                                    },
-                                    decoration: InputDecoration(
-                                      //     prefixIcon: Icon(Icons.attach_money),
-                                      prefixIcon: Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 5.w,
-                                          top: 12.h,
+                                  SizedBox(width: 10),
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextFormField(
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
+                                      controller: priceMax,
+                                      onChanged: (value) {
+                                        value = value.replaceAll(',', '');
+                                        if (value.isNotEmpty) {
+                                          final formattedValue =
+                                              value.replaceAllMapped(
+                                                  RegExp(
+                                                      r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                  (Match m) => '${m[1]},');
+                                          priceMax.value = TextEditingValue(
+                                            text: formattedValue,
+                                            selection: TextSelection.collapsed(
+                                                offset: formattedValue.length),
+                                          );
+                                        }
+                                      },
+                                      decoration: InputDecoration(
+                                        //     prefixIcon: Icon(Icons.attach_money),
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.only(
+                                            left: 5.w,
+                                            top: 12.h,
+                                          ),
+                                          child: EraText(
+                                              textAlign: TextAlign.center,
+                                              text: 'PHP:',
+                                              fontSize: 18.sp,
+                                              color: AppColors.black),
                                         ),
-                                        child: EraText(
-                                            textAlign: TextAlign.center,
-                                            text: 'PHP:',
-                                            fontSize: 18.sp,
-                                            color: AppColors.black),
-                                      ),
-                                      contentPadding: EdgeInsets.zero,
-                                      hintText: 'Max Price',
-                                      fillColor: AppColors.white,
-                                      filled: true,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: BorderSide(
-                                          color: AppColors.black,
-                                          width: 1.5,
+                                        contentPadding: EdgeInsets.zero,
+                                        hintText: 'Max Price',
+                                        fillColor: AppColors.white,
+                                        filled: true,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          borderSide: BorderSide(
+                                            color: AppColors.black,
+                                            width: 1.5,
+                                          ),
                                         ),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -534,6 +563,48 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                 //  height: 50.h,
                                 //);
                                 return SearchWidget(onTap: () async {
+                                  // if(formKey.currentState!.validate()){
+
+                                  // }
+                                  if (priceMin.text.isNotEmpty &&
+                                      priceMax.text.isNotEmpty) {
+                                    if (int.parse(
+                                            priceMin.text.replaceAll(',', '')) >
+                                        int.parse(priceMax.text
+                                            .replaceAll(',', ''))) {
+                                      return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              backgroundColor: AppColors.white,
+                                              title: EraText(
+                                                  text:
+                                                      'Invalid price range input',
+                                                  color: AppColors.black,
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.bold),
+                                              content: EraText(
+                                                  text:
+                                                      'Maximum price should be greater than minimum price.',
+                                                  color: AppColors.black,
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.w500),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
+                                                    child: EraText(
+                                                        text: 'OK',
+                                                        color: AppColors.black,
+                                                        fontSize: 20.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold))
+                                              ],
+                                            );
+                                          });
+                                    }
+                                  }
                                   String searchQuery = '';
 
                                   // var data;

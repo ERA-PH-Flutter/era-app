@@ -152,7 +152,7 @@ class SoldProperties extends GetView<SoldPropertiesController> {
                                     ),
                                     SizedBox(width: 2.w),
                                     EraText(
-                                      text: '${listing.area} sqm',
+                                      text: '${listing.lotArea} sqm',
                                       fontSize: EraTheme.paragraph - 1.sp,
                                       fontWeight: FontWeight.w500,
                                       color: AppColors.black,

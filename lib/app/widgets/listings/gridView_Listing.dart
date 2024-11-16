@@ -17,11 +17,10 @@ class ListingProperties extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    if(listingModels.isNotEmpty){
+    if (listingModels.isNotEmpty) {
       return SizedBox(
         height: 500.h,
-        child:GridView.builder(
+        child: GridView.builder(
             scrollDirection: Axis.horizontal,
             physics: const ScrollPhysics(),
             shrinkWrap: true,
@@ -30,43 +29,51 @@ class ListingProperties extends StatelessWidget {
               mainAxisExtent: 410,
             ),
             itemCount: listingModels.length,
-            itemBuilder: (context, i){
+            itemBuilder: (context, i) {
               return FutureBuilder(
-                future: EraUser().getById(listingModels[i].by) ,
-                builder: (context,AsyncSnapshot<EraUser> snapshot){
-                  if(snapshot.hasData){
+                future: EraUser().getById(listingModels[i].by),
+                builder: (context, AsyncSnapshot<EraUser> snapshot) {
+                  if (snapshot.hasData) {
                     return ListingItemss(
                       fromSold: false,
-                      image: (listingModels[i].photos!.isEmpty ?  AppStrings.noImageWhite : listingModels[i].photos!.first != "" ?  listingModels[i].photos!.first :AppStrings.noImageWhite ),
+                      image: (listingModels[i].photos!.isEmpty
+                          ? AppStrings.noImageWhite
+                          : listingModels[i].photos!.first != ""
+                              ? listingModels[i].photos!.first
+                              : AppStrings.noImageWhite),
                       type: listingModels[i].type ?? 'pre-selling',
-                      areas: listingModels[i].area ?? 0,
+                      areas: listingModels[i].lotArea ?? 0,
                       beds: listingModels[i].beds ?? 0,
                       baths: listingModels[i].baths ?? 0,
                       cars: listingModels[i].cars ?? 0,
                       description: listingModels[i].description ?? '',
                       price: listingModels[i].price ?? 0,
                       showListedby: true,
-                      agentImage: snapshot.data!.image.toString().notEmpty(AppStrings.noUserImageWhite),
+                      agentImage: snapshot.data!.image
+                          .toString()
+                          .notEmpty(AppStrings.noUserImageWhite),
                       agentFirstName: '${snapshot.data!.firstname}',
                       agentLastName: '${snapshot.data!.lastname}',
                       role: '${snapshot.data!.role}',
-                      onTap: ()async{
+                      onTap: () async {
                         await Database().addViews(listingModels[i].id);
-                        Get.toNamed('/propertyInfo', arguments: listingModels[i],);
+                        Get.toNamed(
+                          '/propertyInfo',
+                          arguments: listingModels[i],
+                        );
                       },
                       isSold: false,
                     );
-                  }else{
+                  } else {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
                   }
                 },
               );
-            }
-        ),
+            }),
       );
-    }else{
+    } else {
       return Column(
         children: [
           SizedBox(
@@ -79,10 +86,11 @@ class ListingProperties extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 25.h,)
+          SizedBox(
+            height: 25.h,
+          )
         ],
       );
     }
-
   }
 }

@@ -410,7 +410,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           ),
         ),
         buildWidget(
-          'Area',
+          'Lot Area',
           TextformfieldWidget(
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             controller: controller.areaController,
@@ -419,6 +419,17 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             keyboardType: TextInputType.number,
           ),
         ),
+        buildWidget(
+          'Floor Area',
+          TextformfieldWidget(
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            controller: controller.floorArea,
+            hintText: '150',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+          ),
+        ),
+
         dropDownAddlistings(
           selectedItem: controller.selectedOfferT,
           Types: controller.offerT,
@@ -574,7 +585,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 beds: controller.bedsController.text.toInt(),
                 baths: controller.bathsController.text.toInt(),
                 cars: controller.carsController.text.toInt(),
-                area: double.tryParse(controller.areaController.text) ?? 0.0,
+                lotArea: double.tryParse(controller.areaController.text) ?? 0.0,
                 status: controller.selectedOfferT.value.toString(),
                 // view: controller.selectedView.value.toString(),
                 location: controller.add.city,
