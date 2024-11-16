@@ -73,8 +73,19 @@ class AI {
     }
   }
 
-  Future<List<Listing>> listingSearch() async {
+  Future<List<Listing>> listingSearch({
+    List<AiFilters> overrideAiFilters = const [],
+  }) async {
+    print('gemini search overrideAiFilters 2 ${overrideAiFilters}');
+
     var geminiData = {
+      "price": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
       "type": {
         "type": "string",
         "enum": [
@@ -123,13 +134,6 @@ class AI {
         "enum": ["sale", "rent", "Others"]
       },
       "location": {"type": "string"},
-      "area": {
-        "type": "object",
-        "properties": {
-          "min": {"type": "number"},
-          "max": {"type": "number"}
-        }
-      },
       "beds": {
         "type": "object",
         "properties": {
@@ -156,6 +160,13 @@ class AI {
           "max": {"type": "number"}
         }
       },
+      "lot_area": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
       "ppsqm": {
         "type": "object",
         "properties": {
@@ -169,19 +180,12 @@ class AI {
           "equals": {"type": "number"},
         }
       },
-      "price": {
-        "type": "object",
-        "properties": {
-          "min": {"type": "number"},
-          "max": {"type": "number"}
-        }
-      },
       "name": {
         "type": "string",
       }
     };
     print('gemini search here 1 query ${query}');
-    if (query.isEmpty) {
+    if (query.isEmpty && overrideAiFilters.isEmpty) {
       return (await FirebaseFirestore.instance.collection('listings').get())
           .docs
           .map((e) => Listing.fromJSON(e.data()))
@@ -216,6 +220,15 @@ class AI {
         }
       }
     });
+    // ai cannot be trusted
+    print('gemini search overrideAiFilters ${overrideAiFilters}');
+    for (var ov in overrideAiFilters) {
+      if (!prompts
+          .map((e) => '${e.field}/${e.operator}')
+          .contains('${ov.field}/${ov.operator}')) {
+        prompts.add(ov);
+      }
+    }
     Iterable<Listing> listingData = [];
     for (var element in prompts) {
       print(

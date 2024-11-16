@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
@@ -46,8 +47,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var bathrooms = 0.obs;
   var garage = 0.obs;
   var selectedSubProperty = "".obs;
-  var areaMin = TextEditingController();
-  var areaMax = TextEditingController();
   var priceMin = TextEditingController();
   var priceMax = TextEditingController();
   var floorAreaMin = TextEditingController();
@@ -531,8 +530,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   floorAreaMin: floorAreaMin,
                                   ppsqmMin: ppsqmMin,
                                   ppsqmMax: ppsqmMax,
-                                  areaMax: lotAreaMax,
-                                  areaMin: lotAreaMin);
+                                  lotAreaMax: lotAreaMax,
+                                  lotAreaMin: lotAreaMin);
                             },
                             label: EraText(
                               text: 'More Filters',
@@ -625,20 +624,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     searchQuery +=
                                         ' ${selectedPropertyTypeSearch.value}.';
                                   }
-                                  if (areaMin.text != "" &&
-                                      areaMax.text != "") {
-                                    searchQuery +=
-                                        ' area min ${areaMin.text} and max ${areaMax.text}.';
-                                  }
-
-                                  if (selectedPriceRange.value != "") {
-                                    var price = selectedPriceRange.value
-                                        .replaceAll(",", "")
-                                        .split(" - ");
-
-                                    searchQuery +=
-                                        ' price min ${price[0].contains('M') ? price[0].replaceAll("M", "").toInt() * 1000000 : price[0].toInt()} and max ${price[1].contains('M') ? price[1].replaceAll("M", "").toInt() * 1000000 : price[1].toInt()}.';
-                                  }
 
                                   if (selectedSubProperty.value != "") {
                                     searchQuery +=
@@ -657,22 +642,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                         ' garage equals ${garage.value}.';
                                   }
 
-                                  if (ppsqmMin.text.isNotEmpty &&
-                                      ppsqmMax.text.isNotEmpty) {
-                                    searchQuery +=
-                                        ' ppsqm min ${ppsqmMin.text.toInt()} and max ${ppsqmMax.text.toInt()}.';
-                                  }
-                                  if (floorAreaMax.text.isNotEmpty &&
-                                      floorAreaMin.text.isNotEmpty) {
-                                    searchQuery +=
-                                        ' floor_area min ${floorAreaMin.text.toInt()} and max ${floorAreaMax.text.toInt()}.';
-                                  }
-                                  if (lotAreaMin.text.isNotEmpty &&
-                                      lotAreaMax.text.isNotEmpty) {
-                                    searchQuery +=
-                                        ' area min ${lotAreaMin.text.toInt()} and area max ${lotAreaMax.text.toInt()}.';
-                                  }
-
                                   try {
                                     if (widget.animateToPage2) {
                                       pageViewController.animateToPage(
@@ -683,9 +652,87 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       selectedIndex.value = 2;
                                       currentRoute = '/searchresult';
                                     }
-
+                                    print(
+                                        "gemini search overrideAiFilters ${priceMin.text != "" && priceMax.text != ""}");
                                     Get.find<SearchResultController>()
-                                        .searchListingQuery(searchQuery);
+                                        .searchListingQuery(
+                                            query: searchQuery,
+                                            overrideAiFilters: [
+                                          if (priceMin.text != "" &&
+                                              priceMax.text != "") ...[
+                                            AiFilters(
+                                              field: 'price',
+                                              value: double.tryParse(priceMin
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: ">",
+                                            ),
+                                            AiFilters(
+                                              field: 'price',
+                                              value: double.tryParse(priceMax
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: "<",
+                                            ),
+                                          ],
+                                          if (ppsqmMin.text.isNotEmpty &&
+                                              ppsqmMax.text.isNotEmpty) ...[
+                                            AiFilters(
+                                              field: 'ppsqm',
+                                              value: int.tryParse(ppsqmMin.text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: ">",
+                                            ),
+                                            AiFilters(
+                                              field: 'ppsqm',
+                                              value: int.tryParse(ppsqmMax.text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: "<",
+                                            ),
+                                          ],
+                                          if (floorAreaMax.text.isNotEmpty &&
+                                              floorAreaMin.text.isNotEmpty) ...[
+                                            AiFilters(
+                                              field: 'floor_area',
+                                              value: int.tryParse(floorAreaMin
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: ">",
+                                            ),
+                                            AiFilters(
+                                              field: 'floor_area',
+                                              value: int.tryParse(floorAreaMax
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: "<",
+                                            ),
+                                          ],
+                                          if (lotAreaMin.text.isNotEmpty &&
+                                              lotAreaMax.text.isNotEmpty) ...[
+                                            AiFilters(
+                                              field: 'lot_area',
+                                              value: int.tryParse(lotAreaMin
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: ">",
+                                            ),
+                                            AiFilters(
+                                              field: 'lot_area',
+                                              value: int.tryParse(lotAreaMax
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: "<",
+                                            ),
+                                          ]
+                                        ]);
                                   } catch (e) {
                                     Get.find<SearchResultController>()
                                         .searchResultState
@@ -702,8 +749,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             if (selectedLocation.value != null ||
                                 selectedPropertyTypeSearch.value != null ||
                                 selectedPriceRange.value != "" ||
-                                areaMin.text != "" ||
-                                areaMax.text != "" ||
                                 selectedSubProperty.value != "" ||
                                 bedrooms.value != 0 ||
                                 bathrooms.value != 0 ||
@@ -729,8 +774,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     priceController.clear();
                                     propertyController.clear();
                                     projectsController.clear();
-                                    areaMin.clear();
-                                    areaMax.clear();
                                     floorAreaMin.clear();
                                     floorAreaMax.clear();
                                     ppsqmMin.clear();

@@ -287,8 +287,8 @@ void openFilterDialog({
   required floorAreaMax,
   required ppsqmMin,
   required ppsqmMax,
-  required areaMin,
-  required areaMax,
+  required lotAreaMin,
+  required lotAreaMax,
 }) {
   Get.dialog(
     BackdropFilter(
@@ -347,7 +347,7 @@ void openFilterDialog({
                     garage: garage,
                   ),
                   SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(min: areaMin, max: areaMax),
+                  _buildFloorAreaFilter(min: lotAreaMin, max: lotAreaMax),
                   SizedBox(height: 20.h),
                   _buildFloorAreaFilter(
                       title: 'Floor Area',
@@ -372,12 +372,12 @@ void openFilterDialog({
                           width: Get.width,
                           onTap: () {
                             try {
-                              if (areaMin.text.isNotEmpty &&
-                                  areaMax.text.isNotEmpty) {
+                              if (lotAreaMin.text.isNotEmpty &&
+                                  lotAreaMax.text.isNotEmpty) {
                                 if (int.parse(
-                                        areaMin.text.replaceAll(',', '')) >
+                                        lotAreaMin.text.replaceAll(',', '')) >
                                     int.parse(
-                                        areaMax.text.replaceAll(',', ''))) {
+                                        lotAreaMax.text.replaceAll(',', ''))) {
                                   Get.showSnackbar(GetSnackBar(
                                     message:
                                         'Min Area should be less than Max Area',
