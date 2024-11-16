@@ -17,7 +17,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:photo_view/photo_view.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../app/widgets/interactive_property_image.dart';
 import '../../../../../repository/listing.dart';
@@ -493,7 +492,7 @@ class PropertyInformation extends GetView<ListingController> {
                                       ),
                                       SizedBox(width: 2.w),
                                       EraText(
-                                        text: '${listing.area} sqm',
+                                        text: '${listing.floorArea} sqm',
                                         fontSize: EraTheme.paragraph - 1.sp,
                                         fontWeight: FontWeight.w500,
                                         color: AppColors.black,
@@ -685,7 +684,7 @@ class PropertyInformation extends GetView<ListingController> {
                     : listing.ppsqm! >= 1000
                         ? '${listing.ppsqm! / 1000}K'
                         : '${listing.ppsqm}'),
-            iconsWidgets(AppEraAssets.area, '${listing.lotArea} sqm'),
+            iconsWidgets(AppEraAssets.area, '${listing.floorArea} sqm'),
             iconsWidgets(AppEraAssets.bed, '${listing.beds}'),
           ],
         ),
@@ -737,7 +736,9 @@ class PropertyInformation extends GetView<ListingController> {
             shorterSummary(text: 'Beds', text2: '${listing.beds}'),
             shorterSummary(text: 'Baths', text2: '${listing.baths}'),
             shorterSummary(text: 'Garage', text2: '${listing.cars}'),
-            shorterSummary(text: 'Area', text2: '${listing.lotArea} sqm'),
+            shorterSummary(
+                text: 'Floor Area', text2: '${listing.floorArea} sqm'),
+            shorterSummary(text: 'Lot Area', text2: '${listing.lotArea} sqm'),
             //shorterSummary('Offer Type', listing.type),
             shorterSummary(text: 'View', text2: listing.view ?? "None"),
             shorterSummary(

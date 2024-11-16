@@ -210,7 +210,7 @@ class SearchResult extends GetView<SearchResultController> {
                                       SizedBox(width: 2.w),
                                       EraText(
                                         text:
-                                            '${listing.lotArea!.toStringAsFixed(listing.lotArea!.truncateToDouble() == listing.lotArea ? 0 : 1)} sqm',
+                                            '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
                                         fontSize: EraTheme.paragraph - 1.sp,
                                         fontWeight: FontWeight.w500,
                                         color: AppColors.black,

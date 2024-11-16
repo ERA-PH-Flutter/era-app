@@ -2,7 +2,7 @@ name: eraphilippines
 description: "ERA Philippines"
 publish_to: "none"
 
-version: 1.1.6+10
+version: 1.1.6+11
 
 environment:
   sdk: ">=3.3.3 <4.0.0"
