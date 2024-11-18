@@ -134,7 +134,7 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
               ),
             ),
           ),
-          AboutUsWeb.bottomWidget(controller: formWebController),
+          // AboutUsWeb.bottomWidget(controller: formWebController),
         ],
       ),
     );

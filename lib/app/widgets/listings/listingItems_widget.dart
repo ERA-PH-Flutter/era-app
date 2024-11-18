@@ -92,7 +92,7 @@ class ListingItemss extends StatelessWidget {
                         //  onTap: toggleSelected,
                         child: CloudStorage().imageLoaderProvider(
                           width: Get.width,
-                          ref: image ?? AppStrings.noUserImageWhite,
+                          reference: image ?? AppStrings.noUserImageWhite,
                           height: 195.h,
                         ),
                       ),
@@ -283,13 +283,15 @@ class ListingItemss extends StatelessWidget {
                         child: CloudStorage().imageLoaderProvider(
                           width: Get.width,
                           borderRadius: BorderRadius.circular(10.r),
-                          ref: image ?? AppStrings.noUserImageWhite,
+                          reference: image ?? AppStrings.noUserImageWhite,
                           height: 255.h,
                         ),
                       ),
                       SizedBox(height: 15.w),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 14.w,),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 14.w,
+                        ),
                         child: EraText(
                           text: name ?? "Test",
                           fontSize: EraTheme.header - 5.sp,

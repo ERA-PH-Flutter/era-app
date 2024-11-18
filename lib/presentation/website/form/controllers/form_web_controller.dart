@@ -30,10 +30,21 @@ class FormWebController extends GetxController {
   var isCheckedNotNow = false.obs;
 
   late YoutubePlayerController youtubePlayerController;
+  //selling property
   TextEditingController name = TextEditingController();
   TextEditingController phoneNum = TextEditingController();
   TextEditingController emailAd = TextEditingController();
   TextEditingController message = TextEditingController();
+  TextEditingController propertyLoc = TextEditingController();
+
+  var selectedProperty = RxnString();
+  var propertyTypes = [
+    'Pre-Selling',
+    'Residential',
+    'Commercial',
+    'Rental',
+    'Auction'
+  ];
   var selectedValue = RxnString();
 
   var items = [

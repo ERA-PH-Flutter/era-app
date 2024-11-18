@@ -92,7 +92,7 @@ class HomePages extends GetResponsiveView<HomsController> {
             padding: EdgeInsets.symmetric(
                 horizontal: EraTheme.paddingWidthAdmin * 3),
             width: Get.width,
-            height: Get.height / 3,
+            height: Get.height / 2.8,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -135,26 +135,31 @@ class HomePages extends GetResponsiveView<HomsController> {
         EraText(
           text: 'Pre-Launched Projects',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'Residential',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'Commercial',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'Rental',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'Auction',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
       ],
     );
@@ -174,38 +179,46 @@ class HomePages extends GetResponsiveView<HomsController> {
         EraText(
           text: 'ERA GLOBAL',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'ERA Asia Pacific',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'ERA Singapore',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'We Are ERA',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'Press Room',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         EraText(
           text: 'Careers',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         EraText(
           text: 'Privacy Policy',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         EraText(
           text: 'Security Policy',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
       ],
     );
@@ -225,34 +238,41 @@ class HomePages extends GetResponsiveView<HomsController> {
         EraText(
           text: 'Join As Agent',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'Why Us?',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'ERA Teach Tools',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'Ultimate Agent',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         sb10(),
         EraText(
           text: 'Training',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         EraText(
           text: 'Our Services',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
         EraText(
           text: 'Contact Us',
           color: AppColors.blue2,
+          fontSize: EraTheme.paragraphWeb - 10.sp,
         ),
       ],
     );
@@ -287,24 +307,29 @@ class HomePages extends GetResponsiveView<HomsController> {
                 EraText(
                   text: 'Address',
                   color: AppColors.blue2,
+                  fontSize: EraTheme.paragraphWeb - 10.sp,
                 ),
                 sb10(),
                 EraText(
                   text: 'ERA APAC Centre 3000',
                   color: AppColors.blue2,
+                  fontSize: EraTheme.paragraphWeb - 10.sp,
                 ),
                 sb10(),
                 EraText(
                   text: 'Somewhere in the Philippines',
+                  fontSize: EraTheme.paragraphWeb - 10.sp,
                   color: AppColors.blue2,
                 ),
                 sb30(),
                 EraText(
                   text: 'Phone: +63 123 456 7890',
+                  fontSize: EraTheme.paragraphWeb - 10.sp,
                   color: AppColors.blue2,
                 ),
                 EraText(
                   text: 'Email: ear@era.com.ph',
+                  fontSize: EraTheme.paragraphWeb - 10.sp,
                   color: AppColors.blue2,
                 ),
               ],

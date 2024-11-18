@@ -50,13 +50,14 @@ class CloudStorage {
     }
   }
 
-  Widget imageLoader({ref, height, width, BoxFit? fit}){
+  Widget imageLoader({ref, height, width, BoxFit? fit}) {
     return FutureBuilder(
       future: getFileDirect(docRef: ref),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CachedNetworkImage(
-            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+            placeholder: (context, url) =>
+                Center(child: CircularProgressIndicator()),
             errorWidget: (context, url, error) => Icon(Icons.error),
             imageUrl: snapshot.data!,
             fit: fit ?? BoxFit.cover,
@@ -73,7 +74,7 @@ class CloudStorage {
   }
 
   imageLoaderProvider({
-    ref,
+    reference,
     height,
     width,
     borderRadius,
@@ -82,7 +83,7 @@ class CloudStorage {
     shadow,
   }) {
     return FutureBuilder(
-      future: getFileDirect(docRef: ref),
+      future: getFileDirect(docRef: reference),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
@@ -123,7 +124,7 @@ class CloudStorage {
     required List fileList,
   }) async {
     try {
-      for(int i = 0;i < fileList.length;i++){
+      for (int i = 0; i < fileList.length; i++) {
         await ref.child(fileList[i]).delete();
       }
       return "success";
@@ -140,19 +141,21 @@ class CloudStorage {
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putFile(file);
       return '$target/${customName ?? uploadFilename}';
-    } catch (e,ex) {
+    } catch (e, ex) {
       return "";
     }
   }
+
   Future<String> uploadFromMemory(
       {required file, required String target, customName}) async {
     try {
       var filename = "${Random().nextInt(100)}";
-      var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename.png";
+      var uploadFilename =
+          "${DateTime.now().microsecondsSinceEpoch}_$filename.png";
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putData(file);
       return '$target/${customName ?? uploadFilename}';
-    } catch (e,ex) {
+    } catch (e, ex) {
       return "";
     }
   }

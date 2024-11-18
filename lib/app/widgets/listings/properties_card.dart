@@ -12,7 +12,7 @@ class PropertiesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CloudStorage().imageLoaderProvider(
-      ref: image,
+      reference: image,
       borderRadius: BorderRadius.only(topRight: Radius.circular(20.0)),
       child: Stack(
         children: [

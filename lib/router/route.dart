@@ -8,7 +8,7 @@ import 'package:eraphilippines/presentation/website/news/pages/companynews.dart'
 
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
-import '../presentation/agent/agents/controllers/agents_binding.dart';
+import '../presentation/agent/agents/bindings/agents_binding.dart';
 import '../presentation/agent/agents/pages/agentsDashBoard.dart';
 import '../presentation/agent/agents/pages/agentsMyListing.dart';
 import '../presentation/agent/agents/pages/findagents.dart';

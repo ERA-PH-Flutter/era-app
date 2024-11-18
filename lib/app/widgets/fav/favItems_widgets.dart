@@ -46,10 +46,15 @@ class FavItems extends StatelessWidget {
                   CloudStorage().imageLoaderProvider(
                     width: 140.w,
                     height: Get.height,
-                    ref: '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r),bottomLeft: Radius.circular(10.r)),
+                    reference:
+                        '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.r),
+                        bottomLeft: Radius.circular(10.r)),
                   ),
-                  SizedBox(width: 5.w,),
+                  SizedBox(
+                    width: 5.w,
+                  ),
                   FutureBuilder(
                     future: EraUser().getById(listing.by),
                     builder: (context, AsyncSnapshot<EraUser> snapshot) {
@@ -61,8 +66,7 @@ class FavItems extends StatelessWidget {
                             children: [
                               SizedBox(
                                 height: 25.h,
-                                width:Get.width - 220.w,
-
+                                width: Get.width - 220.w,
                                 child: EraText(
                                   textOverflow: TextOverflow.ellipsis,
                                   text:

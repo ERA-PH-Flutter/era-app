@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,160 +14,126 @@ import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/settingAgent.dart';
+import 'package:eraphilippines/presentation/website/agents/controllers/agent_dashboard_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
-import '../../../../app/models/navbaritems.dart';
 import '../../../../app/widgets/custom_appbar.dart';
-import '../../../../app/widgets/navigation/app_nav_items.dart';
 import '../../../../repository/user.dart';
 import '../../../global.dart';
 
-import '../../utility/controller/base_controller.dart';
-import '../controllers/agent_dashboard_controller.dart';
-
-class AgentDashBoard extends GetView<AgentDashboardController> {
-  AgentDashBoard({
+class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
+  AgentDashBoardWeb({
     super.key,
   });
   final AgentsController agentController = Get.put(AgentsController());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CustomAppbar(),
-        body: WillPopScope(
-          onWillPop: () async {
-            BaseController().showSuccessDialog(
-                title: "Confirm Exit",
-                description: "Do you wanna exit ERA Philippines App?",
-                cancelable: true,
-                hitApi: () {
-                  Platform.isAndroid ? SystemNavigator.pop() : exit(0);
-                });
-            return Future.value(true);
-          },
-          child: SingleChildScrollView(
-            controller: controller.scrollController,
-            scrollDirection: Axis.vertical,
-            child: SafeArea(
-              child: Obx(() {
-                if (controller.agentDashboardState.value ==
-                    AgentDashboardState.loading) {
-                  return _loading();
-                } else {
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: EraTheme.paddingWidth, vertical: 10.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            EraText(
-                              text:
-                                  '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
-                              fontSize: 20.sp,
-                              color: AppColors.black,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            SizedBox(height: 10.h),
-                            EraText(
-                              text: 'Welcome to your Dashboard!',
-                              fontSize: 25.sp,
-                              color: AppColors.kRedColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            sb10(),
+    Get.put(AgentDashboardWebController());
 
-                            SizedBox(height: 10.h),
-                            AgentInfoWidget.agentInformation(
-                              imageProvider: user!.image != null
-                                  ? user!.image!
-                                  : AppStrings.noUserImageWhite,
-                              firstName: '${user!.firstname}',
-                              lastName: '${user!.lastname}',
-                              whatsApp: '${user!.whatsApp}',
-                              email: '${user!.email}',
-                              role: '${user!.role}',
-                            ),
-                            SizedBox(height: 25.h),
+    return WillPopScope(
+        onWillPop: () async {
+          // selectedIndex.value = 0;
+          // pageViewController = PageController(initialPage: 0);
+          // currentRoute = '/home';
+          // Get.offAll(BaseScaffold(),binding: HomeBinding());
+          Get.back();
+          return Future.value(false);
+        },
+        child: SingleChildScrollView(
+          controller: controller.scrollController,
+          scrollDirection: Axis.vertical,
+          child: SafeArea(
+            child: Obx(() {
+              if (controller.agentDashboardWebState.value ==
+                  AgentDashboardWebState.loading) {
+                return _loading();
+              } else {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: EraTheme.paddingWidth, vertical: 10.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          EraText(
+                            text:
+                                '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
+                            fontSize: 20.sp,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          SizedBox(height: 10.h),
+                          EraText(
+                            text: 'Welcome to your Dashboard!',
+                            fontSize: 25.sp,
+                            color: AppColors.kRedColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          sb10(),
 
-                            Row(
-                              children: [
-                                Button(
-                                  fontSize: EraTheme.paragraph - 2.sp,
-                                  width: Get.width - 100.w,
-                                  text: 'MORTGAGE CALCULATOR',
-                                  borderRadius: BorderRadius.circular(20),
-                                  bgColor: AppColors.kRedColor,
-                                  onTap: () {
-                                    Get.toNamed("/mortageCalculator");
-                                  },
-                                ),
-                                sbw10(), // SizedBox(width: 10.w),
-                                settingIcon(() {
-                                  Get.to(() => SettingsPage());
-                                })
-                              ],
-                            ),
-                            SizedBox(height: 25.h),
-                            myListings(),
-                            SizedBox(height: 25.h),
-                            favorites(),
-                            SizedBox(height: 25.h),
-                            archivedListing(),
-                            SizedBox(height: 25.h),
-                            soldProperties(),
-                            SizedBox(height: 25.h),
-                            myTrainings(),
-                            SizedBox(height: 25.h),
-                            findAgentsandOffices(),
-                            SizedBox(height: 25.h),
+                          SizedBox(height: 10.h),
+                          AgentInfoWidget.agentInformation(
+                            imageProvider: user!.image != null
+                                ? user!.image!
+                                : AppStrings.noUserImageWhite,
+                            firstName: '${user!.firstname}',
+                            lastName: '${user!.lastname}',
+                            whatsApp: '${user!.whatsApp}',
+                            email: '${user!.email}',
+                            role: '${user!.role}',
+                          ),
+                          SizedBox(height: 25.h),
 
-                            // eraMerch(),
-                          ],
-                        ),
+                          Row(
+                            children: [
+                              Button(
+                                fontSize: EraTheme.paragraph - 2.sp,
+                                width: Get.width - 100.w,
+                                text: 'MORTGAGE CALCULATOR',
+                                borderRadius: BorderRadius.circular(20),
+                                bgColor: AppColors.kRedColor,
+                                onTap: () {
+                                  Get.toNamed("/mortageCalculator");
+                                },
+                              ),
+                              sbw10(), // SizedBox(width: 10.w),
+                              settingIcon(() {
+                                Get.to(() => SettingsPage());
+                              })
+                            ],
+                          ),
+                          // SizedBox(height: 25.h),
+                          // myListings(),
+                          // SizedBox(height: 25.h),
+                          // favorites(),
+                          // SizedBox(height: 25.h),
+                          // archivedListing(),
+                          // SizedBox(height: 25.h),
+                          // soldProperties(),
+                          // SizedBox(height: 25.h),
+                          // myTrainings(),
+                          // SizedBox(height: 25.h),
+                          // findAgentsandOffices(),
+                          // SizedBox(height: 25.h),
+
+                          // eraMerch(),
+                        ],
                       ),
-                      latestNews(),
-                      SizedBox(height: 25.h),
-                    ],
-                  );
-                }
-              }),
-            ),
+                    ),
+                    latestNews(),
+                    SizedBox(height: 25.h),
+                  ],
+                );
+              }
+            }),
           ),
-        ),
-        bottomNavigationBar: Obx(() {
-          controller.scrolling.value;
-          var index = 0;
-          return AnimatedContainer(
-            duration: Duration(milliseconds: 500),
-            //transform: !controller.scrolling.value ? Matrix4.translationValues(0,  (70.h < 75 ? 70.h : 75), 0) : Matrix4.translationValues(0, 0, 0),
-            alignment: Alignment.center,
-            height: controller.scrolling.value ? (70.h < 75 ? 70.h : 75) : 0,
-            color: AppColors.blue,
-            width: Get.width,
-            child: controller.scrolling.value
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: navBarItems.map((item) {
-                      String iconPath = item.defaultIcon;
-                      index++;
-                      return AppNavItems(
-                          index: index,
-                          iconPath: iconPath,
-                          label: item.label,
-                          isActive: false);
-                    }).toList(),
-                  )
-                : Row(),
-          );
-        }));
+        ));
   }
 
   _loading() {

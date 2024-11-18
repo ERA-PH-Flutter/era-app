@@ -13,6 +13,7 @@ class SharedWidgets {
     String? name,
     int? maxLines,
     TextEditingController? controller,
+    TextInputAction? textInputAction,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +37,7 @@ class SharedWidgets {
             ),
           ),
           keyboardType: keyboardType ?? TextInputType.none,
-          // textInputAction: TextInputAction.newline,
+          textInputAction: textInputAction ?? TextInputAction.none,
         ),
       ],
     );
@@ -122,6 +123,54 @@ class SharedWidgets {
           ),
         ),
       ],
+    );
+  }
+
+  static Widget dropDownListings(
+      {RxnString? selectedItem,
+      List<String>? Types,
+      Function(String?)? onChanged,
+      String? hintText}) {
+    return Obx(
+      () => DropdownButtonFormField<String>(
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: AppColors.hint),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: AppColors.hint),
+          ),
+        ),
+        dropdownColor: AppColors.white,
+        focusColor: AppColors.hint,
+        value: selectedItem?.value,
+        style: TextStyle(color: Colors.white),
+        iconEnabledColor: Colors.black,
+        isExpanded: true,
+        isDense: true,
+        hint: Align(
+          alignment: Alignment.centerLeft,
+          child: EraText(
+            text: hintText!,
+            textAlign: TextAlign.center,
+            color: Colors.grey,
+            fontSize: 20.sp,
+          ),
+        ),
+        items: Types!.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: EraText(
+              text: value,
+              color: AppColors.black,
+              fontSize: 20.sp,
+            ),
+          );
+        }).toList(),
+        onChanged: onChanged,
+      ),
     );
   }
 

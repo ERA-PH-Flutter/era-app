@@ -41,7 +41,7 @@ class ProjectViewsWeb {
 
             if (data['type'] == "Banner Images") {
               return CloudStorage().imageLoaderProvider(
-                ref: data['image'],
+                reference: data['image'],
                 height: 250.h,
                 width: Get.width,
               );
@@ -54,7 +54,7 @@ class ProjectViewsWeb {
               );
             } else if (data['type'] == "Project Logo") {
               return CloudStorage().imageLoaderProvider(
-                ref: data['image'],
+                reference: data['image'],
                 height: 150.h,
                 width: 241.h,
               );
@@ -129,7 +129,7 @@ class ProjectViewsWeb {
                     ),
                     sb30(),
                     CloudStorage().imageLoaderProvider(
-                      ref: data['image'],
+                      reference: data['image'],
                       height: 250.h,
                       width: Get.width,
                     ),
@@ -170,7 +170,7 @@ class ProjectViewsWeb {
                       ),
                       sb30(),
                       CloudStorage().imageLoaderProvider(
-                        ref: data['image'],
+                        reference: data['image'],
                         height: 250.h,
                         width: Get.width,
                       ),
@@ -245,7 +245,7 @@ class ProjectViewsWeb {
                                               Center(
                                             child: CloudStorage()
                                                 .imageLoaderProvider(
-                                              ref: data['images'][index],
+                                              reference: data['images'][index],
                                               height: Get.height,
                                               width: Get.width,
                                             ),
@@ -294,7 +294,7 @@ class ProjectViewsWeb {
                             width: Get.width,
                             height: 320.h,
                             child: CloudStorage().imageLoaderProvider(
-                              ref: currentImage.value.isEmpty
+                              reference: currentImage.value.isEmpty
                                   ? data['images'][index]
                                   : currentImage.value,
                               height: 250.h,
@@ -329,7 +329,7 @@ class ProjectViewsWeb {
                                       ),
                                     ),
                                     child: CloudStorage().imageLoaderProvider(
-                                      ref: image,
+                                      reference: image,
                                       width: Get.width / 6,
                                       height: 70.h,
                                     ),
@@ -356,7 +356,7 @@ class ProjectViewsWeb {
                       ),
                       sb30(),
                       CloudStorage().imageLoaderProvider(
-                        ref: data['image'],
+                        reference: data['image'],
                         height: 250.h,
                         width: Get.width,
                       ),
@@ -432,7 +432,8 @@ class ProjectViewsWeb {
                                                 Center(
                                               child: CloudStorage()
                                                   .imageLoaderProvider(
-                                                ref: data['images'][index],
+                                                reference: data['images']
+                                                    [index],
                                                 height: Get.height,
                                                 width: Get.width,
                                               ),
@@ -484,7 +485,7 @@ class ProjectViewsWeb {
                               width: Get.width,
                               height: 320.h,
                               child: CloudStorage().imageLoaderProvider(
-                                ref: currentImage.value.isEmpty
+                                reference: currentImage.value.isEmpty
                                     ? data['images'][index]
                                     : currentImage.value,
                                 height: 250.h,
@@ -519,7 +520,7 @@ class ProjectViewsWeb {
                                         ),
                                       ),
                                       child: CloudStorage().imageLoaderProvider(
-                                        ref: image,
+                                        reference: image,
                                         width: Get.width / 6,
                                         height: 70.h,
                                       ),
@@ -664,7 +665,7 @@ class ProjectViewsWeb {
               ),
               sb30(),
               CloudStorage().imageLoaderProvider(
-                ref: block['image'],
+                reference: block['image'],
                 height: Get.height,
                 width: Get.width,
               ),

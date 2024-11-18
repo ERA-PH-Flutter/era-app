@@ -179,7 +179,8 @@ class AgentListViewWeb extends StatelessWidget {
                       height: 300.h,
                       width: Get.width,
                       borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      ref: '${agent.image ?? AppStrings.noUserImageWhite}')),
+                      reference:
+                          '${agent.image ?? AppStrings.noUserImageWhite}')),
             ],
           ),
         );

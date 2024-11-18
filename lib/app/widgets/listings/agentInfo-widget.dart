@@ -32,7 +32,7 @@ class AgentInfoWidget {
             width: 100.w,
             height: 110.h,
             borderRadius: BorderRadius.circular(8.0),
-            ref: imageProvider),
+            reference: imageProvider),
         Padding(
           padding: EdgeInsets.only(left: 10.w),
           child: Column(

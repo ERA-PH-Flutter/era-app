@@ -6,7 +6,6 @@ import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/company/company_items.dart';
-import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -198,106 +197,149 @@ void showAuthenticationDialog() {
   );
 }
 
-void CreateAccountWeb() {
-  showDialog(
-      context: Get.context!,
-      builder: (context) {
-        return Dialog(
-          child: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(AppEraAssets.bgWeb), fit: BoxFit.cover)),
-            height: Get.height / 1.5,
-            width: Get.width / 2.5,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SharedWidgets.textFormfield(
-                          controller: fname,
-                          hintText: 'First Name',
-                        ),
-                      ),
-                      sbw20(),
-                      Expanded(
-                        child: SharedWidgets.textFormfield(
-                          controller: lname,
-                          hintText: 'Last Name',
-                        ),
-                      ),
-                    ],
-                  ),
+// void CreateAccountWeb() {
+//   showDialog(
+//       context: Get.context!,
+//       builder: (context) {
+//         return Dialog(
+//           child: Container(
+//              decoration: BoxDecoration(
+//                 image: DecorationImage(
+//                     image: AssetImage(AppEraAssets.bgWeb), fit: BoxFit.cover)),
+//             height: Get.height / 1.5,
+//             width: Get.width / 2.5,
+//             child: Padding(
+//               padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth30),
+//               child: Column(
+//                 children: [
+//                   EraText(
+//                     text: 'Create Account',
+//                     color: AppColors.kRedColor,
+//                     fontSize: EraTheme.subHeaderWeb,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                   Row(
+//                     children: [
+//                       Expanded(
+//                         child: SharedWidgets.textFormfield(
+//                           controller: fname,
+//                           hintText: 'First Name',
+//                         ),
+//                       ),
+//                       sbw20(),
+//                       Expanded(
+//                         child: SharedWidgets.textFormfield(
+//                           controller: lname,
+//                           hintText: 'Last Name',
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   Row(
+//                     children: [
+//                       Expanded(
+//                         child: SharedWidgets.textFormfield(
+//                           controller: age,
+//                           hintText: 'Age',
+//                         ),
+//                       ),
+//                       sbw20(),
+//                       Expanded(
+//                         child: SharedWidgets.textFormfield(
+//                           controller: email,
+//                           hintText: 'Gender',
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   sb20(),
+//                   IntlPhoneField(
+//                     pickerDialogStyle: PickerDialogStyle(
+//                         backgroundColor: Colors.white, width: Get.width),
+//                     focusNode: FocusNode(),
+//                     style: TextStyle(
+//                       color: AppColors.hint,
+//                       fontSize: 18.sp,
+//                       background: Paint()..color = AppColors.white,
+//                     ),
+//                     decoration: InputDecoration(
+//                       fillColor: AppColors.white,
+//                       filled: true,
+//                       labelText: 'Phone Number',
+//                       border: OutlineInputBorder(
+//                         borderRadius: BorderRadius.circular(10),
+//                       ),
+//                     ),
+//                     keyboardType: TextInputType.phone,
+//                     //    controller: controller.contactNo,
+//                     initialCountryCode: 'PH',
+//                     onChanged: (phone) {
+//                       //     controller.contactNo.text = phone.number;
 
-                  //         TextFormField(
-                  //   //maxLines: maxLines,
-                  //   //controller: controller,
-                  //   decoration: InputDecoration(
-                  //     hintText: 'Password',
-                  //     hintStyle: TextStyle(color: AppColors.hint, fontSize: 18.sp),
-                  //     labelStyle: TextStyle(color: AppColors.hint),
-                  //     filled: false,
-                  //     enabledBorder: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //       borderSide: BorderSide(color: AppColors.hint),
-                  //     ),
-                  //     focusedBorder: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //       borderSide: BorderSide(color: AppColors.hint),
-                  //     ),
-                  //   ),
-                  //   keyboardType:  TextInputType.none,
-                  //   // textInputAction: TextInputAction.newline,
-                  // ),
-                  // Obx(
-                  //   () => SizedBox(
-                  //     width: 10.w,
-                  //     child: TextFormField(
-                  //       controller: pass,
-                  //       obscureText: isPasswordNotVisible.value,
-                  //       style: TextStyle(color: AppColors.black, fontSize: 15.sp),
-                  //       decoration: InputDecoration(
-                  //         hintText: 'Password',
-                  //         hintStyle: TextStyle(color: AppColors.hint),
-                  //         fillColor: AppColors.white,
-                  //         filled: true,
-                  //         suffixIcon: IconButton(
-                  //           icon: Icon(isPasswordNotVisible.value
-                  //               ? CupertinoIcons.eye_fill
-                  //               : CupertinoIcons.eye_slash_fill),
-                  //           onPressed: () {
-                  //             isPasswordNotVisible.value =
-                  //                 !isPasswordNotVisible.value;
-                  //           },
-                  //         ),
-                  //         enabledBorder: OutlineInputBorder(
-                  //           borderRadius: BorderRadius.circular(10),
-                  //           borderSide: BorderSide(
-                  //             color: AppColors.black,
-                  //             width: 1,
-                  //           ),
-                  //         ),
-                  //         border: OutlineInputBorder(
-                  //           borderRadius: BorderRadius.circular(10),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  SharedWidgets.textFormfield(
-                    controller: age,
-                    hintText: 'Age',
-                  ),
-                  SharedWidgets.textFormfield(
-                    controller: email,
-                    hintText: 'Gender',
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      });
-}
+//                       //    controller.fullContactNo.value =
+//                       '${phone.countryCode}${phone.number}';
+//                     },
+//                   ),
+
+//                   //         TextFormField(
+//                   //   //maxLines: maxLines,
+//                   //   //controller: controller,
+//                   //   decoration: InputDecoration(
+//                   //     hintText: 'Password',
+//                   //     hintStyle: TextStyle(color: AppColors.hint, fontSize: 18.sp),
+//                   //     labelStyle: TextStyle(color: AppColors.hint),
+//                   //     filled: false,
+//                   //     enabledBorder: OutlineInputBorder(
+//                   //       borderRadius: BorderRadius.circular(10),
+//                   //       borderSide: BorderSide(color: AppColors.hint),
+//                   //     ),
+//                   //     focusedBorder: OutlineInputBorder(
+//                   //       borderRadius: BorderRadius.circular(10),
+//                   //       borderSide: BorderSide(color: AppColors.hint),
+//                   //     ),
+//                   //   ),
+//                   //   keyboardType:  TextInputType.none,
+//                   //   // textInputAction: TextInputAction.newline,
+//                   // ),
+//                   // Obx(
+//                   //   () => SizedBox(
+//                   //     width: 10.w,
+//                   //     child: TextFormField(
+//                   //       controller: pass,
+//                   //       obscureText: isPasswordNotVisible.value,
+//                   //       style: TextStyle(color: AppColors.black, fontSize: 15.sp),
+//                   //       decoration: InputDecoration(
+//                   //         hintText: 'Password',
+//                   //         hintStyle: TextStyle(color: AppColors.hint),
+//                   //         fillColor: AppColors.white,
+//                   //         filled: true,
+//                   //         suffixIcon: IconButton(
+//                   //           icon: Icon(isPasswordNotVisible.value
+//                   //               ? CupertinoIcons.eye_fill
+//                   //               : CupertinoIcons.eye_slash_fill),
+//                   //           onPressed: () {
+//                   //             isPasswordNotVisible.value =
+//                   //                 !isPasswordNotVisible.value;
+//                   //           },
+//                   //         ),
+//                   //         enabledBorder: OutlineInputBorder(
+//                   //           borderRadius: BorderRadius.circular(10),
+//                   //           borderSide: BorderSide(
+//                   //             color: AppColors.black,
+//                   //             width: 1,
+//                   //           ),
+//                   //         ),
+//                   //         border: OutlineInputBorder(
+//                   //           borderRadius: BorderRadius.circular(10),
+//                   //         ),
+//                   //       ),
+//                   //     ),
+//                   //   ),
+//                   // ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         );
+//       });
+//}

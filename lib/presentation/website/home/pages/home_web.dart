@@ -211,7 +211,7 @@ class HomeWeb extends GetView<HomeWebController> {
                                     text: listing.name! == ""
                                         ? "No Name"
                                         : listing.name!,
-                                    fontSize: EraTheme.subHeaderWeb,
+                                    fontSize: EraTheme.subHeaderWeb - 5.sp,
                                     color: AppColors.kRedColor,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -291,7 +291,7 @@ class HomeWeb extends GetView<HomeWebController> {
                                       EdgeInsets.symmetric(horizontal: 14.w),
                                   child: EraText(
                                     text: 'Descriptions:',
-                                    fontSize: EraTheme.paragraphWeb,
+                                    fontSize: EraTheme.paddingWidth20,
                                     color: AppColors.black,
                                     fontWeight: FontWeight.w600,
                                     lineHeight: 1,
@@ -638,7 +638,7 @@ Widget _uploadPreviewPhotos() {
 
 Widget _buildUploadPhoto({required String text, required String image}) {
   return CloudStorage().imageLoaderProvider(
-    ref: image,
+    reference: image,
     borderRadius: BorderRadius.only(topRight: Radius.circular(20.0)),
     child: Stack(
       children: [
