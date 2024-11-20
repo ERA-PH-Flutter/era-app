@@ -12,7 +12,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/createaccount_widget.dart';
 
 class FindAgentPage extends GetView<ContentManagementController> {

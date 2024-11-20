@@ -6,7 +6,6 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/presentation/admin/properties/pages/add_project_admin.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -18,7 +17,6 @@ import '../../../../app/constants/sized_box.dart';
 import '../../../../app/widgets/button.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../../../../repository/logs.dart';
-import '../../../../repository/user.dart';
 import '../../../global.dart';
 
 class SettingsPage extends GetView<AgentsController> {
@@ -77,7 +75,7 @@ class SettingsPage extends GetView<AgentsController> {
                     builder: (i) {
                       return Dialog(
                         insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Container(
+                        child: SizedBox(
                           height: 200.h,
                           child: Card(
                             color: AppColors.white,

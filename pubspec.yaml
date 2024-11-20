@@ -26,9 +26,7 @@ dependencies:
   smooth_page_indicator: ^1.2.0+3
   screenshot: ^3.0.0
   image_to_pdf_converter: 0.0.1
-  awesome_notifications: any
   permission_handler: ^11.3.1
-  awesome_notifications_core: ^0.9.3
   device_info_plus: ^10.1.2
   full_screen_image: ^2.0.0
   circle_nav_bar: ^2.1.0+1

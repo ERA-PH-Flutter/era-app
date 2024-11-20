@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'app/services/notification.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -20,16 +18,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    AwesomeNotifications().setListeners(
-        onActionReceivedMethod: NotificationServices.onActionReceivedMethod,
-        onNotificationCreatedMethod:
-            NotificationServices.onNotificationCreatedMethod,
-        onNotificationDisplayedMethod:
-            NotificationServices.onNotificationDisplayedMethod,
-        onDismissActionReceivedMethod:
-            NotificationServices.onDismissActionReceivedMethod);
   }
-//    Size designSize = kIsWeb ? Size(1920, 1080) : Size(768, 1024);
 
   @override
   Widget build(BuildContext context) {

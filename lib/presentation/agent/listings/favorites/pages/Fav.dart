@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
@@ -405,15 +403,6 @@ class Fav extends GetView<FavController> {
         title: "Success",
         description: "PDF has been downloaded",
         hitApi: () {
-          AwesomeNotifications().createNotification(
-              content: NotificationContent(
-            id: Random().nextInt(1000),
-            channelKey: 'download_channel',
-            actionType: ActionType.Default,
-            title: 'File Downloaded',
-            body:
-                'Pdf file has been downloaded, look for $pdfFileName at the download folder!',
-          ));
           Get.back();
           Get.back();
         });

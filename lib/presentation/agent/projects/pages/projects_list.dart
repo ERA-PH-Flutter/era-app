@@ -17,7 +17,6 @@ import '../../../../app/widgets/app_textfield.dart';
 import '../../../../app/widgets/box_widget.dart';
 import '../../../../app/widgets/project_views.dart';
 
-import '../../../../repository/project.dart';
 import '../../../admin/properties/controllers/project_list_controller.dart';
 import '../../../admin/properties/controllers/project_view_binding.dart';
 import '../../listings/searchresult/controllers/searchresult_controller.dart';

@@ -2,7 +2,6 @@ import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 
 import 'package:eraphilippines/app/services/firebase_database.dart';
-import 'package:eraphilippines/app/services/firebase_storage.dart';
 
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
@@ -12,7 +11,6 @@ import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 
 import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
-import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
 import 'package:eraphilippines/repository/listing.dart';
 

@@ -30,7 +30,6 @@ import 'package:eraphilippines/presentation/admin/user_management/pages/pages/ap
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/roster.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

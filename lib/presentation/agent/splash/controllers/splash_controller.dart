@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/presentation/global.dart';
@@ -52,11 +50,6 @@ class SplashController extends GetxController {
   }
 
   init() async {
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    });
     splashState.value = kIsWeb ? SplashState.web : SplashState.loading;
     _typeWrittingAnimation();
     settings = Settings.fromJSON(await Database().getSettings());

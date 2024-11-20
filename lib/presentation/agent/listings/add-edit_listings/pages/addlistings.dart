@@ -18,7 +18,6 @@ import 'package:reorderables/reorderables.dart';
 import '../../../../../app/constants/screens.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../repository/listing.dart';
-import '../../../../global.dart';
 import '../../../utility/controller/base_controller.dart';
 import '../controllers/addlistings_controller.dart';
 

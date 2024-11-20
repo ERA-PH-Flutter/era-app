@@ -17,7 +17,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:photo_view/photo_view.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../app/widgets/interactive_property_image.dart';
 import '../../../../../repository/listing.dart';
@@ -841,8 +840,6 @@ class PropertyInformation extends GetView<ListingController> {
       context: context,
       builder: (context) {
         final RxInt currentPage = RxInt(initialIndex);
-        final PageController pageController =
-            PageController(initialPage: initialIndex);
         return Dialog(
           insetPadding: EdgeInsets.zero,
           child: Stack(

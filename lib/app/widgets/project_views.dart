@@ -1012,19 +1012,11 @@ class ProjectViews {
                     decoration: BoxDecoration(color: AppColors.carouselBgColor),
                     child: CarouselSlider(
                       items: block['images'].map<Widget>((image) {
-                        return Container(
-                          child: ImageWidget(
-                            thumbnailUrl: image,
-                            fit: BoxFit.cover,
-                            width: Get.width,
-                            height: Get.height,
-                          ),
-
-                          // CloudStorage().imageLoader(
-                          //     reference: image,
-                          //     width: Get.width,
-                          //     height: Get.height,
-                          //     fit: BoxFit.cover),
+                        return ImageWidget(
+                          thumbnailUrl: image,
+                          fit: BoxFit.cover,
+                          width: Get.width,
+                          height: Get.height,
                         );
 
                         //CloudStorage().imageLoader(ref: image);
