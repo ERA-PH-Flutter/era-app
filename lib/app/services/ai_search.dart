@@ -62,7 +62,7 @@ class AI {
           .map((e) => Project.fromJSON({...e.data(), 'id': e.id}));
 
       final projectIds = res.data ?? [];
-      print('Error calling function: query ${query}');
+      print('Error calling function: query $query');
 
       print('Error calling function: res.data ${res.data}');
 
@@ -76,7 +76,7 @@ class AI {
   Future<List<Listing>> listingSearch({
     List<AiFilters> overrideAiFilters = const [],
   }) async {
-    print('gemini search overrideAiFilters 2 ${overrideAiFilters}');
+    print('gemini search overrideAiFilters 2 $overrideAiFilters');
 
     var geminiData = {
       "price": {
@@ -184,7 +184,7 @@ class AI {
         "type": "string",
       }
     };
-    print('gemini search here 1 query ${query}');
+    print('gemini search here 1 query $query');
     if (query.isEmpty && overrideAiFilters.isEmpty) {
       return (await FirebaseFirestore.instance.collection('listings').get())
           .docs
@@ -195,7 +195,7 @@ class AI {
         name: "getListing",
         description: "Assign accordingly do not assign value if not specified");
 
-    print('gemini search here 1 result listing ${result}');
+    print('gemini search here 1 result listing $result');
 
     Query<Map<String, dynamic>> firebaseQuery =
         FirebaseFirestore.instance.collection('listings');
@@ -212,7 +212,7 @@ class AI {
         }
       } else {
         List val = checkOperator(value);
-        print('gemini search here 1 val val ${val}');
+        print('gemini search here 1 val val $val');
 
         for (int i = 0; i < val.length; i += 2) {
           prompts
@@ -221,7 +221,7 @@ class AI {
       }
     });
     // ai cannot be trusted
-    print('gemini search overrideAiFilters ${overrideAiFilters}');
+    print('gemini search overrideAiFilters $overrideAiFilters');
     for (var ov in overrideAiFilters) {
       if (!prompts
           .map((e) => '${e.field}/${e.operator}')
@@ -284,7 +284,7 @@ class AI {
       final querySplit = query.split(' ').map((e) => e.toLowerCase());
       for (var split in querySplit) {
         if (geminiData.toString().contains(split)) continue;
-        print('gemini search split ${split}');
+        print('gemini search split $split');
 
         if (double.tryParse(split) == null) {
           if ((data

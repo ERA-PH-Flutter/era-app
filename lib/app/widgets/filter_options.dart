@@ -201,7 +201,7 @@ Widget _buildFloorAreaFilter({
   required TextEditingController min,
   required TextEditingController max,
 }) {
-  String _formatNumber(String value) {
+  String formatNumber(String value) {
     value = value.replaceAll(',', '');
     if (value.isNotEmpty) {
       return value.replaceAllMapped(
@@ -231,7 +231,7 @@ Widget _buildFloorAreaFilter({
                 child: TextformfieldWidget(
                   onChanged: (value) {
                     if (value.isNotEmpty) {
-                      String formattedValue = _formatNumber(value);
+                      String formattedValue = formatNumber(value);
                       min.text = formattedValue;
                       min.selection = TextSelection.collapsed(
                           offset: formattedValue.length);
@@ -256,7 +256,7 @@ Widget _buildFloorAreaFilter({
                 child: TextformfieldWidget(
                   onChanged: (value) {
                     if (value.isNotEmpty) {
-                      String formattedValue = _formatNumber(value);
+                      String formattedValue = formatNumber(value);
                       max.text = formattedValue;
                       max.selection = TextSelection.collapsed(
                           offset: formattedValue.length);

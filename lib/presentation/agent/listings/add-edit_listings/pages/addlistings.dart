@@ -9,7 +9,6 @@ import 'package:eraphilippines/app/widgets/era_place_search.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/router/route_string.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

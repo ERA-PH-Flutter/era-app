@@ -119,7 +119,7 @@ class SearchResultController extends GetxController {
       {required String query,
       List<AiFilters> overrideAiFilters = const []}) async {
     searchResultState.value = SearchResultState.loading;
-    print('gemini search overrideAiFilters 1 ${overrideAiFilters}');
+    print('gemini search overrideAiFilters 1 $overrideAiFilters');
 
     List<Listing> listings = await AI(query: query)
         .listingSearch(overrideAiFilters: overrideAiFilters);
