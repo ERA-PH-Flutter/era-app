@@ -11,7 +11,7 @@ class EraUser {
   String? email;
   String? whatsApp;
   String? image;
-  String? birthday;
+  //String? birthday;
   String? office;
   String? deviceId;
   String? lastLogin;
@@ -23,8 +23,8 @@ class EraUser {
   DateTime? dateUpdated;
   DateTime? dateCreated;
   String? description;
-  int? age;
-  String? gender;
+  //int? age;
+  //String? gender;
   List? favorites;
   List? archives;
   EraUser(
@@ -41,15 +41,15 @@ class EraUser {
       this.eraId,
       this.dateUpdated,
       this.dateCreated,
-      this.age,
-      this.gender,
+      //this.age,
+      //this.gender,
       this.location,
       this.licence,
       this.description,
       this.position,
       this.favorites,
       this.office,
-      this.birthday,
+      //this.birthday,
       this.archives});
 
   factory EraUser.fromJSON(Map<String, dynamic> json) {
@@ -65,8 +65,8 @@ class EraUser {
       lastLogin: json['last_login'],
       status: json['status'],
       eraId: json['era_id'],
-      age: json['age'],
-      gender: json['gender'],
+      //age: json['age'],
+      //gender: json['gender'],
       favorites: json['favorites'],
       archives: json['archives'],
       location: json['location'],
@@ -152,8 +152,8 @@ class EraUser {
       'last_login': lastLogin,
       'device_id': deviceId,
       'era_id': eraId ?? '',
-      'age': age ?? 0,
-      'gender': gender ?? 'male',
+      //'age': age ?? 0,
+      //'gender': gender ?? 'male',
       'favorites': favorites ?? [],
       'archives': archives ?? [],
       'full_name': "${firstname?.toLowerCase()} ${lastname?.toLowerCase()}",

@@ -110,20 +110,20 @@ class CreateAccount extends GetView<LoginPageController> {
                           ),
                         ),
                         sb20(),
-                        SharedWidgets.textFormfield(
-                          name: 'Age',
-                          textInputType: TextInputType.number,
-                          hintText: 'Age',
-                          controller: controller.age,
-                        ),
-                        SizedBox(height: 20.h),
-                        SharedWidgets.dropDown(
-                            controller.selectedGender,
-                            controller.genderType,
-                            (value) => controller.selectedGender.value = value!,
-                            'Gender',
-                            'Gender'),
-                        SizedBox(height: 30.h),
+                        // SharedWidgets.textFormfield(
+                        //   name: 'Age',
+                        //   textInputType: TextInputType.number,
+                        //   hintText: 'Age',
+                        //   controller: controller.age,
+                        // ),
+                        // SizedBox(height: 20.h),
+                        // SharedWidgets.dropDown(
+                        //     controller.selectedGender,
+                        //     controller.genderType,
+                        //     (value) => controller.selectedGender.value = value!,
+                        //     'Gender',
+                        //     'Gender'),
+                        // SizedBox(height: 30.h),
                         IntlPhoneField(
                           pickerDialogStyle: PickerDialogStyle(
                               backgroundColor: Colors.white, width: Get.width),

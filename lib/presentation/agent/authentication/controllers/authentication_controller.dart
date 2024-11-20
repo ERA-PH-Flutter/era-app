@@ -140,8 +140,8 @@ class LoginPageController extends GetxController with BaseController {
           id: result,
           firstname: firstName.text,
           lastname: lastName.text,
-          age: age.text.toInt(),
-          gender: selectedGender.value,
+          //age: age.text.toInt(),
+          //gender: selectedGender.value,
           whatsApp: fullContactNo.value,
           email: emailAd.text,
         );

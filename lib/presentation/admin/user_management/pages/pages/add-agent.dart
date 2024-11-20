@@ -250,9 +250,9 @@ class AddAgent extends GetView<AgentAdminController> {
                                     firstname: controller.fNameA.text,
                                     lastname: controller.lNameA.text,
                                     email: controller.emailAdressA.text,
-                                    birthday: controller.dateBirthA.text,
+                                    //birthday: controller.dateBirthA.text,
                                     whatsApp: controller.phoneNA.text,
-                                    gender: controller.sexA.text,
+                                    //gender: controller.sexA.text,
                                     location: controller.officeLA.text,
                                     licence: controller.licensedNumA.text,
                                     position:
