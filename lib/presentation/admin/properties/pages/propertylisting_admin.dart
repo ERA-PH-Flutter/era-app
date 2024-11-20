@@ -206,7 +206,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                     ),
                     SizedBox(
                       width: 250.w,
-                      child:     SearchWidget(onTap: () async {
+                      child: SearchWidget(onTap: () async {
                         controller.addEditListingsStateAd.value =
                             AddEditListingsStateAd.loading;
                         controller.streamSearch = controller.searchStream();
@@ -337,7 +337,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                               SizedBox(width: 2.w),
                                               EraText(
                                                 text:
-                                                    '${listing.area!.toStringAsFixed(listing.area!.truncateToDouble() == listing.area ? 0 : 1)} sqm',
+                                                    '${listing.lotArea!.toStringAsFixed(listing.lotArea!.truncateToDouble() == listing.lotArea ? 0 : 1)} sqm',
                                                 fontSize:
                                                     EraTheme.paragraph - 1.sp,
                                                 fontWeight: FontWeight.w500,

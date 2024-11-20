@@ -63,8 +63,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
               //TO DO: nikko not final this is for sorting
               CustomSortPopup(
                 title: 'Sort by',
-                onSelected: (String result) {
-                },
+                onSelected: (String result) {},
                 menuItems: [
                   popMenu(
                       text: 'Category',
@@ -227,7 +226,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                             height: 40.h,
                             padding: EdgeInsets.symmetric(horizontal: 14.w),
                             child: EraText(
-                                  lineHeight: 2,
+                              lineHeight: 2,
                               textOverflow: TextOverflow.ellipsis,
                               text: listing.name! == ""
                                   ? "No Name"
@@ -262,7 +261,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                                   ),
                                   SizedBox(width: 2.w),
                                   EraText(
-                                    text: '${listing.area} sqm',
+                                    text: '${listing.floorArea} sqm',
                                     fontSize: EraTheme.paragraph - 1.sp,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.black,

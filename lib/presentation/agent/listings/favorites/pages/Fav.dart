@@ -81,8 +81,7 @@ class Fav extends GetView<FavController> {
                     children: [
                       CustomSortPopup(
                         title: 'Sort by',
-                        onSelected: (String result) {
-                        },
+                        onSelected: (String result) {},
                         menuItems: [
                           popMenu(
                               text: 'Category',
@@ -453,7 +452,7 @@ class Fav extends GetView<FavController> {
                     image: listing.photos?.first,
                     name: listing.name ?? "Test",
                     type: listing.type!,
-                    areas: listing.area ?? 0,
+                    areas: listing.lotArea ?? 0,
                     beds: listing.beds ?? 0,
                     baths: listing.baths ?? 0,
                     cars: listing.cars ?? 0,

@@ -9,6 +9,7 @@ import 'package:eraphilippines/app/widgets/era_place_search.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/router/route_string.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -154,32 +155,44 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                             ),
                           ),
                         ),
+                        Positioned(
+                            top: -5,
+                            right: -5,
+                            child: IconButton(
+                              icon: Icon(Icons.cancel),
+                              onPressed: () {
+                                controller.images.removeAt(index);
+                              },
+                            )),
+                        // Obx(() => Visibility(
+                        //       visible: controller.removeImage.value,
+                        //       child: Positioned(
+                        //         top: 5,
+                        //         right: 5,
+                        //         child: GestureDetector(
+                        //           onTap: () async {
+                        //             print('clicked');
+                        //             //controller.listing?.photos![index];
+                        //             await FirebaseStorage.instance
+                        //                 .ref(controller.listing?.photos![index])
+                        //                 .delete();
+                        //             controller.listing?.photos?.removeAt(index);
+                        //             await controller.listing?.updateListing();
+                        //             // controller.removeAt(index);
+
+                        //             controller.images.removeAt(index);
+                        //           },
+                        //           child: Icon(
+                        //             CupertinoIcons.xmark_circle_fill,
+                        //             color: Colors.black.withOpacity(0.7),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ))
                       ],
                     );
                   }))),
             );
-
-            //  GridView.builder(
-            //     shrinkWrap: true,
-            //     padding: EdgeInsets.symmetric(horizontal: 20.w),
-            //     physics: NeverScrollableScrollPhysics(),
-            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //       crossAxisCount: 3,
-            //       mainAxisSpacing: 10.h,
-            //       crossAxisSpacing: 10.h,
-            //     ),
-            //     itemCount: controller.images.length,
-            //     itemBuilder: (context, index) {
-            //       return Container(
-            //         decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(10),
-            //           image: DecorationImage(
-            //             image: FileImage(controller.images[index]),
-            //             fit: BoxFit.cover,
-            //           ),
-            //         ),
-            //       );
-            //     });
           }
         }),
 
@@ -396,7 +409,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
           ),
         ),
         buildWidget(
-          'Area',
+          'Lot Area',
           TextformfieldWidget(
             contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
             controller: controller.areaController,
@@ -405,6 +418,17 @@ class AddListings extends GetView<AddListingsController> with BaseController {
             keyboardType: TextInputType.number,
           ),
         ),
+        buildWidget(
+          'Floor Area',
+          TextformfieldWidget(
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            controller: controller.floorArea,
+            hintText: '150',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+          ),
+        ),
+
         dropDownAddlistings(
           selectedItem: controller.selectedOfferT,
           Types: controller.offerT,
@@ -560,7 +584,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 beds: controller.bedsController.text.toInt(),
                 baths: controller.bathsController.text.toInt(),
                 cars: controller.carsController.text.toInt(),
-                area: double.tryParse(controller.areaController.text) ?? 0.0,
+                lotArea: double.tryParse(controller.areaController.text) ?? 0.0,
                 status: controller.selectedOfferT.value.toString(),
                 // view: controller.selectedView.value.toString(),
                 location: controller.add.city,

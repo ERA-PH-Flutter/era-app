@@ -23,6 +23,7 @@ class TextformfieldWidget extends StatelessWidget {
   final BorderSide? borderSide;
   final InputBorder? border;
   final InputBorder? enabledBorder;
+  final Widget? prefixIcon;
 
   const TextformfieldWidget({
     super.key,
@@ -46,6 +47,7 @@ class TextformfieldWidget extends StatelessWidget {
     this.borderSide,
     this.border,
     this.enabledBorder,
+    this.prefixIcon,
   });
 
   @override
@@ -61,6 +63,7 @@ class TextformfieldWidget extends StatelessWidget {
       readOnly: readOnly ?? false,
       textInputAction: textInputAction ?? TextInputAction.none,
       decoration: InputDecoration(
+        prefixIcon: prefixIcon,
         contentPadding:
             EdgeInsets.only(top: 10.h, bottom: 0.h, left: 10.w, right: 0.w),
         suffixIcon: suffixIcon,

@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/models/ai_filters.dart';
+import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,6 +34,8 @@ class FilteredSearchBox extends StatefulWidget {
 }
 
 class _FilteredSearchBoxState extends State<FilteredSearchBox> {
+  var formKey = GlobalKey<FormState>();
+
   var showFullSearch = false.obs;
   var expanded = false.obs;
   var aiSearchController = TextEditingController();
@@ -41,8 +47,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var bathrooms = 0.obs;
   var garage = 0.obs;
   var selectedSubProperty = "".obs;
-  var areaMin = TextEditingController();
-  var areaMax = TextEditingController();
+  var priceMin = TextEditingController();
+  var priceMax = TextEditingController();
   var floorAreaMin = TextEditingController();
   var floorAreaMax = TextEditingController();
   var ppsqmMin = TextEditingController();
@@ -87,7 +93,18 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
     "Antipolo",
     "Santa Ana",
   ];
-  var priceSearch = [
+
+  List<String> priceSearch = [
+    "1,000 - 100,000",
+    "100,000 - 500,000",
+    "100,000 - 1M",
+    "1M - 5M",
+    "10M - 50M",
+    "50M - 100M",
+    "100M - 1B",
+  ];
+
+  List<String> priceSearchCopy = [
     "1,000 - 100,000",
     "100,000 - 500,000",
     "100,000 - 1M",
@@ -305,121 +322,137 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                               fontSize: 18.sp,
                               color: AppColors.white,
                             ),
-                            SizedBox(height: 5.h),
-                            Container(
-                              height: 50.h,
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(horizontal: 21.w),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(99),
-                              ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  alignment: Alignment.centerLeft,
-                                  dropdownColor: AppColors.white,
-                                  focusColor: AppColors.hint,
-                                  iconEnabledColor: Colors.black,
-                                  isExpanded: true,
-                                  value: selectedPriceRange.value.isEmpty
-                                      ? null
-                                      : selectedPriceRange.value,
-                                  hint: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: EraText(
-                                      text: 'Select Price Range',
+                            Form(
+                              key: formKey,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextFormField(
+                                      // validator: (value) {
+                                      //   if (value == null) return null;
+
+                                      //   if (priceMin.text.isNotEmpty &&
+                                      //       priceMax.text.isNotEmpty) {
+                                      //     if (int.parse(priceMin.text
+                                      //             .replaceAll(',', '')) >
+                                      //         int.parse(priceMax.text
+                                      //             .replaceAll(',', ''))) {
+                                      //       return '';
+                                      //     }
+                                      //   }
+                                      //   return null;
+                                      // },
+                                      onChanged: (value) {
+                                        value = value.replaceAll(',', '');
+                                        if (value.isNotEmpty) {
+                                          final formattedValue =
+                                              value.replaceAllMapped(
+                                                  RegExp(
+                                                      r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                  (Match m) => '${m[1]},');
+                                          priceMin.value = TextEditingValue(
+                                            text: formattedValue,
+                                            selection: TextSelection.collapsed(
+                                                offset: formattedValue.length),
+                                          );
+                                        }
+                                      },
+                                      maxLines: 1,
                                       textAlign: TextAlign.center,
-                                      color: Colors.grey,
-                                      fontSize: 20.sp,
-                                    ),
-                                  ),
-                                  items: [
-                                    DropdownMenuItem(
-                                      value: '2',
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Expanded(
-                                            child: TextformfieldWidget(
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 10.h),
-                                              controller: areaMin,
-                                              hintText: 'Min Price',
-                                              obscureText: false,
-                                              color: AppColors.black,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              borderSide: BorderSide.none,
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black,
-                                                    width: 1.0),
-                                              ),
-                                            ),
+                                      controller: priceMin,
+                                      decoration: InputDecoration(
+                                        constraints: const BoxConstraints(
+                                            maxHeight: 70, minHeight: 35),
+                                        isDense: true,
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.only(
+                                            left: 5.w,
+                                            top: 12.h,
                                           ),
-                                          SizedBox(width: 10.w),
-                                          Expanded(
-                                            child: TextformfieldWidget(
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 10.h),
-                                              controller: areaMax,
-                                              hintText: 'Max Price',
-                                              obscureText: false,
-                                              color: AppColors.black,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              borderSide: BorderSide.none,
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black,
-                                                    width: 1.0),
-                                              ),
-                                            ),
+                                          child: EraText(
+                                              textAlign: TextAlign.center,
+                                              text: 'PHP:',
+                                              fontSize: 18.sp,
+                                              color: AppColors.black),
+                                        ),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 10.h, horizontal: 10.w),
+                                        hintText: 'Min Price',
+                                        fillColor: AppColors.white,
+                                        filled: true,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          borderSide: BorderSide(
+                                            color: AppColors.black,
+                                            width: 1.5,
                                           ),
-                                          IconButton(
-                                            onPressed: () {
-                                              // String customPriceRange =
-                                              //     '${areaMin.text} - ${areaMax.text}';
-
-                                              // selectedPriceRange.value.isEmpty
-                                              //     ? selectedPriceRange.value =
-                                              //         customPriceRange
-                                              //     : selectedPriceRange.value =
-                                              //         selectedPriceRange
-                                              //             .value;
-
-                                              Get.back();
-                                            },
-                                            style: ButtonStyle(
-                                              backgroundColor:
-                                                  WidgetStateProperty.all(
-                                                      AppColors.hint
-                                                          .withOpacity(0.5)),
-                                            ),
-                                            icon: Icon(Icons.check),
-                                          ),
-                                        ],
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
                                       ),
                                     ),
-                                    ...priceSearch.map((price) {
-                                      return DropdownMenuItem<String>(
-                                        value: price,
-                                        child: EraText(
-                                          text: price,
-                                          color: AppColors.black,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextFormField(
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
+                                      controller: priceMax,
+                                      onChanged: (value) {
+                                        value = value.replaceAll(',', '');
+                                        if (value.isNotEmpty) {
+                                          final formattedValue =
+                                              value.replaceAllMapped(
+                                                  RegExp(
+                                                      r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                  (Match m) => '${m[1]},');
+                                          priceMax.value = TextEditingValue(
+                                            text: formattedValue,
+                                            selection: TextSelection.collapsed(
+                                                offset: formattedValue.length),
+                                          );
+                                        }
+                                      },
+                                      decoration: InputDecoration(
+                                        //     prefixIcon: Icon(Icons.attach_money),
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.only(
+                                            left: 5.w,
+                                            top: 12.h,
+                                          ),
+                                          child: EraText(
+                                              textAlign: TextAlign.center,
+                                              text: 'PHP:',
+                                              fontSize: 18.sp,
+                                              color: AppColors.black),
                                         ),
-                                      );
-                                    }),
-                                  ],
-                                  onChanged: (value) {
-                                    selectedPriceRange.value = value!;
-                                  },
-                                ),
+                                        contentPadding: EdgeInsets.zero,
+                                        hintText: 'Max Price',
+                                        fillColor: AppColors.white,
+                                        filled: true,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          borderSide: BorderSide(
+                                            color: AppColors.black,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -497,8 +530,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   floorAreaMin: floorAreaMin,
                                   ppsqmMin: ppsqmMin,
                                   ppsqmMax: ppsqmMax,
-                                  areaMax: lotAreaMax,
-                                  areaMin: lotAreaMin);
+                                  lotAreaMax: lotAreaMax,
+                                  lotAreaMin: lotAreaMin);
                             },
                             label: EraText(
                               text: 'More Filters',
@@ -529,6 +562,48 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                 //  height: 50.h,
                                 //);
                                 return SearchWidget(onTap: () async {
+                                  // if(formKey.currentState!.validate()){
+
+                                  // }
+                                  if (priceMin.text.isNotEmpty &&
+                                      priceMax.text.isNotEmpty) {
+                                    if (int.parse(
+                                            priceMin.text.replaceAll(',', '')) >
+                                        int.parse(priceMax.text
+                                            .replaceAll(',', ''))) {
+                                      return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              backgroundColor: AppColors.white,
+                                              title: EraText(
+                                                  text:
+                                                      'Invalid price range input',
+                                                  color: AppColors.black,
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.bold),
+                                              content: EraText(
+                                                  text:
+                                                      'Maximum price should be greater than minimum price.',
+                                                  color: AppColors.black,
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.w500),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
+                                                    child: EraText(
+                                                        text: 'OK',
+                                                        color: AppColors.black,
+                                                        fontSize: 20.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold))
+                                              ],
+                                            );
+                                          });
+                                    }
+                                  }
                                   String searchQuery = '';
 
                                   // var data;
@@ -549,25 +624,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     searchQuery +=
                                         ' ${selectedPropertyTypeSearch.value}.';
                                   }
-                                  if (areaMin.text != "" &&
-                                      areaMax.text != "") {
-                                    searchQuery +=
-                                        'area min ${areaMin.value} and max ${areaMax.text}.';
-                                  }
-                                  if (areaMin.text != "" &&
-                                      areaMax.text != "") {
-                                    searchQuery +=
-                                        ' floor area min ${areaMin.value} and max ${areaMax.text}. ';
-                                  }
-
-                                  if (selectedPriceRange.value != "") {
-                                    var price = selectedPriceRange.value
-                                        .replaceAll(",", "")
-                                        .split(" - ");
-
-                                    searchQuery +=
-                                        ' price min ${price[0].contains('M') ? price[0].replaceAll("M", "").toInt() * 1000000 : price[0].toInt()} and max ${price[1].contains('M') ? price[1].replaceAll("M", "").toInt() * 1000000 : price[1].toInt()}.';
-                                  }
 
                                   if (selectedSubProperty.value != "") {
                                     searchQuery +=
@@ -586,22 +642,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                         ' garage equals ${garage.value}.';
                                   }
 
-                                  if (ppsqmMin.text.isNotEmpty &&
-                                      ppsqmMax.text.isNotEmpty) {
-                                    searchQuery +=
-                                        ' ppsqm min ${ppsqmMin.text.toInt()} and max ${ppsqmMax.text.toInt()}.';
-                                  }
-                                  if (floorAreaMax.text.isNotEmpty &&
-                                      floorAreaMin.text.isNotEmpty) {
-                                    searchQuery +=
-                                        ' floor_area min ${floorAreaMin.text.toInt()} and max ${floorAreaMax.text.toInt()}.';
-                                  }
-                                  if (lotAreaMin.text.isNotEmpty &&
-                                      lotAreaMax.text.isNotEmpty) {
-                                    searchQuery +=
-                                        ' area min ${lotAreaMin.text.toInt()} and area max ${lotAreaMax.text.toInt()}.';
-                                  }
-
                                   try {
                                     if (widget.animateToPage2) {
                                       pageViewController.animateToPage(
@@ -612,9 +652,87 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       selectedIndex.value = 2;
                                       currentRoute = '/searchresult';
                                     }
-
+                                    print(
+                                        "gemini search overrideAiFilters ${priceMin.text != "" && priceMax.text != ""}");
                                     Get.find<SearchResultController>()
-                                        .searchListingQuery(searchQuery);
+                                        .searchListingQuery(
+                                            query: searchQuery,
+                                            overrideAiFilters: [
+                                          if (priceMin.text != "" &&
+                                              priceMax.text != "") ...[
+                                            AiFilters(
+                                              field: 'price',
+                                              value: double.tryParse(priceMin
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: ">",
+                                            ),
+                                            AiFilters(
+                                              field: 'price',
+                                              value: double.tryParse(priceMax
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: "<",
+                                            ),
+                                          ],
+                                          if (ppsqmMin.text.isNotEmpty &&
+                                              ppsqmMax.text.isNotEmpty) ...[
+                                            AiFilters(
+                                              field: 'ppsqm',
+                                              value: int.tryParse(ppsqmMin.text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: ">",
+                                            ),
+                                            AiFilters(
+                                              field: 'ppsqm',
+                                              value: int.tryParse(ppsqmMax.text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: "<",
+                                            ),
+                                          ],
+                                          if (floorAreaMax.text.isNotEmpty &&
+                                              floorAreaMin.text.isNotEmpty) ...[
+                                            AiFilters(
+                                              field: 'floor_area',
+                                              value: int.tryParse(floorAreaMin
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: ">",
+                                            ),
+                                            AiFilters(
+                                              field: 'floor_area',
+                                              value: int.tryParse(floorAreaMax
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: "<",
+                                            ),
+                                          ],
+                                          if (lotAreaMin.text.isNotEmpty &&
+                                              lotAreaMax.text.isNotEmpty) ...[
+                                            AiFilters(
+                                              field: 'lot_area',
+                                              value: int.tryParse(lotAreaMin
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: ">",
+                                            ),
+                                            AiFilters(
+                                              field: 'lot_area',
+                                              value: int.tryParse(lotAreaMax
+                                                      .text
+                                                      .replaceAll(',', '')) ??
+                                                  0,
+                                              operator: "<",
+                                            ),
+                                          ]
+                                        ]);
                                   } catch (e) {
                                     Get.find<SearchResultController>()
                                         .searchResultState
@@ -631,8 +749,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             if (selectedLocation.value != null ||
                                 selectedPropertyTypeSearch.value != null ||
                                 selectedPriceRange.value != "" ||
-                                areaMin.text != "" ||
-                                areaMax.text != "" ||
                                 selectedSubProperty.value != "" ||
                                 bedrooms.value != 0 ||
                                 bathrooms.value != 0 ||
@@ -658,8 +774,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     priceController.clear();
                                     propertyController.clear();
                                     projectsController.clear();
-                                    areaMin.clear();
-                                    areaMax.clear();
                                     floorAreaMin.clear();
                                     floorAreaMax.clear();
                                     ppsqmMin.clear();

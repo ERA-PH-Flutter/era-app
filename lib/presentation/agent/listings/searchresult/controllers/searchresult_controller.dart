@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/app/services/ai_search.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:flutter/cupertino.dart';
@@ -114,9 +115,14 @@ class SearchResultController extends GetxController {
         listings.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
   }
 
-    Future searchListingQuery(String query) async {
+  Future searchListingQuery(
+      {required String query,
+      List<AiFilters> overrideAiFilters = const []}) async {
     searchResultState.value = SearchResultState.loading;
-    List<Listing> listings = await AI(query: query).listingSearch();
+    print('gemini search overrideAiFilters 1 ${overrideAiFilters}');
+
+    List<Listing> listings = await AI(query: query)
+        .listingSearch(overrideAiFilters: overrideAiFilters);
     data.value = listings;
     searchQuery.value = query.toString();
     searchResultState.value =

@@ -479,7 +479,7 @@ class EditListing extends GetView<AddListingsController> {
           ),
         ),
         AddListings.buildWidget(
-          'Area',
+          'Lot Area',
           TextformfieldWidget(
             controller: controller.areaController,
             hintText: '150 sqm',
@@ -487,7 +487,25 @@ class EditListing extends GetView<AddListingsController> {
             keyboardType: TextInputType.number,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Area is required';
+                return 'Lot Area is required';
+              }
+              if (double.tryParse(value) == null) {
+                return 'Please enter a valid number';
+              }
+              return null;
+            },
+          ),
+        ),
+        AddListings.buildWidget(
+          'Floor Area',
+          TextformfieldWidget(
+            controller: controller.floorArea,
+            hintText: '150 sqm',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Floor is required';
               }
               if (double.tryParse(value) == null) {
                 return 'Please enter a valid number';

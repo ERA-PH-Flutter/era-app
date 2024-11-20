@@ -201,6 +201,17 @@ Widget _buildFloorAreaFilter({
   required TextEditingController min,
   required TextEditingController max,
 }) {
+  String _formatNumber(String value) {
+    value = value.replaceAll(',', '');
+    if (value.isNotEmpty) {
+      return value.replaceAllMapped(
+        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+        (Match m) => '${m[1]},',
+      );
+    }
+    return value;
+  }
+
   return Column(
     children: [
       EraText(
@@ -218,6 +229,14 @@ Widget _buildFloorAreaFilter({
               SizedBox(
                 width: Get.width / 2 - 25.w,
                 child: TextformfieldWidget(
+                  onChanged: (value) {
+                    if (value.isNotEmpty) {
+                      String formattedValue = _formatNumber(value);
+                      min.text = formattedValue;
+                      min.selection = TextSelection.collapsed(
+                          offset: formattedValue.length);
+                    }
+                  },
                   hintText: hintText ?? 'sqm',
                   contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
                   keyboardType: TextInputType.number,
@@ -235,6 +254,14 @@ Widget _buildFloorAreaFilter({
               SizedBox(
                 width: Get.width / 2 - 25.w,
                 child: TextformfieldWidget(
+                  onChanged: (value) {
+                    if (value.isNotEmpty) {
+                      String formattedValue = _formatNumber(value);
+                      max.text = formattedValue;
+                      max.selection = TextSelection.collapsed(
+                          offset: formattedValue.length);
+                    }
+                  },
                   hintText: hintText2 ?? 'sqm',
                   contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
                   keyboardType: TextInputType.number,
@@ -259,8 +286,8 @@ void openFilterDialog({
   required floorAreaMax,
   required ppsqmMin,
   required ppsqmMax,
-  required areaMin,
-  required areaMax,
+  required lotAreaMin,
+  required lotAreaMax,
 }) {
   Get.dialog(
     BackdropFilter(
@@ -319,7 +346,7 @@ void openFilterDialog({
                     garage: garage,
                   ),
                   SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(min: areaMin, max: areaMax),
+                  _buildFloorAreaFilter(min: lotAreaMin, max: lotAreaMax),
                   SizedBox(height: 20.h),
                   _buildFloorAreaFilter(
                       title: 'Floor Area',
@@ -343,16 +370,69 @@ void openFilterDialog({
                         child: Button(
                           width: Get.width,
                           onTap: () {
-                            Get.back();
-                            Get.showSnackbar(GetSnackBar(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: EraTheme.paddingWidth,
-                                  vertical: 10.h),
-                              backgroundColor: AppColors.kRedColor,
-                              title: 'Success',
-                              message: 'Filter Applied',
-                              duration: Duration(seconds: 2),
-                            ));
+                            try {
+                              if (lotAreaMin.text.isNotEmpty &&
+                                  lotAreaMax.text.isNotEmpty) {
+                                if (int.parse(
+                                        lotAreaMin.text.replaceAll(',', '')) >
+                                    int.parse(
+                                        lotAreaMax.text.replaceAll(',', ''))) {
+                                  Get.showSnackbar(GetSnackBar(
+                                    message:
+                                        'Min Area should be less than Max Area',
+                                    duration: Duration(seconds: 2),
+                                  ));
+                                  return;
+                                }
+                              }
+                              if (floorAreaMin.text.isNotEmpty &&
+                                  floorAreaMax.text.isNotEmpty) {
+                                if (int.parse(
+                                        floorAreaMin.text.replaceAll(',', '')) >
+                                    int.parse(floorAreaMax.text
+                                        .replaceAll(',', ''))) {
+                                  Get.showSnackbar(GetSnackBar(
+                                    message:
+                                        'Min Floor Area should be less than Max Floor Area',
+                                    duration: Duration(seconds: 2),
+                                  ));
+                                  return;
+                                }
+                              }
+                              if (ppsqmMin.text.isNotEmpty &&
+                                  ppsqmMax.text.isNotEmpty) {
+                                if (int.parse(
+                                        ppsqmMin.text.replaceAll(',', '')) >
+                                    int.parse(
+                                        ppsqmMax.text.replaceAll(',', ''))) {
+                                  Get.showSnackbar(GetSnackBar(
+                                    message:
+                                        'Min Price per sqm should be less than Max Price per sqm',
+                                    duration: Duration(seconds: 2),
+                                  ));
+                                  return;
+                                }
+                              }
+
+                              // Apply Filters Logic
+                              Get.back();
+                              Get.showSnackbar(GetSnackBar(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: EraTheme.paddingWidth,
+                                    vertical: 10.h),
+                                backgroundColor: AppColors.kRedColor,
+                                title: 'Success',
+                                message: 'Filter Applied',
+                                duration: Duration(seconds: 2),
+                              ));
+                            } catch (e) {
+                              Get.showSnackbar(GetSnackBar(
+                                message:
+                                    'An error occurred. Please check your inputs.',
+                                duration: Duration(seconds: 2),
+                              ));
+                              print('Error: $e');
+                            }
 
                             //  bathrooms.value = 0;
                             //     bedrooms.value = 0;

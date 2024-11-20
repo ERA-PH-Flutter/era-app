@@ -77,9 +77,7 @@ appRoutes() => [
           page: () => const HarayaProject(),
           binding: ProjectsBinding()),
       GetPage(
-          name: '/base',
-          page: () =>  BaseScaffold(),
-          binding: HomeBinding()),
+          name: '/base', page: () => BaseScaffold(), binding: HomeBinding()),
       GetPage(
           name: RouteString.laya,
           page: () => const LayaProject(),
@@ -128,10 +126,9 @@ appRoutes() => [
           page: () => Help(),
           binding: ContactUsBinding()),
       GetPage(
-        name: RouteString.joinEra,
-        page: () => JoinEra(),
-        binding: ContactUsBinding()
-      ),
+          name: RouteString.joinEra,
+          page: () => JoinEra(),
+          binding: ContactUsBinding()),
       GetPage(
           name: RouteString.findagents,
           page: () => const FindAgents(),

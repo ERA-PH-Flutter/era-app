@@ -31,7 +31,7 @@ class SoldPropertiesListings extends StatelessWidget {
                 : AppStrings.noUserImageWhite)
             : AppStrings.noUserImageWhite,
         type: listingModels![i].type!,
-        areas: listingModels![i].area!,
+        areas: listingModels![i].floorArea!,
         beds: listingModels![i].beds!,
         baths: listingModels![i].baths!,
         cars: listingModels![i].cars!,
@@ -40,7 +40,7 @@ class SoldPropertiesListings extends StatelessWidget {
         showListedby: true,
         listedBy: 'Listed By',
         agent: listingModels[i].by,
-        onTap: ()async{
+        onTap: () async {
           await Database().addViews(listingModels[i].id);
           Get.toNamed('/propertyInfo', arguments: listingModels![i]);
         },

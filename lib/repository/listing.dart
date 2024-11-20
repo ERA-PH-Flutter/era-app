@@ -13,7 +13,7 @@ class Listing {
   double? floorArea;
   int? beds;
   int? baths;
-  double? area;
+  double? lotArea;
   String? status;
   String? view;
   String? location;
@@ -41,7 +41,7 @@ class Listing {
       this.floorArea,
       this.location,
       this.status,
-      this.area,
+      this.lotArea,
       this.beds,
       this.ppsqm,
       this.subCategory,
@@ -70,7 +70,7 @@ class Listing {
         floorArea: json["floor_area"].toString().toDouble(),
         location: json["location"],
         status: json["status"],
-        area: json["area"].toString().toDouble(),
+        lotArea: json["lot_area"].toString().toDouble(),
         beds: json["beds"],
         view: json["view"],
         ppsqm: json["ppsqm"].toString().toDouble(),
@@ -104,7 +104,7 @@ class Listing {
       "floor_area": floorArea,
       "beds": beds,
       "baths": baths,
-      "area": area,
+      "lot_area": lotArea,
       "status": status,
       "view": view,
       "location": location?.toLowerCase(),

@@ -62,7 +62,7 @@ class AI {
           .map((e) => Project.fromJSON({...e.data(), 'id': e.id}));
 
       final projectIds = res.data ?? [];
-      print('Error calling function: query $query');
+      print('Error calling function: query ${query}');
 
       print('Error calling function: res.data ${res.data}');
 
@@ -73,8 +73,19 @@ class AI {
     }
   }
 
-  Future<List<Listing>> listingSearch() async {
+  Future<List<Listing>> listingSearch({
+    List<AiFilters> overrideAiFilters = const [],
+  }) async {
+    print('gemini search overrideAiFilters 2 ${overrideAiFilters}');
+
     var geminiData = {
+      "price": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
       "type": {
         "type": "string",
         "enum": [
@@ -123,13 +134,6 @@ class AI {
         "enum": ["sale", "rent", "Others"]
       },
       "location": {"type": "string"},
-      "area": {
-        "type": "object",
-        "properties": {
-          "min": {"type": "number"},
-          "max": {"type": "number"}
-        }
-      },
       "beds": {
         "type": "object",
         "properties": {
@@ -156,6 +160,13 @@ class AI {
           "max": {"type": "number"}
         }
       },
+      "lot_area": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
       "ppsqm": {
         "type": "object",
         "properties": {
@@ -169,19 +180,12 @@ class AI {
           "equals": {"type": "number"},
         }
       },
-      "price": {
-        "type": "object",
-        "properties": {
-          "min": {"type": "number"},
-          "max": {"type": "number"}
-        }
-      },
       "name": {
         "type": "string",
       }
     };
-    print('gemini search here 1 query $query');
-    if (query.isEmpty) {
+    print('gemini search here 1 query ${query}');
+    if (query.isEmpty && overrideAiFilters.isEmpty) {
       return (await FirebaseFirestore.instance.collection('listings').get())
           .docs
           .map((e) => Listing.fromJSON(e.data()))
@@ -191,7 +195,7 @@ class AI {
         name: "getListing",
         description: "Assign accordingly do not assign value if not specified");
 
-    print('gemini search here 1 result listing $result');
+    print('gemini search here 1 result listing ${result}');
 
     Query<Map<String, dynamic>> firebaseQuery =
         FirebaseFirestore.instance.collection('listings');
@@ -208,7 +212,7 @@ class AI {
         }
       } else {
         List val = checkOperator(value);
-        print('gemini search here 1 val val $val');
+        print('gemini search here 1 val val ${val}');
 
         for (int i = 0; i < val.length; i += 2) {
           prompts
@@ -216,6 +220,15 @@ class AI {
         }
       }
     });
+    // ai cannot be trusted
+    print('gemini search overrideAiFilters ${overrideAiFilters}');
+    for (var ov in overrideAiFilters) {
+      if (!prompts
+          .map((e) => '${e.field}/${e.operator}')
+          .contains('${ov.field}/${ov.operator}')) {
+        prompts.add(ov);
+      }
+    }
     Iterable<Listing> listingData = [];
     for (var element in prompts) {
       print(
@@ -232,6 +245,9 @@ class AI {
     final Map<Listing, double> filteredData = {};
     for (var data in listingData) {
       double score = 0;
+      bool minMatch = true;
+      bool maxMatch = true;
+      bool equalsMatch = true;
       for (int i = 0; i < (prompts.length); i++) {
         if (prompts[i].field == "name") {
           if (data
@@ -245,28 +261,30 @@ class AI {
         }
 
         if (prompts[i].operator == ">") {
-          if ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value) {
-            score += .5;
-          }
+          score += .5;
+
+          minMatch =
+              ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value);
           continue;
         }
         if (prompts[i].operator == "<") {
-          if ((data.toMap()[prompts[i].field] ?? 0) <= prompts[i].value) {
-            score += .5;
-          }
+          score += .5;
+
+          maxMatch =
+              ((data.toMap()[prompts[i].field] ?? 0) <= prompts[i].value);
           continue;
         }
         if (prompts[i].operator == "=") {
-          if ((data.toMap()[prompts[i].field] ?? 0) == prompts[i].value) {
-            score += 1;
-          }
+          score++;
+          equalsMatch =
+              ((data.toMap()[prompts[i].field] ?? 0) == prompts[i].value);
           continue;
         }
       }
       final querySplit = query.split(' ').map((e) => e.toLowerCase());
       for (var split in querySplit) {
         if (geminiData.toString().contains(split)) continue;
-        print('gemini search  split $split');
+        print('gemini search split ${split}');
 
         if (double.tryParse(split) == null) {
           if ((data
@@ -278,17 +296,8 @@ class AI {
           }
         }
       }
-      // bonus if it matches exact query string from user
-      if ((data
-          .toMap()
-          .toString()
-          .toLowerCase()
-          .contains(query.trim().toLowerCase()))) {
-        score = score + .3;
-      }
-      print('gemini search score $score');
 
-      if (score >= 1) {
+      if (score >= 1 && (minMatch && maxMatch && equalsMatch)) {
         filteredData[data] = score;
       }
     }

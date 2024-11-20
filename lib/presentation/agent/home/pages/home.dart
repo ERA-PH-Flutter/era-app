@@ -148,7 +148,7 @@ class Home extends GetView<HomeController> {
               ),
               sb10(),
               FilteredSearchBox(
-                animateToPage2:true,
+                animateToPage2: true,
               ),
               sb15(),
               controller.quickLinks!,
@@ -348,7 +348,7 @@ class Home extends GetView<HomeController> {
                                       SizedBox(width: 2.w),
                                       EraText(
                                         text:
-                                            '${listing.area!.toStringAsFixed(listing.area!.truncateToDouble() == listing.area ? 0 : 1)} sqm',
+                                            '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
                                         fontSize: EraTheme.paragraph - 1.sp,
                                         fontWeight: FontWeight.w500,
                                         color: AppColors.black,
