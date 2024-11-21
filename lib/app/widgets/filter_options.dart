@@ -95,97 +95,206 @@ class PropertyTypeFilter extends StatelessWidget {
   }
 }
 
-Widget _buildFloorAreaFilter({
-  String? title,
-  String? hintText,
-  String? hintText2,
-  required Rx<TextEditingController> min,
-  required Rx<TextEditingController> max,
-}) {
-  return Column(
-    children: [
-      EraText(
-        text: title ?? 'Lot Area',
-        fontSize: 18.sp,
-        color: AppColors.black,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              EraText(text: 'Min.', fontSize: 18.sp, color: AppColors.black),
-              SizedBox(
-                width: Get.width / 2 - 25.w,
-                child: Obx(
-                  () => TextformfieldWidget(
-                    onChanged: (value) {
-                      value = value.replaceAll(',', '');
-                      if (value.isNotEmpty) {
-                        try {
-                          final formattedValue = value.replaceAllMapped(
-                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                              (Match m) => '${m[1]},');
-                          min.value.text = formattedValue;
-                          min.value.selection = TextSelection.collapsed(
-                              offset: formattedValue.length);
-                        } catch (e) {
-                          print("errorr: $e");
-                        }
-                      }
-                    },
-                    hintText: hintText ?? 'sqm',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                    keyboardType: TextInputType.number,
-                    controller: min.value,
-                    maxLines: 1,
-                  ),
-                ),
-              ),
-            ],
-          ),  
-          SizedBox(width: 10.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              EraText(text: 'Max.', fontSize: 18.sp, color: AppColors.black),
-              SizedBox(
-                width: Get.width / 2 - 25.w,
-                child: Obx(
-                  () => TextformfieldWidget(
-                    onChanged: (value) {
-                      value = value.replaceAll(',', '');
-                      if (value.isNotEmpty) {
-                        try {
-                          final formattedValue = value.replaceAllMapped(
-                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                              (Match m) => '${m[1]},');
-                          max.value.text = formattedValue;
-                          max.value.selection = TextSelection.collapsed(
-                              offset: formattedValue.length);
-                        } catch (e) {
-                          print("errorrr $e");
-                        }
-                      }
-                    },
-                    hintText: hintText2 ?? 'sqm',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                    keyboardType: TextInputType.number,
-                    controller: max.value,
-                    maxLines: 1,
-                  ),
-                ),
-              ),
-            ],
+class FilterInputWidget extends StatelessWidget {
+  final String title;
+  final String minLabel;
+  final String maxLabel;
+  final String minHintText;
+  final String maxHintText;
+  final Rx<TextEditingController> minController;
+  final Rx<TextEditingController> maxController;
+  final RxString minObservable;
+  final RxString maxObservable;
+  const FilterInputWidget({
+    super.key,
+    required this.title,
+    required this.minLabel,
+    required this.maxLabel,
+    required this.minHintText,
+    required this.maxHintText,
+    required this.minController,
+    required this.maxController,
+    required this.minObservable,
+    required this.maxObservable,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: title,
+          fontSize: 18.sp,
+          fontWeight: FontWeight.bold,
+          color: AppColors.black,
+        ),
+        SizedBox(height: 10.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildInputColumn(
+              label: minLabel,
+              hintText: minHintText,
+              controller: minController,
+              observable: minObservable,
+            ),
+            SizedBox(width: 10.w),
+            _buildInputColumn(
+                label: maxLabel,
+                hintText: maxHintText,
+                controller: maxController,
+                observable: maxObservable),
+          ],
+        ),
+      ],
+    );
+  }
+
+  void _formatInput(
+      String value, Rx<TextEditingController> controller, RxString observable) {
+    value = value.replaceAll(',', '');
+    if (value.isNotEmpty) {
+      try {
+        final formattedValue = value.replaceAllMapped(
+          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+          (Match m) => '${m[1]},',
+        );
+        controller.value.text = formattedValue;
+        controller.value.selection =
+            TextSelection.collapsed(offset: formattedValue.length);
+      } catch (e) {
+        print("check error: $e");
+      }
+      observable.value = value;
+    }
+  }
+
+  Widget _buildInputColumn({
+    required String label,
+    required String hintText,
+    required Rx<TextEditingController> controller,
+    required RxString observable,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        EraText(
+          text: label,
+          fontSize: 18.sp,
+          color: AppColors.black,
+        ),
+        SizedBox(
+          width: Get.width / 2 - 25.w,
+          child: Obx(
+            () => TextformfieldWidget(
+              onChanged: (value) => _formatInput(value, controller, observable),
+              hintText: hintText,
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+              keyboardType: TextInputType.number,
+              controller: controller.value,
+              maxLines: 1,
+            ),
           ),
-        ],
-      ),
-    ],
-  );
+        ),
+      ],
+    );
+  }
 }
 
-void openFilterDialog({
+// Widget _buildFloorAreaFilter({
+//   String? title,
+//   String? hintText,
+//   String? hintText2,
+//   required Rx<TextEditingController> min,
+//   required Rx<TextEditingController> max,
+// }) {
+//   return Column(
+//     children: [
+//       EraText(
+//         text: title ?? 'Lot Area',
+//         fontSize: 18.sp,
+//         color: AppColors.black,
+//       ),
+//       Row(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           Column(
+//             crossAxisAlignment: CrossAxisAlignment.center,
+//             children: [
+//               EraText(text: 'Min.', fontSize: 18.sp, color: AppColors.black),
+//               SizedBox(
+//                   width: Get.width / 2 - 25.w,
+//                   child: Obx(
+//                     () => TextformfieldWidget(
+//                       onChanged: (value) {
+//                         String noVariable = '';
+
+//                         value = value.replaceAll(',', '');
+//                         if (value.isNotEmpty) {
+//                           try {
+//                             final formattedValue = value.replaceAllMapped(
+//                                 RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+//                                 (Match m) => '${m[1]},');
+//                             min.value.text = formattedValue;
+//                             min.value.selection = TextSelection.collapsed(
+//                                 offset: formattedValue.length);
+//                           } catch (e) {
+//                             print("errorr: $e");
+//                           }
+//                         }
+//                         noVariable = value;
+//                       },
+//                       hintText: hintText ?? 'sqm',
+//                       contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+//                       keyboardType: TextInputType.number,
+//                       controller: min.value,
+//                       maxLines: 1,
+//                     ),
+//                   )),
+//             ],
+//           ),
+//           SizedBox(width: 10.w),
+//           Column(
+//             crossAxisAlignment: CrossAxisAlignment.center,
+//             children: [
+//               EraText(text: 'Max.', fontSize: 18.sp, color: AppColors.black),
+//               SizedBox(
+//                   width: Get.width / 2 - 25.w,
+//                   child: Obx(
+//                     () => TextformfieldWidget(
+//                       onChanged: (value) {
+//                         RxString noVariable = ''.obs;
+//                         value = value.replaceAll(',', '');
+//                         if (value.isNotEmpty) {
+//                           try {
+//                             final formattedValue = value.replaceAllMapped(
+//                                 RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+//                                 (Match m) => '${m[1]},');
+//                             max.value.text = formattedValue;
+//                             max.value.selection = TextSelection.collapsed(
+//                                 offset: formattedValue.length);
+//                           } catch (e) {
+//                             print("errorrr $e");
+//                           }
+//                         }
+//                         noVariable.value = value;
+//                       },
+//                       hintText: hintText2 ?? 'sqm',
+//                       contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+//                       keyboardType: TextInputType.number,
+//                       controller: max.value,
+//                       maxLines: 1,
+//                     ),
+//                   )),
+//             ],
+//           ),
+//         ],
+//       ),
+//     ],
+//   );
+// }
+
+Future openFilterDialog({
   required subcategory,
   required bedrooms,
   required bathrooms,
@@ -196,8 +305,8 @@ void openFilterDialog({
   required Rx<TextEditingController> ppsqmMax,
   required Rx<TextEditingController> lotAreaMin,
   required Rx<TextEditingController> lotAreaMax,
-}) {
-  Get.dialog(
+}) async {
+  await Get.dialog(
     BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
       child: Dialog(
@@ -254,21 +363,41 @@ void openFilterDialog({
                     garage: garage,
                   ),
                   SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(min: lotAreaMin, max: lotAreaMax),
+                  FilterInputWidget(
+                    title: 'Lot Area',
+                    minLabel: 'Min.',
+                    maxLabel: 'Max.',
+                    minHintText: 'sqm',
+                    maxHintText: 'sqm',
+                    minController: lotAreaMin,
+                    maxController: lotAreaMax,
+                    maxObservable: lotAreaMax.value.text.obs,
+                    minObservable: lotAreaMin.value.text.obs,
+                  ),
                   SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(
-                      title: 'Floor Area',
-                      hintText: 'sqm',
-                      hintText2: 'sqm ',
-                      min: floorAreaMin,
-                      max: floorAreaMax),
+                  FilterInputWidget(
+                    title: 'Floor Area',
+                    minLabel: 'Min.',
+                    maxLabel: 'Max.',
+                    minHintText: 'sqm',
+                    maxHintText: 'sqm',
+                    minController: floorAreaMin,
+                    maxController: floorAreaMax,
+                    minObservable: floorAreaMin.value.text.obs,
+                    maxObservable: floorAreaMax.value.text.obs,
+                  ),
                   SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(
-                      title: 'Price per sqm',
-                      hintText: 'php',
-                      hintText2: 'php',
-                      min: ppsqmMin,
-                      max: ppsqmMax),
+                  FilterInputWidget(
+                    title: 'Price per sqm',
+                    minLabel: 'Min.',
+                    maxLabel: 'Max.',
+                    minHintText: 'Php',
+                    maxHintText: 'Php',
+                    minController: ppsqmMin,
+                    maxController: ppsqmMax,
+                    minObservable: ppsqmMin.value.text.obs,
+                    maxObservable: ppsqmMax.value.text.obs,
+                  ),
                   sb20(),
                   Row(
                     children: [
@@ -277,9 +406,12 @@ void openFilterDialog({
                         child: Button(
                           width: Get.width,
                           onTap: () {
+                            print(
+                                'ppsqm: ${ppsqmMin.value.text.obs}, ppsqm: ${ppsqmMax.value.text.obs}');
+
                             try {
-                              if (lotAreaMin.value.text.isNotEmpty &&
-                                  lotAreaMax.value.text.isNotEmpty) {
+                              if (lotAreaMin.value.text.obs.isNotEmpty &&
+                                  lotAreaMax.value.text.obs.isNotEmpty) {
                                 if (int.parse(lotAreaMin.value.text
                                         .replaceAll(',', '')) >
                                     int.parse(lotAreaMax.value.text
@@ -292,8 +424,8 @@ void openFilterDialog({
                                   return;
                                 }
                               }
-                              if (floorAreaMin.value.text.isNotEmpty &&
-                                  floorAreaMax.value.text.isNotEmpty) {
+                              if (floorAreaMin.value.text.obs.isNotEmpty &&
+                                  floorAreaMax.value.text.obs.isNotEmpty) {
                                 if (int.parse(floorAreaMin.value.text
                                         .replaceAll(',', '')) >
                                     int.parse(floorAreaMax.value.text
@@ -306,8 +438,8 @@ void openFilterDialog({
                                   return;
                                 }
                               }
-                              if (ppsqmMin.value.text.isNotEmpty &&
-                                  ppsqmMax.value.text.isNotEmpty) {
+                              if (ppsqmMin.value.text.obs.isNotEmpty &&
+                                  ppsqmMax.value.text.obs.isNotEmpty) {
                                 if (int.parse(ppsqmMin.value.text
                                         .replaceAll(',', '')) >
                                     int.parse(ppsqmMax.value.text
