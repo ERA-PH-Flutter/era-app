@@ -28,6 +28,7 @@ class SplashController extends GetxController {
   final List<String> strings = [
     'CONNECT WORLDS,\nBUILD DREAMS.',
   ];
+  RxString status = "".obs;
   int currentIndex = 0;
   var currentCharIndex = 0.obs;
   Completer<bool> isReady = Completer();
@@ -52,11 +53,13 @@ class SplashController extends GetxController {
   init() async {
     splashState.value = kIsWeb ? SplashState.web : SplashState.loading;
     _typeWrittingAnimation();
+    status.value = "Loading app settings..";
     settings = Settings.fromJSON(await Database().getSettings());
 
     if (!kIsWeb) {
       if (Platform.isIOS) {
         await Permission.storage.request();
+        await Permission.camera.request();
       }
       if ((store.settings == null)) {
         await loadLocalImage();
@@ -70,9 +73,8 @@ class SplashController extends GetxController {
     if (user != null) {
       user = await EraUser().getById(user!.id);
     }
-
     await isReady.future;
-    //await Future.delayed(const Duration(milliseconds: 500));
+    status.value = "Loading current user..";
     if (FirebaseAuth.instance.currentUser != null) {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
@@ -114,20 +116,27 @@ class SplashController extends GetxController {
       "pre_selling": "",
     };
     //download carousel
+    status.value = "Loading home banner images..";
     for (var banner in settings!.banners!) {
       savedData['banners'].add(await CloudStorage()
           .downloadAndSave(docRef: banner, folder: 'banners'));
     }
     //download quickLinks
+    status.value = "Loading quick link images..";
     savedData['quick_links'] = await QuickLinksModel().download();
+    status.value = "Loading quick rental image..";
     savedData['rental'] = (await CloudStorage()
         .downloadAndSave(docRef: settings!.rentalPicture!, folder: 'rental'));
+    status.value = "Loading quick auction image..";
     savedData['auction'] = (await CloudStorage()
         .downloadAndSave(docRef: settings!.auctionPicture!, folder: 'auction'));
+    status.value = "Loading quick commercial image..";
     savedData['commercial'] = (await CloudStorage().downloadAndSave(
         docRef: settings!.commercialPicture!, folder: 'commercial'));
+    status.value = "Loading quick residential image..";
     savedData['residential'] = (await CloudStorage().downloadAndSave(
         docRef: settings!.residentialPicture!, folder: 'residential'));
+    status.value = "Loading quick pre selling image..";
     savedData['pre_selling'] = (await CloudStorage().downloadAndSave(
         docRef: settings!.preSellingPicture!, folder: 'pre_selling'));
     store.images = savedData;
