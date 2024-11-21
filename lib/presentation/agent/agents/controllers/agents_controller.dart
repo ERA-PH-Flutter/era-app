@@ -214,7 +214,12 @@ class AgentsController extends GetxController with BaseController {
             });
       }
     } catch (e) {
-      showErroDialog(description: "Failed to pick image: ${e.toString()}");
+      showErroDialog(
+        description: "Failed to pick image, Error: ${e.toString().contains("camera_access_denied") ? "Permission Denied" : "Failed to load Image"}",
+        onTap: (){
+          Get.back();
+        }
+      );
     }
   }
 }
