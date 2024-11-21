@@ -519,16 +519,17 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             ),
                             onPressed: () async {
                               await openFilterDialog(
-                                  subcategory: selectedSubProperty,
-                                  bathrooms: bathrooms,
-                                  bedrooms: bedrooms,
-                                  garage: garage,
-                                  floorAreaMax: floorAreaMax,
-                                  floorAreaMin: floorAreaMin,
-                                  ppsqmMin: ppsqmMin,
-                                  ppsqmMax: ppsqmMax,
-                                  lotAreaMax: lotAreaMax,
-                                  lotAreaMin: lotAreaMin);
+                                subcategory: selectedSubProperty,
+                                bathrooms: bathrooms,
+                                bedrooms: bedrooms,
+                                garage: garage,
+                                floorAreaMax: floorAreaMax,
+                                floorAreaMin: floorAreaMin,
+                                ppsqmMin: ppsqmMin,
+                                ppsqmMax: ppsqmMax,
+                                lotAreaMax: lotAreaMax,
+                                lotAreaMin: lotAreaMin,
+                              );
                               setState(() {});
                             },
                             label: EraText(
@@ -558,17 +559,9 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
 
                                 return SearchWidget(onTap: () async {
                                   print(
-                                      'Lot Area Min: ${lotAreaMin.value.text}');
+                                      'filter ppsqm Min: ${ppsqmMin.value.text.obs}');
                                   print(
-                                      'Lot Area Max: ${lotAreaMax.value.text}');
-                                  print(
-                                      'Floor Area Min: ${floorAreaMin.value.text}');
-                                  print(
-                                      'Floor Area Max: ${floorAreaMax.value.text}');
-                                  print(
-                                      'Price per sqm Min: ${ppsqmMin.value.text}');
-                                  print(
-                                      'Price per sqm Max: ${ppsqmMax.value.text}');
+                                      'ppsqm Max: ${ppsqmMin.value.text.obs}');
 
                                   if (priceMin.text.isNotEmpty &&
                                       priceMax.text.isNotEmpty) {
@@ -682,9 +675,10 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                               operator: "<",
                                             ),
                                           ],
-                                          if (ppsqmMin.value.text.isNotEmpty &&
-                                              ppsqmMax
-                                                  .value.text.isNotEmpty) ...[
+                                          if (ppsqmMax
+                                                  .value.text.obs.isNotEmpty &&
+                                              ppsqmMin.value.text.obs
+                                                  .isNotEmpty) ...[
                                             AiFilters(
                                               field: 'ppsqm',
                                               value: int.tryParse(ppsqmMin
@@ -703,9 +697,9 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                             ),
                                           ],
                                           if (floorAreaMax
-                                                  .value.text.isNotEmpty &&
-                                              floorAreaMin
-                                                  .value.text.isNotEmpty) ...[
+                                                  .value.text.obs.isNotEmpty &&
+                                              floorAreaMin.value.text.obs
+                                                  .isNotEmpty) ...[
                                             AiFilters(
                                               field: 'floor_area',
                                               value: int.tryParse(floorAreaMin
@@ -724,9 +718,9 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                             ),
                                           ],
                                           if (lotAreaMin
-                                                  .value.text.isNotEmpty &&
-                                              lotAreaMax
-                                                  .value.text.isNotEmpty) ...[
+                                                  .value.text.obs.isNotEmpty &&
+                                              lotAreaMax.value.text.obs
+                                                  .isNotEmpty) ...[
                                             AiFilters(
                                               field: 'lot_area',
                                               value: int.tryParse(lotAreaMin
@@ -766,12 +760,12 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   bedrooms.value != 0 ||
                                   bathrooms.value != 0 ||
                                   garage.value != 0 ||
-                                  lotAreaMin.value.text.isNotEmpty &&
+                                  lotAreaMin.value.text.obs.isNotEmpty &&
                                       lotAreaMax.value.text.isNotEmpty ||
-                                  floorAreaMin.value.text.isNotEmpty &&
-                                      floorAreaMax.value.text.isNotEmpty ||
-                                  ppsqmMin.value.text.isNotEmpty &&
-                                      ppsqmMax.value.text.isNotEmpty) {
+                                  floorAreaMin.value.text.obs.isNotEmpty &&
+                                      floorAreaMax.value.text.obs.isNotEmpty ||
+                                  ppsqmMin.value.text.obs.isNotEmpty &&
+                                      ppsqmMax.value.text.obs.isNotEmpty) {
                                 return Expanded(
                                   flex: 1,
                                   child: IconButton(

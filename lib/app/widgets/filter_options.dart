@@ -383,8 +383,8 @@ Future openFilterDialog({
                     maxHintText: 'sqm',
                     minController: floorAreaMin,
                     maxController: floorAreaMax,
-                    maxObservable: floorAreaMax.value.text.obs,
                     minObservable: floorAreaMin.value.text.obs,
+                    maxObservable: floorAreaMax.value.text.obs,
                   ),
                   SizedBox(height: 20.h),
                   FilterInputWidget(
@@ -395,8 +395,8 @@ Future openFilterDialog({
                     maxHintText: 'Php',
                     minController: ppsqmMin,
                     maxController: ppsqmMax,
-                    maxObservable: ppsqmMax.value.text.obs,
                     minObservable: ppsqmMin.value.text.obs,
+                    maxObservable: ppsqmMax.value.text.obs,
                   ),
                   sb20(),
                   Row(
@@ -406,9 +406,12 @@ Future openFilterDialog({
                         child: Button(
                           width: Get.width,
                           onTap: () {
+                            print(
+                                'ppsqm: ${ppsqmMin.value.text.obs}, ppsqm: ${ppsqmMax.value.text.obs}');
+
                             try {
-                              if (lotAreaMin.value.text.isNotEmpty &&
-                                  lotAreaMax.value.text.isNotEmpty) {
+                              if (lotAreaMin.value.text.obs.isNotEmpty &&
+                                  lotAreaMax.value.text.obs.isNotEmpty) {
                                 if (int.parse(lotAreaMin.value.text
                                         .replaceAll(',', '')) >
                                     int.parse(lotAreaMax.value.text
@@ -421,8 +424,8 @@ Future openFilterDialog({
                                   return;
                                 }
                               }
-                              if (floorAreaMin.value.text.isNotEmpty &&
-                                  floorAreaMax.value.text.isNotEmpty) {
+                              if (floorAreaMin.value.text.obs.isNotEmpty &&
+                                  floorAreaMax.value.text.obs.isNotEmpty) {
                                 if (int.parse(floorAreaMin.value.text
                                         .replaceAll(',', '')) >
                                     int.parse(floorAreaMax.value.text
@@ -435,8 +438,8 @@ Future openFilterDialog({
                                   return;
                                 }
                               }
-                              if (ppsqmMin.value.text.isNotEmpty &&
-                                  ppsqmMax.value.text.isNotEmpty) {
+                              if (ppsqmMin.value.text.obs.isNotEmpty &&
+                                  ppsqmMax.value.text.obs.isNotEmpty) {
                                 if (int.parse(ppsqmMin.value.text
                                         .replaceAll(',', '')) >
                                     int.parse(ppsqmMax.value.text
