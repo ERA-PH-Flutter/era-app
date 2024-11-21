@@ -45,14 +45,17 @@ class AgentsItems extends StatelessWidget {
         children: [
           Obx(
             () => Container(
+
+              alignment: Alignment.center,
+              //ano yung command na automatic save?
               // duration: Duration(milliseconds: 2000),
               // curve: Curves.fastEaseInToSlowEaseOut,
-              height: selected.value ? 350.h : 335.h,
-              width: 500
-                  .w, // margin: EdgeInsets.only(top: 120.h, left: 60.w, right: 60.w),
+              height: selected.value ? 350.h : Get.height /2.3,
+              width: Get
+                  .width, // margin: EdgeInsets.only(top: 120.h, left: 60.w, right: 60.w),
               margin: selected.value
                   ? EdgeInsets.only(top: 250.h, left: 40.w, right: 40.w)
-                  : EdgeInsets.only(top: 200.h, left: 40.w, right: 40.w),
+                  : EdgeInsets.only(top: Get.height/3, left: 30.w, right: 30.w),
 
               padding: EdgeInsets.only(left: 15.w, right: 15.w),
               decoration: BoxDecoration(
@@ -180,14 +183,16 @@ class AgentsItems extends StatelessWidget {
                     )
                   : Column(
                       children: [
-                        SizedBox(height: 50.h),
-                        EraText(
-                          text: '${agentInfo.firstname} ${agentInfo.lastname}',
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blue,
-                          textOverflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
+                        Padding(
+                          padding:  EdgeInsets.only(top: 80.h),
+                          child: EraText(
+                            text: '${agentInfo.firstname} ${agentInfo.lastname}',
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blue,
+                            textOverflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         EraText(
                           text: agentInfo.role == 'agent'
@@ -280,7 +285,7 @@ class AgentsItems extends StatelessWidget {
                             ),
                           ],
                         ),
-                        sb10(),
+                        sb30(),
                         Button(
                           text: 'VIEW LISTINGS',
                           height: 43.h,
@@ -296,11 +301,12 @@ class AgentsItems extends StatelessWidget {
                           margin: EdgeInsets.symmetric(horizontal: 35),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        SizedBox(height: 10.h),
+                        sb20(),
                       ],
                     ),
             ),
-          ),
+    ),
+
           Obx(
             () => selected.value
                 ? Positioned(
@@ -341,40 +347,41 @@ class AgentsItems extends StatelessWidget {
                     ),
                   )
                 : Positioned(
-                    top: 30.h,
-                    left: 100.w,
-                    right: 100.w,
+                    top:50.h,
+                    left: 60.w,
+                    right: 60.w,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.w),
-                      child: FutureBuilder(
-                        future: CloudStorage().getFileDirect(
-                            docRef:
-                                '${agentInfo.image ?? AppStrings.noUserImageWhite}'),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return Container(
-                              // duration: Duration(milliseconds: 500),
-                              // curve: Curves.easeIn,
-                              height: 200.h,
-                              width: 200.w,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                    snapshot.data!,
-                                  ),
-                                  fit: BoxFit.cover,
+                    borderRadius: BorderRadius.circular(8.w),
+                    child: FutureBuilder(
+                      future: CloudStorage().getFileDirect(
+                          docRef:
+                          '${agentInfo.image ?? AppStrings.noUserImageWhite}'),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Container(
+                            // duration: Duration(milliseconds: 500),
+                            // curve: Curves.easeIn,
+                            height: Get.height/3,
+
+                            width: 200.w,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: CachedNetworkImageProvider(
+                                  snapshot.data!,
                                 ),
-                                borderRadius: BorderRadius.circular(10),
+                                fit: BoxFit.cover,
                               ),
-                            );
-                          } else {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                        },
-                      ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
                     ),
+                                        ),
                   ),
           ),
         ],

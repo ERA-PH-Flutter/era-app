@@ -55,11 +55,11 @@ class Home extends GetView<HomeController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-            height: 245.h,
+
             width: Get.width,
             child: Stack(
               children: [
-                Positioned.fill(
+                Positioned(
                   child: CarouselSlider(
                       controller: controller.innerController,
                       items: controller.images.map((image) {
@@ -95,6 +95,8 @@ class Home extends GetView<HomeController> {
                   ),
                 ),
                 Positioned(
+                  top:0,
+                  bottom:0,
                   left: 10.w,
                   child: Container(
                     height: 240.h,
@@ -113,6 +115,8 @@ class Home extends GetView<HomeController> {
                   ),
                 ),
                 Positioned(
+    top:0,
+    bottom:0,
                   right: 10.w,
                   child: Container(
                     height: 240.h,
