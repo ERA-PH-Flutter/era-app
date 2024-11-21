@@ -44,12 +44,13 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var selectedSubProperty = "".obs;
   var priceMin = TextEditingController();
   var priceMax = TextEditingController();
-  var floorAreaMin = TextEditingController();
-  var floorAreaMax = TextEditingController();
-  var ppsqmMin = TextEditingController();
-  var ppsqmMax = TextEditingController();
-  var lotAreaMin = TextEditingController();
-  var lotAreaMax = TextEditingController();
+  var floorAreaMin = TextEditingController().obs;
+  var floorAreaMax = TextEditingController().obs;
+  var ppsqmMin = TextEditingController().obs;
+  var ppsqmMax = TextEditingController().obs;
+  var lotAreaMin = TextEditingController().obs;
+  var lotAreaMax = TextEditingController().obs;
+
   var isForSale = 0.obs;
   var selectedLocation = RxnString();
   var selectedPriceRange = "".obs;
@@ -672,29 +673,34 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                               operator: "<",
                                             ),
                                           ],
-                                          if (ppsqmMin.text.isNotEmpty &&
-                                              ppsqmMax.text.isNotEmpty) ...[
+                                          if (ppsqmMin.value.text.isNotEmpty &&
+                                              ppsqmMax
+                                                  .value.text.isNotEmpty) ...[
                                             AiFilters(
                                               field: 'ppsqm',
-                                              value: int.tryParse(ppsqmMin.text
+                                              value: int.tryParse(ppsqmMin
+                                                      .value.text
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: ">",
                                             ),
                                             AiFilters(
                                               field: 'ppsqm',
-                                              value: int.tryParse(ppsqmMax.text
+                                              value: int.tryParse(ppsqmMax
+                                                      .value.text
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: "<",
                                             ),
                                           ],
-                                          if (floorAreaMax.text.isNotEmpty &&
-                                              floorAreaMin.text.isNotEmpty) ...[
+                                          if (floorAreaMax
+                                                  .value.text.isNotEmpty &&
+                                              floorAreaMin
+                                                  .value.text.isNotEmpty) ...[
                                             AiFilters(
                                               field: 'floor_area',
                                               value: int.tryParse(floorAreaMin
-                                                      .text
+                                                      .value.text
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: ">",
@@ -702,18 +708,20 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                             AiFilters(
                                               field: 'floor_area',
                                               value: int.tryParse(floorAreaMax
-                                                      .text
+                                                      .value.text
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: "<",
                                             ),
                                           ],
-                                          if (lotAreaMin.text.isNotEmpty &&
-                                              lotAreaMax.text.isNotEmpty) ...[
+                                          if (lotAreaMin
+                                                  .value.text.isNotEmpty &&
+                                              lotAreaMax
+                                                  .value.text.isNotEmpty) ...[
                                             AiFilters(
                                               field: 'lot_area',
                                               value: int.tryParse(lotAreaMin
-                                                      .text
+                                                      .value.text
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: ">",
@@ -721,7 +729,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                             AiFilters(
                                               field: 'lot_area',
                                               value: int.tryParse(lotAreaMax
-                                                      .text
+                                                      .value.text
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: "<",
@@ -741,51 +749,56 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                 });
                               }),
                             ),
-                            if (selectedLocation.value != null ||
-                                selectedPropertyTypeSearch.value != null ||
-                                selectedPriceRange.value != "" ||
-                                selectedSubProperty.value != "" ||
-                                bedrooms.value != 0 ||
-                                bathrooms.value != 0 ||
-                                garage.value != 0 ||
-                                ppsqmMin.text.isNotEmpty ||
-                                ppsqmMax.text.isNotEmpty ||
-                                floorAreaMin.text.isNotEmpty ||
-                                floorAreaMax.text.isNotEmpty ||
-                                lotAreaMin.text.isNotEmpty ||
-                                lotAreaMax.text.isNotEmpty)
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                  onPressed: () {
-                                    Get.find<SearchResultController>()
-                                        .initListing();
-                                    currentRoute = '/searchresult';
-                                    selectedPropertyTypeSearch.value = null;
-                                    selectedLocation.value = null;
-                                    selectedPriceRange.value = "";
-                                    aiSearchController.clear();
-                                    locationController.clear();
-                                    priceController.clear();
-                                    propertyController.clear();
-                                    projectsController.clear();
-                                    floorAreaMin.clear();
-                                    floorAreaMax.clear();
-                                    ppsqmMin.clear();
-                                    ppsqmMax.clear();
-                                    lotAreaMin.clear();
-                                    lotAreaMax.clear();
-                                    bedrooms.value = 0;
-                                    bathrooms.value = 0;
-                                    garage.value = 0;
-                                    isForSale.value = 0;
-                                    selectedSubProperty.value = "";
-                                    print('click!!');
-                                  },
-                                  icon: Icon(Icons.clear),
-                                  color: AppColors.white,
-                                ),
-                              ),
+                            Obx(() {
+                              if (selectedLocation.value != null ||
+                                  selectedPropertyTypeSearch.value != null ||
+                                  selectedPriceRange.value != "" ||
+                                  selectedSubProperty.value != "" ||
+                                  bedrooms.value != 0 ||
+                                  bathrooms.value != 0 ||
+                                  garage.value != 0 ||
+                                  lotAreaMin.value.text.isNotEmpty &&
+                                      lotAreaMax.value.text.isNotEmpty ||
+                                  floorAreaMin.value.text.isNotEmpty &&
+                                      floorAreaMax.value.text.isNotEmpty ||
+                                  ppsqmMin.value.text.isNotEmpty &&
+                                      ppsqmMax.value.text.isNotEmpty) {
+                                return Expanded(
+                                  flex: 1,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      final searchResultController =
+                                          Get.find<SearchResultController>();
+                                      searchResultController.initListing();
+                                      currentRoute = '/searchresult';
+
+                                      selectedPropertyTypeSearch.value = null;
+                                      selectedLocation.value = null;
+                                      selectedPriceRange.value = "";
+                                      aiSearchController.clear();
+                                      locationController.clear();
+                                      priceController.clear();
+                                      propertyController.clear();
+                                      projectsController.clear();
+                                      floorAreaMin.value.clear();
+                                      floorAreaMax.value.clear();
+                                      ppsqmMin.value.clear();
+                                      ppsqmMax.value.clear();
+                                      lotAreaMin.value.clear();
+                                      lotAreaMax.value.clear();
+                                      bedrooms.value = 0;
+                                      bathrooms.value = 0;
+                                      garage.value = 0;
+                                      isForSale.value = 0;
+                                      selectedSubProperty.value = "";
+                                    },
+                                    icon: Icon(Icons.clear),
+                                    color: AppColors.white,
+                                  ),
+                                );
+                              }
+                              return Container();
+                            }),
                             SizedBox(height: 20.h),
                           ],
                         )

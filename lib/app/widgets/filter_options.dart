@@ -15,105 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class FilterController extends GetxController {
-  // Price Range
-  var minPrice = 100.0.obs;
-  var maxPrice = 1000.0.obs;
-  TextEditingController minPriceController = TextEditingController();
-  TextEditingController maxPriceController = TextEditingController();
-  TextEditingController lotAreaController = TextEditingController();
-  TextEditingController floorAreaController = TextEditingController();
-  TextEditingController pricePerSqmController = TextEditingController();
-
-  // Rooms and Beds
-  var bedrooms = 1.obs;
-  var bathrooms = 1.obs;
-  var beds = 1.obs;
-  TextEditingController bedroomsController = TextEditingController();
-  TextEditingController bathroomsController = TextEditingController();
-  TextEditingController bedsController = TextEditingController();
-
-  // Location
-  var beachfront = false.obs;
-  var waterfront = false.obs;
-  var cityView = false.obs;
-  var mountainView = false.obs;
-  var sunset = false.obs;
-  var sunrise = false.obs;
-
-  // Filter visibility
-  var filtersVisible = false.obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-    minPriceController.text = minPrice.value.toString();
-    maxPriceController.text = maxPrice.value.toString();
-    bedroomsController.text = bedrooms.value.toString();
-    bathroomsController.text = bathrooms.value.toString();
-    bedsController.text = beds.value.toString();
-  }
-
-  void resetFilters() {
-    minPrice.value = 100.0;
-    maxPrice.value = 1000.0;
-    bedrooms.value = 1;
-    bathrooms.value = 1;
-    beds.value = 1;
-
-    beachfront.value = false;
-    waterfront.value = false;
-
-    minPriceController.text = minPrice.value.toString();
-    maxPriceController.text = maxPrice.value.toString();
-    bedroomsController.text = bedrooms.value.toString();
-    bathroomsController.text = bathrooms.value.toString();
-    bedsController.text = beds.value.toString();
-  }
-
-  void toggleFiltersVisibility() {
-    filtersVisible.value = !filtersVisible.value;
-  }
-}
-
-// Reusable Price Range Widget
-class PriceRangeFilter extends StatelessWidget {
-  final FilterController controller;
-
-  const PriceRangeFilter({super.key, required this.controller});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 16.h),
-        EraText(text: 'Lot Area', fontSize: 18, color: AppColors.black),
-        Obx(() => Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.w),
-              child: RangeSlider(
-                activeColor: AppColors.blue,
-                inactiveColor: AppColors.hint,
-                overlayColor: WidgetStatePropertyAll<Color>(AppColors.hint),
-                values: RangeValues(
-                    controller.minPrice.value, controller.maxPrice.value),
-                min: 0,
-                max: 2000,
-                divisions: 50,
-                labels: RangeLabels(
-                  '\$${controller.minPrice.value.round()}',
-                  '\$${controller.maxPrice.value.round()}',
-                ),
-                onChanged: (RangeValues values) {},
-              ),
-            )),
-        SizedBox(height: 16.h),
-      ],
-    );
-  }
-}
-
-// Reusable Rooms and Beds Widget
 class RoomsAndBedsFilter extends StatelessWidget {
   final RxInt bedrooms;
   final RxInt bathrooms;
@@ -198,20 +99,9 @@ Widget _buildFloorAreaFilter({
   String? title,
   String? hintText,
   String? hintText2,
-  required TextEditingController min,
-  required TextEditingController max,
+  required Rx<TextEditingController> min,
+  required Rx<TextEditingController> max,
 }) {
-  String formatNumber(String value) {
-    value = value.replaceAll(',', '');
-    if (value.isNotEmpty) {
-      return value.replaceAllMapped(
-        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-        (Match m) => '${m[1]},',
-      );
-    }
-    return value;
-  }
-
   return Column(
     children: [
       EraText(
@@ -228,24 +118,33 @@ Widget _buildFloorAreaFilter({
               EraText(text: 'Min.', fontSize: 18.sp, color: AppColors.black),
               SizedBox(
                 width: Get.width / 2 - 25.w,
-                child: TextformfieldWidget(
-                  onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      String formattedValue = formatNumber(value);
-                      min.text = formattedValue;
-                      min.selection = TextSelection.collapsed(
-                          offset: formattedValue.length);
-                    }
-                  },
-                  hintText: hintText ?? 'sqm',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                  keyboardType: TextInputType.number,
-                  controller: min,
-                  maxLines: 1,
+                child: Obx(
+                  () => TextformfieldWidget(
+                    onChanged: (value) {
+                      value = value.replaceAll(',', '');
+                      if (value.isNotEmpty) {
+                        try {
+                          final formattedValue = value.replaceAllMapped(
+                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              (Match m) => '${m[1]},');
+                          min.value.text = formattedValue;
+                          min.value.selection = TextSelection.collapsed(
+                              offset: formattedValue.length);
+                        } catch (e) {
+                          print("errorr: $e");
+                        }
+                      }
+                    },
+                    hintText: hintText ?? 'sqm',
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                    keyboardType: TextInputType.number,
+                    controller: min.value,
+                    maxLines: 1,
+                  ),
                 ),
               ),
             ],
-          ),
+          ),  
           SizedBox(width: 10.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -253,20 +152,29 @@ Widget _buildFloorAreaFilter({
               EraText(text: 'Max.', fontSize: 18.sp, color: AppColors.black),
               SizedBox(
                 width: Get.width / 2 - 25.w,
-                child: TextformfieldWidget(
-                  onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      String formattedValue = formatNumber(value);
-                      max.text = formattedValue;
-                      max.selection = TextSelection.collapsed(
-                          offset: formattedValue.length);
-                    }
-                  },
-                  hintText: hintText2 ?? 'sqm',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                  keyboardType: TextInputType.number,
-                  controller: max,
-                  maxLines: 1,
+                child: Obx(
+                  () => TextformfieldWidget(
+                    onChanged: (value) {
+                      value = value.replaceAll(',', '');
+                      if (value.isNotEmpty) {
+                        try {
+                          final formattedValue = value.replaceAllMapped(
+                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              (Match m) => '${m[1]},');
+                          max.value.text = formattedValue;
+                          max.value.selection = TextSelection.collapsed(
+                              offset: formattedValue.length);
+                        } catch (e) {
+                          print("errorrr $e");
+                        }
+                      }
+                    },
+                    hintText: hintText2 ?? 'sqm',
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                    keyboardType: TextInputType.number,
+                    controller: max.value,
+                    maxLines: 1,
+                  ),
                 ),
               ),
             ],
@@ -282,12 +190,12 @@ void openFilterDialog({
   required bedrooms,
   required bathrooms,
   required garage,
-  required floorAreaMin,
-  required floorAreaMax,
-  required ppsqmMin,
-  required ppsqmMax,
-  required lotAreaMin,
-  required lotAreaMax,
+  required Rx<TextEditingController> floorAreaMin,
+  required Rx<TextEditingController> floorAreaMax,
+  required Rx<TextEditingController> ppsqmMin,
+  required Rx<TextEditingController> ppsqmMax,
+  required Rx<TextEditingController> lotAreaMin,
+  required Rx<TextEditingController> lotAreaMax,
 }) {
   Get.dialog(
     BackdropFilter(
@@ -362,7 +270,6 @@ void openFilterDialog({
                       min: ppsqmMin,
                       max: ppsqmMax),
                   sb20(),
-
                   Row(
                     children: [
                       Expanded(
@@ -371,12 +278,12 @@ void openFilterDialog({
                           width: Get.width,
                           onTap: () {
                             try {
-                              if (lotAreaMin.text.isNotEmpty &&
-                                  lotAreaMax.text.isNotEmpty) {
-                                if (int.parse(
-                                        lotAreaMin.text.replaceAll(',', '')) >
-                                    int.parse(
-                                        lotAreaMax.text.replaceAll(',', ''))) {
+                              if (lotAreaMin.value.text.isNotEmpty &&
+                                  lotAreaMax.value.text.isNotEmpty) {
+                                if (int.parse(lotAreaMin.value.text
+                                        .replaceAll(',', '')) >
+                                    int.parse(lotAreaMax.value.text
+                                        .replaceAll(',', ''))) {
                                   Get.showSnackbar(GetSnackBar(
                                     message:
                                         'Min Area should be less than Max Area',
@@ -385,11 +292,11 @@ void openFilterDialog({
                                   return;
                                 }
                               }
-                              if (floorAreaMin.text.isNotEmpty &&
-                                  floorAreaMax.text.isNotEmpty) {
-                                if (int.parse(
-                                        floorAreaMin.text.replaceAll(',', '')) >
-                                    int.parse(floorAreaMax.text
+                              if (floorAreaMin.value.text.isNotEmpty &&
+                                  floorAreaMax.value.text.isNotEmpty) {
+                                if (int.parse(floorAreaMin.value.text
+                                        .replaceAll(',', '')) >
+                                    int.parse(floorAreaMax.value.text
                                         .replaceAll(',', ''))) {
                                   Get.showSnackbar(GetSnackBar(
                                     message:
@@ -399,12 +306,12 @@ void openFilterDialog({
                                   return;
                                 }
                               }
-                              if (ppsqmMin.text.isNotEmpty &&
-                                  ppsqmMax.text.isNotEmpty) {
-                                if (int.parse(
-                                        ppsqmMin.text.replaceAll(',', '')) >
-                                    int.parse(
-                                        ppsqmMax.text.replaceAll(',', ''))) {
+                              if (ppsqmMin.value.text.isNotEmpty &&
+                                  ppsqmMax.value.text.isNotEmpty) {
+                                if (int.parse(ppsqmMin.value.text
+                                        .replaceAll(',', '')) >
+                                    int.parse(ppsqmMax.value.text
+                                        .replaceAll(',', ''))) {
                                   Get.showSnackbar(GetSnackBar(
                                     message:
                                         'Min Price per sqm should be less than Max Price per sqm',
@@ -433,14 +340,6 @@ void openFilterDialog({
                               ));
                               print('Error: $e');
                             }
-
-                            //  bathrooms.value = 0;
-                            //     bedrooms.value = 0;
-                            //     garage.value = 0;
-                            //     floorAreaMax.clear();
-                            //     floorAreaMin.clear();
-                            //     ppsqmMin.clear();
-                            // selectedPropertySubCategory
                           },
                           text: 'Apply Filters',
                           bgColor: AppColors.blue,
