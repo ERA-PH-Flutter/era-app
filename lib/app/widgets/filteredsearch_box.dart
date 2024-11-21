@@ -17,6 +17,7 @@ import '../../presentation/global.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../constants/screens.dart';
+import '../constants/theme.dart';
 import '../services/ai_search.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -516,8 +517,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                 ),
                               ),
                             ),
-                            onPressed: () {
-                              openFilterDialog(
+                            onPressed: () async {
+                              await openFilterDialog(
                                   subcategory: selectedSubProperty,
                                   bathrooms: bathrooms,
                                   bedrooms: bedrooms,
@@ -528,6 +529,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   ppsqmMax: ppsqmMax,
                                   lotAreaMax: lotAreaMax,
                                   lotAreaMin: lotAreaMin);
+                              setState(() {});
                             },
                             label: EraText(
                               text: 'More Filters',
@@ -554,13 +556,20 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   return Screens.loadingTwo();
                                 }
 
-                                //Screens.loading(
-                                //  height: 50.h,
-                                //);
                                 return SearchWidget(onTap: () async {
-                                  // if(formKey.currentState!.validate()){
+                                  print(
+                                      'Lot Area Min: ${lotAreaMin.value.text}');
+                                  print(
+                                      'Lot Area Max: ${lotAreaMax.value.text}');
+                                  print(
+                                      'Floor Area Min: ${floorAreaMin.value.text}');
+                                  print(
+                                      'Floor Area Max: ${floorAreaMax.value.text}');
+                                  print(
+                                      'Price per sqm Min: ${ppsqmMin.value.text}');
+                                  print(
+                                      'Price per sqm Max: ${ppsqmMax.value.text}');
 
-                                  // }
                                   if (priceMin.text.isNotEmpty &&
                                       priceMax.text.isNotEmpty) {
                                     if (int.parse(
