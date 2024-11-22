@@ -134,12 +134,6 @@ class AI {
         "enum": ["sale", "rent", "Others"]
       },
       "location": {"type": "string"},
-      "beds": {
-        "type": "object",
-        "properties": {
-          "equals": {"type": "number"},
-        }
-      },
       "baths": {
         "type": "object",
         "properties": {
@@ -182,7 +176,13 @@ class AI {
       },
       "name": {
         "type": "string",
-      }
+      },
+      "beds": {
+        "type": "object",
+        "properties": {
+          "equals": {"type": "number"},
+        }
+      },
     };
     print('gemini search here 1 query $query');
     if (query.isEmpty && overrideAiFilters.isEmpty) {
@@ -193,7 +193,8 @@ class AI {
     }
     var result = await geminiSearch(geminiData,
         name: "getListing",
-        description: "Assign accordingly do not assign value if not specified");
+        description:
+            "Assign accordingly. Do not assign value if not specified.");
 
     print('gemini search here 1 result listing $result');
 
@@ -355,14 +356,16 @@ class AI {
 
   geminiSearch(data, {name = '', description = ''}) async {
     Map<String, dynamic> body = {
-      "contents": [
-        {
-          "role": "user",
-          "parts": [
-            {"text": query}
-          ]
-        }
-      ],
+      if (query.isNotEmpty) ...{
+        "contents": [
+          {
+            "role": "user",
+            "parts": [
+              {"text": query}
+            ]
+          }
+        ]
+      },
       "tools": [
         {
           "functionDeclarations": [
