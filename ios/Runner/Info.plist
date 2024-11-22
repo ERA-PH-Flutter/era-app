@@ -29,13 +29,13 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>This app uses the microphone to record audio for voice input.</string>
+	<string>Microphone will only be use to get voice input, only on ai search this will make AI assisted search more easier to use.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Your app needs access to the photo library to select profile photos.</string>
 	<key>NSCameraUsageDescription</key>
     <string>To capture profile photo please grant camera access</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>This app uses speech recognition to transcribe your voice into text. This will help user search using gemini API.</string>
+	<string>Recognition is use to translate voice input into text and it is only used on AI assisted search</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
