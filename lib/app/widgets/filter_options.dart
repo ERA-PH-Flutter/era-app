@@ -75,20 +75,18 @@ class RoomsAndBedsFilter extends StatelessWidget {
 }
 
 class PropertyTypeFilter extends StatelessWidget {
-  const PropertyTypeFilter({super.key});
+  var selectedPropertySubCategory = RxnString();
+
+  PropertyTypeFilter({super.key, required this.selectedPropertySubCategory});
 
   @override
   Widget build(BuildContext context) {
-    AddListingsController addListingsController =
-        Get.put(AddListingsController());
-
     return Column(
       children: [
         SharedWidgets.dropDown(
-            addListingsController.selectedPropertySubCategory,
+            selectedPropertySubCategory,
             subCategory,
-            (value) => addListingsController.selectedPropertySubCategory.value =
-                value!,
+            (value) => selectedPropertySubCategory.value = value!,
             'Subcategory',
             'Subcategory'),
       ],
@@ -205,7 +203,7 @@ class FilterInputWidget extends StatelessWidget {
 }
 
 Future openFilterDialog({
-  required subcategory,
+  required RxnString subcategory,
   required bedrooms,
   required bathrooms,
   required garage,
@@ -265,7 +263,9 @@ Future openFilterDialog({
                     color: AppColors.black,
                   ),
                   SizedBox(height: 10.h),
-                  PropertyTypeFilter(),
+                  PropertyTypeFilter(
+                    selectedPropertySubCategory: subcategory,
+                  ),
                   SizedBox(height: 10.h),
                   RoomsAndBedsFilter(
                     bedrooms: bedrooms,

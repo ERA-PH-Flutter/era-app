@@ -43,7 +43,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var bedrooms = 0.obs;
   var bathrooms = 0.obs;
   var garage = 0.obs;
-  var selectedSubProperty = "".obs;
+  var selectedSubProperty = RxnString();
 
   var ppsqmMinObs = "".obs;
   var ppsqmMaxObs = "".obs;
@@ -600,9 +600,9 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                         ' ${selectedPropertyTypeSearch.value}.';
                                   }
 
-                                  if (selectedSubProperty.value != "") {
+                                  if (selectedSubProperty.value != null) {
                                     searchQuery +=
-                                        ' sub_category ${selectedSubProperty.value.toLowerCase()}.';
+                                        ' sub_category ${selectedSubProperty.value}.';
                                   }
                                   if (bedrooms.value != 0) {
                                     searchQuery +=
@@ -730,7 +730,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                               if (selectedLocation.value != null ||
                                   selectedPropertyTypeSearch.value != null ||
                                   selectedPriceRange.value != "" ||
-                                  selectedSubProperty.value != "" ||
+                                  selectedSubProperty.value != null ||
                                   bedrooms.value != 0 ||
                                   bathrooms.value != 0 ||
                                   garage.value != 0 ||
@@ -766,7 +766,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       bathrooms.value = 0;
                                       garage.value = 0;
                                       isForSale.value = 0;
-                                      selectedSubProperty.value = "";
+                                      selectedSubProperty.value = null;
                                     },
                                     icon: Icon(Icons.clear),
                                     color: AppColors.white,
