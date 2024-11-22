@@ -8,6 +8,7 @@ import 'package:eraphilippines/presentation/agent/listings/searchresult/controll
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,15 +44,24 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   var bathrooms = 0.obs;
   var garage = 0.obs;
   var selectedSubProperty = "".obs;
-  var priceMin = TextEditingController();
-  var priceMax = TextEditingController();
-  var floorAreaMin = TextEditingController().obs;
-  var floorAreaMax = TextEditingController().obs;
-  var ppsqmMin = TextEditingController().obs;
-  var ppsqmMax = TextEditingController().obs;
-  var lotAreaMin = TextEditingController().obs;
-  var lotAreaMax = TextEditingController().obs;
 
+  var ppsqmMinObs = "".obs;
+  var ppsqmMaxObs = "".obs;
+  var floorAreaMinObs = "".obs;
+  var floorAreaMaxObs = "".obs;
+  var lotAreaMinObs = "".obs;
+  var lotAreaMaxObs = "".obs;
+  var controllerPriceMin = TextEditingController();
+  var controllerPriceMax = TextEditingController();
+  var controllerPpsqmMin = TextEditingController();
+  var controllerPpsqmMax = TextEditingController();
+  var controllerFloorAreaMin = TextEditingController();
+  var controllerFloorAreaMax = TextEditingController();
+  var controllerLotAreaMin = TextEditingController();
+  var controllerLotAreaMax = TextEditingController();
+
+  var priceMin = "".obs;
+  var priceMax = "".obs;
   var isForSale = 0.obs;
   var selectedLocation = RxnString();
   var selectedPriceRange = "".obs;
@@ -238,26 +248,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                 ),
               ),
             ),
-          // AppTextField(
-          //     onPressed: () {},
-          //     controller: aiSearchController,
-          //     hint: 'Use AI Search',
-          //     svgIcon: AppEraAssets.ai3,
-          //     bgColor: AppColors.white,
-          //     isSuffix: true,
-          //     obscureText: false,
-          //     suffixIcons: AppEraAssets.send,
-          //     onSuffixTap: () async {
-          //       var searchQuery = "";
-          //       // data = await AI(query: aiSearchController.text).search();
-          //       BaseController().showLoading();
-          //       searchQuery = aiSearchController.text;
-          //       var data = await AI(query: '').process2(q: searchQuery);
-          //       selectedIndex.value = 2;
-          //       pageViewController = PageController(initialPage: 2);
-          //       currentRoute = '/searchresult';
-          //       Get.offAll(BaseScaffold(), binding: SearchResultBinding(), arguments: [data, searchQuery]);
-          //     }),
           SizedBox(height: 5.h),
           GestureDetector(
             onTap: () {
@@ -284,8 +274,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                     child: Column(
                       children: [
                         SizedBox(height: 10.h),
-                        //notesfornikkoo
-                        //Location new changes the location has the same properties with the searchresult,projectmain, home, and find agents
+
                         //proterty type, price range, >> home, projectmain, searchresult
                         AddListings.dropDownAddlistings1(
                             color: AppColors.white,
@@ -319,138 +308,124 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                               fontSize: 18.sp,
                               color: AppColors.white,
                             ),
-                            Form(
-                              key: formKey,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: TextFormField(
-                                      // validator: (value) {
-                                      //   if (value == null) return null;
-
-                                      //   if (priceMin.text.isNotEmpty &&
-                                      //       priceMax.text.isNotEmpty) {
-                                      //     if (int.parse(priceMin.text
-                                      //             .replaceAll(',', '')) >
-                                      //         int.parse(priceMax.text
-                                      //             .replaceAll(',', ''))) {
-                                      //       return '';
-                                      //     }
-                                      //   }
-                                      //   return null;
-                                      // },
-                                      onChanged: (value) {
-                                        value = value.replaceAll(',', '');
-                                        if (value.isNotEmpty) {
-                                          final formattedValue =
-                                              value.replaceAllMapped(
-                                                  RegExp(
-                                                      r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                                  (Match m) => '${m[1]},');
-                                          priceMin.value = TextEditingValue(
-                                            text: formattedValue,
-                                            selection: TextSelection.collapsed(
-                                                offset: formattedValue.length),
-                                          );
-                                        }
-                                      },
-                                      maxLines: 1,
-                                      textAlign: TextAlign.center,
-                                      controller: priceMin,
-                                      decoration: InputDecoration(
-                                        constraints: const BoxConstraints(
-                                            maxHeight: 70, minHeight: 35),
-                                        isDense: true,
-                                        prefixIcon: Padding(
-                                          padding: EdgeInsets.only(
-                                            left: 5.w,
-                                            top: 12.h,
-                                          ),
-                                          child: EraText(
-                                              textAlign: TextAlign.center,
-                                              text: 'PHP:',
-                                              fontSize: 18.sp,
-                                              color: AppColors.black),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
+                                    onChanged: (value) {
+                                      value = value.replaceAll(',', '');
+                                      if (value.isNotEmpty) {
+                                        final formattedValue =
+                                            value.replaceAllMapped(
+                                                RegExp(
+                                                    r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                (Match m) => '${m[1]},');
+                                        controllerPriceMin.value =
+                                            controllerPriceMin.value.copyWith(
+                                          text: formattedValue,
+                                          selection: TextSelection.collapsed(
+                                              offset: formattedValue.length),
+                                        );
+                                      }
+                                      priceMin.value = value;
+                                      //  }
+                                    },
+                                    controller: controllerPriceMin,
+                                    decoration: InputDecoration(
+                                      constraints: const BoxConstraints(
+                                          maxHeight: 70, minHeight: 35),
+                                      isDense: true,
+                                      prefixIcon: Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 5.w,
+                                          top: 12.h,
                                         ),
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 10.h, horizontal: 10.w),
-                                        hintText: 'Min Price',
-                                        fillColor: AppColors.white,
-                                        filled: true,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          borderSide: BorderSide(
-                                            color: AppColors.black,
-                                            width: 1.5,
-                                          ),
+                                        child: EraText(
+                                            textAlign: TextAlign.center,
+                                            text: 'PHP:',
+                                            fontSize: 18.sp,
+                                            color: AppColors.black),
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 10.h, horizontal: 10.w),
+                                      hintText: 'Min Price',
+                                      fillColor: AppColors.white,
+                                      filled: true,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                          color: AppColors.black,
+                                          width: 1.5,
                                         ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 10),
-                                  Expanded(
-                                    flex: 1,
-                                    child: TextFormField(
-                                      maxLines: 1,
-                                      textAlign: TextAlign.center,
-                                      controller: priceMax,
-                                      onChanged: (value) {
-                                        value = value.replaceAll(',', '');
-                                        if (value.isNotEmpty) {
-                                          final formattedValue =
-                                              value.replaceAllMapped(
-                                                  RegExp(
-                                                      r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                                  (Match m) => '${m[1]},');
-                                          priceMax.value = TextEditingValue(
-                                            text: formattedValue,
-                                            selection: TextSelection.collapsed(
-                                                offset: formattedValue.length),
-                                          );
-                                        }
-                                      },
-                                      decoration: InputDecoration(
-                                        //     prefixIcon: Icon(Icons.attach_money),
-                                        prefixIcon: Padding(
-                                          padding: EdgeInsets.only(
-                                            left: 5.w,
-                                            top: 12.h,
-                                          ),
-                                          child: EraText(
-                                              textAlign: TextAlign.center,
-                                              text: 'PHP:',
-                                              fontSize: 18.sp,
-                                              color: AppColors.black),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 1,
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
+                                    controller: controllerPriceMax,
+                                    onChanged: (value) {
+                                      value = value.replaceAll(',', '');
+                                      if (value.isNotEmpty) {
+                                        final formattedValue =
+                                            value.replaceAllMapped(
+                                                RegExp(
+                                                    r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                (Match m) => '${m[1]},');
+                                        controllerPriceMax.value =
+                                            controllerPriceMax.value.copyWith(
+                                          text: formattedValue,
+                                          selection: TextSelection.collapsed(
+                                              offset: formattedValue.length),
+                                        );
+                                      }
+                                      priceMax.value = value;
+                                    },
+                                    decoration: InputDecoration(
+                                      //     prefixIcon: Icon(Icons.attach_money),
+                                      prefixIcon: Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 5.w,
+                                          top: 12.h,
                                         ),
-                                        contentPadding: EdgeInsets.zero,
-                                        hintText: 'Max Price',
-                                        fillColor: AppColors.white,
-                                        filled: true,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          borderSide: BorderSide(
-                                            color: AppColors.black,
-                                            width: 1.5,
-                                          ),
+                                        child: EraText(
+                                            textAlign: TextAlign.center,
+                                            text: 'PHP:',
+                                            fontSize: 18.sp,
+                                            color: AppColors.black),
+                                      ),
+                                      contentPadding: EdgeInsets.zero,
+                                      hintText: 'Max Price',
+                                      fillColor: AppColors.white,
+                                      filled: true,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                          color: AppColors.black,
+                                          width: 1.5,
                                         ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -523,12 +498,18 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                 bathrooms: bathrooms,
                                 bedrooms: bedrooms,
                                 garage: garage,
-                                floorAreaMax: floorAreaMax,
-                                floorAreaMin: floorAreaMin,
-                                ppsqmMin: ppsqmMin,
-                                ppsqmMax: ppsqmMax,
-                                lotAreaMax: lotAreaMax,
-                                lotAreaMin: lotAreaMin,
+                                ppsqmMaxObservable: ppsqmMaxObs,
+                                ppsqmMinObservable: ppsqmMinObs,
+                                floorAreaMaxObservable: floorAreaMaxObs,
+                                floorAreaMinObservable: floorAreaMinObs,
+                                lotAreaMaxObservable: lotAreaMaxObs,
+                                lotAreaMinObservable: lotAreaMinObs,
+                                floorAreaMax: controllerFloorAreaMin,
+                                floorAreaMin: controllerFloorAreaMax,
+                                lotAreaMax: controllerLotAreaMin,
+                                lotAreaMin: controllerLotAreaMax,
+                                ppsqmMax: controllerPpsqmMax,
+                                ppsqmMin: controllerPpsqmMin,
                               );
                               setState(() {});
                             },
@@ -558,16 +539,11 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                 }
 
                                 return SearchWidget(onTap: () async {
-                                  print(
-                                      'filter ppsqm Min: ${ppsqmMin.value.text.obs}');
-                                  print(
-                                      'ppsqm Max: ${ppsqmMin.value.text.obs}');
-
-                                  if (priceMin.text.isNotEmpty &&
-                                      priceMax.text.isNotEmpty) {
-                                    if (int.parse(
-                                            priceMin.text.replaceAll(',', '')) >
-                                        int.parse(priceMax.text
+                                  if (priceMin.value.isNotEmpty &&
+                                      priceMax.value.isNotEmpty) {
+                                    if (int.parse(priceMin.value
+                                            .replaceAll(',', '')) >
+                                        int.parse(priceMax.value
                                             .replaceAll(',', ''))) {
                                       return showDialog(
                                           context: context,
@@ -602,6 +578,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                           });
                                     }
                                   }
+
                                   String searchQuery = '';
 
                                   // var data;
@@ -651,17 +628,16 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       currentRoute = '/searchresult';
                                     }
                                     print(
-                                        "gemini search overrideAiFilters ${priceMin.text != "" && priceMax.text != ""}");
+                                        "gemini search overrideAiFilters ${priceMin.value != "" && priceMax.value != ""}");
                                     Get.find<SearchResultController>()
                                         .searchListingQuery(
                                             query: searchQuery,
                                             overrideAiFilters: [
-                                          if (priceMin.text != "" &&
-                                              priceMax.text != "") ...[
+                                          if (priceMin.value != "" &&
+                                              priceMax.value != "") ...[
                                             AiFilters(
                                               field: 'price',
                                               value: double.tryParse(priceMin
-                                                      .text
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: ">",
@@ -669,70 +645,66 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                             AiFilters(
                                               field: 'price',
                                               value: double.tryParse(priceMax
-                                                      .text
+                                                      .value
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: "<",
                                             ),
                                           ],
-                                          if (ppsqmMax
-                                                  .value.text.obs.isNotEmpty &&
-                                              ppsqmMin.value.text.obs
-                                                  .isNotEmpty) ...[
+                                          if (ppsqmMinObs.value != "" &&
+                                              ppsqmMaxObs.value != "") ...[
                                             AiFilters(
                                               field: 'ppsqm',
-                                              value: int.tryParse(ppsqmMin
-                                                      .value.text
+                                              value: int.tryParse(ppsqmMinObs
+                                                      .value
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: ">",
                                             ),
                                             AiFilters(
                                               field: 'ppsqm',
-                                              value: int.tryParse(ppsqmMax
-                                                      .value.text
+                                              value: int.tryParse(ppsqmMaxObs
+                                                      .value
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: "<",
                                             ),
                                           ],
-                                          if (floorAreaMax
-                                                  .value.text.obs.isNotEmpty &&
-                                              floorAreaMin.value.text.obs
-                                                  .isNotEmpty) ...[
+                                          if (floorAreaMinObs.value != "" &&
+                                              floorAreaMaxObs.value != "") ...[
                                             AiFilters(
                                               field: 'floor_area',
-                                              value: int.tryParse(floorAreaMin
-                                                      .value.text
-                                                      .replaceAll(',', '')) ??
+                                              value: int.tryParse(
+                                                      floorAreaMinObs.value
+                                                          .replaceAll(
+                                                              ',', '')) ??
                                                   0,
                                               operator: ">",
                                             ),
                                             AiFilters(
                                               field: 'floor_area',
-                                              value: int.tryParse(floorAreaMax
-                                                      .value.text
-                                                      .replaceAll(',', '')) ??
+                                              value: int.tryParse(
+                                                      floorAreaMaxObs.value
+                                                          .replaceAll(
+                                                              ',', '')) ??
                                                   0,
                                               operator: "<",
                                             ),
                                           ],
-                                          if (lotAreaMin
-                                                  .value.text.obs.isNotEmpty &&
-                                              lotAreaMax.value.text.obs
-                                                  .isNotEmpty) ...[
+                                          if (lotAreaMinObs.value != "" &&
+                                              lotAreaMaxObs.value != "") ...[
                                             AiFilters(
                                               field: 'lot_area',
-                                              value: int.tryParse(lotAreaMin
-                                                      .value.text
+                                              value: int.tryParse(lotAreaMinObs
+                                                      .value
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: ">",
                                             ),
                                             AiFilters(
                                               field: 'lot_area',
-                                              value: int.tryParse(lotAreaMax
-                                                      .value.text
+                                              value: int.tryParse(lotAreaMaxObs
+                                                      .value
                                                       .replaceAll(',', '')) ??
                                                   0,
                                               operator: "<",
@@ -749,6 +721,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       showFullSearch.value = false;
                                     });
                                   }
+
+                                  ;
                                 });
                               }),
                             ),
@@ -760,12 +734,12 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   bedrooms.value != 0 ||
                                   bathrooms.value != 0 ||
                                   garage.value != 0 ||
-                                  lotAreaMin.value.text.obs.isNotEmpty &&
-                                      lotAreaMax.value.text.isNotEmpty ||
-                                  floorAreaMin.value.text.obs.isNotEmpty &&
-                                      floorAreaMax.value.text.obs.isNotEmpty ||
-                                  ppsqmMin.value.text.obs.isNotEmpty &&
-                                      ppsqmMax.value.text.obs.isNotEmpty) {
+                                  lotAreaMinObs.value.isNotEmpty &&
+                                      lotAreaMinObs.value.isNotEmpty ||
+                                  floorAreaMinObs.value.isNotEmpty &&
+                                      floorAreaMaxObs.value.isNotEmpty ||
+                                  ppsqmMinObs.value.isNotEmpty &&
+                                      ppsqmMaxObs.value.isNotEmpty) {
                                 return Expanded(
                                   flex: 1,
                                   child: IconButton(
@@ -783,12 +757,11 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       priceController.clear();
                                       propertyController.clear();
                                       projectsController.clear();
-                                      floorAreaMin.value.clear();
-                                      floorAreaMax.value.clear();
-                                      ppsqmMin.value.clear();
-                                      ppsqmMax.value.clear();
-                                      lotAreaMin.value.clear();
-                                      lotAreaMax.value.clear();
+
+                                      controllerPriceMin.clear();
+                                      controllerPriceMax.clear();
+                                      controllerPpsqmMin.clear();
+                                      controllerPpsqmMax.clear();
                                       bedrooms.value = 0;
                                       bathrooms.value = 0;
                                       garage.value = 0;

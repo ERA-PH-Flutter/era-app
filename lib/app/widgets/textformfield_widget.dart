@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextformfieldWidget extends StatelessWidget {
@@ -24,6 +25,7 @@ class TextformfieldWidget extends StatelessWidget {
   final InputBorder? border;
   final InputBorder? enabledBorder;
   final Widget? prefixIcon;
+  final List<TextInputFormatter>? inputFormatterss;
 
   const TextformfieldWidget({
     super.key,
@@ -48,11 +50,13 @@ class TextformfieldWidget extends StatelessWidget {
     this.border,
     this.enabledBorder,
     this.prefixIcon,
+    this.inputFormatterss,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      inputFormatters: inputFormatterss,
       onTap: onTap,
       onChanged: onChanged,
       keyboardType: keyboardType ?? TextInputType.multiline,
