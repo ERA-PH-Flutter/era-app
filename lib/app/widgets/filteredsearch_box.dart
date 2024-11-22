@@ -511,7 +511,10 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                 ppsqmMax: controllerPpsqmMax,
                                 ppsqmMin: controllerPpsqmMin,
                               );
-                              setState(() {});
+                              setState(() {
+                                expanded.value = false;
+                                showFullSearch.value = false;
+                              });
                             },
                             label: EraText(
                               text: 'More Filters',
