@@ -37,6 +37,7 @@ import '../presentation/agent/listings/sold_properties/controllers/sold_properti
 import '../presentation/agent/listings/sold_properties/pages/sold_properties.dart';
 
 import '../presentation/website/landingpage/pages/homepage.dart';
+import '../presentation/website/terms_conditions_web/terms_condition_web.dart';
 
 appRoutes() => [
       GetPage(
@@ -142,7 +143,11 @@ appRoutes() => [
         page: () => CompanyNewsWeb(),
       ),
 
-      GetPage(name: RouteString.homs, page: () => HomePages()),
+      GetPage(name: RouteString.homs, 
+      page: () => HomePages(),
+      ),
+
+      
     ];
 
 class MyMiddleware extends GetMiddleware {}

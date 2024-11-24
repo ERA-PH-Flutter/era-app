@@ -47,92 +47,90 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
         child: SingleChildScrollView(
           controller: controller.scrollController,
           scrollDirection: Axis.vertical,
-          child: SafeArea(
-            child: Obx(() {
-              if (controller.agentDashboardWebState.value ==
-                  AgentDashboardWebState.loading) {
-                return _loading();
-              } else {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: EraTheme.paddingWidth, vertical: 10.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          EraText(
-                            text:
-                                '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
-                            fontSize: 20.sp,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          SizedBox(height: 10.h),
-                          EraText(
-                            text: 'Welcome to your Dashboard!',
-                            fontSize: 25.sp,
-                            color: AppColors.kRedColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          sb10(),
+          child: Obx(() {
+            if (controller.agentDashboardWebState.value ==
+                AgentDashboardWebState.loading) {
+              return _loading();
+            } else {
+              return Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: EraTheme.paddingWidth, vertical: 10.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        EraText(
+                          text:
+                              '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
+                          fontSize: 20.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        SizedBox(height: 10.h),
+                        EraText(
+                          text: 'Welcome to your Dashboard!',
+                          fontSize: 25.sp,
+                          color: AppColors.kRedColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        sb10(),
 
-                          SizedBox(height: 10.h),
-                          AgentInfoWidget.agentInformation(
-                            imageProvider: user!.image != null
-                                ? user!.image!
-                                : AppStrings.noUserImageWhite,
-                            firstName: '${user!.firstname}',
-                            lastName: '${user!.lastname}',
-                            whatsApp: '${user!.whatsApp}',
-                            email: '${user!.email}',
-                            role: '${user!.role}',
-                          ),
-                          SizedBox(height: 25.h),
+                        SizedBox(height: 10.h),
+                        // AgentInfoWidget.agentInformation(
+                        //   imageProvider: user!.image != null
+                        //       ? user!.image!
+                        //       : AppStrings.noUserImageWhite,
+                        //   firstName: '${user!.firstname}',
+                        //   lastName: '${user!.lastname}',
+                        //   whatsApp: '${user!.whatsApp}',
+                        //   email: '${user!.email}',
+                        //   role: '${user!.role}',
+                        // ),
+                        SizedBox(height: 25.h),
 
-                          Row(
-                            children: [
-                              Button(
-                                fontSize: EraTheme.paragraph - 2.sp,
-                                width: Get.width - 100.w,
-                                text: 'MORTGAGE CALCULATOR',
-                                borderRadius: BorderRadius.circular(20),
-                                bgColor: AppColors.kRedColor,
-                                onTap: () {
-                                  Get.toNamed("/mortageCalculator");
-                                },
-                              ),
-                              sbw10(), // SizedBox(width: 10.w),
-                              settingIcon(() {
-                                Get.to(() => SettingsPage());
-                              })
-                            ],
-                          ),
-                          // SizedBox(height: 25.h),
-                          // myListings(),
-                          // SizedBox(height: 25.h),
-                          // favorites(),
-                          // SizedBox(height: 25.h),
-                          // archivedListing(),
-                          // SizedBox(height: 25.h),
-                          // soldProperties(),
-                          // SizedBox(height: 25.h),
-                          // myTrainings(),
-                          // SizedBox(height: 25.h),
-                          // findAgentsandOffices(),
-                          // SizedBox(height: 25.h),
+                        // Row(
+                        //   children: [
+                        //     Button(
+                        //       fontSize: EraTheme.paragraph - 2.sp,
+                        //       width: Get.width - 100.w,
+                        //       text: 'MORTGAGE CALCULATOR',
+                        //       borderRadius: BorderRadius.circular(20),
+                        //       bgColor: AppColors.kRedColor,
+                        //       onTap: () {
+                        //         Get.toNamed("/mortageCalculator");
+                        //       },
+                        //     ),
+                        //     sbw10(), // SizedBox(width: 10.w),
+                        //     settingIcon(() {
+                        //       Get.to(() => SettingsPage());
+                        //     })
+                        //   ],
+                        // ),
+                        // SizedBox(height: 25.h),
+                        // myListings(),
+                        // SizedBox(height: 25.h),
+                        // favorites(),
+                        // SizedBox(height: 25.h),
+                        // archivedListing(),
+                        // SizedBox(height: 25.h),
+                        // soldProperties(),
+                        // SizedBox(height: 25.h),
+                        // myTrainings(),
+                        // SizedBox(height: 25.h),
+                        // findAgentsandOffices(),
+                        // SizedBox(height: 25.h),
 
-                          // eraMerch(),
-                        ],
-                      ),
+                        // eraMerch(),
+                      ],
                     ),
-                    latestNews(),
-                    SizedBox(height: 25.h),
-                  ],
-                );
-              }
-            }),
-          ),
+                  ),
+                  latestNews(),
+                  SizedBox(height: 25.h),
+                ],
+              );
+            }
+          }),
         ));
   }
 

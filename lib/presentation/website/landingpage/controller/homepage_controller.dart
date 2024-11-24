@@ -1,4 +1,5 @@
 import 'package:eraphilippines/presentation/website/form/pages/help.dart';
+import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
 import 'package:eraphilippines/presentation/website/projects/pages/projects_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -33,14 +34,15 @@ class HomsController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   RxList<Widget> pages = [
-    AgentDashBoardWeb(),
-    // HomeWeb(), //0
+    // AgentDashBoardWeb(),
+    HomeWeb(), //0
     ProjectsList(), //1
     BuyWeb(), //2
     FindAgentsWeb(), //3
     HelpWeb(), //04
     // CompanyNewsWeb(),
     AboutUsWeb(), //5
+    JoinEraWeb(),
     SellPropertyWeb(), //6
     ContactUsWeb(), //7
     MortageCalculatorWeb(), //8
@@ -68,6 +70,7 @@ class HomsController extends GetxController {
     'FIND AGENTS',
     'HELP',
     'ABOUT US',
+    'JOIN US',
     'SELL PROPERTY',
     'CONTACT US',
     'MORTGAGE CALCULATOR',
@@ -88,13 +91,13 @@ class HomsController extends GetxController {
         AgentListingsBinding().dependencies();
         break;
       case 4:
-        ProjectsWebBinding().dependencies();
+        FormBinding().dependencies();
         break;
       case 5:
         FormBinding().dependencies();
         break;
       case 6:
-        NewsBinding().dependencies();
+        FormBinding().dependencies();
         break;
       case 7:
         FormBinding().dependencies();

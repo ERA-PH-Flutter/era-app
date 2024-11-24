@@ -172,110 +172,6 @@
 //     );
 //   }
 
-//   static Widget joinUs() {
-//     return Expanded(
-//       flex: 1,
-//       child: Container(
-//         height: Get.height,
-//         child: Stack(
-//           children: [
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 EraText(
-//                   text: 'WHY JOIN US?',
-//                   fontSize: EraTheme.headerWeb,
-//                   color: AppColors.kRedColor,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//                 Column(
-//                   children: [
-//                     ...buildWidgetColumn3(),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//             Positioned(
-//               left: 0,
-//               right: 0,
-//               bottom: 10,
-//               child: Image.asset(
-//                 AppEraAssets.careerEra,
-//                 height: Get.height,
-//                 width: Get.width,
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   static List<Widget> buildWidgetColumn3() {
-//     return [
-//       Row(
-//         children: [
-//           BottomWidgets.bigCircle(),
-//           sbw10(),
-//           BottomWidgets.eraJoinTitle(
-//             text: 'Training & Development',
-//           ),
-//         ],
-//       ),
-//       sb20(),
-//       Row(
-//         children: [
-//           BottomWidgets.bigCircle(),
-//           sbw10(),
-//           BottomWidgets.eraJoinTitle(
-//             text: 'Reputable developer properties',
-//           ),
-//         ],
-//       ),
-//       sb20(),
-//       Row(
-//         children: [
-//           BottomWidgets.bigCircle(),
-//           sbw10(),
-//           BottomWidgets.eraJoinTitle(
-//             text: 'Favorable Commission Terms',
-//           ),
-//         ],
-//       ),
-//       sb20(),
-//       Row(
-//         children: [
-//           BottomWidgets.bigCircle(),
-//           sbw10(),
-//           BottomWidgets.eraJoinTitle(
-//             text: 'Advanced Digital Platforms',
-//           ),
-//         ],
-//       ),
-//       sb20(),
-//       Row(
-//         children: [
-//           BottomWidgets.bigCircle(),
-//           sbw10(),
-//           BottomWidgets.eraJoinTitle(
-//             text: 'Administrative Support',
-//           ),
-//         ],
-//       ),
-//       sb20(),
-//       Row(
-//         children: [
-//           BottomWidgets.bigCircle(),
-//           sbw10(),
-//           BottomWidgets.eraJoinTitle(
-//             text: 'Access to our office spaces & facilities',
-//           ),
-//         ],
-//       ),
-//       sb20(),
-//     ];
-//   }
-
 //   List<Widget> buildBulletPoints() {
 //     return [
 //       buildDescription('    • Training & Development', color: AppColors.white),
@@ -530,6 +426,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/constants/assets.dart';
+import '../../form_widgets.dart';
 import '../controllers/form_web_controller.dart';
 
 class AboutUsWeb extends GetView<FormWebController> {
@@ -639,7 +537,8 @@ class AboutUsWeb extends GetView<FormWebController> {
                       ],
                     )),
               ],
-            )
+            ),
+            joinUs()
           ],
         ),
       ),
@@ -669,5 +568,103 @@ class AboutUsWeb extends GetView<FormWebController> {
             )),
       ],
     );
+  }
+
+  static Widget joinUs() {
+    return Stack(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EraText(
+                  text: 'Why Join Us?',
+                  fontSize: EraTheme.headerWeb,
+                  color: AppColors.kRedColor,
+                  fontWeight: FontWeight.bold,
+                ),
+                sb20(),
+                ...buildWidgetColumn3(),
+              ],
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 50,
+              child: Image.asset(
+                AppEraAssets.careerEra,
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  static List<Widget> buildWidgetColumn3() {
+    return [
+      Row(
+        children: [
+          BottomWidgets.bigCircle(),
+          sbw10(),
+          BottomWidgets.eraJoinTitle(
+            text: 'Training & Development',
+          ),
+        ],
+      ),
+      sb20(),
+      Row(
+        children: [
+          BottomWidgets.bigCircle(),
+          sbw10(),
+          BottomWidgets.eraJoinTitle(
+            text: 'Reputable developer properties',
+          ),
+        ],
+      ),
+      sb20(),
+      Row(
+        children: [
+          BottomWidgets.bigCircle(),
+          sbw10(),
+          BottomWidgets.eraJoinTitle(
+            text: 'Favorable Commission Terms',
+          ),
+        ],
+      ),
+      sb20(),
+      Row(
+        children: [
+          BottomWidgets.bigCircle(),
+          sbw10(),
+          BottomWidgets.eraJoinTitle(
+            text: 'Advanced Digital Platforms',
+          ),
+        ],
+      ),
+      sb20(),
+      Row(
+        children: [
+          BottomWidgets.bigCircle(),
+          sbw10(),
+          BottomWidgets.eraJoinTitle(
+            text: 'Administrative Support',
+          ),
+        ],
+      ),
+      sb20(),
+      Row(
+        children: [
+          BottomWidgets.bigCircle(),
+          sbw10(),
+          BottomWidgets.eraJoinTitle(
+            text: 'Access to our office spaces & facilities',
+          ),
+        ],
+      ),
+      sb20(),
+    ];
   }
 }

@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextformfieldWidget extends StatelessWidget {
@@ -23,34 +24,36 @@ class TextformfieldWidget extends StatelessWidget {
   final BorderSide? borderSide;
   final InputBorder? border;
   final InputBorder? enabledBorder;
+  final List<TextInputFormatter>? inputFormatterss;
 
-  const TextformfieldWidget({
-    super.key,
-    this.style,
-    this.hintText,
-    this.hintstlye,
-    this.controller,
-    this.contentPadding,
-    this.maxLines,
-    this.suffixIcon,
-    this.obscureText,
-    this.keyboardType,
-    this.fontSize,
-    this.color,
-    this.validator,
-    this.readOnly,
-    this.onChanged,
-    this.onTap,
-    this.radius,
-    this.textInputAction,
-    this.borderSide,
-    this.border,
-    this.enabledBorder,
-  });
+  const TextformfieldWidget(
+      {super.key,
+      this.style,
+      this.hintText,
+      this.hintstlye,
+      this.controller,
+      this.contentPadding,
+      this.maxLines,
+      this.suffixIcon,
+      this.obscureText,
+      this.keyboardType,
+      this.fontSize,
+      this.color,
+      this.validator,
+      this.readOnly,
+      this.onChanged,
+      this.onTap,
+      this.radius,
+      this.textInputAction,
+      this.borderSide,
+      this.border,
+      this.enabledBorder,
+      this.inputFormatterss});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      inputFormatters: inputFormatterss,
       onTap: onTap,
       onChanged: onChanged,
       keyboardType: keyboardType ?? TextInputType.multiline,

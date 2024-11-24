@@ -121,10 +121,7 @@ class HomeWebController extends GetxController {
   // }
 
   getImages() async {
-    listingImages.add(PropertiesModels(
-        image: settings!.preSellingPicture
-            .toString()
-            .notEmpty(AppStrings.noImageWhite),
+    listingImages.add(PropertiesModels(  image: settings!.preSellingPicture.toString().notEmpty(AppStrings.noImageWhite),
         label: 'PRE-SELLING'));
     listingImages.add(PropertiesModels(
         image: settings!.residentialPicture
