@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
@@ -124,10 +126,17 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   bool speechEnabled = false;
   String lastWords = '';
   bool speechStarted = false;
+  Timer? myStream;
+
   @override
   void initState() {
     super.initState();
     initSpeech();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   initSpeech() async {
@@ -139,12 +148,19 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
       aiSearchController.text = result.recognizedWords;
       setState(() {});
     });
+    myStream = Timer.periodic(Duration(seconds: 1),(tick){
+      if(speech.isNotListening){
+        setState(() {
+          speechStarted = false;
+          myStream?.cancel();
+          aiSearchController.text.isNotEmpty ? aiSearch() : null;
+        });
+      }
+    });
   }
 
   aiSearch() async {
     try {
-      print('here search me aiSearch');
-
       var searchQuery = "";
       BaseController().showLoading();
       searchQuery = aiSearchController.text;
