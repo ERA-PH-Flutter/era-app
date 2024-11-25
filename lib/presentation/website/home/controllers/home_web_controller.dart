@@ -70,8 +70,8 @@ class HomeWebController extends GetxController {
       //       await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
       // }
       quickLinks = await QuickLinksModel().initialize();
-
-      await getListings();
+        //commented out for now since getListing is not updated so there is an error 
+     // await getListings();
       await getNews();
       await getImages();
       await getProjects();

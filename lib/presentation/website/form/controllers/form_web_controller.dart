@@ -37,6 +37,10 @@ class FormWebController extends GetxController {
   TextEditingController message = TextEditingController();
   TextEditingController propertyLoc = TextEditingController();
 
+  final ScrollController scrollController = ScrollController();
+
+  var isAtBottom = false.obs;
+
   var selectedProperty = RxnString();
   var propertyTypes = [
     'Pre-Selling',
@@ -69,6 +73,11 @@ class FormWebController extends GetxController {
     'Sales',
     'Tech Support',
   ];
+
+  void _onScroll() {
+    isAtBottom.value = scrollController.position.atEdge &&
+        scrollController.position.pixels > 0;
+  }
 
   submitContact() async {
     print("a");
@@ -119,5 +128,13 @@ class FormWebController extends GetxController {
             .orderBy('type')
             .get())
         .docs;
+    scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(_onScroll);
+    scrollController.dispose();
+    super.dispose();
   }
 }

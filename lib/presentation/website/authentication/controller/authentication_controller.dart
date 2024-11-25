@@ -13,7 +13,7 @@ enum LoginPageState {
   error,
 }
 
-class AuthenticationController extends GetxController with BaseController {
+class AuthenticationWebController extends GetxController with BaseController {
   Rx<File> image = File('').obs;
   final picker = ImagePicker();
   var store = Get.find<LocalStorageService>();

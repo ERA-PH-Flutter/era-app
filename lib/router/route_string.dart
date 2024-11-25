@@ -57,4 +57,6 @@ class RouteString {
   static String webLoginPage = "/webAboutUs";
   static String companyNewsWeb = "/companyNewsWeb";
   static String homs = "/homs";
+    static String createaccountweb = "/createaccountweb";
+
 }
