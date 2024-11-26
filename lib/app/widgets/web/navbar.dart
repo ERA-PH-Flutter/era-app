@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../presentation/global.dart';
 import '../../../presentation/website/authentication.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
@@ -69,8 +70,14 @@ class Navbar extends GetResponsiveView<HomsController> {
                 borderRadius: BorderRadius.circular(20),
                 width: 300.w,
                 onTap: () {
+                  user == null
+                      ? showAuthenticationDialog()
+                      : EraText(
+                          text: "MY DASHBOARD",
+                          color: AppColors.black,
+                        );
                   print('Login button clicked!');
-                  showAuthenticationDialog();
+                  //   showAuthenticationDialog();
                 },
                 text: "AGENT/BROKER LOGIN",
                 bgColor: AppColors.kRedColor,

@@ -155,6 +155,7 @@ void showAuthenticationDialog() {
                               } else {
                                 selectedIndex.value = 0;
                                 Get.toNamed(RouteString.homs);
+                                
                                 // Get.offAll(HomePages(),
                                 //     binding: HomeWebBinding());
                               }
