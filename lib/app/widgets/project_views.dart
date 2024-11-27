@@ -644,7 +644,8 @@ class ProjectViews {
                                                     maxScale: 4.0,
                                                     child: ImageWidget(
                                                       thumbnailUrl:
-                                                          data['image'],
+                                                          data['images'][index],
+                                                      fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                   // CloudStorage().imageLoader(
