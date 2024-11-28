@@ -742,7 +742,7 @@ class ProjectViewsWeb {
               padding: EdgeInsets.symmetric(
                   horizontal: EraTheme.paddingWidthAdmin * 3),
               child: Button(
-                height: 60.h,
+                height: EraTheme.buttonH60,
                 text: 'LEARN MORE',
                 fontSize: EraTheme.paragraphWeb,
                 onTap: () {
