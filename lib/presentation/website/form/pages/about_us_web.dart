@@ -538,7 +538,7 @@ class AboutUsWeb extends GetView<FormWebController> {
                     )),
               ],
             ),
-            joinUs()
+            joinUs(),
           ],
         ),
       ),
@@ -592,9 +592,9 @@ class AboutUsWeb extends GetView<FormWebController> {
             Positioned(
               left: 0,
               right: 0,
-              top: 50,
               child: Image.asset(
                 AppEraAssets.careerEra,
+                fit: BoxFit.cover,
               ),
             ),
           ],

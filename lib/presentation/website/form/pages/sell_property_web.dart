@@ -228,6 +228,8 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                     ),
                                   ],
                                 ),
+                                sb50(),
+                                AboutUsWeb.joinUs(),
                               ],
                             )
                             // Padding(

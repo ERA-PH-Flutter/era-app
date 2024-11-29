@@ -14,6 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../app/constants/sized_box.dart';
 import '../controllers/form_web_controller.dart';
+import 'about_us_web.dart';
 
 class HelpWeb extends GetView<FormWebController> {
   const HelpWeb({super.key});
@@ -35,12 +36,12 @@ class HelpWeb extends GetView<FormWebController> {
               padding: EdgeInsets.symmetric(
                   horizontal: EraTheme.paddingWidthAdmin * 5),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   EraText(
                     text:
-                        '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'}',
-                    fontSize: EraTheme.subHeaderWeb,
+                        '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon, Hannah' : 'Good Evening, Hannah'}',
+                    fontSize: EraTheme.headerWeb,
                     color: AppColors.black,
                     fontWeight: FontWeight.w600,
                   ),
@@ -72,6 +73,73 @@ class HelpWeb extends GetView<FormWebController> {
                 ],
               ),
             ),
+            sb80(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: _buildCard(
+                    icon: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.email,
+                          color: AppColors.kRedColor,
+                        )),
+                    title: 'Send Us an Email',
+                    subtitle: 'We’re here to assist you',
+                    text: 'sales@eraphilippines.com',
+                  ),
+                ),
+                sbw15(),
+                Expanded(
+                  flex: 1,
+                  child: _buildCard(
+                    icon: Image.asset(
+                      color: AppColors.green,
+                      AppEraAssets.whatsAppIcon3,
+                    ),
+                    //  icon2: AppEraAssets.whatsappIcon,
+                    title: 'Message Us on WhatsApp',
+                    subtitle: 'Chat directly with our team',
+                    text: '+63 917 771 0572',
+                  ),
+                ),
+                sbw15(),
+                Expanded(
+                  flex: 1,
+                  child: _buildCard(
+                    icon: IconButton(
+                      onPressed: () {
+                        launchUrl(controller.whatsappUrl);
+                      },
+                      icon: Icon(Icons.location_city),
+                      color: AppColors.black,
+                    ),
+                    title: 'Drop By Our Office',
+                    subtitle: 'We’d love to meet you in person',
+                    text: 'Find us on Google Maps',
+                  ),
+                ),
+                sbw15(),
+                Expanded(
+                  flex: 1,
+                  child: _buildCard(
+                    icon: IconButton(
+                      onPressed: () {
+                        launchUrl(controller.whatsappUrl);
+                      },
+                      icon: Icon(Icons.call),
+                      color: AppColors.blue,
+                    ),
+                    title: 'Give Us a Call',
+                    subtitle: 'Available Mon-Fri, 8 AM to 5 PM',
+                    text: '+63 917 771 0572',
+                  ),
+                ),
+              ],
+            ),
+            sb80(),
             faqTitle(),
             SizedBox(height: 20.h),
             Obx(() {
@@ -102,7 +170,7 @@ class HelpWeb extends GetView<FormWebController> {
                           controller.faqs[i].data()['answer']),
                       SizedBox(height: 15.h),
                     ],
-                  )); 
+                  ));
                 }
               }
               return Column(
@@ -110,10 +178,18 @@ class HelpWeb extends GetView<FormWebController> {
               );
             }),
             sb50(),
-            iconButton(
-              icon: AppEraAssets.whatsappIcon,
-              icon2: AppEraAssets.emailIcon,
-            ),
+            AboutUsWeb.joinUs(),
+            // EraText(
+            //   text: 'Reach Out to Us!',
+            //   fontSize: EraTheme.headerWeb,
+            //   color: AppColors.black,
+            //   fontWeight: FontWeight.bold,
+            // ),
+
+            // iconButton(
+            //   icon: AppEraAssets.whatsappIcon,
+            //   icon2: AppEraAssets.emailIcon,
+            // ),
             sb50(),
           ],
         ),
@@ -127,7 +203,7 @@ class HelpWeb extends GetView<FormWebController> {
       children: [
         EraText(
             textAlign: TextAlign.start,
-            text: 'FAQs',
+            text: 'Frequently Asked Questions',
             fontSize: EraTheme.headerWeb,
             color: AppColors.blue,
             fontWeight: FontWeight.bold),
@@ -147,50 +223,55 @@ class HelpWeb extends GetView<FormWebController> {
     // final Uri whatsappUrl = Uri.parse('https://wa.me/639177710572');
 
     return Container(
-      padding: padding ?? EdgeInsets.zero,
-      child: Column(
+      padding: EdgeInsets.zero,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          GestureDetector(
-            onTap: () async {
-              //launchUrl(controller.whatsappUrl);
-            },
-            child: Container(
-              alignment: Alignment.center,
-              width: Get.width / 2,
-              height: EraTheme.buttonHeightSmall + 10.sp,
-              decoration: BoxDecoration(
-                color: AppColors.kRedColor,
-                borderRadius: BorderRadius.circular(99),
-              ),
-              child: Center(
-                child: EraText(
-                  text: 'CONTACT US VIA EMAIL',
-                  fontSize: EraTheme.paragraphWeb,
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w600,
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.kRedColor,
+              borderRadius: BorderRadius.circular(99),
+            ),
+            child: GestureDetector(
+              onTap: () async {
+                //launchUrl(controller.whatsappUrl);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                alignment: Alignment.center,
+                height: EraTheme.buttonH60,
+                child: Center(
+                  child: EraText(
+                    text: 'CONTACT US VIA EMAIL',
+                    fontSize: EraTheme.paragraphWeb - 10.sp,
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
           ),
-          sb20(),
-          GestureDetector(
-            onTap: () async {
-              launchUrl(controller.whatsappUrl);
-            },
-            child: Container(
-              alignment: Alignment.center,
-              width: Get.width / 2,
-              height: EraTheme.buttonHeightSmall + 10.sp,
-              decoration: BoxDecoration(
-                color: AppColors.green,
-                borderRadius: BorderRadius.circular(99),
-              ),
-              child: Center(
-                child: EraText(
-                  text: 'CONTACT US VIA WHATSAPP',
-                  fontSize: EraTheme.paragraphWeb,
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w600,
+          sbw10(),
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.green,
+              borderRadius: BorderRadius.circular(99),
+            ),
+            child: GestureDetector(
+              onTap: () async {
+                launchUrl(controller.whatsappUrl);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                alignment: Alignment.center,
+                height: EraTheme.buttonH60,
+                child: Center(
+                  child: EraText(
+                    text: 'CONTACT US VIA WHATSAPP',
+                    fontSize: EraTheme.paragraphWeb - 10.sp,
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
@@ -227,6 +308,50 @@ class HelpWeb extends GetView<FormWebController> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildCard({
+    Widget? icon,
+    String? title,
+    String? subtitle,
+    String? text,
+  }) {
+    return Container(
+      child: Card(
+        elevation: 7,
+        color: AppColors.white,
+        child: Padding(
+          padding: EdgeInsets.only(top: 20.h, left: 20.w, bottom: 20.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Card(elevation: 7, color: AppColors.white, child: icon!),
+              sb80(),
+              EraText(
+                text: title!,
+                fontSize: EraTheme.paragraphWeb,
+                color: AppColors.black,
+                fontWeight: FontWeight.bold,
+              ),
+              EraText(
+                text: subtitle!,
+                fontSize: 15.sp,
+                color: AppColors.hint,
+              ),
+              sb30(),
+              EraText(
+                text: text!,
+                fontSize: 15.sp,
+                color: AppColors.black,
+                lineHeight: 1,
+                textDecoration: TextDecoration.underline,
+                fontWeight: FontWeight.bold,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

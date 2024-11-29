@@ -63,7 +63,7 @@ class AppEraAssets {
   //appbar
   static String menubar = "${l}menubar.png";
   static String closeIcon = "${l}close.png";
-
+ 
   //property info icons
   static String money2 = "${l}money2.png";
   static String area = "${l}plan.png";
@@ -77,7 +77,9 @@ class AppEraAssets {
   static String emailIcon = "${l}2.png";
   static String whatsappIcon = "${l}1.png";
   static String markerIcon = "${l}marker2.png";
-  // static String whatsAppIcon = "${l}1.png";
+  static String whatsAppIcon2 = "${l}whatsapp.png";
+  static String whatsAppIcon3 = "${l}whatsapp_4.png";
+
   //   static String emaiLIcon = "${l}1.png";
 
   //navigation bar icons

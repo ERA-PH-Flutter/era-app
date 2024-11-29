@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/theme.dart';
+import 'about_us_web.dart';
 
 class ContactUsWeb extends GetView<FormWebController> {
   const ContactUsWeb({super.key});
@@ -20,56 +21,70 @@ class ContactUsWeb extends GetView<FormWebController> {
   Widget build(BuildContext context) {
     Get.put(FormWebController());
     return Container(
-      width: Get.width,
-      height: Get.height,
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       decoration: BoxDecoration(
         image: DecorationImage(
             image: AssetImage(AppEraAssets.bgWeb), fit: BoxFit.cover),
       ),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              sb20(),
-              EraText(
-                text: "Contact Us",
-                fontSize: EraTheme.headerWeb,
-                fontWeight: FontWeight.bold,
-                color: AppColors.blue,
-              ),
-              sb20(),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            sb20(),
+            // Contact Us Title with Icon
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                EraText(
+                  text: "Contact Us",
+                  fontSize: EraTheme.headerWeb,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blue,
+                ),
+                sbw10(),
+                Icon(
+                  Icons.phone,
+                  color: AppColors.blue,
+                  size: 80,
+                ),
+              ],
+            ),
+            sb20(),
+            // Description Text
+            EraText(
+              text:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non congue libero. Nullam eget odio nisl. In vitae nisi dapibus, mollis enim eget, efficitur est. Morbi euismod leo id nisl consectetur, nec vehicula nunc placerat. Phasellus dictum nibh eleifend sapien egestas, at elementum velit faucibus. Sed ullamcorper lectus ac sapien aliquam, non hendrerit eros ullamcorper.",
+              fontSize: EraTheme.paragraphWeb - 10.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.black,
+            ),
+            sb20(),
 
-              EraText(
-                text:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non congue libero. Nullam eget odio nisl. In vitae nisi dapibus, mollis enim eget, efficitur est. Morbi euismod leo id nisl consectetur, nec vehicula nunc placerat. Phasellus dictum nibh eleifend sapien egestas, at elementum velit faucibus. Sed ullamcorper lectus ac sapien aliquam, non hendrerit eros ullamcorper. Nullam pharetra arcu tortor, sit amet ultrices magna molestie quis. Etiam pellentesque pretium justo, in rutrum nisl laoreet nec. Suspendisse dictum arcu non nisl interdum vehicula. In nec urna dignissim augue pharetra sagittis. Etiam dictum augue eget lacus euismod laoreet. Suspendisse nec ipsum auctor, venenatis nunc eu, interdum dui. Nullam ligula tortor, aliquam et mollis a, condimentum dictum neque. Nullam id odio at ex cursus efficitur quis vitae ipsum. In interdum odio non mauris scelerisque, vel tempus arcu sagittis. Etiam fermentum ex eget pellentesque efficitur.",
-                fontSize: EraTheme.paragraphWeb - 10.sp,
-                fontWeight: FontWeight.w500,
-                color: AppColors.black,
-              ),
-              sb20(),
-              Row(children: [
+            // Split the screen into two parts for "Find Us" and "Contacts"
+            Row(
+              children: [
                 Expanded(
                   flex: 1,
                   child: findUsWeb(),
                 ),
-                Expanded(flex: 1, child: contactsWeb()),
-              ]),
-
-              // Help.iconButton(
-              //   padding: EdgeInsets.only(right: 10.w),
-              //   icon: AppEraAssets.whatsappIcon,
-              //   icon2: AppEraAssets.emailIcon,
-              // ),
-            ],
-          ),
+                SizedBox(width: 20.w), // Add space between the columns
+                Expanded(
+                  flex: 1,
+                  child: contactsWeb(),
+                ),
+              ],
+            ),
+            sb10(),
+            // Join Us section at the bottom
+            AboutUsWeb.joinUs(),
+          ],
         ),
       ),
     );
   }
 
+  // Contacts Section
   Widget contactsWeb() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,17 +94,11 @@ class ContactUsWeb extends GetView<FormWebController> {
           controller: controller.nameC,
           keyboardType: TextInputType.text,
         ),
-        // SharedWidgets.textFormfield(
-        //   controller: controller.numberC,
-        //   hintText: '000-000-0000',
-        //   keyboardType: TextInputType.number,
-        // ),
         SharedWidgets.textFormfield(
           controller: controller.emailAC,
           hintText: 'Email',
           keyboardType: TextInputType.emailAddress,
         ),
-
         SharedWidgets.dropDown(
           controller.selectedSubj,
           controller.subject,
@@ -99,22 +108,12 @@ class ContactUsWeb extends GetView<FormWebController> {
           '',
           'Select Subject Type',
         ),
-        // AddListings.dropDownAddlistings(
-        //   selectedItem: controller.selectedSubj,
-        //   Types: controller.subject,
-        //   onChanged: (value) => controller.selectedSubj.value = value!,
-        //   name: 'Subject Type',
-        //   hintText: 'Select Subject Type',
-        //   color: AppColors.black,
-        //   padding: EdgeInsets.zero,
-        // ),
         SharedWidgets.textFormfield(
           controller: controller.messageC,
           hintText: 'Type your message here',
           keyboardType: TextInputType.multiline,
           maxLines: 5,
         ),
-
         sb30(),
         Button.button2(
           Get.width,
@@ -129,6 +128,7 @@ class ContactUsWeb extends GetView<FormWebController> {
     );
   }
 
+  // Find Us Section
   Widget findUsWeb() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10.w),

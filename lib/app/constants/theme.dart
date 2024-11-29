@@ -20,6 +20,8 @@ class EraTheme {
 
   static double paddingWidth200 = 200.w;
   static double paddingWidth20 = 20.w;
+  static double paddingWidth15 = 15.w;
+
   static double paddingWidth30 = 30.w;
   //web
   static double headerWeb = 50.sp;
@@ -32,5 +34,4 @@ class EraTheme {
   static double buttonText = 30.sp;
   static double buttonSmallWeb = 30.sp;
   static double buttonH60 = 60.h;
- 
 }
