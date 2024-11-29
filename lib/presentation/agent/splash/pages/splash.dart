@@ -78,6 +78,13 @@ class Splash extends GetView<SplashController> {
                               lineHeight: 1.2,
                             ),
                           ),
+                          SizedBox(height: 125.h),
+                          Obx(()=>EraText(
+                            text: controller.status.value,
+                            fontSize: 15.sp,
+                            color: Colors.white.withOpacity(0.7),
+                            textAlign: TextAlign.center,
+                          ))
                         ],
                       ),
                     )
@@ -116,7 +123,7 @@ class Splash extends GetView<SplashController> {
                           Obx(()=>EraText(
                             text: controller.status.value,
                             fontSize: 15.sp,
-                            color: Colors.white,
+                            color: Colors.white.withOpacity(0.7),
                             textAlign: TextAlign.center,
                           ))
                         ],
