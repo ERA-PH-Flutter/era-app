@@ -132,7 +132,6 @@ void showAuthenticationDialog() {
                             BaseController().showLoading();
                             var login = await Authentication()
                                 .login(email: email.text, password: pass.text);
-                            print('login id: $login');
                             if (!login.contains("error")) {
                               BaseController().hideLoading();
                               user = await EraUser().getById(
@@ -145,24 +144,16 @@ void showAuthenticationDialog() {
                                     description:
                                         "Please use admin account to have access!",
                                     hitApi: () {
-                                      // Get.back();
-
                                       Get.toNamed(RouteString.webLandingPage);
-
-                                      //     selec
-                                      // Get.toNamed(RouteString.webLandingPage);
                                     });
                               } else {
                                 selectedIndex.value = 0;
                                 Get.toNamed(RouteString.homs);
-                                
-                                // Get.offAll(HomePages(),
-                                //     binding: HomeWebBinding());
                               }
                             } else {
                               BaseController().showSuccessDialog(
                                   title: "ERROR",
-                                  description: "Password or email incorrect",
+                                  description: "${login}",
                                   hitApi: () {
                                     Get.back();
                                     Get.back();

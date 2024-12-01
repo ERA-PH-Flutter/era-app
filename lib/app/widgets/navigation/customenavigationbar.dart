@@ -131,7 +131,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                     curve: Curves.easeInOut);
               },
               activeIndex: selectedIndex.value,
-              height: 75.h,
+              // height: 75.h,
               activeIcons: navBarItems.map((item) {
                 return Image.asset(
                   item.selectedIcon,

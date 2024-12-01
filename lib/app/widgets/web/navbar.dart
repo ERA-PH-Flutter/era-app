@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/dashboard_web.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
 import 'package:flutter/material.dart';
@@ -64,27 +65,26 @@ class Navbar extends GetResponsiveView<HomsController> {
             Spacer(),
             //  if()
 
-            Padding(
-              padding: EdgeInsets.only(right: 20.w),
-              child: Button(
-                borderRadius: BorderRadius.circular(20),
-                width: 300.w,
-                onTap: () {
-                  user == null
-                      ? showAuthenticationDialog()
-                      : EraText(
-                          text: "MY DASHBOARD",
-                          color: AppColors.black,
-                        );
-                  print('Login button clicked!');
-                  //   showAuthenticationDialog();
-                },
-                text: "AGENT/BROKER LOGIN",
-                bgColor: AppColors.kRedColor,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            Builder(
+              builder: (context){
+                return Padding(
+                  padding: EdgeInsets.only(right: 20.w),
+                  child: Button(
+                    borderRadius: BorderRadius.circular(20),
+                    width: 300.w,
+                    onTap: () {
+                      user == null
+                          ? showAuthenticationDialog()
+                          : Authentication().logout();
+                    },
+                    text: user == null ? "AGENT/BROKER LOGIN" : "LOGOUT",
+                    bgColor: AppColors.kRedColor,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                );
+              },
+            )
           ],
         ),
       ),
