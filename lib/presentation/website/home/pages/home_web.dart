@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -26,6 +27,8 @@ import '../../../../app/services/firebase_storage.dart';
 import '../../../../app/widgets/navigation/customenavigationbar.dart';
 import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
+import '../../landingpage/controller/homepage_controller.dart' as a;
+import '../../listings/controllers/listings_web_controller.dart';
 
 List<String> imagePaths = [
   'assets/images/image.png',
@@ -637,32 +640,57 @@ Widget _uploadPreviewPhotos() {
 }
 
 Widget _buildUploadPhoto({required String text, required String image}) {
-  return CloudStorage().imageLoaderProvider(
-    reference: image,
-    borderRadius: BorderRadius.only(topRight: Radius.circular(20.0)),
-    child: Stack(
-      children: [
-        Positioned(
-          bottom: 20,
-          left: 10,
-          child: EraText(
-            text: text,
-            fontSize: EraTheme.headerWeb - 5.sp,
-            fontWeight: FontWeight.bold,
-            // style: TextStyle(
-            //     fontSize: EraTheme.headerWeb - 5.sp,
-            //     color: AppColors.white,
-            //     fontWeight: FontWeight.bold,
-            //     shadows: const [
-            //       Shadow(
-            //         color: Colors.black,
-            //         blurRadius: 5,
-            //         offset: Offset(2, 2),
-            //       )
-            //     ]),
-          ),
-        )
-      ],
+  return GestureDetector(
+    onTap: ()async{
+      List eraTranslated = [['type','pre_selling'],['type','pre_selling'],['type','pre_selling'],['type','pre_selling'],['type','pre_selling']];
+      List eraList = ['PRE-SELLING','RESIDENTIAL','RENTAL','COMMERCIAL','AUCTION'];
+      var listings = (await FirebaseFirestore.instance
+          .collection('listings')
+          .where('type', isEqualTo: text.toLowerCase())
+          .get())
+          .docs;
+      var data = listings.map((listing) {
+      return listing.data();
+      }).toList();
+      a.selectedIndex.value = 2;
+      Get.find<a.HomsController>().onIndexChanged();
+      Get.find<a.HomsController>().update();
+      Get.find<ListingsWebController>().listingsWebState(ListingsWebState.loading);
+      Get.find<ListingsWebController>().searchQuery.value = text;
+      await Get.find<ListingsWebController>().loadData(data);
+      if(data.isEmpty){
+      Get.find<ListingsWebController>().listingsWebState(ListingsWebState.empty);
+      }else{
+      Get.find<ListingsWebController>().listingsWebState(ListingsWebState.loaded);
+      }
+    },
+    child: CloudStorage().imageLoaderProvider(
+      reference: image,
+      borderRadius: BorderRadius.only(topRight: Radius.circular(20.0)),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 20,
+            left: 10,
+            child: EraText(
+              text: text,
+              fontSize: EraTheme.headerWeb - 5.sp,
+              fontWeight: FontWeight.bold,
+              // style: TextStyle(
+              //     fontSize: EraTheme.headerWeb - 5.sp,
+              //     color: AppColors.white,
+              //     fontWeight: FontWeight.bold,
+              //     shadows: const [
+              //       Shadow(
+              //         color: Colors.black,
+              //         blurRadius: 5,
+              //         offset: Offset(2, 2),
+              //       )
+              //     ]),
+            ),
+          )
+        ],
+      ),
     ),
   );
 }
