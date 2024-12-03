@@ -8,19 +8,23 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_controller.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
+import '../../presentation/agent/listings/searchresult/pages/searchresult.dart';
 import '../../presentation/global.dart';
 
+import '../../presentation/website/landingpage/controller/homepage_controller.dart';
+import '../../presentation/website/landingpage/controller/homepage_controller.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../constants/theme.dart';
@@ -113,16 +117,7 @@ class FilteredSearchBox extends StatelessWidget {
                   obscureText: false,
                   suffixIcons: AppEraAssets.send,
                   onSuffixTap: () async {
-                    // var data;
-                    // var searchQuery = "";
-                    // data = await AI(query: aiSearchController.text).search();
-                    // searchQuery = aiSearchController.text;
-                    // selectedIndex.value = 2;
-                    // pageViewController = PageController(initialPage: 2);
-                    // currentRoute = '/searchresult';
-                    // Get.offAll(BaseScaffold(),
-                    //     binding: SearchResultBinding(),
-                    //     arguments: [data, searchQuery]);
+                    // do ai search
                   }),
             ),
           SizedBox(height: 5.h),
@@ -291,7 +286,7 @@ class FilteredSearchBox extends StatelessWidget {
                         ),
                         SizedBox(height: 20.h),
                         SearchWidget.build(() async {
-                          BaseController().showLoading();
+                          // BaseController().showLoading();
                           var data;
                           var searchQuery = "aaaa";
                           if (isForSale.value == 1) {
@@ -383,8 +378,7 @@ class FilteredSearchBox extends StatelessWidget {
                             filters.add(ListingFilters(
                                 name: 'garage', value: garage.value));
                           }
-                          if (ppsqmMin.text.isNotEmpty &&
-                              ppsqmMax.text.isNotEmpty) {
+                          if (ppsqmMin.text.isNotEmpty && ppsqmMax.text.isNotEmpty) {
                             filters.add(ListingFilters(
                               name: 'price',
                               type: 'number',
@@ -392,8 +386,7 @@ class FilteredSearchBox extends StatelessWidget {
                               valueMax: ppsqmMax.text.toInt(),
                             ));
                           }
-                          if (floorAreaMax.text.isNotEmpty &&
-                              floorAreaMin.text.isNotEmpty) {
+                          if (floorAreaMax.text.isNotEmpty && floorAreaMin.text.isNotEmpty) {
                             filters.add(ListingFilters(
                               name: 'price',
                               type: 'number',
@@ -401,8 +394,7 @@ class FilteredSearchBox extends StatelessWidget {
                               valueMax: floorAreaMax.text.toInt(),
                             ));
                           }
-                          if (areaMin.text.isNotEmpty &&
-                              areaMax.text.isNotEmpty) {
+                          if (areaMin.text.isNotEmpty && areaMax.text.isNotEmpty) {
                             filters.add(ListingFilters(
                               name: 'price',
                               type: 'number',
@@ -410,25 +402,32 @@ class FilteredSearchBox extends StatelessWidget {
                               valueMax: areaMax.text.toInt(),
                             ));
                           }
-
                           if (listings.isNotEmpty && isForSale.value == 0) {
                             data = await EraFunctions.filter(listings, filters);
-                          } else if (isForSale.value == 0) {
+                          }
+                          else if (isForSale.value == 0) {
                             BaseController().showSuccessDialog(
                                 title: "Error",
                                 description:
                                     "No results found or invalid filter/s!",
                                 hitApi: () {
                                   Get.back();
-                                  Get.back();
                                 });
                           }
+
                           selectedIndex.value = 2;
-                          pageViewController = PageController(initialPage: 2);
-                          currentRoute = '/searchresult';
-                          Get.offAll(BaseScaffold(),
-                              binding: SearchResultBinding(),
-                              arguments: [data, searchQuery]);
+                          Get.find<HomsController>().onIndexChanged();
+                          Get.find<HomsController>().update();
+                          Get.find<ListingsWebController>().searchQuery.value = searchQuery;
+                          await Get.find<ListingsWebController>().loadData(data);
+                          Get.find<ListingsWebController>().listingsWebState.value = Get.find<ListingsWebController>().data.isEmpty ? ListingsWebState.empty : ListingsWebState.loaded;
+                          expanded.value = false;
+                          // Get.back();
+                          // pageViewController = PageController(initialPage: 2);
+                          // currentRoute = '/searchresult';
+                          // Get.offAll(SearchResult(),
+                          //     binding: SearchResultBinding(),
+                          //     arguments: [data, searchQuery]);
                         }),
                         SizedBox(height: 20.h),
                       ],

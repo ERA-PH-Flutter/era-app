@@ -14,7 +14,7 @@ class RealEstateListing {
   final int price;
   final int beds;
   final int baths;
-  final int areas;
+  final double areas;
   final int cars;
   final String listingBy;
   final EraUser user;

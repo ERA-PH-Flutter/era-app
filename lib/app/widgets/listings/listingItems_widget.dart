@@ -17,7 +17,7 @@ class ListingItemss extends StatelessWidget {
   final String? name;
   final String? image;
   final String type;
-  final int areas;
+  final double areas;
   final int beds;
   final int baths;
   final int cars;

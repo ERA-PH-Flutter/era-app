@@ -94,7 +94,8 @@ class BuyWeb extends GetView<ListingsWebController> {
                   )
                 ],
               );
-            } else {
+            }
+            else {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -113,7 +114,7 @@ class BuyWeb extends GetView<ListingsWebController> {
           GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              mainAxisExtent: Get.height - 190.h,
+              mainAxisExtent: Get.height - 180.h,
             ),
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -331,17 +332,22 @@ class BuyWeb extends GetView<ListingsWebController> {
   }
 
   _empty() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        EraText(
-          text: 'No results found!',
-          fontSize: 23.sp,
-          color: AppColors.blue,
-          fontWeight: FontWeight.w600,
-        ),
-        SizedBox(height: 10.h),
-      ],
+    print("data empty");
+    return SizedBox(
+      height: 300.h,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          EraText(
+            text: 'No results found!',
+            fontSize: 23.sp,
+            color: AppColors.blue,
+            fontWeight: FontWeight.w600,
+          ),
+          SizedBox(height: 10.h),
+        ],
+      ),
     );
   }
 }

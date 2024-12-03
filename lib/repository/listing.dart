@@ -18,7 +18,7 @@ class Listing {
   double? floorArea;
   int? beds;
   int? baths;
-  int? area;
+  double? area;
   String? status;
   String? view;
   String? location;
