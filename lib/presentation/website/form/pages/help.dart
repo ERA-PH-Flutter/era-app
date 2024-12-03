@@ -158,7 +158,7 @@ class HelpWeb extends GetView<FormWebController> {
                         fontWeight: FontWeight.w600,
                       ),
                       SizedBox(height: 20.h),
-                      expansionTile(controller.faqs[i].data()['type'],
+                      expansionTile(controller.faqs[i].data()['question'],
                           controller.faqs[i].data()['answer']),
                       SizedBox(height: 15.h),
                     ],
@@ -166,7 +166,7 @@ class HelpWeb extends GetView<FormWebController> {
                 } else {
                   faqWidgets.add(Column(
                     children: [
-                      expansionTile(controller.faqs[i].data()['type'],
+                      expansionTile(controller.faqs[i].data()['question'],
                           controller.faqs[i].data()['answer']),
                       SizedBox(height: 15.h),
                     ],
