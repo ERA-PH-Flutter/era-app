@@ -61,7 +61,7 @@ class ListingsWebController extends GetxController {
     listingsWebState.value = ListingsWebState.loading;
     quickLinks = await QuickLinksModel().initialize();
     try {
-      if (Get.arguments == null || Get.arguments.isEmpty) {
+      if (Get.arguments == null || Get.arguments.isEmpty && data.isEmpty) {
         var tempData = [];
         for (int i = 0; i < settings!.featuredListings!.length; i++) {
           tempData.add(
@@ -89,8 +89,9 @@ class ListingsWebController extends GetxController {
   }
 
   loadData(loadedData) {
+    listingsWebState.value = ListingsWebState.loading;
+    data.clear();
     loadedData = loadedData ?? [];
-    print(loadedData);
     loadedData.forEach((d) {
       if (d != null) {
         if (!(d['is_sold'] ?? false)) {
@@ -99,10 +100,13 @@ class ListingsWebController extends GetxController {
       }
     });
     //data.assignAll(loadedData);
+
     if (data.isEmpty) {
+      print("data : ${data.isEmpty}");
       listingsWebState.value = ListingsWebState.empty;
     } else {
       listingsWebState.value = ListingsWebState.loaded;
     }
+    update();
   }
 }

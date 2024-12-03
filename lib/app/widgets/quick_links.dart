@@ -4,13 +4,12 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
-import '../../presentation/global.dart';
+import '../../presentation/website/landingpage/controller/homepage_controller.dart';
+import '../../presentation/website/listings/controllers/listings_web_controller.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../services/firebase_storage.dart';
 import 'app_text_listing.dart';
-import 'navigation/customenavigationbar.dart';
 
 class QuickLinksModel {
   var categories = [
@@ -69,11 +68,23 @@ class QuickLinksModel {
           return listing.data();
         }).toList();
         selectedIndex.value = 2;
-        pageViewController = PageController(initialPage: 2);
-        currentRoute = '/searchresult';
-        Get.offAll(BaseScaffold(),
-            binding: SearchResultBinding(),
-            arguments: [data, 'All $type listings!']);
+        Get.find<HomsController>().onIndexChanged();
+        Get.find<HomsController>().update();
+        Get.find<ListingsWebController>().listingsWebState(ListingsWebState.loading);
+        Get.find<ListingsWebController>().searchQuery.value = 'All $type listings!';
+        await Get.find<ListingsWebController>().loadData(data);
+        if(data.isEmpty){
+          Get.find<ListingsWebController>().listingsWebState(ListingsWebState.empty);
+        }else{
+          Get.find<ListingsWebController>().listingsWebState(ListingsWebState.loaded);
+        }
+
+        // selectedIndex.value = 2;
+        // pageViewController = PageController(initialPage: 2);
+        // currentRoute = '/searchresult';
+        // Get.offAll(BaseScaffold(),
+        //     binding: SearchResultBinding(),
+        //     arguments: [data, 'All $type listings!']);
       },
       child: Column(
         children: [

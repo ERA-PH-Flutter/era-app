@@ -525,7 +525,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 beds: controller.bedsController.text.toInt(),
                 baths: controller.bathsController.text.toInt(),
                 cars: controller.carsController.text.toInt(),
-                area: controller.areaController.text.toInt(),
+                area: controller.areaController.text.toDouble(),
                 status: controller.selectedOfferT.value.toString(),
                 // view: controller.selectedView.value.toString(),
                 location: controller.add.city,
