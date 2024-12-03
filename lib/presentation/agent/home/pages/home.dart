@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 
@@ -55,7 +57,6 @@ class Home extends GetView<HomeController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-
             width: Get.width,
             child: Stack(
               children: [
@@ -95,8 +96,8 @@ class Home extends GetView<HomeController> {
                   ),
                 ),
                 Positioned(
-                  top:0,
-                  bottom:0,
+                  top: 0,
+                  bottom: 0,
                   left: 10.w,
                   child: Container(
                     height: 240.h,
@@ -115,8 +116,8 @@ class Home extends GetView<HomeController> {
                   ),
                 ),
                 Positioned(
-    top:0,
-    bottom:0,
+                  top: 0,
+                  bottom: 0,
                   right: 10.w,
                   child: Container(
                     height: 240.h,
@@ -167,50 +168,6 @@ class Home extends GetView<HomeController> {
               horizontal: EraTheme.paddingWidth, vertical: 15.h),
           child: ProjectMain.featuredProject(),
         ),
-
-        /// Listings
-        // Obx(() {
-        //   if (projectController.projectsListState.value ==
-        //       ProjectsListState.loading) {
-        //     return Center(
-        //       child: CircularProgressIndicator(),
-        //     );
-        //   }
-        //   if (projectController.projectsListState.value ==
-        //       ProjectsListState.loaded) {
-        //     return Container(
-        //       height: Get.height,
-        //       child: ListView.builder(
-        //         shrinkWrap: true,
-        //         physics: NeverScrollableScrollPhysics(),
-        //         itemCount: settings!.featuredProject!.length,
-        //         itemBuilder: (context, index) {
-        //           return GestureDetector(
-        //             onTap: () {
-        //               Get.to(ProjectView(),
-        //                   binding: ProjectViewBinding(),
-        //                   arguments: settings!.featuredProject![index]);
-        //             },
-        //             child: Container(
-        //               height: Get.height,
-        //               child: Column(
-        //                 children: [
-        //                   Column(
-        //                     children: ProjectViews(
-        //                             project: settings!.featuredProject![index])
-        //                         .HomebuildPreview(),
-        //                   ),
-        //                 ],
-        //               ),
-        //             ),
-        //           );
-        //         },
-        //       ),
-        //     );
-        //   } else {
-        //     return Center(child: Text('No projects available'));
-        //   }
-        // }),
         Column(children: controller.projects),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
@@ -268,188 +225,185 @@ class Home extends GetView<HomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ListingProperties(listingModels: controller.listings),
               SizedBox(
-                height: Get.height / 1.4,
+                height: Get.height / 1.3 + 70.h,
                 width: Get.width,
-                child: SingleChildScrollView(
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: controller.listings.length,
-                    itemBuilder: (context, index) {
-                      Listing listing = controller.listings[index];
-                      return GestureDetector(
-                        onTap: () async {
-                          await Database().addViews(listing.id);
-                          Get.toNamed('/propertyInfo', arguments: listing);
-                        },
-                        child: Container(
-                          width: 378.w,
-                          margin: EdgeInsets.only(bottom: 16.h, right: 10.w),
-                          padding: EdgeInsets.zero,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.r),
-                              boxShadow: const [
-                                BoxShadow(
-                                    offset: Offset(0, 0),
-                                    spreadRadius: 1,
-                                    blurRadius: 10,
-                                    color: Colors.black12)
-                              ]),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRect(
-                                child: ImageWidget(
-                                    thumbnailUrl: listing.photos != null
-                                        ? (listing.photos!.isNotEmpty
-                                            ? listing.photos!.first
-                                            : AppStrings.noUserImageWhite)
-                                        : AppStrings.noUserImageWhite,
-                                    width: Get.width,
-                                    height: 300.h),
-                              ),
-                              sb17(),
-                              Container(
+                  shrinkWrap: true,
+                  itemCount: controller.listings.length,
+                  itemBuilder: (context, index) {
+                    Listing listing = controller.listings[index];
+                    return GestureDetector(
+                      onTap: () async {
+                        await Database().addViews(listing.id);
+                        Get.toNamed('/propertyInfo', arguments: listing);
+                      },
+                      child: Container(
+                        width: 378.w,
+                        margin: EdgeInsets.only(bottom: 16.h, right: 10.w),
+                        padding: EdgeInsets.zero,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.r),
+                            boxShadow: const [
+                              BoxShadow(
+                                  offset: Offset(0, 0),
+                                  spreadRadius: 1,
+                                  blurRadius: 10,
+                                  color: Colors.black12)
+                            ]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              child: ImageWidget(
+                                thumbnailUrl: listing.photos != null
+                                    ? (listing.photos!.isNotEmpty
+                                        ? listing.photos!.first
+                                        : AppStrings.noUserImageWhite)
+                                    : AppStrings.noUserImageWhite,
+                                fit: BoxFit.cover,
+                                height: 300.h,
                                 width: Get.width,
-                                height: 40.h,
-                                padding: EdgeInsets.symmetric(horizontal: 14.w),
-                                child: EraText(
-                                  textOverflow: TextOverflow.ellipsis,
-                                  text: listing.name! == ""
-                                      ? "No Name"
-                                      : listing.name!,
-                                  fontSize: EraTheme.header - 5.sp,
-                                  color: AppColors.kRedColor,
-                                  fontWeight: FontWeight.bold,
-                                  lineHeight: 2,
-                                ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 14.w),
-                                child: EraText(
-                                  text: listing.type!,
-                                  fontSize: EraTheme.header - 12.sp,
+                            ),
+                            sb17(),
+                            Container(
+                              width: Get.width,
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                textOverflow: TextOverflow.ellipsis,
+                                text: listing.name! == ""
+                                    ? "No Name"
+                                    : listing.name!,
+                                fontSize: EraTheme.header - 5.sp,
+                                color: AppColors.kRedColor,
+                                fontWeight: FontWeight.bold,
+                                lineHeight: 2,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: listing.type!,
+                                fontSize: EraTheme.header - 12.sp,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.bold,
+                                lineHeight: 1,
+                              ),
+                            ),
+                            sb5(),
+                            Row(
+                              //crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      AppEraAssets.area,
+                                      width: 55.w,
+                                      height: 55.w,
+                                    ),
+                                    SizedBox(width: 2.w),
+                                    EraText(
+                                      text:
+                                          '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
+                                      fontSize: EraTheme.paragraph - 1.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.black,
+                                    ),
+                                  ],
+                                ),
+                                sbw10(),
+                                Image.asset(
+                                  AppEraAssets.bed,
+                                  width: 55.w,
+                                  height: 55.w,
+                                ),
+                                EraText(
+                                  text: '${listing.beds}',
+                                  fontSize: EraTheme.paragraph - 1.sp,
+                                  fontWeight: FontWeight.w500,
                                   color: AppColors.black,
-                                  fontWeight: FontWeight.bold,
-                                  lineHeight: 1,
                                 ),
-                              ),
-                              sb5(),
-                              Row(
-                                //crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        AppEraAssets.area,
-                                        width: 55.w,
-                                        height: 55.w,
-                                      ),
-                                      SizedBox(width: 2.w),
-                                      EraText(
-                                        text:
-                                            '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
-                                        fontSize: EraTheme.paragraph - 1.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.black,
-                                      ),
-                                    ],
-                                  ),
-                                  sbw10(),
-                                  Image.asset(
-                                    AppEraAssets.bed,
-                                    width: 55.w,
-                                    height: 55.w,
-                                  ),
-                                  EraText(
-                                    text: '${listing.beds}',
-                                    fontSize: EraTheme.paragraph - 1.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.black,
-                                  ),
-                                  sbw10(),
-                                  Image.asset(
-                                    AppEraAssets.tub,
-                                    width: 55.w,
-                                    height: 55.w,
-                                  ),
-                                  EraText(
-                                    text: '${listing.baths}',
-                                    fontSize: EraTheme.paragraph - 1.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.black,
-                                  ),
-                                  sbw10(),
-                                  Image.asset(
-                                    AppEraAssets.car,
-                                    width: 55.w,
-                                    height: 55.w,
-                                  ),
-                                  EraText(
-                                    text: '${listing.cars}',
-                                    fontSize: EraTheme.paragraph - 1.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.black,
-                                  ),
-                                ],
-                              ),
-                              sb5(),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 14.w),
-                                child: EraText(
-                                  text: 'Description:',
-                                  fontSize: EraTheme.header - 8.sp,
+                                sbw10(),
+                                Image.asset(
+                                  AppEraAssets.tub,
+                                  width: 55.w,
+                                  height: 55.w,
+                                ),
+                                EraText(
+                                  text: '${listing.baths}',
+                                  fontSize: EraTheme.paragraph - 1.sp,
+                                  fontWeight: FontWeight.w500,
                                   color: AppColors.black,
-                                  fontWeight: FontWeight.w600,
-                                  lineHeight: 1,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 14.w),
-                                child: Text(
-                                  listing.description == ""
-                                      ? "No description."
-                                      : listing.description!,
-                                  style: TextStyle(
-                                    fontSize: EraTheme.paragraph - 4.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.black,
-                                  ),
-                                  maxLines: 5,
-                                  overflow: TextOverflow.ellipsis,
+                                sbw10(),
+                                Image.asset(
+                                  AppEraAssets.car,
+                                  width: 55.w,
+                                  height: 55.w,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 14.w),
-                                child: EraText(
-                                  text: NumberFormat.currency(
-                                          locale: 'en_PH', symbol: 'PHP ')
-                                      .format(
-                                    listing.price.toString() == ""
-                                        ? 0
-                                        : listing.price,
-                                  ),
-                                  color: AppColors.blue,
-                                  fontSize: EraTheme.header,
-                                  fontWeight: FontWeight.bold,
+                                EraText(
+                                  text: '${listing.cars}',
+                                  fontSize: EraTheme.paragraph - 1.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.black,
                                 ),
+                              ],
+                            ),
+                            sb5(),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: 'Description:',
+                                fontSize: EraTheme.header - 8.sp,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w600,
+                                lineHeight: 1,
                               ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: Text(
+                                listing.description == ""
+                                    ? "No description."
+                                    : listing.description!,
+                                style: TextStyle(
+                                  fontSize: EraTheme.paragraph - 4.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.black,
+                                ),
+                                maxLines: 5,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: NumberFormat.currency(
+                                        locale: 'en_PH', symbol: 'PHP ')
+                                    .format(
+                                  listing.price.toString() == ""
+                                      ? 0
+                                      : listing.price,
+                                ),
+                                color: AppColors.blue,
+                                fontSize: EraTheme.header,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
               GestureDetector(
@@ -509,9 +463,8 @@ class Home extends GetView<HomeController> {
               SizedBox(
                 height: 50.h,
               ),
-              SizedBox(
-                height: 550.h,
-                width: Get.width,
+              Container(
+                height: Get.height / 2,
                 child: GridView.builder(
                   physics: ScrollPhysics(),
                   shrinkWrap: true,
@@ -529,29 +482,18 @@ class Home extends GetView<HomeController> {
                           description: controller.news[i].description));
                     },
                     child: Container(
-                      width: Get.width,
                       margin: EdgeInsets.only(bottom: 15.h, right: 12.w),
                       child: Stack(
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              ImageWidget(
-                                thumbnailUrl: controller.news[i].image,
-                                height: 250.h,
-                              ),
-                              // CloudStorage().imageLoader(
-                              //   reference: controller.news[i].image,
-                              //   height: 250.h,
-                              // ),
-                              Spacer(),
-                            ],
+                          ImageWidget(
+                            thumbnailUrl: controller.news[i].image,
+                            width: Get.width,
+                            height: 250.h,
                           ),
                           Positioned(
-                            bottom: 15.h,
-                            left: -4.w,
-                            right: -4.w,
-                            top: 200.h,
+                            bottom: 10,
+                            left: 0,
+                            right: 0,
                             child: Card(
                               color: AppColors.white,
                               elevation: 3,
@@ -582,9 +524,6 @@ class Home extends GetView<HomeController> {
                                       fontWeight: FontWeight.w500,
                                       maxLines: 5,
                                       textOverflow: TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(
-                                      height: 20.h,
                                     ),
                                   ],
                                 ),

@@ -21,9 +21,9 @@ class Splash extends GetView<SplashController> {
             return _loading();
           } else if (controller.splashState.value == SplashState.loaded) {
             return _loaded();
-          }else if(controller.splashState.value == SplashState.web){
+          } else if (controller.splashState.value == SplashState.web) {
             return _web();
-          }else {
+          } else {
             return _error();
           }
         }),
@@ -49,6 +49,7 @@ class Splash extends GetView<SplashController> {
               : shortestSide < 600
                   ? Container(
                       width: Get.width,
+                      height: Get.height,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/erasplashbg.png'),
@@ -56,8 +57,6 @@ class Splash extends GetView<SplashController> {
                         ),
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(height: 120.h),
                           Image.asset(
@@ -78,18 +77,17 @@ class Splash extends GetView<SplashController> {
                               lineHeight: 1.2,
                             ),
                           ),
-                          SizedBox(height: 125.h),
-                          Obx(()=>EraText(
-                            text: controller.status.value,
-                            fontSize: 15.sp,
-                            color: Colors.white.withOpacity(0.7),
-                            textAlign: TextAlign.center,
-                          ))
+                          SizedBox(height: 100.h),
+                          Obx(() => EraText(
+                                text: controller.status.value,
+                                fontSize: 15.sp,
+                                color: Colors.white.withOpacity(0.7),
+                                textAlign: TextAlign.center,
+                              ))
                         ],
                       ),
                     )
                   : Container(
-                      width: Get.width,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/erasplashbg.png'),
@@ -120,21 +118,23 @@ class Splash extends GetView<SplashController> {
                             ),
                           ),
                           SizedBox(height: 125.h),
-                          Obx(()=>EraText(
-                            text: controller.status.value,
-                            fontSize: 15.sp,
-                            color: Colors.white.withOpacity(0.7),
-                            textAlign: TextAlign.center,
-                          ))
+                          Obx(() => EraText(
+                                text: controller.status.value,
+                                fontSize: 15.sp,
+                                color: Colors.white.withOpacity(0.7),
+                                textAlign: TextAlign.center,
+                              ))
                         ],
                       ),
                     ),
     );
   }
-  _web(){
+
+  _web() {
     return Center(
       child: Container(),
     );
   }
+
   _error() {}
 }
