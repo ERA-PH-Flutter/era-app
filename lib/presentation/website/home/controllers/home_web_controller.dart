@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:carousel_slider_plus/carousel_controller.dart';
@@ -33,7 +34,7 @@ class HomeWebController extends GetxController {
   var news = [];
   Widget? quickLinks;
   final List<String> bannersImages = [];
-  RxList images = [].obs;
+  final List<Widget> images = [];
 
   var innerController = CarouselSliderController();
   var carouselC = PageController();
@@ -41,24 +42,24 @@ class HomeWebController extends GetxController {
   @override
   void onInit() async {
     try {
-      if (settings != null) {
-        if (settings!.banners != null) {
-          for (int i = 0; i < settings!.banners!.length; i++) {
-            bannersImages.add(settings!.banners![i]);
-          }
-        }
-      } else {
-        settings = era_settings.Settings.fromJSON((await FirebaseFirestore
-                .instance
-                .collection('settings')
-                .doc('main')
-                .get())
-            .data()!);
-        for (int i = 0; i < settings!.banners!.length; i++) {
-          images.add(
-              await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
-        }
-      }
+      // if (settings != null) {
+      //   if (settings!.banners != null) {
+      //     for (int i = 0; i < settings!.banners!.length; i++) {
+      //       bannersImages.add(settings!.banners![i]);
+      //     }
+      //   }
+      // } else {
+      //   settings = era_settings.Settings.fromJSON((await FirebaseFirestore
+      //           .instance
+      //           .collection('settings')
+      //           .doc('main')
+      //           .get())
+      //       .data()!);
+      //   for (int i = 0; i < settings!.banners!.length; i++) {
+      //     images.add(
+      //         await Image.memory(await CloudStorage().getFileBytes(docRef: settings!.banners![i])));
+      //   }
+      // }
       // settings = era_settings.Settings.fromJSON((await FirebaseFirestore
       //         .instance
       //         .collection('settings')
@@ -70,8 +71,10 @@ class HomeWebController extends GetxController {
       //       await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
       // }
       quickLinks = await QuickLinksModel().initialize();
-        //commented out for now since getListing is not updated so there is an error 
-     // await getListings();
+//TODO NIKKO
+//      //commented out for now since getListing is not updated so there is an error
+      // await getListings();
+      //    await getBanners();
       await getNews();
       await getImages();
       await getProjects();
@@ -82,6 +85,35 @@ class HomeWebController extends GetxController {
     }
     super.onInit();
   }
+
+  // getBanners() async {
+  //   var banners = Get.find<LocalStorageService>().images!['banners'];
+  //   if (banners != null) {
+  //     for (int i = 0; i < banners.length; i++) {
+  //       images.add(Container(
+  //         decoration: BoxDecoration(
+  //             image: DecorationImage(
+  //                 fit: BoxFit.cover, image: FileImage(File(banners[i])))),
+  //       ));
+  //     }
+  //     if (images.isEmpty) {
+  //       images.add(Container(
+  //         decoration: BoxDecoration(
+  //             image: DecorationImage(
+  //                 fit: BoxFit.cover,
+  //                 image: AssetImage('assets/images/no_image_holder.jpg'))),
+  //         //unahin nlg to muna              //wait lg sir dayne ni sesearch ko bat siya ganyan yung no such file or directory
+  //       ));
+  //     }
+  //   } else {
+  //     images.add(Container(
+  //       decoration: BoxDecoration(
+  //           image: DecorationImage(
+  //               fit: BoxFit.cover,
+  //               image: AssetImage('assets/images/no_image_holder.jpg'))),
+  //     ));
+  //   }
+  // }
 
   getNews() async {
     if (settings!.featuredNews!.isNotEmpty) {
@@ -121,7 +153,10 @@ class HomeWebController extends GetxController {
   // }
 
   getImages() async {
-    listingImages.add(PropertiesModels(  image: settings!.preSellingPicture.toString().notEmpty(AppStrings.noImageWhite),
+    listingImages.add(PropertiesModels(
+        image: settings!.preSellingPicture
+            .toString()
+            .notEmpty(AppStrings.noImageWhite),
         label: 'PRE-SELLING'));
     listingImages.add(PropertiesModels(
         image: settings!.residentialPicture

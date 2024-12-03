@@ -4,7 +4,6 @@ import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.da
 import 'package:eraphilippines/presentation/agent/authentication/pages/nextPage.dart';
 
 import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
-import 'package:eraphilippines/presentation/website/authentication/pages/create_account_web.dart';
 import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
 
 import 'package:eraphilippines/router/route_string.dart';
@@ -38,7 +37,6 @@ import '../presentation/agent/listings/sold_properties/controllers/sold_properti
 import '../presentation/agent/listings/sold_properties/pages/sold_properties.dart';
 
 import '../presentation/website/landingpage/pages/homepage.dart';
-import '../presentation/website/terms_conditions_web/terms_condition_web.dart';
 
 appRoutes() => [
       GetPage(

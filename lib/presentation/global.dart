@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import '../app/models/settings.dart';
 import '../repository/user.dart';
 
@@ -52,3 +53,4 @@ var propertyT = [
   // "Rent to Own",
   // "Others",
 ];
+ 

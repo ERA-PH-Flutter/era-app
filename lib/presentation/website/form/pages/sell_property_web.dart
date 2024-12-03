@@ -11,7 +11,6 @@ import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/button.dart';
 import '../../../../app/widgets/createaccount_widget.dart';
-import '../../../../app/widgets/textformfield_widget.dart';
 import 'about_us_web.dart';
 
 class SellPropertyWeb extends GetView<FormWebController> {

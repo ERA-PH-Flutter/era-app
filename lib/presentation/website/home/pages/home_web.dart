@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/strings.dart';
@@ -70,6 +72,88 @@ class HomeWeb extends GetView<HomeWebController> {
     return SingleChildScrollView(
       child: Column(
         children: [
+          //       SizedBox(
+            //TODO NIKKO  not working
+          // width: Get.width,
+          // child: Stack(
+          //   children: [
+          //     Positioned(
+          //       child: CarouselSlider(
+          //           controller: controller.innerController,
+          //           items: controller.images.map((image) {
+          //             return image;
+          //           }).toList(),
+          //           options: CarouselOptions(
+          //             autoPlayInterval: Duration(seconds: 7),
+          //             autoPlay: true,
+          //             viewportFraction: 1,
+          //             onPageChanged: (index, reason) =>
+          //                 controller.carouselIndex.value = index,
+          //           )),
+          //     ),
+          //     Positioned(
+          //       bottom: 10,
+          //       child: SizedBox(
+          //         width: Get.width,
+          //         child: Row(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               Obx(() => AnimatedSmoothIndicator(
+          //                     activeIndex: controller.carouselIndex.value,
+          //                     count: controller.images.length,
+          //                     effect: JumpingDotEffect(
+          //                       spacing: 25,
+          //                       dotWidth: 8,
+          //                       dotHeight: 8,
+          //                       activeDotColor: AppColors.black,
+          //                       dotColor: AppColors.hint,
+          //                     ),
+          //                   )),
+          //             ]),
+          //       ),
+          //     ),
+          //     Positioned(
+          //       top:0,
+          //       bottom:0,
+          //       left: 10.w,
+          //       child: Container(
+          //         height: 240.h,
+          //         alignment: Alignment.center,
+          //         child: GestureDetector(
+          //           onTap: () {
+          //            // controller.prevImage();
+          //             controller.innerController.previousPage();
+          //           },
+          //           child: Image.asset(
+          //             AppEraAssets.next,
+          //             height: 20.h,
+          //             width: 20.w,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     Positioned(
+          //       top:0,
+          //        bottom:0,
+          //       right: 10.w,
+          //       child: Container(
+          //         height: 240.h,
+          //         alignment: Alignment.center,
+          //         child: GestureDetector(
+          //           onTap: () {
+          //         //    controller.nextImage(controller.images.length);
+          //             controller.innerController.nextPage();
+          //           },
+          //           child: Image.asset(
+          //             AppEraAssets.prev,
+          //             height: 20.h,
+          //             width: 20.w,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // )),
           sb20(),
           Container(
             padding: EdgeInsets.symmetric(
@@ -382,6 +466,7 @@ class HomeWeb extends GetView<HomeWebController> {
                               // HomsController controller =
                               //     Get.find<HomsController>();
                               // controller.goToCompanyNewsPage();
+                            //TODO NIKKO navbar will show when clicked 
                               selectedIndex.value = 9;
                               Get.toNamed(RouteString.homs);
                             },
@@ -641,27 +726,42 @@ Widget _uploadPreviewPhotos() {
 
 Widget _buildUploadPhoto({required String text, required String image}) {
   return GestureDetector(
-    onTap: ()async{
-      List eraTranslated = [['type','pre_selling'],['type','pre_selling'],['type','pre_selling'],['type','pre_selling'],['type','pre_selling']];
-      List eraList = ['PRE-SELLING','RESIDENTIAL','RENTAL','COMMERCIAL','AUCTION'];
+    onTap: () async {
+      List eraTranslated = [
+        ['type', 'pre_selling'],
+        ['type', 'pre_selling'],
+        ['type', 'pre_selling'],
+        ['type', 'pre_selling'],
+        ['type', 'pre_selling']
+      ];
+      List eraList = [
+        'PRE-SELLING',
+        'RESIDENTIAL',
+        'RENTAL',
+        'COMMERCIAL',
+        'AUCTION'
+      ];
       var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('type', isEqualTo: text.toLowerCase())
-          .get())
+              .collection('listings')
+              .where('type', isEqualTo: text.toLowerCase())
+              .get())
           .docs;
       var data = listings.map((listing) {
-      return listing.data();
+        return listing.data();
       }).toList();
       a.selectedIndex.value = 2;
       Get.find<a.HomsController>().onIndexChanged();
       Get.find<a.HomsController>().update();
-      Get.find<ListingsWebController>().listingsWebState(ListingsWebState.loading);
+      Get.find<ListingsWebController>()
+          .listingsWebState(ListingsWebState.loading);
       Get.find<ListingsWebController>().searchQuery.value = text;
       await Get.find<ListingsWebController>().loadData(data);
-      if(data.isEmpty){
-      Get.find<ListingsWebController>().listingsWebState(ListingsWebState.empty);
-      }else{
-      Get.find<ListingsWebController>().listingsWebState(ListingsWebState.loaded);
+      if (data.isEmpty) {
+        Get.find<ListingsWebController>()
+            .listingsWebState(ListingsWebState.empty);
+      } else {
+        Get.find<ListingsWebController>()
+            .listingsWebState(ListingsWebState.loaded);
       }
     },
     child: CloudStorage().imageLoaderProvider(

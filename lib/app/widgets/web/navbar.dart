@@ -1,4 +1,6 @@
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
+import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/dashboard_web.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +8,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../presentation/global.dart';
+import '../../../presentation/website/agents/pages/settingAgent.dart';
 import '../../../presentation/website/authentication.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
+import '../../constants/strings.dart';
 import '../../constants/theme.dart';
 import '../app_text.dart';
-import '../button.dart';
 
 class Navbar extends GetResponsiveView<HomsController> {
   Navbar()
@@ -64,27 +67,47 @@ class Navbar extends GetResponsiveView<HomsController> {
             //_showOverlay(),
             Spacer(),
             //  if()
-
-            Builder(
-              builder: (context){
-                return Padding(
-                  padding: EdgeInsets.only(right: 20.w),
-                  child: Button(
-                    borderRadius: BorderRadius.circular(20),
-                    width: 300.w,
-                    onTap: () {
-                      user == null
-                          ? showAuthenticationDialog()
-                          : Authentication().logout();
+            user == null
+                ? Builder(
+                    builder: (context) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 20.w),
+                        child: Button(
+                          borderRadius: BorderRadius.circular(20),
+                          width: 300.w,
+                          onTap: () {
+                            showAuthenticationDialog();
+                          },
+                          text: "AGENT/BROKER LOGIN",
+                          bgColor: AppColors.kRedColor,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      );
                     },
-                    text: user == null ? "AGENT/BROKER LOGIN" : "LOGOUT",
-                    bgColor: AppColors.kRedColor,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                );
-              },
-            )
+                  )
+                : _showOverlayProfile(),
+
+            // IconButton(
+            //   onPressed: () {
+            //     print('buittonclicksaasdasd');
+            //     OverlayPortal(
+            //       controller: controller.controllerOverlay,
+            //       overlayChildBuilder: (BuildContext context) {
+            //         return Positioned(
+            //           right: 50,
+            //           bottom: 50,
+            //           child: ColoredBox(
+            //             color: Colors.amberAccent,
+            //             child: Text('tooltip'),
+            //           ),
+            //         );
+            //       },
+            //     );
+            //   },
+            //   icon: Icon(Icons.person),
+            //   iconSize: 50,
+            // ),
           ],
         ),
       ),
@@ -134,6 +157,7 @@ class Navbar extends GetResponsiveView<HomsController> {
           ],
         ),
       ));
+      //TODO NIKKO ERROR navbar more when user is login
       if (item == 'HELP') {
         navItems.add(
           _showOverlay(),
@@ -141,6 +165,113 @@ class Navbar extends GetResponsiveView<HomsController> {
       }
     }
     return navItems;
+  }
+
+  Widget _showOverlayProfile() {
+    return GestureDetector(
+      onTap: () {
+        controller.controllerOverlay.isShowing
+            ? controller.controllerOverlay.hide()
+            : controller.controllerOverlay.show();
+      },
+      child: CompositedTransformTarget(
+        link: controller.link,
+        child: OverlayPortal(
+          controller: controller.controllerOverlay,
+          overlayChildBuilder: (BuildContext context) {
+            return Positioned(
+              top: 120.h,
+              left: Get.width / 1.4,
+              child: Align(
+                alignment: AlignmentDirectional.topStart,
+                child: MenuWidget(
+                    width: 300.w,
+                    child: ListView(
+                      children: [
+                        ListTile(
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(Icons.person),
+                              sbw10(),
+                              EraText(
+                                text: 'Profile',
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: EraTheme.subHeader,
+                                textAlign: TextAlign.start,
+                              ),
+                            ],
+                          ),
+                          trailing: Icon(Icons.navigate_next),
+                          onTap: () {
+                            print('Profile clicked');
+                          },
+                        ),
+                        ListTile(
+                          title: GestureDetector(
+                            onTap: () => Get.to(() => SettingsPageWeb()),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(Icons.settings),
+                                sbw10(),
+                                EraText(
+                                  text: 'Settings',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: EraTheme.subHeader,
+                                  textAlign: TextAlign.start,
+                                ),
+                              ],
+                            ),
+                          ),
+                          trailing: Icon(Icons.navigate_next),
+                          onTap: () {
+                            print('Profile clicked');
+                          },
+                        ),
+                        ListTile(
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(Icons.logout),
+                              sbw10(),
+                              EraText(
+                                text: 'Logout',
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: EraTheme.subHeader,
+                                textAlign: TextAlign.start,
+                              ),
+                            ],
+                          ),
+                          trailing: Icon(Icons.navigate_next),
+                          onTap: () {
+                            Authentication().logout();
+                          },
+                        ),
+                      ],
+                    )),
+              ),
+            );
+          },
+          child: GestureDetector(
+            onTap: () {
+              controller.controllerOverlay.toggle();
+            },
+            child: agentProfile(),
+          ),
+
+          //  IconButton(
+          //   onPressed: () {
+          //   },
+          //   icon: Icon(Icons.person),
+          //   iconSize: 50,
+          // ),
+        ),
+      ),
+    );
   }
 
   Widget _showOverlay() {
@@ -271,4 +402,53 @@ class Navbar extends GetResponsiveView<HomsController> {
             ),
     );
   }
+}
+
+class MenuWidget extends StatelessWidget {
+  const MenuWidget({
+    super.key,
+    this.width,
+    this.child,
+  });
+  final Widget? child;
+  final double? width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width ?? 200,
+      height: 180.h,
+      child: Card(
+        color: AppColors.white,
+        child: child,
+      ),
+    );
+  }
+}
+
+Widget agentProfile() {
+  return Container(
+    width: 200.w,
+    height: 100.h,
+    decoration: BoxDecoration(
+        border: Border.all(
+          width: 4,
+          color: AppColors.white,
+        ),
+        boxShadow: [
+          BoxShadow(
+              spreadRadius: 2,
+              blurRadius: 10,
+              color: Colors.black.withOpacity(0.1),
+              offset: Offset(0, 10))
+        ],
+        shape: BoxShape.circle,
+      //TODO NIKKO temporary image, please replace with user image 
+
+       
+        image: DecorationImage(
+            fit: BoxFit.contain, image: AssetImage(AppEraAssets.whatsappIcon))),
+
+    // NetworkImage(user!.image ?? AppEraAssets.whatsappIcon)),
+  );
 }

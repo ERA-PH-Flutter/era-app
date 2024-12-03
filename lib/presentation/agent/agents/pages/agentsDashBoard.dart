@@ -503,7 +503,8 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
   }
 
   Widget findAgentsandOffices() {
-    return SizedBox(
+    return Container(
+      color: AppColors.black,
       width: Get.width,
       height: 200.h,
       child: Column(
@@ -538,21 +539,18 @@ class AgentDashBoard extends GetView<AgentDashboardController> {
                   var user =
                       EraUser.fromJSON(snapshot.data!.docs[random].data());
                   children.add(
-                    SizedBox(
-                      //   cSizedBoxColors.kRedColor,
-                      height: 160.h,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 10.w),
-                        child: Column(
-                          children: [
-                            iconAgents(
-                                user.image ?? AppStrings.noUserImageWhite, () {
-                              Get.to(AgentListings(),
-                                  arguments: [user.id],
-                                  binding: AgentListingsBinding());
-                            }, "${user.firstname} ${user.lastname}"),
-                          ],
-                        ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 10.w),
+                      child: Column(
+                        children: [
+                          iconAgents(user.image ?? AppStrings.noUserImageWhite,
+                              () {
+                            Get.to(AgentListings(),
+                                arguments: [user.id],
+                                binding: AgentListingsBinding());
+                          }, "${user.firstname} ${user.lastname}"),
+                          sb100(),
+                        ],
                       ),
                     ),
                   );
@@ -770,3 +768,5 @@ Widget settingIcon(Function()? onTap) {
     ),
   );
 }
+
+

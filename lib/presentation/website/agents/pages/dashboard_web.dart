@@ -7,22 +7,20 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/app/widgets/listings/agentInfo-widget.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
-import 'package:eraphilippines/presentation/agent/agents/pages/settingAgent.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agent_dashboard_controller.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
-import '../../../../app/widgets/custom_appbar.dart';
-import '../../../../repository/user.dart';
+import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../global.dart';
 
 class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
@@ -52,41 +50,47 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 AgentDashboardWebState.loading) {
               return _loading();
             } else {
-              return Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: EraTheme.paddingWidth, vertical: 10.h),
-                    child: Column(
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: EraTheme.paddingWidthAdmin * 3),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        EraText(
-                          text:
-                              '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : ''}',
-                          fontSize: 20.sp,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        SizedBox(height: 10.h),
-                        EraText(
-                          text: 'Welcome to your Dashboard!',
-                          fontSize: 25.sp,
-                          color: AppColors.kRedColor,
-                          fontWeight: FontWeight.w600,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            EraText(
+                              text:
+                                  '${user != null ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname}'.capitalize : DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon, Hannah' : 'Good Evening, Hannah'}',
+                              fontSize: EraTheme.headerWeb,
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            SizedBox(height: 10.h),
+                            EraText(
+                              text: 'Welcome to your Dashboard!',
+                              fontSize: EraTheme.subHeaderWeb,
+                              color: AppColors.kRedColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ],
                         ),
                         sb10(),
 
                         SizedBox(height: 10.h),
-                        // AgentInfoWidget.agentInformation(
-                        //   imageProvider: user!.image != null
-                        //       ? user!.image!
-                        //       : AppStrings.noUserImageWhite,
-                        //   firstName: '${user!.firstname}',
-                        //   lastName: '${user!.lastname}',
-                        //   whatsApp: '${user!.whatsApp}',
-                        //   email: '${user!.email}',
-                        //   role: '${user!.role}',
-                        // ),
+                        AgentInfoWidget.agentInformationWeb(
+                          imageProvider: user!.image != null
+                              ? user!.image!
+                              : AppStrings.noUserImageWhite,
+                          firstName: '${user!.firstname}',
+                          lastName: '${user!.lastname}',
+                          whatsApp: '${user!.whatsApp}',
+                          email: '${user!.email}',
+                          role: '${user!.role}',
+                        ),
                         SizedBox(height: 25.h),
 
                         // Row(
@@ -107,27 +111,30 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                         //     })
                         //   ],
                         // ),
-                        // SizedBox(height: 25.h),
-                        // myListings(),
-                        // SizedBox(height: 25.h),
-                        // favorites(),
-                        // SizedBox(height: 25.h),
-                        // archivedListing(),
-                        // SizedBox(height: 25.h),
-                        // soldProperties(),
-                        // SizedBox(height: 25.h),
-                        // myTrainings(),
-                        // SizedBox(height: 25.h),
-                        // findAgentsandOffices(),
-                        // SizedBox(height: 25.h),
+                        SizedBox(height: 25.h),
+                        myListings(),
+                        SizedBox(height: 25.h),
+                        favorites(),
+                        SizedBox(height: 25.h),
+                        archivedListing(),
+                        SizedBox(height: 25.h),
+                        soldProperties(),
+                        SizedBox(height: 25.h),
+                        myTrainings(),
+                        SizedBox(height: 25.h),
+                        findAgentsandOffices(),
+                        SizedBox(height: 25.h),
 
-                        // eraMerch(),
+                        //   eraMerch(),
                       ],
                     ),
-                  ),
-                  latestNews(),
-                  SizedBox(height: 25.h),
-                ],
+                    sb25(),
+
+                    //TODO NIKKO company news is not showing
+                    latestNews(),
+                    SizedBox(height: 25.h),
+                  ],
+                ),
               );
             }
           }),
@@ -145,7 +152,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
         EraText(
           text: 'SOLD PROPERTIES',
           color: AppColors.kRedColor,
-          fontSize: EraTheme.header - 5.sp,
+          fontSize: EraTheme.subHeaderWeb,
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
@@ -162,8 +169,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 },
                 child: Image.asset(
                   AppEraAssets.sold,
-                  height: 110.h,
-                  width: 110.w,
+                  height: 150.h,
+                  width: 150.w,
                 ),
               ),
             ],
@@ -180,7 +187,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
         EraText(
           text: 'ARCHIVED LISTINGS',
           color: AppColors.kRedColor,
-          fontSize: EraTheme.header - 5.sp,
+          fontSize: EraTheme.subHeaderWeb,
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
@@ -194,8 +201,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 },
                 child: Image.asset(
                   AppEraAssets.archived,
-                  height: 110.h,
-                  width: 110.w,
+                  height: 150.h,
+                  width: 150.w,
                 ),
               ),
             ],
@@ -212,7 +219,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
         EraText(
           text: 'FAVORITES',
           color: AppColors.kRedColor,
-          fontSize: EraTheme.header - 5.sp,
+          fontSize: EraTheme.subHeaderWeb,
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
@@ -288,8 +295,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 },
                 child: Image.asset(
                   AppEraAssets.fav,
-                  height: 110.h,
-                  width: 110.w,
+                  height: 150.h,
+                  width: 150.w,
                 ),
               ),
             ],
@@ -300,33 +307,29 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
   }
 
   Widget eraMerch() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        EraText(
-          text: 'ERA MERCH',
-          color: AppColors.kRedColor,
-          fontSize: EraTheme.header - 5.sp,
-          fontWeight: FontWeight.w600,
-        ),
-        SizedBox(height: 10.h),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              latestNewIcon('assets/icons/eramerch1.png', () {}),
-              SizedBox(width: 10.w),
-              latestNewIcon('assets/icons/eramerch2.png', () {}),
-              SizedBox(width: 10.w),
-              latestNewIcon('assets/icons/eramerch3.png', () {}),
-              SizedBox(width: 10.w),
-              latestNewIcon('assets/icons/eramerch4.png', () {}),
-              SizedBox(width: 10.w),
-              latestNewIcon(AppEraAssets.clickFM, () {}),
-            ],
+    return Container(
+      color: AppColors.hint,
+      height: 500.h,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          EraText(
+            text: 'ERA MERCH',
+            color: AppColors.kRedColor,
+            fontSize: EraTheme.subHeaderWeb,
+            fontWeight: FontWeight.w600,
           ),
-        ),
-      ],
+          sb10(),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                latestNewIcon(AppEraAssets.clickFM, () {}),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -336,6 +339,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 50.h,
@@ -363,10 +367,13 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
             SizedBox(
               height: 5.h,
             ),
+            SizedBox(
+              height: 5.h,
+            ),
             EraText(
               text:
                   'Stay updated with ERA Philippines\' latest services and innovations in real estate excellence',
-              fontSize: EraTheme.subHeader - 2.sp,
+              fontSize: EraTheme.paragraphWeb,
               fontWeight: FontWeight.w500,
               color: AppColors.hint,
             ),
@@ -387,7 +394,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 itemCount: controller.news.length,
                 itemBuilder: (context, i) => GestureDetector(
                   onTap: () {
-                    Get.to(() => CompanyNewsPage(
+                    Get.to(() => CompanyNewsPageWeb(
                         title: controller.news[i].title,
                         image: controller.news[i].image,
                         description: controller.news[i].description));
@@ -466,68 +473,56 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
   }
 
   Widget findAgentsandOffices() {
-    return SizedBox(
-      width: Get.width,
-      height: 200.h,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'FIND AGENTS AND OFFICES',
-            color: AppColors.kRedColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-          ),
-          SizedBox(height: 10.h),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('users')
-                  .where('status', isEqualTo: 'approved')
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: 'FIND AGENTS AND OFFICES',
+          color: AppColors.kRedColor,
+          fontSize: EraTheme.subHeaderWeb,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: 10.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('users')
+                .where('status', isEqualTo: 'approved')
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              }
+              List<Widget> children = [];
+              List randomIndex = [];
+              for (int i = 0; i < min(5, snapshot.data!.docs.length); i++) {
+                var random = Random().nextInt(snapshot.data!.docs.length);
+                while (randomIndex.contains(random)) {
+                  random = Random().nextInt(snapshot.data!.docs.length);
                 }
-                List<Widget> children = [];
-                List randomIndex = [];
-                for (int i = 0; i < min(5, snapshot.data!.docs.length); i++) {
-                  var random = Random().nextInt(snapshot.data!.docs.length);
-                  while (randomIndex.contains(random)) {
-                    random = Random().nextInt(snapshot.data!.docs.length);
-                  }
-                  randomIndex.add(random);
-                  var user =
-                      EraUser.fromJSON(snapshot.data!.docs[random].data());
-                  children.add(
-                    SizedBox(
-                      //   cSizedBoxColors.kRedColor,
-                      height: 160.h,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 10.w),
-                        child: Column(
-                          children: [
-                            iconAgents(
-                                user.image ?? AppStrings.noUserImageWhite, () {
-                              Get.to(AgentListings(),
-                                  arguments: [user.id],
-                                  binding: AgentListingsBinding());
-                            }, "${user.firstname} ${user.lastname}"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                }
-                return Row(
-                  children: children,
+                randomIndex.add(random);
+                var user = EraUser.fromJSON(snapshot.data!.docs[random].data());
+                children.add(
+                  Row(
+                    children: [
+                      iconAgents(user.image ?? AppStrings.noUserImageWhite, () {
+                        Get.to(AgentListings(),
+                            arguments: [user.id],
+                            binding: AgentListingsBinding());
+                      }, "${user.firstname} ${user.lastname}"),
+                      sbw10(),
+                    ],
+                  ),
                 );
-              },
-            ),
+              }
+              return Row(
+                children: children,
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -538,7 +533,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
         EraText(
           text: 'MY TRAININGS',
           color: AppColors.kRedColor,
-          fontSize: EraTheme.header - 5.sp,
+          fontSize: EraTheme.subHeaderWeb,
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
@@ -564,7 +559,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
         EraText(
           text: 'MY LISTINGS',
           color: AppColors.kRedColor,
-          fontSize: EraTheme.header - 5.sp,
+          fontSize: EraTheme.subHeaderWeb,
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
@@ -580,8 +575,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 },
                 child: Image.asset(
                   AppEraAssets.addIcon,
-                  height: 110.h,
-                  width: 110.w,
+                  width: 140.w,
+                  height: 150.h,
                 ),
               ),
               //todo insert random
@@ -653,8 +648,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 },
                 child: Image.asset(
                   AppEraAssets.manageListings,
-                  height: 110.h,
-                  width: 110.w,
+                  height: 150.h,
+                  width: 150.w,
                 ),
               ),
             ],
@@ -669,28 +664,27 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
       onTap: onTap,
       child: Image.asset(
         assetPath,
-        height: 110.h,
-        width: 110.w,
+        width: 140.w,
+        height: 150.h,
       ),
     );
   }
 }
 
 Widget iconAgents(String assetPath, Function()? onTap, String name) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Column(
-      children: [
-        CloudStorage().imageLoaderProvider(
-            height: 110.h,
-            width: 110.w,
-            reference: assetPath,
-            borderRadius: BorderRadius.circular(10.r)),
-        ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: 120.w,
-          ),
-          child: EraText(
+  return Container(
+    width: 140.w,
+    height: 200.h,
+    child: GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          CloudStorage().imageLoaderProvider(
+              height: 150.h,
+              width: 150.w,
+              reference: assetPath,
+              borderRadius: BorderRadius.circular(10.r)),
+          EraText(
             text: name,
             textAlign: TextAlign.center,
             color: AppColors.blue,
@@ -698,8 +692,8 @@ Widget iconAgents(String assetPath, Function()? onTap, String name) {
             fontWeight: FontWeight.bold,
             textOverflow: TextOverflow.ellipsis,
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
@@ -715,8 +709,8 @@ Widget latestNewIcon(String assetPath, Function()? onTap) {
           fit: BoxFit.cover,
         ),
       ),
-      height: 90.h,
-      width: 90.w,
+      height: 120.h,
+      width: 120.w,
     ),
   );
 }

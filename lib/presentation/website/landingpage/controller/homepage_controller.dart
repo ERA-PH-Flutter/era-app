@@ -28,13 +28,15 @@ class HomsController extends GetxController {
   RxInt navBarSelectedIndex = 0.obs;
   RxBool isMoreSelected = false.obs;
   var isNavbarVisible = true.obs;
+  var link = LayerLink();
+  double? buttonWidth;
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
   var controllerOverlay = OverlayPortalController();
   ScrollController scrollController = ScrollController();
 
   RxList<Widget> pages = [
-    // AgentDashBoardWeb(),
+    AgentDashBoardWeb(),
     HomeWeb(), //0
     ProjectsList(), //1
     BuyWeb(), //2
