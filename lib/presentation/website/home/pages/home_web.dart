@@ -30,6 +30,7 @@ import '../../../../app/widgets/navigation/customenavigationbar.dart';
 import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
 import '../../landingpage/controller/homepage_controller.dart' as a;
+import '../../landingpage/controller/homepage_controller.dart';
 import '../../listings/controllers/listings_web_controller.dart';
 
 List<String> imagePaths = [
@@ -463,12 +464,11 @@ class HomeWeb extends GetView<HomeWebController> {
                               color: AppColors.kRedColor),
                           GestureDetector(
                             onTap: () {
-                              // HomsController controller =
-                              //     Get.find<HomsController>();
-                              // controller.goToCompanyNewsPage();
-                            //TODO NIKKO navbar will show when clicked 
-                              selectedIndex.value = 9;
-                              Get.toNamed(RouteString.homs);
+                              HomsController controller =
+                                  Get.find<HomsController>();
+                              Get.to(CompanyNewsPageWeb(),);
+                            //TODO NIKKO navbar will show when clicked
+                              // Get.toNamed(RouteString.homs);
                             },
                             child: EraText(
                                 text: 'See all',

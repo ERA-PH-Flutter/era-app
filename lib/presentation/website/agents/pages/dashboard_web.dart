@@ -354,7 +354,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                     color: AppColors.kRedColor),
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed("/companynews");
+                    Get.to(CompanyNewsPageWeb());
                   },
                   child: EraText(
                       text: 'See all',

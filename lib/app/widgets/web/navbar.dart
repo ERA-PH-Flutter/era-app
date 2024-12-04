@@ -1,8 +1,10 @@
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/dashboard_web.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -62,7 +64,7 @@ class Navbar extends GetResponsiveView<HomsController> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: _buildNavItems(controller.items.sublist(0, 5)),
+              children: _buildNavItems(controller.items.sublist(0, 6)),
             ),
             //_showOverlay(),
             Spacer(),
@@ -157,7 +159,6 @@ class Navbar extends GetResponsiveView<HomsController> {
           ],
         ),
       ));
-      //TODO NIKKO ERROR navbar more when user is login
       if (item == 'HELP') {
         navItems.add(
           _showOverlay(),
@@ -427,28 +428,41 @@ class MenuWidget extends StatelessWidget {
 }
 
 Widget agentProfile() {
-  return Container(
-    width: 200.w,
+  return CloudStorage().imageLoaderProvider(
+    reference: user!.image,
+    width: 100.h,
     height: 100.h,
-    decoration: BoxDecoration(
-        border: Border.all(
-          width: 4,
-          color: AppColors.white,
-        ),
-        boxShadow: [
-          BoxShadow(
-              spreadRadius: 2,
-              blurRadius: 10,
-              color: Colors.black.withOpacity(0.1),
-              offset: Offset(0, 10))
-        ],
-        shape: BoxShape.circle,
-      //TODO NIKKO temporary image, please replace with user image 
-
-       
-        image: DecorationImage(
-            fit: BoxFit.contain, image: AssetImage(AppEraAssets.whatsappIcon))),
-
-    // NetworkImage(user!.image ?? AppEraAssets.whatsappIcon)),
+    borderRadius: BorderRadius.circular(999),
+    shadow: [
+      BoxShadow(
+          spreadRadius: 2,
+          blurRadius: 10,
+          color: Colors.black.withOpacity(0.2),
+          offset: Offset(1, 1))
+    ],
   );
+  // return Container(
+  //   width: 200.w,
+  //   height: 100.h,
+  //   decoration: BoxDecoration(
+  //       border: Border.all(
+  //         width: 4,
+  //         color: AppColors.white,
+  //       ),
+  //       boxShadow: [
+  //         BoxShadow(
+  //             spreadRadius: 2,
+  //             blurRadius: 10,
+  //             color: Colors.black.withOpacity(0.1),
+  //             offset: Offset(0, 10))
+  //       ],
+  //       shape: BoxShape.circle,
+  //
+  //
+  //
+  //       image: DecorationImage(
+  //           fit: BoxFit.contain, image: (AppEraAssets.whatsappIcon))),
+  //
+  //   // NetworkImage(user!.image ?? AppEraAssets.whatsappIcon)),
+  // );
 }

@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../presentation/website/news/controllers/news_controller.dart';
+import 'navbar.dart';
 
 class CompanyNewsPageWeb extends GetView<NewsWebController> {
   final String? title;
@@ -35,35 +36,40 @@ class CompanyNewsPageWeb extends GetView<NewsWebController> {
         // ),
         Padding(
       padding: EdgeInsets.all(EraTheme.paddingWidthAdmin + 10.w),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(
-              text: title!,
-              color: AppColors.kRedColor,
-              fontSize: EraTheme.headerWeb,
-              fontWeight: FontWeight.bold,
-              textAlign: TextAlign.start,
+      child: Column(
+        children: [
+          Navbar(),
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EraText(
+                  text: title ?? "",
+                  color: AppColors.kRedColor,
+                  fontSize: EraTheme.headerWeb,
+                  fontWeight: FontWeight.bold,
+                  textAlign: TextAlign.start,
+                ),
+                SizedBox(height: 10.h),
+                CloudStorage().imageLoader(
+                  ref: image,
+                  height: Get.height,
+                  width: Get.width,
+                ),
+                SizedBox(height: 20.h),
+                EraText(
+                  text: description!,
+                  color: AppColors.black.withOpacity(0.8),
+                  fontSize: EraTheme.paragraphWeb,
+                  textAlign: TextAlign.start,
+                  maxLines: 100,
+                  fontWeight: FontWeight.w400,
+                ),
+                SizedBox(height: 20.h),
+              ],
             ),
-            SizedBox(height: 10.h),
-            CloudStorage().imageLoader(
-              ref: image,
-              height: Get.height,
-              width: Get.width,
-            ),
-            SizedBox(height: 20.h),
-            EraText(
-              text: description!,
-              color: AppColors.black.withOpacity(0.8),
-              fontSize: EraTheme.paragraphWeb,
-              textAlign: TextAlign.start,
-              maxLines: 100,
-              fontWeight: FontWeight.w400,
-            ),
-            SizedBox(height: 20.h),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
