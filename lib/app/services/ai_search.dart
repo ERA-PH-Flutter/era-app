@@ -1,203 +1,399 @@
-// ignore_for_file: unused_import
-
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
-import 'package:eraphilippines/repository/user.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:eraphilippines/repository/listing.dart';
+import 'package:eraphilippines/repository/project.dart';
 import 'package:get/get.dart';
 
-class AI{
+class AI {
   String query;
-  final gemini = Gemini.instance;
-  AI({
-    required this.query
-  });
-  userSearch()async{
-    String t1 = "write an mysql string text using this text search ${query.toLowerCase()} here are the available properties for mysql ";
-    String t2 = " dont use LIKE but use equals instead also it is okay to be null if its not specified in the prompt if its null never mind it make it simple, give me mysql only, don't add any other text, no new lines'";
-    String prompt = "$t1(location (location is valid location in philippines leave blank if not in input) , full_name(do not separate by space use comma)$t2 example: SELECT * FROM users WHERE full_name='john' AND location='manila'";
-
-    BaseController().showLoading();
-    var toReturn;
-    await gemini.text(prompt).then((value)async{
-      String results = value!.output!;
-      print(results);
-      results = results.replaceAll('`', "");
-      var res = results.split("WHERE")[1].replaceAll("'","").replaceAll(" ","").replaceAll(',',' ').split("AND");
-      print("res : " + res.toString());
-      Query query = FirebaseFirestore.instance.collection('users');
-      // for(int i = 0;i<res.length;i++){
-      //
-      // }
-      if(res.length == 1){
-        if(res.first.contains('full_name')){
-          query = query.where('full_name', isGreaterThanOrEqualTo: res.first.split('=')[1])
-              .where('full_name', isLessThanOrEqualTo:  '${res.first.split('=')[1]}\uf8ff');
-        }else if (res.first.contains('location')) {
-          query = query.where('location', isGreaterThanOrEqualTo: res.first.split('=')[1]);
-        }
-        toReturn = (await query.get()).docs;
-        print(toReturn);
-      }else if(res.length == 2){
-        var list = [];
-        if(res.first.contains('full_name')){
-          query = query.where('full_name', isGreaterThanOrEqualTo: res.first.split('=')[1])
-              .where('full_name', isLessThanOrEqualTo:  '${res.first.split('=')[1]}\uf8ff');
-        }
-        var docs = (await query.get()).docs;
-        docs.forEach((doc){
-          Map<String,dynamic> a = doc.data() as Map<String,dynamic>;
-          if(a['location'] == res[1].split('=')[1]){
-            print(doc);
-            list.add(doc);
-          }
-        });
-        toReturn = list;
-      }else{
-        toReturn = [];
-      }
-      //print(toReturn);
-    }).catchError((e,ex) => print(ex));
-    BaseController().hideLoading();
-    return toReturn;
-  }
-  search()async{
-    String t1 = "write an mysql string text using this text search ${query.toLowerCase()} here are the available properties for mysql ";
-    String t2 = " dont use LIKE but use equals instead also it is okay to be null if its not specified in the prompt if its null never mind it make it simple, give me mysql only, don't add any other text, no new lines, example: SELECT * FROM properties WHERE location = 'makati'";
-    String type = "type (apartment, condominium, house and lot, townhouse, commercial, industrial, agricultural, land, foreclosed, pre_selling, rent_to_own, others) this is not required and do not add default values";
-    String view = "view ( sunset, sunrise, mountain, beach, city etc.)";
-    String subCategory = "sub_category (apartment, house, lot, office, retail, warehouse, commercial, residential, condominium, townhouse, others)";
-    String amenities = "amenities (gym or landmarks nearby)";
-    String status = "status (rent, sale) this is not required";
-    String prompt = "$t1(location (if not complete please make it complete don not use space for example (makati, change it to makati,city), $type, $status, size, beds, baths, balcony, $amenities, cars, $view, price, $subCategory)$t2";
-
-    BaseController().showLoading();
-    var toReturn;
-    await gemini.text(prompt)
-      .then((value)async{
-        toReturn = await process(value?.output!);
-        print(value?.output);
-      }).catchError((e,ex) => print(ex));
-    BaseController().hideLoading();
-    return toReturn;
-  }
-  process(results)async{
-    results = results.replaceAll('`', "");
-    results = results.split("WHERE")[1].replaceAll("'","").replaceAll(" ","").replaceAll(',',' ').split("AND");
-    return await getProperties(results);
-  }
-  getProperties(List<String> filters) async {
-    Query query = FirebaseFirestore.instance.collection('listings');
-    var except = ["cars","baths","view","name","owner","price","beds","size","id","balcony","amenities","area","by","description","floor_area","landmarks"];
-    var additionalFilters = [];
-    for (final filter in filters) {
-      if(filter.contains("<=")){
-        var parts = filter.split("<=");
-        final field = parts[0].toLowerCase();
-        final value = (field == "type" || field == "sub_category") ? parts[1].capitalize ?? "" : "type";
-        if(except.contains(field)){
-          additionalFilters.add(AiFilters(
-            field: field,
-            value: value,
-            operator: "<="
-          ));
-          continue;
-        }
-        query = query.where(field, isLessThanOrEqualTo: int.tryParse(value) ?? value);
-      }
-      else if(filter.contains(">=")){
-        var parts = filter.split(">=");
-        final field = parts[0].toLowerCase();
-        final value = (field == "type" || field == "sub_category") ? parts[1].capitalize ?? "" : "type";
-        if(except.contains(field)){
-          additionalFilters.add(AiFilters(
-              field: field,
-              value: value,
-              operator: ">="
-          ));
-          continue;
-        }
-        query = query.where(field, isGreaterThanOrEqualTo: int.tryParse(value) ?? value);
-      }
-      else if(filter.contains("=")){
-        var parts = filter.split("=");
-        final field = parts[0].toLowerCase();
-        final value = (field == "type" || field == "sub_category") ? parts[1].capitalize ?? "" : "type";
-        if(except.contains(field)){
-          additionalFilters.add(AiFilters(
-              field: field,
-              value: value,
-              operator: "="
-          ));
-          continue;
-        }
-        query = query.where(field, isEqualTo: int.tryParse(value) ?? value);
-      }
-      else if(filter.contains(">")){
-        var parts = filter.split(">");
-        final field = parts[0].toLowerCase();
-        final value = (field == "type" || field == "sub_category") ? parts[1].capitalize ?? "" : "type";
-        if(except.contains(field)){
-          additionalFilters.add(AiFilters(
-              field: field,
-              value: value,
-              operator: ">"
-          ));
-          continue;
-        }
-        query = query.where(field, isGreaterThan: int.tryParse(value) ?? value);
-      }
-      else if(filter.contains("<")){
-        var parts = filter.split("<");
-        final field = parts[0].toLowerCase();
-        final value = (field == "type" || field == "sub_category") ? parts[1].capitalize ?? "" : "type";
-        if(except.contains(field)){
-          additionalFilters.add(AiFilters(
-              field: field,
-              value: value,
-              operator: "<"
-          ));
-          continue;
-        }
-        query = query.where(field, isLessThan: int.tryParse(value) ?? value);
-      }
-      else{
-
-      }
-
-    }
-    var ab = [];
-    var ac = [];
-    await query.get().then((QuerySnapshot snapshot){
-      var a = snapshot.docs;
-
-      for (var b in a) {
-       ab.add(b.data());
-      }
-
-      for (var af in additionalFilters) {
-        af.operate(ab) != null ? ac.add(af.operate(ab)) : null;
-      }
-      ac = additionalFilters.isEmpty ? ab : ac;
+  String key = 'AIzaSyAGrHQ2vwgVgYB6bOP4QyQrRjdIaaGi1Sw';
+  AI({required this.query});
+  userSearch() async {
+    var data = {
+      "full_name": {"type": "string"},
+      "location": {"type": "number"},
+      "id": {"type": "string"}
+    };
+    var result = await geminiSearch(data, name: "userSearch");
+    Query firebaseQuery = FirebaseFirestore.instance.collection('users');
+    result!.forEach((key, value) {
+      firebaseQuery = firebaseQuery
+          .where(key, isGreaterThanOrEqualTo: value)
+          .where(key, isLessThanOrEqualTo: '$value\uf8ff');
     });
-    return ac;
+    return (await firebaseQuery.get()).docs;
   }
-  calculateMortage({
-    amount,downPayment, loanTerm, interest, monthly
-  })async
-  {
-    var prompt = "Calculate mortgage given this data, property amount = $amount php, down payment = $downPayment, loan term = $loanTerm years, interest rate = $interest%, give me the monthly payment, give the value directly, give the number computed only, remove unnecessary explanation";
+
+  Future<List<Project>> projectSearch() async {
+    var geminiData = {
+      "title": {
+        "type": "string",
+      },
+      "developer_name": {
+        "type": "string",
+      },
+      "location": {
+        "type": "string",
+      },
+    };
+    var result = await geminiSearch(geminiData,
+            name: "getProject",
+            description:
+                "Assign accordingly do not assign value if not specified") ??
+        [];
+
+    try {
+      HttpsCallable callable =
+          FirebaseFunctions.instanceFor(region: 'asia-southeast1')
+              .httpsCallable('projectQuery');
+      final res = await callable.call({
+        'searchQuery': [
+          result.values.toList(),
+          ...[query]
+        ].join(',')
+      });
+      final data = (await FirebaseFirestore.instance
+              .collection('projects')
+              .orderBy('order_id')
+              .get())
+          .docs
+          .map((e) => Project.fromJSON({...e.data(), 'id': e.id}));
+
+      final projectIds = res.data ?? [];
+      print('Error calling function: query $query');
+
+      print('Error calling function: res.data ${res.data}');
+
+      return data.where((e) => projectIds.contains(e.id)).toList();
+    } catch (e) {
+      print('Error calling function: $e');
+      return [];
+    }
+  }
+
+  Future<List<Listing>> listingSearch({
+    List<AiFilters> overrideAiFilters = const [],
+  }) async {
+    print('gemini search overrideAiFilters 2 $overrideAiFilters');
+
+    var geminiData = {
+      "price": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "Pre-Selling",
+          "Residential",
+          "Commercial",
+          "Rental",
+          "Auction",
+        ]
+      },
+      "sub_category": {
+        "type": "string",
+        "enum": [
+          "Agricultural",
+          "Apartment",
+          "Commercial",
+          "Condominium",
+          "Factory",
+          "Farm",
+          "Hotel",
+          "House",
+          "Lot",
+          "Industrial Lot",
+          "Office",
+          "Parking Lot",
+          "Resort",
+          "Beach House",
+          "School",
+        ]
+      },
+      "view": {
+        "type": "string",
+        "enum": [
+          "sunset",
+          "sunrise",
+          "sea view",
+          "mountain view",
+          "beach",
+          "city view",
+          "Others"
+        ]
+      },
+      "amenities": {"type": "string"},
+      "status": {
+        "type": "string",
+        "enum": ["sale", "rent", "Others"]
+      },
+      "location": {"type": "string"},
+      "baths": {
+        "type": "object",
+        "properties": {
+          "equals": {"type": "number"},
+        }
+      },
+      "balcony": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
+      "floor_area": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
+      "lot_area": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
+      "ppsqm": {
+        "type": "object",
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"}
+        }
+      },
+      "garage": {
+        "type": "object",
+        "properties": {
+          "equals": {"type": "number"},
+        }
+      },
+      "name": {
+        "type": "string",
+      },
+      "beds": {
+        "type": "object",
+        "properties": {
+          "equals": {"type": "number"},
+        }
+      },
+    };
+    print('gemini search here 1 query $query');
+    if (query.isEmpty && overrideAiFilters.isEmpty) {
+      return (await FirebaseFirestore.instance.collection('listings').get())
+          .docs
+          .map((e) => Listing.fromJSON(e.data()))
+          .toList();
+    }
+    var result = await geminiSearch(geminiData,
+        name: "getListing",
+        description:
+            "Assign accordingly. Do not assign value if not specified.");
+
+    print('gemini search here 1 result listing $result');
+
+    Query<Map<String, dynamic>> firebaseQuery =
+        FirebaseFirestore.instance.collection('listings');
+    List<AiFilters> prompts = [];
+    result!.forEach((key, value) {
+      if (['type', 'sub_category', 'view', 'status'].contains(key)) {
+        if (value != "Others" &&
+            query.toLowerCase().contains(value.toString().toLowerCase())) {
+          var val = checkOperator(value);
+          prompts.add(AiFilters(
+              field: key,
+              value: val[0].toString().capitalizeFirst,
+              operator: val[1]));
+        }
+      } else {
+        List val = checkOperator(value);
+        print('gemini search here 1 val val $val');
+
+        for (int i = 0; i < val.length; i += 2) {
+          prompts
+              .add(AiFilters(field: key, value: val[i], operator: val[i + 1]));
+        }
+      }
+    });
+    // ai cannot be trusted
+    print('gemini search overrideAiFilters $overrideAiFilters');
+    for (var ov in overrideAiFilters) {
+      if (!prompts
+          .map((e) => '${e.field}/${e.operator}')
+          .contains('${ov.field}/${ov.operator}')) {
+        prompts.add(ov);
+      }
+    }
+    Iterable<Listing> listingData = [];
+    for (var element in prompts) {
+      print(
+          'gemini search result ${element.field} ${element.operator} ${element.value}');
+    }
+    try {
+      listingData = (await firebaseQuery.get())
+          .docs
+          .map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
+    } catch (e) {
+      return [];
+    }
+
+    final Map<Listing, double> filteredData = {};
+    for (var data in listingData) {
+      double score = 0;
+      bool minMatch = true;
+      bool maxMatch = true;
+      bool equalsMatch = true;
+      for (int i = 0; i < (prompts.length); i++) {
+        if (prompts[i].field == "name") {
+          if (data
+              .toMap()
+              .toString()
+              .toLowerCase()
+              .contains(prompts[i].value.toString().toLowerCase())) {
+            score++;
+          }
+          continue;
+        }
+
+        if (prompts[i].operator == ">") {
+          score += .5;
+
+          minMatch =
+              ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value);
+          continue;
+        }
+        if (prompts[i].operator == "<") {
+          score += .5;
+
+          maxMatch =
+              ((data.toMap()[prompts[i].field] ?? 0) <= prompts[i].value);
+          continue;
+        }
+        if (prompts[i].operator == "=") {
+          score++;
+          equalsMatch =
+              ((data.toMap()[prompts[i].field] ?? 0) == prompts[i].value);
+          continue;
+        }
+      }
+      final querySplit = query.split(' ').map((e) => e.toLowerCase());
+      for (var split in querySplit) {
+        if (geminiData.toString().contains(split)) continue;
+        print('gemini search split $split');
+
+        if (double.tryParse(split) == null) {
+          if ((data
+              .toMap()
+              .toString()
+              .toLowerCase()
+              .contains(split.toLowerCase()))) {
+            score = score + 0.3;
+          }
+        }
+      }
+
+      if (score >= 1 && (minMatch && maxMatch && equalsMatch)) {
+        filteredData[data] = score;
+      }
+    }
+
+    var sortedEntries = filteredData.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    Map<Listing, double> sortedScores = {
+      for (var entry in sortedEntries) entry.key: entry.value
+    };
+
+    return sortedScores.keys.toList();
+  }
+
+  faqSearch() async {
     BaseController().showLoading();
-    var toReturn;
-    await gemini.text(prompt)
-        .then((value)async{
-      toReturn = value?.output!;
-      print(value?.output);
-    }).catchError((e) => print(e));
+    var data = {
+      "question": {"type": "string"},
+    };
+    var result = await geminiSearch(data,
+        name: "faqSearch", description: 'use the prompt and parse it');
+    Query firebaseQuery = FirebaseFirestore.instance.collection('faq');
+    result!.forEach((key, value) {
+      firebaseQuery = firebaseQuery
+          .where(key, isGreaterThanOrEqualTo: value)
+          .where(key, isLessThanOrEqualTo: '$value\uf8ff')
+          .orderBy('type');
+    });
     BaseController().hideLoading();
-    return toReturn;
+    return (await firebaseQuery.get()).docs;
+  }
+
+  List checkOperator(value) {
+    if ([String, int, bool].contains(value.runtimeType)) {
+      return [value.toLowerCase(), "="];
+    }
+    if (value['min'] != null && value['max'] != null) {
+      return [
+        value['min'],
+        ">",
+        value['max'],
+        "<",
+      ];
+    }
+    if (value['min'] != null) {
+      return [value['min'], ">"];
+    }
+    if (value['max'] != null) {
+      return [value['max'], "<"];
+    }
+    if (value['equals'] != null) {
+      return [value['equals'], "="];
+    }
+    return [];
+  }
+
+  geminiSearch(data, {name = '', description = ''}) async {
+    Map<String, dynamic> body = {
+      if (query.isNotEmpty) ...{
+        "contents": [
+          {
+            "role": "user",
+            "parts": [
+              {"text": query}
+            ]
+          }
+        ]
+      },
+      "tools": [
+        {
+          "functionDeclarations": [
+            {
+              "name": name,
+              "description": description,
+              "parameters": {"type": "object", "properties": data}
+            }
+          ]
+        }
+      ],
+      "toolConfig": {
+        "functionCallingConfig": {"mode": "ANY"}
+      },
+      "generationConfig": {
+        "temperature": 1,
+        "topK": 64,
+        "topP": 0.95,
+        "maxOutputTokens": 8192,
+        "responseMimeType": "text/plain"
+      }
+    };
+    final result = (await GetConnect().post(
+            'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key',
+            body,
+            headers: {'Content-Type': 'application/json'}))
+        .body['candidates']?[0]['content']?['parts']?[0]?['functionCall']?['args'];
+    print('result gemini $result');
+    return result ?? {};
   }
 }

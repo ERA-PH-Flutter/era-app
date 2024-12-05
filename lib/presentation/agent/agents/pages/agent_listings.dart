@@ -151,7 +151,7 @@ class AgentListings extends GetView<AgentListingsController> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10.r),
                         child: CloudStorage().imageLoader(
-                          ref: listing.photos != null
+                          reference: listing.photos != null
                               ? (listing.photos!.isNotEmpty
                                   ? listing.photos!.first
                                   : AppStrings.noUserImageWhite)

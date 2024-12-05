@@ -11,6 +11,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 
 import 'package:eraphilippines/presentation/website/home/controllers/home_web_controller.dart';
+import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
 
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -74,7 +75,7 @@ class HomeWeb extends GetView<HomeWebController> {
       child: Column(
         children: [
           //       SizedBox(
-            //TODO NIKKO  not working
+          //TODO NIKKO  not working
           // width: Get.width,
           // child: Stack(
           //   children: [
@@ -279,7 +280,7 @@ class HomeWeb extends GetView<HomeWebController> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(10.r),
                                   child: CloudStorage().imageLoader(
-                                    ref: listing.photos != null
+                                    reference: listing.photos != null
                                         ? (listing.photos!.isNotEmpty
                                             ? listing.photos!.first
                                             : AppStrings.noUserImageWhite)
@@ -466,8 +467,9 @@ class HomeWeb extends GetView<HomeWebController> {
                             onTap: () {
                               HomsController controller =
                                   Get.find<HomsController>();
-                              Get.to(CompanyNewsPageWeb(),);
-                            //TODO NIKKO navbar will show when clicked
+                              Get.toNamed("/companynews");
+
+                              //TODO NIKKO navbar will show when clicked
                               // Get.toNamed(RouteString.homs);
                             },
                             child: EraText(
@@ -522,7 +524,7 @@ class HomeWeb extends GetView<HomeWebController> {
                                         CrossAxisAlignment.stretch,
                                     children: [
                                       CloudStorage().imageLoader(
-                                        ref: controller.news[i].image,
+                                        reference: controller.news[i].image,
                                         height: 250.h,
                                       ),
                                       Spacer(),

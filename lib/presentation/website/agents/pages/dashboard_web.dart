@@ -408,7 +408,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             CloudStorage().imageLoader(
-                              ref: controller.news[i].image,
+                              reference: controller.news[i].image,
                               height: 250.h,
                             ),
                             Spacer(),

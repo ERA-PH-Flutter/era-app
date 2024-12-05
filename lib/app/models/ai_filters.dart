@@ -1,55 +1,50 @@
-
-class AiFilters{
+class AiFilters {
   String field;
   var value;
   String operator;
-  AiFilters({
-    required this.field,
-    required this.value,
-    required this.operator
-  });
-  operate(datas){
+  AiFilters({required this.field, required this.value, required this.operator});
+  operate(datas) {
     var val;
-    var res = null;
-    try{
+    var res;
+    try {
       val = int.parse(value);
-    }catch(e){
+    } catch (e) {
       val = null;
     }
-    datas.forEach((data){
-      if(val != null){
+    datas.forEach((data) {
+      if (val != null) {
         value = int.tryParse(value);
-        if(operator == ">="){
-          if(data[field] >= value){
+        if (operator == ">=") {
+          if (data[field] >= value) {
+            res = data;
+          }
+        } else if (operator == "<=") {
+          if (data[field] <= value) {
+            res = data;
+          }
+        } else if (operator == "=") {
+          if (data[field] == value) {
+            res = data;
+          }
+        } else if (operator == ">") {
+          if (data[field] > value) {
+            res = data;
+          }
+        } else if (operator == "<") {
+          if (data[field] < value) {
             res = data;
           }
         }
-        else if(operator == "<="){
-          if(data[field] <= value){
-            res = data;
-          }
-        }
-        else if(operator == "="){
-          if(data[field] == value){
-            res = data;
-          }
-        }
-        else if(operator == ">"){
-          if(data[field] > value){
-            res = data;
-          }
-        }
-        else if(operator == "<"){
-          if(data[field] < value){
-            res = data;
-          }
-        }
-      }else{
-        if(data[field] == value){
+      } else {
+        if (data[field] == value) {
           res = data;
         }
       }
     });
     return res;
+  }
+
+  toMap() {
+    return {'value': value, 'field': field, 'operator': operator};
   }
 }

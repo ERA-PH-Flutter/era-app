@@ -28,7 +28,7 @@ class CustomImage extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderradius ?? 0),
         child: CloudStorage().imageLoader(
-          ref: url,
+          reference: url,
           width: Get.width,
           height: Get.height,
         ),

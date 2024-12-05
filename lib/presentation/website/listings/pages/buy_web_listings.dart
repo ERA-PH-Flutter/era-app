@@ -152,7 +152,7 @@ class BuyWeb extends GetView<ListingsWebController> {
                               height: 350.h,
                               width: Get.width,
                               fit: BoxFit.cover,
-                              ref: listing.photos != null
+                              reference: listing.photos != null
                                   ? (listing.photos!.isNotEmpty
                                       ? listing.photos!.first
                                       : AppStrings.noUserImageWhite)

@@ -119,7 +119,7 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
                     child: Column(
                       children: [
                         CloudStorage().imageLoader(
-                          ref: controller.news[i].image,
+                          reference: controller.news[i].image,
                           height: Get.height / 2,
                           width: 400.w,
                           fit: BoxFit.cover,

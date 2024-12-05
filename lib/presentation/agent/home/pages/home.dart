@@ -290,7 +290,7 @@ class Home extends GetView<HomeController> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10.r),
                                 child: CloudStorage().imageLoader(
-                                  ref: listing.photos != null
+                                  reference: listing.photos != null
                                       ? (listing.photos!.isNotEmpty
                                           ? listing.photos!.first
                                           : AppStrings.noUserImageWhite)
@@ -530,7 +530,7 @@ class Home extends GetView<HomeController> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               CloudStorage().imageLoader(
-                                ref: controller.news[i].image,
+                                reference: controller.news[i].image,
                                 height: 250.h,
                               ),
                               Spacer(),

@@ -42,7 +42,7 @@ class AgentProfileCard extends StatelessWidget {
               decoration:
                   BoxDecoration(shape: BoxShape.circle, color: AppColors.hint),
               child: CloudStorage().imageLoader(
-                ref: image ?? '',
+                reference: image ?? '',
                 width: 55.w,
                 height: 55.w,
                 //     fit: BoxFit.cover,

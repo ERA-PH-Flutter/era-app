@@ -52,7 +52,7 @@ class CompanyNewsPageWeb extends GetView<NewsWebController> {
                 ),
                 SizedBox(height: 10.h),
                 CloudStorage().imageLoader(
-                  ref: image,
+                  reference: image,
                   height: Get.height,
                   width: Get.width,
                 ),

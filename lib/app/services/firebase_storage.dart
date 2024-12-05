@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class CloudStorage {
   final ref = FirebaseStorage.instance.ref();
@@ -19,6 +19,36 @@ class CloudStorage {
     } catch (e) {
       return "Error: $e";
     }
+  }
+
+  Future<String> downloadAndSave({
+    required String docRef,
+    required String folder,
+  }) async {
+    try {
+      final bytes = await ref.child(docRef).getData();
+      final appDirectory = Platform.isAndroid
+          ? await getTemporaryDirectory()
+          : await getApplicationDocumentsDirectory();
+      final String imagePath =
+          '${appDirectory.path}/${Uuid().v4()}_${Random().nextInt(100)}.jpg';
+      final File file = File(imagePath);
+      file.create();
+      await file.writeAsBytes(bytes!);
+      return imagePath;
+    } catch (e) {
+      return "error: $e";
+    }
+  }
+
+  Future<void> deleteFile(String filePath) async {
+    try {
+      final File file = File(filePath);
+
+      if (await file.exists()) {
+        await file.delete();
+      }
+    } catch (e) {}
   }
 
   Future<String> getFile({folder, name}) async {
@@ -46,23 +76,33 @@ class CloudStorage {
       return await ref.child(docRef).getData();
     } catch (e) {
       return await ref.child(AppStrings.noUserImageWhite).getData();
-      return "Error: $e";
     }
   }
 
-  Widget imageLoader({ref, height, width, BoxFit? fit}) {
+  Future<Object?> getFilesBytes({
+    required List docRefs,
+  }) async {
+    var files = [];
+    try {
+      for (var docRef in docRefs) {
+        files.add(await ref.child(docRef).getData());
+      }
+      return files;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Widget imageLoader({reference, height, width, BoxFit? fit}) {
     return FutureBuilder(
-      future: getFileDirect(docRef: ref),
+      future: ref.child(reference).getDownloadURL(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return CachedNetworkImage(
-            placeholder: (context, url) =>
-                Center(child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) => Icon(Icons.error),
             imageUrl: snapshot.data!,
             fit: fit ?? BoxFit.cover,
-            width: width,
             height: height,
+            width: width,
           );
         } else {
           return Center(
@@ -81,9 +121,10 @@ class CloudStorage {
     color,
     child,
     shadow,
+    fit,
   }) {
     return FutureBuilder(
-      future: getFileDirect(docRef: reference),
+      future: ref.child(reference).getDownloadURL(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
@@ -94,7 +135,7 @@ class CloudStorage {
                 color: color ?? AppColors.white,
                 boxShadow: shadow ?? [],
                 image: DecorationImage(
-                    fit: BoxFit.cover,
+                    fit: fit ?? BoxFit.cover,
                     image: CachedNetworkImageProvider(
                       snapshot.data!,
                     ))),
@@ -137,12 +178,22 @@ class CloudStorage {
       {required File file, required String target, customName}) async {
     try {
       var filename = file.path.split("/")[file.path.split("/").length - 1];
-      var uploadFilename = "${DateTime.now().microsecondsSinceEpoch}_$filename";
+      var uploadFilename = "${Uuid().v4()}_$filename";
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putFile(file);
       return '$target/${customName ?? uploadFilename}';
-    } catch (e, ex) {
+    } catch (e) {
       return "";
+    }
+  }
+
+  Future<String> uploadCustom({required file, required customName}) async {
+    try {
+      var fileRef = ref.child(customName);
+      await fileRef.putData(file);
+      return customName;
+    } catch (e) {
+      return e.toString();
     }
   }
 
@@ -150,21 +201,19 @@ class CloudStorage {
       {required file, required String target, customName}) async {
     try {
       var filename = "${Random().nextInt(100)}";
-      var uploadFilename =
-          "${DateTime.now().microsecondsSinceEpoch}_$filename.png";
+      var uploadFilename = "${Uuid().v4()}_$filename.png";
       var fileRef = ref.child('$target/${customName ?? uploadFilename}');
       await fileRef.putData(file);
       return '$target/${customName ?? uploadFilename}';
-    } catch (e, ex) {
-      return "";
+    } catch (e) {
+      return "$e";
     }
   }
 
   Future<String> uploadImage({required File image}) async {
     try {
       var filename = image.path.split("/")[image.path.split("/").length - 1];
-      var imageRef = ref.child(
-          'listings/${"${DateTime.now().microsecondsSinceEpoch}_$filename"}');
+      var imageRef = ref.child('listings/${"${Uuid().v4()}_$filename"}');
       await imageRef.putFile(image);
       return await imageRef.getDownloadURL();
     } catch (e) {

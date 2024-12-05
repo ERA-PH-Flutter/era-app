@@ -167,7 +167,7 @@ class FindProperties extends GetView<ListingController> {
                             child: CloudStorage().imageLoader(
                               height: 300.h,
                               width: Get.width,
-                              ref: listing.photos != null
+                              reference: listing.photos != null
                                   ? (listing.photos!.isNotEmpty
                                       ? listing.photos!.first
                                       : AppStrings.noUserImageWhite)

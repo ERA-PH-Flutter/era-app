@@ -40,7 +40,7 @@ class CompanyItems extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             CloudStorage().imageLoader(
-              ref: companyItems.image,
+              reference: companyItems.image,
               height: 250.h,
             ),
             Spacer(),

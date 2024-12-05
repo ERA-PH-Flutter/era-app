@@ -553,7 +553,7 @@ class ProjectViewsWeb {
                             return ClipRRect(
                               borderRadius: BorderRadius.circular(30),
                               child: CloudStorage().imageLoader(
-                                ref: image,
+                                reference: image,
                                 width: Get.width,
                                 height: Get.height,
                               ),
@@ -647,7 +647,7 @@ class ProjectViewsWeb {
       }
       if (block['type'] == "Project Logo") {
         preview[2] = CloudStorage().imageLoader(
-          ref: block['image'],
+          reference: block['image'],
           width: Get.width,
           fit: BoxFit.contain,
           height: Get.height / 2,
@@ -689,7 +689,7 @@ class ProjectViewsWeb {
     for (var block in project.data!) {
       if (block['type'] == "Project Logo") {
         preview[0] = CloudStorage().imageLoader(
-            ref: block['image'],
+            reference: block['image'],
             height: Get.height / 2,
             width: Get.width,
             fit: BoxFit.contain);
@@ -720,7 +720,7 @@ class ProjectViewsWeb {
                   items: block['images'].map<Widget>((image) {
                     return Container(
                       child: CloudStorage().imageLoader(
-                        ref: image,
+                        reference: image,
                         fit: BoxFit.cover,
                         width: Get.width,
                         height: Get.height,

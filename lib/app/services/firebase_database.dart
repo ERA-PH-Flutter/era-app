@@ -12,15 +12,17 @@ class Database {
       return "Error: $error";
     }
   }
-  Future<bool> doDocumentExist(id,{target = 'listings'})async{
-    try{
+
+  Future<bool> doDocumentExist(id, {target = 'listings'}) async {
+    try {
       var docRef = db.collection(target).doc(id);
       var doc = await docRef.get();
       return doc.exists;
-    }catch(e){
+    } catch (e) {
       return false;
     }
   }
+
   //LISTING
   Future<List<Listing>> searchListingsByUserId(String id) async {
     return (await db.collection("listings").where('by', isEqualTo: id).get())
@@ -50,9 +52,9 @@ class Database {
     }
     await query.get().then((snapshot) {
       var a = snapshot.docs;
-      a.forEach((b) {
+      for (var b in a) {
         searchData.add(b.data());
-      });
+      }
     });
     return searchData;
   }
@@ -113,12 +115,13 @@ class Database {
   searchUser({searchParam = "full_name", searchQuery}) async {
     var users = [];
     var docs = (await db
-        .collection('users')
-        .where(searchParam, isGreaterThanOrEqualTo: searchQuery)
-        .where(searchParam, isLessThanOrEqualTo: searchQuery + '\uf8ff')
-        .get()).docs;
-    for(int i = 0;i < docs.length;i++){
-      if(docs[i].data()['status'] == 'approved'){
+            .collection('users')
+            .where(searchParam, isGreaterThanOrEqualTo: searchQuery)
+            .where(searchParam, isLessThanOrEqualTo: searchQuery + '\uf8ff')
+            .get())
+        .docs;
+    for (int i = 0; i < docs.length; i++) {
+      if (docs[i].data()['status'] == 'approved') {
         users.add(EraUser.fromJSON(docs[i].data()));
       }
     }
@@ -141,4 +144,19 @@ class Database {
   // FAQ
 
   //CRUD NEWS
+
+  getAboutUsData() async {
+    return (await db.collection('cms').doc('about_us').get()).data();
+    // note para magets mo this will return map photo and description property
+  }
+
+  getFindAgentsData() async {
+    return (await db.collection('cms').doc('find_agents').get()).data();
+    // note para magets mo this will return map photo and video_link property
+  }
+
+  getJoinEraData() async {
+    return (await db.collection('cms').doc('join_era').get()).data();
+    // note para magets mo this will return map photo, description and video_link  property
+  }
 }
