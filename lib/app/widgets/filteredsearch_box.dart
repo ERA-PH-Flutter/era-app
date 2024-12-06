@@ -137,7 +137,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   @override
   void dispose() {
     super.dispose();
-    speech.cancel();
+    speech.stop();
     speechEnabled = false;
     speechStarted = false;
   }
@@ -147,10 +147,12 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   }
 
   void startListening() async {
-    await speech.listen(onResult: (result) {
-      aiSearchController.text = result.recognizedWords;
-      setState(() {});
-    },);
+    await speech.listen(
+      onResult: (result) {
+        aiSearchController.text = result.recognizedWords;
+        setState(() {});
+      },
+    );
     myStream = Timer.periodic(Duration(seconds: 1), (tick) {
       if (speech.isNotListening) {
         setState(() {
