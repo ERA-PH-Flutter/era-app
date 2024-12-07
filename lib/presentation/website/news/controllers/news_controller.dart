@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/news.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,7 @@ enum NewsState {
 
 class NewsWebController extends GetxController {
   var store = Get.find<LocalStorageService>();
-  var newsState = NewsState.loading.obs;
+  var newsState = NewsState.loaded.obs;
 
   var news = [];
   @override
@@ -30,12 +31,9 @@ class NewsWebController extends GetxController {
   //   }
   // }
   getNews() async {
-    if (settings!.featuredNews!.isNotEmpty) {
-      for (int i = 0; i < settings!.featuredNews!.length; i++) {
-        settings!.featuredNews![i] != ''
-            ? news.add(await News(id: settings!.featuredNews![i]).getNews())
-            : null;
-      }
+    var newsData = await FirebaseFirestore.instance.collection('news').get();
+    for (int i = 0; i < newsData.docs.length; i++) {
+      news.add(News.fromJSON(newsData.docs[i].data()));
     }
   }
 }

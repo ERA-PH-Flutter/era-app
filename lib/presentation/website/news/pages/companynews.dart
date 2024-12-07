@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/web/navbar.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
 
 import 'package:flutter/material.dart';
@@ -22,18 +23,15 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(NewsWebController());
-    HomsController homsController = Get.put(HomsController());
+    // Get.put(NewsWebController());
+    // HomsController homsController = Get.put(HomsController());
 
-    return Scaffold(
-      // key: homsController.scaffoldKey,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Obx(() => switch (controller.newsState.value) {
-                NewsState.loading => _loading(),
-                NewsState.loaded => _loaded(),
-              }),
-        ),
+    return SingleChildScrollView(
+      child: SafeArea(
+        child: Obx(() => switch (controller.newsState.value) {
+          NewsState.loading => _loading(),
+          NewsState.loaded => _loaded(),
+        }),
       ),
     );
   }
@@ -43,8 +41,6 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
   }
 
   _loaded() {
-    FormWebController formWebController = Get.put(FormWebController());
-    //TODO: NIKKO
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -75,10 +71,18 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
             itemCount: controller.news.length,
             itemBuilder: (context, i) => GestureDetector(
               onTap: () {
-                Get.to(() => CompanyNewsPageWeb(
-                    title: controller.news[i].title,
-                    image: controller.news[i].image,
-                    description: controller.news[i].description));
+                // Get.to(() => CompanyNewsPageWeb(
+                //     title: controller.news[i].title,
+                //     image: controller.news[i].image,
+                //     description: controller.news[i].description));
+                HomsController homsController = Get.find<HomsController>();
+                selectedIndex.value = 10;
+                homsController.onNavbarItemSelected(10);
+                newsArgument = {
+                  "title": controller.news[i].title,
+                  "image": controller.news[i].image,
+                  "description": controller.news[i].description
+                };
               },
               // CloudStorage().imageLoader(
               //           ref: controller.news[i].image,

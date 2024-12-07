@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../agent/agents/bindings/agent_listings_binding.dart';
 import '../../agents/pages/dashboard_web.dart';
 import '../../agents/pages/findagents.dart';
@@ -36,7 +37,7 @@ class HomsController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   RxList<Widget> pages = [
-    AgentDashBoardWeb(),
+    // AgentDashBoardWeb(),
     HomeWeb(), //0
     ProjectsList(), //1
     BuyWeb(), //2
@@ -44,11 +45,12 @@ class HomsController extends GetxController {
     HelpWeb(), //04
     // CompanyNewsWeb(),
     AboutUsWeb(), //5
-    JoinEraWeb(),
+    // JoinEraWeb(),
     SellPropertyWeb(), //6
     ContactUsWeb(), //7
     MortageCalculatorWeb(), //8
     CompanyNewsWeb(), //9
+    CompanyNewsPageWeb(), // 10
   ].obs;
 
   HomsController() {

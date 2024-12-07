@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/global.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,15 +12,15 @@ import '../../../presentation/website/news/controllers/news_controller.dart';
 import 'navbar.dart';
 
 class CompanyNewsPageWeb extends GetView<NewsWebController> {
-  final String? title;
-  final String? image;
-  final String? description;
+  // final String? title;
+  // final String? image;
+  // final String? description;
 
   CompanyNewsPageWeb({
     super.key,
-    this.title,
-    this.image,
-    this.description,
+    // this.title,
+    // this.image,
+    // this.description,
   });
 
   @override
@@ -38,13 +39,12 @@ class CompanyNewsPageWeb extends GetView<NewsWebController> {
       padding: EdgeInsets.all(EraTheme.paddingWidthAdmin + 10.w),
       child: Column(
         children: [
-          Navbar(),
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 EraText(
-                  text: title ?? "",
+                  text: newsArgument['title'] ?? "",
                   color: AppColors.kRedColor,
                   fontSize: EraTheme.headerWeb,
                   fontWeight: FontWeight.bold,
@@ -52,13 +52,13 @@ class CompanyNewsPageWeb extends GetView<NewsWebController> {
                 ),
                 SizedBox(height: 10.h),
                 CloudStorage().imageLoader(
-                  reference: image,
+                  reference: newsArgument['image'],
                   height: Get.height,
                   width: Get.width,
                 ),
                 SizedBox(height: 20.h),
                 EraText(
-                  text: description!,
+                  text: newsArgument['description']!,
                   color: AppColors.black.withOpacity(0.8),
                   fontSize: EraTheme.paragraphWeb,
                   textAlign: TextAlign.start,

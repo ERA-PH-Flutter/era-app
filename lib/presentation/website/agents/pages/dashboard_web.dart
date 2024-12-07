@@ -22,6 +22,7 @@ import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../global.dart';
+import '../../landingpage/controller/homepage_controller.dart';
 
 class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
   AgentDashBoardWeb({
@@ -394,10 +395,14 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 itemCount: controller.news.length,
                 itemBuilder: (context, i) => GestureDetector(
                   onTap: () {
-                    Get.to(() => CompanyNewsPageWeb(
-                        title: controller.news[i].title,
-                        image: controller.news[i].image,
-                        description: controller.news[i].description));
+                    HomsController homsController = Get.find<HomsController>();
+                    selectedIndex.value = 10;
+                    homsController.onNavbarItemSelected(10);
+                    newsArgument = {
+                      "title": controller.news[i].title,
+                      "image": controller.news[i].image,
+                      "description": controller.news[i].description
+                    };
                   },
                   child: Container(
                     width: Get.width,

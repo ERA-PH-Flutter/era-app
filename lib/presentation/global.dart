@@ -53,4 +53,4 @@ var propertyT = [
   // "Rent to Own",
   // "Others",
 ];
- 
+var newsArgument;

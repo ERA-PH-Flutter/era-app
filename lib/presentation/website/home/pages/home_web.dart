@@ -30,9 +30,11 @@ import '../../../../app/services/firebase_storage.dart';
 import '../../../../app/widgets/navigation/customenavigationbar.dart';
 import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
+import '../../../global.dart';
 import '../../landingpage/controller/homepage_controller.dart' as a;
 import '../../landingpage/controller/homepage_controller.dart';
 import '../../listings/controllers/listings_web_controller.dart';
+import '../../news/controllers/news_controller.dart';
 
 List<String> imagePaths = [
   'assets/images/image.png',
@@ -464,13 +466,12 @@ class HomeWeb extends GetView<HomeWebController> {
                               fontWeight: FontWeight.bold,
                               color: AppColors.kRedColor),
                           GestureDetector(
-                            onTap: () {
-                              HomsController controller =
-                                  Get.find<HomsController>();
-                              Get.toNamed("/companynews");
-
-                              //TODO NIKKO navbar will show when clicked
-                              // Get.toNamed(RouteString.homs);
+                            onTap: ()async{
+                              HomsController homsController = Get.find<HomsController>();
+                              a.selectedIndex.value = 9;
+                              Get.lazyPut(()=>NewsWebController());
+                              //await Get.find<NewsWebController>().getNews();
+                              homsController.onNavbarItemSelected(9);
                             },
                             child: EraText(
                                 text: 'See all',
@@ -508,10 +509,14 @@ class HomeWeb extends GetView<HomeWebController> {
                           itemCount: controller.news.length,
                           itemBuilder: (context, i) => GestureDetector(
                             onTap: () {
-                              Get.to(() => CompanyNewsPageWeb(
-                                  title: controller.news[i].title,
-                                  image: controller.news[i].image,
-                                  description: controller.news[i].description));
+                              HomsController homsController = Get.find<HomsController>();
+                              a.selectedIndex.value = 10;
+                              homsController.onNavbarItemSelected(10);
+                              newsArgument = {
+                                "title": controller.news[i].title,
+                                "image": controller.news[i].image,
+                                "description": controller.news[i].description
+                              };
                             },
                             child: Container(
                               width: Get.width,

@@ -440,15 +440,9 @@ class Home extends GetView<HomeController> {
               //TODO: Nikko
               GestureDetector(
                 onTap: () {
-                  // Get.offAll(BaseScaffold(),
-                  //     binding: SearchResultBinding(),
-                  //     routeName: ("/searchresult"));
                   Get.toNamed(
                     "/searchresult",
                   );
-                  // Get.deleteAll();
-
-                  // );
                 },
                 child: viewOtherProjects(
                   text: 'View more listings',
