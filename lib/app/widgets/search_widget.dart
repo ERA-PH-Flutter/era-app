@@ -5,10 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SearchWidget {
-  static build(searchFunction) {
+class SearchWidget extends StatelessWidget {
+  const SearchWidget({super.key, required this.onTap});
+  final VoidCallback onTap;
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: searchFunction,
+      onTap: onTap,
       child: Container(
         height: 53.h,
         decoration: BoxDecoration(

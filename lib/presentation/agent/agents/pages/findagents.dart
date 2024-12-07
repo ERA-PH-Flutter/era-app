@@ -164,9 +164,9 @@ class FindAgents extends GetView<AgentsController> {
                                       ],
                                     ),
                                     SizedBox(height: 20.h),
-                                    SearchWidget.build(() {
-                                      controller.search();
-                                    }),
+                                    // SearchWidget.build(() {
+                                    //   controller.search();
+                                    // }),
                                     SizedBox(height: 20.h),
                                   ],
                                 ),

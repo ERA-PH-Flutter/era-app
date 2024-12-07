@@ -25,7 +25,7 @@ class CompanyNewsPageWeb extends GetView<NewsWebController> {
   @override
   Widget build(BuildContext context) {
     Get.put(NewsWebController());
-    return
+    return 
         // appBar: NavbarWeb(
         //   webcontroller: controller,
         //   shortestSide: shortestSide,

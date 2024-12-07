@@ -130,7 +130,7 @@ class AgentListViewWeb extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Image.asset(
-                                    color: AppColors.kRedColor,
+                                    //  color: AppColors.kRedColor,
                                     AppEraAssets.emailIcon,
                                     width: 40.w,
                                     height: 40.h,

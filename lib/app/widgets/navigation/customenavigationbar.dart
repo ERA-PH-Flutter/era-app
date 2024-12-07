@@ -95,7 +95,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             children: [
               Home(),
               //   ProjectsList(),
-              SearchResult(),
+              //      SearchResult(),
               FindAgents(),
               //   Help(),
             ],

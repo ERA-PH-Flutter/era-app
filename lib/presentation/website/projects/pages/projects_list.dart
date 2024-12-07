@@ -12,12 +12,14 @@ import '../../../../app/constants/screens.dart';
 
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/theme.dart';
+import '../../../../app/services/ai_search.dart';
 import '../../../../app/widgets/app_text.dart';
 import '../../../../app/widgets/app_textfield.dart';
 import '../../../../app/widgets/box_widget.dart';
 
 import '../../../admin/properties/controllers/project_view_binding.dart';
 import '../../../agent/listings/searchresult/controllers/searchresult_controller.dart';
+import '../../../agent/utility/controller/base_controller.dart';
 //todo add text
 
 class ProjectsList extends GetView<ProjectsListWebController> {
@@ -59,24 +61,20 @@ class ProjectsList extends GetView<ProjectsListWebController> {
                             padding: EdgeInsets.symmetric(horizontal: 10.w),
                             child: AppTextField(
                                 onSuffixTap: () async {
-                                  // BaseController().showLoading();
-                                  // var projects = await AI(
-                                  //         query: searchController
-                                  //             .aiSearchController.text)
-                                  //     .projectSearch();
-                                  // if (projects.isNotEmpty) {
-                                  //   controller.projects.value =
-                                  //       projects.map((proj) {
-                                  //     return Project.fromJSON(
-                                  //         proj.data());
-                                  //   }).toList();
-                                  //   controller.projectsListState.value =
-                                  //       ProjectsListState.loaded;
-                                  // } else {
-                                  //   controller.projectsListState.value =
-                                  //       ProjectsListState.empty;
-                                  // }
-                                  // BaseController().hideLoading();
+                                  BaseController().showLoading();
+                                  var projects = await AI(
+                                          query: searchController
+                                              .aiSearchController.text)
+                                      .projectSearch();
+                                  if (projects.isNotEmpty) {
+                                    controller.projects.value = projects;
+                                    controller.projectsListState.value =
+                                        ProjectsListState.loaded;
+                                  } else {
+                                    controller.projectsListState.value =
+                                        ProjectsListState.empty;
+                                  }
+                                  BaseController().hideLoading();
                                 },
                                 controller: searchController.aiSearchController,
                                 hint: 'Use AI Search',

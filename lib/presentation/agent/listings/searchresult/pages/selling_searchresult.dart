@@ -38,7 +38,7 @@ class SellingSearchresult extends GetView<SearchResultController> {
                     bgColor: AppColors.white,
                   ),
                   SizedBox(height: 10.h),
-                  SearchWidget.build(() {}),
+                  //  SearchWidget.build(() {}),
                 ],
               )),
               SizedBox(height: 30.h),

@@ -65,7 +65,7 @@ class HelpWeb extends GetView<FormWebController> {
                           //  controller: controller.aiSearch,
                         ),
                         SizedBox(height: 10.h),
-                        SearchWidget.build(() async {}),
+                  //      SearchWidget.build(() async {}),
                         SizedBox(height: 10.h),
                       ],
                     ),

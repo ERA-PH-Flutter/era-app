@@ -7,118 +7,20 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
+import 'package:eraphilippines/presentation/global.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class FilterController extends GetxController {
-  // Price Range
-  var minPrice = 100.0.obs;
-  var maxPrice = 1000.0.obs;
-  TextEditingController minPriceController = TextEditingController();
-  TextEditingController maxPriceController = TextEditingController();
-  TextEditingController lotAreaController = TextEditingController();
-  TextEditingController floorAreaController = TextEditingController();
-  TextEditingController pricePerSqmController = TextEditingController();
-
-  // Rooms and Beds
-  var bedrooms = 1.obs;
-  var bathrooms = 1.obs;
-  var beds = 1.obs;
-  TextEditingController bedroomsController = TextEditingController();
-  TextEditingController bathroomsController = TextEditingController();
-  TextEditingController bedsController = TextEditingController();
-
-  // Location
-  var beachfront = false.obs;
-  var waterfront = false.obs;
-  var cityView = false.obs;
-  var mountainView = false.obs;
-  var sunset = false.obs;
-  var sunrise = false.obs;
-
-  // Filter visibility
-  var filtersVisible = false.obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-    minPriceController.text = minPrice.value.toString();
-    maxPriceController.text = maxPrice.value.toString();
-    bedroomsController.text = bedrooms.value.toString();
-    bathroomsController.text = bathrooms.value.toString();
-    bedsController.text = beds.value.toString();
-  }
-
-  void resetFilters() {
-    minPrice.value = 100.0;
-    maxPrice.value = 1000.0;
-    bedrooms.value = 1;
-    bathrooms.value = 1;
-    beds.value = 1;
-
-    beachfront.value = false;
-    waterfront.value = false;
-
-    minPriceController.text = minPrice.value.toString();
-    maxPriceController.text = maxPrice.value.toString();
-    bedroomsController.text = bedrooms.value.toString();
-    bathroomsController.text = bathrooms.value.toString();
-    bedsController.text = beds.value.toString();
-  }
-
-  void toggleFiltersVisibility() {
-    filtersVisible.value = !filtersVisible.value;
-  }
-}
-
-// Reusable Price Range Widget
-class PriceRangeFilter extends StatelessWidget {
-  final FilterController controller;
-
-  PriceRangeFilter({required this.controller});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 16.h),
-        EraText(text: 'Lot Area', fontSize: 18, color: AppColors.black),
-        Obx(() => Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.w),
-              child: RangeSlider(
-                activeColor: AppColors.blue,
-                inactiveColor: AppColors.hint,
-                overlayColor: WidgetStatePropertyAll<Color>(AppColors.hint),
-                values: RangeValues(
-                    controller.minPrice.value, controller.maxPrice.value),
-                min: 0,
-                max: 2000,
-                divisions: 50,
-                labels: RangeLabels(
-                  '\$${controller.minPrice.value.round()}',
-                  '\$${controller.maxPrice.value.round()}',
-                ),
-                onChanged: (RangeValues values) {},
-              ),
-            )),
-        SizedBox(height: 16.h),
-      ],
-    );
-  }
-}
-
-// Reusable Rooms and Beds Widget
 class RoomsAndBedsFilter extends StatelessWidget {
   final RxInt bedrooms;
   final RxInt bathrooms;
   final RxInt garage;
 
-  RoomsAndBedsFilter(
+  const RoomsAndBedsFilter(
       {super.key,
       required this.bedrooms,
       required this.bathrooms,
@@ -171,23 +73,19 @@ class RoomsAndBedsFilter extends StatelessWidget {
   }
 }
 
-// Reusable Property Type Widget
 class PropertyTypeFilter extends StatelessWidget {
-  //final FilterController controller;
-  final subCategory;
-  const PropertyTypeFilter({super.key, required this.subCategory});
+  var selectedPropertySubCategory = RxnString();
+
+  PropertyTypeFilter({super.key, required this.selectedPropertySubCategory});
 
   @override
   Widget build(BuildContext context) {
-    AddListingsController addListingsController =
-        Get.put(AddListingsController());
-
     return Column(
       children: [
         SharedWidgets.dropDown(
-            addListingsController.selectedPropertySubCategory,
-            addListingsController.subCategory,
-            (value) => subCategory.value = value!,
+            selectedPropertySubCategory,
+            subCategory,
+            (value) => selectedPropertySubCategory.value = value!,
             'Subcategory',
             'Subcategory'),
       ],
@@ -195,75 +93,133 @@ class PropertyTypeFilter extends StatelessWidget {
   }
 }
 
-Widget _buildFloorAreaFilter({
-  String? title,
-  String? hintText,
-  String? hintText2,
-  required TextEditingController min,
-  required TextEditingController max,
-}) {
-  return Column(
-    children: [
-      EraText(
-        text: title ?? 'Lot Area',
-        fontSize: 18.sp,
-        color: AppColors.black,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              EraText(text: 'Min.', fontSize: 18.sp, color: AppColors.black),
-              SizedBox(
-                width: Get.width / 2 - 25.w,
-                child: TextformfieldWidget(
-                  hintText: hintText ?? 'sqm',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                  keyboardType: TextInputType.number,
-                  controller: min,
-                  maxLines: 1,
-                ),
-              ),
+class FilterInputWidget extends StatelessWidget {
+  final String title;
+  final String minLabel;
+  final String maxLabel;
+  final String minHintText;
+  final String maxHintText;
+  final TextEditingController minController;
+  final TextEditingController maxController;
+  final RxString minObservable;
+  final RxString maxObservable;
+  const FilterInputWidget({
+    super.key,
+    required this.title,
+    required this.minLabel,
+    required this.maxLabel,
+    required this.minHintText,
+    required this.maxHintText,
+    required this.minController,
+    required this.maxController,
+    required this.minObservable,
+    required this.maxObservable,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EraText(
+          text: title,
+          fontSize: 18.sp,
+          fontWeight: FontWeight.bold,
+          color: AppColors.black,
+        ),
+        SizedBox(height: 10.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildInputColumn(
+              label: minLabel,
+              hintText: minHintText,
+              controller: minController,
+              observable: minObservable,
+            ),
+            SizedBox(width: 10.w),
+            _buildInputColumn(
+                label: maxLabel,
+                hintText: maxHintText,
+                controller: maxController,
+                observable: maxObservable),
+          ],
+        ),
+      ],
+    );
+  }
+
+  void _formatInput(
+      String value, TextEditingController controller, RxString observable) {
+    value = value.replaceAll(',', '');
+    if (value.isNotEmpty) {
+      try {
+        final formattedValue = value.replaceAllMapped(
+          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+          (Match m) => '${m[1]},',
+        );
+        controller.value = controller.value.copyWith(
+          text: formattedValue,
+          selection: TextSelection.collapsed(offset: formattedValue.length),
+        );
+      } catch (e) {
+        print("check error: $e");
+      }
+      observable.value = value;
+    }
+  }
+
+  Widget _buildInputColumn({
+    required String label,
+    required String hintText,
+    required TextEditingController controller,
+    required RxString observable,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        EraText(
+          text: label,
+          fontSize: 18.sp,
+          color: AppColors.black,
+        ),
+        SizedBox(
+          width: Get.width / 2 - 25.w,
+          child: TextformfieldWidget(
+            inputFormatterss: [
+              FilteringTextInputFormatter.digitsOnly,
             ],
+            onChanged: (value) => _formatInput(value, controller, observable),
+            hintText: hintText,
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
+            keyboardType: TextInputType.number,
+            controller: controller,
+            maxLines: 1,
           ),
-          SizedBox(width: 10.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              EraText(text: 'Max.', fontSize: 18.sp, color: AppColors.black),
-              SizedBox(
-                width: Get.width / 2 - 25.w,
-                child: TextformfieldWidget(
-                  hintText: hintText2 ?? 'sqm',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
-                  keyboardType: TextInputType.number,
-                  controller: max,
-                  maxLines: 1,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    ],
-  );
+        ),
+      ],
+    );
+  }
 }
 
-void openFilterDialog({
-  required subcategory,
+Future openFilterDialog({
+  required RxnString subcategory,
   required bedrooms,
   required bathrooms,
   required garage,
-  required floorAreaMin,
-  required floorAreaMax,
-  required ppsqmMin,
-  required ppsqmMax,
-  required areaMin,
-  required areaMax,
-}) {
-  Get.dialog(
+  required TextEditingController floorAreaMin,
+  required TextEditingController floorAreaMax,
+  required TextEditingController ppsqmMin,
+  required TextEditingController ppsqmMax,
+  required TextEditingController lotAreaMin,
+  required TextEditingController lotAreaMax,
+  required RxString floorAreaMinObservable,
+  required RxString floorAreaMaxObservable,
+  required RxString ppsqmMinObservable,
+  required RxString ppsqmMaxObservable,
+  required RxString lotAreaMinObservable,
+  required RxString lotAreaMaxObservable,
+}) async {
+  await Get.dialog(
     BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
       child: Dialog(
@@ -298,10 +254,7 @@ void openFilterDialog({
                       ),
                     ],
                   ),
-                  //PriceRangeFilter(controller: controller),
-
                   SizedBox(height: 10.h),
-                  // property type
                   EraText(
                     text: 'Property Type',
                     fontSize: 18.sp,
@@ -310,11 +263,8 @@ void openFilterDialog({
                   ),
                   SizedBox(height: 10.h),
                   PropertyTypeFilter(
-                    subCategory: subcategory,
+                    selectedPropertySubCategory: subcategory,
                   ),
-                  //
-                  SizedBox(height: 10.h),
-                  //rooms and beds
                   SizedBox(height: 10.h),
                   RoomsAndBedsFilter(
                     bedrooms: bedrooms,
@@ -322,39 +272,124 @@ void openFilterDialog({
                     garage: garage,
                   ),
                   SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(min: areaMin, max: areaMax),
+                  FilterInputWidget(
+                    title: 'Lot Area',
+                    minLabel: 'Min.',
+                    maxLabel: 'Max.',
+                    minHintText: 'sqm',
+                    maxHintText: 'sqm',
+                    minController: lotAreaMin,
+                    maxController: lotAreaMax,
+                    maxObservable: lotAreaMaxObservable,
+                    minObservable: lotAreaMinObservable,
+                  ),
                   SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(
-                      title: 'Floor Area',
-                      hintText: 'sqm',
-                      hintText2: 'sqm ',
-                      min: floorAreaMin,
-                      max: floorAreaMax),
+                  FilterInputWidget(
+                    title: 'Floor Area',
+                    minLabel: 'Min.',
+                    maxLabel: 'Max.',
+                    minHintText: 'sqm',
+                    maxHintText: 'sqm',
+                    minController: floorAreaMin,
+                    maxController: floorAreaMax,
+                    minObservable: floorAreaMinObservable,
+                    maxObservable: floorAreaMaxObservable,
+                  ),
                   SizedBox(height: 20.h),
-                  _buildFloorAreaFilter(
-                      title: 'Price per sqm',
-                      hintText: 'php',
-                      hintText2: 'php',
-                      min: ppsqmMin,
-                      max: ppsqmMax),
+                  FilterInputWidget(
+                    title: 'Price per sqm',
+                    minLabel: 'Min.',
+                    maxLabel: 'Max.',
+                    minHintText: 'Php',
+                    maxHintText: 'Php',
+                    minController: ppsqmMin,
+                    maxController: ppsqmMax,
+                    minObservable: ppsqmMinObservable,
+                    maxObservable: ppsqmMaxObservable,
+                  ),
                   sb20(),
-                  Button(
-                    width: Get.width,
-                    onTap: () {
-                      Get.back();
-                      Get.showSnackbar(GetSnackBar(
-                        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth,vertical: 10.h),
-                        backgroundColor: AppColors.kRedColor,
-                        title: 'Success',
-                        message: 'Filter Applied',
-                        duration: Duration(seconds: 2),
-                      ));
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Button(
+                          width: Get.width,
+                          onTap: () {
+                            print(
+                                'ppsqm: ${ppsqmMinObservable.value}, ppsqm: ${ppsqmMaxObservable.value}');
 
-                    },
-                    text: 'Apply Filters',
-                    bgColor: AppColors.blue,
-                    fontSize: 20.sp,
-                    borderRadius: BorderRadius.circular(30),
+                            try {
+                              if (lotAreaMin.text.isNotEmpty &&
+                                  lotAreaMax.text.isNotEmpty) {
+                                if (int.parse(
+                                        lotAreaMin.text.replaceAll(',', '')) >
+                                    int.parse(
+                                        lotAreaMax.text.replaceAll(',', ''))) {
+                                  Get.showSnackbar(GetSnackBar(
+                                    message:
+                                        'Min Area should be less than Max Area',
+                                    duration: Duration(seconds: 2),
+                                  ));
+                                  return;
+                                }
+                              }
+                              if (floorAreaMin.text.isNotEmpty &&
+                                  floorAreaMax.text.isNotEmpty) {
+                                if (int.parse(
+                                        floorAreaMin.text.replaceAll(',', '')) >
+                                    int.parse(floorAreaMax.text
+                                        .replaceAll(',', ''))) {
+                                  Get.showSnackbar(GetSnackBar(
+                                    message:
+                                        'Min Floor Area should be less than Max Floor Area',
+                                    duration: Duration(seconds: 2),
+                                  ));
+                                  return;
+                                }
+                              }
+                              if (ppsqmMin.text.isNotEmpty &&
+                                  ppsqmMax.text.isNotEmpty) {
+                                if (int.parse(
+                                        ppsqmMin.text.replaceAll(',', '')) >
+                                    int.parse(
+                                        ppsqmMax.text.replaceAll(',', ''))) {
+                                  Get.showSnackbar(GetSnackBar(
+                                    message:
+                                        'Min Price per sqm should be less than Max Price per sqm',
+                                    duration: Duration(seconds: 2),
+                                  ));
+                                  return;
+                                }
+                              }
+
+                              // Apply Filters Logic
+                              Get.back();
+                              Get.showSnackbar(GetSnackBar(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: EraTheme.paddingWidth,
+                                    vertical: 10.h),
+                                backgroundColor: AppColors.kRedColor,
+                                title: 'Success',
+                                message: 'Filter Applied',
+                                duration: Duration(seconds: 2),
+                              ));
+                            } catch (e) {
+                              Get.showSnackbar(GetSnackBar(
+                                message:
+                                    'An error occurred. Please check your inputs.',
+                                duration: Duration(seconds: 2),
+                              ));
+                              print('Error: $e');
+                            }
+                          },
+                          text: 'Apply Filters',
+                          bgColor: AppColors.blue,
+                          fontSize: 20.sp,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      SizedBox(height: 20.h),
+                    ],
                   ),
                 ],
               )),

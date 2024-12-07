@@ -25,12 +25,7 @@ import '../presentation/agent/listings/archivedlisting/controllers/archived_bind
 import '../presentation/agent/listings/archivedlisting/pages/archived.dart';
 import '../presentation/agent/listings/favorites/controllers/fav_binding.dart';
 import '../presentation/agent/listings/favorites/pages/Fav.dart';
-import '../presentation/agent/listings/listingproperties/controllers/listing_binding.dart';
-import '../presentation/agent/listings/listingproperties/pages/findproperties.dart';
-import '../presentation/agent/listings/listingproperties/pages/property_infomation.dart';
-import '../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
-import '../presentation/agent/listings/searchresult/pages/searchresult.dart';
-import '../presentation/agent/listings/searchresult/pages/selling_searchresult.dart';
+
 import '../presentation/agent/listings/sellproperty/controllers/sellproperty_binding.dart';
 import '../presentation/agent/listings/sellproperty/pages/sellproperty.dart';
 import '../presentation/agent/listings/sold_properties/controllers/sold_properties_binding.dart';
@@ -58,34 +53,34 @@ appRoutes() => [
           name: RouteString.createaccount,
           page: () => const CreateAccount(),
           binding: LoginPageBinding()),
-      GetPage(
-          name: RouteString.findproperties,
-          page: () => const FindProperties(),
-          binding: ListingBinding()),
-      GetPage(
-          name: RouteString.searchresult,
-          page: () => const SearchResult(),
-          binding: SearchResultBinding()),
-      GetPage(
-          name: RouteString.sellingsearchresult,
-          page: () => const SellingSearchresult(),
-          binding: SearchResultBinding()),
-      GetPage(
-          name: RouteString.rentsearchresult,
-          page: () => const SearchResult(),
-          binding: SearchResultBinding()),
+      // GetPage(
+      //     name: RouteString.findproperties,
+      //     page: () => const FindProperties(),
+      //     binding: ListingBinding()),
+      // GetPage(
+      //     name: RouteString.searchresult,
+      //     page: () => const SearchResult(),
+      //     binding: SearchResultBinding()),
+      // GetPage(
+      //     name: RouteString.sellingsearchresult,
+      //     page: () => const SellingSearchresult(),
+      //     binding: SearchResultBinding()),
+      // GetPage(
+      //     name: RouteString.rentsearchresult,
+      //     page: () => const SearchResult(),
+      //     binding: SearchResultBinding()),
 
       GetPage(
           name: RouteString.findagents,
           page: () => const FindAgents(),
           binding: AgentsBinding()),
 
-      GetPage(
-          name: RouteString.propertyInfo,
-          page: () => PropertyInformation(
-                listing: Get.arguments,
-              ),
-          binding: ListingBinding()),
+      // GetPage(
+      //     name: RouteString.propertyInfo,
+      //     page: () => PropertyInformation(
+      //           listing: Get.arguments,
+      //         ),
+      //     binding: ListingBinding()),
       GetPage(
           name: RouteString.agentDashBoard,
           page: () => AgentDashBoard(),

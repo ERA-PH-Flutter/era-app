@@ -64,7 +64,7 @@ class Navbar extends GetResponsiveView<HomsController> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: _buildNavItems(controller.items.sublist(0, 6)),
+              children: _buildNavItems(controller.items.sublist(0, 5)),
             ),
             //_showOverlay(),
             Spacer(),

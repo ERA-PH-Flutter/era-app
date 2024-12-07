@@ -32,7 +32,6 @@ class ContactUsWeb extends GetView<FormWebController> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             sb20(),
-            // Contact Us Title with Icon
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -51,7 +50,6 @@ class ContactUsWeb extends GetView<FormWebController> {
               ],
             ),
             sb20(),
-            // Description Text
             EraText(
               text:
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non congue libero. Nullam eget odio nisl. In vitae nisi dapibus, mollis enim eget, efficitur est. Morbi euismod leo id nisl consectetur, nec vehicula nunc placerat. Phasellus dictum nibh eleifend sapien egestas, at elementum velit faucibus. Sed ullamcorper lectus ac sapien aliquam, non hendrerit eros ullamcorper.",
@@ -59,16 +57,13 @@ class ContactUsWeb extends GetView<FormWebController> {
               fontWeight: FontWeight.w500,
               color: AppColors.black,
             ),
-            sb20(),
-
-            // Split the screen into two parts for "Find Us" and "Contacts"
             Row(
               children: [
                 Expanded(
                   flex: 1,
                   child: findUsWeb(),
                 ),
-                SizedBox(width: 20.w), // Add space between the columns
+                SizedBox(width: 20.w),
                 Expanded(
                   flex: 1,
                   child: contactsWeb(),
@@ -76,7 +71,6 @@ class ContactUsWeb extends GetView<FormWebController> {
               ],
             ),
             sb10(),
-            // Join Us section at the bottom
             AboutUsWeb.joinUs(),
           ],
         ),
@@ -213,7 +207,6 @@ class ContactUsWeb extends GetView<FormWebController> {
                     padding: EdgeInsets.only(
                         left: 12.w, right: 12.w, top: 12.h, bottom: 12.h),
                     child: Image.asset(
-                      color: AppColors.kRedColor,
                       AppEraAssets.emailIcon,
                       width: 40.w,
                       height: 40.h,
