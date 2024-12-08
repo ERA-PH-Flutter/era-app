@@ -46,102 +46,111 @@ class _BaseScaffoldState extends State<BaseScaffold> {
   Widget build(BuildContext context) {
     //changeIndex(['/home','/project-main', '/searchresult','/findagents','/help'].contains(Get.currentRoute) ? ['/home','/project-main','/searchresult','/findagents','/help'].indexOf(Get.currentRoute) : 0);
     return Scaffold(
-        extendBody: true,
-        backgroundColor: AppColors.white,
-        appBar: CustomAppbar(),
-        body: WillPopScope(
-          onWillPop: () async {
-            if (currentRoute == '/home') {
-              BaseController().showSuccessDialog(
-                  title: "Confirm Exit",
-                  description: "Do you want to exit?",
-                  cancelable: true,
-                  hitApi: () {
-                    Platform.isAndroid ? SystemNavigator.pop() : exit(0);
-                  });
-              return Future.value(false);
-            } else {
-              selectedIndex.value = 0;
-              pageViewController.animateToPage(0,
-                  duration: Duration(milliseconds: 500),
-                  curve: Curves.easeInOut);
-              currentRoute = '/home';
-              //Get.to(BaseScaffold(), binding: HomeBinding());
-              return Future.value(false);
-            }
-          },
-          child: PageView(
-            controller: pageViewController,
-            physics: NeverScrollableScrollPhysics(),
-            children: const [
-              Home(),
-              ProjectsList(),
-              SearchResult(),
-              FindAgents(),
-              Help(),
-            ],
-          ),
-        ),
-        bottomNavigationBar: Obx(() => SafeArea(
-              child: CircleNavBar(
-                tabCurve: Curves.linear,
-                tabDurationMillSec: 300,
-                onTap: (index) {
-                  selectedIndex.value = index;
-                  if (index == 0) {
-                    currentRoute = '/home';
+      extendBody: true,
+      backgroundColor: AppColors.white,
+      appBar: CustomAppbar(),
+      body: WillPopScope(
+        onWillPop: () async {
+          if (currentRoute == '/home') {
+            BaseController().showSuccessDialog(
+                title: "Confirm Exit",
+                description: "Do you want to exit?",
+                cancelable: true,
+                hitApi: () {
+                  Platform.isAndroid ? SystemNavigator.pop() : exit(0);
+                });
+            return Future.value(false);
+          } else {
+            selectedIndex.value = 0;
+            pageViewController.animateToPage(0,
+                duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+            currentRoute = '/home';
+            //Get.to(BaseScaffold(), binding: HomeBinding());
+            return Future.value(false);
+          }
+        },
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            PageView(
+              controller: pageViewController,
+              physics: NeverScrollableScrollPhysics(),
+              children: const [
+                Home(),
+                ProjectsList(),
+                SearchResult(),
+                FindAgents(),
+                Help(),
+              ],
+            ),
+            Positioned(
+              bottom: 0,
+              child: Obx(() => SafeArea(
+                    child: CircleNavBar(
+                      tabCurve: Curves.linear,
+                      tabDurationMillSec: 300,
+                      onTap: (index) {
+                        selectedIndex.value = index;
+                        if (index == 0) {
+                          currentRoute = '/home';
 
-                    Get.put(BaseController());
-                  } else if (index == 1) {
-                    //currentRoute = '/project-main';
-                    currentRoute = '/project-list';
-                  } else if (index == 2) {
-                    Get.find<SearchResultController>().initListing();
+                          Get.put(BaseController());
+                        } else if (index == 1) {
+                          //currentRoute = '/project-main';
+                          currentRoute = '/project-list';
+                        } else if (index == 2) {
+                          Get.find<SearchResultController>().initListing();
 
-                    currentRoute = '/searchresult';
-                  } else if (index == 3) {
-                    currentRoute = '/findagents';
-                  } else if (index == 4) {
-                    currentRoute = '/about';
-                  }
-                  pageViewController.animateToPage(index,
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.easeInOut);
-                },
-                activeIndex: selectedIndex.value,
-                circleWidth: Platform.isIOS ? 80 : 60,
-                height: Platform.isIOS ? 80 : 75.h,
-                activeIcons: navBarItems.map((item) {
-                  return Image.asset(
-                    item.selectedIcon,
-                    width: 55.w,
-                    height: 55.h,
-                  );
-                }).toList(),
-                inactiveIcons: navBarItems.map((item) {
-                  return Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          item.defaultIcon,
-                          width: 40.w,
-                          height: 40.h,
-                        ),
-                        Text(
-                          item.label,
-                          style: TextStyle(
-                              fontSize: 10.sp, color: CupertinoColors.white),
-                        ),
-                      ],
+                          currentRoute = '/searchresult';
+                        } else if (index == 3) {
+                          currentRoute = '/findagents';
+                        } else if (index == 4) {
+                          currentRoute = '/about';
+                        }
+                        pageViewController.animateToPage(index,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeInOut);
+                      },
+                      activeIndex: selectedIndex.value,
+                      circleWidth: Platform.isIOS ? 80 : 60,
+                      height: Platform.isIOS ? 80 : 75.h,
+                      activeIcons: navBarItems.map((item) {
+                        return Image.asset(
+                          item.selectedIcon,
+                          width: 55.w,
+                          height: 55.h,
+                        );
+                      }).toList(),
+                      inactiveIcons: navBarItems.map((item) {
+                        return Container(
+                          alignment: Alignment.center,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                item.defaultIcon,
+                                width: 40.w,
+                                height: 40.h,
+                              ),
+                              Text(
+                                item.label,
+                                style: TextStyle(
+                                    fontSize: 10.sp,
+                                    color: CupertinoColors.white),
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                      color: AppColors.blue,
                     ),
-                  );
-                }).toList(),
-                color: AppColors.blue,
-              ),
-            )));
+                  )),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
     // bottomNavigationBar:Obx(()=> CurvedNavigationBar(
