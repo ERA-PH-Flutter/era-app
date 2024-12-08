@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +16,7 @@ import '../../../../../app/widgets/filteredsearch_box.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
+import '../../../global.dart';
 
 class BuyWeb extends GetView<ListingsWebController> {
   const BuyWeb({super.key});
@@ -125,7 +127,10 @@ class BuyWeb extends GetView<ListingsWebController> {
                 return GestureDetector(
                   onTap: () async {
                     // await Database().addViews(listing.id);
-                    Get.toNamed('/propertyInfo', arguments: listing);
+                    // Get.toNamed('/propertyInfo', arguments: listing);
+                    listingArgument = listing;
+                    selectedIndex.value = 11;
+                    Get.find<HomsController>().onNavbarItemSelected(11);
                   },
                   child: Container(
                     margin: EdgeInsets.only(

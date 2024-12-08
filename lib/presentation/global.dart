@@ -54,3 +54,4 @@ var propertyT = [
   // "Others",
 ];
 var newsArgument;
+var listingArgument;

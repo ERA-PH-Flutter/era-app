@@ -16,6 +16,7 @@ import '../../form/pages/sell_property_web.dart';
 import '../../home/controllers/home_web_binding.dart';
 import '../../home/pages/home_web.dart';
 import '../../listings/controllers/buyweb_binding.dart';
+import '../../listings/pages/buy_web_listing_page.dart';
 import '../../listings/pages/buy_web_listings.dart';
 import '../../mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
 import '../../mortageCalculator.dart/pages/MortageCalculator.dart';
@@ -51,6 +52,7 @@ class HomsController extends GetxController {
     MortageCalculatorWeb(), //8
     CompanyNewsWeb(), //9
     CompanyNewsPageWeb(), // 10
+    BuyWebListingPage(), // 11
   ].obs;
 
   HomsController() {
