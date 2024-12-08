@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
@@ -90,27 +91,25 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             buttonBackgroundColor: AppColors.blue,
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 300),
-            height: 74,
+            height: 70,
             items: navBarItems.map((item) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  selectedIndex.value == navBarItems.indexOf(item) ?
-                  Image.asset(
-                        item.selectedIcon,
-                    width: 60 ,
-                    height: 55,
-
-                    fit: BoxFit.cover,
-                  ): Image.asset(
-                    item.defaultIcon,
-
-                    width: 50,
-                    height:50,
-
-                    fit: BoxFit.cover,
-                  ),
+                  selectedIndex.value == navBarItems.indexOf(item)
+                      ? Image.asset(
+                          item.selectedIcon,
+                          width: 60,
+                          height: 55,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          item.defaultIcon,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.cover,
+                        ),
                   Obx(
                     () => selectedIndex.value == navBarItems.indexOf(item)
                         ? SizedBox.shrink()
