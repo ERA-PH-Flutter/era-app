@@ -70,6 +70,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
           }
         },
         child: Stack(
+          clipBehavior: Clip.hardEdge,
           alignment: Alignment.bottomCenter,
           children: [
             PageView(
@@ -83,70 +84,78 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                 Help(),
               ],
             ),
-            Positioned(
-              bottom: 0,
-              child: Obx(() => SafeArea(
-                    child: CircleNavBar(
-                      tabCurve: Curves.linear,
-                      tabDurationMillSec: 300,
-                      onTap: (index) {
-                        selectedIndex.value = index;
-                        if (index == 0) {
-                          currentRoute = '/home';
+            SizedBox(
+              height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Positioned(
+                    bottom: 0,
+                    child: Obx(
+                      () => CircleNavBar(
+                        tabCurve: Curves.linear,
+                        tabDurationMillSec: 300,
+                        onTap: (index) {
+                          selectedIndex.value = index;
+                          if (index == 0) {
+                            currentRoute = '/home';
 
-                          Get.put(BaseController());
-                        } else if (index == 1) {
-                          //currentRoute = '/project-main';
-                          currentRoute = '/project-list';
-                        } else if (index == 2) {
-                          Get.find<SearchResultController>().initListing();
+                            Get.put(BaseController());
+                          } else if (index == 1) {
+                            //currentRoute = '/project-main';
+                            currentRoute = '/project-list';
+                          } else if (index == 2) {
+                            Get.find<SearchResultController>().initListing();
 
-                          currentRoute = '/searchresult';
-                        } else if (index == 3) {
-                          currentRoute = '/findagents';
-                        } else if (index == 4) {
-                          currentRoute = '/about';
-                        }
-                        pageViewController.animateToPage(index,
-                            duration: Duration(milliseconds: 500),
-                            curve: Curves.easeInOut);
-                      },
-                      activeIndex: selectedIndex.value,
-                      circleWidth: Platform.isIOS ? 80 : 60,
-                      height: Platform.isIOS ? 80 : 75.h,
-                      activeIcons: navBarItems.map((item) {
-                        return Image.asset(
-                          item.selectedIcon,
-                          width: 55.w,
-                          height: 55.h,
-                        );
-                      }).toList(),
-                      inactiveIcons: navBarItems.map((item) {
-                        return Container(
-                          alignment: Alignment.center,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                item.defaultIcon,
-                                width: 40.w,
-                                height: 40.h,
-                              ),
-                              Text(
-                                item.label,
-                                style: TextStyle(
-                                    fontSize: 10.sp,
-                                    color: CupertinoColors.white),
-                              ),
-                            ],
-                          ),
-                        );
-                      }).toList(),
-                      color: AppColors.blue,
+                            currentRoute = '/searchresult';
+                          } else if (index == 3) {
+                            currentRoute = '/findagents';
+                          } else if (index == 4) {
+                            currentRoute = '/about';
+                          }
+                          pageViewController.animateToPage(index,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.easeInOut);
+                        },
+                        activeIndex: selectedIndex.value,
+                        circleWidth: Platform.isIOS ? 80 : 60,
+                        height: Platform.isIOS ? 80 : 75.h,
+                        activeIcons: navBarItems.map((item) {
+                          return Image.asset(
+                            item.selectedIcon,
+                            width: 55.w,
+                            height: 55.h,
+                          );
+                        }).toList(),
+                        inactiveIcons: navBarItems.map((item) {
+                          return Container(
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  item.defaultIcon,
+                                  width: 40.w,
+                                  height: 40.h,
+                                ),
+                                Text(
+                                  item.label,
+                                  style: TextStyle(
+                                      fontSize: 10.sp,
+                                      color: CupertinoColors.white),
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                        color: AppColors.blue,
+                      ),
                     ),
-                  )),
-            )
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
