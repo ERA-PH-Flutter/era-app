@@ -35,6 +35,7 @@ class HomsController extends GetxController {
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
   var controllerOverlay = OverlayPortalController();
+  var loginOverlay = OverlayPortalController();
   ScrollController scrollController = ScrollController();
 
   RxList<Widget> pages = [

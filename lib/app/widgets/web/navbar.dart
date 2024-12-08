@@ -49,9 +49,9 @@ class Navbar extends GetResponsiveView<HomsController> {
   Widget desktop() {
     return Obx(
       () => Container(
+        // color: AppColors.black,
         padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth200),
-        height: Get.height,
-        width: Get.width,
+        height: 150.h,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -89,27 +89,6 @@ class Navbar extends GetResponsiveView<HomsController> {
                     },
                   )
                 : _showOverlayProfile(),
-
-            // IconButton(
-            //   onPressed: () {
-            //     print('buittonclicksaasdasd');
-            //     OverlayPortal(
-            //       controller: controller.controllerOverlay,
-            //       overlayChildBuilder: (BuildContext context) {
-            //         return Positioned(
-            //           right: 50,
-            //           bottom: 50,
-            //           child: ColoredBox(
-            //             color: Colors.amberAccent,
-            //             child: Text('tooltip'),
-            //           ),
-            //         );
-            //       },
-            //     );
-            //   },
-            //   icon: Icon(Icons.person),
-            //   iconSize: 50,
-            // ),
           ],
         ),
       ),
@@ -171,14 +150,14 @@ class Navbar extends GetResponsiveView<HomsController> {
   Widget _showOverlayProfile() {
     return GestureDetector(
       onTap: () {
-        controller.controllerOverlay.isShowing
-            ? controller.controllerOverlay.hide()
-            : controller.controllerOverlay.show();
+        controller.loginOverlay.isShowing
+            ? controller.loginOverlay.hide()
+            : controller.loginOverlay.show();
       },
       child: CompositedTransformTarget(
         link: controller.link,
         child: OverlayPortal(
-          controller: controller.controllerOverlay,
+          controller: controller.loginOverlay,
           overlayChildBuilder: (BuildContext context) {
             return Positioned(
               top: 120.h,
@@ -259,17 +238,10 @@ class Navbar extends GetResponsiveView<HomsController> {
           },
           child: GestureDetector(
             onTap: () {
-              controller.controllerOverlay.toggle();
+              controller.loginOverlay.toggle();
             },
             child: agentProfile(),
           ),
-
-          //  IconButton(
-          //   onPressed: () {
-          //   },
-          //   icon: Icon(Icons.person),
-          //   iconSize: 50,
-          // ),
         ),
       ),
     );
@@ -441,28 +413,4 @@ Widget agentProfile() {
           offset: Offset(1, 1))
     ],
   );
-  // return Container(
-  //   width: 200.w,
-  //   height: 100.h,
-  //   decoration: BoxDecoration(
-  //       border: Border.all(
-  //         width: 4,
-  //         color: AppColors.white,
-  //       ),
-  //       boxShadow: [
-  //         BoxShadow(
-  //             spreadRadius: 2,
-  //             blurRadius: 10,
-  //             color: Colors.black.withOpacity(0.1),
-  //             offset: Offset(0, 10))
-  //       ],
-  //       shape: BoxShape.circle,
-  //
-  //
-  //
-  //       image: DecorationImage(
-  //           fit: BoxFit.contain, image: (AppEraAssets.whatsappIcon))),
-  //
-  //   // NetworkImage(user!.image ?? AppEraAssets.whatsappIcon)),
-  // );
 }

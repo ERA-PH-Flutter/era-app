@@ -53,34 +53,13 @@ appRoutes() => [
           name: RouteString.createaccount,
           page: () => const CreateAccount(),
           binding: LoginPageBinding()),
-      // GetPage(
-      //     name: RouteString.findproperties,
-      //     page: () => const FindProperties(),
-      //     binding: ListingBinding()),
-      // GetPage(
-      //     name: RouteString.searchresult,
-      //     page: () => const SearchResult(),
-      //     binding: SearchResultBinding()),
-      // GetPage(
-      //     name: RouteString.sellingsearchresult,
-      //     page: () => const SellingSearchresult(),
-      //     binding: SearchResultBinding()),
-      // GetPage(
-      //     name: RouteString.rentsearchresult,
-      //     page: () => const SearchResult(),
-      //     binding: SearchResultBinding()),
+ 
 
       GetPage(
           name: RouteString.findagents,
           page: () => const FindAgents(),
           binding: AgentsBinding()),
-
-      // GetPage(
-      //     name: RouteString.propertyInfo,
-      //     page: () => PropertyInformation(
-      //           listing: Get.arguments,
-      //         ),
-      //     binding: ListingBinding()),
+ 
       GetPage(
           name: RouteString.agentDashBoard,
           page: () => AgentDashBoard(),

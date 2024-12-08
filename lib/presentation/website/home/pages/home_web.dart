@@ -258,6 +258,7 @@ class HomeWeb extends GetView<HomeWebController> {
                         Listing listing = controller.listings[index];
                         return GestureDetector(
                           onTap: () async {
+                            
                             await Database().addViews(listing.id);
                             Get.toNamed('/propertyInfo', arguments: listing);
                           },

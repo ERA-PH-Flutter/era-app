@@ -73,7 +73,7 @@ class HomeWebController extends GetxController {
       quickLinks = await QuickLinksModel().initialize();
 //TODO NIKKO
 //      //commented out for now since getListing is not updated so there is an error
-      // await getListings();
+       await getListings();
       //    await getBanners();
       await getNews();
       await getImages();
