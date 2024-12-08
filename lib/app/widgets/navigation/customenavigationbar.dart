@@ -90,21 +90,26 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             buttonBackgroundColor: AppColors.blue,
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 300),
-            height: 70,
+            height: 74,
             items: navBarItems.map((item) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Center(
-                    child: Image.asset(
-                      selectedIndex.value == navBarItems.indexOf(item)
-                          ? item.selectedIcon
-                          : item.defaultIcon,
-                      width: selectedIndex.value != item.defaultIcon ? 50 : 80,
-                      height: 50,
-                      fit: BoxFit.cover,
-                    ),
+                  selectedIndex.value == navBarItems.indexOf(item) ?
+                  Image.asset(
+                        item.selectedIcon,
+                    width: 60 ,
+                    height: 55,
+
+                    fit: BoxFit.cover,
+                  ): Image.asset(
+                    item.defaultIcon,
+
+                    width: 50,
+                    height:50,
+
+                    fit: BoxFit.cover,
                   ),
                   Obx(
                     () => selectedIndex.value == navBarItems.indexOf(item)
