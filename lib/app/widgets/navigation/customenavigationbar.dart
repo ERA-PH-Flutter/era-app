@@ -53,183 +53,178 @@ class _BaseScaffoldState extends State<BaseScaffold> {
       backgroundColor: AppColors.white,
       appBar: CustomAppbar(),
       body: WillPopScope(
-        onWillPop: () async {
-          if (currentRoute == '/home') {
-            BaseController().showSuccessDialog(
-                title: "Confirm Exit",
-                description: "Do you want to exit?",
-                cancelable: true,
-                hitApi: () {
-                  Platform.isAndroid ? SystemNavigator.pop() : exit(0);
-                });
-            return Future.value(false);
-          } else {
-            selectedIndex.value = 0;
-            pageViewController.animateToPage(0,
-                duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
-            currentRoute = '/home';
-            //Get.to(BaseScaffold(), binding: HomeBinding());
-            return Future.value(false);
-          }
-        },
-        child: PageView(
-          controller: pageViewController,
-          onPageChanged: (index) => selectedIndex.value = index,
-          children: const [
-            Home(),
-            ProjectsList(),
-            SearchResult(),
-            FindAgents(),
-            Help(),
-          ],
-        )),
-        bottomNavigationBar: Obx(() => CurvedNavigationBar(
-          backgroundColor: Colors.transparent,
-          color: AppColors.blue,
-          buttonBackgroundColor: AppColors.blue,
-          animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 300),
-          height: 70,
-          items: navBarItems.map((item) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: Image.asset(
-                    selectedIndex.value == navBarItems.indexOf(item)
-                        ? item.selectedIcon
-                        : item.defaultIcon,
-                    width: selectedIndex.value != item.defaultIcon  ?50 : 80,
-                    height: 50,
-                  fit: BoxFit.cover,
-                  ),
-                ),
-                EraText(text:  selectedIndex.value == navBarItems.indexOf(item)
-            ? ''
-                : item.label
-                    , fontSize: 10.sp),
-              ],
-            );
-          }).toList(),
-          index: selectedIndex.value,
-          onTap: (index) {
-            selectedIndex.value = index;
-            if(index == 0 ){
+          onWillPop: () async {
+            if (currentRoute == '/home') {
+              BaseController().showSuccessDialog(
+                  title: "Confirm Exit",
+                  description: "Do you want to exit?",
+                  cancelable: true,
+                  hitApi: () {
+                    Platform.isAndroid ? SystemNavigator.pop() : exit(0);
+                  });
+              return Future.value(false);
+            } else {
+              selectedIndex.value = 0;
+              pageViewController.animateToPage(0,
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.easeInOut);
               currentRoute = '/home';
-              Get.put(BaseController());
-            }else if (index == 1){
-              currentRoute = '/project-list';
-            }else if (index == 2){
-              Get.find<SearchResultController>().initListing();
-              currentRoute = '/searchresult';
-            }else if(index == 3){
-              currentRoute = '/findagents';
-
-            }else if(index ==4){
-              currentRoute = '/about';
-
+              //Get.to(BaseScaffold(), binding: HomeBinding());
+              return Future.value(false);
             }
-            pageViewController.animateToPage(
-              index,
-
-              duration: Duration(milliseconds: 100),
-              curve: Curves.easeInOut,
-            );
-
-
           },
-        )),
-        //
-        // Stack(
-        //   clipBehavior: Clip.hardEdge,
-        //   alignment: Alignment.bottomCenter,
-        //   children: [
-        //     PageView(
-        //       controller: pageViewController,
-        //       physics: NeverScrollableScrollPhysics(),
-        //       children: const [
-        //         Home(),
-        //         ProjectsList(),
-        //         SearchResult(),
-        //         FindAgents(),
-        //         Help(),
-        //       ],
-        //     ),
-        //     SizedBox(
-        //       height: 100,
-        //       child: Column(
-        //         mainAxisAlignment: MainAxisAlignment.end,
-        //         children: [
-        //           Positioned(
-        //             bottom: 0,
-        //             child: Obx(
-        //               () => CircleNavBar(
-        //                 tabCurve: Curves.linear,
-        //                 tabDurationMillSec: 300,
-        //                 onTap: (index) {
-        //                   selectedIndex.value = index;
-        //                   if (index == 0) {
-        //                     currentRoute = '/home';
-        //
-        //                     Get.put(BaseController());
-        //                   } else if (index == 1) {
-        //                     //currentRoute = '/project-main';
-        //                     currentRoute = '/project-list';
-        //                   } else if (index == 2) {
-        //                     Get.find<SearchResultController>().initListing();
-        //
-        //                     currentRoute = '/searchresult';
-        //                   } else if (index == 3) {
-        //                     currentRoute = '/findagents';
-        //                   } else if (index == 4) {
-        //                     currentRoute = '/about';
-        //                   }
-        //                   pageViewController.animateToPage(index,
-        //                       duration: Duration(milliseconds: 500),
-        //                       curve: Curves.easeInOut);
-        //                 },
-        //                 activeIndex: selectedIndex.value,
-        //                 circleWidth: Platform.isIOS ? 80 : 60,
-        //                 height: Platform.isIOS ? 80 : 75.h,
-        //                 activeIcons: navBarItems.map((item) {
-        //                   return Image.asset(
-        //                     item.selectedIcon,
-        //                     width: 55.w,
-        //                     height: 55.h,
-        //                   );
-        //                 }).toList(),
-        //                 inactiveIcons: navBarItems.map((item) {
-        //                   return Container(
-        //                     alignment: Alignment.center,
-        //                     child: Column(
-        //                       children: [
-        //                         Image.asset(
-        //                           item.defaultIcon,
-        //                           width: 40.w,
-        //                           height: 40.h,
-        //                         ),
-        //                         EraText(
-        //                           text: item.label,
-        //                           fontSize: 10.sp,
-        //                           color: CupertinoColors.white,
-        //                         ),
-        //                       ],
-        //                     ),
-        //                   );
-        //                 }).toList(),
-        //                 color: AppColors.blue,
-        //               ),
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // ),
-        //
-
-
+          child: PageView(
+            controller: pageViewController,
+            onPageChanged: (index) => selectedIndex.value = index,
+            children: const [
+              Home(),
+              ProjectsList(),
+              SearchResult(),
+              FindAgents(),
+              Help(),
+            ],
+          )),
+      bottomNavigationBar: Obx(() => CurvedNavigationBar(
+            backgroundColor: Colors.transparent,
+            color: AppColors.blue,
+            buttonBackgroundColor: AppColors.blue,
+            animationCurve: Curves.easeInOut,
+            animationDuration: Duration(milliseconds: 300),
+            height: 70,
+            items: navBarItems.map((item) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Image.asset(
+                      selectedIndex.value == navBarItems.indexOf(item)
+                          ? item.selectedIcon
+                          : item.defaultIcon,
+                      width: selectedIndex.value != item.defaultIcon ? 50 : 80,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Obx(
+                    () => selectedIndex.value == navBarItems.indexOf(item)
+                        ? SizedBox.shrink()
+                        : EraText(text: item.label, fontSize: 10.sp),
+                  ),
+                ],
+              );
+            }).toList(),
+            index: selectedIndex.value,
+            onTap: (index) {
+              selectedIndex.value = index;
+              if (index == 0) {
+                currentRoute = '/home';
+                Get.put(BaseController());
+              } else if (index == 1) {
+                currentRoute = '/project-list';
+              } else if (index == 2) {
+                Get.find<SearchResultController>().initListing();
+                currentRoute = '/searchresult';
+              } else if (index == 3) {
+                currentRoute = '/findagents';
+              } else if (index == 4) {
+                currentRoute = '/about';
+              }
+              pageViewController.animateToPage(
+                index,
+                duration: Duration(milliseconds: 100),
+                curve: Curves.easeInOut,
+              );
+            },
+          )),
+      //
+      // Stack(
+      //   clipBehavior: Clip.hardEdge,
+      //   alignment: Alignment.bottomCenter,
+      //   children: [
+      //     PageView(
+      //       controller: pageViewController,
+      //       physics: NeverScrollableScrollPhysics(),
+      //       children: const [
+      //         Home(),
+      //         ProjectsList(),
+      //         SearchResult(),
+      //         FindAgents(),
+      //         Help(),
+      //       ],
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       child: Column(
+      //         mainAxisAlignment: MainAxisAlignment.end,
+      //         children: [
+      //           Positioned(
+      //             bottom: 0,
+      //             child: Obx(
+      //               () => CircleNavBar(
+      //                 tabCurve: Curves.linear,
+      //                 tabDurationMillSec: 300,
+      //                 onTap: (index) {
+      //                   selectedIndex.value = index;
+      //                   if (index == 0) {
+      //                     currentRoute = '/home';
+      //
+      //                     Get.put(BaseController());
+      //                   } else if (index == 1) {
+      //                     //currentRoute = '/project-main';
+      //                     currentRoute = '/project-list';
+      //                   } else if (index == 2) {
+      //                     Get.find<SearchResultController>().initListing();
+      //
+      //                     currentRoute = '/searchresult';
+      //                   } else if (index == 3) {
+      //                     currentRoute = '/findagents';
+      //                   } else if (index == 4) {
+      //                     currentRoute = '/about';
+      //                   }
+      //                   pageViewController.animateToPage(index,
+      //                       duration: Duration(milliseconds: 500),
+      //                       curve: Curves.easeInOut);
+      //                 },
+      //                 activeIndex: selectedIndex.value,
+      //                 circleWidth: Platform.isIOS ? 80 : 60,
+      //                 height: Platform.isIOS ? 80 : 75.h,
+      //                 activeIcons: navBarItems.map((item) {
+      //                   return Image.asset(
+      //                     item.selectedIcon,
+      //                     width: 55.w,
+      //                     height: 55.h,
+      //                   );
+      //                 }).toList(),
+      //                 inactiveIcons: navBarItems.map((item) {
+      //                   return Container(
+      //                     alignment: Alignment.center,
+      //                     child: Column(
+      //                       children: [
+      //                         Image.asset(
+      //                           item.defaultIcon,
+      //                           width: 40.w,
+      //                           height: 40.h,
+      //                         ),
+      //                         EraText(
+      //                           text: item.label,
+      //                           fontSize: 10.sp,
+      //                           color: CupertinoColors.white,
+      //                         ),
+      //                       ],
+      //                     ),
+      //                   );
+      //                 }).toList(),
+      //                 color: AppColors.blue,
+      //               ),
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ],
+      // ),
+      //
     );
   }
 }
