@@ -22,11 +22,12 @@ List<AppPngAssets> navBarItems = [
       selectedIcon: AppEraAssets.home1,
       label: "HOME",
       selectedLabel: "HOME",
-      onTap: () {
-        if (Get.currentRoute != "/home") {
-          Get.offAllNamed("/home");
-        }
-      }),
+      onTap: () => Get.offAllNamed("/home")),
+      // onTap: () {
+      //   if (Get.currentRoute != "/home") {
+      //     Get.offAllNamed("/home");
+      //   }
+      // }),
   AppPngAssets(
       defaultIcon: AppEraAssets.project,
       selectedIcon: AppEraAssets.project1,

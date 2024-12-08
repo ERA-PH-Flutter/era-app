@@ -31,8 +31,8 @@ class AppNavItems extends StatelessWidget {
           children: [
             Image.asset(
               iconPath,
-              width: 55.w,
-              height: 55.h,
+              width: 30.w,
+              height: 30.h,
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
@@ -20,6 +21,8 @@ import '../../../presentation/agent/forms/contacts/pages/help.dart';
 import '../../../presentation/agent/home/pages/home.dart';
 import '../../../presentation/global.dart';
 import 'package:circle_nav_bar/circle_nav_bar.dart';
+
+import '../app_text.dart';
 
 var selectedIndex = 0.obs;
 
@@ -69,96 +72,164 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             return Future.value(false);
           }
         },
-        child: Stack(
-          clipBehavior: Clip.hardEdge,
-          alignment: Alignment.bottomCenter,
-          children: [
-            PageView(
-              controller: pageViewController,
-              physics: NeverScrollableScrollPhysics(),
-              children: const [
-                Home(),
-                ProjectsList(),
-                SearchResult(),
-                FindAgents(),
-                Help(),
-              ],
-            ),
-            SizedBox(
-              height: 100,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Positioned(
-                    bottom: 0,
-                    child: Obx(
-                      () => CircleNavBar(
-                        tabCurve: Curves.linear,
-                        tabDurationMillSec: 300,
-                        onTap: (index) {
-                          selectedIndex.value = index;
-                          if (index == 0) {
-                            currentRoute = '/home';
-
-                            Get.put(BaseController());
-                          } else if (index == 1) {
-                            //currentRoute = '/project-main';
-                            currentRoute = '/project-list';
-                          } else if (index == 2) {
-                            Get.find<SearchResultController>().initListing();
-
-                            currentRoute = '/searchresult';
-                          } else if (index == 3) {
-                            currentRoute = '/findagents';
-                          } else if (index == 4) {
-                            currentRoute = '/about';
-                          }
-                          pageViewController.animateToPage(index,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.easeInOut);
-                        },
-                        activeIndex: selectedIndex.value,
-                        circleWidth: Platform.isIOS ? 80 : 60,
-                        height: Platform.isIOS ? 80 : 75.h,
-                        activeIcons: navBarItems.map((item) {
-                          return Image.asset(
-                            item.selectedIcon,
-                            width: 55.w,
-                            height: 55.h,
-                          );
-                        }).toList(),
-                        inactiveIcons: navBarItems.map((item) {
-                          return Container(
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  item.defaultIcon,
-                                  width: 40.w,
-                                  height: 40.h,
-                                ),
-                                Text(
-                                  item.label,
-                                  style: TextStyle(
-                                      fontSize: 10.sp,
-                                      color: CupertinoColors.white),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                        color: AppColors.blue,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+        child: PageView(
+          controller: pageViewController,
+          onPageChanged: (index) => selectedIndex.value = index,
+          children: const [
+            Home(),
+            ProjectsList(),
+            SearchResult(),
+            FindAgents(),
+            Help(),
           ],
-        ),
-      ),
+        )),
+        bottomNavigationBar: Obx(() => CurvedNavigationBar(
+          backgroundColor: Colors.transparent,
+          color: AppColors.blue,
+          buttonBackgroundColor: AppColors.blue,
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 300),
+          height: 70,
+          items: navBarItems.map((item) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: Image.asset(
+                    selectedIndex.value == navBarItems.indexOf(item)
+                        ? item.selectedIcon
+                        : item.defaultIcon,
+                    width: selectedIndex.value != item.defaultIcon  ?50 : 80,
+                    height: 50,
+                  fit: BoxFit.cover,
+                  ),
+                ),
+                EraText(text:  selectedIndex.value == navBarItems.indexOf(item)
+            ? ''
+                : item.label
+                    , fontSize: 10.sp),
+              ],
+            );
+          }).toList(),
+          index: selectedIndex.value,
+          onTap: (index) {
+            selectedIndex.value = index;
+            if(index == 0 ){
+              currentRoute = '/home';
+              Get.put(BaseController());
+            }else if (index == 1){
+              currentRoute = '/project-list';
+            }else if (index == 2){
+              Get.find<SearchResultController>().initListing();
+              currentRoute = '/searchresult';
+            }else if(index == 3){
+              currentRoute = '/findagents';
+
+            }else if(index ==4){
+              currentRoute = '/about';
+
+            }
+            pageViewController.animateToPage(
+              index,
+
+              duration: Duration(milliseconds: 100),
+              curve: Curves.easeInOut,
+            );
+
+
+          },
+        )),
+        //
+        // Stack(
+        //   clipBehavior: Clip.hardEdge,
+        //   alignment: Alignment.bottomCenter,
+        //   children: [
+        //     PageView(
+        //       controller: pageViewController,
+        //       physics: NeverScrollableScrollPhysics(),
+        //       children: const [
+        //         Home(),
+        //         ProjectsList(),
+        //         SearchResult(),
+        //         FindAgents(),
+        //         Help(),
+        //       ],
+        //     ),
+        //     SizedBox(
+        //       height: 100,
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.end,
+        //         children: [
+        //           Positioned(
+        //             bottom: 0,
+        //             child: Obx(
+        //               () => CircleNavBar(
+        //                 tabCurve: Curves.linear,
+        //                 tabDurationMillSec: 300,
+        //                 onTap: (index) {
+        //                   selectedIndex.value = index;
+        //                   if (index == 0) {
+        //                     currentRoute = '/home';
+        //
+        //                     Get.put(BaseController());
+        //                   } else if (index == 1) {
+        //                     //currentRoute = '/project-main';
+        //                     currentRoute = '/project-list';
+        //                   } else if (index == 2) {
+        //                     Get.find<SearchResultController>().initListing();
+        //
+        //                     currentRoute = '/searchresult';
+        //                   } else if (index == 3) {
+        //                     currentRoute = '/findagents';
+        //                   } else if (index == 4) {
+        //                     currentRoute = '/about';
+        //                   }
+        //                   pageViewController.animateToPage(index,
+        //                       duration: Duration(milliseconds: 500),
+        //                       curve: Curves.easeInOut);
+        //                 },
+        //                 activeIndex: selectedIndex.value,
+        //                 circleWidth: Platform.isIOS ? 80 : 60,
+        //                 height: Platform.isIOS ? 80 : 75.h,
+        //                 activeIcons: navBarItems.map((item) {
+        //                   return Image.asset(
+        //                     item.selectedIcon,
+        //                     width: 55.w,
+        //                     height: 55.h,
+        //                   );
+        //                 }).toList(),
+        //                 inactiveIcons: navBarItems.map((item) {
+        //                   return Container(
+        //                     alignment: Alignment.center,
+        //                     child: Column(
+        //                       children: [
+        //                         Image.asset(
+        //                           item.defaultIcon,
+        //                           width: 40.w,
+        //                           height: 40.h,
+        //                         ),
+        //                         EraText(
+        //                           text: item.label,
+        //                           fontSize: 10.sp,
+        //                           color: CupertinoColors.white,
+        //                         ),
+        //                       ],
+        //                     ),
+        //                   );
+        //                 }).toList(),
+        //                 color: AppColors.blue,
+        //               ),
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        //
+
+
     );
   }
 }
