@@ -442,7 +442,7 @@ class Fav extends GetView<FavController> {
                     image: listing.photos?.first,
                     name: listing.name ?? "Test",
                     type: listing.type!,
-                    areas: listing.area!,
+                    areas: listing.floorArea!,
                     beds: listing.beds ?? 0,
                     baths: listing.baths ?? 0,
                     cars: listing.cars ?? 0,

@@ -4,7 +4,7 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/web/navbar.dart';
 import 'package:eraphilippines/presentation/global.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
+import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

@@ -11,12 +11,11 @@ class ProjectViewWeb extends GetView<ProjectViewWebController> {
     Get.put(ProjectViewWebController());
 
     return Scaffold(
-      appBar: CustomAppbar(),
       body: WillPopScope(
         onWillPop: () {
           Get.back();
           return Future.value(false);
-        },
+        }, 
         child: SafeArea(
           child: Obx(() => switch (controller.projectViewState.value) {
                 ProjectViewState.loading => _loading(),

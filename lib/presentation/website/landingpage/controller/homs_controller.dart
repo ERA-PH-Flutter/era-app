@@ -1,11 +1,13 @@
 import 'package:eraphilippines/presentation/website/form/pages/help.dart';
 import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
+import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:eraphilippines/presentation/website/projects/pages/projects_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/widgets/web/companynews_page_web.dart';
+import '../../../../app/widgets/web/project_views_web.dart';
 import '../../../agent/agents/bindings/agent_listings_binding.dart';
 import '../../agents/pages/dashboard_web.dart';
 import '../../agents/pages/findagents.dart';
@@ -16,11 +18,10 @@ import '../../form/pages/sell_property_web.dart';
 import '../../home/controllers/home_web_binding.dart';
 import '../../home/pages/home_web.dart';
 import '../../listings/controllers/buyweb_binding.dart';
-import '../../listings/pages/buy_web_listing_page.dart';
-import '../../listings/pages/buy_web_listings.dart';
+import '../../listings/pages/listing_web_page.dart';
+import '../../listings/pages/listing_web.dart';
 import '../../mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
 import '../../mortageCalculator.dart/pages/MortageCalculator.dart';
-import '../../news/bindings/news_binding.dart';
 import '../../news/pages/companynews.dart';
 import '../../projects/controllers/projects_binding.dart';
 
@@ -39,7 +40,6 @@ class HomsController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   RxList<Widget> pages = [
-    // AgentDashBoardWeb(),
     HomeWeb(), //0
     ProjectsList(), //1
     BuyWeb(), //2
@@ -47,13 +47,16 @@ class HomsController extends GetxController {
     HelpWeb(), //04
     // CompanyNewsWeb(),
     AboutUsWeb(), //5
-    // JoinEraWeb(),
-    SellPropertyWeb(), //6
-    ContactUsWeb(), //7
-    MortageCalculatorWeb(), //8
-    CompanyNewsWeb(), //9
-    CompanyNewsPageWeb(), // 10
-    BuyWebListingPage(), // 11
+    JoinEraWeb(),//6
+    SellPropertyWeb(), //7
+    ContactUsWeb(), //8
+    MortageCalculatorWeb(), //9
+    CompanyNewsWeb(), //10
+    CompanyNewsPageWeb(), // 11
+    BuyWebListingPage(), // 12
+    AgentDashBoardWeb(), //13
+ ProjectViewWeb(),
+     //14
   ].obs;
 
   HomsController() {

@@ -22,7 +22,7 @@ import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../global.dart';
-import '../../landingpage/controller/homepage_controller.dart';
+import '../../landingpage/controller/homs_controller.dart';
 
 class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
   AgentDashBoardWeb({

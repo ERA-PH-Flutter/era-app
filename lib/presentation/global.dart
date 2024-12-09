@@ -55,3 +55,4 @@ var propertyT = [
 ];
 var newsArgument;
 var listingArgument;
+var projectArgument;

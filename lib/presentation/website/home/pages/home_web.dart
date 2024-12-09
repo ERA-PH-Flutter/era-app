@@ -6,16 +6,13 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/app/services/firebase_database.dart';
-import 'package:eraphilippines/app/widgets/app_text.dart';
+ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 
 import 'package:eraphilippines/presentation/website/home/controllers/home_web_controller.dart';
-import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
-
+ 
 import 'package:eraphilippines/repository/listing.dart';
-import 'package:eraphilippines/router/route_string.dart';
-
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -27,12 +24,10 @@ import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/strings.dart';
 import '../../../../app/services/firebase_storage.dart';
 
-import '../../../../app/widgets/navigation/customenavigationbar.dart';
-import '../../../../app/widgets/web/companynews_page_web.dart';
-import '../../../../app/widgets/filteredsearch_box.dart';
+  import '../../../../app/widgets/filteredsearch_box.dart';
 import '../../../global.dart';
-import '../../landingpage/controller/homepage_controller.dart' as a;
-import '../../landingpage/controller/homepage_controller.dart';
+import '../../landingpage/controller/homs_controller.dart' as a;
+import '../../landingpage/controller/homs_controller.dart';
 import '../../listings/controllers/listings_web_controller.dart';
 import '../../news/controllers/news_controller.dart';
 
@@ -76,88 +71,100 @@ class HomeWeb extends GetView<HomeWebController> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          //       SizedBox(
-          //TODO NIKKO  not working
-          // width: Get.width,
-          // child: Stack(
-          //   children: [
-          //     Positioned(
-          //       child: CarouselSlider(
-          //           controller: controller.innerController,
-          //           items: controller.images.map((image) {
-          //             return image;
-          //           }).toList(),
-          //           options: CarouselOptions(
-          //             autoPlayInterval: Duration(seconds: 7),
-          //             autoPlay: true,
-          //             viewportFraction: 1,
-          //             onPageChanged: (index, reason) =>
-          //                 controller.carouselIndex.value = index,
-          //           )),
-          //     ),
-          //     Positioned(
-          //       bottom: 10,
-          //       child: SizedBox(
-          //         width: Get.width,
-          //         child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.center,
-          //             children: [
-          //               Obx(() => AnimatedSmoothIndicator(
-          //                     activeIndex: controller.carouselIndex.value,
-          //                     count: controller.images.length,
-          //                     effect: JumpingDotEffect(
-          //                       spacing: 25,
-          //                       dotWidth: 8,
-          //                       dotHeight: 8,
-          //                       activeDotColor: AppColors.black,
-          //                       dotColor: AppColors.hint,
-          //                     ),
-          //                   )),
-          //             ]),
-          //       ),
-          //     ),
-          //     Positioned(
-          //       top:0,
-          //       bottom:0,
-          //       left: 10.w,
-          //       child: Container(
-          //         height: 240.h,
-          //         alignment: Alignment.center,
-          //         child: GestureDetector(
-          //           onTap: () {
-          //            // controller.prevImage();
-          //             controller.innerController.previousPage();
-          //           },
-          //           child: Image.asset(
-          //             AppEraAssets.next,
-          //             height: 20.h,
-          //             width: 20.w,
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //     Positioned(
-          //       top:0,
-          //        bottom:0,
-          //       right: 10.w,
-          //       child: Container(
-          //         height: 240.h,
-          //         alignment: Alignment.center,
-          //         child: GestureDetector(
-          //           onTap: () {
-          //         //    controller.nextImage(controller.images.length);
-          //             controller.innerController.nextPage();
-          //           },
-          //           child: Image.asset(
-          //             AppEraAssets.prev,
-          //             height: 20.h,
-          //             width: 20.w,
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // )),
+          SizedBox(
+              // TODO NIKKO  not working
+              width: Get.width,
+              child: Stack(
+                children: [
+                  Positioned(
+                    child: CarouselSlider(
+                        controller: controller.innerController,
+                        items: imagePaths.map((imagePath) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(imagePath))),
+                          );
+
+                          // Image.asset(
+                          //   imagePath,
+                          //   fit: BoxFit.contain,
+                          //   width: Get.width,
+                          //   height: Get.height,
+                          // );
+                        }).toList(),
+                        options: CarouselOptions(
+                          autoPlayInterval: Duration(seconds: 7),
+                          autoPlay: true,
+                          viewportFraction: 1,
+                          onPageChanged: (index, reason) =>
+                              controller.carouselIndex.value = index,
+                        )),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    child: SizedBox(
+                      width: Get.width,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Obx(() => AnimatedSmoothIndicator(
+                                  activeIndex: controller.carouselIndex.value,
+                                  count: controller.images.length,
+                                  effect: JumpingDotEffect(
+                                    spacing: 25,
+                                    dotWidth: 8,
+                                    dotHeight: 8,
+                                    activeDotColor: AppColors.black,
+                                    dotColor: AppColors.hint,
+                                  ),
+                                )),
+                          ]),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    left: 10.w,
+                    child: Container(
+                      height: 240.h,
+                      alignment: Alignment.center,
+                      child: GestureDetector(
+                        onTap: () {
+                          // controller.prevImage();
+                          controller.innerController.previousPage();
+                        },
+                        child: Image.asset(
+                          AppEraAssets.next,
+                          height: 50.h,
+                          width: 50.w,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    right: 10.w,
+                    child: Container(
+                      height: 240.h,
+                      alignment: Alignment.center,
+                      child: GestureDetector(
+                        onTap: () {
+                          //    controller.nextImage(controller.images.length);
+                          controller.innerController.nextPage();
+                        },
+                        child: Image.asset(
+                          AppEraAssets.prev,
+                          height: 50.h,
+                          width: 50.w,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
           sb20(),
           Container(
             padding: EdgeInsets.symmetric(
@@ -258,9 +265,11 @@ class HomeWeb extends GetView<HomeWebController> {
                         Listing listing = controller.listings[index];
                         return GestureDetector(
                           onTap: () async {
-                            
-                            await Database().addViews(listing.id);
-                            Get.toNamed('/propertyInfo', arguments: listing);
+                            listingArgument = listing;
+                            a.selectedIndex.value = 12;
+                            Get.find<HomsController>().onNavbarItemSelected(12);
+                            // await Database().addViews(listing.id);
+                            // Get.toNamed('/propertyInfo', arguments: listing);
                           },
                           child: Container(
                             width: 378.w,
@@ -332,7 +341,7 @@ class HomeWeb extends GetView<HomeWebController> {
                                         ),
                                         SizedBox(width: 2.w),
                                         EraText(
-                                          text: '${listing.area} sqm',
+                                          text: '${listing.floorArea} sqm',
                                           fontSize: EraTheme.paragraph - 1.sp,
                                           fontWeight: FontWeight.w500,
                                           color: AppColors.black,
@@ -447,7 +456,7 @@ class HomeWeb extends GetView<HomeWebController> {
                 SizedBox(
                   height: 30.h,
                 ),
-                // same widget as the oone in the my dashboard will change it later
+                // same widget as the oone in the my dashboard wfaill change it later
                 Container(
                   color: AppColors.hint.withOpacity(0.1),
                   padding:
@@ -467,12 +476,13 @@ class HomeWeb extends GetView<HomeWebController> {
                               fontWeight: FontWeight.bold,
                               color: AppColors.kRedColor),
                           GestureDetector(
-                            onTap: ()async{
-                              HomsController homsController = Get.find<HomsController>();
-                              a.selectedIndex.value = 9;
-                              Get.lazyPut(()=>NewsWebController());
+                            onTap: () async {
+                              HomsController homsController =
+                                  Get.find<HomsController>();
+                              a.selectedIndex.value = 10;
+                              Get.lazyPut(() => NewsWebController());
                               //await Get.find<NewsWebController>().getNews();
-                              homsController.onNavbarItemSelected(9);
+                              homsController.onNavbarItemSelected(10);
                             },
                             child: EraText(
                                 text: 'See all',
@@ -510,9 +520,10 @@ class HomeWeb extends GetView<HomeWebController> {
                           itemCount: controller.news.length,
                           itemBuilder: (context, i) => GestureDetector(
                             onTap: () {
-                              HomsController homsController = Get.find<HomsController>();
-                              a.selectedIndex.value = 10;
-                              homsController.onNavbarItemSelected(10);
+                              HomsController homsController =
+                                  Get.find<HomsController>();
+                              a.selectedIndex.value = 11;
+                              homsController.onNavbarItemSelected(11);
                               newsArgument = {
                                 "title": controller.news[i].title,
                                 "image": controller.news[i].image,

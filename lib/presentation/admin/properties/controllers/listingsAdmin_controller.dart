@@ -374,7 +374,7 @@ class ListingsAdminController extends GetxController {
     addListingsController.bedsController.text = listing!.beds.toString();
     addListingsController.bathsController.text = listing!.baths.toString();
     addListingsController.carsController.text = listing!.cars.toString();
-    addListingsController.areaController.text = listing!.area.toString();
+    addListingsController.areaController.text = listing!.floorArea.toString();
     addListingsController.selectedOfferT.value =
         addListingsController.offerT.contains(listing!.status)
             ? listing!.status

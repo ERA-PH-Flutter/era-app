@@ -8,6 +8,7 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/app/widgets/web/project_views_web.dart';
 import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/presentation/website/projects/controllers/project_views_binding.dart';
 import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:eraphilippines/repository/news.dart';
@@ -73,7 +74,7 @@ class HomeWebController extends GetxController {
       quickLinks = await QuickLinksModel().initialize();
 //TODO NIKKO
 //      //commented out for now since getListing is not updated so there is an error
-       await getListings();
+      await getListings();
       //    await getBanners();
       await getNews();
       await getImages();
@@ -186,8 +187,10 @@ class HomeWebController extends GetxController {
         var pr = await Project.getById(settings!.featuredProjects![i]);
         projects.add(GestureDetector(
           onTap: () {
-            Get.to(ProjectViewWeb(),
-                binding: ProjectViewWebBinding(), arguments: pr);
+            selectedIndex.value = 14;
+            Get.find<HomsController>().onNavbarItemSelected(14);
+            // Get.to(ProjectViewWeb(),
+            //     binding: ProjectViewWebBinding(), arguments: pr);
           },
           child: Wrap(
             children: [

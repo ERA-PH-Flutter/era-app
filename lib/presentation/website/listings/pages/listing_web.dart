@@ -5,7 +5,7 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
+import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -96,8 +96,7 @@ class BuyWeb extends GetView<ListingsWebController> {
                   )
                 ],
               );
-            }
-            else {
+            } else {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -129,8 +128,8 @@ class BuyWeb extends GetView<ListingsWebController> {
                     // await Database().addViews(listing.id);
                     // Get.toNamed('/propertyInfo', arguments: listing);
                     listingArgument = listing;
-                    selectedIndex.value = 11;
-                    Get.find<HomsController>().onNavbarItemSelected(11);
+                    selectedIndex.value = 12;
+                    Get.find<HomsController>().onNavbarItemSelected(12);
                   },
                   child: Container(
                     margin: EdgeInsets.only(
@@ -201,7 +200,7 @@ class BuyWeb extends GetView<ListingsWebController> {
                                 ),
                                 SizedBox(width: 2.w),
                                 EraText(
-                                  text: '${listing.area} sqm',
+                                  text: '${listing.floorArea} sqm',
                                   fontSize: EraTheme.paragraph - 1.sp,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.black,

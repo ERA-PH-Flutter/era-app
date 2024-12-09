@@ -3,7 +3,7 @@ import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/dashboard_web.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controller/homepage_controller.dart';
+import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -185,6 +185,8 @@ class Navbar extends GetResponsiveView<HomsController> {
                           ),
                           trailing: Icon(Icons.navigate_next),
                           onTap: () {
+                            selectedIndex.value = 13;
+                            Get.find<HomsController>().onNavbarItemSelected(13);
                             print('Profile clicked');
                           },
                         ),

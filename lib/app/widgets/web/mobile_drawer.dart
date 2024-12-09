@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../presentation/website/landingpage/controller/homepage_controller.dart';
+import '../../../presentation/website/landingpage/controller/homs_controller.dart';
 import '../../constants/colors.dart';
 import '../../constants/theme.dart';
 import '../app_text.dart';

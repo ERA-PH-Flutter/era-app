@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../presentation/global.dart';
 import '../../constants/assets.dart';
 import '../../constants/sized_box.dart';
 
@@ -686,6 +687,7 @@ class ProjectViewsWeb {
       Container(),
       sb50(),
     ];
+
     for (var block in project.data!) {
       if (block['type'] == "Project Logo") {
         preview[0] = CloudStorage().imageLoader(
@@ -747,7 +749,8 @@ class ProjectViewsWeb {
                 fontSize: EraTheme.paragraphWeb,
                 onTap: () {
                   Get.to(ProjectViewWeb(),
-                      binding: ProjectViewBinding(), arguments: project);
+                      binding: ProjectViewBinding(),
+                      arguments: projectArgument);
                 },
                 bgColor: AppColors.kRedColor,
                 borderRadius: BorderRadius.circular(30),
