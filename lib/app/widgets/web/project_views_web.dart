@@ -758,8 +758,8 @@ class ProjectViewsWeb {
                 text: 'LEARN MORE',
                 fontSize: EraTheme.paragraphWeb,
                 onTap: () {
-                  selectedIndex.value = 14;
-                  Get.find<HomsController>().onNavbarItemSelected(14);
+                  Get.to(ProjectViewWeb(),
+                      binding: ProjectViewBinding(), arguments: project);
                   // projectArgument = project;
 
                   //    Get.to(ProjectViewWeb(),
