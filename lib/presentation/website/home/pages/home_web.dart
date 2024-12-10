@@ -142,29 +142,37 @@ class HomeWeb extends GetView<HomeWebController> {
                       ),
                     ),
                   ),
-                  // Positioned(
-                  //   top: 20,
-                  //   left: 0,
-                  //   right: 0,
-                  //   child: Container(
-                  //     width: Get.width,
-                  //      child: Row(
-                  //         mainAxisAlignment: MainAxisAlignment.center,
-                  //         children: [
-                  //           AnimatedSmoothIndicator(
-                  //             activeIndex: controller.carouselIndex.value,
-                  //             count: controller.images.length,
-                  //             effect: JumpingDotEffect(
-                  //               spacing: 25,
-                  //               dotWidth: 8,
-                  //               dotHeight: 8,
-                  //               activeDotColor: AppColors.black,
-                  //               dotColor: AppColors.hint,
-                  //             ),
-                  //           )
-                  //         ]),
-                  //   ),
-                  // ),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: 50,
+                      width: Get.width,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Obx(() {
+                              print(
+                                  ' controller.carouselIndex.value ${controller.carouselIndex.value}');
+                              print(
+                                  ' controller.carouselIndex.value ${controller.carouselIndex.value.runtimeType}');
+                              print(
+                                  ' controller.images.length ${controller.images.length}');
+                              return AnimatedSmoothIndicator(
+                                activeIndex:
+                                    controller.carouselIndex.value.toInt(),
+                                count: imagePaths.length,
+                                effect: JumpingDotEffect(
+                                  spacing: 25,
+                                  dotWidth: 8,
+                                  dotHeight: 8,
+                                  activeDotColor: AppColors.black,
+                                  dotColor: AppColors.hint,
+                                ),
+                              );
+                            })
+                          ]),
+                    ),
+                  ),
                 ],
               )),
           sb20(),
