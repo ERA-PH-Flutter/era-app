@@ -26,13 +26,11 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
     // Get.put(NewsWebController());
     // HomsController homsController = Get.put(HomsController());
 
-    return SingleChildScrollView(
-      child: SafeArea(
-        child: Obx(() => switch (controller.newsState.value) {
-          NewsState.loading => _loading(),
-          NewsState.loaded => _loaded(),
-        }),
-      ),
+    return SafeArea(
+      child: Obx(() => switch (controller.newsState.value) {
+            NewsState.loading => _loading(),
+            NewsState.loaded => _loaded(),
+          }),
     );
   }
 
@@ -76,8 +74,8 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
                 //     image: controller.news[i].image,
                 //     description: controller.news[i].description));
                 HomsController homsController = Get.find<HomsController>();
-                selectedIndex.value = 10;
-                homsController.onNavbarItemSelected(10);
+                selectedIndex.value = 11;
+                homsController.onNavbarItemSelected(11);
                 newsArgument = {
                   "title": controller.news[i].title,
                   "image": controller.news[i].image,

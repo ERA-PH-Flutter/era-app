@@ -574,9 +574,11 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Get.toNamed(
-                    '/addListings',
-                  );
+                  selectedIndex.value = 15;
+                  Get.find<HomsController>().onNavbarItemSelected(15);
+                  // Get.toNamed(
+                  //   '/addListings',
+                  // );
                 },
                 child: Image.asset(
                   AppEraAssets.addIcon,

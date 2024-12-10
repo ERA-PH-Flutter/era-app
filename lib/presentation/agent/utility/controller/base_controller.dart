@@ -7,9 +7,8 @@ import '../../../../app/constants/colors.dart';
 import '../../../../app/widgets/app_text.dart';
 import '../../../../app/widgets/button.dart';
 
-mixin class BaseController{
-  showSuccessDialog(
-  {
+mixin class BaseController {
+  showSuccessDialog({
     VoidCallback? hitApi,
     String title = 'Success',
     String? description = 'Successfully',
@@ -53,6 +52,26 @@ mixin class BaseController{
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CupertinoButton(
+                    color: AppColors.primary,
+                    padding:
+                        EdgeInsets.symmetric(vertical: 5.h, horizontal: 20.w),
+                    onPressed: hitApi ??
+                        () {
+                          Get.back();
+                          // if (Get.isDialogOpen!)
+                        },
+                    child: Text(
+                      okayButton,
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 15.sp,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.w,
+                  ),
                   if (cancelable)
                     CupertinoButton(
                       onPressed: () {
@@ -66,17 +85,68 @@ mixin class BaseController{
                         ),
                       ),
                     ),
-                  SizedBox(
-                    height: 10.w,
-                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  showSuccessDialogProjects({
+    VoidCallback? hitApi,
+    String title = 'Success',
+    String? description = 'Successfully',
+    cancelable = false,
+    cancelButton = "No",
+    okayButton = "Okay",
+    dismissible = false,
+  }) {
+    showCupertinoDialog(
+      barrierDismissible: dismissible,
+      context: Get.context!,
+      builder: (context) => Dialog(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.5),
+            color: Colors.white,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              EraText(
+                text: title,
+                fontWeight: FontWeight.w500,
+                color: AppColors.primary,
+                fontSize: 25.sp,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              EraText(
+                text: description ?? '',
+                fontWeight: FontWeight.w400,
+                color: AppColors.black,
+                fontSize: 16.sp,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   CupertinoButton(
                     color: AppColors.primary,
                     padding:
                         EdgeInsets.symmetric(vertical: 5.h, horizontal: 20.w),
-                    onPressed: hitApi ?? (){
-                      Get.back();
-                      // if (Get.isDialogOpen!)
-                    },
+                    onPressed: hitApi ??
+                        () {
+                          Get.back();
+                          // if (Get.isDialogOpen!)
+                        },
                     child: Text(
                       okayButton,
                       style: GoogleFonts.poppins(
@@ -85,6 +155,22 @@ mixin class BaseController{
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 10.w,
+                  ),
+                  if (cancelable)
+                    CupertinoButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text(
+                        cancelButton,
+                        style: GoogleFonts.poppins(
+                          color: AppColors.primary,
+                          fontSize: 15.sp,
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ],
@@ -121,12 +207,11 @@ mixin class BaseController{
     Get.back();
   }
 
-  void showErroDialog({
-    VoidCallback? onTap,
-    String title = 'Error',
-    String? description = 'Something went wrong',
-    double? width
-  }) {
+  void showErroDialog(
+      {VoidCallback? onTap,
+      String title = 'Error',
+      String? description = 'Something went wrong',
+      double? width}) {
     showCupertinoDialog(
       barrierDismissible: false,
       context: Get.context!,

@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/widgets/web/navbar.dart';
 import 'package:eraphilippines/presentation/website/projects/controllers/project_view_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,22 +11,36 @@ class ProjectViewWeb extends GetView<ProjectViewWebController> {
   Widget build(BuildContext context) {
     Get.put(ProjectViewWebController());
 
-    return Scaffold(
-      body: WillPopScope(
-        onWillPop: () {
-          Get.back();
-          return Future.value(false);
-        }, 
-        child: SafeArea(
-          child: Obx(() => switch (controller.projectViewState.value) {
-                ProjectViewState.loading => _loading(),
-                ProjectViewState.loaded => _loaded(),
-                ProjectViewState.error => _error(),
-                ProjectViewState.empty => _empty()
-              }),
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            height: Get.height,
+            child: ProjectViewsWeb(project: Get.arguments).build(),
+          ),
+        ],
       ),
     );
+    //  Scaffold(
+    //   // appBar: PreferredSize(
+    //   //   preferredSize: Size.fromHeight(kToolbarHeight),
+    //   //   child: Navbar(),
+    //   // ),
+    //   body: WillPopScope(
+    //     onWillPop: () {
+    //       Get.back();
+    //       return Future.value(false);
+    //     },
+    //     child: SafeArea(
+    //       child: Obx(() => switch (controller.projectViewState.value) {
+    //             ProjectViewState.loading => _loading(),
+    //             ProjectViewState.loaded => _loaded(),
+    //             ProjectViewState.error => _error(),
+    //             ProjectViewState.empty => _empty()
+    //           }),
+    //     ),
+    //   ),
+    // );
   }
 
   _loading() {
@@ -34,9 +49,13 @@ class ProjectViewWeb extends GetView<ProjectViewWebController> {
 
   _loaded() {
     return SingleChildScrollView(
-      child: Container(
-        height: Get.height,
-        child: ProjectViewsWeb(project: Get.arguments).build(),
+      child: Column(
+        children: [
+          Container(
+            height: Get.height,
+            child: ProjectViewsWeb(project: Get.arguments).build(),
+          ),
+        ],
       ),
     );
   }

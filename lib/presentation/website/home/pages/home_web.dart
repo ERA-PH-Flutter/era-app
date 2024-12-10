@@ -6,13 +6,13 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
- import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 
 import 'package:eraphilippines/presentation/website/home/controllers/home_web_controller.dart';
- 
+
 import 'package:eraphilippines/repository/listing.dart';
- 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -24,7 +24,7 @@ import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/strings.dart';
 import '../../../../app/services/firebase_storage.dart';
 
-  import '../../../../app/widgets/filteredsearch_box.dart';
+import '../../../../app/widgets/filteredsearch_box.dart';
 import '../../../global.dart';
 import '../../landingpage/controller/homs_controller.dart' as a;
 import '../../landingpage/controller/homs_controller.dart';
@@ -103,27 +103,6 @@ class HomeWeb extends GetView<HomeWebController> {
                         )),
                   ),
                   Positioned(
-                    bottom: 10,
-                    child: SizedBox(
-                      width: Get.width,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Obx(() => AnimatedSmoothIndicator(
-                                  activeIndex: controller.carouselIndex.value,
-                                  count: controller.images.length,
-                                  effect: JumpingDotEffect(
-                                    spacing: 25,
-                                    dotWidth: 8,
-                                    dotHeight: 8,
-                                    activeDotColor: AppColors.black,
-                                    dotColor: AppColors.hint,
-                                  ),
-                                )),
-                          ]),
-                    ),
-                  ),
-                  Positioned(
                     top: 0,
                     bottom: 0,
                     left: 10.w,
@@ -163,6 +142,29 @@ class HomeWeb extends GetView<HomeWebController> {
                       ),
                     ),
                   ),
+                  // Positioned(
+                  //   top: 20,
+                  //   left: 0,
+                  //   right: 0,
+                  //   child: Container(
+                  //     width: Get.width,
+                  //      child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           AnimatedSmoothIndicator(
+                  //             activeIndex: controller.carouselIndex.value,
+                  //             count: controller.images.length,
+                  //             effect: JumpingDotEffect(
+                  //               spacing: 25,
+                  //               dotWidth: 8,
+                  //               dotHeight: 8,
+                  //               activeDotColor: AppColors.black,
+                  //               dotColor: AppColors.hint,
+                  //             ),
+                  //           )
+                  //         ]),
+                  //   ),
+                  // ),
                 ],
               )),
           sb20(),
@@ -480,7 +482,7 @@ class HomeWeb extends GetView<HomeWebController> {
                               HomsController homsController =
                                   Get.find<HomsController>();
                               a.selectedIndex.value = 10;
-                              Get.lazyPut(() => NewsWebController());
+                              //  Get.lazyPut(() => NewsWebController());
                               //await Get.find<NewsWebController>().getNews();
                               homsController.onNavbarItemSelected(10);
                             },

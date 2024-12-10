@@ -11,19 +11,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../../../../app/constants/screens.dart';
-import '../../../../../app/widgets/filteredsearch_box.dart';
-import '../../../../../app/widgets/listings/listedBy_widget.dart';
-import '../../../../../repository/listing.dart';
-import '../../../../../repository/user.dart';
-import '../../../global.dart';
+import '../../../../../../app/constants/screens.dart';
+import '../../../../../../app/widgets/filteredsearch_box.dart';
+import '../../../../../../app/widgets/listings/listedBy_widget.dart';
+import '../../../../../../repository/listing.dart';
+import '../../../../../../repository/user.dart';
+import '../../../../global.dart';
 
 class BuyWeb extends GetView<ListingsWebController> {
   const BuyWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ListingsWebController());
+    //Get.put(ListingsWebController());
     return Container(
       width: Get.width,
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),

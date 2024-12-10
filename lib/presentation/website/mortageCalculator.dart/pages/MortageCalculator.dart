@@ -22,7 +22,7 @@ class MortageCalculatorWeb extends GetView<MortageCalculatorWController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(MortageCalculatorWController());
+ //   Get.put(MortageCalculatorWController());
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       child: Column(

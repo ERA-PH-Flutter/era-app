@@ -8,17 +8,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import '../../../../app/constants/assets.dart';
-import '../../../../app/constants/colors.dart';
-import '../../../../app/constants/strings.dart';
-import '../../../../app/services/firebase_database.dart';
-import '../../../../app/services/firebase_storage.dart';
-import '../../../../app/widgets/app_text.dart';
-import '../../../../app/widgets/image/image_widget.dart';
-import '../../../../app/widgets/listings/listedBy_widget.dart';
-import '../../../../repository/listing.dart';
-import '../../../../repository/user.dart';
-import '../controllers/listings_web_controller.dart';
+import '../../../../../app/constants/assets.dart';
+import '../../../../../app/constants/colors.dart';
+import '../../../../../app/constants/strings.dart';
+import '../../../../../app/services/firebase_database.dart';
+import '../../../../../app/services/firebase_storage.dart';
+import '../../../../../app/widgets/app_text.dart';
+import '../../../../../app/widgets/image/image_widget.dart';
+import '../../../../../app/widgets/listings/listedBy_widget.dart';
+import '../../../../../repository/listing.dart';
+import '../../../../../repository/user.dart';
+import '../../controllers/listings_web_controller.dart';
 
 class BuyWebListingPage extends GetView<ListingsWebController> {
   BuyWebListingPage({
