@@ -235,83 +235,83 @@ class AddListingsController extends GetxController with BaseController {
   }
 
   updateListing() async {
-    if (propertyNameController.text.isEmpty) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required! Only Description is optional 1",
-      );
-      return;
-    }
-    if (propertyCostController.text.isEmpty) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required 2!",
-      );
-      return;
-    }
-    if (pricePerSqmController.text.isEmpty) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required! 3",
-      );
-      return;
-    }
-    if (bedsController.text.isEmpty) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required! 4",
-      );
-      return;
-    }
-    if (bathsController.text.isEmpty) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required! 5",
-      );
-      return;
-    }
-    if (carsController.text.isEmpty) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required! 6",
-      );
-      return;
-    }
-    if (areaController.text.isEmpty) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required! 7",
-      );
-      return;
-    }
-    if (selectedOfferT.value == null) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required! 8",
-      );
-      return;
-    }
-    if (selectedView.value == null) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required! 9",
-      );
-      return;
-    }
-    if (selectedPropertyT.value == null) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required! 10",
-      );
-      return;
-    }
-    if (selectedPropertySubCategory.value == null) {
-      AddListingsWeb.showErroDialogs(
-        title: "Error",
-        description: "All fields are required! Only Description is optional 11",
-      );
-      return;
-    }
+    // if (propertyNameController.text.isEmpty) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required! Only Description is optional 1",
+    //   );
+    //   return;
+    // }
+    // if (propertyCostController.text.isEmpty) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required 2!",
+    //   );
+    //   return;
+    // }
+    // if (pricePerSqmController.text.isEmpty) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required! 3",
+    //   );
+    //   return;
+    // }
+    // if (bedsController.text.isEmpty) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required! 4",
+    //   );
+    //   return;
+    // }
+    // if (bathsController.text.isEmpty) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required! 5",
+    //   );
+    //   return;
+    // }
+    // if (carsController.text.isEmpty) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required! 6",
+    //   );
+    //   return;
+    // }
+    // if (areaController.text.isEmpty) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required! 7",
+    //   );
+    //   return;
+    // }
+    // if (selectedOfferT.value == null) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required! 8",
+    //   );
+    //   return;
+    // }
+    // if (selectedView.value == null) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required! 9",
+    //   );
+    //   return;
+    // }
+    // if (selectedPropertyT.value == null) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required! 10",
+    //   );
+    //   return;
+    // }
+    // if (selectedPropertySubCategory.value == null) {
+    //   AddListingsWeb.showErroDialogs(
+    //     title: "Error",
+    //     description: "All fields are required! Only Description is optional 11",
+    //   );
+    //   return;
+    // }
     try {
       listing!.name = propertyNameController.text;
       listing!.price =

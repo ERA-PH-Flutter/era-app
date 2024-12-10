@@ -23,8 +23,7 @@ class BuyWeb extends GetView<ListingsWebController> {
 
   @override
   Widget build(BuildContext context) {
-    //Get.put(ListingsWebController());
-    return Container(
+     return Container(
       width: Get.width,
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       child: Column(

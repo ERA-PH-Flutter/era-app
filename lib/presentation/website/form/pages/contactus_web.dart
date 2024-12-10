@@ -86,12 +86,12 @@ class ContactUsWeb extends GetView<FormWebController> {
         SharedWidgets.textFormfield(
           hintText: 'Full Name',
           controller: controller.nameC,
-          keyboardType: TextInputType.text,
+          textInputType: TextInputType.text,
         ),
         SharedWidgets.textFormfield(
           controller: controller.emailAC,
           hintText: 'Email',
-          keyboardType: TextInputType.emailAddress,
+          textInputType: TextInputType.emailAddress,
         ),
         SharedWidgets.dropDown(
           controller.selectedSubj,
@@ -105,8 +105,8 @@ class ContactUsWeb extends GetView<FormWebController> {
         SharedWidgets.textFormfield(
           controller: controller.messageC,
           hintText: 'Type your message here',
-          keyboardType: TextInputType.multiline,
-          maxLines: 5,
+          textInputType: TextInputType.multiline,
+          MaxLines: 5,
         ),
         sb30(),
         Button.button2(

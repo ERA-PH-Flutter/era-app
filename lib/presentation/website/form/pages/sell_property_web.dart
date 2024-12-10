@@ -143,7 +143,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                             Column(
                               children: [
                                 SharedWidgets.textFormfield(
-                                    keyboardType: TextInputType.text,
+                                    textInputType: TextInputType.text,
                                     hintText: 'Email Address',
                                     controller: controller.phoneNum),
                                 sb10(),
@@ -152,7 +152,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                     Expanded(
                                       flex: 1,
                                       child: SharedWidgets.textFormfield(
-                                          keyboardType: TextInputType.text,
+                                          textInputType: TextInputType.text,
                                           hintText: 'Name',
                                           controller: controller.name),
                                     ),
@@ -160,7 +160,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                     Expanded(
                                       flex: 1,
                                       child: SharedWidgets.textFormfield(
-                                          keyboardType: TextInputType.text,
+                                          textInputType: TextInputType.text,
                                           hintText: 'Phone Number',
                                           controller: controller.phoneNum),
                                     )
@@ -171,7 +171,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                     Expanded(
                                       flex: 2,
                                       child: SharedWidgets.textFormfield(
-                                          keyboardType: TextInputType.text,
+                                          textInputType: TextInputType.text,
                                           hintText: 'Property Location',
                                           controller: controller.propertyLoc),
                                     ),
@@ -196,7 +196,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 10.w),
                                         child: SharedWidgets.textFormfield(
-                                            keyboardType: TextInputType.text,
+                                            textInputType: TextInputType.text,
                                             hintText: 'Price',
                                             controller: controller.phoneNum),
                                       ),
@@ -204,12 +204,11 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                   ],
                                 ),
                                 SharedWidgets.textFormfield(
-                                  keyboardType: TextInputType.multiline,
+                                  textInputType: TextInputType.multiline,
                                   hintText: 'Description',
                                   controller: controller.phoneNum,
-                                  maxLines: 10,
-                                  textInputAction: TextInputAction.newline,
-                                ),
+                                  MaxLines: 10,
+                                 ),
                                 sb20(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,

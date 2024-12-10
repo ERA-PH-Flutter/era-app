@@ -7,7 +7,6 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/widgets/web/companynews_page_web.dart';
-import '../../../../app/widgets/web/project_views_web.dart';
 import '../../../agent/agents/bindings/agent_listings_binding.dart';
 import '../../../global.dart';
 import '../../agents/pages/dashboard_web.dart';
@@ -34,8 +33,8 @@ RxInt selectedIndex = 0.obs;
 class HomsController extends GetxController {
   RxInt navBarSelectedIndex = 0.obs;
   RxBool isMoreSelected = false.obs;
-  RxBool getBack = false.obs;
   var isNavbarVisible = true.obs;
+  RxBool getBack = false.obs;
   var link = LayerLink();
   double? buttonWidth;
 
@@ -133,7 +132,7 @@ class HomsController extends GetxController {
         ListingsWebBinding().dependencies();
         break;
       case 13:
-        MortageCalculatorBinding().dependencies();
+        AgentListingsBinding().dependencies();
         break;
       case 14:
         MortageCalculatorBinding().dependencies();

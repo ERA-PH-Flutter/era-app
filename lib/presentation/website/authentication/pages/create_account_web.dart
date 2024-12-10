@@ -325,7 +325,7 @@ void createAccountNextPage({required AuthenticationWebController controller}) {
                             flex: 1,
                             child: SharedWidgets.textFormfield(
                                 name: 'N/A if not applicable',
-                                keyboardType: TextInputType.text,
+                                textInputType: TextInputType.text,
                                 hintText: 'Who is your Recruiter? ',
                                 controller: controller.recruiter),
                           ),
@@ -333,7 +333,7 @@ void createAccountNextPage({required AuthenticationWebController controller}) {
                           Expanded(
                             flex: 1,
                             child: SharedWidgets.textFormfield(
-                                keyboardType: TextInputType.number,
+                                textInputType: TextInputType.number,
                                 hintText: 'Years of Experience',
                                 controller: controller.experience),
                           ),

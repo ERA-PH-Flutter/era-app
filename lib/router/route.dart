@@ -1,7 +1,6 @@
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
-import 'package:eraphilippines/presentation/agent/authentication/pages/nextPage.dart';
 
 import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
 import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
@@ -12,9 +11,6 @@ import '../presentation/agent/agents/bindings/agents_binding.dart';
 import '../presentation/agent/agents/pages/agentsDashBoard.dart';
 import '../presentation/agent/agents/pages/agentsMyListing.dart';
 import '../presentation/agent/agents/pages/findagents.dart';
-import '../presentation/agent/authentication/controllers/authentication_binding.dart';
-import '../presentation/agent/authentication/pages/createaccount_page.dart';
-import '../presentation/agent/authentication/pages/login_page.dart';
 
 import '../presentation/agent/home/controllers/home_binding.dart';
 import '../presentation/agent/home/pages/home.dart';
@@ -26,8 +22,6 @@ import '../presentation/agent/listings/archivedlisting/pages/archived.dart';
 import '../presentation/agent/listings/favorites/controllers/fav_binding.dart';
 import '../presentation/agent/listings/favorites/pages/Fav.dart';
 
-import '../presentation/agent/listings/sellproperty/controllers/sellproperty_binding.dart';
-import '../presentation/agent/listings/sellproperty/pages/sellproperty.dart';
 import '../presentation/agent/listings/sold_properties/controllers/sold_properties_binding.dart';
 import '../presentation/agent/listings/sold_properties/pages/sold_properties.dart';
 
@@ -42,24 +36,14 @@ appRoutes() => [
           name: RouteString.home,
           page: () => const Home(),
           binding: HomeBinding()),
-      GetPage(
-          name: RouteString.loginpage,
-          page: () => const LoginPage(),
-          binding: LoginPageBinding()),
 
       //projects
-
-      GetPage(
-          name: RouteString.createaccount,
-          page: () => const CreateAccount(),
-          binding: LoginPageBinding()),
- 
 
       GetPage(
           name: RouteString.findagents,
           page: () => const FindAgents(),
           binding: AgentsBinding()),
- 
+
       GetPage(
           name: RouteString.agentDashBoard,
           page: () => AgentDashBoard(),
@@ -92,16 +76,7 @@ appRoutes() => [
         page: () => SoldProperties(),
         binding: SoldBinding(),
       ),
-      GetPage(
-        name: RouteString.sellProperty,
-        page: () => SellProperty(),
-        binding: SellPropertyBinding(),
-      ),
-      GetPage(
-        name: RouteString.nextPage,
-        page: () => Nextpage(),
-        binding: LoginPageBinding(),
-      ),
+
       GetPage(
         name: RouteString.termsAndConditions,
         page: () => TermsCondition(),

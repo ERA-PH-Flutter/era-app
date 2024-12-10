@@ -14,9 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../presentation/agent/authentication/controllers/authentication_binding.dart';
-import '../../presentation/agent/authentication/pages/login_page.dart';
-import '../services/firebase_auth.dart';
+ import '../services/firebase_auth.dart';
 import 'navigation/customenavigationbar.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -105,8 +103,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       Positioned.fill(
                                         child: GestureDetector(
                                           onTap: () {
-                                            Get.to(() => InboxScreen(),
-                                                binding: LoginPageBinding());
+                                           // Get.to(() => InboxScreen(),
+                                                // binding: LoginPageBinding());
                                           },
                                           child: Icon(CupertinoIcons.mail,
                                               color: AppColors.hint,
@@ -238,8 +236,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                           doLogout.value = true;
                                           user = null;
                                           await Authentication().logout();
-                                          Get.to(LoginPage(),
-                                              binding: LoginPageBinding());
+                                          // Get.to(LoginPage(),
+                                          //     binding: LoginPageBinding());
                                         }
                                       }, Get.currentRoute == '/loginpage');
                                     })
