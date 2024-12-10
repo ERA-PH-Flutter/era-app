@@ -12,22 +12,17 @@ class ProjectViewWeb extends GetView<ProjectViewWebController> {
     Get.put(ProjectViewWebController());
 
     return Scaffold(
-      body: Stack(children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: Get.height,
-                child: ProjectViewsWeb(project: Get.arguments).build(),
-              ),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Navbar(),
+            Container(
+              height: Get.height,
+              child: ProjectViewsWeb(project: Get.arguments).build(),
+            ),
+          ],
         ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: Navbar(),
-        )
-      ]),
+      ),
     );
     //  Scaffold(
     //   // appBar: PreferredSize(
