@@ -18,7 +18,7 @@ import '../../form/pages/contactus_web.dart';
 import '../../form/pages/sell_property_web.dart';
 import '../../home/controllers/home_web_binding.dart';
 import '../../home/pages/home_web.dart';
- import '../../listings/controllers/listings_web_binding.dart';
+import '../../listings/controllers/listings_web_binding.dart';
 import '../../listings/pages/add-edit_listings/controllers/addlistings_bindings.dart';
 import '../../listings/pages/add-edit_listings/pages/addlistings.dart';
 import '../../listings/pages/listings/listing_web_page.dart';
@@ -34,6 +34,7 @@ RxInt selectedIndex = 0.obs;
 class HomsController extends GetxController {
   RxInt navBarSelectedIndex = 0.obs;
   RxBool isMoreSelected = false.obs;
+  RxBool getBack = false.obs;
   var isNavbarVisible = true.obs;
   var link = LayerLink();
   double? buttonWidth;

@@ -4,6 +4,8 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/dashboard_web.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
+import 'package:eraphilippines/presentation/website/landingpage/pages/homepage.dart';
+import 'package:eraphilippines/router/route_string.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -101,10 +103,17 @@ class Navbar extends GetResponsiveView<HomsController> {
     for (var item in items) {
       navItems.add(InkWell(
         onTap: () {
-          controller.isMoreSelected.value = false;
+          if (controller.getBack.value) {
+            /// MISSY CHANGE THIS for each index
+            Get.offAll(HomePages());
+          } else {
+            controller.isMoreSelected.value = false;
 
-          controller.navBarSelectedIndex.value = controller.items.indexOf(item);
-          controller.onNavbarItemSelected(controller.navBarSelectedIndex.value);
+            controller.navBarSelectedIndex.value =
+                controller.items.indexOf(item);
+            controller
+                .onNavbarItemSelected(controller.navBarSelectedIndex.value);
+          }
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -7,6 +7,7 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_view_binding.dart';
+import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
 import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:eraphilippines/repository/project.dart';
 import 'package:flutter/cupertino.dart';
@@ -758,6 +759,7 @@ class ProjectViewsWeb {
                 text: 'LEARN MORE',
                 fontSize: EraTheme.paragraphWeb,
                 onTap: () {
+                  Get.find<HomsController>().getBack = true.obs;
                   Get.to(ProjectViewWeb(),
                       binding: ProjectViewBinding(), arguments: project);
                   // projectArgument = project;
