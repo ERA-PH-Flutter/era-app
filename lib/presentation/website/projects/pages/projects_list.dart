@@ -20,6 +20,8 @@ import '../../../../app/widgets/box_widget.dart';
 import '../../../admin/properties/controllers/project_view_binding.dart';
 import '../../../agent/listings/searchresult/controllers/searchresult_controller.dart';
 import '../../../agent/utility/controller/base_controller.dart';
+import '../../../global.dart';
+import '../../landingpage/controller/homs_controller.dart';
 //todo add text
 
 class ProjectsList extends GetView<ProjectsListWebController> {
@@ -117,9 +119,13 @@ class ProjectsList extends GetView<ProjectsListWebController> {
             i < controller.count.value) {
           projects.add(GestureDetector(
             onTap: () {
-              Get.to(ProjectViewWeb(),
-                  binding: ProjectViewBinding(),
-                  arguments: controller.projects[i]);
+              // Get.to(ProjectViewWeb(),
+              //     binding: ProjectViewBinding(),
+              //     arguments: controller.projects[i]);
+              projectArgument = controller.projects[i];
+              HomsController homsController = Get.find<HomsController>();
+              selectedIndex.value = 14;
+              homsController.onNavbarItemSelected(14);
             },
             child: Wrap(children: [
               Column(

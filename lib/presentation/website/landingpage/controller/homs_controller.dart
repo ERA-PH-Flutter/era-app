@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/widgets/web/companynews_page_web.dart';
+import '../../../../app/widgets/web/project_views_web.dart';
 import '../../../agent/agents/bindings/agent_listings_binding.dart';
 import '../../../global.dart';
 import '../../agents/pages/dashboard_web.dart';
@@ -59,7 +60,7 @@ class HomsController extends GetxController {
     CompanyNewsPageWeb(), // 11
     BuyWebListingPage(), // 12
     AgentDashBoardWeb(), //13
-    ProjectViewWeb(), //14
+    ProjectViewsWeb(), //14
     AddListingsWeb(), //15
   ].obs;
 

@@ -21,7 +21,7 @@ class ProjectViewWeb extends GetView<ProjectViewWebController> {
               padding: EdgeInsets.symmetric(
                   horizontal: EraTheme.paddingWidthAdmin * 3),
               height: Get.height,
-              child: ProjectViewsWeb(project: Get.arguments).build(),
+              child: ProjectViewsWeb(project: Get.arguments),
             ),
           ],
         ),
@@ -59,7 +59,7 @@ class ProjectViewWeb extends GetView<ProjectViewWebController> {
         children: [
           Container(
             height: Get.height,
-            child: ProjectViewsWeb(project: Get.arguments).build(),
+            child: ProjectViewsWeb(project: Get.arguments),
           ),
         ],
       ),
