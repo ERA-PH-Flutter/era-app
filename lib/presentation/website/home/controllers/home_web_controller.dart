@@ -187,8 +187,8 @@ class HomeWebController extends GetxController {
         var pr = await Project.getById(settings!.featuredProjects![i]);
         projects.add(GestureDetector(
           onTap: () {
-            //  selectedIndex.value = 14;
-            //   Get.find<HomsController>().onNavbarItemSelected(14);
+            //   selectedIndex.value = 14;
+            // Get.find<HomsController>().onNavbarItemSelected(14);
             Get.to(ProjectViewWeb(),
                 binding: ProjectViewWebBinding(), arguments: pr);
           },

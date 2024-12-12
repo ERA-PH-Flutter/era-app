@@ -17,7 +17,6 @@ class HomePages extends GetResponsiveView<HomsController> {
 
   @override
   Widget phone() {
-    Get.put(HomsController());
     return Scaffold(
       key: controller.scaffoldKey,
       endDrawer: AppDrawer(),

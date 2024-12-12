@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import '../../../../app/constants/screens.dart';
+import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/web/project_views_web.dart';
 
 class ProjectViewWeb extends GetView<ProjectViewWebController> {
@@ -17,6 +18,8 @@ class ProjectViewWeb extends GetView<ProjectViewWebController> {
           children: [
             Navbar(),
             Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: EraTheme.paddingWidthAdmin * 3),
               height: Get.height,
               child: ProjectViewsWeb(project: Get.arguments).build(),
             ),

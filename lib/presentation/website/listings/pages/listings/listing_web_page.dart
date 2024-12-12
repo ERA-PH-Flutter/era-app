@@ -427,6 +427,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                       markerId: MarkerId('mainPin'),
                       icon: BitmapDescriptor.defaultMarker)
                 },
+                zoomControlsEnabled: false,
               ),
             ),
           )
@@ -543,7 +544,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                   height: 300.h,
                                   width: Get.width,
                                 ),
-            
+
                                 // CloudStorage().imageLoader(
                                 //   reference: listing.photos != null
                                 //       ? (listing.photos!.isNotEmpty
