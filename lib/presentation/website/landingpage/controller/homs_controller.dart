@@ -65,10 +65,10 @@ class HomsController extends GetxController {
     BuyWebListingPage(), // 12
     AgentDashBoardWeb(), //13
     ProjectViewsWeb(), //14
-    // EditListingWeb(),
     AddListingsWeb(), //15
     favWeb(), //16
     AgentsMyListingWeb(), //17
+    EditListingWeb(), //18
   ].obs;
 
   HomsController() {
@@ -157,6 +157,9 @@ class HomsController extends GetxController {
         break;
       case 17:
         AgentListingsWebBinding().dependencies();
+        break;
+      case 18:
+        EditListingsBinding().dependencies();
         break;
       // case 10:
       //   FormBinding().dependencies();

@@ -8,10 +8,10 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/era_place_search.dart';
-import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/global.dart';
+ import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/listing_web_controller.dart';
-import 'package:eraphilippines/router/route_string.dart';
+  import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,10 +20,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:reorderables/reorderables.dart';
 
 import '../../../../../../app/constants/screens.dart';
-import '../../../../../../app/widgets/custom_appbar.dart';
-import '../../../../../../repository/listing.dart';
+ import '../../../../../../repository/listing.dart';
 import '../../../../../agent/utility/controller/base_controller.dart';
-import '../controllers/addlistings_controller.dart';
+ 
 
 class AddListingsWeb extends GetView<AddListingsController>
     with BaseController {

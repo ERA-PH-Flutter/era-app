@@ -24,154 +24,173 @@ import '../../../../../../app/widgets/custom_appbar.dart';
 import '../../../../../../repository/listing.dart';
 import '../../../../../../repository/logs.dart';
 import '../../../../../agent/utility/controller/base_controller.dart';
+import '../../../../landingpage/controller/homs_controller.dart';
 import '../controllers/addlistings_controller.dart';
 
-class EditListingWeb extends GetView<AddListingsController>
-    with BaseController {
+class EditListingWeb extends GetView<ListingsController> with BaseController {
   const EditListingWeb({super.key});
 
   @override
 
   // Get.put(AddListingsController());
   Widget build(BuildContext context) {
-    ListingsController listingsController = Get.put(ListingsController());
     //  Get.find<LandingPageController>().arguments;
-    return Obx(() => switch (listingsController.state.value) {
-          AdminEditState.loading => _loading(),
-          AdminEditState.loaded => _loaded(),
-          AdminEditState.picker => _picker(),
-        });
+    Get.put(ListingsController());
+
+    return Scaffold(
+      body: Obx(() => switch (controller.state.value) {
+            AdminEditState.loading => _loading(),
+            AdminEditState.loaded => _loaded(),
+            AdminEditState.picker => _picker(),
+          }),
+    );
   }
 
   _loaded() {
-    Get.put(AddListingsController());
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'PROPERTY INFORMATION',
-            color: AppColors.black,
-            fontSize: EraTheme.header,
-            fontWeight: FontWeight.w500,
-          ),
-          EraText(
-            text: 'EDIT LISTING',
-            color: AppColors.black,
-            fontSize: EraTheme.header,
-            fontWeight: FontWeight.w600,
-          ),
-          propertyWidgetDetails(),
-          sb20(),
-          detailsWidget(),
-          sb40(),
-          dropdownWidget(),
-          sb20(),
-          SharedWidgets.textFormfield(
-            controller: controller.descController,
-            hintText: 'Description',
-            MaxLines: 15,
-            textInputType: TextInputType.multiline,
-          ),
-          sb20(),
-          uploadPhotos(),
-          sb20(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              EraText(
-                  text: "Listing Location ( Search or Pick )",
-                  fontSize: 20.sp,
+    AddListingsController addListingsController =
+        Get.find<AddListingsController>();
+    return SingleChildScrollView(
+      child: Padding(
+        padding:
+            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(Icons.arrow_back)),
+                sbw10(),
+                EraText(
+                  text: 'PROPERTY INFORMATION',
+                  color: AppColors.black,
+                  fontSize: EraTheme.header,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.black),
-              SizedBox(height: 5.h),
-              Row(children: [
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    width: Get.width,
-                    child: EraPlaceSearch(
-                      textFieldController: controller.addressController,
-                      callback: (coordinate) async {
-                        controller.latLng = coordinate;
-                        controller.add = await GeoCode(
-                                apiKey: "65d99e660931a611004109ogd35593a",
-                                lat: coordinate.latitude.toDouble(),
-                                lng: coordinate.longitude.toDouble())
-                            .reverse();
-                      },
+                ),
+              ],
+            ),
+            EraText(
+              text: 'EDIT LISTING',
+              color: AppColors.black,
+              fontSize: EraTheme.header,
+              fontWeight: FontWeight.w600,
+            ),
+            propertyWidgetDetails(),
+            sb20(),
+            detailsWidget(),
+            sb40(),
+            dropdownWidget(),
+            sb20(),
+            SharedWidgets.textFormfield(
+              controller: addListingsController.descController,
+              hintText: 'Description',
+              MaxLines: 15,
+              textInputType: TextInputType.multiline,
+            ),
+            sb20(),
+            uploadPhotos(),
+            sb20(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EraText(
+                    text: "Listing Location ( Search or Pick )",
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black),
+                SizedBox(height: 5.h),
+                Row(children: [
+                  Expanded(
+                    flex: 1,
+                    child: SizedBox(
+                      width: Get.width,
+                      child: EraPlaceSearch(
+                        textFieldController:
+                            addListingsController.addressController,
+                        callback: (coordinate) async {
+                          addListingsController.latLng = coordinate;
+                          addListingsController.add = await GeoCode(
+                                  apiKey: "65d99e660931a611004109ogd35593a",
+                                  lat: coordinate.latitude.toDouble(),
+                                  lng: coordinate.longitude.toDouble())
+                              .reverse();
+                        },
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Button(
-                    height: 65.h,
-                    width: Get.width / 2.2,
-                    margin:
-                        EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                    fontSize: 20.sp,
-                    bgColor: Colors.red,
-                    text: 'Pick Address',
-                    onTap: () {
-                      ListingsController listingsController =
-                          Get.find<ListingsController>();
+                  Expanded(
+                    flex: 1,
+                    child: Button(
+                      height: 65.h,
+                      width: Get.width / 2.2,
+                      margin: EdgeInsets.symmetric(
+                          horizontal: EraTheme.paddingWidth),
+                      fontSize: 20.sp,
+                      bgColor: Colors.red,
+                      text: 'Pick Address',
+                      onTap: () {
+                        ListingsController listingsController =
+                            Get.find<ListingsController>();
 
-                      listingsController.state.value = AdminEditState.picker;
-                    },
-                  ),
-                )
+                        listingsController.state.value = AdminEditState.picker;
+                      },
+                    ),
+                  )
+                ]),
+              ],
+            ),
+            sb20(),
+            SizedBox(height: 20.h),
+            Padding(
+              padding: EdgeInsets.all(8.sp),
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                Button(
+                  onTap: () async {
+                    try {
+                      BaseController().showLoading();
+                      await addListingsController.updateListing();
+                      await Logs(
+                              title:
+                                  "${user!.firstname} ${user!.lastname} edited a listing with ID ${controller.listing!.propertyId}",
+                              type: "listing")
+                          .add();
+                      BaseController().showSuccessDialog(
+                          description: "Edit Listing Success",
+                          hitApi: () {
+                            Get.back();
+                            Get.back();
+                            Get.delete<AddListingsController>();
+                            selectedIndex.value = 17;
+                            Get.find<HomsController>().onNavbarItemSelected(17);
+                            // Get.find<LandingPageController>()
+                            //     .onSectionSelected(5);
+                          });
+                    } catch (e) {
+                      BaseController().showErroDialog(
+                          description: e.toString(), onTap: () {});
+                    }
+                  },
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  width: 150.w,
+                  text: 'SUBMIT',
+                  bgColor: AppColors.blue,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                Button(
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  width: 150.w,
+                  text: 'CANCEL',
+                  bgColor: AppColors.hint,
+                  borderRadius: BorderRadius.circular(30),
+                ),
               ]),
-            ],
-          ),
-          sb20(),
-          SizedBox(height: 20.h),
-          Padding(
-            padding: EdgeInsets.all(8.sp),
-            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-              Button(
-                onTap: () async {
-                  try {
-                    BaseController().showLoading();
-                    await controller.updateListing();
-                    await Logs(
-                            title:
-                                "${user!.firstname} ${user!.lastname} edited a listing with ID ${controller.listing!.propertyId}",
-                            type: "listing")
-                        .add();
-                    BaseController().showSuccessDialog(
-                        description: "Edit Listing Success",
-                        hitApi: () {
-                          Get.back();
-                          Get.back();
-                          Get.delete<AddListingsController>();
-                          Get.back();
-                          // Get.find<LandingPageController>()
-                          //     .onSectionSelected(5);
-                        });
-                  } catch (e) {
-                    BaseController().showErroDialog(
-                        description: e.toString(), onTap: () {});
-                  }
-                },
-                margin: EdgeInsets.symmetric(horizontal: 5),
-                width: 150.w,
-                text: 'SUBMIT',
-                bgColor: AppColors.blue,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              Button(
-                margin: EdgeInsets.symmetric(horizontal: 5),
-                width: 150.w,
-                text: 'CANCEL',
-                bgColor: AppColors.hint,
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ]),
-          ),
-          SizedBox(height: 20.h),
-        ],
+            ),
+            SizedBox(height: 20.h),
+          ],
+        ),
       ),
     );
   }
@@ -181,9 +200,12 @@ class EditListingWeb extends GetView<AddListingsController>
   }
 
   _locationPick() {
+    AddListingsController addListingsController =
+        Get.find<AddListingsController>();
     return WillPopScope(
       onWillPop: () async {
-        controller.addEditListingsState.value = AddEditListingsState.loaded;
+        addListingsController.addEditListingsState.value =
+            AddEditListingsState.loaded;
         return Future.value(false);
       },
       child: Obx(() => SizedBox(
@@ -196,20 +218,21 @@ class EditListingWeb extends GetView<AddListingsController>
                   zoomControlsEnabled: false,
                   initialCameraPosition: CameraPosition(
                       target: LatLng(14.599512, 120.984222), zoom: 12),
-                  markers: controller.marker.value,
+                  markers: addListingsController.marker.value,
                   mapToolbarEnabled: false,
                   myLocationButtonEnabled: true,
                   onTap: (position) async {
-                    controller.generateMarker(position);
-                    controller.latLng = position;
-                    controller.add = (await GeoCode(
+                    addListingsController.generateMarker(position);
+                    addListingsController.latLng = position;
+                    addListingsController.add = (await GeoCode(
                             apiKey: "65d99e660931a611004109ogd35593a",
                             lat: position.latitude,
                             lng: position.longitude)
                         .reverse());
-                    controller.address.value = controller.add.displayName!;
-                    controller.addressController.text =
-                        controller.address.value;
+                    addListingsController.address.value =
+                        addListingsController.add.displayName!;
+                    addListingsController.addressController.text =
+                        addListingsController.address.value;
                     //search for location
                   },
                 ),
@@ -226,7 +249,7 @@ class EditListingWeb extends GetView<AddListingsController>
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Obx(() => EraText(
-                        text: "Address: ${controller.address.value}",
+                        text: "Address: ${addListingsController.address.value}",
                         fontSize: 15.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black,
@@ -245,7 +268,7 @@ class EditListingWeb extends GetView<AddListingsController>
                   child: Button(
                     width: Get.width - (EraTheme.paddingWidth * 2),
                     onTap: () {
-                      controller.addEditListingsState.value =
+                      addListingsController.addEditListingsState.value =
                           AddEditListingsState.loaded;
                     },
                     bgColor: AppColors.kRedColor,
@@ -452,19 +475,21 @@ class EditListingWeb extends GetView<AddListingsController>
   }
 
   Widget propertyWidgetDetails() {
+    AddListingsController addListingsController =
+        Get.find<AddListingsController>();
     return Row(
       children: [
         Expanded(
             flex: 1,
             child: SharedWidgets.textFormfield(
-              controller: controller.propertyNameController,
+              controller: addListingsController.propertyNameController,
               hintText: 'Property Name',
             )),
         sbw10(),
         Expanded(
           flex: 1,
           child: SharedWidgets.textFormfield(
-            controller: controller.propertyCostController,
+            controller: addListingsController.propertyCostController,
             hintText: 'Property Cost',
             textInputType: TextInputType.number,
             onChanged: (value) {
@@ -473,7 +498,8 @@ class EditListingWeb extends GetView<AddListingsController>
                 final formattedValue = value.replaceAllMapped(
                     RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
                     (Match m) => '${m[1]},');
-                controller.propertyCostController.value = TextEditingValue(
+                addListingsController.propertyCostController.value =
+                    TextEditingValue(
                   text: formattedValue,
                   selection:
                       TextSelection.collapsed(offset: formattedValue.length),
@@ -487,6 +513,8 @@ class EditListingWeb extends GetView<AddListingsController>
   }
 
   Widget uploadPhotos() {
+    AddListingsController addListingsController =
+        Get.find<AddListingsController>();
     return Column(
       children: [
         Row(
@@ -503,7 +531,7 @@ class EditListingWeb extends GetView<AddListingsController>
                 ),
               ),
               onPressed: () async {
-                await controller.pickImageFromWeb();
+                await addListingsController.pickImageFromWeb();
               },
               icon: Icon(
                 CupertinoIcons.photo_fill_on_rectangle_fill,
@@ -520,7 +548,7 @@ class EditListingWeb extends GetView<AddListingsController>
         ),
         SizedBox(height: 10.h),
         Obx(() {
-          if (controller.images.isEmpty) {
+          if (addListingsController.images.isEmpty) {
             return buildUploadPhoto();
           } else {
             return ReorderableWrap(
@@ -530,13 +558,14 @@ class EditListingWeb extends GetView<AddListingsController>
                 // }
                 //testing
                 if (oldIndex != newIndex) {
-                  var oldImage = controller.images[oldIndex];
-                  var newImage = controller.images[newIndex];
-                  controller.images[oldIndex] = newImage;
-                  controller.images[newIndex] = oldImage;
+                  var oldImage = addListingsController.images[oldIndex];
+                  var newImage = addListingsController.images[newIndex];
+                  addListingsController.images[oldIndex] = newImage;
+                  addListingsController.images[newIndex] = oldImage;
                 } else {}
               },
-              children: List.generate(controller.images.length, (index) {
+              children:
+                  List.generate(addListingsController.images.length, (index) {
                 return Stack(
                   children: [
                     Container(
@@ -550,7 +579,7 @@ class EditListingWeb extends GetView<AddListingsController>
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: MemoryImage(
-                            controller.images[index],
+                            addListingsController.images[index],
                           ),
                         ),
                       ),
@@ -561,7 +590,7 @@ class EditListingWeb extends GetView<AddListingsController>
                         child: IconButton(
                           icon: Icon(Icons.cancel),
                           onPressed: () {
-                            controller.images.removeAt(index);
+                            addListingsController.images.removeAt(index);
                           },
                         ))
                   ],
@@ -583,6 +612,7 @@ class EditListingWeb extends GetView<AddListingsController>
   }
 
   Widget dropdownWidget() {
+    AddListingsController controller = Get.find<AddListingsController>();
     return Row(
       children: [
         Expanded(
@@ -627,6 +657,7 @@ class EditListingWeb extends GetView<AddListingsController>
   }
 
   Widget detailsWidget() {
+    AddListingsController controller = Get.find<AddListingsController>();
     return Row(
       children: [
         Expanded(

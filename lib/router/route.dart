@@ -1,5 +1,7 @@
 import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
 import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylistingWeb_binding.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/editlistings_bindings.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/pages/edit_listing.dart';
 import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
 
 import 'package:eraphilippines/router/route_string.dart';
@@ -104,6 +106,10 @@ appRoutes() => [
           name: RouteString.agentMyListingWeb,
           page: () => AgentsMyListingWeb(),
           binding: AgentListingsWebBinding()),
+      GetPage(
+          name: RouteString.editListingsWeb,
+          page: () => EditListingWeb(),
+          binding: AddListingsBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

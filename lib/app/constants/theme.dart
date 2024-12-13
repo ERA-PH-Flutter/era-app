@@ -34,4 +34,5 @@ class EraTheme {
   static double buttonText = 30.sp;
   static double buttonSmallWeb = 30.sp;
   static double buttonH60 = 60.h;
+  static double buttonW30 = 30.h;
 }
