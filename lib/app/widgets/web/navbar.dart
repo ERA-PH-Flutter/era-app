@@ -177,38 +177,21 @@ class Navbar extends GetResponsiveView<HomsController> {
                     width: 300.w,
                     child: ListView(
                       children: [
-                        ListTile(
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.person),
-                              sbw10(),
-                              EraText(
-                                text: 'Profile',
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: EraTheme.subHeader,
-                                textAlign: TextAlign.start,
-                              ),
-                            ],
-                          ),
-                          trailing: Icon(Icons.navigate_next),
+                        GestureDetector(
                           onTap: () {
                             selectedIndex.value = 13;
                             Get.find<HomsController>().onNavbarItemSelected(13);
                             print('Profile clicked');
+                            controller.loginOverlay.hide();
                           },
-                        ),
-                        ListTile(
-                          title: GestureDetector(
-                            onTap: () => Get.to(() => SettingsPageWeb()),
-                            child: Row(
+                          child: ListTile(
+                            title: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Icon(Icons.settings),
+                                Icon(Icons.person),
                                 sbw10(),
                                 EraText(
-                                  text: 'Settings',
+                                  text: 'Profile',
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: EraTheme.subHeader,
@@ -216,31 +199,56 @@ class Navbar extends GetResponsiveView<HomsController> {
                                 ),
                               ],
                             ),
+                            trailing: Icon(Icons.navigate_next),
                           ),
-                          trailing: Icon(Icons.navigate_next),
-                          onTap: () {
-                            print('Profile clicked');
-                          },
                         ),
-                        ListTile(
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.logout),
-                              sbw10(),
-                              EraText(
-                                text: 'Logout',
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: EraTheme.subHeader,
-                                textAlign: TextAlign.start,
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(RouteString.settingsWeb);
+                            controller.loginOverlay.hide();
+                          },
+                          child: ListTile(
+                            title: GestureDetector(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(Icons.settings),
+                                  sbw10(),
+                                  EraText(
+                                    text: 'Settings',
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: EraTheme.subHeader,
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
+                            trailing: Icon(Icons.navigate_next),
                           ),
-                          trailing: Icon(Icons.navigate_next),
+                        ),
+                        GestureDetector(
                           onTap: () {
                             Authentication().logout();
+                            controller.loginOverlay.hide();
                           },
+                          child: ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(Icons.logout),
+                                sbw10(),
+                                EraText(
+                                  text: 'Logout',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: EraTheme.subHeader,
+                                  textAlign: TextAlign.start,
+                                ),
+                              ],
+                            ),
+                            trailing: Icon(Icons.navigate_next),
+                          ),
                         ),
                       ],
                     )),
@@ -262,10 +270,11 @@ class Navbar extends GetResponsiveView<HomsController> {
     return GestureDetector(
       onTap: () {
         controller.isMoreSelected.value = !controller.isMoreSelected.value;
-
-        controller.controllerOverlay.isShowing
-            ? controller.controllerOverlay.hide()
-            : controller.controllerOverlay.show();
+        if (controller.isMoreSelected.value) {
+          controller.controllerOverlay.show();
+        } else {
+          controller.controllerOverlay.hide();
+        }
       },
       child: controller.isMoreSelected.value == false
           ? Container(
@@ -300,7 +309,7 @@ class Navbar extends GetResponsiveView<HomsController> {
               controller: controller.controllerOverlay,
               overlayChildBuilder: (BuildContext context) {
                 return Positioned(
-                  top: 80.h,
+                  top: 75.h,
                   right: Get.width / 2.1,
                   child: Wrap(
                     children: [
@@ -346,6 +355,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                                     controller.items.indexOf(item);
                                 controller.onNavbarItemSelected(
                                     controller.navBarSelectedIndex.value);
+                                controller.controllerOverlay.hide();
                               },
                             );
                           }).toList(),

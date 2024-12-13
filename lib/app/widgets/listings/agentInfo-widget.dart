@@ -28,8 +28,8 @@ class AgentInfoWidget {
     return Row(
       children: [
         CloudStorage().imageLoaderProvider(
-            width: 100.w,
-            height: 110.h,
+            width: 120.w,
+            height: 150.h,
             borderRadius: BorderRadius.circular(8.0),
             reference: imageProvider),
         Padding(

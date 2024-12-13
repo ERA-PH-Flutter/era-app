@@ -8,8 +8,10 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listings/agentInfo-widget.dart';
+import 'package:eraphilippines/presentation/website/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agent_dashboard_controller.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/website/agents/pages/agent_listings_web.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -487,45 +489,45 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
-        // SingleChildScrollView(
-        //   scrollDirection: Axis.horizontal,
-        //   child: StreamBuilder(
-        //     stream: FirebaseFirestore.instance
-        //         .collection('users')
-        //         .where('status', isEqualTo: 'approved')
-        //         .snapshots(),
-        //     builder: (context, snapshot) {
-        //       if (!snapshot.hasData) {
-        //         return Center(child: CircularProgressIndicator());
-        //       }
-        //       List<Widget> children = [];
-        //       List randomIndex = [];
-        //       for (int i = 0; i < min(5, snapshot.data!.docs.length); i++) {
-        //         var random = Random().nextInt(snapshot.data!.docs.length);
-        //         while (randomIndex.contains(random)) {
-        //           random = Random().nextInt(snapshot.data!.docs.length);
-        //         }
-        //         randomIndex.add(random);
-        //         var user = EraUser.fromJSON(snapshot.data!.docs[random].data());
-        //         children.add(
-        //           Row(
-        //             children: [
-        //               iconAgents(user.image ?? AppStrings.noUserImageWhite, () {
-        //                 Get.to(AgentListings(),
-        //                     arguments: [user.id],
-        //                     binding: AgentListingsWebBinding());
-        //               }, "${user.firstname} ${user.lastname}"),
-        //               sbw10(),
-        //             ],
-        //           ),
-        //         );
-        //       }
-        //       return Row(
-        //         children: children,
-        //       );
-        //     },
-        //   ),
-        // ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('users')
+                .where('status', isEqualTo: 'approved')
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              }
+              List<Widget> children = [];
+              List randomIndex = [];
+              for (int i = 0; i < min(5, snapshot.data!.docs.length); i++) {
+                var random = Random().nextInt(snapshot.data!.docs.length);
+                while (randomIndex.contains(random)) {
+                  random = Random().nextInt(snapshot.data!.docs.length);
+                }
+                randomIndex.add(random);
+                var user = EraUser.fromJSON(snapshot.data!.docs[random].data());
+                children.add(
+                  Row(
+                    children: [
+                      iconAgents(user.image ?? AppStrings.noUserImageWhite, () {
+                        Get.to(AgentListingsWeb(),
+                            arguments: [user.id],
+                            binding: AgentDashboardWebBinding());
+                      }, "${user.firstname} ${user.lastname}"),
+                      sbw10(),
+                    ],
+                  ),
+                );
+              }
+              return Row(
+                children: children,
+              );
+            },
+          ),
+        ),
       ],
     );
   }
@@ -648,13 +650,17 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                   },
                 ),
               ),
+              // HomsController homsController = Get.find<HomsController>();
+              // selectedIndex.value = 17;
+              // homsController.onNavbarItemSelected(17);
+              // // print('agentArgument: $agentArgument');
+              // Get.toNamed('/agentMyListingWeb', arguments: [user!.id]);
               GestureDetector(
                 onTap: () {
-                  // agentArgument = [user!.id];
                   HomsController homsController = Get.find<HomsController>();
-                  selectedIndex.value = 17;
-                  homsController.onNavbarItemSelected(17);
-                  // print('agentArgument: $agentArgument');
+                  homsController.onNavbarItemSelected(
+                    17,
+                  );
                   Get.toNamed('/agentMyListingWeb', arguments: [user!.id]);
                 },
                 child: Image.asset(

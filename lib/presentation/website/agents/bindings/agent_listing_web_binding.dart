@@ -1,6 +1,7 @@
+import 'package:eraphilippines/presentation/website/agents/controllers/agent_myListingWeb_controller.dart';
 import 'package:get/get.dart';
 
-import '../controllers/agent_myListingWeb_controller.dart';
+ 
 
 class AgentDashboardWebBinding extends Bindings {
   @override

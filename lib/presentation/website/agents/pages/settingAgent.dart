@@ -11,21 +11,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import '../../../../app/widgets/custom_appbar.dart';
 import '../../../global.dart';
 
 class SettingsPageWeb extends GetView<AgentsWebController> {
-  final AgentsWebController agentController = Get.put(AgentsWebController());
-
   SettingsPageWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(),
       body: Padding(
-        padding: EdgeInsets.all(EraTheme.paddingWidth),
+        padding: EdgeInsets.all(EraTheme.paddingWidthAdmin * 3),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,15 +33,14 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                   fontWeight: FontWeight.w500,
                   color: AppColors.black,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/agentDashBoard');
-                  },
-                  child: Icon(
-                    CupertinoIcons.forward,
-                    color: AppColors.black,
-                  ),
-                ),
+                IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(
+                      CupertinoIcons.forward,
+                      color: AppColors.black,
+                    ))
               ],
             ),
             SizedBox(height: 10.h),
@@ -98,8 +92,8 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: agentController.image.value != null
-                                ? FileImage(agentController.image.value!)
+                            image: controller.image.value != null
+                                ? FileImage(controller.image.value!)
                                 : CachedNetworkImageProvider(snapshot.data!)
                                     as ImageProvider)));
               } else {
@@ -115,7 +109,7 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
             right: 0,
             child: GestureDetector(
               onTap: () {
-                if (agentController.image.value != null) {}
+                if (controller.image.value != null) {}
                 Get.dialog(
                   BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
@@ -138,8 +132,7 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                             width: Get.width,
                             child: ElevatedButton(
                               onPressed: () {
-                                agentController
-                                    .getImagePic(agentController.image);
+                                controller.getImagePic(controller.image);
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -160,7 +153,7 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                             width: Get.width,
                             child: ElevatedButton(
                               onPressed: () {
-                                agentController.getImageGallery();
+                                controller.getImageGallery();
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

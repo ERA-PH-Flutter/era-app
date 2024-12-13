@@ -57,11 +57,12 @@ class RouteString {
   static String agentMyListingWeb = "/agentMyListingWeb";
 
   static String webLandingPage = "/webLandingPage";
-  static String webLoginPage = "/webAboutUs";
+  //static String webLoginPage = "/webAboutUs";
   static String companyNewsWeb = "/companyNewsWeb";
   static String homs = "/homs";
   static String createaccountweb = "/createaccountweb";
     static String editListingsWeb = "/editListingsWeb";
-
+static String joinUsWeb = "/joinUsWeb";
+  static String settingsWeb = "/settingsWeb";
   
 }

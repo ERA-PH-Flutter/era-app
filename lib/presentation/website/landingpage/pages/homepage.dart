@@ -43,7 +43,7 @@ class HomePages extends GetResponsiveView<HomsController> {
           Obx(
             () => SliverAppBar(
               automaticallyImplyLeading: false,
-              collapsedHeight: 150.h,
+              collapsedHeight: 155.h,
               backgroundColor: AppColors.white,
               floating: false,
               pinned: controller.isNavbarVisible.value,

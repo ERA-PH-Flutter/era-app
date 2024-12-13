@@ -17,9 +17,7 @@ import 'package:intl/intl.dart';
 import '../../../../app/constants/assets.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/services/firebase_database.dart';
-import '../../../../app/widgets/custom_appbar.dart';
-import '../../../../app/widgets/listings/listedBy_widget.dart';
-import '../../../../repository/user.dart';
+
 import '../controllers/agent_myListingWeb_controller.dart';
 
 class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
@@ -29,11 +27,11 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
 
   @override
   Widget build(BuildContext context) {
+ 
     return SingleChildScrollView(
       child: Column(
         children: [
-          // Filter and sort row for the specific listing
-          Obx(() => switch (controller.agentListingsState.value) {
+           Obx(() => switch (controller.agentListingsState.value) {
                 AgentListingsState.loading => _loading(),
                 AgentListingsState.loaded => _loaded(),
                 AgentListingsState.empty => _empty(),
@@ -45,7 +43,6 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
   }
 
   _loaded() {
-   
     Get.find<AgentListingsWebController>();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
@@ -60,14 +57,15 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
             children: [
               Row(
                 children: [
-                  IconButton(onPressed: (){
-
-                   Get.back(); 
-                  }, icon: Icon(Icons.arrow_back)),
+                  IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(Icons.arrow_back)),
                   sbw10(),
                   EraText(
                     text: "MY LISTINGS",
-                    fontSize: EraTheme.header,
+                fontSize: EraTheme.headerWeb,
                     color: AppColors.blue,
                     fontWeight: FontWeight.w600,
                   ),
@@ -155,7 +153,7 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
               ),
             ],
           ),
-    
+
           SizedBox(
             height: 10.h,
           ),
