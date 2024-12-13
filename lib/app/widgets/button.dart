@@ -94,8 +94,8 @@ class Button extends StatelessWidget {
   }
 
   static Widget button3(
-      double width, double height, Function() onTap, String text, Color color,
-      {fontSize, fontWeight}) {
+      {double? width, double? height, Function()? onTap, String? text, Color? color,
+      fontSize, fontWeight}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -107,7 +107,7 @@ class Button extends StatelessWidget {
         ),
         child: Center(
             child: EraText(
-          text: text,
+          text: text!,
           color: AppColors.white,
           fontSize: fontSize ?? 20.sp,
           fontWeight: fontWeight ?? FontWeight.w500,

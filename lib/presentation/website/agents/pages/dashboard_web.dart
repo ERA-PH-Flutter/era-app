@@ -654,6 +654,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                   HomsController homsController = Get.find<HomsController>();
                   selectedIndex.value = 17;
                   homsController.onNavbarItemSelected(17);
+                  print('agentArgument: $agentArgument');
                   // Get.toNamed('/agentMyListing', arguments: [user!.id]);
                 },
                 child: Image.asset(

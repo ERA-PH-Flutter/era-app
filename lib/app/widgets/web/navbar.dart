@@ -415,7 +415,7 @@ Widget agentProfile() {
     reference: user!.image,
     width: 100.h,
     height: 100.h,
-    borderRadius: BorderRadius.circular(999),
+    // borderRadius: BorderRadius.circular(999),
     shadow: [
       BoxShadow(
           spreadRadius: 2,

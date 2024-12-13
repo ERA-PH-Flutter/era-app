@@ -3,7 +3,6 @@ import 'package:eraphilippines/presentation/website/agents/pages/agentsMyListing
 import 'package:eraphilippines/presentation/website/form/pages/help.dart';
 import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/favorites/pages/Fav.dart';
-import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:eraphilippines/presentation/website/projects/pages/projects_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -13,18 +12,18 @@ import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../../app/widgets/web/project_views_web.dart';
 import '../../agents/bindings/agent_dashboard_binding.dart';
 import '../../agents/bindings/agent_web_binding.dart';
-import '../../agents/pages/agent_listings.dart';
 import '../../agents/pages/dashboard_web.dart';
 import '../../agents/pages/findagents.dart';
 import '../../form/controllers/form_web_binding.dart';
 import '../../form/pages/about_us_web.dart';
 import '../../form/pages/contactus_web.dart';
 import '../../form/pages/sell_property_web.dart';
-import '../../home/controllers/home_web_binding.dart';
 import '../../home/pages/home_web.dart';
 import '../../listings/controllers/listings_web_binding.dart';
 import '../../listings/pages/add-edit_listings/controllers/addlistings_bindings.dart';
+import '../../listings/pages/add-edit_listings/controllers/editlistings_bindings.dart';
 import '../../listings/pages/add-edit_listings/pages/addlistings.dart';
+import '../../listings/pages/add-edit_listings/pages/edit_listing.dart';
 import '../../listings/pages/favorites/controllers/fav_binding.dart';
 import '../../listings/pages/listings/listing_web_page.dart';
 import '../../listings/pages/listings/listing_web.dart';
@@ -50,7 +49,6 @@ class HomsController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   RxList<Widget> pages = [
-    AgentsMyListingWeb(), //17
     HomeWeb(), //0
     ProjectsList(), //1
     BuyWeb(), //2
@@ -67,9 +65,10 @@ class HomsController extends GetxController {
     BuyWebListingPage(), // 12
     AgentDashBoardWeb(), //13
     ProjectViewsWeb(), //14
+    // EditListingWeb(),
     AddListingsWeb(), //15
     favWeb(), //16
-    //AgentListingsWeb() //17
+    AgentsMyListingWeb(), //17
   ].obs;
 
   HomsController() {
@@ -149,6 +148,8 @@ class HomsController extends GetxController {
         MortageCalculatorBinding().dependencies();
         break;
       case 15:
+        //this is the edit listing page just like the add listing page
+        //  EditListingsBinding().dependencies();
         AddListingsBinding().dependencies();
         break;
       case 16:
@@ -157,7 +158,6 @@ class HomsController extends GetxController {
       case 17:
         AgentListingsWebBinding().dependencies();
         break;
-
       // case 10:
       //   FormBinding().dependencies();
       //   break;
