@@ -22,6 +22,9 @@ class ListingsWebController extends GetxController {
   var searchQuery = ''.obs;
   var expanded = false.obs;
   Widget? quickLinks;
+  var images = [].obs;
+  var isFav = false.obs;
+    var currentImage = ''.obs;
 
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();
@@ -38,23 +41,7 @@ class ListingsWebController extends GetxController {
   var selectedLocationSearch = RxnString();
   var selectedPriceSearch = RxnString();
 
-  var propertyTypeSearch = [
-    "Pre-selling",
-    "Residential",
-    "Commercial",
-    "Rental",
-    "Auction",
-  ];
-
-  var priceSearch = [
-    " 1,000 -  100,000",
-    " 100,000 - 500,000",
-    " 100,000 - 1M",
-    " 1M - 5M",
-    " 10M - 50M",
-    " 50M - 100M",
-    " 100>",
-  ];
+ 
   @override
   void onInit() async {
     data.clear();

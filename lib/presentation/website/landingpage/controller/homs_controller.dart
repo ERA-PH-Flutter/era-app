@@ -2,8 +2,7 @@ import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylist
 import 'package:eraphilippines/presentation/website/agents/pages/agentsMyListing.dart';
 import 'package:eraphilippines/presentation/website/form/pages/help.dart';
 import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
-import 'package:eraphilippines/presentation/website/listings/pages/favorites/pages/Fav.dart';
-import 'package:eraphilippines/presentation/website/projects/pages/projects_list.dart';
+  import 'package:eraphilippines/presentation/website/projects/pages/projects_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -25,6 +24,7 @@ import '../../listings/pages/add-edit_listings/controllers/editlistings_bindings
 import '../../listings/pages/add-edit_listings/pages/addlistings.dart';
 import '../../listings/pages/add-edit_listings/pages/edit_listing.dart';
 import '../../listings/pages/favorites/controllers/fav_binding.dart';
+import '../../listings/pages/favorites/pages/Fav.dart';
 import '../../listings/pages/listings/listing_web_page.dart';
 import '../../listings/pages/listings/listing_web.dart';
 import '../../mortageCalculator.dart/controllers/MortageCalculator_binding.dart';
@@ -66,7 +66,7 @@ class HomsController extends GetxController {
     AgentDashBoardWeb(), //13
     ProjectViewsWeb(), //14
     AddListingsWeb(), //15
-    favWeb(), //16
+    FavWeb(), //16
     AgentsMyListingWeb(), //17
     EditListingWeb(), //18
   ].obs;

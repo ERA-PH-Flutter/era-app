@@ -13,8 +13,7 @@ import '../presentation/agent/listings/add-edit_listings/pages/addlistings.dart'
 import '../presentation/agent/listings/add-edit_listings/pages/edit_listing.dart';
 import '../presentation/agent/listings/archivedlisting/controllers/archived_binding.dart';
 import '../presentation/agent/listings/archivedlisting/pages/archived.dart';
-import '../presentation/agent/listings/favorites/controllers/fav_binding.dart';
-import '../presentation/agent/listings/favorites/pages/Fav.dart';
+
 import '../presentation/agent/listings/sold_properties/controllers/sold_properties_binding.dart';
 import '../presentation/agent/listings/sold_properties/pages/sold_properties.dart';
 import '../presentation/website/agents/bindings/agent_web_binding.dart';
@@ -23,7 +22,6 @@ import '../presentation/website/agents/pages/settingAgent.dart';
 import '../presentation/website/landingpage/pages/homepage.dart';
 import '../presentation/website/listings/pages/favorites/controllers/fav_binding.dart';
 import '../presentation/website/listings/pages/favorites/pages/Fav.dart';
-
 
 appRoutes() => [
       GetPage(
@@ -38,12 +36,6 @@ appRoutes() => [
           name: RouteString.editListings,
           page: () => EditListing(),
           binding: AddListingsBinding()),
-
-      GetPage(
-        name: RouteString.fav,
-        page: () => Fav(),
-        binding: FavBinding(),
-      ),
       GetPage(
           name: RouteString.archived,
           page: () => Archived(),
@@ -53,21 +45,19 @@ appRoutes() => [
         page: () => SoldProperties(),
         binding: SoldBinding(),
       ),
-
       GetPage(
         name: RouteString.termsAndConditions,
         page: () => TermsCondition(),
       ),
-
       GetPage(
         name: RouteString.webLandingPage,
         page: () => HomePages(),
       ),
-       GetPage(
+      GetPage(
         name: RouteString.homs,
         page: () => HomePages(),
       ),
-         GetPage(
+      GetPage(
         name: RouteString.homs,
         page: () => HomePages(),
       ),
@@ -77,7 +67,7 @@ appRoutes() => [
       ),
       GetPage(
         name: RouteString.favWeb,
-        page: () => favWeb(),
+        page: () => FavWeb(),
         binding: FavWebBinding(),
       ),
       GetPage(

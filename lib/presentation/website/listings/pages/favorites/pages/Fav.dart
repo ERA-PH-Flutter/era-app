@@ -2,12 +2,12 @@ import 'dart:io';
 import 'dart:math';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/favorites/controllers/fav_controller.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,29 +22,24 @@ import '../../../../../../app/widgets/listings/agentInfo-widget.dart';
 import '../../../../../../app/widgets/sold_properties/custom_sort.dart';
 import '../../../../../../repository/listing.dart';
 import '../../../../../global.dart';
-import '../controllers/fav_controller.dart';
+import '../../../../landingpage/controller/homs_controller.dart';
 //todo add text
 
-class favWeb extends GetView<FavWebController> {
-  const favWeb({super.key});
+class FavWeb extends GetView<FavWebController> {
+  const FavWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: WillPopScope(
-        onWillPop: () {
-          Get.back();
-          return Future.value(false);
+    Get.put(FavWebController());
+    return SafeArea(
+      child: Obx(
+        () => switch (controller.favState.value) {
+          FavState.loading => _loading(),
+          FavState.loaded => _loaded(),
+          FavState.error => _error(),
+          FavState.empty => _empty(),
+          FavState.preview => _preview(),
         },
-        child: SafeArea(
-          child: Obx(() => switch (controller.favState.value) {
-                FavState.loading => _loading(),
-                FavState.loaded => _loaded(),
-                FavState.error => _error(),
-                FavState.empty => _empty(),
-                FavState.preview => _preview(),
-              }),
-        ),
       ),
     );
   }
@@ -54,220 +49,227 @@ class favWeb extends GetView<FavWebController> {
   }
 
   _loaded() {
-    return Column(
-      children: [
-        Obx(() {
-          if (controller.favoritesList.isEmpty) {
-            return Center(child: Text('No favorites yet.'));
-          }
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                child: EraText(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+      child: Column(
+        children: [
+          Obx(() {
+            if (controller.favoritesList.isEmpty) {
+              return Center(child: Text('No favorites yet.'));
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EraText(
                   text: 'MY FAVORITES',
                   fontSize: 25.sp,
                   fontWeight: FontWeight.w600,
                   color: AppColors.blue,
                 ),
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    CustomSortPopup(
-                      title: 'Sort by',
-                      onSelected: (String result) {
-                        print(result);
-                      },
-                      menuItems: [
-                        popMenu(
-                            text: 'Category',
-                            isActive: controller.sortBy.value == 'category',
-                            onTap: () {
-                              controller.sortBy.value = 'category';
-                              controller.favState.value = FavState.loading;
-                              controller.favoritesList
-                                  .sort((a, b) => a.type!.compareTo(b.type!));
-                              controller.favState.value = FavState.loaded;
-                            }),
-                        popMenu(
-                            text: 'Date',
-                            isActive: controller.sortBy.value == 'date',
-                            onTap: () {
-                              controller.sortBy.value = 'date';
-                              controller.favState.value = FavState.loading;
-                              controller.favoritesList.sort((a, b) =>
-                                  a.dateCreated!.compareTo(b.dateCreated!));
-                              controller.favState.value = FavState.loaded;
-                            }),
-                        popMenu(
-                            text: 'Location',
-                            isActive: controller.sortBy.value == 'location',
-                            onTap: () {
-                              controller.sortBy.value = 'location';
-                              controller.favState.value = FavState.loading;
-                              controller.favoritesList.sort(
-                                  (a, b) => a.location!.compareTo(b.location!));
-                              controller.favState.value = FavState.loaded;
-                            }),
-                        popMenu(
-                            text: 'Price',
-                            isActive: controller.sortBy.value == 'price',
-                            onTap: () {
-                              controller.sortBy.value = 'price';
-                              controller.favState.value = FavState.loading;
-                              controller.favoritesList
-                                  .sort((a, b) => a.price!.compareTo(b.price!));
-                              controller.favState.value = FavState.loaded;
-                            }),
-                        PopupMenuDivider(),
-                        popMenu(
-                            text: 'Ascending',
-                            isActive: controller.sortOrder.value == 'asc',
-                            onTap: () {
-                              controller.sortOrder.value = 'asc';
-                              controller.favState.value = FavState.loading;
-                              controller.favoritesList.value =
-                                  controller.favoritesList.reversed.toList();
-                              controller.favState.value = FavState.loaded;
-                            }),
-                        popMenu(
-                            text: 'Descending',
-                            isActive: controller.sortOrder.value == 'desc',
-                            onTap: () {
-                              controller.sortOrder.value = 'desc';
-                              controller.favState.value = FavState.loading;
-                              controller.favoritesList.value =
-                                  controller.favoritesList.reversed.toList();
-                              controller.favState.value = FavState.loaded;
-                            }),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    _pdfButton()
-                  ],
-                ),
-              ),
-              Column(
-                children: [
-                  Obx(() {
-                    return controller.selectionModeActive.value
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ElevatedButton.icon(
-                                  onPressed: () {
-                                    for (var selected
-                                        in controller.selectedItems) {
-                                      controller.selectedListings.add(
-                                          controller.favoritesList[selected]);
-                                    }
-                                    controller.favState.value =
-                                        FavState.preview;
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    side: BorderSide(color: AppColors.hint),
-                                    backgroundColor: AppColors.white,
-                                    elevation: 2,
-                                  ),
-                                  label: Obx(() {
-                                    return EraText(
-                                      text:
-                                          'GENERATE PDF ( ${controller.selectedCount.value} selected )',
-                                      color: AppColors.blue,
-                                    );
-                                  })),
-                              SizedBox(width: 10),
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  controller.exitSelectionMode();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  side: BorderSide(color: AppColors.hint),
-                                  backgroundColor: AppColors.white,
-                                  elevation: 2,
-                                ),
-                                label: EraText(
-                                  text: 'CANCEL',
-                                  color: AppColors.blue,
-                                ),
-                              ),
-                            ],
-                          )
-                        : SizedBox.shrink();
-                  }),
-                  SizedBox(
-                    child: GridView.builder(
-                      scrollDirection: Axis.vertical,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: EraTheme.paddingWidth),
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 1,
-                        mainAxisExtent: 150,
-                        mainAxisSpacing: 5,
-                      ),
-                      itemCount: controller.favoritesList.length,
-                      itemBuilder: (context, i) => Obx(() {
-                        return Stack(
-                          children: [
-                            FavItems(
-                              listing: controller.favoritesList[i],
-                              index: i,
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomSortPopup(
+                        title: 'Sort by',
+                        onSelected: (String result) {
+                          print(result);
+                        },
+                        menuItems: [
+                          popMenu(
+                              text: 'Category',
+                              isActive: controller.sortBy.value == 'category',
                               onTap: () {
-                                if (controller.selectionModeActive.value) {
-                                  controller.toggleSelection(i);
-                                } else {
-                                  Get.toNamed('/propertyInfo',
-                                      arguments: controller.favoritesList[i]);
-                                }
-                              },
-                              onLongPress: (index) {
-                                controller.toggleSelection(index);
-                              },
-                            ),
-                            if (controller.selectionModeActive.value)
-                              GestureDetector(
-                                onTap: () => controller.toggleSelection(i),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                  borderRadius: controller.isSelected(i)
-                                      ? BorderRadius.circular(10)
-                                      : null,
-                                  border: Border.all(
-                                    color: controller.isSelected(i)
-                                        ? AppColors.kRedColor
-                                        : Colors.transparent,
-                                    width: 2,
-                                  ),
-                                )),
-                              ),
-                          ],
-                        );
-                      }),
-                    ),
+                                controller.sortBy.value = 'category';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList
+                                    .sort((a, b) => a.type!.compareTo(b.type!));
+                                controller.favState.value = FavState.loaded;
+                              }),
+                          popMenu(
+                              text: 'Date',
+                              isActive: controller.sortBy.value == 'date',
+                              onTap: () {
+                                controller.sortBy.value = 'date';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList.sort((a, b) =>
+                                    a.dateCreated!.compareTo(b.dateCreated!));
+                                controller.favState.value = FavState.loaded;
+                              }),
+                          popMenu(
+                              text: 'Location',
+                              isActive: controller.sortBy.value == 'location',
+                              onTap: () {
+                                controller.sortBy.value = 'location';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList.sort((a, b) =>
+                                    a.location!.compareTo(b.location!));
+                                controller.favState.value = FavState.loaded;
+                              }),
+                          popMenu(
+                              text: 'Price',
+                              isActive: controller.sortBy.value == 'price',
+                              onTap: () {
+                                controller.sortBy.value = 'price';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList.sort(
+                                    (a, b) => a.price!.compareTo(b.price!));
+                                controller.favState.value = FavState.loaded;
+                              }),
+                          PopupMenuDivider(),
+                          popMenu(
+                              text: 'Ascending',
+                              isActive: controller.sortOrder.value == 'asc',
+                              onTap: () {
+                                controller.sortOrder.value = 'asc';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList.value =
+                                    controller.favoritesList.reversed.toList();
+                                controller.favState.value = FavState.loaded;
+                              }),
+                          popMenu(
+                              text: 'Descending',
+                              isActive: controller.sortOrder.value == 'desc',
+                              onTap: () {
+                                controller.sortOrder.value = 'desc';
+                                controller.favState.value = FavState.loading;
+                                controller.favoritesList.value =
+                                    controller.favoritesList.reversed.toList();
+                                controller.favState.value = FavState.loaded;
+                              }),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      _pdfButton()
+                    ],
                   ),
-                ],
-              )
-            ],
-          );
-        }),
-      ],
+                ),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Obx(() {
+                        return controller.selectionModeActive.value
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ElevatedButton.icon(
+                                      onPressed: () {
+                                        for (var selected
+                                            in controller.selectedItems) {
+                                          controller.selectedListings.add(
+                                              controller
+                                                  .favoritesList[selected]);
+                                        }
+                                        controller.favState.value =
+                                            FavState.preview;
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        side: BorderSide(color: AppColors.hint),
+                                        backgroundColor: AppColors.white,
+                                        elevation: 2,
+                                      ),
+                                      label: Obx(() {
+                                        return EraText(
+                                          text:
+                                              'GENERATE PDF ( ${controller.selectedCount.value} selected )',
+                                          color: AppColors.blue,
+                                        );
+                                      })),
+                                  SizedBox(width: 10),
+                                  ElevatedButton.icon(
+                                    onPressed: () {
+                                      controller.exitSelectionMode();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      side: BorderSide(color: AppColors.hint),
+                                      backgroundColor: AppColors.white,
+                                      elevation: 2,
+                                    ),
+                                    label: EraText(
+                                      text: 'CANCEL',
+                                      color: AppColors.blue,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : SizedBox.shrink();
+                      }),
+                      SizedBox(
+                        height: Get.height,
+                        width: Get.width,
+                        child: GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisExtent: 150,
+                          ),
+                          itemCount: controller.favoritesList.length,
+                          itemBuilder: (context, i) => Obx(() {
+                            return Stack(
+                              children: [
+                                FavItems(
+                                  listing: controller.favoritesList[i],
+                                  index: i,
+                                  onTap: () {
+                                    if (controller.selectionModeActive.value) {
+                                      controller.toggleSelection(i);
+                                    } else {
+                                      listingArgument =
+                                          controller.favoritesList[i];
+                                      selectedIndex.value = 12;
+                                      Get.find<HomsController>()
+                                          .onNavbarItemSelected(12);
+                                      Get.toNamed('/propertyInfo',
+                                          arguments:
+                                              controller.favoritesList[i]);
+                                    }
+                                  },
+                                  onLongPress: (index) {
+                                    controller.toggleSelection(index);
+                                  },
+                                ),
+                                if (controller.selectionModeActive.value)
+                                  GestureDetector(
+                                    onTap: () => controller.toggleSelection(i),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                      borderRadius: controller.isSelected(i)
+                                          ? BorderRadius.circular(10)
+                                          : null,
+                                      border: Border.all(
+                                        color: controller.isSelected(i)
+                                            ? AppColors.kRedColor
+                                            : Colors.transparent,
+                                        width: 2,
+                                      ),
+                                    )),
+                                  ),
+                              ],
+                            );
+                          }),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            );
+          }),
+        ],
+      ),
     );
   }
 
@@ -427,7 +429,7 @@ class favWeb extends GetView<FavWebController> {
       child: ListView.builder(
         itemCount: controller.selectedItems.length,
         shrinkWrap: true,
-        scrollDirection: Axis.vertical,
+        // scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
           Listing listing = controller.selectedListings[index];
           var sc = ScreenshotController();

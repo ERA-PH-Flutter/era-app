@@ -11,8 +11,8 @@ import 'package:eraphilippines/app/widgets/listings/agentInfo-widget.dart';
 import 'package:eraphilippines/presentation/website/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agent_dashboard_controller.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agents_controller.dart';
-import 'package:eraphilippines/presentation/website/agents/pages/agent_listings_web.dart';
-import 'package:eraphilippines/repository/user.dart';
+import 'package:eraphilippines/presentation/website/agents/pages/agent_listings.dart';
+ import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -238,8 +238,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed('/propertyInfo',
-                            arguments: controller.favorites[index]);
+                        // Get.toNamed('/propertyInfo',
+                        //     arguments: controller.favorites[index]);
                       },
                       child: Container(
                           height: 100.w,

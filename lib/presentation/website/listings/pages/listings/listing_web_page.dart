@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,10 +12,10 @@ import 'package:intl/intl.dart';
 import '../../../../../app/constants/assets.dart';
 import '../../../../../app/constants/colors.dart';
 import '../../../../../app/constants/strings.dart';
-import '../../../../../app/services/firebase_database.dart';
 import '../../../../../app/services/firebase_storage.dart';
 import '../../../../../app/widgets/app_text.dart';
 import '../../../../../app/widgets/image/image_widget.dart';
+import '../../../../../app/widgets/interactive_property_image.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
@@ -61,26 +62,59 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                   fontWeight: FontWeight.bold,
                 ),
                 sb10(),
-                Container(
+
+                SizedBox(
                   height: Get.height,
                   width: Get.width,
-                  decoration: BoxDecoration(
-                    color: AppColors.hint.withOpacity(0.3),
-                    border: Border.all(
-                      color: AppColors.hint.withOpacity(0.9),
-                      width: 3.w,
-                    ),
-                  ),
                   child: Stack(
                     children: [
-                      SizedBox(
-                        width: Get.width,
-                        height: Get.height,
-                        child: CloudStorage().imageLoader(
-                            reference: listingArgument.photos!.isNotEmpty
+                      Positioned(
+                          child: GestureDetector(
+                        onTap: () {
+                          // Get.to(() => InteractivePropertyImage(
+                          //       images: controller.images.cast<String>(),
+                          //       initialImageIndex: controller.images
+                          //           .indexOf(controller.currentImage.value),
+                          //     ));
+
+                          ImageWidget(
+                            thumbnailUrl: listingArgument.photos!.isNotEmpty
                                 ? listingArgument.photos!.first
-                                : AppStrings.noUserImageWhite),
-                      ),
+                                : AppStrings.noUserImageWhite,
+                            fit: BoxFit.cover,
+                            height: Get.height,
+                            width: Get.width,
+                          );
+                        },
+                        child: SizedBox(
+                          width: Get.width,
+                          height: Get.height,
+                          child: CloudStorage().imageLoader(
+                              reference: listingArgument.photos!.isNotEmpty
+                                  ? listingArgument.photos!.first
+                                  : AppStrings.noUserImageWhite),
+
+                          // SizedBox(
+                          //   width: Get.width,
+                          //   height: Get.height,
+                          //   child: ImageWidget(
+                          //     thumbnailUrl: controller.currentImage.value == ''
+                          //         ? (controller.images.isNotEmpty
+                          //             ? controller.images.first
+                          //             : AppStrings.noUserImageWhite)
+                          //         : controller.currentImage.value,
+                          //     width: Get.width,
+                          //   ),
+
+                          // CloudStorage().imageLoader(
+                          //   reference: controller.currentImage.value == ''
+                          //       ? (controller.images.isNotEmpty
+                          //           ? controller.images.first
+                          //           : AppStrings.noUserImageWhite)
+                          //       : controller.currentImage.value,
+                          // ),
+                        ),
+                      )),
                       Positioned(
                         bottom: 0.h,
                         child: Container(
@@ -112,9 +146,110 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                               itemCount: listingArgument.photos!.length),
                         ),
                       ),
+                      Obx(() {
+                        controller.isFav.value;
+                        if (user != null) {
+                          return Positioned(
+                            right: 15.w,
+                            top: 10.h,
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: GestureDetector(
+                                  onTap: () {
+                                    controller.isFav.value =
+                                        !controller.isFav.value;
+                                    user!.addFavorites(listingArgument.id);
+                                    Get.showSnackbar(GetSnackBar(
+                                      title: "Success",
+                                      message:
+                                          "${controller.isFav.value ? "Added" : "Removed"} to favorites",
+                                      backgroundColor: AppColors.kRedColor,
+                                      duration: Duration(
+                                          milliseconds: 500, seconds: 1),
+                                    ));
+                                  },
+                                  child: Icon(
+                                    shadows: const [
+                                      Shadow(
+                                          color: Colors.black,
+                                          offset: Offset(0, 0),
+                                          blurRadius: 20)
+                                    ],
+                                    user!.favorites!
+                                            .contains(listingArgument.id)
+                                        ? CupertinoIcons.heart_fill
+                                        : CupertinoIcons.heart_fill,
+                                    color: user!.favorites!
+                                            .contains(listingArgument.id)
+                                        ? AppColors.kRedColor
+                                        : AppColors.white,
+                                    size: 45.sp,
+                                  )),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
                     ],
                   ),
                 ),
+
+                // Container(
+                //   height: Get.height,
+                //   width: Get.width,
+                //   decoration: BoxDecoration(
+                //     color: AppColors.hint.withOpacity(0.3),
+                //     border: Border.all(
+                //       color: AppColors.hint.withOpacity(0.9),
+                //       width: 3.w,
+                //     ),
+                //   ),
+                //   child: Stack(
+                //     children: [
+                //       SizedBox(
+                //         width: Get.width,
+                //         height: Get.height,
+                //         child: CloudStorage().imageLoader(
+                //             reference: listingArgument.photos!.isNotEmpty
+                //                 ? listingArgument.photos!.first
+                //                 : AppStrings.noUserImageWhite),
+                //       ),
+                //       Positioned(
+                //         bottom: 0.h,
+                //         child: Container(
+                //           width: Get.width,
+                //           height: 250.h,
+                //           padding: EdgeInsets.all(EraTheme.paddingWidthSmall),
+                //           child: ListView.builder(
+                //               scrollDirection: Axis.horizontal,
+                //               shrinkWrap: true,
+                //               itemBuilder: (context, index) {
+                //                 return Container(
+                //                   margin: EdgeInsets.symmetric(horizontal: 5.w),
+                //                   width: Get.width / 7,
+                //                   decoration: BoxDecoration(
+                //                     border: Border.all(
+                //                       color: AppColors.hint.withOpacity(0.9),
+                //                       width: 5.w,
+                //                     ),
+                //                   ),
+                //                   child: CloudStorage().imageLoader(
+                //                       width: Get.width / 7,
+                //                       height: Get.height,
+                //                       reference:
+                //                           listingArgument.photos!.isNotEmpty
+                //                               ? listingArgument.photos![index]
+                //                               : AppStrings.noUserImageWhite),
+                //                 );
+                //               },
+                //               itemCount: listingArgument.photos!.length),
+                //         ),
+                //       ),
+
+                //     ],
+                //   ),
+                // ),
                 sb40(),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

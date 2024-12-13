@@ -1,7 +1,7 @@
+import 'package:eraphilippines/presentation/website/listings/pages/favorites/controllers/fav_controller.dart';
 import 'package:get/get.dart';
 
-import 'fav_controller.dart';
-
+ 
 class FavWebBinding extends Bindings {
   @override
   void dependencies() {
