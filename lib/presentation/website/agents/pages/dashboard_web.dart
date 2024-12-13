@@ -7,12 +7,9 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 import 'package:eraphilippines/app/widgets/listings/agentInfo-widget.dart';
-import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
-import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agent_dashboard_controller.dart';
+import 'package:eraphilippines/presentation/website/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +25,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
   AgentDashBoardWeb({
     super.key,
   });
-  final AgentsController agentController = Get.put(AgentsController());
+  final AgentsWebController agentController = Get.put(AgentsWebController());
 
   @override
   Widget build(BuildContext context) {
@@ -292,7 +289,9 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed("/fav");
+                  //     Get.toNamed("/favWeb");
+                  selectedIndex.value = 16;
+                  Get.find<HomsController>().onNavbarItemSelected(16);
                 },
                 child: Image.asset(
                   AppEraAssets.fav,
@@ -488,45 +487,45 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('users')
-                .where('status', isEqualTo: 'approved')
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(child: CircularProgressIndicator());
-              }
-              List<Widget> children = [];
-              List randomIndex = [];
-              for (int i = 0; i < min(5, snapshot.data!.docs.length); i++) {
-                var random = Random().nextInt(snapshot.data!.docs.length);
-                while (randomIndex.contains(random)) {
-                  random = Random().nextInt(snapshot.data!.docs.length);
-                }
-                randomIndex.add(random);
-                var user = EraUser.fromJSON(snapshot.data!.docs[random].data());
-                children.add(
-                  Row(
-                    children: [
-                      iconAgents(user.image ?? AppStrings.noUserImageWhite, () {
-                        Get.to(AgentListings(),
-                            arguments: [user.id],
-                            binding: AgentListingsBinding());
-                      }, "${user.firstname} ${user.lastname}"),
-                      sbw10(),
-                    ],
-                  ),
-                );
-              }
-              return Row(
-                children: children,
-              );
-            },
-          ),
-        ),
+        // SingleChildScrollView(
+        //   scrollDirection: Axis.horizontal,
+        //   child: StreamBuilder(
+        //     stream: FirebaseFirestore.instance
+        //         .collection('users')
+        //         .where('status', isEqualTo: 'approved')
+        //         .snapshots(),
+        //     builder: (context, snapshot) {
+        //       if (!snapshot.hasData) {
+        //         return Center(child: CircularProgressIndicator());
+        //       }
+        //       List<Widget> children = [];
+        //       List randomIndex = [];
+        //       for (int i = 0; i < min(5, snapshot.data!.docs.length); i++) {
+        //         var random = Random().nextInt(snapshot.data!.docs.length);
+        //         while (randomIndex.contains(random)) {
+        //           random = Random().nextInt(snapshot.data!.docs.length);
+        //         }
+        //         randomIndex.add(random);
+        //         var user = EraUser.fromJSON(snapshot.data!.docs[random].data());
+        //         children.add(
+        //           Row(
+        //             children: [
+        //               iconAgents(user.image ?? AppStrings.noUserImageWhite, () {
+        //                 Get.to(AgentListings(),
+        //                     arguments: [user.id],
+        //                     binding: AgentListingsWebBinding());
+        //               }, "${user.firstname} ${user.lastname}"),
+        //               sbw10(),
+        //             ],
+        //           ),
+        //         );
+        //       }
+        //       return Row(
+        //         children: children,
+        //       );
+        //     },
+        //   ),
+        // ),
       ],
     );
   }
@@ -651,7 +650,11 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('/agentMyListing', arguments: [user!.id]);
+                  agentArgument = [user!.id];
+                  HomsController homsController = Get.find<HomsController>();
+                  selectedIndex.value = 17;
+                  homsController.onNavbarItemSelected(17);
+                  // Get.toNamed('/agentMyListing', arguments: [user!.id]);
                 },
                 child: Image.asset(
                   AppEraAssets.manageListings,

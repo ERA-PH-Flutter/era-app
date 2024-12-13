@@ -6,8 +6,7 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/website/agents/controllers/agents_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,8 +15,8 @@ import 'package:get/get.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../../../global.dart';
 
-class SettingsPageWeb extends GetView<AgentsController> {
-  final AgentsController agentController = Get.put(AgentsController());
+class SettingsPageWeb extends GetView<AgentsWebController> {
+  final AgentsWebController agentController = Get.put(AgentsWebController());
 
   SettingsPageWeb({super.key});
 
@@ -77,9 +76,10 @@ class SettingsPageWeb extends GetView<AgentsController> {
         Obx(() {
           controller.image.value;
           return FutureBuilder(
-            future: CloudStorage().getFileDirect(docRef: user!.image ?? AppStrings.noUserImageWhite),
-            builder: (context,snapshot){
-              if(snapshot.hasData){
+            future: CloudStorage().getFileDirect(
+                docRef: user!.image ?? AppStrings.noUserImageWhite),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
                 return Container(
                     width: 130,
                     height: 130,
@@ -101,8 +101,8 @@ class SettingsPageWeb extends GetView<AgentsController> {
                             image: agentController.image.value != null
                                 ? FileImage(agentController.image.value!)
                                 : CachedNetworkImageProvider(snapshot.data!)
-                            as ImageProvider)));
-              }else{
+                                    as ImageProvider)));
+              } else {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
@@ -138,7 +138,8 @@ class SettingsPageWeb extends GetView<AgentsController> {
                             width: Get.width,
                             child: ElevatedButton(
                               onPressed: () {
-                                agentController.getImagePic(agentController.image);
+                                agentController
+                                    .getImagePic(agentController.image);
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/presentation/website/projects/controllers/project_list_controller.dart';
-import 'package:eraphilippines/presentation/agent/agents/controllers/agents_controller.dart';
-import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/searchresult.dart';
@@ -96,7 +94,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               Home(),
               //   ProjectsList(),
               //      SearchResult(),
-              FindAgents(),
+              //      FindAgents(),
               //   Help(),
             ],
           ),
@@ -121,8 +119,8 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                   SearchResultBinding().dependencies();
                 } else if (index == 3) {
                   currentRoute = '/findagents';
-                  Get.deleteAll();
-                  Get.put(AgentsController());
+                  // Get.deleteAll();
+                  // Get.put(AgentsController());
                 } else if (index == 4) {
                   currentRoute = '/about';
                 }

@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../../../presentation/agent/agents/bindings/agents_binding.dart';
 import '../../../presentation/agent/home/controllers/home_binding.dart';
 import '../../../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import '../../../presentation/global.dart';
@@ -64,8 +63,8 @@ class AppNavItems extends StatelessWidget {
                 } else if (index == 4) {
                   selectedIndex.value = 3;
                   currentRoute = '/findagents';
-                  pageViewController = PageController(initialPage: 3);
-                  Get.offAll(BaseScaffold(), binding: AgentsBinding());
+                  // pageViewController = PageController(initialPage: 3);
+                  // Get.offAll(BaseScaffold(), binding: AgentsBinding());
                 } else if (index == 5) {
                   selectedIndex.value = 4;
                   currentRoute = '/help';

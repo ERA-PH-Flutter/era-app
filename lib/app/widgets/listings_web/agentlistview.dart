@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../presentation/agent/agents/bindings/agent_listings_binding.dart';
-import '../../../presentation/agent/agents/pages/agent_listings.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
 import '../../constants/sized_box.dart';
@@ -158,9 +156,9 @@ class AgentListViewWeb extends StatelessWidget {
                         text: 'VIEW LISTING',
                         fontSize: 13.sp,
                         onTap: () {
-                          Get.to(AgentListings(),
-                              binding: AgentListingsBinding(),
-                              arguments: [agent.id]);
+                          // Get.to(AgentListings(),
+                          //     binding: AgentListingsBinding(),
+                          //     arguments: [agent.id]);
                         },
                         bgColor: AppColors.kRedColor,
                         width: 200.w,

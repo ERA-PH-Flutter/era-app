@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
+
 import '../controllers/agents_controller.dart';
 
-class AgentsBinding extends Bindings {
+class AgentWebBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => AgentsController());
+    Get.lazyPut(() => AgentsWebController());
   }
 }

@@ -14,27 +14,24 @@ import '../../../../app/constants/screens.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/custom_appbar.dart';
 import '../../../../app/widgets/listings/agentInfo-widget.dart';
-import '../controllers/agent_listings_controller.dart';
+import '../controllers/agent_myListingWeb_controller.dart';
 
-class AgentListings extends GetView<AgentListingsController> {
-  AgentListings({super.key});
+class AgentListings extends GetView<AgentListingsWebController> {
+  const AgentListings({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppbar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Filter and sort row for the specific listing
-            Obx(() => switch (controller.agentListingsState.value) {
-                  AgentListingsState.loading => _loading(),
-                  AgentListingsState.loaded => _loaded(),
-                  AgentListingsState.empty => _empty(),
-                  AgentListingsState.error => _error(),
-                })
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // Filter and sort row for the specific listing
+          Obx(() => switch (controller.agentListingsState.value) {
+                AgentListingsState.loading => _loading(),
+                AgentListingsState.loaded => _loaded(),
+                AgentListingsState.empty => _empty(),
+                AgentListingsState.error => _error(),
+              })
+        ],
       ),
     );
   }

@@ -5,7 +5,6 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/inbox_widget.dart';
-import 'package:eraphilippines/presentation/agent/agents/bindings/agents_binding.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
@@ -14,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
- import '../services/firebase_auth.dart';
+import '../services/firebase_auth.dart';
 import 'navigation/customenavigationbar.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -103,8 +102,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       Positioned.fill(
                                         child: GestureDetector(
                                           onTap: () {
-                                           // Get.to(() => InboxScreen(),
-                                                // binding: LoginPageBinding());
+                                            // Get.to(() => InboxScreen(),
+                                            // binding: LoginPageBinding());
                                           },
                                           child: Icon(CupertinoIcons.mail,
                                               color: AppColors.hint,
@@ -192,8 +191,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                       pageViewController =
                                           PageController(initialPage: 3);
                                       currentRoute = '/findagents';
-                                      Get.offAll(BaseScaffold(),
-                                          binding: AgentsBinding());
+                                      // Get.offAll(BaseScaffold(),
+                                      //     binding: AgentsBinding());
                                     },
                                         Get.currentRoute == '/findagents' ||
                                             currentRoute == '/findagents'),

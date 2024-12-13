@@ -1,16 +1,9 @@
-import 'package:eraphilippines/presentation/agent/agents/bindings/agent_dashboard_binding.dart';
-import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings_binding.dart';
-import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
-
 import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
+import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylistingWeb_binding.dart';
 import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
 
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
-import '../presentation/agent/agents/bindings/agents_binding.dart';
-import '../presentation/agent/agents/pages/agentsDashBoard.dart';
-import '../presentation/agent/agents/pages/agentsMyListing.dart';
-import '../presentation/agent/agents/pages/findagents.dart';
 
 import '../presentation/agent/home/controllers/home_binding.dart';
 import '../presentation/agent/home/pages/home.dart';
@@ -25,7 +18,10 @@ import '../presentation/agent/listings/favorites/pages/Fav.dart';
 import '../presentation/agent/listings/sold_properties/controllers/sold_properties_binding.dart';
 import '../presentation/agent/listings/sold_properties/pages/sold_properties.dart';
 
+import '../presentation/website/agents/pages/agentsMyListing.dart';
 import '../presentation/website/landingpage/pages/homepage.dart';
+import '../presentation/website/listings/pages/favorites/controllers/fav_binding.dart';
+import '../presentation/website/listings/pages/favorites/pages/Fav.dart';
 
 appRoutes() => [
       GetPage(
@@ -39,23 +35,23 @@ appRoutes() => [
 
       //projects
 
-      GetPage(
-          name: RouteString.findagents,
-          page: () => const FindAgents(),
-          binding: AgentsBinding()),
+      // GetPage(
+      //     name: RouteString.findagents,
+      //     page: () => const FindAgents(),
+      //     binding: AgentsBinding()),
 
-      GetPage(
-          name: RouteString.agentDashBoard,
-          page: () => AgentDashBoard(),
-          binding: AgentDashboardBinding()),
-      GetPage(
-          name: RouteString.agentMyListing,
-          page: () => AgentsMyListing(),
-          binding: AgentListingsBinding()),
-      GetPage(
-          name: RouteString.agentListings,
-          page: () => AgentListings(),
-          binding: AgentListingsBinding()),
+      // GetPage(
+      //     name: RouteString.agentDashBoard,
+      //     page: () => AgentDashBoard(),
+      //     binding: AgentDashboardBinding()),
+      // GetPage(
+      //     name: RouteString.agentMyListing,
+      //     page: () => AgentsMyListing(),
+      //     binding: AgentListingsBinding()),
+      // GetPage(
+      //     name: RouteString.agentListings,
+      //     page: () => AgentListings(),
+      //     binding: AgentListingsBinding()),
 
       GetPage(
           name: RouteString.editListings,
@@ -95,10 +91,19 @@ appRoutes() => [
         name: RouteString.homs,
         page: () => HomePages(),
       ),
+      GetPage(
+        name: RouteString.favWeb,
+        page: () => favWeb(),
+        binding: FavWebBinding(),
+      ),
       // GetPage(
       //   name: RouteString.createaccountweb,
       //   page: () => CreateAccountWeb(),
       // ),
+      GetPage(
+          name: RouteString.agentMyListingWeb,
+          page: () => AgentsMyListingWeb(),
+          binding: AgentListingsWebBinding()),
     ];
 
 class MyMiddleware extends GetMiddleware {}

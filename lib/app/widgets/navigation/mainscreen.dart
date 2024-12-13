@@ -2,7 +2,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/widgets/navigation/app_nav_items.dart';
-import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/agent/home/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

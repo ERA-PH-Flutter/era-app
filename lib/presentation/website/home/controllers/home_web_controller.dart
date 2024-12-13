@@ -189,8 +189,12 @@ class HomeWebController extends GetxController {
           onTap: () {
             //   selectedIndex.value = 14;
             // Get.find<HomsController>().onNavbarItemSelected(14);
-            Get.to(ProjectViewWeb(),
-                binding: ProjectViewWebBinding(), arguments: pr);
+            // Get.to(ProjectViewWeb(),
+            //     binding: ProjectViewWebBinding(), arguments: pr);
+            projectArgument = pr;
+            HomsController homsController = Get.find<HomsController>();
+            selectedIndex.value = 14;
+            homsController.onNavbarItemSelected(14);
           },
           child: Wrap(
             children: [

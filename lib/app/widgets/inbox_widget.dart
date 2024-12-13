@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
-import 'package:eraphilippines/presentation/agent/agents/pages/message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,14 +14,15 @@ class InboxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance.collection('messages').snapshots(),
-      builder: (context,snapshot){
-        if(snapshot.hasData){
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
           final data = snapshot.data?.docs;
           return ListView.builder(
             itemCount: snapshot.data?.docs.length,
             itemBuilder: (context, index) {
               final message = Message.fromJson(data![index]);
-              if(data![index]['to'] == "all" || data[index]['to'] == user!.id){
+              if (data![index]['to'] == "all" ||
+                  data[index]['to'] == user!.id) {
                 return Column(
                   children: [
                     ListTile(
@@ -47,9 +46,9 @@ class InboxWidget extends StatelessWidget {
                         text: message.time,
                         color: AppColors.hint,
                       ),
-                      onTap: () {
-                        Get.to(MessageScreen(message: message));
-                      },
+                      // onTap: () {
+                      //   Get.to(MessageScreen(message: message));
+                      // },
                     ),
                     Divider(), // Add a Divider here
                   ],
@@ -80,8 +79,12 @@ class Message {
     required this.time,
   });
 
-  factory Message.fromJson(json){
-    return Message(title: json["title"], subject: json['subject'], time: DateFormat.jm().format(DateTime.parse(json['date'].toDate().toString())));
+  factory Message.fromJson(json) {
+    return Message(
+        title: json["title"],
+        subject: json['subject'],
+        time: DateFormat.jm()
+            .format(DateTime.parse(json['date'].toDate().toString())));
   }
 }
 
