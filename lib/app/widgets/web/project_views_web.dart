@@ -26,7 +26,7 @@ class ProjectViewsWeb extends StatelessWidget {
   Project? project;
   ProjectViewsWeb({super.key, this.project});
   Future<bool> loadLink(link, webViewController) async {
-    await webViewController.loadRequest(Uri.parse(link));
+    await webViewController.loadRequest(Uri.parse(link),);
     return true;
   }
 
@@ -77,65 +77,63 @@ class ProjectViewsWeb extends StatelessWidget {
                       width: 241.h,
                     );
                   }
-                  //  else if (data['type'] == "3D Virtual") {
-                  //   var webViewController = WebViewController();
-                  //   webViewController
-                  //     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                  //     ..setBackgroundColor(const Color(0x00000000))
-                  //     ..setNavigationDelegate(
-                  //       NavigationDelegate(
-                  //         onPageStarted: (String url) {},
-                  //         onPageFinished: (String url) {},
-                  //         onWebResourceError: (WebResourceError error) {},
-                  //       ),
-                  //     );
-                  //   return Container(
-                  //     color: AppColors.hint.withOpacity(0.3),
-                  //     child: Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         title(
-                  //             text: data['title'],
-                  //             textAlign: TextAlign.start,
-                  //             padding: EdgeInsets.symmetric(
-                  //                 horizontal: EraTheme.paddingWidth)),
-                  //         Padding(
-                  //           padding: EdgeInsets.symmetric(
-                  //               horizontal: EraTheme.paddingWidth),
-                  //           child: description(text: data['description']),
-                  //         ),
-                  //         sb20(),
-                  //         FutureBuilder(
-                  //             future: loadLink(data['link'], webViewController),
-                  //             builder: (context, snapshot) {
-                  //               if (snapshot.hasData) {
-                  //                 var params =
-                  //                     const PlatformWebViewControllerCreationParams();
-                  //                 var webview =
-                  //                     WebViewController.fromPlatformCreationParams(
-                  //                   params,
-                  //                   onPermissionRequest:
-                  //                       (WebViewPermissionRequest request) {
-                  //                     request.grant();
-                  //                   },
-                  //                 );
-                  //                 return SizedBox(
-                  //                   height: 400.h,
-                  //                   child: GestureDetector(
-                  //                     child: WebViewWidget(
-                  //                       controller: webViewController,
-                  //                     ),
-                  //                   ),
-                  //                 );
-                  //               } else {
-                  //                 return Center(
-                  //                   child: CircularProgressIndicator(),
-                  //                 );
-                  //               }
-                  //             }),
-                  //       ],
-                  //     ),
-                  //   );
+                   else if (data['type'] == "3D Virtual") {
+                    var webViewController = WebViewController();
+                    print("api.eraphilippines.com/proxy.php?url=${data['link']}");
+                    //webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
+                    // webViewController.setNavigationDelegate(NavigationDelegate(
+                    //   onPageStarted: (String url) {},
+                    //   onPageFinished: (String url) {},
+                    //   onWebResourceError: (WebResourceError error) {},
+                    // ),);
+                    return Container(
+                      color: AppColors.hint.withOpacity(0.3),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          title(
+                              text: data['title'],
+                              textAlign: TextAlign.start,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: EraTheme.paddingWidth)),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: EraTheme.paddingWidth),
+                            child: description(text: data['description']),
+                          ),
+                          sb20(),
+                          FutureBuilder(
+                              future: loadLink("https://api.eraphilippines.com/proxy.php?url=${data['link']}", webViewController),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  // var params =
+                                  //     const PlatformWebViewControllerCreationParams();
+                                  // var webview =
+                                  //     WebViewController.fromPlatformCreationParams(
+                                  //   params,
+                                  //   onPermissionRequest:
+                                  //       (WebViewPermissionRequest request) {
+                                  //     request.grant();
+                                  //   },
+                                  // );
+                                  return SizedBox(
+                                    height: 400.h,
+                                    child: GestureDetector(
+                                      child: WebViewWidget(
+                                        controller: webViewController,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                              }),
+                        ],
+                      ),
+                    );
+                  }
                   else if (data['type'] == "Blurb") {
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
