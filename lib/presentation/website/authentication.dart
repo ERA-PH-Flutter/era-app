@@ -146,7 +146,8 @@ void showAuthenticationDialog() {
                                     hitApi: () {
                                       Get.toNamed(RouteString.webLandingPage);
                                     });
-                              } else {
+                              }
+                              else {
                                 selectedIndex.value = 0;
                                 Get.toNamed(RouteString.homs);
                               }

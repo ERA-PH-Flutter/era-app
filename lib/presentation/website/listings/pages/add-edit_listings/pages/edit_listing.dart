@@ -37,8 +37,8 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
     //  Get.find<LandingPageController>().arguments;
     Get.put(ListingsController());
 
-    return Scaffold(
-      body: Obx(() => switch (controller.state.value) {
+    return SizedBox(
+      child: Obx(() => switch (controller.state.value) {
             AdminEditState.loading => _loading(),
             AdminEditState.loaded => _loaded(),
             AdminEditState.picker => _picker(),

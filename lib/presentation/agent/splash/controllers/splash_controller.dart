@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import '../../../../app/models/settings.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../../app/services/local_storage.dart';
+import '../../../website/listings/pages/add-edit_listings/controllers/addlistings_controller.dart';
 
 enum SplashState {
   loaded,
@@ -44,6 +45,7 @@ class SplashController extends GetxController {
 
   @override
   void onInit() async {
+    Get.put(AddListingsController()); // init
     super.onInit();
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {

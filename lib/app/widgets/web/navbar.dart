@@ -3,6 +3,7 @@ import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/dashboard_web.dart';
+import 'package:eraphilippines/presentation/website/authentication/controller/authentication_binding.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/presentation/website/landingpage/pages/homepage.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import '../../../presentation/global.dart';
 import '../../../presentation/website/agents/pages/settingAgent.dart';
 import '../../../presentation/website/authentication.dart';
@@ -228,9 +230,11 @@ class Navbar extends GetResponsiveView<HomsController> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
-                            Authentication().logout();
+                          onTap: () async{
+                            await Authentication().logout();
                             controller.loginOverlay.hide();
+                            Get.deleteAll();
+                            Get.toNamed(RouteString.webLandingPage);
                           },
                           child: ListTile(
                             title: Row(

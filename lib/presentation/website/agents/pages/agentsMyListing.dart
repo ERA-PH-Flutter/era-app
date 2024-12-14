@@ -21,9 +21,9 @@ import '../../../../app/services/firebase_database.dart';
 import '../controllers/agent_myListingWeb_controller.dart';
 
 class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
-  final String? by;
+ // final String? by;
 
-  const AgentsMyListingWeb({super.key, this.by});
+  const AgentsMyListingWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -375,13 +375,17 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                                               description:
                                                   "Do you want to delete this listing?",
                                               hitApi: () async {
-                                                BaseController().showLoading();
-                                                await CloudStorage().deleteAll(
-                                                    fileList: listing.photos!);
-                                                await Listing()
-                                                    .deleteListingsById(
-                                                        listing.id);
-                                                BaseController().hideLoading();
+                                                controller.agentListingsState.value = AgentListingsState.loading;
+                                                try{
+                                                  BaseController().showLoading();
+                                                  await CloudStorage().deleteAll(fileList: listing.photos!);
+                                                  await Listing().deleteListingsById(listing.id);
+                                                  controller.listings.removeAt(index);
+                                                  BaseController().hideLoading();
+                                                }catch(e,ex){
+                                                  print(ex);
+                                                }
+                                                controller.agentListingsState.value = AgentListingsState.loaded;
                                                 // controller.agentListingsState.value =
                                                 //     AgentListingsState.loading;
                                                 Get.back();

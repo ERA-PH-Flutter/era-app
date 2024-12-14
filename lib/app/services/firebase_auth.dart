@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../presentation/global.dart';
+
 class Authentication {
   FirebaseAuth auth = FirebaseAuth.instance;
   Authentication();
@@ -47,6 +49,7 @@ class Authentication {
     try {
       //await GoogleSignIn().signOut();
       await auth.signOut();
+      user = null;
       return "success";
     } on FirebaseAuthException catch (e) {
       return "Error : $e";

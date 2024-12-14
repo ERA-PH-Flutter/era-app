@@ -356,7 +356,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                     color: AppColors.kRedColor),
                 GestureDetector(
                   onTap: () {
-                    Get.to(CompanyNewsPageWeb());
+                    selectedIndex.value = 10;
+                    Get.find<HomsController>().onNavbarItemSelected(10);
                   },
                   child: EraText(
                       text: 'See all',
@@ -617,8 +618,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                             children: [
                               Positioned.fill(
                                 child: CloudStorage().imageLoaderProvider(
-                                    reference:
-                                        controller.listings[index].photos.first,
+                                    reference: controller.listings[index].photos.isNotEmpty ?
+                                        controller.listings[index].photos.first : AppStrings.noUserImageWhite,
                                     height: 100.w,
                                     width: 100.w,
                                     borderRadius: BorderRadius.circular(10.r)),
@@ -661,7 +662,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                   homsController.onNavbarItemSelected(
                     17,
                   );
-                  Get.toNamed('/agentMyListingWeb', arguments: [user!.id]);
+                  // Get.toNamed('/agentMyListingWeb', arguments: [user!.id]);
                 },
                 child: Image.asset(
                   AppEraAssets.manageListings,

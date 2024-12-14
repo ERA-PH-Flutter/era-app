@@ -74,7 +74,8 @@ class _EraPlaceSearchState extends State<EraPlaceSearch> {
                     var res = await GetConnect().get("https://api.eraphilippines.com/places.php?input=${widget.textFieldController.text}");
                     if(res.body != null){
                       var data = jsonDecode(res.body);
-                      results.value = data['predictions'];
+                      print(data);
+                      results.value = data['results'];
                     }
                     isReady = false;
                   }
@@ -102,7 +103,7 @@ class _EraPlaceSearchState extends State<EraPlaceSearch> {
                       var res =await GetConnect().get("https://api.eraphilippines.com/places.php?id=${results[index]['place_id']}");
                       var data = jsonDecode(res.body);
                       var coordinates = data['result']['geometry']['location'];
-                      widget.textFieldController.text = results[index]['description'];
+                      widget.textFieldController.text = results[index]['formatted_address'];
                       results.clear();
                       currentText.value = "";
                       widget.callback(LatLng(coordinates['lat'],coordinates['lng']));
@@ -110,7 +111,7 @@ class _EraPlaceSearchState extends State<EraPlaceSearch> {
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 10.h),
                       child: EraText(
-                        text: results[index]['description'],
+                        text: results[index]['formatted_address'],
                         color: Colors.black,
                       ),
                     ),

@@ -32,11 +32,11 @@ import '../../listings/controllers/listings_web_controller.dart';
 import '../../news/controllers/news_controller.dart';
 
 List<String> imagePaths = [
-  'assets/images/image.png',
-  'assets/images/image2.png',
-  'assets/images/image5.png',
-  'assets/images/image6.png',
-  'assets/images/image7.png',
+  // 'assets/images/image.png',
+  // 'assets/images/image2.png',
+  // 'assets/images/image5.png',
+  // 'assets/images/image6.png',
+  // 'assets/images/image7.png',
 ];
 
 class HomeWeb extends GetView<HomeWebController> {
@@ -79,13 +79,19 @@ class HomeWeb extends GetView<HomeWebController> {
                   Positioned(
                     child: CarouselSlider(
                         controller: controller.innerController,
-                        items: imagePaths.map((imagePath) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(imagePath))),
+                        items: controller.bannersImages.map((imagePath) {
+                          return CloudStorage().imageLoaderProvider(
+                            reference: imagePath,
+                            fit: BoxFit.cover,
+                            //height: Get.height - 100.h,
+                            width: Get.width
                           );
+                          // return Container(
+                          //   decoration: BoxDecoration(
+                          //       image: DecorationImage(
+                          //           fit: BoxFit.cover,
+                          //           image: AssetImage(imagePath))),
+                          // );
 
                           // Image.asset(
                           //   imagePath,

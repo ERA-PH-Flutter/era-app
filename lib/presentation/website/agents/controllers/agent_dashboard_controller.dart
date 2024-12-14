@@ -24,25 +24,25 @@ class AgentDashboardWebController extends GetxController {
 
   @override
   void onInit() async {
-    // for (int i = 0; i < user!.favorites!.length; i++) {
-    //   if (await Database().doDocumentExist(user!.favorites![i])) {
-    //     favorites.add(await Listing().getListing(user!.favorites![i]));
-    //   } else {
-    //     user!.favorites!.removeAt(i);
-    //   }
-    // }
-    // listings.value = await Database().searchListingsByUserId(user!.id!);
-    // listings.shuffle();
-    // favorites.shuffle();
-    // await getNews();
-    // scrollController.addListener(() async {
-    //   if (!scrolling.value) {
-    //     scrolling.value = true;
-    //     await Future.delayed(Duration(seconds: 4)).then((val) {
-    //       scrolling.value = false;
-    //     });
-    //   }
-    // });
+    for (int i = 0; i < user!.favorites!.length; i++) {
+      if (await Database().doDocumentExist(user!.favorites![i])) {
+        favorites.add(await Listing().getListing(user!.favorites![i]));
+      } else {
+        user!.favorites!.removeAt(i);
+      }
+    }
+    listings.value = await Database().searchListingsByUserId(user!.id!);
+    listings.shuffle();
+    favorites.shuffle();
+    await getNews();
+    scrollController.addListener(() async {
+      if (!scrolling.value) {
+        scrolling.value = true;
+        await Future.delayed(Duration(seconds: 4)).then((val) {
+          scrolling.value = false;
+        });
+      }
+    });
     agentDashboardWebState.value = AgentDashboardWebState.loaded;
 
     super.onInit();

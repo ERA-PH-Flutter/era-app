@@ -9,6 +9,8 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/era_place_search.dart';
  import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/presentation/website/agents/controllers/agent_myListingWeb_controller.dart';
+import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/listing_web_controller.dart';
   import 'package:eraphilippines/router/route_string.dart';
@@ -74,6 +76,7 @@ class AddListingsWeb extends GetView<AddListingsController>
           sb20(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               EraText(
                   text: "Listing Location ( Search or Pick )",
@@ -110,10 +113,8 @@ class AddListingsWeb extends GetView<AddListingsController>
                     bgColor: Colors.red,
                     text: 'Pick Address',
                     onTap: () {
-                      ListingsController listingsController =
-                          Get.find<ListingsController>();
-
-                      listingsController.state.value = AdminEditState.picker;
+                      //ListingsController listingsController = Get.find<ListingsController>();
+                      controller.addEditListingsState.value = AddEditListingsState.location_pick;
                     },
                   ),
                 )
@@ -256,7 +257,8 @@ class AddListingsWeb extends GetView<AddListingsController>
               await settings!.update();
               controller.showSuccessDialogProjects(
                   hitApi: () {
-                    Get.offAllNamed(RouteString.agentDashBoard);
+                    Get.back();Get.back();
+                    Get.find<HomsController>().onNavbarItemSelected(13);
                   },
                   title: "Add Listing Success",
                   description: "Listing has been uploaded to the database.");
@@ -280,7 +282,7 @@ class AddListingsWeb extends GetView<AddListingsController>
       },
       child: Obx(() => SizedBox(
           width: Get.width,
-          height: Get.height - 212.h,
+          height: Get.height,
           child: Stack(
             children: [
               Positioned.fill(

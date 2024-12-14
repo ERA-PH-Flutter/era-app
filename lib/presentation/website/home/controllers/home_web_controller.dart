@@ -42,40 +42,28 @@ class HomeWebController extends GetxController {
   var carouselIndex = 0.obs;
   @override
   void onInit() async {
+
     try {
-      // if (settings != null) {
-      //   if (settings!.banners != null) {
-      //     for (int i = 0; i < settings!.banners!.length; i++) {
-      //       bannersImages.add(settings!.banners![i]);
-      //     }
-      //   }
-      // } else {
-      //   settings = era_settings.Settings.fromJSON((await FirebaseFirestore
-      //           .instance
-      //           .collection('settings')
-      //           .doc('main')
-      //           .get())
-      //       .data()!);
-      //   for (int i = 0; i < settings!.banners!.length; i++) {
-      //     images.add(
-      //         await Image.memory(await CloudStorage().getFileBytes(docRef: settings!.banners![i])));
-      //   }
-      // }
-      // settings = era_settings.Settings.fromJSON((await FirebaseFirestore
-      //         .instance
-      //         .collection('settings')
-      //         .doc('main')
-      //         .get())
-      //     .data()!);
-      // for (int i = 0; i < settings!.banners!.length; i++) {
-      //   images.add(
-      //       await CloudStorage().getFileBytes(docRef: settings!.banners![i]));
-      // }
+      if (settings != null) {
+        if (settings!.banners != null) {
+          for (int i = 0; i < settings!.banners!.length; i++) {
+            bannersImages.add(settings!.banners![i]);
+          }
+        }
+      } else {
+        settings = era_settings.Settings.fromJSON((await FirebaseFirestore
+            .instance
+            .collection('settings')
+            .doc('main')
+            .get())
+            .data()!);
+        for (int i = 0; i < settings!.banners!.length; i++) {
+          bannersImages.add(settings!.banners![i]);
+        }
+      }
+      print("banners: ${bannersImages.length}");
       quickLinks = await QuickLinksModel().initialize();
-// TODO NIKKO
-//      //commented out for now since getListing is not updated so there is an error
       await getListings();
-      //    await getBanners();
       await getNews();
       await getImages();
       await getProjects();

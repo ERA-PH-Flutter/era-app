@@ -1,5 +1,6 @@
 import 'package:eraphilippines/app/services/firebase_database.dart';
 import 'package:eraphilippines/repository/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import '../../../../app/services/local_storage.dart';
 import '../../../../repository/listing.dart';
@@ -21,8 +22,8 @@ class AgentListingsWebController extends GetxController {
   }
 
   loadListing() async {
-    user = await EraUser().getById(Get.arguments[0]);
-    listings = (await Database().searchListingsByUserId(Get.arguments[0]));
+    user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid); // changed the arguments not sure if it will affect anything
+    listings = (await Database().searchListingsByUserId(FirebaseAuth.instance.currentUser!.uid));
     if (listings.isEmpty) {
       agentListingsState.value = AgentListingsState.empty;
     } else {
