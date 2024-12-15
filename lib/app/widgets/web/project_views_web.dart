@@ -266,145 +266,153 @@ class ProjectViewsWeb extends StatelessWidget {
                                                   .indexOf(currentImageOutdoor
                                                       .value));
                                       return Dialog(
-                                        insetPadding: EdgeInsets.symmetric(
-                                            horizontal: 5.w, vertical: 0.h),
                                         backgroundColor: Colors.transparent,
-                                        child: Stack(
-                                          children: [
-                                            Positioned(
-                                                top: 20.h,
+                                        shadowColor: Colors.transparent,
+                                        surfaceTintColor: Colors.transparent,
+                                        child: Container(
+                                          width: Get.width,
+                                          height: Get.height,
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                  top: 0.h,
+                                                  right: 0.w,
+                                                  left: 0.w,
+                                                  child: Obx(
+                                                    () => Center(
+                                                      child: EraText(
+                                                        text:
+                                                            "${data['images'].indexOf(currentImageOutdoor.value) + 1} / ${data['images'].length}",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        color: Colors.white,
+                                                        fontSize: 18.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  )),
+                                              Positioned(
+                                                top: 0.h,
                                                 right: 0.w,
-                                                left: 0.w,
-                                                child: Obx(
-                                                  () => EraText(
-                                                    text:
-                                                        "${data['images'].indexOf(currentImageOutdoor.value) + 1} / ${data['images'].length}",
-                                                    textAlign: TextAlign.center,
-                                                    color: Colors.white,
-                                                    fontSize: 18.sp,
-                                                    fontWeight: FontWeight.bold,
+                                                child: IconButton(
+                                                  color: AppColors.blue3,
+                                                  onPressed: () {
+                                                    Get.back();
+                                                  },
+                                                  icon: Icon(
+                                                    CupertinoIcons.clear,
+                                                    color: AppColors.white,
+                                                    size: 30.sp,
                                                   ),
-                                                )),
-                                            Positioned(
-                                              top: 5.h,
-                                              right: 0.w,
-                                              child: IconButton(
-                                                color: AppColors.blue3,
-                                                onPressed: () {
-                                                  Get.back();
-                                                },
-                                                icon: Icon(
-                                                  CupertinoIcons.clear,
-                                                  color: AppColors.white,
-                                                  size: 30.sp,
                                                 ),
                                               ),
-                                            ),
-                                            Positioned.fill(
-                                              top: 60.h,
-                                              left: 0.w,
-                                              right: 0.w,
-                                              bottom: 30.h,
-                                              child: PageView.builder(
-                                                itemCount:
-                                                    data['images'].length,
-                                                controller: pageController,
-                                                onPageChanged: (index) {
-                                                  currentImageOutdoor.value =
-                                                      data['images'][index];
-                                                },
-                                                itemBuilder: (context, index) =>
-                                                    Center(
-                                                  child: Builder(
-                                                      builder: (context) {
-                                                    if (kIsWeb) {
-                                                      if (data['image'] !=
-                                                          null) {
-                                                        return CloudStorage()
-                                                            .imageLoaderProvider(
-                                                          reference:
-                                                              data['images']
-                                                                  [index],
-                                                          width: Get.width,
-                                                          height: Get.height,
-                                                        );
-                                                      } else {
-                                                        return CloudStorage()
-                                                            .imageLoaderProvider(
-                                                          reference:
-                                                              data['images']
-                                                                  [index],
-                                                          width: Get.width,
-                                                          height: Get.height,
-                                                        );
-                                                      }
-                                                    }
-                                                    return Wrap(
-                                                      children: [
-                                                        InteractiveViewer(
-                                                          clipBehavior:
-                                                              Clip.none,
-                                                          minScale: 1.0,
-                                                          maxScale: 4.0,
-                                                          child: CloudStorage()
+                                              Positioned(
+                                                top: 50.h,
+                                                left: 0.w,
+                                                right: 0.w,
+                                                bottom: 30.h,
+                                                child: PageView.builder(
+                                                  itemCount:
+                                                      data['images'].length,
+                                                  controller: pageController,
+                                                  onPageChanged: (index) {
+                                                    currentImageOutdoor.value =
+                                                        data['images'][index];
+                                                  },
+                                                  itemBuilder:
+                                                      (context, index) =>
+                                                          Center(
+                                                    child: Builder(
+                                                        builder: (context) {
+                                                      if (kIsWeb) {
+                                                        if (data['image'] !=
+                                                            null) {
+                                                          return CloudStorage()
                                                               .imageLoaderProvider(
                                                             reference:
-                                                                data['image'],
-                                                            height: Get.height,
+                                                                data['images']
+                                                                    [index],
                                                             width: Get.width,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    );
-                                                  }),
+                                                            height: Get.height,
+                                                            fit: BoxFit.contain,
+                                                          );
+                                                        } else {
+                                                          return CloudStorage()
+                                                              .imageLoaderProvider(
+                                                            reference:
+                                                                data['images']
+                                                                    [index],
+                                                            width: Get.width,
+                                                            height: Get.height,
+                                                            fit: BoxFit.contain,
+                                                          );
+                                                        }
+                                                      }
+                                                      return Wrap(
+                                                        children: [
+                                                          InteractiveViewer(
+                                                            clipBehavior:
+                                                                Clip.none,
+                                                            minScale: 1.0,
+                                                            maxScale: 4.0,
+                                                            child: CloudStorage()
+                                                                .imageLoaderProvider(
+                                                              reference:
+                                                                  data['image'],
+                                                              height:
+                                                                  Get.height,
+                                                              width: Get.width,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      );
+                                                    }),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Positioned(
-                                              bottom: 30,
-                                              left: 0,
-                                              right: 0,
-                                              child: Obx(() {
-                                                return Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: List.generate(
-                                                    data['images'].length,
-                                                    (index) {
-                                                      bool isActive = data[
-                                                                  'images']
-                                                              [index] ==
-                                                          currentImageOutdoor
-                                                              .value;
-                                                      return Container(
-                                                        margin: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal:
-                                                                    3.w),
-                                                        width: isActive
-                                                            ? 12.w
-                                                            : 8.w,
-                                                        height: isActive
-                                                            ? 12.h
-                                                            : 8.h,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          color: isActive
-                                                              ? Colors.white
-                                                              : Colors.white
-                                                                  .withOpacity(
-                                                                      0.5),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ),
-                                                );
-                                              }),
-                                            ),
-                                          ],
+                                              Positioned(
+                                                bottom: 0,
+                                                left: 0,
+                                                right: 0,
+                                                child: Obx(() {
+                                                  return Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: List.generate(
+                                                      data['images'].length,
+                                                      (index) {
+                                                        bool isActive = data[
+                                                                    'images']
+                                                                [index] ==
+                                                            currentImageOutdoor
+                                                                .value;
+                                                        return Container(
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  5.sp),
+                                                          width: 10.w,
+                                                          height: 10.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            color: isActive
+                                                                ? Colors.white
+                                                                : Colors.white
+                                                                    .withOpacity(
+                                                                        0.5),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                }),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       );
                                     },
@@ -446,59 +454,59 @@ class ProjectViewsWeb extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Obx(
-                              () => Positioned(
+                            Obx(() {
+                              return Positioned(
                                 bottom: 0.h,
-                                child: SizedBox(
+                                child: Container(
                                   width: Get.width,
-                                  height: 100.h,
-                                  child: ListView(
+                                  height: 250.h,
+                                  padding: EdgeInsets.all(
+                                      EraTheme.paddingWidthSmall),
+                                  child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
-                                    children: List.generate(
-                                        data['images'].length, (index) {
-                                      final image = data['images'][index];
-                                      final isSelected =
-                                          currentImageOutdoor.value == image;
-                                      return GestureDetector(
-                                        onTap: () {
-                                          currentImageOutdoor.value = image;
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 5.w),
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: AppColors.hint,
-                                              width: isSelected ? 5.w : 1.w,
-                                            ),
-                                          ),
-                                          child: Builder(
-                                            builder: (context) {
-                                              if (kIsWeb) {
-                                                if (data['image'] != null) {
-                                                  return CloudStorage()
-                                                      .imageLoaderProvider(
-                                                    reference: data['image'][0],
-                                                    width: Get.width / 6,
-                                                    height: 100.h,
-                                                  );
-                                                }
-                                              }
-                                              return CloudStorage()
-                                                  .imageLoaderProvider(
-                                                reference: image,
-                                                width: Get.width / 8,
-                                                height: 100.h,
-                                              );
-                                            },
-                                          ),
+                                    child: Container(
+                                      width: Get.width * 4,
+                                      child: Row(
+                                        children: List.generate(
+                                          data['images'].length,
+                                          (index) {
+                                            final image = data['images'][index];
+                                            final isSelected =
+                                                currentImageOutdoor.value ==
+                                                    image;
+                                            return GestureDetector(
+                                              onTap: () {
+                                                currentImageOutdoor.value =
+                                                    image;
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 5.w),
+                                                width: Get.width / 7,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: AppColors.hint
+                                                        .withOpacity(0.9),
+                                                    width:
+                                                        isSelected ? 5.w : 1.w,
+                                                  ),
+                                                ),
+                                                child:
+                                                    CloudStorage().imageLoader(
+                                                  width: Get.width / 7,
+                                                  height: Get.height,
+                                                  reference: image,
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
-                                      );
-                                    }),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
+                              );
+                            }),
                           ],
                         ),
                       );
@@ -524,23 +532,12 @@ class ProjectViewsWeb extends StatelessWidget {
                                     width: Get.width,
                                     height: 250.h,
                                   );
-
-                                  // _buildImage(
-                                  //     image: MemoryImage(data['image']),
-                                  //     height: 250.h,
-                                  //     width: Get.width);
                                 }
                                 return ImageWidget(
                                   thumbnailUrl: data['image'],
                                   height: 250.h,
                                   width: Get.width,
                                 );
-
-                                // CloudStorage().imageLoaderProvider(
-                                //   reference: data['image'],
-                                //   height: 250.h,
-                                //   width: Get.width,
-                                // );
                               },
                             ),
                             sb20(),
@@ -565,23 +562,27 @@ class ProjectViewsWeb extends StatelessWidget {
                                                   .indexOf(currentImageIndoor
                                                       .value));
                                       return Dialog(
-                                        insetPadding: EdgeInsets.symmetric(
-                                            horizontal: 5.w, vertical: 180.h),
                                         backgroundColor: Colors.transparent,
+                                        shadowColor: Colors.transparent,
+                                        surfaceTintColor: Colors.transparent,
                                         child: Stack(
                                           children: [
                                             Positioned(
-                                                top: 20.h,
-                                                right: 10.w,
+                                                top: 0.h,
+                                                right: 0.w,
                                                 left: 0.w,
                                                 child: Obx(
-                                                  () => EraText(
-                                                    text:
-                                                        "${data['images'].indexOf(currentImageIndoor.value) + 1} / ${data['images'].length}",
-                                                    textAlign: TextAlign.center,
-                                                    color: Colors.white,
-                                                    fontSize: 18.sp,
-                                                    fontWeight: FontWeight.bold,
+                                                  () => Center(
+                                                    child: EraText(
+                                                      text:
+                                                          "${data['images'].indexOf(currentImageIndoor.value) + 1} / ${data['images'].length}",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      color: Colors.white,
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
                                                 )),
                                             Positioned(
@@ -599,8 +600,8 @@ class ProjectViewsWeb extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Positioned.fill(
-                                              top: 60.h,
+                                            Positioned(
+                                              top: 50.h,
                                               left: 0.w,
                                               right: 0.w,
                                               bottom: 30.h,
@@ -626,6 +627,7 @@ class ProjectViewsWeb extends StatelessWidget {
                                                                   [index],
                                                           width: Get.width,
                                                           height: Get.height,
+                                                          fit: BoxFit.contain,
                                                         );
                                                       } else {
                                                         return CloudStorage()
@@ -635,6 +637,7 @@ class ProjectViewsWeb extends StatelessWidget {
                                                                   [index],
                                                           width: Get.width,
                                                           height: Get.height,
+                                                          fit: BoxFit.contain,
                                                         );
 
                                                         //    return CloudStorage()
@@ -668,7 +671,7 @@ class ProjectViewsWeb extends StatelessWidget {
                                               ),
                                             ),
                                             Positioned(
-                                              bottom: 20.h,
+                                              bottom: 0,
                                               left: 0,
                                               right: 0,
                                               child: Obx(() {
@@ -684,16 +687,10 @@ class ProjectViewsWeb extends StatelessWidget {
                                                               currentImageIndoor
                                                                   .value;
                                                       return Container(
-                                                        margin: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal:
-                                                                    3.w),
-                                                        width: isActive
-                                                            ? 12.w
-                                                            : 8.w,
-                                                        height: isActive
-                                                            ? 12.h
-                                                            : 8.h,
+                                                        margin: EdgeInsets.all(
+                                                            5.sp),
+                                                        width: 10.w,
+                                                        height: 10.h,
                                                         decoration:
                                                             BoxDecoration(
                                                           shape:
@@ -746,72 +743,59 @@ class ProjectViewsWeb extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Obx(
-                              () => Positioned(
+                            Obx(() {
+                              return Positioned(
                                 bottom: 0.h,
-                                child: SizedBox(
+                                child: Container(
                                   width: Get.width,
-                                  height: 100.h,
-                                  child: ListView(
+                                  height: 250.h,
+                                  padding: EdgeInsets.all(
+                                      EraTheme.paddingWidthSmall),
+                                  child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
-                                    children: List.generate(
-                                        data['images'].length, (index) {
-                                      final image = data['images'][index];
-                                      final isSelected =
-                                          currentImageIndoor.value == image;
-                                      return GestureDetector(
-                                          onTap: () {
-                                            currentImageIndoor.value = image;
-                                          },
-                                          child: Container(
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 5.w),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: AppColors.hint,
-                                                width: isSelected ? 5.w : 1.w,
-                                              ),
-                                            ),
-                                            child: Builder(
-                                              builder: (context) {
-                                                if (kIsWeb) {
-                                                  if (data['image'] != null) {
-                                                    return CloudStorage()
-                                                        .imageLoaderProvider(
-                                                      reference: data['image']
-                                                          [0],
-                                                      width: Get.width / 6,
-                                                      height: 100.h,
-                                                    );
-                                                  }
-
-                                                  // _buildImage(
-                                                  //   image: MemoryImage(image),
-                                                  //   width: Get.width / 6,
-                                                  //   height: 70.h,
-                                                  // );
-                                                }
-                                                return CloudStorage()
-                                                    .imageLoaderProvider(
-                                                  reference: image,
-                                                  width: Get.width / 8,
-                                                  height: 100.h,
-                                                );
-
-                                                // CloudStorage()
-                                                //     .imageLoaderProvider(
-                                                //   reference: image,
-                                                //   width: Get.width / 6,
-                                                //   height: 70.h,
-                                                // );
+                                    child: Container(
+                                      width: Get.width * 4,
+                                      child: Row(
+                                        children: List.generate(
+                                          data['images'].length,
+                                          (index) {
+                                            final image = data['images'][index];
+                                            final isSelected =
+                                                currentImageIndoor.value ==
+                                                    image;
+                                            return GestureDetector(
+                                              onTap: () {
+                                                currentImageIndoor.value =
+                                                    image;
                                               },
-                                            ),
-                                          ));
-                                    }),
+                                              child: Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 5.w),
+                                                width: Get.width / 7,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: AppColors.hint
+                                                        .withOpacity(0.9),
+                                                    width:
+                                                        isSelected ? 5.w : 1.w,
+                                                  ),
+                                                ),
+                                                child:
+                                                    CloudStorage().imageLoader(
+                                                  width: Get.width / 7,
+                                                  height: Get.height,
+                                                  reference: image,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
+                              );
+                            }),
                           ],
                         ),
                       );
