@@ -56,7 +56,7 @@ class ArchivedItems extends StatelessWidget {
                   CloudStorage().imageLoader(
                     reference:
                         '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
-                    width: 100.w,
+                    width: 150.w,
                     height: Get.height,
                   ),
                   Padding(

@@ -160,7 +160,8 @@ class ArchivedWeb extends GetView<ArchivedWebController> {
             children: [
               IconButton(
                   onPressed: () {
-                    Get.back();
+                    selectedIndex.value = 13;
+                    Get.find<HomsController>().onNavbarItemSelected(13);
                   },
                   icon: Icon(
                     Icons.arrow_back_ios_rounded,

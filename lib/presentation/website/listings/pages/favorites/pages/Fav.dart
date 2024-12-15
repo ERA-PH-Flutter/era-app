@@ -30,7 +30,7 @@ class FavWeb extends GetView<FavWebController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(FavWebController());
+    // Get.put(FavWebController());
     return SafeArea(
       child: Obx(
         () => switch (controller.favState.value) {
@@ -55,16 +55,40 @@ class FavWeb extends GetView<FavWebController> {
         children: [
           Obx(() {
             if (controller.favoritesList.isEmpty) {
-              return Center(child: Text('No favorites yet.'));
+              return Column(
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            selectedIndex.value = 13;
+                            Get.find<HomsController>().onNavbarItemSelected(13);
+                          },
+                          icon: Icon(Icons.arrow_back)),
+                    ],
+                  ),
+                  Center(child: Text('No favorites yet.')),
+                ],
+              );
             }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                EraText(
-                  text: 'MY FAVORITES',
-                  fontSize: 25.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blue,
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          selectedIndex.value = 13;
+                          Get.find<HomsController>().onNavbarItemSelected(13);
+                        },
+                        icon: Icon(Icons.arrow_back)),
+                    EraText(
+                      text: 'MY FAVORITES',
+                      fontSize: 25.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.blue,
+                    ),
+                  ],
                 ),
                 Padding(
                   padding:
@@ -232,9 +256,6 @@ class FavWeb extends GetView<FavWebController> {
                                       selectedIndex.value = 12;
                                       Get.find<HomsController>()
                                           .onNavbarItemSelected(12);
-                                      Get.toNamed('/propertyInfo',
-                                          arguments:
-                                              controller.favoritesList[i]);
                                     }
                                   },
                                   onLongPress: (index) {
