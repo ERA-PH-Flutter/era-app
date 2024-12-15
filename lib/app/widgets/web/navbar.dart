@@ -55,7 +55,7 @@ class Navbar extends GetResponsiveView<HomsController> {
       () => Container(
         // color: AppColors.black,
         padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth200),
-        height: 150.h,
+        height: 160.h,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -173,6 +173,7 @@ class Navbar extends GetResponsiveView<HomsController> {
             return Positioned(
               top: 120.h,
               left: Get.width / 1.4,
+              bottom: 0,
               child: Align(
                 alignment: AlignmentDirectional.topStart,
                 child: MenuWidget(
@@ -230,7 +231,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () async{
+                          onTap: () async {
                             await Authentication().logout();
                             controller.loginOverlay.hide();
                             Get.deleteAll();
@@ -415,7 +416,7 @@ class MenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width ?? 200,
-      height: 180.h,
+      height: 250.h,
       child: Card(
         color: AppColors.white,
         child: child,

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/web/mobile_drawer.dart';
@@ -315,15 +316,25 @@ class HomePages extends GetResponsiveView<HomsController> {
                   fontSize: EraTheme.paragraphWeb - 10.sp,
                   color: AppColors.blue2,
                 ),
-                EraText(
-                  text: 'Phone: +63 123 456 7890',
-                  fontSize: EraTheme.paragraphWeb - 10.sp,
-                  color: AppColors.blue2,
+                GestureDetector(
+                  onTap: () {
+                    launchUrl(controller.whatsappUrl);
+                  },
+                  child: EraText(
+                    text: 'Phone: +639177710572',
+                    fontSize: EraTheme.paragraphWeb - 10.sp,
+                    color: AppColors.blue2,
+                  ),
                 ),
-                EraText(
-                  text: 'Email: ear@era.com.ph',
-                  fontSize: EraTheme.paragraphWeb - 10.sp,
-                  color: AppColors.blue2,
+                GestureDetector(
+                  onTap: () {
+                    launchUrl(controller.emailUrl);
+                  },
+                  child: EraText(
+                    text: 'Email: sales@eraphilippines.com',
+                    fontSize: EraTheme.paragraphWeb - 10.sp,
+                    color: AppColors.blue2,
+                  ),
                 ),
               ],
             ),

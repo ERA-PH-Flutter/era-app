@@ -141,7 +141,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
             itemCount: controller.listings.length,
             itemBuilder: (context, index) {
               Listing listing = controller.listings[index];
-              return GestureDetector(
+              return GestureDetector( 
                 onTap: () async {
                   listingArgument = listing;
                   selectedIndex.value = 12;

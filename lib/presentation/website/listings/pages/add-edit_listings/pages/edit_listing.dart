@@ -34,15 +34,16 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
 
   // Get.put(AddListingsController());
   Widget build(BuildContext context) {
-    //  Get.find<LandingPageController>().arguments;
-    Get.put(ListingsController());
+     Get.put(ListingsController());
 
     return SizedBox(
-      child: Obx(() => switch (controller.state.value) {
-            AdminEditState.loading => _loading(),
-            AdminEditState.loaded => _loaded(),
-            AdminEditState.picker => _picker(),
-          }),
+      child: Scaffold(
+        body: Obx(() => switch (controller.state.value) {
+              AdminEditState.loading => _loading(),
+              AdminEditState.loaded => _loaded(),
+              AdminEditState.picker => _picker(),
+            }),
+      ),
     );
   }
 

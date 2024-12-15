@@ -19,7 +19,7 @@ class AgentDashboardWebController extends GetxController {
   var listings = [].obs;
   var favorites = [].obs;
   var news = [];
-  ScrollController scrollController = ScrollController();
+ // ScrollController scrollController = ScrollController();
   RxBool scrolling = false.obs;
 
   @override
@@ -35,14 +35,14 @@ class AgentDashboardWebController extends GetxController {
     listings.shuffle();
     favorites.shuffle();
     await getNews();
-    scrollController.addListener(() async {
-      if (!scrolling.value) {
-        scrolling.value = true;
-        await Future.delayed(Duration(seconds: 4)).then((val) {
-          scrolling.value = false;
-        });
-      }
-    });
+    // scrollController.addListener(() async {
+    //   if (!scrolling.value) {
+    //     scrolling.value = true;
+    //     await Future.delayed(Duration(seconds: 4)).then((val) {
+    //       scrolling.value = false;
+    //     });
+    //   }
+    // });
     agentDashboardWebState.value = AgentDashboardWebState.loaded;
 
     super.onInit();

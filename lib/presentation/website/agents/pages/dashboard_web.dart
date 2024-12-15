@@ -12,7 +12,7 @@ import 'package:eraphilippines/presentation/website/agents/bindings/agent_dashbo
 import 'package:eraphilippines/presentation/website/agents/controllers/agent_dashboard_controller.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/agent_listings.dart';
- import 'package:eraphilippines/repository/user.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,7 +43,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
           return Future.value(false);
         },
         child: SingleChildScrollView(
-          controller: controller.scrollController,
+          //   controller: controller.scrollController,
           scrollDirection: Axis.vertical,
           child: Obx(() {
             if (controller.agentDashboardWebState.value ==
@@ -156,25 +156,25 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed(
-                    '/soldP',
-                    arguments: user!.id,
-                  );
-                },
-                child: Image.asset(
-                  AppEraAssets.sold,
-                  height: 150.h,
-                  width: 150.w,
-                ),
+        Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                // Get.toNamed(
+                //   '/soldP',
+                //   arguments: user!.id,
+                // );
+                
+                selectedIndex.value = 20;
+                Get.find<HomsController>().onNavbarItemSelected(20);
+              },
+              child: Image.asset(
+                AppEraAssets.sold,
+                height: 150.h,
+                width: 150.w,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );
@@ -191,22 +191,22 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed("/archived", arguments: controller.listings);
-                },
-                child: Image.asset(
-                  AppEraAssets.archived,
-                  height: 150.h,
-                  width: 150.w,
-                ),
+        Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                // listingArgument = controller.listings;
+                selectedIndex.value = 19;
+                Get.find<HomsController>().onNavbarItemSelected(19);
+                //        Get.toNamed("/archivedWeb", arguments: controller.listings);
+              },
+              child: Image.asset(
+                AppEraAssets.archived,
+                height: 150.h,
+                width: 150.w,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );
@@ -514,9 +514,14 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                   Row(
                     children: [
                       iconAgents(user.image ?? AppStrings.noUserImageWhite, () {
-                        Get.to(AgentListingsWeb(),
-                            arguments: [user.id],
-                            binding: AgentDashboardWebBinding());
+                        HomsController homsController =
+                            Get.find<HomsController>();
+                        homsController.onNavbarItemSelected(
+                          17,
+                        );
+                        // Get.to(AgentListingsWeb(),
+                        //     arguments: [user.id],
+                        //     binding: AgentDashboardWebBinding());
                       }, "${user.firstname} ${user.lastname}"),
                       sbw10(),
                     ],
@@ -571,11 +576,11 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
         ),
         SizedBox(height: 10.h),
         SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
           child: Row(
             children: [
               GestureDetector(
                 onTap: () {
+                  print('add listing clicked');
                   selectedIndex.value = 15;
                   Get.find<HomsController>().onNavbarItemSelected(15);
                   // Get.toNamed(
@@ -600,8 +605,12 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed('/propertyInfo',
-                            arguments: controller.listings[index]);
+                        // Get.toNamed('/propertyInfo',
+                        //     arguments: controller.listings[index]);
+
+                        listingArgument = controller.listings[index];
+                        selectedIndex.value = 13;
+                        Get.find<HomsController>().onNavbarItemSelected(13);
                       },
                       child: Container(
                           height: 100.w,
@@ -618,8 +627,11 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                             children: [
                               Positioned.fill(
                                 child: CloudStorage().imageLoaderProvider(
-                                    reference: controller.listings[index].photos.isNotEmpty ?
-                                        controller.listings[index].photos.first : AppStrings.noUserImageWhite,
+                                    reference: controller
+                                            .listings[index].photos.isNotEmpty
+                                        ? controller
+                                            .listings[index].photos.first
+                                        : AppStrings.noUserImageWhite,
                                     height: 100.w,
                                     width: 100.w,
                                     borderRadius: BorderRadius.circular(10.r)),
@@ -662,7 +674,6 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                   homsController.onNavbarItemSelected(
                     17,
                   );
-                  // Get.toNamed('/agentMyListingWeb', arguments: [user!.id]);
                 },
                 child: Image.asset(
                   AppEraAssets.manageListings,

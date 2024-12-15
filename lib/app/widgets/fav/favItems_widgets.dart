@@ -32,11 +32,7 @@ class FavItems extends StatelessWidget {
     final FavWebController favC = Get.find();
     return GestureDetector(
       onTap: onTap,
-      // onLongPress: () {
-      //   favC.enterSelectionMode();
-      //  },
       child: Container(
-        color: AppColors.black,
         child: Stack(
           children: [
             Obx(() {
@@ -71,7 +67,7 @@ class FavItems extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: 25.h,
+                                    height: 40.h,
                                     width: Get.width - 220.w,
                                     child: EraText(
                                       textOverflow: TextOverflow.ellipsis,
@@ -92,12 +88,12 @@ class FavItems extends StatelessWidget {
                                   ),
                                   SizedBox(height: 5.h),
                                   SizedBox(
-                                    width: 200.w,
+                                    width: 350.w,
                                     child: EraText(
                                       text: listing.description ??
                                           "No Description",
                                       color: AppColors.black,
-                                      fontSize: 13.sp,
+                                      fontSize: 15.sp,
                                       fontWeight: FontWeight.w500,
                                       maxLines: 3,
                                       textOverflow: TextOverflow.ellipsis,

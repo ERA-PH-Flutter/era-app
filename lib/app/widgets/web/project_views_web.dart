@@ -26,7 +26,9 @@ class ProjectViewsWeb extends StatelessWidget {
   Project? project;
   ProjectViewsWeb({super.key, this.project});
   Future<bool> loadLink(link, webViewController) async {
-    await webViewController.loadRequest(Uri.parse(link),);
+    await webViewController.loadRequest(
+      Uri.parse(link),
+    );
     return true;
   }
 
@@ -48,11 +50,10 @@ class ProjectViewsWeb extends StatelessWidget {
     return Wrap(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
-          child: CustomScrollView(
-            shrinkWrap: true,
-            slivers: [
-              SliverList(
+          padding:
+              EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+          child: CustomScrollView(shrinkWrap: true, slivers: [
+            SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   var data = project!.data![index];
@@ -68,18 +69,19 @@ class ProjectViewsWeb extends StatelessWidget {
                       textAlign: TextAlign.center,
                       text: data['developer_name'],
                       color: AppColors.hint,
-                      fontSize: EraTheme.paragraphWeb,
+                      fontSize: EraTheme.subHeaderWeb,
                     );
                   } else if (data['type'] == "Project Logo") {
                     return CloudStorage().imageLoaderProvider(
                       reference: data['image'],
-                      height: Get.height,
-                      width: 241.h,
+                      width: Get.width,
+                      fit: BoxFit.contain,
+                      height: Get.height / 2,
                     );
-                  }
-                   else if (data['type'] == "3D Virtual") {
+                  } else if (data['type'] == "3D Virtual") {
                     var webViewController = WebViewController();
-                    print("api.eraphilippines.com/proxy.php?url=${data['link']}");
+                    print(
+                        "api.eraphilippines.com/proxy.php?url=${data['link']}");
                     //webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
                     // webViewController.setNavigationDelegate(NavigationDelegate(
                     //   onPageStarted: (String url) {},
@@ -103,7 +105,9 @@ class ProjectViewsWeb extends StatelessWidget {
                           ),
                           sb20(),
                           FutureBuilder(
-                              future: loadLink("https://api.eraphilippines.com/proxy.php?url=${data['link']}", webViewController),
+                              future: loadLink(
+                                  "https://api.eraphilippines.com/proxy.php?url=${data['link']}",
+                                  webViewController),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   // var params =
@@ -117,7 +121,7 @@ class ProjectViewsWeb extends StatelessWidget {
                                   //   },
                                   // );
                                   return SizedBox(
-                                    height: 400.h,
+                                    height: Get.height,
                                     child: GestureDetector(
                                       child: WebViewWidget(
                                         controller: webViewController,
@@ -133,10 +137,10 @@ class ProjectViewsWeb extends StatelessWidget {
                         ],
                       ),
                     );
-                  }
-                  else if (data['type'] == "Blurb") {
+                  } else if (data['type'] == "Blurb") {
                     return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 30.w, vertical: 15.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -161,12 +165,13 @@ class ProjectViewsWeb extends StatelessWidget {
                       width: Get.width,
                       child: GoogleMap(
                         initialCameraPosition: CameraPosition(
-                            target: LatLng(data['location'][0], data['location'][1]),
+                            target: LatLng(
+                                data['location'][0], data['location'][1]),
                             zoom: 15),
                         markers: {
                           Marker(
-                              position:
-                                  LatLng(data['location'][0], data['location'][1]),
+                              position: LatLng(
+                                  data['location'][0], data['location'][1]),
                               markerId: MarkerId('mainPin'),
                               icon: BitmapDescriptor.defaultMarker)
                         },
@@ -176,8 +181,8 @@ class ProjectViewsWeb extends StatelessWidget {
                   } else if (data['type'] == "Outdoor Amenities") {
                     if (data['sub_type'] == 'blurb') {
                       return Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30.w, vertical: 15.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -199,164 +204,179 @@ class ProjectViewsWeb extends StatelessWidget {
                     } else if (data['sub_type'] == 'gallery') {
                       return SizedBox(
                         height: 350.h,
-                        // child: Stack(
-                        //   children: [
-                        //     Positioned(
-                        //       child: GestureDetector(
-                        //         onTap: () {
-                        //           showDialog(
-                        //             context: context,
-                        //             builder: (BuildContext context) {
-                        //               final PageController pageController =
-                        //                   PageController(
-                        //                       initialPage: data['images']
-                        //                           .indexOf(currentImage.value));
-                        //               return Dialog(
-                        //                 insetPadding: EdgeInsets.symmetric(
-                        //                     horizontal: 5.w, vertical: 180.h),
-                        //                 backgroundColor: Colors.transparent,
-                        //                 child: Stack(
-                        //                children: [
-                        // Positioned(
-                        //     top: 15.h,
-                        //     right: 0.w,
-                        //     left: 0.w,
-                        //     child: Obx(
-                        //       () => EraText(
-                        //         text:
-                        //             "${data['images'].indexOf(currentImage.value) + 1} / ${data['images'].length}",
-                        //         textAlign: TextAlign.center,
-                        //         color: Colors.white,
-                        //         fontSize: 18.sp,
-                        //         fontWeight: FontWeight.bold,
-                        //       ),
-                        //     )),
-                        // Positioned(
-                        //   top: 0.h,
-                        //   right: 0.w,
-                        //   child: IconButton(
-                        //     color: AppColors.blue3,
-                        //     onPressed: () {
-                        //       Get.back();
-                        //     },
-                        //     icon: Icon(
-                        //       CupertinoIcons.clear,
-                        //       color: AppColors.white,
-                        //       size: 30.sp,
-                        //     ),
-                        //   ),
-                        // ),
-                        // Positioned.fill(
-                        //   top: 60.h,
-                        //   left: 0.w,
-                        //   right: 0.w,
-                        //   bottom: 30.h,
-                        //   child: PageView.builder(
-                        //     itemCount: data['images'].length,
-                        //     controller: pageController,
-                        //     onPageChanged: (index) {
-                        //       currentImage.value =
-                        //           data['images'][index];
-                        //     },
-                        //     itemBuilder: (context, index) =>
-                        //         Center(
-                        //       child: CloudStorage()
-                        //           .imageLoaderProvider(
-                        //         reference: data['images'][index],
-                        //         height: Get.height,
-                        //         width: Get.width,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // Positioned(
-                        //   bottom: 0.h,
-                        //   left: 0,
-                        //   right: 0,
-                        //   child: Obx(() {
-                        //     return Row(
-                        //       mainAxisAlignment:
-                        //           MainAxisAlignment.center,
-                        //       children: List.generate(
-                        //         data['images'].length,
-                        //         (index) {
-                        //           bool isActive = data['images']
-                        //                   [index] ==
-                        //               currentImage.value;
-                        //           return Container(
-                        //             margin: EdgeInsets.symmetric(
-                        //                 horizontal: 3.w),
-                        //             width: isActive ? 12.w : 8.w,
-                        //             height: isActive ? 12.h : 8.h,
-                        //             decoration: BoxDecoration(
-                        //               shape: BoxShape.circle,
-                        //               color: isActive
-                        //                   ? Colors.white
-                        //                   : Colors.white
-                        //                       .withOpacity(0.5),
-                        //             ),
-                        //           );
-                        //         },
-                        //       ),
-                        //     );
-                        //   }),
-                        // ),
-                        //               ],
-                        //             ),
-                        //           );
-                        //         },
-                        //       );
-                        //     },
-                        //     child: Container(
-                        //       width: Get.width,
-                        //       height: 320.h,
-                        //       child: CloudStorage().imageLoaderProvider(
-                        //         reference: currentImage.value.isEmpty
-                        //             ? data['images'][index]
-                        //             : currentImage.value,
-                        //         height: 250.h,
-                        //         width: Get.width,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // Positioned(
-                        //   bottom: 0.h,
-                        //   child: Container(
-                        //     width: Get.width,
-                        //     height: 70.h,
-                        //     child: ListView.builder(
-                        //       shrinkWrap: true,
-                        //       scrollDirection: Axis.horizontal,
-                        //       itemCount: data['images'].length,
-                        //       itemBuilder: (context, index) {
-                        //         final image = data['images'][index];
-                        //         final isSelected = currentImage.value == image;
-                        //         return GestureDetector(
-                        //             onTap: () {
-                        //               currentImage.value = image;
-                        //             },
-                        //             child: Container(
-                        //               margin:
-                        //                   EdgeInsets.symmetric(horizontal: 5.w),
-                        //               decoration: BoxDecoration(
-                        //                 border: Border.all(
-                        //                   color: AppColors.hint,
-                        //                   width: isSelected ? 5.w : 1.w,
-                        //                 ),
-                        //               ),
-                        //               child: CloudStorage().imageLoaderProvider(
-                        //                 reference: image,
-                        //                 width: Get.width / 6,
-                        //                 height: 70.h,
-                        //               ),
-                        //             ));
-                        //       },
-                        //     ),
-                        //   ),
-                        // ),
-                        //     ],
-                        //),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              child: GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      final PageController pageController =
+                                          PageController(
+                                              initialPage: data['images']
+                                                  .indexOf(currentImage.value));
+                                      return Dialog(
+                                        insetPadding: EdgeInsets.symmetric(
+                                            horizontal: 5.w, vertical: 180.h),
+                                        backgroundColor: Colors.transparent,
+                                        child: Stack(
+                                          children: [
+                                            Positioned(
+                                                top: 15.h,
+                                                right: 0.w,
+                                                left: 0.w,
+                                                child: Obx(
+                                                  () => EraText(
+                                                    text:
+                                                        "${data['images'].indexOf(currentImage.value) + 1} / ${data['images'].length}",
+                                                    textAlign: TextAlign.center,
+                                                    color: Colors.white,
+                                                    fontSize: 18.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                )),
+                                            Positioned(
+                                              top: 0.h,
+                                              right: 0.w,
+                                              child: IconButton(
+                                                color: AppColors.blue3,
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                                icon: Icon(
+                                                  CupertinoIcons.clear,
+                                                  color: AppColors.white,
+                                                  size: 30.sp,
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned.fill(
+                                              top: 60.h,
+                                              left: 0.w,
+                                              right: 0.w,
+                                              bottom: 30.h,
+                                              child: PageView.builder(
+                                                itemCount:
+                                                    data['images'].length,
+                                                controller: pageController,
+                                                onPageChanged: (index) {
+                                                  currentImage.value =
+                                                      data['images'][index];
+                                                },
+                                                itemBuilder: (context, index) =>
+                                                    Center(
+                                                  child: CloudStorage()
+                                                      .imageLoaderProvider(
+                                                    reference: data['images']
+                                                        [index],
+                                                    height: Get.height,
+                                                    width: Get.width,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom: 0.h,
+                                              left: 0,
+                                              right: 0,
+                                              child: Obx(() {
+                                                return Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: List.generate(
+                                                    data['images'].length,
+                                                    (index) {
+                                                      bool isActive =
+                                                          data['images']
+                                                                  [index] ==
+                                                              currentImage
+                                                                  .value;
+                                                      return Container(
+                                                        margin: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    3.w),
+                                                        width: isActive
+                                                            ? 12.w
+                                                            : 8.w,
+                                                        height: isActive
+                                                            ? 12.h
+                                                            : 8.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: isActive
+                                                              ? Colors.white
+                                                              : Colors.white
+                                                                  .withOpacity(
+                                                                      0.5),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                );
+                                              }),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Container(
+                                  width: Get.width,
+                                  height: 320.h,
+                                  child: CloudStorage().imageLoaderProvider(
+                                    reference: currentImage.value.isEmpty
+                                        ? data['images'][index]
+                                        : currentImage.value,
+                                    height: 250.h,
+                                    width: Get.width,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 0.h,
+                              child: Container(
+                                width: Get.width,
+                                height: 70.h,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: data['images'].length,
+                                  itemBuilder: (context, index) {
+                                    final image = data['images'][index];
+                                    final isSelected =
+                                        currentImage.value == image;
+                                    return GestureDetector(
+                                        onTap: () {
+                                          currentImage.value = image;
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 5.w),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: AppColors.hint,
+                                              width: isSelected ? 5.w : 1.w,
+                                            ),
+                                          ),
+                                          child: CloudStorage()
+                                              .imageLoaderProvider(
+                                            reference: image,
+                                            width: Get.width / 6,
+                                            height: 70.h,
+                                          ),
+                                        ));
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       );
                     }
                     // else if (data['type'] == "Indoor Amenities") {
@@ -564,13 +584,19 @@ class ProjectViewsWeb extends StatelessWidget {
                           ),
                           sb10(),
                           Container(
-                              padding: EdgeInsets.only(top: 30.h, bottom: 30.h),
+                              height: Get.height,
+                              padding: EdgeInsets.only(
+                                  right: EraTheme.paddingWidthAdmin * 2,
+                                  left: EraTheme.paddingWidthAdmin * 2,
+                                  top: EraTheme.paddingWidth20,
+                                  bottom: EraTheme.paddingWidth20),
                               child: CarouselSlider(
                                 items: data['images'].map<Widget>((image) {
                                   return ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
                                     child: CloudStorage().imageLoader(
                                       reference: image,
+                                      fit: BoxFit.cover,
                                       width: Get.width,
                                       height: Get.height,
                                     ),
@@ -578,12 +604,15 @@ class ProjectViewsWeb extends StatelessWidget {
                                 }).toList(),
                                 options: CarouselOptions(
                                   enlargeCenterPage: true,
-                                  enlargeStrategy: CenterPageEnlargeStrategy.height,
+                                  enlargeStrategy:
+                                      CenterPageEnlargeStrategy.height,
                                   autoPlay: true,
-                                  enlargeFactor: 0.4,
-                                  // enableInfiniteScroll: true,103099Seb
-                                  viewportFraction: 0.7,
-                                  aspectRatio: 1.9,
+                                  // enlargeFactor: 0.4,
+                                  // // enableInfiniteScroll: true,103099Seb
+                                  // viewportFraction: 0.7,
+                                  // aspectRatio: 1.9,
+                                  viewportFraction: 0.8,
+                                  height: Get.height / 1.2,
                                 ),
                               )),
                           sb20(),
@@ -620,14 +649,15 @@ class ProjectViewsWeb extends StatelessWidget {
                       ),
                     );
                   } else if (data['type'] == "Space") {
-                    return SizedBox(height: data['height'].toString().toDouble());
+                    return SizedBox(
+                        height: data['height'].toString().toDouble());
                   }
                   return Container();
                 },
                 childCount: project!.data!.length,
               ),
             ),
-              SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: Column(
                 children: [
                   // Inquiry(),
@@ -818,11 +848,11 @@ class ProjectViewsWeb extends StatelessWidget {
       String icon, TextEditingController controller, hintText, onChanged) {
     return Row(
       children: [
-        Image.asset(icon, width: 70.w, height: 70.h),
+        Image.asset(icon, width: 100.w, height: 100.h),
         EraText(
           text: controller.text + hintText,
           // controller: controller,
-          fontSize: 15.sp,
+          fontSize: 20.sp,
           color: AppColors.black,
         )
       ],
