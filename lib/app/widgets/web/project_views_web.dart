@@ -173,10 +173,11 @@ class ProjectViewsWeb extends StatelessWidget {
                           sb30(),
                           Builder(builder: (context) {
                             if (kIsWeb) {
-                              return _buildImage(
-                                  image: MemoryImage(data['image']),
-                                  height: 250.h,
-                                  width: Get.width);
+                              return CloudStorage().imageLoaderProvider(
+                                reference: data['image'],
+                                height: Get.height,
+                                width: Get.width,
+                              );
                             }
                             return ImageWidget(
                               thumbnailUrl: data['image'],
