@@ -298,7 +298,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Container(
-                                width: Get.width,
+                                width: Get.width * 4,
                                 child: Row(
                                   children: List.generate(
                                     listingArgument.photos!.length,
