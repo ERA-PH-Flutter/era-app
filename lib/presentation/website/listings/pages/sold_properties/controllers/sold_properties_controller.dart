@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../app/services/firebase_database.dart';
@@ -13,7 +15,7 @@ class SoldPropertiesWebController extends GetxController {
   @override
   void onInit() async {
     List<Listing> listings =
-        await Database().searchListingsByUserId(Get.arguments);
+        await Database().searchListingsByUserId(FirebaseAuth.instance.currentUser!.uid);
     for (var listing in listings) {
       if (listing.isSold ?? false) {
         soldListings.add(listing);

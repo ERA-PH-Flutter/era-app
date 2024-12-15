@@ -352,11 +352,10 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                                     child: Button.button3(
                                         height: EraTheme.buttonH60,
                                         onTap: () {
-                                          Get.toNamed('/editListingsWeb',
-                                              arguments: [listing.id]);
-                                          // selectedIndex.value = 18;
-                                          // Get.find<HomsController>()
-                                          //     .onNavbarItemSelected(18);
+                                          editListingArgument = listing;
+                                          selectedIndex.value = 18;
+                                          Get.find<HomsController>()
+                                              .onNavbarItemSelected(18);
                                         },
                                         text: 'Edit',
                                         color: AppColors.blue,
@@ -444,6 +443,8 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                               controller.agentListingsState.value =
                                   AgentListingsState.loading;
                               await controller.loadListing();
+                              controller.agentListingsState.value =
+                                  AgentListingsState.loaded;
                               Get.showSnackbar(GetSnackBar(
                                 title: "Success",
                                 message: "Listing has been mark as sold!",
