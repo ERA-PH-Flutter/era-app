@@ -21,12 +21,14 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => switch (controller.soldState.value) {
-          SoldState.loading => _loading(),
-          SoldState.loaded => _loaded(),
-          SoldState.error => _error(),
-          SoldState.empty => _empty()
-        });
+    return SafeArea(
+      child: Obx(() => switch (controller.soldState.value) {
+            SoldState.loading => _loading(),
+            SoldState.loaded => _loaded(),
+            SoldState.error => _error(),
+            SoldState.empty => _empty()
+          }),
+    );
   }
 
   _loading() {
