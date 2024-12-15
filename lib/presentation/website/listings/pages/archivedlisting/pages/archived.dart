@@ -38,7 +38,7 @@ class ArchivedWeb extends GetView<ArchivedWebController> {
           padding: EdgeInsets.symmetric(horizontal: 15.h),
           child: EraText(
               text: 'ARCHIVED LISTINGS',
-              fontSize: 25.sp,
+              fontSize: EraTheme.headerWeb,
               color: AppColors.blue,
               fontWeight: FontWeight.w600),
         ),

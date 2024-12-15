@@ -34,16 +34,14 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
 
   // Get.put(AddListingsController());
   Widget build(BuildContext context) {
-     Get.put(ListingsController());
+    Get.put(ListingsController());
 
     return SizedBox(
-      child: Scaffold(
-        body: Obx(() => switch (controller.state.value) {
-              AdminEditState.loading => _loading(),
-              AdminEditState.loaded => _loaded(),
-              AdminEditState.picker => _picker(),
-            }),
-      ),
+      child: Obx(() => switch (controller.state.value) {
+            AdminEditState.loading => _loading(),
+            AdminEditState.loaded => _loaded(),
+            AdminEditState.picker => _picker(),
+          }),
     );
   }
 
@@ -60,9 +58,10 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
               children: [
                 IconButton(
                     onPressed: () {
-                      Get.back();
+                      selectedIndex.value = 13;
+                      Get.find<HomsController>().onNavbarItemSelected(13);
                     },
-                    icon: Icon(Icons.arrow_back)),
+                    icon: Icon(Icons.arrow_back_ios)),
                 sbw10(),
                 EraText(
                   text: 'PROPERTY INFORMATION',
@@ -75,7 +74,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
             EraText(
               text: 'EDIT LISTING',
               color: AppColors.black,
-              fontSize: EraTheme.header,
+              fontSize: EraTheme.headerWeb,
               fontWeight: FontWeight.w600,
             ),
             propertyWidgetDetails(),
@@ -496,8 +495,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
                 final formattedValue = value.replaceAllMapped(
                     RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
                     (Match m) => '${m[1]},');
-                controller.c.propertyCostController.value =
-                    TextEditingValue(
+                controller.c.propertyCostController.value = TextEditingValue(
                   text: formattedValue,
                   selection:
                       TextSelection.collapsed(offset: formattedValue.length),
@@ -560,8 +558,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
                   controller.c.images[newIndex] = oldImage;
                 } else {}
               },
-              children:
-                  List.generate(controller.c.images.length, (index) {
+              children: List.generate(controller.c.images.length, (index) {
                 return Stack(
                   children: [
                     Container(
@@ -615,7 +612,8 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
           child: SharedWidgets.dropDownListings(
               selectedItem: controller.c.selectedPropertyT,
               Types: propertyT,
-              onChanged: (value) => controller.c.selectedPropertyT.value = value!,
+              onChanged: (value) =>
+                  controller.c.selectedPropertyT.value = value!,
               hintText: 'Select Property Type'),
         ),
         sbw10(),
@@ -625,7 +623,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
               selectedItem: controller.c.selectedPropertySubCategory,
               Types: subCategory,
               onChanged: (value) =>
-              controller.c.selectedPropertySubCategory.value = value!,
+                  controller.c.selectedPropertySubCategory.value = value!,
               hintText: 'Select Subcategory Type'),
         ),
         sbw10(),

@@ -236,23 +236,12 @@ class ProjectViewsWeb extends StatelessWidget {
                                     width: Get.width,
                                     fit: BoxFit.cover,
                                   );
-
-                                  //  _buildImage(
-                                  //     image: MemoryImage(data['image']),
-                                  //     height: 250.h,
-                                  //     width: Get.width);
                                 }
                                 return ImageWidget(
                                   thumbnailUrl: data['image'],
                                   height: 250.h,
                                   width: Get.width,
                                 );
-
-                                // CloudStorage().imageLoaderProvider(
-                                //   reference: data['image'],
-                                //   height: 250.h,
-                                //   width: Get.width,
-                                // );
                               },
                             ),
                             sb20(),
@@ -262,14 +251,14 @@ class ProjectViewsWeb extends StatelessWidget {
                       );
                     } else if (data['sub_type'] == 'gallery') {
                       return SizedBox(
-                        height: 350.h,
+                        height: Get.height,
                         child: Stack(
                           children: [
                             Positioned(
                               child: GestureDetector(
                                 onTap: () {
                                   showDialog(
-                                    context: context,
+                                    context: Get.context!,
                                     builder: (BuildContext context) {
                                       final PageController pageController =
                                           PageController(
@@ -329,25 +318,26 @@ class ProjectViewsWeb extends StatelessWidget {
                                                   child: Builder(
                                                       builder: (context) {
                                                     if (kIsWeb) {
-                                                      return Wrap(
-                                                        children: [
-                                                          CloudStorage()
-                                                              .imageLoaderProvider(
-                                                            reference:
-                                                                data['image'],
-                                                            height: Get.height,
-                                                            width: Get.width,
-                                                          )
-
-                                                          // _buildImage(
-                                                          //   image: MemoryImage(
-                                                          //       data['images']
-                                                          //           [index]),
-                                                          //   height: Get.height,
-                                                          //   width: Get.width,
-                                                          // )
-                                                        ],
-                                                      );
+                                                      if (data['image'] !=
+                                                          null) {
+                                                        return CloudStorage()
+                                                            .imageLoaderProvider(
+                                                          reference:
+                                                              data['images']
+                                                                  [index],
+                                                          width: Get.width,
+                                                          height: Get.height,
+                                                        );
+                                                      } else {
+                                                        return CloudStorage()
+                                                            .imageLoaderProvider(
+                                                          reference:
+                                                              data['images']
+                                                                  [index],
+                                                          width: Get.width,
+                                                          height: Get.height,
+                                                        );
+                                                      }
                                                     }
                                                     return Wrap(
                                                       children: [
@@ -356,18 +346,15 @@ class ProjectViewsWeb extends StatelessWidget {
                                                               Clip.none,
                                                           minScale: 1.0,
                                                           maxScale: 4.0,
-                                                          child: ImageWidget(
-                                                            thumbnailUrl:
-                                                                data['images']
-                                                                    [index],
+                                                          child: CloudStorage()
+                                                              .imageLoaderProvider(
+                                                            reference:
+                                                                data['image'],
+                                                            height: Get.height,
+                                                            width: Get.width,
                                                             fit: BoxFit.cover,
                                                           ),
-                                                        ),
-                                                        // CloudStorage().imageLoader(
-                                                        //   reference: data['images']
-                                                        //       [index],
-                                                        //   fit: BoxFit.cover,
-                                                        // ),
+                                                        )
                                                       ],
                                                     );
                                                   }),
@@ -425,39 +412,33 @@ class ProjectViewsWeb extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: Get.width,
-                                  height: 320.h,
+                                  height: Get.height,
                                   child: Obx(() {
+                                    print(
+                                        'currentImageOutdoor.value   ${data['images'][0]}');
                                     final displayImage =
                                         currentImageOutdoor.value.isNotEmpty
                                             ? currentImageOutdoor.value
-                                            : data['images'].isNotEmpty
+                                            : (data['images'] != null &&
+                                                    data['images'].isNotEmpty)
                                                 ? data['images'][0]
                                                 : null;
 
-                                    if (displayImage == null) {
-                                      return Container();
-                                    }
-
                                     if (kIsWeb) {
                                       return CloudStorage().imageLoaderProvider(
-                                        reference: data['image'],
+                                        reference: displayImage,
                                         width: Get.width,
-                                        height: 50.h,
+                                        height: Get.height,
                                       );
-                                      // _buildImage(
-                                      //   image: MemoryImage(displayImage),
-                                      //   width: Get.width,
-                                      //   height: 50.h,
-                                      // );
                                     }
-                                    return ImageWidget(
-                                      thumbnailUrl: displayImage,
-                                      height: 250.h,
+                                    return CloudStorage().imageLoaderProvider(
+                                      reference: displayImage,
                                       width: Get.width,
+                                      height: Get.height,
                                     );
 
-                                    // CloudStorage().imageLoader(
-                                    //   reference: displayImage,
+                                    //  ImageWidget(
+                                    //   thumbnailUrl: data['images'][0],
                                     //   height: 250.h,
                                     //   width: Get.width,
                                     // );
@@ -470,7 +451,7 @@ class ProjectViewsWeb extends StatelessWidget {
                                 bottom: 0.h,
                                 child: SizedBox(
                                   width: Get.width,
-                                  height: 70.h,
+                                  height: 100.h,
                                   child: ListView(
                                     scrollDirection: Axis.horizontal,
                                     children: List.generate(
@@ -494,31 +475,21 @@ class ProjectViewsWeb extends StatelessWidget {
                                           child: Builder(
                                             builder: (context) {
                                               if (kIsWeb) {
-                                                return CloudStorage()
-                                                    .imageLoaderProvider(
-                                                  reference: data['image'],
-                                                  width: Get.width / 6,
-                                                  height: 70.h,
-                                                );
-
-                                                //  _buildImage(
-                                                //   image: MemoryImage(image),
-                                                //   width: Get.width / 6,
-                                                //   height: 70.h,
-                                                // );
+                                                if (data['image'] != null) {
+                                                  return CloudStorage()
+                                                      .imageLoaderProvider(
+                                                    reference: data['image'][0],
+                                                    width: Get.width / 6,
+                                                    height: 100.h,
+                                                  );
+                                                }
                                               }
-                                              return ImageWidget(
-                                                thumbnailUrl: image,
-                                                height: 70.h,
-                                                width: Get.width / 6,
+                                              return CloudStorage()
+                                                  .imageLoaderProvider(
+                                                reference: image,
+                                                width: Get.width / 8,
+                                                height: 100.h,
                                               );
-
-                                              // CloudStorage()
-                                              //     .imageLoaderProvider(
-                                              //   reference: image,
-                                              //   width: Get.width / 6,
-                                              //   height: 70.h,
-                                              // );
                                             },
                                           ),
                                         ),
@@ -646,25 +617,35 @@ class ProjectViewsWeb extends StatelessWidget {
                                                   child: Builder(
                                                       builder: (context) {
                                                     if (kIsWeb) {
-                                                      return Wrap(
-                                                        children: [
-                                                          CloudStorage()
-                                                              .imageLoaderProvider(
-                                                            reference:
-                                                                data['image'],
-                                                            width: Get.width,
-                                                            height: Get.height,
-                                                          )
+                                                      if (data['image'] !=
+                                                          null) {
+                                                        return CloudStorage()
+                                                            .imageLoaderProvider(
+                                                          reference:
+                                                              data['image']
+                                                                  [index],
+                                                          width: Get.width,
+                                                          height: Get.height,
+                                                        );
+                                                      } else {
+                                                        return CloudStorage()
+                                                            .imageLoaderProvider(
+                                                          reference:
+                                                              data['images']
+                                                                  [index],
+                                                          width: Get.width,
+                                                          height: Get.height,
+                                                        );
 
-                                                          // _buildImage(
-                                                          //   image: MemoryImage(
-                                                          //       data['images']
-                                                          //           [index]),
-                                                          //   height: Get.height,
-                                                          //   width: Get.width,
-                                                          // )
-                                                        ],
-                                                      );
+                                                        //    return CloudStorage()
+                                                        //     .imageLoaderProvider(
+                                                        //   reference:
+                                                        //       data['images']
+                                                        //           [index],
+                                                        //   width: Get.width,
+                                                        //   height: Get.height,
+                                                        // );
+                                                      }
                                                     }
                                                     return Wrap(
                                                       children: [
@@ -680,11 +661,6 @@ class ProjectViewsWeb extends StatelessWidget {
                                                             fit: BoxFit.cover,
                                                           ),
                                                         ),
-                                                        // CloudStorage().imageLoader(
-                                                        //   reference: data['images']
-                                                        //       [index],
-                                                        //   fit: BoxFit.cover,
-                                                        // ),
                                                       ],
                                                     );
                                                   }),
@@ -744,40 +720,28 @@ class ProjectViewsWeb extends StatelessWidget {
                                   width: Get.width,
                                   height: 320.h,
                                   child: Obx(() {
+                                    print(
+                                        'currentImageIndoor.value   ${data['images'][0]}');
                                     final displayImage =
                                         currentImageIndoor.value.isNotEmpty
                                             ? currentImageIndoor.value
-                                            : data['images'].isNotEmpty
+                                            : (data['images'] != null &&
+                                                    data['images'].isNotEmpty)
                                                 ? data['images'][0]
                                                 : null;
-                                    if (displayImage == null) {
-                                      return Container();
-                                    }
 
                                     if (kIsWeb) {
                                       return CloudStorage().imageLoaderProvider(
-                                        reference: data['image'],
+                                        reference: displayImage,
                                         width: Get.width,
-                                        height: 50.h,
+                                        height: Get.height,
                                       );
-
-                                      // return _buildImage(
-                                      //   image: MemoryImage(displayImage),
-                                      //   width: Get.width,
-                                      //   height: 50.h,
-                                      // );
                                     }
-                                    return ImageWidget(
-                                      thumbnailUrl: displayImage,
-                                      height: 250.h,
+                                    return CloudStorage().imageLoaderProvider(
+                                      reference: displayImage,
                                       width: Get.width,
+                                      height: Get.height,
                                     );
-
-                                    // CloudStorage().imageLoaderProvider(
-                                    //   reference: displayImage,
-                                    //   height: 250.h,
-                                    //   width: Get.width,
-                                    // );
                                   }),
                                 ),
                               ),
@@ -787,7 +751,7 @@ class ProjectViewsWeb extends StatelessWidget {
                                 bottom: 0.h,
                                 child: SizedBox(
                                   width: Get.width,
-                                  height: 70.h,
+                                  height: 100.h,
                                   child: ListView(
                                     scrollDirection: Axis.horizontal,
                                     children: List.generate(
@@ -811,12 +775,15 @@ class ProjectViewsWeb extends StatelessWidget {
                                             child: Builder(
                                               builder: (context) {
                                                 if (kIsWeb) {
-                                                  return CloudStorage()
-                                                      .imageLoaderProvider(
-                                                    reference: data['image'],
-                                                    width: Get.width / 6,
-                                                    height: 70.h,
-                                                  );
+                                                  if (data['image'] != null) {
+                                                    return CloudStorage()
+                                                        .imageLoaderProvider(
+                                                      reference: data['image']
+                                                          [0],
+                                                      width: Get.width / 6,
+                                                      height: 100.h,
+                                                    );
+                                                  }
 
                                                   // _buildImage(
                                                   //   image: MemoryImage(image),
@@ -824,10 +791,11 @@ class ProjectViewsWeb extends StatelessWidget {
                                                   //   height: 70.h,
                                                   // );
                                                 }
-                                                return ImageWidget(
-                                                  thumbnailUrl: image,
-                                                  height: 70.h,
-                                                  width: Get.width / 6,
+                                                return CloudStorage()
+                                                    .imageLoaderProvider(
+                                                  reference: image,
+                                                  width: Get.width / 8,
+                                                  height: 100.h,
                                                 );
 
                                                 // CloudStorage()

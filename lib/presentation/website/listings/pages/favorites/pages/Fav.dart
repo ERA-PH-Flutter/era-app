@@ -84,7 +84,7 @@ class FavWeb extends GetView<FavWebController> {
                         icon: Icon(Icons.arrow_back)),
                     EraText(
                       text: 'MY FAVORITES',
-                      fontSize: 25.sp,
+                      fontSize: EraTheme.headerWeb,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blue,
                     ),
