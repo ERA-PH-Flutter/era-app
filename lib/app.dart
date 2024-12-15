@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:eraphilippines/app/theme.dart';
 import 'package:eraphilippines/presentation/agent/splash/controllers/splash_binding.dart';
 import 'package:eraphilippines/presentation/agent/splash/pages/splash.dart';
 import 'package:eraphilippines/router/route.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,6 +48,12 @@ class _AppState extends State<App> {
       minTextAdapt: true,
       splitScreenMode: true,
       child: GetMaterialApp(
+        scrollBehavior: MaterialScrollBehavior().copyWith(dragDevices: {
+          PointerDeviceKind.touch,
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown,
+        }),
         debugShowCheckedModeBanner: false,
         theme: MyTheme.getDefault(),
         initialRoute: "/",

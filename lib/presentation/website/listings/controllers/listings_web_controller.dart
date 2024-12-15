@@ -24,8 +24,9 @@ class ListingsWebController extends GetxController {
   Widget? quickLinks;
   var images = [].obs;
   var isFav = false.obs;
-    var currentImage = ''.obs;
+  var currentImage = ''.obs;
 
+  ScrollController scrollController = ScrollController();
   TextEditingController locationController = TextEditingController();
   TextEditingController propertyController = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -41,7 +42,6 @@ class ListingsWebController extends GetxController {
   var selectedLocationSearch = RxnString();
   var selectedPriceSearch = RxnString();
 
- 
   @override
   void onInit() async {
     data.clear();
