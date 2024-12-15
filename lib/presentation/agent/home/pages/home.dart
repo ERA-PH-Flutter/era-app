@@ -156,7 +156,7 @@ class Home extends GetView<HomeController> {
                 animateToPage2: true,
               ),
               sb15(),
-              controller.quickLinks!,
+              //controller.quickLinks!,
             ],
           ),
         ),

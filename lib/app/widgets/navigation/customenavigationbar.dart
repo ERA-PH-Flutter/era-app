@@ -39,15 +39,16 @@ class BaseScaffold extends StatefulWidget {
 class _BaseScaffoldState extends State<BaseScaffold> {
   @override
   void initState() {
-    Get.put(HomeController());
-    Get.put(ProjectsListController());
-    Get.put(ProjectsController());
-    Get.put(SearchResultController());
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    Get.put(HomeController());
+    Get.put(ProjectsListController());
+    Get.put(ProjectsController());
+    Get.put(SearchResultController());
     //changeIndex(['/home','/project-main', '/searchresult','/findagents','/help'].contains(Get.currentRoute) ? ['/home','/project-main','/searchresult','/findagents','/help'].indexOf(Get.currentRoute) : 0);
     return Scaffold(
       extendBody: true,

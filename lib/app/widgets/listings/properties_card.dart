@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,17 +13,11 @@ class PropertiesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(topRight: Radius.circular(20.0)),
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: FileImage(
-            File(image)
-          )
-        )
-      ),
-      child:  Stack(
+    return CloudStorage().imageLoaderProvider(
+      borderRadius: BorderRadius.only(topRight: Radius.circular(20.0)),
+      reference: image,
+      fit: BoxFit.cover,
+      child: Stack(
         children: [
           Positioned(
             bottom: 10.0,

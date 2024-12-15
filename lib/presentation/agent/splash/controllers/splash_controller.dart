@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
+import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -51,7 +52,8 @@ class SplashController extends GetxController {
   }
 
   init() async {
-    splashState.value = kIsWeb ? SplashState.web : SplashState.loading;
+    var kIsWeb1 = MediaQuery.of(Get.context!).size.shortestSide > 600;
+    splashState.value = kIsWeb1 ? SplashState.web : SplashState.loading;
     _typeWrittingAnimation();
     status.value = "Loading app settings..";
     settings = Settings.fromJSON(await Database().getSettings());
@@ -80,9 +82,9 @@ class SplashController extends GetxController {
     }
     var shortestSide = MediaQuery.of(Get.context!).size.shortestSide;
     currentRoute = '/home';
-    kIsWeb && user != null
+    kIsWeb1 && user != null
         ? Get.toNamed(RouteString.landingPage)
-        : kIsWeb
+        : kIsWeb1
             ? Get.toNamed(RouteString.adminLogin) //admingLogin
             : shortestSide < 600
                 ? Get.offAndToNamed('/base')

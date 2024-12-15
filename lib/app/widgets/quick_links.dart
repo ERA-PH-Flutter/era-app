@@ -42,34 +42,35 @@ class QuickLinksModel {
   ];
 
   initialize() async {
-    List<Widget> items = [];
-    var ql = Get.find<LocalStorageService>().images!['quick_links'];
-    for (int index = 0; index < ql.length; index++) {
-      items.add(await quickSearchIcon(
-          ql[index], categories[index][1], categories[index][2]));
-    }
-    if (ql.length != categories.length) {
-      return Container();
-    }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextListing(
-          text: 'Quick Links',
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w500,
-          color: AppColors.black,
-        ),
-        SizedBox(height: 10.h),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: items,
-          ),
-        ),
-        SizedBox(height: 10.h),
-      ],
-    );
+    // List<Widget> items = [];
+    // var ql = Get.find<LocalStorageService>().images!['quick_links'];
+    // for (int index = 0; index < ql.length; index++) {
+    //   items.add(await quickSearchIcon(
+    //       ql[index], categories[index][1], categories[index][2]));
+    // }
+    // if (ql.length != categories.length) {
+    //   return Container();
+    // }
+    // return Column(
+    //   crossAxisAlignment: CrossAxisAlignment.start,
+    //   children: [
+    //     TextListing(
+    //       text: 'Quick Links',
+    //       fontSize: 18.sp,
+    //       fontWeight: FontWeight.w500,
+    //       color: AppColors.black,
+    //     ),
+    //     SizedBox(height: 10.h),
+    //     SingleChildScrollView(
+    //       scrollDirection: Axis.horizontal,
+    //       child: Row(
+    //         children: items,
+    //       ),
+    //     ),
+    //     SizedBox(height: 10.h),
+    //   ],
+    // );
+    return Container();
   }
 
   download() async {

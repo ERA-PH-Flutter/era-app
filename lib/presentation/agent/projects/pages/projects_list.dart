@@ -26,6 +26,7 @@ class ProjectsList extends GetView<ProjectsListController> {
   const ProjectsList({super.key});
   @override
   Widget build(BuildContext context) {
+    Get.put(SearchResultController());
     final SearchResultController searchController =
         Get.find<SearchResultController>();
     return Scaffold(

@@ -38,12 +38,12 @@ class Splash extends GetView<SplashController> {
     return Center(
       child: kIsWeb && user != null
           ? Image.asset(
-              'assets/images/Era Splash Logo.png',
+              'assets/images/erasplashlogo.png',
               width: Get.width,
             )
           : kIsWeb
               ? Image.asset(
-                  'assets/images/Era Splash Logo.png',
+                  'assets/images/eraph_logo.png',
                   width: Get.width,
                 )
               : shortestSide < 600
@@ -52,7 +52,7 @@ class Splash extends GetView<SplashController> {
                       height: Get.height,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/images/erasplashbg.png'),
+                          image: AssetImage('assets/images/eraph_logo.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
