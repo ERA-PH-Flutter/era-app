@@ -57,3 +57,4 @@ var newsArgument;
 var listingArgument;
 var projectArgument;
 var agentArgument;
+var editListingArgument;

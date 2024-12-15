@@ -47,8 +47,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
   }
 
   _loaded() {
-    AddListingsController addListingsController =
-        Get.find<AddListingsController>();
+    var addListingsController = controller.c;
     return SingleChildScrollView(
       child: Padding(
         padding:
@@ -475,21 +474,19 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
   }
 
   Widget propertyWidgetDetails() {
-    AddListingsController addListingsController =
-        Get.find<AddListingsController>();
     return Row(
       children: [
         Expanded(
             flex: 1,
             child: SharedWidgets.textFormfield(
-              controller: addListingsController.propertyNameController,
+              controller: controller.c.propertyNameController,
               hintText: 'Property Name',
             )),
         sbw10(),
         Expanded(
           flex: 1,
           child: SharedWidgets.textFormfield(
-            controller: addListingsController.propertyCostController,
+            controller: controller.c.propertyCostController,
             hintText: 'Property Cost',
             textInputType: TextInputType.number,
             onChanged: (value) {
@@ -498,7 +495,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
                 final formattedValue = value.replaceAllMapped(
                     RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
                     (Match m) => '${m[1]},');
-                addListingsController.propertyCostController.value =
+                controller.c.propertyCostController.value =
                     TextEditingValue(
                   text: formattedValue,
                   selection:
@@ -513,8 +510,6 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
   }
 
   Widget uploadPhotos() {
-    AddListingsController addListingsController =
-        Get.find<AddListingsController>();
     return Column(
       children: [
         Row(
@@ -531,7 +526,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
                 ),
               ),
               onPressed: () async {
-                await addListingsController.pickImageFromWeb();
+                await controller.c.pickImageFromWeb();
               },
               icon: Icon(
                 CupertinoIcons.photo_fill_on_rectangle_fill,
@@ -548,7 +543,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
         ),
         SizedBox(height: 10.h),
         Obx(() {
-          if (addListingsController.images.isEmpty) {
+          if (controller.c.images.isEmpty) {
             return buildUploadPhoto();
           } else {
             return ReorderableWrap(
@@ -558,14 +553,14 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
                 // }
                 //testing
                 if (oldIndex != newIndex) {
-                  var oldImage = addListingsController.images[oldIndex];
-                  var newImage = addListingsController.images[newIndex];
-                  addListingsController.images[oldIndex] = newImage;
-                  addListingsController.images[newIndex] = oldImage;
+                  var oldImage = controller.c.images[oldIndex];
+                  var newImage = controller.c.images[newIndex];
+                  controller.c.images[oldIndex] = newImage;
+                  controller.c.images[newIndex] = oldImage;
                 } else {}
               },
               children:
-                  List.generate(addListingsController.images.length, (index) {
+                  List.generate(controller.c.images.length, (index) {
                 return Stack(
                   children: [
                     Container(
@@ -579,7 +574,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: MemoryImage(
-                            addListingsController.images[index],
+                            controller.c.images[index],
                           ),
                         ),
                       ),
@@ -590,7 +585,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
                         child: IconButton(
                           icon: Icon(Icons.cancel),
                           onPressed: () {
-                            addListingsController.images.removeAt(index);
+                            controller.c.images.removeAt(index);
                           },
                         ))
                   ],
@@ -612,43 +607,42 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
   }
 
   Widget dropdownWidget() {
-    AddListingsController controller = Get.find<AddListingsController>();
     return Row(
       children: [
         Expanded(
           flex: 1,
           child: SharedWidgets.dropDownListings(
-              selectedItem: controller.selectedPropertyT,
+              selectedItem: controller.c.selectedPropertyT,
               Types: propertyT,
-              onChanged: (value) => controller.selectedPropertyT.value = value!,
+              onChanged: (value) => controller.c.selectedPropertyT.value = value!,
               hintText: 'Select Property Type'),
         ),
         sbw10(),
         Expanded(
           flex: 1,
           child: SharedWidgets.dropDownListings(
-              selectedItem: controller.selectedPropertySubCategory,
+              selectedItem: controller.c.selectedPropertySubCategory,
               Types: subCategory,
               onChanged: (value) =>
-                  controller.selectedPropertySubCategory.value = value!,
+              controller.c.selectedPropertySubCategory.value = value!,
               hintText: 'Select Subcategory Type'),
         ),
         sbw10(),
         Expanded(
           flex: 1,
           child: SharedWidgets.dropDownListings(
-              selectedItem: controller.selectedView,
-              Types: controller.viewL,
-              onChanged: (value) => controller.selectedView.value = value!,
+              selectedItem: controller.c.selectedView,
+              Types: controller.c.viewL,
+              onChanged: (value) => controller.c.selectedView.value = value!,
               hintText: 'Select View'),
         ),
         sbw10(),
         Expanded(
           flex: 1,
           child: SharedWidgets.dropDownListings(
-            selectedItem: controller.selectedOfferT,
-            Types: controller.offerT,
-            onChanged: (value) => controller.selectedOfferT.value = value!,
+            selectedItem: controller.c.selectedOfferT,
+            Types: controller.c.offerT,
+            onChanged: (value) => controller.c.selectedOfferT.value = value!,
             hintText: 'Select Offer Type',
           ),
         ),
@@ -657,20 +651,20 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
   }
 
   Widget detailsWidget() {
-    AddListingsController controller = Get.find<AddListingsController>();
+    var a = controller.c;
     return Row(
       children: [
         Expanded(
             flex: 1,
             child: SharedWidgets.textFormfield(
-              controller: controller.pricePerSqmController,
+              controller: a.pricePerSqmController,
               hintText: 'Price Per Sqm',
               onChanged: (value) {
                 value = value.replaceAll(',', '');
-                controller.pricePerSqmController.text = value.replaceAllMapped(
+                a.pricePerSqmController.text = value.replaceAllMapped(
                     RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
                     (Match m) => '${m[1]},');
-                controller.pricePerSqmController.value = TextEditingValue(
+                a.pricePerSqmController.value = TextEditingValue(
                     text: value,
                     selection: TextSelection.collapsed(offset: value.length));
               },
@@ -679,7 +673,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
         Expanded(
           flex: 1,
           child: SharedWidgets.textFormfield(
-            controller: controller.floorArea,
+            controller: a.areaController,
             hintText: 'Floor Area',
             textInputType: TextInputType.number,
           ),
@@ -688,7 +682,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
         Expanded(
           flex: 1,
           child: SharedWidgets.textFormfield(
-            controller: controller.areaController,
+            controller: a.areaController,
             hintText: 'Lot Area',
             textInputType: TextInputType.number,
           ),
@@ -697,7 +691,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
         Expanded(
           flex: 1,
           child: SharedWidgets.textFormfield(
-            controller: controller.bedsController,
+            controller: a.bedsController,
             hintText: 'Bedrooms',
             textInputType: TextInputType.number,
           ),
@@ -706,7 +700,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
         Expanded(
           flex: 1,
           child: SharedWidgets.textFormfield(
-            controller: controller.bathsController,
+            controller: a.bathsController,
             hintText: 'Batrooms',
             textInputType: TextInputType.number,
           ),
@@ -715,7 +709,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
         Expanded(
           flex: 1,
           child: SharedWidgets.textFormfield(
-            controller: controller.carsController,
+            controller: a.carsController,
             hintText: 'Garage',
             textInputType: TextInputType.number,
           ),

@@ -235,18 +235,18 @@ class AddListingsController extends GetxController with BaseController {
     carsController.text = listing!.cars.toString();
     areaController.text = listing!.floorArea.toString();
     selectedOfferT.value =
-        offerT.contains(listing!.status) ? listing!.status : null;
+        offerT.contains(listing!.status) ? listing!.status : offerT.first;
     locationController.text = listing!.location ?? "";
     selectedPropertyT.value =
-        propertyT.contains(listing!.type) ? listing!.type : null;
+        propertyT.contains(listing!.type) ? listing!.type :'Pre-Selling';
     selectedPropertySubCategory.value =
         subCategory.contains(listing!.subCategory)
             ? listing!.subCategory
-            : null;
+            : subCategory.first;
     descController.text = listing!.description ?? "";
     addressController.text = listing!.address ?? "";
     addEditListingsState.value = AddEditListingsState.loaded;
-    selectedView.value = listing!.view ?? "SUNRISE";
+    selectedView.value = viewL.contains(listing!.view) ? listing!.view : viewL.first;
     addListingsState.value = AddListingsState.loaded;
   }
 
