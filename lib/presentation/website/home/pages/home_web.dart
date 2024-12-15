@@ -83,22 +83,9 @@ class HomeWeb extends GetView<HomeWebController> {
                           return CloudStorage().imageLoaderProvider(
                             reference: imagePath,
                             fit: BoxFit.cover,
-                            //height: Get.height - 100.h,
-                            width: Get.width
+                             width: Get.width
                           );
-                          // return Container(
-                          //   decoration: BoxDecoration(
-                          //       image: DecorationImage(
-                          //           fit: BoxFit.cover,
-                          //           image: AssetImage(imagePath))),
-                          // );
-
-                          // Image.asset(
-                          //   imagePath,
-                          //   fit: BoxFit.contain,
-                          //   width: Get.width,
-                          //   height: Get.height,
-                          // );
+                          
                         }).toList(),
                         options: CarouselOptions(
                           autoPlayInterval: Duration(seconds: 7),

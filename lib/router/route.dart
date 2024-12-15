@@ -3,6 +3,8 @@ import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylist
 import 'package:eraphilippines/presentation/website/form/controllers/form_web_binding.dart';
 import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/pages/edit_listing.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/archivedlisting/controllers/archived_binding.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/archivedlisting/pages/archived.dart';
 import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
@@ -13,7 +15,6 @@ import '../presentation/agent/listings/add-edit_listings/pages/addlistings.dart'
 import '../presentation/agent/listings/add-edit_listings/pages/edit_listing.dart';
 import '../presentation/agent/listings/archivedlisting/controllers/archived_binding.dart';
 import '../presentation/agent/listings/archivedlisting/pages/archived.dart';
-
 import '../presentation/agent/listings/sold_properties/controllers/sold_properties_binding.dart';
 import '../presentation/agent/listings/sold_properties/pages/sold_properties.dart';
 import '../presentation/website/agents/bindings/agent_web_binding.dart';
@@ -22,6 +23,8 @@ import '../presentation/website/agents/pages/settingAgent.dart';
 import '../presentation/website/landingpage/pages/homepage.dart';
 import '../presentation/website/listings/pages/favorites/controllers/fav_binding.dart';
 import '../presentation/website/listings/pages/favorites/pages/Fav.dart';
+import '../presentation/website/listings/pages/sold_properties/controllers/sold_properties_binding.dart';
+import '../presentation/website/listings/pages/sold_properties/pages/sold_properties.dart';
 
 appRoutes() => [
       GetPage(
@@ -45,6 +48,8 @@ appRoutes() => [
         page: () => SoldProperties(),
         binding: SoldBinding(),
       ),
+
+      
       GetPage(
         name: RouteString.termsAndConditions,
         page: () => TermsCondition(),
@@ -86,6 +91,15 @@ appRoutes() => [
           name: RouteString.settingsWeb,
           page: () => SettingsPageWeb(),
           binding: AgentWebBinding()),
+            GetPage(
+          name: RouteString.archivedWeb,
+          page: () => ArchivedWeb(),
+          binding: ArchivedWebBinding()),
+               GetPage(
+        name: RouteString.soldPropertiesWeb,
+        page: () => SoldPropertiesWeb(),
+        binding: SoldBindingWeb(),
+      ),
     ];
 
 class MyMiddleware extends GetMiddleware {}

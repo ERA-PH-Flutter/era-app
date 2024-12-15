@@ -21,17 +21,16 @@ import '../../../../app/services/firebase_database.dart';
 import '../controllers/agent_myListingWeb_controller.dart';
 
 class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
- // final String? by;
+  // final String? by;
 
   const AgentsMyListingWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
- 
     return SingleChildScrollView(
       child: Column(
         children: [
-           Obx(() => switch (controller.agentListingsState.value) {
+          Obx(() => switch (controller.agentListingsState.value) {
                 AgentListingsState.loading => _loading(),
                 AgentListingsState.loaded => _loaded(),
                 AgentListingsState.empty => _empty(),
@@ -59,13 +58,14 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        Get.back();
+                         selectedIndex.value = 13;
+                        Get.find<HomsController>().onNavbarItemSelected(13);
                       },
                       icon: Icon(Icons.arrow_back)),
                   sbw10(),
                   EraText(
                     text: "MY LISTINGS",
-                fontSize: EraTheme.headerWeb,
+                    fontSize: EraTheme.headerWeb,
                     color: AppColors.blue,
                     fontWeight: FontWeight.w600,
                   ),
@@ -354,6 +354,7 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                                         onTap: () {
                                           Get.toNamed('/editListingsWeb',
                                               arguments: [listing.id]);
+                                          // listingArgument = listing.id;
                                           // selectedIndex.value = 18;
                                           // Get.find<HomsController>()
                                           //     .onNavbarItemSelected(18);
@@ -375,17 +376,29 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                                               description:
                                                   "Do you want to delete this listing?",
                                               hitApi: () async {
-                                                controller.agentListingsState.value = AgentListingsState.loading;
-                                                try{
-                                                  BaseController().showLoading();
-                                                  await CloudStorage().deleteAll(fileList: listing.photos!);
-                                                  await Listing().deleteListingsById(listing.id);
-                                                  controller.listings.removeAt(index);
-                                                  BaseController().hideLoading();
-                                                }catch(e,ex){
+                                                controller.agentListingsState
+                                                        .value =
+                                                    AgentListingsState.loading;
+                                                try {
+                                                  BaseController()
+                                                      .showLoading();
+                                                  await CloudStorage()
+                                                      .deleteAll(
+                                                          fileList:
+                                                              listing.photos!);
+                                                  await Listing()
+                                                      .deleteListingsById(
+                                                          listing.id);
+                                                  controller.listings
+                                                      .removeAt(index);
+                                                  BaseController()
+                                                      .hideLoading();
+                                                } catch (e, ex) {
                                                   print(ex);
                                                 }
-                                                controller.agentListingsState.value = AgentListingsState.loaded;
+                                                controller.agentListingsState
+                                                        .value =
+                                                    AgentListingsState.loaded;
                                                 // controller.agentListingsState.value =
                                                 //     AgentListingsState.loading;
                                                 Get.back();

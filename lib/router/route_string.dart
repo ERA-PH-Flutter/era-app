@@ -64,5 +64,7 @@ class RouteString {
     static String editListingsWeb = "/editListingsWeb";
 static String joinUsWeb = "/joinUsWeb";
   static String settingsWeb = "/settingsWeb";
+  static String archivedWeb = "/archivedWeb";
+  static String soldPropertiesWeb = "/soldPropertiesWeb";
   
 }

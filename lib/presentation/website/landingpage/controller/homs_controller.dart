@@ -1,9 +1,11 @@
-import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
-import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylistingWeb_binding.dart';
+  import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylistingWeb_binding.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/agentsMyListing.dart';
 import 'package:eraphilippines/presentation/website/form/pages/help.dart';
 import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
-  import 'package:eraphilippines/presentation/website/projects/pages/projects_list.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/archivedlisting/pages/archived.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/sold_properties/controllers/sold_properties_binding.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/sold_properties/pages/sold_properties.dart';
+import 'package:eraphilippines/presentation/website/projects/pages/projects_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -24,6 +26,7 @@ import '../../listings/pages/add-edit_listings/controllers/addlistings_bindings.
 import '../../listings/pages/add-edit_listings/controllers/editlistings_bindings.dart';
 import '../../listings/pages/add-edit_listings/pages/addlistings.dart';
 import '../../listings/pages/add-edit_listings/pages/edit_listing.dart';
+import '../../listings/pages/archivedlisting/controllers/archived_binding.dart';
 import '../../listings/pages/favorites/controllers/fav_binding.dart';
 import '../../listings/pages/favorites/pages/Fav.dart';
 import '../../listings/pages/listings/listing_web_page.dart';
@@ -70,6 +73,9 @@ class HomsController extends GetxController {
     FavWeb(), //16
     AgentsMyListingWeb(), //17
     EditListingWeb(), //18
+    ArchivedWeb(), //19
+    SoldPropertiesWeb()  //20
+
   ].obs;
 
   HomsController() {
@@ -149,8 +155,7 @@ class HomsController extends GetxController {
         MortageCalculatorBinding().dependencies();
         break;
       case 15:
-        //this is the edit listing page just like the add listing page
-        //  EditListingsBinding().dependencies();
+         //  EditListingsBinding().dependencies();
         AddListingsBinding().dependencies();
         break;
       case 16:
@@ -162,10 +167,20 @@ class HomsController extends GetxController {
       case 18:
         EditListingsBinding().dependencies();
         break;
+      case 19:
+        ArchivedWebBinding().dependencies();
+        break;
+      case 20:
+        SoldBindingWeb().dependencies();
+        break;
+      default:
+
+        break;
       // case 10:
       //   FormBinding().dependencies();
       //   break;
     }
+    
   }
 
   @override
