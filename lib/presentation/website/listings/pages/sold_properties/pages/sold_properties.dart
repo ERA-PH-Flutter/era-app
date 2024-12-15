@@ -20,18 +20,12 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
 
   @override
   Widget build(BuildContext context) {
-    return EraText(
-      text: 'SOLD PROPERTIES',
-      fontSize: 30.sp,
-      color: AppColors.blue,
-      fontWeight: FontWeight.w600,
-    );
-    // Obx(() => switch (controller.soldState.value) {
-    //       SoldState.loading => _loading(),
-    //       SoldState.loaded => _loaded(),
-    //       SoldState.error => _error(),
-    //       SoldState.empty => _empty()
-    //     });
+    return Obx(() => switch (controller.soldState.value) {
+          SoldState.loading => _loading(),
+          SoldState.loaded => _loaded(),
+          SoldState.error => _error(),
+          SoldState.empty => _empty()
+        });
   }
 
   _loading() {
@@ -40,19 +34,17 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
 
   _loaded() {
     return Padding(
-      padding: const EdgeInsets.symmetric(EraTheme.paddingWithAdmin *3),
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-        
           EraText(
             text: 'SOLD PROPERTIES',
             fontSize: 30.sp,
             color: AppColors.blue,
             fontWeight: FontWeight.w600,
           ),
-          
-      
+
           // SoldPropertiesListings(
           //   listingModels: controller.soldListings.value,
           // ),
