@@ -55,7 +55,7 @@ class Navbar extends GetResponsiveView<HomsController> {
       () => Container(
         // color: AppColors.black,
         padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth200),
-        height: 150.h,
+        height: 160.h,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

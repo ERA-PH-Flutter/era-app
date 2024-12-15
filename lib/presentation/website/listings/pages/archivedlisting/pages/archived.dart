@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/archived/archived_listings.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/archivedlisting/controllers/archived_controller.dart';
@@ -9,6 +10,8 @@ import 'package:get/get.dart';
 import '../../../../../../app/constants/screens.dart';
 import '../../../../../../app/services/firebase_database.dart';
 import '../../../../../../app/widgets/archived/archivedItems_widgets.dart';
+import '../../../../../global.dart';
+import '../../../../landingpage/controller/homs_controller.dart';
 
 class ArchivedWeb extends GetView<ArchivedWebController> {
   const ArchivedWeb({
@@ -104,9 +107,11 @@ class ArchivedWeb extends GetView<ArchivedWebController> {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisExtent: 150.h,
-                    mainAxisSpacing: 10.h),
+                  crossAxisCount: 2,
+                  mainAxisExtent: 190.h,
+                  mainAxisSpacing: 10.h,
+                  crossAxisSpacing: 10.w,
+                ),
                 itemCount: controller.archiveListings.length,
                 itemBuilder: (context, i) => ArchivedItems(
                   index: i,
@@ -118,16 +123,16 @@ class ArchivedWeb extends GetView<ArchivedWebController> {
                   // agent: listingModels[i].by,
                   //    type: listingModels[i].type,
                   onTap: () async {
-                    await Database().addViews(controller.archiveListings[i].id);
-                    Get.toNamed('/propertyInfo',
-                        arguments: controller.archiveListings[i]);
+                    listingArgument = controller.archiveListings[i];
+                    selectedIndex.value = 12;
+                    Get.find<HomsController>().onNavbarItemSelected(12);
+                    // Get.toNamed('/propertyInfo',
+                    //     arguments: controller.favoritesList[i]);
                   },
                 ),
               ),
             ),
           ],
-
-          // ArchivedListings(listingModels: controller.archiveListings,
         ),
       ],
     );
@@ -147,10 +152,30 @@ class ArchivedWeb extends GetView<ArchivedWebController> {
   }
 
   _empty() {
-    return Center(
-      child: EraText(
-        text: "No Archived Listing Found!",
-        color: Colors.black,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios_rounded,
+                    color: Colors.black,
+                    size: 20.sp,
+                  )),
+            ],
+          ),
+          Center(
+            child: EraText(
+              text: "No Archived Listing Found!",
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
     );
   }

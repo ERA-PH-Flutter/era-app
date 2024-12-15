@@ -1,4 +1,4 @@
-  import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylistingWeb_binding.dart';
+import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylistingWeb_binding.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/agentsMyListing.dart';
 import 'package:eraphilippines/presentation/website/form/pages/help.dart';
 import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
@@ -52,6 +52,11 @@ class HomsController extends GetxController {
   var loginOverlay = OverlayPortalController();
   ScrollController scrollController = ScrollController();
 
+  final Uri emailUrl = Uri.parse(
+      'mailto:sales@eraphilippines.com?subject=Your%20Subject&body=Your%20Message');
+
+  final Uri whatsappUrl = Uri.parse('https://wa.me/639177710572');
+
   RxList<Widget> pages = [
     HomeWeb(), //0
     ProjectsList(), //1
@@ -74,8 +79,7 @@ class HomsController extends GetxController {
     AgentsMyListingWeb(), //17
     EditListingWeb(), //18
     ArchivedWeb(), //19
-    SoldPropertiesWeb()  //20
-
+    SoldPropertiesWeb() //20
   ].obs;
 
   HomsController() {
@@ -155,7 +159,7 @@ class HomsController extends GetxController {
         MortageCalculatorBinding().dependencies();
         break;
       case 15:
-         //  EditListingsBinding().dependencies();
+        //  EditListingsBinding().dependencies();
         AddListingsBinding().dependencies();
         break;
       case 16:
@@ -174,13 +178,11 @@ class HomsController extends GetxController {
         SoldBindingWeb().dependencies();
         break;
       default:
-
         break;
       // case 10:
       //   FormBinding().dependencies();
       //   break;
     }
-    
   }
 
   @override
