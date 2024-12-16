@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/constants/screens.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/presentation/global.dart';
@@ -29,12 +30,23 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
 
   @override
   Widget build(BuildContext context) {
+    return Obx(()=>switch(controller.listingsWebState.value){
+      ListingsWebState.loading => Screens.loading(),
+      ListingsWebState.loaded => _loaded(),
+      ListingsWebState.error => Screens.error(),
+      ListingsWebState.searching => Screens.loading(),
+      ListingsWebState.empty => Screens.empty(),
+    });
+  }
+
+  _loaded(){
     return Column(
       children: [
         Padding(
           padding:
-              EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+          EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
           child: SingleChildScrollView(
+            controller: controller.scrollController,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -54,10 +66,10 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                 sb20(),
                 EraText(
                   text: (listingArgument?.price == null ||
-                          listingArgument?.price == 0)
+                      listingArgument?.price == 0)
                       ? "PHP 0"
                       : NumberFormat.currency(locale: 'en_PH', symbol: 'PHP ')
-                          .format(listingArgument?.price),
+                      .format(listingArgument?.price),
                   color: AppColors.black,
                   fontSize: EraTheme.header + 5.sp,
                   fontWeight: FontWeight.bold,
@@ -71,223 +83,223 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                     children: [
                       Positioned(
                           child: GestureDetector(
-                        onTap: () {
-                          // Get.to(() => InteractivePropertyImage(
-                          //       images: controller.images.cast<String>(),
-                          //       initialImageIndex: controller.images
-                          //           .indexOf(controller.currentImage.value),
-                          //     ));
+                            onTap: () {
+                              // Get.to(() => InteractivePropertyImage(
+                              //       images: controller.images.cast<String>(),
+                              //       initialImageIndex: controller.images
+                              //           .indexOf(controller.currentImage.value),
+                              //     ));
 
-                          // ImageWidget(
-                          //   thumbnailUrl: listingArgument.photos!.isNotEmpty
-                          //       ? listingArgument.photos!.first
-                          //       : AppStrings.noUserImageWhite,
-                          //   fit: BoxFit.cover,
-                          //   height: Get.height,
-                          //   width: Get.width,
-                          // );
+                              // ImageWidget(
+                              //   thumbnailUrl: listingArgument.photos!.isNotEmpty
+                              //       ? listingArgument.photos!.first
+                              //       : AppStrings.noUserImageWhite,
+                              //   fit: BoxFit.cover,
+                              //   height: Get.height,
+                              //   width: Get.width,
+                              // );
 
-                          showDialog(
-                              context: Get.context!,
-                              builder: (BuildContext context) {
-                                final PageController pageController =
+                              showDialog(
+                                  context: Get.context!,
+                                  builder: (BuildContext context) {
+                                    final PageController pageController =
                                     PageController(
-                                  initialPage: listingArgument.photos!
-                                      .indexOf(controller.currentImage.value),
-                                );
-                                return Dialog(
-                                  child: Container(
-                                      width: Get.width,
-                                      height: Get.height,
-                                      child: Stack(
-                                        children: [
-                                          Positioned(
-                                            top: 30,
-                                            right: 0,
-                                            left: 0,
-                                            bottom: 30.h,
-                                            child: PageView.builder(
-                                              controller: pageController,
-                                              itemCount: listingArgument
-                                                  .photos!.length,
-                                              onPageChanged: (index) {
-                                                controller.currentImage.value =
+                                      initialPage: listingArgument.photos!
+                                          .indexOf(controller.currentImage.value),
+                                    );
+                                    return Dialog(
+                                      child: Container(
+                                          width: Get.width,
+                                          height: Get.height,
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                top: 30,
+                                                right: 0,
+                                                left: 0,
+                                                bottom: 30.h,
+                                                child: PageView.builder(
+                                                  controller: pageController,
+                                                  itemCount: listingArgument
+                                                      .photos!.length,
+                                                  onPageChanged: (index) {
+                                                    controller.currentImage.value =
                                                     listingArgument
                                                         .photos![index];
-                                              },
-                                              itemBuilder: (context, index) {
-                                                return Container(
-                                                  width: Get.width,
-                                                  height: Get.height,
-                                                  child: CloudStorage().imageLoader(
-                                                      fit: BoxFit.contain,
-                                                      reference: listingArgument
+                                                  },
+                                                  itemBuilder: (context, index) {
+                                                    return Container(
+                                                      width: Get.width,
+                                                      height: Get.height,
+                                                      child: CloudStorage().imageLoader(
+                                                          fit: BoxFit.contain,
+                                                          reference: listingArgument
                                                               .photos!
                                                               .isNotEmpty
-                                                          ? listingArgument
+                                                              ? listingArgument
                                                               .photos![index]
-                                                          : AppStrings
+                                                              : AppStrings
                                                               .noUserImageWhite),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 0,
-                                            right: 0,
-                                            child: IconButton(
-                                              icon: Icon(
-                                                Icons.close,
-                                                color: AppColors.white,
+                                                    );
+                                                  },
+                                                ),
                                               ),
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                            ),
-                                          ),
-                                          Positioned(
-                                              top: 0,
-                                              left: 0,
-                                              right: 0,
-                                              child: Obx(() => Center(
+                                              Positioned(
+                                                top: 0,
+                                                right: 0,
+                                                child: IconButton(
+                                                  icon: Icon(
+                                                    Icons.close,
+                                                    color: AppColors.white,
+                                                  ),
+                                                  onPressed: () {
+                                                    Get.back();
+                                                  },
+                                                ),
+                                              ),
+                                              Positioned(
+                                                  top: 0,
+                                                  left: 0,
+                                                  right: 0,
+                                                  child: Obx(() => Center(
                                                     child: EraText(
                                                       text:
-                                                          "${listingArgument.photos!.indexOf(controller.currentImage.value) + 1}/${listingArgument.photos!.length}",
+                                                      "${listingArgument.photos!.indexOf(controller.currentImage.value) + 1}/${listingArgument.photos!.length}",
                                                       color: AppColors.white,
                                                       fontSize: 20.sp,
                                                       fontWeight:
-                                                          FontWeight.bold,
+                                                      FontWeight.bold,
                                                     ),
                                                   ))),
-                                          Positioned(
-                                              bottom: 0,
-                                              left: 0,
-                                              right: 0,
-                                              child: Obx(() {
-                                                return Row(
-                                                  mainAxisAlignment:
+                                              Positioned(
+                                                  bottom: 0,
+                                                  left: 0,
+                                                  right: 0,
+                                                  child: Obx(() {
+                                                    return Row(
+                                                      mainAxisAlignment:
                                                       MainAxisAlignment.center,
-                                                  children: List.generate(
-                                                      listingArgument.photos!
-                                                          .length, (index) {
-                                                    bool isActive =
-                                                        listingArgument.photos![
-                                                                index] ==
-                                                            controller
-                                                                .currentImage
-                                                                .value;
+                                                      children: List.generate(
+                                                          listingArgument.photos!
+                                                              .length, (index) {
+                                                        bool isActive =
+                                                            listingArgument.photos![
+                                                            index] ==
+                                                                controller
+                                                                    .currentImage
+                                                                    .value;
 
-                                                    return Container(
-                                                      width: 10,
-                                                      height: 10,
-                                                      margin:
+                                                        return Container(
+                                                          width: 10,
+                                                          height: 10,
+                                                          margin:
                                                           EdgeInsets.all(5.sp),
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: isActive
-                                                            ? Colors.white
-                                                            : Colors.white
+                                                          decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
+                                                            color: isActive
+                                                                ? Colors.white
+                                                                : Colors.white
                                                                 .withOpacity(
-                                                                    0.5),
-                                                      ),
+                                                                0.5),
+                                                          ),
+                                                        );
+                                                      }),
                                                     );
-                                                  }),
-                                                );
-                                              })),
+                                                  })),
 
-                                          // Positioned(
-                                          //   bottom: 0,
-                                          //   left: 0,
-                                          //   right: 0,
-                                          //   child: Row(
-                                          //     mainAxisAlignment:
-                                          //         MainAxisAlignment.center,
-                                          //     children: List.generate(
-                                          //       listingArgument.photos!.length,
-                                          //       (index) => Padding(
-                                          //         padding: EdgeInsets.all(8.0),
-                                          //         child: Container(
-                                          //           width: 10,
-                                          //           height: 10,
-                                          //           decoration: BoxDecoration(
-                                          //             shape: BoxShape.circle,
-                                          //             color: controller.page ==
-                                          //                     index
-                                          //                 ? AppColors.kRedColor
-                                          //                 : AppColors.white,
-                                          //           ),
-                                          //         ),
-                                          //       ),
-                                          //     ),
-                                          //   ),
-                                          // )
-                                        ],
-                                      )
+                                              // Positioned(
+                                              //   bottom: 0,
+                                              //   left: 0,
+                                              //   right: 0,
+                                              //   child: Row(
+                                              //     mainAxisAlignment:
+                                              //         MainAxisAlignment.center,
+                                              //     children: List.generate(
+                                              //       listingArgument.photos!.length,
+                                              //       (index) => Padding(
+                                              //         padding: EdgeInsets.all(8.0),
+                                              //         child: Container(
+                                              //           width: 10,
+                                              //           height: 10,
+                                              //           decoration: BoxDecoration(
+                                              //             shape: BoxShape.circle,
+                                              //             color: controller.page ==
+                                              //                     index
+                                              //                 ? AppColors.kRedColor
+                                              //                 : AppColors.white,
+                                              //           ),
+                                              //         ),
+                                              //       ),
+                                              //     ),
+                                              //   ),
+                                              // )
+                                            ],
+                                          )
 
-                                      // InteractivePropertyImage(
-                                      //   images: listingArgument.photos!
-                                      //       .cast<String>(),
-                                      //   initialImageIndex: listingArgument.photos!
-                                      //       .indexOf(
-                                      //           listingArgument.photos!.first),
-                                      // ),
+                                        // InteractivePropertyImage(
+                                        //   images: listingArgument.photos!
+                                        //       .cast<String>(),
+                                        //   initialImageIndex: listingArgument.photos!
+                                        //       .indexOf(
+                                        //           listingArgument.photos!.first),
+                                        // ),
                                       ),
-                                );
-                              });
-                        },
-                        child: SizedBox(
-                            width: Get.width,
-                            height: Get.height,
-                            child: Obx(() {
-                              final displayImage =
+                                    );
+                                  });
+                            },
+                            child: SizedBox(
+                                width: Get.width,
+                                height: Get.height,
+                                child: Obx(() {
+                                  final displayImage =
                                   controller.currentImage.value.isNotEmpty
                                       ? controller.currentImage.value
                                       : listingArgument.photos!.isNotEmpty
-                                          ? listingArgument.photos!.first
-                                          : AppStrings.noUserImageWhite;
-                              if (kIsWeb) {
-                                return CloudStorage().imageLoader(
-                                  reference: displayImage,
-                                  fit: BoxFit.cover,
-                                  width: Get.width,
-                                  height: Get.height,
-                                );
-                              } else {
-                                return CloudStorage().imageLoader(
-                                  reference: displayImage,
-                                  fit: BoxFit.cover,
-                                  width: Get.width,
-                                  height: Get.height,
-                                );
-                              }
-                            })
+                                      ? listingArgument.photos!.first
+                                      : AppStrings.noUserImageWhite;
+                                  if (kIsWeb) {
+                                    return CloudStorage().imageLoader(
+                                      reference: displayImage,
+                                      fit: BoxFit.cover,
+                                      width: Get.width,
+                                      height: Get.height,
+                                    );
+                                  } else {
+                                    return CloudStorage().imageLoader(
+                                      reference: displayImage,
+                                      fit: BoxFit.cover,
+                                      width: Get.width,
+                                      height: Get.height,
+                                    );
+                                  }
+                                })
 
-                            // CloudStorage().imageLoader(
-                            //     reference: listingArgument.photos!.isNotEmpty
-                            //         ? listingArgument.photos!.first
-                            //         : AppStrings.noUserImageWhite),
+                              // CloudStorage().imageLoader(
+                              //     reference: listingArgument.photos!.isNotEmpty
+                              //         ? listingArgument.photos!.first
+                              //         : AppStrings.noUserImageWhite),
 
-                            // SizedBox(
-                            //   width: Get.width,
-                            //   height: Get.height,
-                            //   child: ImageWidget(
-                            //     thumbnailUrl: controller.currentImage.value == ''
-                            //         ? (controller.images.isNotEmpty
-                            //             ? controller.images.first
-                            //             : AppStrings.noUserImageWhite)
-                            //         : controller.currentImage.value,
-                            //     width: Get.width,
-                            //   ),
+                              // SizedBox(
+                              //   width: Get.width,
+                              //   height: Get.height,
+                              //   child: ImageWidget(
+                              //     thumbnailUrl: controller.currentImage.value == ''
+                              //         ? (controller.images.isNotEmpty
+                              //             ? controller.images.first
+                              //             : AppStrings.noUserImageWhite)
+                              //         : controller.currentImage.value,
+                              //     width: Get.width,
+                              //   ),
 
-                            // CloudStorage().imageLoader(
-                            //   reference: controller.currentImage.value == ''
-                            //       ? (controller.images.isNotEmpty
-                            //           ? controller.images.first
-                            //           : AppStrings.noUserImageWhite)
-                            //       : controller.currentImage.value,
-                            // ),
+                              // CloudStorage().imageLoader(
+                              //   reference: controller.currentImage.value == ''
+                              //       ? (controller.images.isNotEmpty
+                              //           ? controller.images.first
+                              //           : AppStrings.noUserImageWhite)
+                              //       : controller.currentImage.value,
+                              // ),
                             ),
-                      )),
+                          )),
                       Obx(() {
                         return Positioned(
                           bottom: 0.h,
@@ -302,9 +314,9 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                 child: Row(
                                   children: List.generate(
                                     listingArgument.photos!.length,
-                                    (index) {
+                                        (index) {
                                       final image =
-                                          listingArgument.photos![index];
+                                      listingArgument.photos![index];
                                       final isSelected =
                                           controller.currentImage.value ==
                                               image;
@@ -349,12 +361,12 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                               child: GestureDetector(
                                   onTap: () {
                                     controller.isFav.value =
-                                        !controller.isFav.value;
+                                    !controller.isFav.value;
                                     user!.addFavorites(listingArgument.id);
                                     Get.showSnackbar(GetSnackBar(
                                       title: "Success",
                                       message:
-                                          "${controller.isFav.value ? "Added" : "Removed"} to favorites",
+                                      "${controller.isFav.value ? "Added" : "Removed"} to favorites",
                                       backgroundColor: AppColors.kRedColor,
                                       duration: Duration(
                                           milliseconds: 500, seconds: 1),
@@ -368,11 +380,11 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                           blurRadius: 20)
                                     ],
                                     user!.favorites!
-                                            .contains(listingArgument.id)
+                                        .contains(listingArgument.id)
                                         ? CupertinoIcons.heart_fill
                                         : CupertinoIcons.heart_fill,
                                     color: user!.favorites!
-                                            .contains(listingArgument.id)
+                                        .contains(listingArgument.id)
                                         ? AppColors.kRedColor
                                         : AppColors.white,
                                     size: 45.sp,
@@ -837,10 +849,14 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                       var listing = newDocs[index];
                       return GestureDetector(
                         onTap: () async {
-                          print('sss');
+                          controller.listingsWebState.value = ListingsWebState.loading;
                           listingArgument = listing;
-                          selectedIndex.value = 12;
-                          Get.find<HomsController>().onNavbarItemSelected(12);
+                          controller.listingsWebState.value = ListingsWebState.loaded;
+                          controller.scrollController.animateTo(
+                            0.0,
+                            curve: Curves.easeOut,
+                            duration: const Duration(milliseconds: 300),
+                          );
                         },
                         child: Container(
                           width: 378.w,
