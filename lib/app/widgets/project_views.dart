@@ -18,6 +18,7 @@ import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../constants/sized_box.dart';
 import '../constants/theme.dart';
+import '../services/firebase_storage.dart';
 import 'app_text.dart';
 import 'image/image_widget.dart';
 
@@ -51,6 +52,25 @@ class ProjectViews {
     );
   }
 
+  _buildImage1(ref,{fit,height,width}){
+    return FutureBuilder(
+      future: CloudStorage().getFileBytes(docRef:ref),
+      builder: (context,snapshot){
+        if(snapshot.hasData){
+          return _buildImage(
+            image: MemoryImage(snapshot.data!),
+            height: height ?? 250.h,
+            width: width ?? Get.width,
+            fit: fit ?? BoxFit.cover
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
   build() {
     return CustomScrollView(shrinkWrap: true, slivers: [
       SliverList(
@@ -60,24 +80,13 @@ class ProjectViews {
 
             if (data['type'] == "Banner Images") {
               if (kIsWeb) {
-                //im not sure
-                return _buildImage(
-                  image: MemoryImage(data['image']),
-                  height: 250.h,
-                  width: Get.width,
-                );
+                _buildImage1(data['image']);
               } else {
                 return ImageWidget(
                   thumbnailUrl: data['image'],
                   height: 250.h,
                   width: Get.width,
                 );
-
-                // CloudStorage().imageLoaderProvider(
-                //   reference: data['image'],
-                //   height: 250.h,
-                //   width: Get.width,
-                // );
               }
             } else if (data['type'] == "Developer Name") {
               return EraText(
@@ -88,11 +97,12 @@ class ProjectViews {
               );
             } else if (data['type'] == "Project Logo") {
               if (kIsWeb) {
-                return _buildImage(
-                    image: MemoryImage(data['image']),
-                    fit: BoxFit.cover,
-                    height: 270.h,
-                    width: Get.width);
+                return _buildImage1(
+                  data['image'],
+                  fit: BoxFit.cover,
+                  height: 270.h,
+                  width: Get.width
+                );
               }
               return ImageWidget(
                 thumbnailUrl: data['image'],
@@ -106,6 +116,8 @@ class ProjectViews {
               // );
             } else if (data['type'] == "3D Virtual") {
               if (kIsWeb) {
+                var webViewController = WebViewController();
+
                 return Container(
                   padding:
                       EdgeInsets.symmetric(horizontal: 25.w, vertical: 15.h),
@@ -119,17 +131,38 @@ class ProjectViews {
                       ),
                       sb10(),
                       description(text: data['description']),
-                      Container(
-                        color: Colors.white,
-                        height: 150.h,
-                        width: Get.width,
-                        alignment: Alignment.center,
-                        child: EraText(
-                          color: Colors.black,
-                          fontSize: 20.sp,
-                          text: "No Preview for Web!",
-                        ),
-                      )
+                      FutureBuilder(
+                          future: loadLink(
+                              "https://api.eraphilippines.com/proxy.php?url=${data['link']}",
+                              webViewController),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              // var params =
+                              //     const PlatformWebViewControllerCreationParams();
+                              // var webview =
+                              //     WebViewController.fromPlatformCreationParams(
+                              //   params,
+                              //   onPermissionRequest:
+                              //       (WebViewPermissionRequest request) {
+                              //     request.grant();
+                              //   },
+                              // );
+                              return SizedBox(
+                                width: Get.width,
+                                height: 700.h,
+                                child: GestureDetector(
+                                  child: WebViewWidget(
+                                    controller: webViewController,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          }),
+                      sb20(),
                     ],
                   ),
                 );
@@ -205,8 +238,8 @@ class ProjectViews {
                     sb30(),
                     Builder(builder: (context) {
                       if (kIsWeb) {
-                        return _buildImage(
-                            image: MemoryImage(data['image']),
+                        return _buildImage1(
+                            data['image'],
                             height: 250.h,
                             width: Get.width);
                       }
@@ -260,10 +293,9 @@ class ProjectViews {
                       Builder(
                         builder: (context) {
                           if (kIsWeb) {
-                            return _buildImage(
-                                image: MemoryImage(data['image']),
-                                height: 250.h,
-                                width: Get.width);
+                            return _buildImage1(
+                              data['image'],
+                            );
                           }
                           return ImageWidget(
                             thumbnailUrl: data['image'],
@@ -351,12 +383,9 @@ class ProjectViews {
                                               if (kIsWeb) {
                                                 return Wrap(
                                                   children: [
-                                                    _buildImage(
-                                                      image: MemoryImage(
-                                                          data['images']
-                                                              [index]),
+                                                    _buildImage1(
+                                                      data['images'][index],
                                                       height: Get.height,
-                                                      width: Get.width,
                                                     )
                                                   ],
                                                 );
@@ -438,8 +467,8 @@ class ProjectViews {
                               }
 
                               if (kIsWeb) {
-                                return _buildImage(
-                                  image: MemoryImage(displayImage),
+                                return _buildImage1(
+                                  displayImage,
                                   width: Get.width,
                                   height: 50.h,
                                 );
@@ -488,8 +517,8 @@ class ProjectViews {
                                     child: Builder(
                                       builder: (context) {
                                         if (kIsWeb) {
-                                          return _buildImage(
-                                            image: MemoryImage(image),
+                                          return _buildImage1(
+                                            image,
                                             width: Get.width / 6,
                                             height: 70.h,
                                           );
@@ -535,8 +564,8 @@ class ProjectViews {
                       Builder(
                         builder: (context) {
                           if (kIsWeb) {
-                            return _buildImage(
-                                image: MemoryImage(data['image']),
+                            return _buildImage1(
+                                data['image'],
                                 height: 250.h,
                                 width: Get.width);
                           }
@@ -626,10 +655,8 @@ class ProjectViews {
                                               if (kIsWeb) {
                                                 return Wrap(
                                                   children: [
-                                                    _buildImage(
-                                                      image: MemoryImage(
-                                                          data['images']
-                                                              [index]),
+                                                    _buildImage1(
+                                                      data['images'][index],
                                                       height: Get.height,
                                                       width: Get.width,
                                                     )
@@ -712,8 +739,8 @@ class ProjectViews {
                               }
 
                               if (kIsWeb) {
-                                return _buildImage(
-                                  image: MemoryImage(displayImage),
+                                return _buildImage1(
+                                  displayImage,
                                   width: Get.width,
                                   height: 50.h,
                                 );
@@ -762,8 +789,8 @@ class ProjectViews {
                                       child: Builder(
                                         builder: (context) {
                                           if (kIsWeb) {
-                                            return _buildImage(
-                                              image: MemoryImage(image),
+                                            return _buildImage1(
+                                              image,
                                               width: Get.width / 6,
                                               height: 70.h,
                                             );
@@ -813,8 +840,8 @@ class ProjectViews {
                               child: Builder(
                                 builder: (context) {
                                   if (kIsWeb) {
-                                    return _buildImage(
-                                      image: MemoryImage(image),
+                                    return _buildImage1(
+                                      image,
                                       width: Get.width,
                                       height: Get.height,
                                     );
