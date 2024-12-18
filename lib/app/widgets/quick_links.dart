@@ -79,11 +79,14 @@ class QuickLinksModel {
       child: Column(
         children: [
           Container(
-            height: 200.h,
-            width: 150.h,
+            //  color: AppColors.black,
+            height: 220.h,
+            width: 200.w,
             decoration: BoxDecoration(
+                // color: AppColors.black,
                 borderRadius: BorderRadius.circular(10.r),
                 image: DecorationImage(
+                    //  fit: BoxFit.co,
                     image: CachedNetworkImageProvider(
                         await CloudStorage().getFileDirect(docRef: icon)))),
           ),

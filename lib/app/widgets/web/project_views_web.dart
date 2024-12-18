@@ -80,7 +80,7 @@ class ProjectViewsWeb extends StatelessWidget {
                   if (data['type'] == "Banner Images") {
                     return CloudStorage().imageLoaderProvider(
                         reference: data['image'],
-                        height: Get.height / 1.5,
+                        height: Get.height / 1.2,
                         fit: BoxFit.fill,
                         width: Get.width);
                   } else if (data['type'] == "Developer Name") {
@@ -569,7 +569,7 @@ class ProjectViewsWeb extends StatelessWidget {
                       );
                     } else if (data['sub_type'] == 'gallery') {
                       return SizedBox(
-                        height: 350.h,
+                        height: Get.height,
                         child: Stack(
                           children: [
                             Positioned(
@@ -828,26 +828,6 @@ class ProjectViewsWeb extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-
-                                            //  Container(
-                                            //   margin: EdgeInsets.symmetric(
-                                            //       horizontal: 5.w),
-                                            //   width: Get.width / 7,
-                                            //   decoration: BoxDecoration(
-                                            //     border: Border.all(
-                                            //       color: AppColors.hint
-                                            //           .withOpacity(0.9),
-                                            //       width:
-                                            //           isSelected ? 5.w : 1.w,
-                                            //     ),
-                                            //   ),
-                                            //   child:
-                                            //       CloudStorage().imageLoader(
-                                            //     width: Get.width / 7,
-                                            //     height: Get.height,
-                                            //     reference: image,
-                                            //   ),
-                                            // ),
                                           );
                                         },
                                       ),
@@ -856,6 +836,12 @@ class ProjectViewsWeb extends StatelessWidget {
                                 ),
                               );
                             }),
+                            Positioned(
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              child: sb20(),
+                            ),
                           ],
                         ),
                       );
@@ -1875,32 +1861,65 @@ class ProjectViewsWeb extends StatelessWidget {
           orElse: () => null,
         );
 
-        preview.add(Card(
-          elevation: 5,
-          margin: EdgeInsets.all(16.0),
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
+        preview.add(
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.sp),
+            ),
+            elevation: 10,
+            shadowColor: Colors.grey.withOpacity(0.5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (logoBlock != null)
-                  CloudStorage().imageLoader(
-                    reference: logoBlock['image'],
-                    height: 250.0,
-                    width: Get.width,
-                    fit: BoxFit.cover,
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(15.sp)),
+                        child: Container(
+                          height: 450.h,
+                          child: CloudStorage().imageLoader(
+                            reference: logoBlock['image'],
+                            height: Get.height,
+                            width: Get.width,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      //  Positioned.fill(
+                      //   child: Container(
+                      //     decoration: BoxDecoration(
+                      //       gradient: LinearGradient(
+                      //         colors: [
+                      //           Colors.black.withOpacity(0.3),
+                      //           Colors.transparent,
+                      //         ],
+                      //         begin: Alignment.topCenter,
+                      //         end: Alignment.bottomCenter,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
                   ),
-                SizedBox(height: 16.0),
-                CloudStorage().imageLoader(
-                  reference: block['image'],
-                  height: 150.0,
-                  width: Get.width,
-                  fit: BoxFit.cover,
+                ClipRRect(
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(15.sp)),
+                  child: Container(
+                    height: 200.h,
+                    child: CloudStorage().imageLoader(
+                      reference: block['image'],
+                      height: Get.height,
+                      width: Get.width,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-        ));
+        );
       }
     }
 
@@ -1939,7 +1958,7 @@ class ProjectViewsWeb extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          Image.asset(icon, width: 80.w, height: 80.h),
+          Image.asset(icon, width: 180.w, height: 180.h),
           EraText(
             text: controller.text + hintText,
             fontSize: EraTheme.bodyText,

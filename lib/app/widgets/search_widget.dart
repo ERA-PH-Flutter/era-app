@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../constants/theme.dart';
+
 class SearchWidget extends StatelessWidget {
   const SearchWidget({super.key, required this.onTap});
   final VoidCallback onTap;
@@ -31,7 +33,7 @@ class SearchWidget extends StatelessWidget {
             ),
             EraText(
               text: 'SEARCH',
-              fontSize: 20.sp,
+              fontSize: EraTheme.h6,
               fontWeight: FontWeight.w400,
             ),
           ],

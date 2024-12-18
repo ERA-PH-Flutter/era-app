@@ -86,7 +86,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                           },
                           text: "AGENT/BROKER LOGIN",
                           bgColor: AppColors.kRedColor,
-                          fontSize: 20.sp,
+                          fontSize: 22.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       );
@@ -131,7 +131,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                         ? AppColors.kRedColor
                         : Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: EraTheme.subHeader,
+                fontSize: EraTheme.h4,
               ),
             ),
             SizedBox(height: 4),
@@ -293,7 +293,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                         text: 'MORE',
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: EraTheme.subHeader,
+                        fontSize: EraTheme.h4,
                       ),
                       Icon(Icons.arrow_drop_down),
                     ],

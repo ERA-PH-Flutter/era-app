@@ -170,25 +170,59 @@ class HomeWebController extends GetxController {
         label: 'AUCTION'));
   }
 
-  getProjects() async {
-    projects.clear();
+getProjects() async {
+  projects.clear();
 
-    if (settings!.featuredProjects != null) {
-      for (int i = 0; i < settings!.featuredProjects!.length; i++) {
-        var pr = await Project.getById(settings!.featuredProjects![i]);
-        var previewWidgets = ProjectViewsWeb(project: pr).HomebuildPreview();
-        projects.addAll(previewWidgets.map((widget) {
-          return GestureDetector(
-            onTap: () {
-              projectArgument = pr;
-              HomsController homsController = Get.find<HomsController>();
-              selectedIndex.value = 14;
-              homsController.onNavbarItemSelected(14);
-            },
-            child: widget,
-          );
-        }));
-      }
+  if (settings!.featuredProjects != null) {
+    for (int i = 0; i < settings!.featuredProjects!.length; i++) {
+      var pr = await Project.getById(settings!.featuredProjects![i]);
+      var previewWidgets = ProjectViewsWeb(project: pr).HomebuildPreview();
+      projects.addAll(previewWidgets.map((widget) {
+        return GestureDetector(
+          onTap: () {
+            projectArgument = pr;
+            HomsController homsController = Get.find<HomsController>();
+            selectedIndex.value = 14;
+            homsController.onNavbarItemSelected(14);
+          },
+          child: widget,
+        );
+      }));
     }
   }
 }
+
+}
+
+  // getProjects() async {
+  //   projects.clear();
+  //   if (settings!.featuredProjects != null) {
+  //     for (int i = 0; i < settings!.featuredProjects!.length; i++) {
+  //       var pr = await Project.getById(settings!.featuredProjects![i]);
+  //       projects.add(GestureDetector(
+  //         onTap: () {
+  //           //   selectedIndex.value = 14;
+  //           // Get.find<HomsController>().onNavbarItemSelected(14);
+  //           // Get.to(ProjectViewWeb(),
+  //           //     binding: ProjectViewWebBinding(), arguments: pr);
+          
+  //         },
+  //         child: GridView.builder(
+  //             shrinkWrap: true,
+  //             physics: NeverScrollableScrollPhysics(),
+  //             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //               crossAxisCount: 3,
+  //               crossAxisSpacing: 10.w,
+  //               mainAxisSpacing: 10.h,
+  //               childAspectRatio: 0.7,
+  //             ),
+  //             itemCount: ProjectViewsWeb(project: pr).HomebuildPreview().length,
+  //             itemBuilder: (context, index) {
+  //               return Container(
+  //                 child: ProjectViewsWeb(project: pr).HomebuildPreview()[index],
+  //               );
+  //             }),
+  //       ));
+  //     }
+  //   }
+  // }

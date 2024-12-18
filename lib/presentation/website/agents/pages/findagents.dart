@@ -43,6 +43,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
             fit: BoxFit.cover,
             width: Get.width,
+            height: Get.height / 1.2,
           ),
           // SizedBox(
           //   height: Get.height - 330.h,
@@ -68,7 +69,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                   children: [
                     EraText(
                       text: 'Find an ERA Real Estate Agent',
-                      fontSize: EraTheme.headerWeb,
+                      fontSize: EraTheme.h1,
                       fontWeight: FontWeight.w600,
                       color: AppColors.kRedColor,
                       textAlign: TextAlign.center,
@@ -76,30 +77,37 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                     BoxWidget.build(
                       child: Column(
                         children: [
+                          SizedBox(height: 15.h),
+
+                          SizedBox(
+                            height: 55.h,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Obx(() {
+                                if (!searchResultController
+                                    .showFullSearch.value) {
+                                  return AppTextField(
+                                      onPressed: () {},
+                                      controller: searchResultController
+                                          .aiSearchController,
+                                      hint: 'Use AI Search',
+                                      svgIcon: AppEraAssets.ai3,
+                                      bgColor: AppColors.white,
+                                      isSuffix: true,
+                                      obscureText: false,
+                                      onSuffixTap: () async {
+                                        await controller.aiSearch(
+                                            searchResultController
+                                                .aiSearchController.text);
+                                      },
+                                      suffixIcons: AppEraAssets.send);
+                                }
+                                return Container();
+                              }),
+                            ),
+                          ),
+
                           SizedBox(height: 10.h),
-
-                          Obx(() {
-                            if (!searchResultController.showFullSearch.value) {
-                              return AppTextField(
-                                  onPressed: () {},
-                                  controller:
-                                      searchResultController.aiSearchController,
-                                  hint: 'Use AI Search',
-                                  svgIcon: AppEraAssets.ai3,
-                                  bgColor: AppColors.white,
-                                  isSuffix: true,
-                                  obscureText: false,
-                                  onSuffixTap: () async {
-                                    await controller.aiSearch(
-                                        searchResultController
-                                            .aiSearchController.text);
-                                  },
-                                  suffixIcons: AppEraAssets.send);
-                            }
-                            return Container();
-                          }),
-
-                          SizedBox(height: 5.h),
                           GestureDetector(
                             onTap: () {
                               searchResultController.expanded.value =
@@ -113,7 +121,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                     text: searchResultController.expanded.value
                                         ? "Back to AI Search"
                                         : "Filtered Search",
-                                    fontSize: 15.sp,
+                                    fontSize: EraTheme.bodyText,
                                     textDecoration: TextDecoration.underline,
                                   )),
                             ),
@@ -147,7 +155,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                               color: AppColors.white),
                                           SizedBox(height: 5.h),
                                           Container(
-                                            height: 50.h,
+                                            height: 60.h,
                                             child: TextformfieldWidget(
                                               style: TextStyle(
                                                 fontSize: 20.sp,
@@ -294,7 +302,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
           if (snapshot.hasData) {
             return EraText(
               text: "${snapshot.data!.count} ERA Agents",
-              fontSize: EraTheme.paragraphWeb + 6.sp,
+              fontSize: EraTheme.h1,
               fontWeight: FontWeight.bold,
               color: AppColors.kRedColor,
               textAlign: TextAlign.center,
@@ -306,17 +314,13 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
       ),
       EraText(
         text: "Your Go-To Professionals for Seamless Property Transactions",
-        fontSize: EraTheme.paragraphWeb,
+        fontSize: EraTheme.h2,
         fontWeight: FontWeight.w600,
         color: AppColors.hint,
         textAlign: TextAlign.start,
       ),
       // Obx(() => EraText(
-      //       text: controller.resultText.value,
-      //       fontSize: 22.sp,
-      //       fontWeight: FontWeight.w600,
-      //       color: AppColors.blue,
-      //     )),
+
       Obx(
         () => AgentListViewWeb(agentInfo: controller.results.value),
       )

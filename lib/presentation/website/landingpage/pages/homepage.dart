@@ -84,20 +84,17 @@ class HomePages extends GetResponsiveView<HomsController> {
 
   Widget _buildFooter() {
     return Column(
-      // crossAxisAlignment: CrossAxisAlignment.center,
-      // mainAxisAlignment: MainAxisAlignment.center,
-
       children: [
         Card(
           color: AppColors.white,
           elevation: 7,
           child: Container(
             padding: EdgeInsets.symmetric(
-                horizontal: EraTheme.paddingWidthAdmin * 3),
+                horizontal: EraTheme.paddingWidthAdmin * 3, vertical: 20),
             width: Get.width,
-            height: Get.height / 2.8,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _columnListing(),
                 _columnNews(),
@@ -110,10 +107,11 @@ class HomePages extends GetResponsiveView<HomsController> {
         Container(
           width: Get.width,
           height: 80.h,
+          color: AppColors.blue2,
           child: Center(
             child: EraText(
-              text: '© 2024 ERA Real Estate Philipines. All rights reserved.',
-              color: AppColors.blue2,
+              text: '© 2024 ERA Real Estate Philippines. All rights reserved.',
+              color: AppColors.white,
               fontSize: EraTheme.paragraphWeb - 15.sp,
             ),
           ),
@@ -130,35 +128,15 @@ class HomePages extends GetResponsiveView<HomsController> {
         EraText(
           text: 'LISTINGS',
           color: AppColors.blue2,
-          fontSize: EraTheme.subHeaderWeb - 5.sp,
+          fontSize: EraTheme.h2,
           fontWeight: FontWeight.bold,
         ),
         sb10(),
-        EraText(
-          text: 'Pre-Launched Projects',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Residential',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Commercial',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Rental',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Auction',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
+        _buildLinkText('Pre-Launched Projects'),
+        _buildLinkText('Residential'),
+        _buildLinkText('Commercial'),
+        _buildLinkText('Rental'),
+        _buildLinkText('Auction'),
       ],
     );
   }
@@ -171,50 +149,18 @@ class HomePages extends GetResponsiveView<HomsController> {
         EraText(
           text: 'NEWS',
           color: AppColors.blue2,
-          fontSize: EraTheme.subHeaderWeb - 5.sp,
+          fontSize: EraTheme.h2,
           fontWeight: FontWeight.bold,
         ),
         sb10(),
-        EraText(
-          text: 'ERA GLOBAL',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'ERA Asia Pacific',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'ERA Singapore',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'We Are ERA',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Press Room',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Careers',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Privacy Policy',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Security Policy',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
+        _buildLinkText('ERA GLOBAL'),
+        _buildLinkText('ERA Asia Pacific'),
+        _buildLinkText('ERA Singapore'),
+        _buildLinkText('We Are ERA'),
+        _buildLinkText('Press Room'),
+        _buildLinkText('Careers'),
+        _buildLinkText('Privacy Policy'),
+        _buildLinkText('Security Policy'),
       ],
     );
   }
@@ -227,45 +173,17 @@ class HomePages extends GetResponsiveView<HomsController> {
         EraText(
           text: 'ABOUT US',
           color: AppColors.blue2,
-          fontSize: EraTheme.subHeaderWeb - 5.sp,
+          fontSize: EraTheme.h2,
           fontWeight: FontWeight.bold,
         ),
         sb10(),
-        EraText(
-          text: 'Join As Agent',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Why Us?',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'ERA Teach Tools',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Ultimate Agent',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Training',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Our Services',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
-        EraText(
-          text: 'Contact Us',
-          color: AppColors.blue2,
-          fontSize: EraTheme.paragraphWeb - 10.sp,
-        ),
+        _buildLinkText('Join As Agent'),
+        _buildLinkText('Why Us?'),
+        _buildLinkText('ERA Teach Tools'),
+        _buildLinkText('Ultimate Agent'),
+        _buildLinkText('Training'),
+        _buildLinkText('Our Services'),
+        _buildLinkText('Contact Us'),
       ],
     );
   }
@@ -278,69 +196,62 @@ class HomePages extends GetResponsiveView<HomsController> {
         EraText(
           text: 'ERA PHILLIPINES',
           color: AppColors.blue2,
-          fontSize: EraTheme.subHeaderWeb - 5.sp,
+          fontSize: EraTheme.h2,
           fontWeight: FontWeight.bold,
         ),
         sb10(),
         Row(
           children: [
-            Row(
-              children: [
-                Container(
-                  color: AppColors.hint.withOpacity(0.1),
-                  child: Image.asset(
-                    fit: BoxFit.cover,
-                    AppEraAssets.eraPh,
-                    height: 150.h,
-                    width: 150.w,
-                  ),
-                )
-              ],
+            Container(
+              color: AppColors.hint.withOpacity(0.1),
+              child: Image.asset(
+                fit: BoxFit.cover,
+                AppEraAssets.eraPh,
+                height: 150.h,
+                width: 150.w,
+              ),
             ),
             sbw10(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                EraText(
-                  text: 'Address',
-                  color: AppColors.blue2,
-                  fontSize: EraTheme.paragraphWeb - 10.sp,
-                ),
-                EraText(
-                  text: 'ERA APAC Centre 3000',
-                  color: AppColors.blue2,
-                  fontSize: EraTheme.paragraphWeb - 10.sp,
-                ),
-                EraText(
-                  text: 'Somewhere in the Philippines',
-                  fontSize: EraTheme.paragraphWeb - 10.sp,
-                  color: AppColors.blue2,
-                ),
-                GestureDetector(
+                _buildLinkText('Address'),
+                _buildLinkText('ERA APAC Centre 3000'),
+                _buildLinkText('Somewhere in the Philippines'),
+                _buildLinkTextWithIcon(
+                  'Phone: +639177710572',
                   onTap: () {
                     launchUrl(controller.whatsappUrl);
                   },
-                  child: EraText(
-                    text: 'Phone: +639177710572',
-                    fontSize: EraTheme.paragraphWeb - 10.sp,
-                    color: AppColors.blue2,
-                  ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    launchUrl(controller.emailUrl);
-                  },
-                  child: EraText(
-                    text: 'Email: sales@eraphilippines.com',
-                    fontSize: EraTheme.paragraphWeb - 10.sp,
-                    color: AppColors.blue2,
-                  ),
-                ),
+                _buildLinkTextWithIcon('Email: sales@eraphilippines.com',
+                    onTap: () {
+                  launchUrl(controller.emailUrl);
+                }),
               ],
             ),
           ],
-        )
+        ),
       ],
+    );
+  }
+
+  Widget _buildLinkText(String text) {
+    return EraText(
+      text: text,
+      color: AppColors.blue2,
+      fontSize: EraTheme.bodyText,
+    );
+  }
+
+  Widget _buildLinkTextWithIcon(String text, {void Function()? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: EraText(
+        text: text,
+        fontSize: EraTheme.paragraphWeb - 10.sp,
+        color: AppColors.blue2,
+      ),
     );
   }
 }

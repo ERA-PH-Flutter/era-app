@@ -196,7 +196,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
           SizedBox(height: 10.h),
           if (!showFullSearch.value)
             SizedBox(
-              height: 48.h,
+              height: 55.h,
               child: CupertinoTextField(
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w400, fontSize: 20.sp),
@@ -278,7 +278,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                     text: expanded.value
                         ? "Back to AI Search"
                         : "Filtered Search",
-                    fontSize: 15.sp,
+                    fontSize: EraTheme.bodyText,
                     textDecoration: TextDecoration.underline,
                   )),
             ),
@@ -355,18 +355,16 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     },
                                     controller: controllerPriceMin,
                                     decoration: InputDecoration(
-                                      constraints: const BoxConstraints(
-                                          maxHeight: 70, minHeight: 35),
-                                      isDense: true,
+                                      //  isDense: true,
                                       prefixIcon: Padding(
                                         padding: EdgeInsets.only(
                                           left: 5.w,
-                                          top: 8.h,
+                                          top: 5.h,
                                         ),
                                         child: EraText(
                                             textAlign: TextAlign.center,
                                             text: 'PHP:',
-                                            fontSize: 18.sp,
+                                            fontSize: EraTheme.h6,
                                             color: AppColors.black),
                                       ),
                                       contentPadding: EdgeInsets.symmetric(
@@ -374,6 +372,10 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       hintText: 'Min Price',
                                       fillColor: AppColors.white,
                                       filled: true,
+
+                                      hintStyle: TextStyle(
+                                        fontSize: EraTheme.h6,
+                                      ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
                                         borderSide: BorderSide(
@@ -418,18 +420,21 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       prefixIcon: Padding(
                                         padding: EdgeInsets.only(
                                           left: 5.w,
-                                          top: 8.h,
+                                          top: 5.h,
                                         ),
                                         child: EraText(
                                             textAlign: TextAlign.center,
                                             text: 'PHP:',
-                                            fontSize: 18.sp,
+                                            fontSize: EraTheme.h6,
                                             color: AppColors.black),
                                       ),
                                       contentPadding: EdgeInsets.zero,
                                       hintText: 'Max Price',
                                       fillColor: AppColors.white,
                                       filled: true,
+                                      hintStyle: TextStyle(
+                                        fontSize: EraTheme.h6,
+                                      ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
                                         borderSide: BorderSide(
@@ -470,7 +475,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   EraText(
                                       text: 'BUY',
                                       color: AppColors.white.withOpacity(0.6),
-                                      fontSize: 15.0.sp,
+                                      fontSize:  EraTheme.h6, 
                                       fontWeight: FontWeight.w500),
                                 ],
                               ),
@@ -492,7 +497,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   EraText(
                                       text: 'RENT',
                                       color: AppColors.white.withOpacity(0.6),
-                                      fontSize: 15.0.sp,
+                                      fontSize:  EraTheme.h6,
                                       fontWeight: FontWeight.w500),
                                 ],
                               ),
@@ -502,7 +507,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                         SizedBox(height: 10.h),
                         SizedBox(
                           width: Get.width,
-                          height: 53.h,
+                          height: 55.h,
                           child: ElevatedButton.icon(
                             style: ButtonStyle(
                               backgroundColor:
@@ -540,7 +545,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             label: EraText(
                               text: 'More Filters',
                               color: AppColors.black,
-                              fontSize: 15.sp,
+                                 fontSize:  EraTheme.h6,
                               fontWeight: FontWeight.w500,
                             ),
                             icon: Icon(
@@ -748,7 +753,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                 });
                               }),
                             ),
-                         
                             Obx(() {
                               if (selectedLocation.value != null ||
                                   selectedPropertyTypeSearch.value != null ||

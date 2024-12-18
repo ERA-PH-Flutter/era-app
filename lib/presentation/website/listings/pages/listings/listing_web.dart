@@ -34,7 +34,7 @@ class BuyWeb extends GetView<ListingsWebController> {
           ),
           EraText(
             text: "Property searches made simple.",
-            fontSize: EraTheme.headerWeb,
+            fontSize: EraTheme.h1,
             fontWeight: FontWeight.bold,
             color: AppColors.kRedColor,
           ),
@@ -80,13 +80,13 @@ class BuyWeb extends GetView<ListingsWebController> {
                 children: [
                   EraText(
                     text: 'Showcased Listings',
-                    fontSize: EraTheme.headerWeb,
+                    fontSize: EraTheme.h1,
                     color: AppColors.kRedColor,
                     fontWeight: FontWeight.w800,
                   ),
                   EraText(
                     text: 'Explore Our Top Picks',
-                    fontSize: EraTheme.paragraphWeb,
+                    fontSize: EraTheme.h2,
                     color: AppColors.black,
                     fontWeight: FontWeight.w300,
                   ),

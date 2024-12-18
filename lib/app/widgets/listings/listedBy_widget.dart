@@ -52,7 +52,7 @@ class ListedBy extends StatelessWidget {
         EraText(
           text: text ?? 'Listed By:',
           fontWeight: FontWeight.bold,
-          fontSize: EraTheme.paragraph,
+          fontSize: EraTheme.h2,
           color: AppColors.black,
         ),
         SizedBox(height: 10.h),
@@ -80,7 +80,7 @@ class ListedBy extends StatelessWidget {
                     width: 200.w,
                     child: EraText(
                       text: '$agentFirstName $agentLastName',
-                      fontSize: EraTheme.paragraph,
+                      fontSize: EraTheme.bodyText,
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                       textOverflow: TextOverflow.ellipsis,
@@ -90,7 +90,7 @@ class ListedBy extends StatelessWidget {
                     text: agentType == 'agent'
                         ? 'ERA Infinity Agent'
                         : 'ERA Infinity Broker',
-                    fontSize: EraTheme.paragraph - 4.sp,
+                    fontSize: EraTheme.h6,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black,
                   ),
@@ -127,7 +127,7 @@ class ListedBy extends StatelessWidget {
                     width: 250.w,
                     child: EraText(
                       text: whatsapp!,
-                      fontSize: 18.sp,
+                      fontSize: EraTheme.bodyText,
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                       textOverflow: TextOverflow.ellipsis,
@@ -162,10 +162,10 @@ class ListedBy extends StatelessWidget {
                   ),
                   sbw10(),
                   Container(
-                    width: 250.w,
+                    width: 320.w,
                     child: EraText(
                       text: email!,
-                      fontSize: 18.sp,
+                      fontSize: EraTheme.bodyText,
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                       textOverflow: TextOverflow.ellipsis,

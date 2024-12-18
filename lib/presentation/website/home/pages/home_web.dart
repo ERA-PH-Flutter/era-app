@@ -199,20 +199,66 @@ class HomeWeb extends GetView<HomeWebController> {
           //Container(color: AppColors.black, child: ),
           //projects
 
+          // Container(
+          //   height: Get.height,
+          //   width: Get.width,
+          //   padding: EdgeInsets.symmetric(
+          //       horizontal: EraTheme.paddingWidthAdmin * 3),
+          //   child: GridView.builder(
+          //     shrinkWrap: true,
+          //     physics: NeverScrollableScrollPhysics(),
+          //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //       crossAxisCount: 3,
+          //     ),
+          //     itemCount: controller.projects.length,
+          //     itemBuilder: (context, index) {
+          //       return ClipRRect(
+          //           borderRadius: BorderRadius.circular(20),
+          //           child: controller.projects[index]);
+          //     },
+          //   ),
+          // ),
           Container(
-            height: 500.h,
+            width: Get.width,
+            padding: EdgeInsets.symmetric(
+                horizontal: EraTheme.paddingWidthAdmin * 3),
             child: GridView.builder(
-              shrinkWrap: false,
+              shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                childAspectRatio: 0.8,
               ),
               itemCount: controller.projects.length,
               itemBuilder: (context, index) {
-                return controller.projects[index];
+                return Padding(
+                  padding: EdgeInsets.all(8.sp),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            blurRadius: 10,
+                            offset: Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: 0.7,
+                        child: controller.projects[index],
+                      ),
+                    ),
+                  ),
+                );
               },
             ),
           ),
+
           // Column(children: controller.projects),
 
           Container(
@@ -222,7 +268,6 @@ class HomeWeb extends GetView<HomeWebController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 sb70(),
-
                 viewOtherProjects(
                     text: 'View other projects',
                     onTap: () => Get.toNamed("/project-main")),
@@ -243,7 +288,6 @@ class HomeWeb extends GetView<HomeWebController> {
                   fontWeight: FontWeight.bold,
                 ),
                 sb20(),
-
                 Divider(
                   color: AppColors.black,
                   thickness: 2.1,
@@ -270,416 +314,405 @@ class HomeWeb extends GetView<HomeWebController> {
                 ),
                 sb70(),
                 SizedBox(
-                  height: Get.height / 1.4,
-                  width: Get.width,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: controller.listings.length,
-                      itemBuilder: (context, index) {
-                        Listing listing = controller.listings[index];
-                        return GestureDetector(
-                          onTap: () async {
-                            listingArgument = listing;
-                            a.selectedIndex.value = 12;
-                            Get.find<HomsController>().onNavbarItemSelected(12);
-                            // await Database().addViews(listing.id);
-                            // Get.toNamed('/propertyInfo', arguments: listing);
-                          },
-                          child: Container(
-                            width: 378.w,
-                            // margin: EdgeInsets.only(
-                            //     bottom: 16.h, right: 10.w),
-                            padding: EdgeInsets.zero,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.r),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      offset: Offset(0, 0),
-                                      spreadRadius: 1,
-                                      blurRadius: 10,
-                                      color: Colors.black12)
-                                ]),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  child: CloudStorage().imageLoader(
-                                    reference: listing.photos != null
-                                        ? (listing.photos!.isNotEmpty
-                                            ? listing.photos!.first
-                                            : AppStrings.noUserImageWhite)
-                                        : AppStrings.noUserImageWhite,
-                                    width: Get.width,
-                                    height: 300.h,
-                                  ),
-                                ),
-                                sb17(),
-                                Container(
-                                  width: Get.width,
-                                  // height: 50.h,
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 14.w),
-                                  child: EraText(
-                                    textOverflow: TextOverflow.ellipsis,
-                                    text: listing.name! == ""
-                                        ? "No Name"
-                                        : listing.name!,
-                                    fontSize: EraTheme.h4,
-                                    color: AppColors.kRedColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 14.w),
-                                  child: EraText(
-                                    text: listing.type!,
-                                    fontSize: EraTheme.h6,
-                                    color: AppColors.black,
-                                    fontWeight: FontWeight.bold,
-                                    lineHeight: 1,
-                                  ),
-                                ),
-                                sb5(),
-                                Row(
-                                  //crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                          AppEraAssets.area,
-                                          width: 55.w,
-                                          height: 55.w,
-                                        ),
-                                        SizedBox(width: 2.w),
-                                        EraText(
-                                          text: '${listing.floorArea} sqm',
-                                          fontSize: EraTheme.sbodyText,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.black,
-                                        ),
-                                      ],
-                                    ),
-                                    sbw10(),
-                                    Image.asset(
-                                      AppEraAssets.bed,
-                                      width: 55.w,
-                                      height: 55.w,
-                                    ),
-                                    EraText(
-                                      text: '${listing.beds}',
-                                      fontSize: EraTheme.sbodyText,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.black,
-                                    ),
-                                    sbw10(),
-                                    Image.asset(
-                                      AppEraAssets.tub,
-                                      width: 55.w,
-                                      height: 55.w,
-                                    ),
-                                    EraText(
-                                      text: '${listing.baths}',
-                                      fontSize: EraTheme.sbodyText,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.black,
-                                    ),
-                                    sbw10(),
-                                    Image.asset(
-                                      AppEraAssets.car,
-                                      width: 55.w,
-                                      height: 55.w,
-                                    ),
-                                    EraText(
-                                      text: '${listing.cars}',
-                                      fontSize: EraTheme.sbodyText,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.black,
-                                    ),
-                                  ],
-                                ),
-                                sb5(),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 14.w),
-                                  child: EraText(
-                                    text: 'Descriptions:',
-                                    fontSize: EraTheme.bodyText,
-                                    color: AppColors.black,
-                                    fontWeight: FontWeight.w600,
-                                    lineHeight: 1,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 14.w),
-                                  child: Text(
-                                    listing.description == ""
-                                        ? "No description."
-                                        : listing.description!,
-                                    style: TextStyle(
-                                      fontSize: EraTheme.caption,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.black,
-                                    ),
-                                    maxLines: 5,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 14.w),
-                                  child: EraText(
-                                    text: NumberFormat.currency(
-                                            locale: 'en_PH', symbol: 'PHP ')
-                                        .format(
-                                      listing.price.toString() == ""
-                                          ? 0
-                                          : listing.price,
-                                    ),
-                                    color: AppColors.blue,
-                                    fontSize: EraTheme.h6,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                //TODO: Nikko
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed("/searchresult");
-                  },
-                  child: viewOtherProjects(
-                    text: 'View more listings',
-                  ),
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                // same widget as the oone in the my dashboard wfaill change it later
-                Container(
-                  color: AppColors.hint.withOpacity(0.1),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 50.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          EraText(
-                              text: 'COMPANY NEWS',
-                              fontSize: EraTheme.subHeaderWeb,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.kRedColor),
-                          GestureDetector(
-                            onTap: () async {
-                              HomsController homsController =
-                                  Get.find<HomsController>();
-                              a.selectedIndex.value = 10;
-                              //  Get.lazyPut(() => NewsWebController());
-                              //await Get.find<NewsWebController>().getNews();
-                              homsController.onNavbarItemSelected(10);
-                            },
-                            child: EraText(
-                                text: 'See all',
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.blue),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      EraText(
-                        text:
-                            'Stay updated with ERA Philippines\' latest services and innovations in real estate excellence',
-                        fontSize: EraTheme.paragraphWeb,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.hint,
-                      ),
-                      SizedBox(
-                        height: 50.h,
-                      ),
-                      SizedBox(
-                        height: 550.h,
-                        width: Get.width,
-                        child: GridView.builder(
-                          physics: ScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            mainAxisExtent: 390.w, //410
-                          ),
-                          itemCount: controller.news.length,
-                          itemBuilder: (context, i) => GestureDetector(
-                            onTap: () {
-                              HomsController homsController =
-                                  Get.find<HomsController>();
-                              a.selectedIndex.value = 11;
-                              homsController.onNavbarItemSelected(11);
-                              newsArgument = {
-                                "title": controller.news[i].title,
-                                "image": controller.news[i].image,
-                                "description": controller.news[i].description
-                              };
-                            },
-                            child: Container(
-                              width: Get.width,
-                              margin:
-                                  EdgeInsets.only(bottom: 15.h, right: 12.w),
-                              child: Stack(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      CloudStorage().imageLoader(
-                                        reference: controller.news[i].image,
-                                        height: 250.h,
-                                      ),
-                                      Spacer(),
-                                    ],
-                                  ),
-                                  Positioned(
-                                    bottom: 15.h,
-                                    left: -4.w,
-                                    right: -4.w,
-                                    top: 200.h,
-                                    child: Card(
-                                      color: AppColors.white,
-                                      elevation: 3,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.r),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal:
-                                                EraTheme.paddingWidthSmall +
-                                                    15.w,
-                                            vertical: 15.h),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            EraText(
-                                              text: controller.news[i].title,
-                                              fontSize:
-                                                  EraTheme.paragraph + 5.sp,
-                                              color: AppColors.kRedColor,
-                                              fontWeight: FontWeight.bold,
-                                              textOverflow:
-                                                  TextOverflow.ellipsis,
-                                              maxLines: 3,
-                                            ),
-                                            EraText(
-                                              text: controller
-                                                  .news[i].description,
-                                              fontSize:
-                                                  EraTheme.paragraph - 2.sp,
-                                              color: AppColors.hint,
-                                              fontWeight: FontWeight.w500,
-                                              maxLines: 5,
-                                              textOverflow:
-                                                  TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
                   height: 20.h,
                 ),
               ],
             ),
           ),
 
-          Center(
-            child: Container(
-              width: Get.width / 1.8,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                color: AppColors.blue2,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 20.h,
+          Container(
+            color: Colors.grey.withOpacity(0.3),
+            padding: EdgeInsets.symmetric(
+                horizontal: EraTheme.paddingWidthAdmin * 3),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                sb40(),
+                EraText(
+                  textAlign: TextAlign.start,
+                  text: 'FEATURED LISTINGS',
+                  fontSize: EraTheme.h1,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.kRedColor,
+                ),
+                sb40(),
+                GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    childAspectRatio: 0.75,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                    child: EraText(
-                        textAlign: TextAlign.start,
-                        text: 'Join Us Today',
-                        fontSize: 30.sp,
-                        color: AppColors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                    child: EraText(
-                        textAlign: TextAlign.center,
-                        text:
-                            'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
-                        fontSize: 15.sp,
-                        color: AppColors.white,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  sb30(),
-                  Button(
-                    text: 'BECOME AN ERA AGENT',
-                    onTap: () {
-                      // Get.to(JoinEra());
-                    },
-                    bgColor: AppColors.kRedColor,
-                    width: 250.w,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  sb40(),
-                ],
-              ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller.listings.length,
+                  itemBuilder: (context, index) {
+                    Listing listing = controller.listings[index];
+                    return GestureDetector(
+                      onTap: () async {
+                        listingArgument = listing;
+                        a.selectedIndex.value = 12;
+                        Get.find<HomsController>().onNavbarItemSelected(12);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(8.sp),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              blurRadius: 10,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                              child: CloudStorage().imageLoader(
+                                reference: listing.photos?.isNotEmpty == true
+                                    ? listing.photos!.first
+                                    : AppStrings.noUserImageWhite,
+                                width: Get.width,
+                                height: 340.h,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 14.w, right: 14.w, top: 10.h),
+                                  child: EraText(
+                                    text: listing.name?.isNotEmpty == true
+                                        ? listing.name!
+                                        : "No Name",
+                                    fontSize: EraTheme.h3,
+                                    color: AppColors.kRedColor,
+                                    fontWeight: FontWeight.bold,
+                                    textOverflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 14.w),
+                                  child: EraText(
+                                    text: listing.type ?? "Unknown Type",
+                                    fontSize: EraTheme.h5,
+                                    color: AppColors.black,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(height: 8.h),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    _buildFeatureIcon(
+                                      icon: AppEraAssets.area,
+                                      label: '${listing.floorArea} sqm',
+                                    ),
+                                    SizedBox(width: 2.w),
+                                    _buildFeatureIcon(
+                                      icon: AppEraAssets.bed,
+                                      label: '${listing.beds}',
+                                    ),
+                                    SizedBox(width: 2.w),
+                                    _buildFeatureIcon(
+                                      icon: AppEraAssets.tub,
+                                      label: '${listing.baths}',
+                                    ),
+                                    SizedBox(width: 2.w),
+                                    _buildFeatureIcon(
+                                      icon: AppEraAssets.car,
+                                      label: '${listing.cars}',
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10.h),
+                                // Description
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 14.w),
+                                  child: EraText(
+                                    text: 'Description:',
+                                    fontSize: EraTheme.h6,
+                                    color: AppColors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 6.h),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 14.w),
+                                  child: EraText(
+                                    text:
+                                        listing.description?.isNotEmpty == true
+                                            ? listing.description!
+                                            : "No description available.",
+                                    fontSize: EraTheme.caption,
+                                    color: AppColors.black,
+                                    maxLines: 3,
+                                    textOverflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                sb20(),
+                                GestureDetector(
+                                  onTap: () {
+                                    listingArgument = listing;
+                                    a.selectedIndex.value = 12;
+                                    Get.find<HomsController>()
+                                        .onNavbarItemSelected(12);
+                                  },
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 14.w),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        EraText(
+                                          text: 'READ MORE',
+                                          fontSize: EraTheme.h5,
+                                          color: AppColors.blue,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        sbw10(),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: AppColors.blue,
+                                          size: EraTheme.h6,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                sb60(),
+                GestureDetector(
+                  onTap: () {},
+                  child: viewOtherProjects(
+                      text: 'View other listings',
+                      onTap: () {
+                        a.selectedIndex.value = 2;
+                        Get.find<HomsController>().onNavbarItemSelected(2);
+                      }),
+                ),
+                sb10(),
+              ],
             ),
           ),
-          sb40(),
+
+          // same widget as the oone in the my dashboard wfaill change it later
+          Container(
+            color: AppColors.hint.withOpacity(0.1),
+            padding: EdgeInsets.symmetric(
+                horizontal: EraTheme.paddingWidthAdmin * 3),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 50.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    EraText(
+                        text: 'COMPANY NEWS',
+                        fontSize: EraTheme.h1,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.kRedColor),
+                    GestureDetector(
+                      onTap: () async {
+                        HomsController homsController =
+                            Get.find<HomsController>();
+                        a.selectedIndex.value = 10;
+                        //  Get.lazyPut(() => NewsWebController());
+                        //await Get.find<NewsWebController>().getNews();
+                        homsController.onNavbarItemSelected(10);
+                      },
+                      child: EraText(
+                          text: 'See all',
+                          fontSize: EraTheme.h6,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.blue),
+                    ),
+                  ],
+                ),
+                EraText(
+                  text:
+                      'Stay updated with ERA Philippines\' latest services and innovations in real estate excellence',
+                  fontSize: EraTheme.h3,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.hint,
+                ),
+                SizedBox(
+                  height: 50.h,
+                ),
+                SizedBox(
+                  width: Get.width,
+                  child: GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 24,
+                      crossAxisSpacing: 24,
+                      childAspectRatio:
+                          0.7, // Slightly adjusted for better visual balance
+                    ),
+                    itemCount: controller.news.length,
+                    itemBuilder: (context, i) => GestureDetector(
+                      onTap: () {
+                        HomsController homsController =
+                            Get.find<HomsController>();
+                        a.selectedIndex.value = 11;
+                        homsController.onNavbarItemSelected(11);
+                        newsArgument = {
+                          "title": controller.news[i].title,
+                          "image": controller.news[i].image,
+                          "description": controller.news[i].description,
+                        };
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: CloudStorage().imageLoader(
+                              reference: controller.news[i].image,
+                              height: 350.h,
+                              width: Get.width,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(12.sp),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                EraText(
+                                  text: controller.news[i].title.toUpperCase(),
+                                  fontSize: EraTheme.h3,
+                                  color: AppColors.kRedColor,
+                                  fontWeight: FontWeight.bold,
+                                  textOverflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                ),
+                                SizedBox(height: 8.h),
+                                EraText(
+                                  text: controller.news[i].description,
+                                  fontSize: EraTheme.h6,
+                                  color: AppColors.hint,
+                                  fontWeight: FontWeight.w500,
+                                  maxLines: 3,
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: 16.h),
+                                GestureDetector(
+                                  onTap: () {
+                                    HomsController homsController =
+                                        Get.find<HomsController>();
+                                    a.selectedIndex.value = 11;
+                                    homsController.onNavbarItemSelected(11);
+                                    newsArgument = {
+                                      "title": controller.news[i].title,
+                                      "image": controller.news[i].image,
+                                      "description":
+                                          controller.news[i].description,
+                                    };
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      EraText(
+                                        text: 'READ MORE',
+                                        fontSize: EraTheme.h5,
+                                        color: AppColors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      sbw10(),
+                                      Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: AppColors.blue,
+                                        size: EraTheme.h6,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Center(
+          //   child: Container(
+          //     width: Get.width / 1.8,
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.all(Radius.circular(20.r)),
+          //       color: AppColors.blue2,
+          //     ),
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         SizedBox(
+          //           height: 20.h,
+          //         ),
+          //         Padding(
+          //           padding: EdgeInsets.only(left: 10.w, right: 10.w),
+          //           child: EraText(
+          //               textAlign: TextAlign.start,
+          //               text: 'Join Us Today',
+          //               fontSize: 30.sp,
+          //               color: AppColors.white,
+          //               fontWeight: FontWeight.bold),
+          //         ),
+          //         Padding(
+          //           padding: EdgeInsets.only(left: 10.w, right: 10.w),
+          //           child: EraText(
+          //               textAlign: TextAlign.center,
+          //               text:
+          //                   'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.',
+          //               fontSize: 15.sp,
+          //               color: AppColors.white,
+          //               fontWeight: FontWeight.w500),
+          //         ),
+          //         sb30(),
+          //         Button(
+          //           text: 'BECOME AN ERA AGENT',
+          //           onTap: () {
+          //             // Get.to(JoinEra());
+          //           },
+          //           bgColor: AppColors.kRedColor,
+          //           width: 250.w,
+          //           borderRadius: BorderRadius.circular(30),
+          //         ),
+          //         sb40(),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          // sb40(),
         ],
       ),
     );
@@ -837,7 +870,7 @@ Widget featuredProject() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       EraText(
-          text: 'Featured Projects',
+          text: 'FEATURED PROJECTS',
           textAlign: TextAlign.start,
           fontSize: EraTheme.h1,
           fontWeight: FontWeight.bold,
@@ -854,6 +887,24 @@ Widget featuredProject() {
   );
 }
 
+Widget _buildFeatureIcon({required String icon, required String label}) {
+  return Row(
+    children: [
+      Image.asset(
+        icon,
+        width: 55.w,
+        height: 55.h,
+      ),
+      EraText(
+        text: label,
+        fontSize: EraTheme.sbodyText,
+        fontWeight: FontWeight.w500,
+        color: AppColors.black,
+      ),
+    ],
+  );
+}
+
 class UploadPhotoData {
   final text, image;
 
@@ -862,125 +913,3 @@ class UploadPhotoData {
     required this.image,
   });
 }
-
-// drawer: Drawer(
-//   child: ListView(
-//     padding: EdgeInsets.zero,
-//     children: [
-//       DrawerHeader(
-//         decoration: BoxDecoration(
-//           color: Colors.blue,
-//         ),
-//         child: navLink(text: 'Home'.toUpperCase()),
-//       ),
-//       ListTile(
-//         title: navLink(text: 'Buy'.toUpperCase()),
-//         onTap: () {},
-//       ),
-//       ListTile(
-//         title: navLink(text: 'Sell'.toUpperCase()),
-//         onTap: () {},
-//       ),
-//       ListTile(
-//         title: navLink(text: 'Rent'.toUpperCase()),
-//         onTap: () {},
-//       ),
-//       ListTile(
-//         title: navLink(text: 'Projects'.toUpperCase()),
-//         onTap: () {},
-//       ),
-//       ListTile(
-//         title: navLink(text: 'News'.toUpperCase()),
-//         onTap: () {},
-//       ),
-//       ListTile(
-//         title: navLink(text: 'Contact Us'.toUpperCase()),
-//         onTap: () {},
-//       ),
-//       ListTile(
-//         title: navLink(text: 'Join Era'.toUpperCase()),
-//         onTap: () {},
-//       ),
-//     ],
-//   ),
-// ),
-// SizedBox(
-//     height: 200.h,
-//     child: Stack(
-//       children: [
-//         Positioned.fill(
-//           child: CarouselSlider(
-//               controller: controller.innerController,
-//               items: controller.images.map((imagePath) {
-//                 return CustomImage(
-//                   url: imagePath,
-//                 );
-//               }).toList(),
-//               options: CarouselOptions(
-//                 autoPlayInterval: Duration(seconds: 7),
-//                 autoPlay: true,
-//                 viewportFraction: 1,
-//                 aspectRatio: 1.2,
-//                 onPageChanged: (index, reason) =>
-//                     controller.carouselIndex.value = index,
-//               )),
-//         ),
-//         Positioned(
-//           bottom: 10,
-//           child: SizedBox(
-//             width: Get.width,
-//             child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   Obx(() => AnimatedSmoothIndicator(
-//                         activeIndex: controller.carouselIndex.value,
-//                         count: controller.images.length,
-//                         effect: JumpingDotEffect(
-//                           spacing: 25,
-//                           dotWidth: 8,
-//                           dotHeight: 8,
-//                           activeDotColor: AppColors.black,
-//                           dotColor: AppColors.hint,
-//                         ),
-//                       )),
-//                 ]),
-//           ),
-//         ),
-//         Positioned(
-//           left: 10.w,
-//           child: Container(
-//             height: 320.h,
-//             alignment: Alignment.center,
-//             child: GestureDetector(
-//               onTap: () {
-//                 // controller.prevImage();
-//                 // controller.innerController.previousPage();
-//               },
-//               child: Image.asset(
-//                 AppEraAssets.next,
-//                 height: 20.h,
-//                 width: 20.w,
-//               ),
-//             ),
-//           ),
-//         ),
-//         Positioned(
-//           right: 10.w,
-//           child: Container(
-//             height: 320.h,
-//             alignment: Alignment.center,
-//             child: GestureDetector(
-//               onTap: () {
-//                 // controller.nextImage(controller.images.length);
-//                 // controller.innerController.nextPage();
-//               },
-//               child: Image.asset(
-//                 AppEraAssets.prev,
-//                 height: 20.h,
-//                 width: 20.w,
-//               ),
-//             ),
-//           ),
-//         ),
-//       ],
-//     )),

@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -73,7 +74,7 @@ class AppTextField extends StatelessWidget {
         obscureText: obscureText!,
         textInputAction: textInputAction ?? TextInputAction.done,
         placeholderStyle: TextStyle(
-          fontSize: 20.sp,
+          fontSize: EraTheme.h5,
           color: AppColors.hint,
           height: 0.0,
           fontFamily:
@@ -102,10 +103,11 @@ class AppTextField extends StatelessWidget {
             ? Row(
                 children: [
                   Padding(
+                    //   padding: EdgeInsetsDirectional.only(top: 20, bottom: 20),
                     padding: EdgeInsets.fromLTRB(15.w, 0, 7.5.w, 0),
                     child: Image.asset(
                       svgIcon ?? AppEraAssets.person,
-                      height: 30.h,
+                      height: 50.h,
                       color: AppColors.kRedColor,
                     ),
                   ),
