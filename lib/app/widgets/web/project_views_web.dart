@@ -1862,61 +1862,44 @@ class ProjectViewsWeb extends StatelessWidget {
         );
 
         preview.add(
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.sp),
-            ),
-            elevation: 10,
-            shadowColor: Colors.grey.withOpacity(0.5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                if (logoBlock != null)
-                  Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(15.sp)),
-                        child: Container(
-                          height: 450.h,
+          Container(
+            width: Get.width,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.sp),
+              ),
+              elevation: 10,
+              shadowColor: Colors.grey.withOpacity(0.5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (logoBlock != null)
+                    Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(15.sp)),
                           child: CloudStorage().imageLoader(
                             reference: logoBlock['image'],
-                            height: Get.height,
+                            height: 450.h,
                             width: Get.width,
                             fit: BoxFit.cover,
                           ),
                         ),
-                      ),
-                      //  Positioned.fill(
-                      //   child: Container(
-                      //     decoration: BoxDecoration(
-                      //       gradient: LinearGradient(
-                      //         colors: [
-                      //           Colors.black.withOpacity(0.3),
-                      //           Colors.transparent,
-                      //         ],
-                      //         begin: Alignment.topCenter,
-                      //         end: Alignment.bottomCenter,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ClipRRect(
-                  borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(15.sp)),
-                  child: Container(
-                    height: 200.h,
+                      ],
+                    ),  
+                  ClipRRect(
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(15.sp)),
                     child: CloudStorage().imageLoader(
                       reference: block['image'],
-                      height: Get.height,
+                      height: 200.h,
                       width: Get.width,
                       fit: BoxFit.cover,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

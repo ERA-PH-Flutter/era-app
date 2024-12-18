@@ -191,33 +191,12 @@ class HomeWeb extends GetView<HomeWebController> {
                 controller.quickLinks!,
                 sb30(),
                 _uploadPreviewPhotos(),
-                sb20(),
+                sb50(),
                 featuredProject(),
               ],
             ),
           ),
-          //Container(color: AppColors.black, child: ),
-          //projects
 
-          // Container(
-          //   height: Get.height,
-          //   width: Get.width,
-          //   padding: EdgeInsets.symmetric(
-          //       horizontal: EraTheme.paddingWidthAdmin * 3),
-          //   child: GridView.builder(
-          //     shrinkWrap: true,
-          //     physics: NeverScrollableScrollPhysics(),
-          //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 3,
-          //     ),
-          //     itemCount: controller.projects.length,
-          //     itemBuilder: (context, index) {
-          //       return ClipRRect(
-          //           borderRadius: BorderRadius.circular(20),
-          //           child: controller.projects[index]);
-          //     },
-          //   ),
-          // ),
           Container(
             width: Get.width,
             padding: EdgeInsets.symmetric(
@@ -248,10 +227,7 @@ class HomeWeb extends GetView<HomeWebController> {
                           ),
                         ],
                       ),
-                      child: AspectRatio(
-                        aspectRatio: 0.7,
-                        child: controller.projects[index],
-                      ),
+                      child: controller.projects[index],
                     ),
                   ),
                 );
@@ -564,100 +540,104 @@ class HomeWeb extends GetView<HomeWebController> {
                   height: 50.h,
                 ),
                 SizedBox(
-                  width: Get.width,
+                  width: Get.width / 1.2,
                   child: GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      mainAxisSpacing: 24,
-                      crossAxisSpacing: 24,
-                      childAspectRatio:
-                          0.7, // Slightly adjusted for better visual balance
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
+                      childAspectRatio: 0.8,
                     ),
                     itemCount: controller.news.length,
-                    itemBuilder: (context, i) => GestureDetector(
-                      onTap: () {
-                        HomsController homsController =
-                            Get.find<HomsController>();
-                        a.selectedIndex.value = 11;
-                        homsController.onNavbarItemSelected(11);
-                        newsArgument = {
-                          "title": controller.news[i].title,
-                          "image": controller.news[i].image,
-                          "description": controller.news[i].description,
-                        };
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: CloudStorage().imageLoader(
-                              reference: controller.news[i].image,
-                              height: 350.h,
-                              width: Get.width,
-                              fit: BoxFit.cover,
+                    itemBuilder: (context, i) => Padding(
+                      padding: EdgeInsets.only(
+                          left: 8.w, right: 8.w, top: 8.h, bottom: 8.h),
+                      child: GestureDetector(
+                        onTap: () {
+                          HomsController homsController =
+                              Get.find<HomsController>();
+                          a.selectedIndex.value = 11;
+                          homsController.onNavbarItemSelected(11);
+                          newsArgument = {
+                            "title": controller.news[i].title,
+                            "image": controller.news[i].image,
+                            "description": controller.news[i].description,
+                          };
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: CloudStorage().imageLoader(
+                                reference: controller.news[i].image,
+                                height: 350.h,
+                                width: Get.width,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(12.sp),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                EraText(
-                                  text: controller.news[i].title.toUpperCase(),
-                                  fontSize: EraTheme.h3,
-                                  color: AppColors.kRedColor,
-                                  fontWeight: FontWeight.bold,
-                                  textOverflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                ),
-                                SizedBox(height: 8.h),
-                                EraText(
-                                  text: controller.news[i].description,
-                                  fontSize: EraTheme.h6,
-                                  color: AppColors.hint,
-                                  fontWeight: FontWeight.w500,
-                                  maxLines: 3,
-                                  textOverflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(height: 16.h),
-                                GestureDetector(
-                                  onTap: () {
-                                    HomsController homsController =
-                                        Get.find<HomsController>();
-                                    a.selectedIndex.value = 11;
-                                    homsController.onNavbarItemSelected(11);
-                                    newsArgument = {
-                                      "title": controller.news[i].title,
-                                      "image": controller.news[i].image,
-                                      "description":
-                                          controller.news[i].description,
-                                    };
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      EraText(
-                                        text: 'READ MORE',
-                                        fontSize: EraTheme.h5,
-                                        color: AppColors.blue,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      sbw10(),
-                                      Icon(
-                                        Icons.arrow_forward_ios,
-                                        color: AppColors.blue,
-                                        size: EraTheme.h6,
-                                      ),
-                                    ],
+                            Padding(
+                              padding: EdgeInsets.all(12.sp),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  EraText(
+                                    text:
+                                        controller.news[i].title.toUpperCase(),
+                                    fontSize: EraTheme.h3,
+                                    color: AppColors.kRedColor,
+                                    fontWeight: FontWeight.bold,
+                                    textOverflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
                                   ),
-                                ),
-                              ],
+                                  SizedBox(height: 8.h),
+                                  EraText(
+                                    text: controller.news[i].description,
+                                    fontSize: EraTheme.h6,
+                                    color: AppColors.hint,
+                                    fontWeight: FontWeight.w500,
+                                    maxLines: 3,
+                                    textOverflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(height: 16.h),
+                                  GestureDetector(
+                                    onTap: () {
+                                      HomsController homsController =
+                                          Get.find<HomsController>();
+                                      a.selectedIndex.value = 11;
+                                      homsController.onNavbarItemSelected(11);
+                                      newsArgument = {
+                                        "title": controller.news[i].title,
+                                        "image": controller.news[i].image,
+                                        "description":
+                                            controller.news[i].description,
+                                      };
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        EraText(
+                                          text: 'READ MORE',
+                                          fontSize: EraTheme.h5,
+                                          color: AppColors.blue,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        sbw10(),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: AppColors.blue,
+                                          size: EraTheme.h6,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
