@@ -71,7 +71,7 @@ class SearchResultController extends GetxController {
     pageSize = count.value;
 
     searchResultState.value = SearchResultState.loading;
-    //quickLinks.value = await QuickLinksModel().initialize();
+    quickLinks.value = await QuickLinksModel().initialize();
     data.clear();
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {

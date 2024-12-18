@@ -56,7 +56,7 @@ class HomeController extends GetxController {
     print(Get.find<LocalStorageService>().images);
     try {
       await getBanners();
-      //quickLinks = await QuickLinksModel().initialize();
+      quickLinks = await QuickLinksModel().initialize();
       await getNews();
       await getImages();
       await getListings();

@@ -23,7 +23,6 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     var shortestSide = MediaQuery.of(context).size.shortestSide;
-    print("Short: ${shortestSide}");
     Size designSize = shortestSide > 600
         ? Size(1920, 1080)
         : shortestSide < 600
