@@ -42,7 +42,7 @@ class QuickLinksModel {
       children: [
         TextListing(
           text: 'Quick Links',
-          fontSize: EraTheme.subHeaderWeb,
+          fontSize: EraTheme.h1,
           fontWeight: FontWeight.w500,
           color: AppColors.black,
         ),

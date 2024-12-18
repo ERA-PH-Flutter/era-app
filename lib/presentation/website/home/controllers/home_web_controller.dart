@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
@@ -13,6 +14,7 @@ import 'package:eraphilippines/presentation/website/projects/controllers/project
 import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:eraphilippines/repository/news.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../app/services/local_storage.dart';
 import 'package:eraphilippines/app/models/settings.dart' as era_settings;
@@ -42,7 +44,6 @@ class HomeWebController extends GetxController {
   var carouselIndex = 0.obs;
   @override
   void onInit() async {
-
     try {
       if (settings != null) {
         if (settings!.banners != null) {
@@ -52,10 +53,10 @@ class HomeWebController extends GetxController {
         }
       } else {
         settings = era_settings.Settings.fromJSON((await FirebaseFirestore
-            .instance
-            .collection('settings')
-            .doc('main')
-            .get())
+                .instance
+                .collection('settings')
+                .doc('main')
+                .get())
             .data()!);
         for (int i = 0; i < settings!.banners!.length; i++) {
           bannersImages.add(settings!.banners![i]);
@@ -170,32 +171,23 @@ class HomeWebController extends GetxController {
   }
 
   getProjects() async {
+    projects.clear();
+
     if (settings!.featuredProjects != null) {
       for (int i = 0; i < settings!.featuredProjects!.length; i++) {
         var pr = await Project.getById(settings!.featuredProjects![i]);
-        projects.add(GestureDetector(
-          onTap: () {
-            //   selectedIndex.value = 14;
-            // Get.find<HomsController>().onNavbarItemSelected(14);
-            // Get.to(ProjectViewWeb(),
-            //     binding: ProjectViewWebBinding(), arguments: pr);
-            projectArgument = pr;
-            HomsController homsController = Get.find<HomsController>();
-            selectedIndex.value = 14;
-            homsController.onNavbarItemSelected(14);
-          },
-          child: Wrap(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: EraTheme.paddingWidthAdmin * 3),
-                child: Column(
-                  children: ProjectViewsWeb(project: pr).HomebuildPreview(),
-                ),
-              ),
-            ],
-          ),
-        ));
+        var previewWidgets = ProjectViewsWeb(project: pr).HomebuildPreview();
+        projects.addAll(previewWidgets.map((widget) {
+          return GestureDetector(
+            onTap: () {
+              projectArgument = pr;
+              HomsController homsController = Get.find<HomsController>();
+              selectedIndex.value = 14;
+              homsController.onNavbarItemSelected(14);
+            },
+            child: widget,
+          );
+        }));
       }
     }
   }

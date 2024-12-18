@@ -35,4 +35,17 @@ class EraTheme {
   static double buttonSmallWeb = 30.sp;
   static double buttonH60 = 60.h;
   static double buttonW30 = 30.h;
+
+  static double h1 = 48.sp;
+  static double h2 = 36.sp;
+  static double h3 = 28.sp;
+
+  static double h4 = 24.sp;
+  static double h5 = 20.sp;
+  static double h6 = 18.sp;
+  static double bodyText = 16.sp;
+  static double sbodyText = 14.sp;
+  static double caption = 12.sp;
+
+
 }

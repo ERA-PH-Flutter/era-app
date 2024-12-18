@@ -44,7 +44,7 @@ class ProjectsList extends GetView<ProjectsListWebController> {
             children: [
               EraText(
                 text: 'Find Cutting-Edge Real Estate Projects',
-                fontSize: EraTheme.headerWeb,
+                fontSize: EraTheme.h1,
                 color: AppColors.kRedColor,
                 fontWeight: FontWeight.bold,
                 textAlign: TextAlign.center,

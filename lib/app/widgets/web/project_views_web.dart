@@ -68,36 +68,34 @@ class ProjectViewsWeb extends StatelessWidget {
   @override
   build(context) {
     project = projectArgument ?? project;
-    return Wrap(
-      children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
-          child: CustomScrollView(shrinkWrap: true, slivers: [
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+      child: Wrap(
+        children: [
+          CustomScrollView(shrinkWrap: true, slivers: [
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   var data = project!.data![index];
                   if (data['type'] == "Banner Images") {
                     return CloudStorage().imageLoaderProvider(
-                      reference: data['image'],
-                      height: Get.height,
-                      width: Get.width,
-                      fit: BoxFit.cover,
-                    );
+                        reference: data['image'],
+                        height: Get.height / 1.5,
+                        fit: BoxFit.fill,
+                        width: Get.width);
                   } else if (data['type'] == "Developer Name") {
                     return EraText(
                       textAlign: TextAlign.center,
                       text: data['developer_name'],
                       color: AppColors.hint,
-                      fontSize: EraTheme.subHeaderWeb,
+                      fontSize: EraTheme.bodyText,
                     );
                   } else if (data['type'] == "Project Logo") {
                     return CloudStorage().imageLoaderProvider(
                       reference: data['image'],
                       width: Get.width,
                       fit: BoxFit.contain,
-                      height: Get.height / 2,
+                      height: Get.height / 3,
                     );
                   } else if (data['type'] == "3D Virtual") {
                     var webViewController = WebViewController();
@@ -161,8 +159,8 @@ class ProjectViewsWeb extends StatelessWidget {
                     );
                   } else if (data['type'] == "Blurb") {
                     return Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 30.w, vertical: 15.h),
+                      // padding: EdgeInsets.symmetric(
+                      //     horizontal: 30.w, vertical: 15.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -175,7 +173,7 @@ class ProjectViewsWeb extends StatelessWidget {
                             if (kIsWeb) {
                               return CloudStorage().imageLoaderProvider(
                                 reference: data['image'],
-                                height: Get.height,
+                                height: Get.height / 1.5,
                                 width: Get.width,
                               );
                             }
@@ -197,7 +195,7 @@ class ProjectViewsWeb extends StatelessWidget {
                     );
                   } else if (data['type'] == "Location") {
                     return SizedBox(
-                      height: 350.h,
+                      height: Get.height,
                       width: Get.width,
                       child: GoogleMap(
                         initialCameraPosition: CameraPosition(
@@ -212,13 +210,14 @@ class ProjectViewsWeb extends StatelessWidget {
                               icon: BitmapDescriptor.defaultMarker)
                         },
                         zoomControlsEnabled: false,
+                        myLocationButtonEnabled: true,
                       ),
                     );
                   } else if (data['type'] == "Outdoor Amenities") {
                     if (data['sub_type'] == 'blurb') {
                       return Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 30.w, vertical: 15.h),
+                        // padding: EdgeInsets.symmetric(
+                        //     horizontal: 30.w, vertical: 15.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -227,23 +226,25 @@ class ProjectViewsWeb extends StatelessWidget {
                               text: data['title'],
                             ),
                             sb30(),
-                            Builder(
-                              builder: (context) {
-                                if (kIsWeb) {
-                                  return CloudStorage().imageLoaderProvider(
-                                    reference: data['image'],
-                                    height: Get.height,
-                                    width: Get.width,
-                                    fit: BoxFit.cover,
-                                  );
-                                }
-                                return ImageWidget(
-                                  thumbnailUrl: data['image'],
-                                  height: 250.h,
+                            Builder(builder: (context) {
+                              if (kIsWeb) {
+                                return CloudStorage().imageLoaderProvider(
+                                  reference: data['image'],
+                                  height: Get.height / 1.5,
                                   width: Get.width,
                                 );
-                              },
-                            ),
+                              }
+                              return ImageWidget(
+                                thumbnailUrl: data['image'],
+                                height: 250.h,
+                                width: Get.width,
+                              );
+                              // CloudStorage().imageLoaderProvider(
+                              //   reference: data['image'],
+                              //   height: 250.h,
+                              //   width: Get.width,
+                              // );
+                            }),
                             sb20(),
                             description(text: data['description']),
                           ],
@@ -254,7 +255,11 @@ class ProjectViewsWeb extends StatelessWidget {
                         height: Get.height,
                         child: Stack(
                           children: [
+                            // Background Image
                             Positioned(
+                              top: 0.h,
+                              right: 0.w,
+                              left: 0.w,
                               child: GestureDetector(
                                 onTap: () {
                                   showDialog(
@@ -422,8 +427,6 @@ class ProjectViewsWeb extends StatelessWidget {
                                   width: Get.width,
                                   height: Get.height,
                                   child: Obx(() {
-                                    print(
-                                        'currentImageOutdoor.value   ${data['images'][0]}');
                                     final displayImage =
                                         currentImageOutdoor.value.isNotEmpty
                                             ? currentImageOutdoor.value
@@ -432,81 +435,100 @@ class ProjectViewsWeb extends StatelessWidget {
                                                 ? data['images'][0]
                                                 : null;
 
-                                    if (kIsWeb) {
-                                      return CloudStorage().imageLoaderProvider(
+                                    return ClipRRect(
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: CloudStorage().imageLoaderProvider(
                                         reference: displayImage,
                                         width: Get.width,
                                         height: Get.height,
-                                      );
-                                    }
-                                    return CloudStorage().imageLoaderProvider(
-                                      reference: displayImage,
-                                      width: Get.width,
-                                      height: Get.height,
+                                        fit: BoxFit.cover,
+                                      ),
                                     );
-
-                                    //  ImageWidget(
-                                    //   thumbnailUrl: data['images'][0],
-                                    //   height: 250.h,
-                                    //   width: Get.width,
-                                    // );
                                   }),
                                 ),
                               ),
                             ),
+
                             Obx(() {
                               return Positioned(
-                                bottom: 0.h,
+                                left: 0.w,
+                                right: 0.w,
+                                bottom: 20.h,
                                 child: Container(
                                   width: Get.width,
-                                  height: 250.h,
-                                  padding: EdgeInsets.all(
-                                      EraTheme.paddingWidthSmall),
+                                  height: 260.h,
+                                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20),
+                                    ),
+                                  ),
                                   child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
-                                    child: Container(
-                                      width: Get.width * 4,
-                                      child: Row(
-                                        children: List.generate(
-                                          data['images'].length,
-                                          (index) {
-                                            final image = data['images'][index];
-                                            final isSelected =
-                                                currentImageOutdoor.value ==
-                                                    image;
-                                            return GestureDetector(
-                                              onTap: () {
-                                                currentImageOutdoor.value =
-                                                    image;
-                                              },
-                                              child: Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: 5.w),
-                                                width: Get.width / 7,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: AppColors.hint
-                                                        .withOpacity(0.9),
-                                                    width:
-                                                        isSelected ? 5.w : 1.w,
-                                                  ),
+                                    child: Row(
+                                      children: List.generate(
+                                        data['images'].length,
+                                        (index) {
+                                          final image = data['images'][index];
+                                          final isSelected =
+                                              currentImageOutdoor.value ==
+                                                  image;
+                                          return GestureDetector(
+                                            onTap: () {
+                                              currentImageOutdoor.value = image;
+                                            },
+                                            child: AnimatedContainer(
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 8.w),
+                                              width: Get.width / 7,
+                                              duration:
+                                                  Duration(milliseconds: 200),
+                                              curve: Curves.easeInOut,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                  color: AppColors.hint
+                                                      .withOpacity(0.9),
+                                                  width: isSelected ? 5.w : 1.w,
                                                 ),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.2),
+                                                    spreadRadius: 2,
+                                                    blurRadius: 6,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                                 child:
                                                     CloudStorage().imageLoader(
                                                   width: Get.width / 7,
                                                   height: Get.height,
                                                   reference: image,
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
-                                            );
-                                          },
-                                        ),
+                                            ),
+                                          );
+                                        },
                                       ),
                                     ),
                                   ),
                                 ),
                               );
                             }),
+
+                            // Spacing between elements
+                            Positioned(
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              child: sb20(),
+                            ),
                           ],
                         ),
                       );
@@ -514,8 +536,8 @@ class ProjectViewsWeb extends StatelessWidget {
                   } else if (data['type'] == "Indoor Amenities") {
                     if (data['sub_type'] == 'blurb') {
                       return Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 30.w, vertical: 15.h),
+                        // padding: EdgeInsets.symmetric(
+                        //     horizontal: 30.w, vertical: 15.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -530,7 +552,7 @@ class ProjectViewsWeb extends StatelessWidget {
                                   return CloudStorage().imageLoaderProvider(
                                     reference: data['image'],
                                     width: Get.width,
-                                    height: 250.h,
+                                    height: Get.height / 1.5,
                                   );
                                 }
                                 return ImageWidget(
@@ -551,6 +573,9 @@ class ProjectViewsWeb extends StatelessWidget {
                         child: Stack(
                           children: [
                             Positioned(
+                              top: 0.h,
+                              right: 0.w,
+                              left: 0.w,
                               child: GestureDetector(
                                 onTap: () {
                                   showDialog(
@@ -715,7 +740,7 @@ class ProjectViewsWeb extends StatelessWidget {
                                 },
                                 child: SizedBox(
                                   width: Get.width,
-                                  height: 320.h,
+                                  height: Get.height,
                                   child: Obx(() {
                                     print(
                                         'currentImageIndoor.value   ${data['images'][0]}');
@@ -727,17 +752,14 @@ class ProjectViewsWeb extends StatelessWidget {
                                                 ? data['images'][0]
                                                 : null;
 
-                                    if (kIsWeb) {
-                                      return CloudStorage().imageLoaderProvider(
+                                    return ClipRRect(
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: CloudStorage().imageLoaderProvider(
                                         reference: displayImage,
                                         width: Get.width,
                                         height: Get.height,
-                                      );
-                                    }
-                                    return CloudStorage().imageLoaderProvider(
-                                      reference: displayImage,
-                                      width: Get.width,
-                                      height: Get.height,
+                                        fit: BoxFit.cover,
+                                      ),
                                     );
                                   }),
                                 ),
@@ -745,51 +767,89 @@ class ProjectViewsWeb extends StatelessWidget {
                             ),
                             Obx(() {
                               return Positioned(
-                                bottom: 0.h,
+                                bottom: 20.h,
+                                left: 0.w,
+                                right: 0.w,
                                 child: Container(
                                   width: Get.width,
-                                  height: 250.h,
-                                  padding: EdgeInsets.all(
-                                      EraTheme.paddingWidthSmall),
+                                  height: 260.h,
+                                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20),
+                                    ),
+                                  ),
                                   child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
-                                    child: Container(
-                                      width: Get.width * 4,
-                                      child: Row(
-                                        children: List.generate(
-                                          data['images'].length,
-                                          (index) {
-                                            final image = data['images'][index];
-                                            final isSelected =
-                                                currentImageIndoor.value ==
-                                                    image;
-                                            return GestureDetector(
-                                              onTap: () {
-                                                currentImageIndoor.value =
-                                                    image;
-                                              },
-                                              child: Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: 5.w),
-                                                width: Get.width / 7,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: AppColors.hint
-                                                        .withOpacity(0.9),
-                                                    width:
-                                                        isSelected ? 5.w : 1.w,
-                                                  ),
+                                    child: Row(
+                                      children: List.generate(
+                                        data['images'].length,
+                                        (index) {
+                                          final image = data['images'][index];
+                                          final isSelected =
+                                              currentImageIndoor.value == image;
+                                          return GestureDetector(
+                                            onTap: () {
+                                              currentImageIndoor.value = image;
+                                            },
+                                            child: AnimatedContainer(
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 8.w),
+                                              width: Get.width / 7,
+                                              duration:
+                                                  Duration(milliseconds: 200),
+                                              curve: Curves.easeInOut,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                  color: AppColors.hint
+                                                      .withOpacity(0.9),
+                                                  width: isSelected ? 5.w : 1.w,
                                                 ),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.2),
+                                                    spreadRadius: 2,
+                                                    blurRadius: 6,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                                 child:
                                                     CloudStorage().imageLoader(
                                                   width: Get.width / 7,
                                                   height: Get.height,
                                                   reference: image,
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
-                                            );
-                                          },
-                                        ),
+                                            ),
+
+                                            //  Container(
+                                            //   margin: EdgeInsets.symmetric(
+                                            //       horizontal: 5.w),
+                                            //   width: Get.width / 7,
+                                            //   decoration: BoxDecoration(
+                                            //     border: Border.all(
+                                            //       color: AppColors.hint
+                                            //           .withOpacity(0.9),
+                                            //       width:
+                                            //           isSelected ? 5.w : 1.w,
+                                            //     ),
+                                            //   ),
+                                            //   child:
+                                            //       CloudStorage().imageLoader(
+                                            //     width: Get.width / 7,
+                                            //     height: Get.height,
+                                            //     reference: image,
+                                            //   ),
+                                            // ),
+                                          );
+                                        },
                                       ),
                                     ),
                                   ),
@@ -802,7 +862,7 @@ class ProjectViewsWeb extends StatelessWidget {
                     }
                   } else if (data['type'] == "Carousel") {
                     return Container(
-                      color: AppColors.hint.withOpacity(0.3),
+                      color: AppColors.hint.withOpacity(0.1),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -813,59 +873,72 @@ class ProjectViewsWeb extends StatelessWidget {
                           ),
                           sb10(),
                           Container(
-                              height: Get.height,
-                              padding: EdgeInsets.only(
-                                  right: EraTheme.paddingWidthAdmin * 2,
-                                  left: EraTheme.paddingWidthAdmin * 2,
-                                  top: EraTheme.paddingWidth20,
-                                  bottom: EraTheme.paddingWidth20),
-                              child: CarouselSlider(
-                                items: data['images'].map<Widget>((image) {
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(30),
+                            height: Get.height / 1.3,
+
+                            // padding: EdgeInsets.only(
+                            //   right: EraTheme.paddingWidthAdmin,
+                            //   left: EraTheme.paddingWidthAdmin,
+                            // ),
+                            child: CarouselSlider(
+                              items: data['images'].map<Widget>((image) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          blurRadius: 10,
+                                          offset: Offset(0, 4),
+                                        ),
+                                      ],
+                                    ),
                                     child: CloudStorage().imageLoader(
                                       reference: image,
                                       fit: BoxFit.cover,
                                       width: Get.width,
                                       height: Get.height,
                                     ),
-                                  );
-                                }).toList(),
-                                options: CarouselOptions(
-                                  enlargeCenterPage: true,
-                                  enlargeStrategy:
-                                      CenterPageEnlargeStrategy.height,
-                                  autoPlay: true,
-                                  // enlargeFactor: 0.4,
-                                  // // enableInfiniteScroll: true,103099Seb
-                                  // viewportFraction: 0.7,
-                                  // aspectRatio: 1.9,
-                                  viewportFraction: 0.8,
-                                  height: Get.height / 1.2,
-                                ),
-                              )),
-                          sb20(),
+                                  ),
+                                );
+                              }).toList(),
+                              options: CarouselOptions(
+                                enlargeCenterPage: true,
+                                enlargeStrategy:
+                                    CenterPageEnlargeStrategy.height,
+                                autoPlay: true,
+                                viewportFraction: 0.85,
+                                height: Get.height / 1.4,
+                                autoPlayInterval: Duration(seconds: 5),
+                                enableInfiniteScroll: true,
+                                aspectRatio: 1.5,
+                              ),
+                            ),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               infoTilePreview(
-                                  AppEraAssets.floorArea,
-                                  TextEditingController(
-                                      text: data['floor_area'].toString()),
-                                  ' sqm',
-                                  (value) {}),
+                                AppEraAssets.floorArea,
+                                TextEditingController(
+                                    text: data['floor_area'].toString()),
+                                ' sqm',
+                                (value) {},
+                              ),
                               infoTilePreview(
-                                  AppEraAssets.numberOfBed,
-                                  TextEditingController(
-                                      text: data['beds'].toString()),
-                                  '',
-                                  (value) {}),
+                                AppEraAssets.numberOfBed,
+                                TextEditingController(
+                                    text: data['beds'].toString()),
+                                '',
+                                (value) {},
+                              ),
                               infoTilePreview(
-                                  AppEraAssets.loggiaSize,
-                                  TextEditingController(
-                                      text: data['loggia_size'].toString()),
-                                  ' sqm',
-                                  (value) {}),
+                                AppEraAssets.loggiaSize,
+                                TextEditingController(
+                                    text: data['loggia_size'].toString()),
+                                ' sqm',
+                                (value) {},
+                              ),
                             ],
                           ),
                           sb20(),
@@ -1691,8 +1764,8 @@ class ProjectViewsWeb extends StatelessWidget {
             //   ),
             // ),
           ]),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -1711,7 +1784,7 @@ class ProjectViewsWeb extends StatelessWidget {
             textAlign: TextAlign.center,
             text: block['developer_name'],
             color: AppColors.hint,
-            fontSize: EraTheme.subHeaderWeb,
+            fontSize: EraTheme.bodyText,
           ),
         );
       }
@@ -1720,24 +1793,25 @@ class ProjectViewsWeb extends StatelessWidget {
           reference: block['image'],
           width: Get.width,
           fit: BoxFit.contain,
-          height: Get.height / 2,
+          height: Get.height / 3,
         );
       }
       if (block['type'] == "Blurb") {
         preview[3] = Container(
           padding: EdgeInsets.symmetric(vertical: 15.h),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               title(
-                padding: EdgeInsets.zero,
-                text: block['title'],
-              ),
+                  text: block['title'],
+                  textAlign: TextAlign.start,
+                  padding: EdgeInsets.zero),
               sb30(),
               CloudStorage().imageLoaderProvider(
                 reference: block['image'],
-                height: Get.height,
                 width: Get.width,
+                height: Get.height / 1.5,
+                fit: BoxFit.cover,
               ),
               sb20(),
               description(text: block['description']),
@@ -1748,92 +1822,88 @@ class ProjectViewsWeb extends StatelessWidget {
     }
     return preview;
   }
+  // List<Widget> HomebuildPreview() {
+  //   List<Widget> preview = [];
+  //   for (var block in project!.data!) {
+  //     if (block['type'] == "Banner Images" && block['image'] != null) {
+  //       print('project logo:  ${block['Project Logo']}');
+  //       preview.add(Card(
+  //         elevation: 5,
+  //         child: Stack(
+  //           alignment: Alignment.center,
+  //           children: [
+  //             CloudStorage().imageLoaderProvider(
+  //               reference: block['image'],
+  //               height: 250.h,
+  //               width: double.infinity,
+  //               fit: BoxFit.cover,
+  //             ),
+  //             if (block['Project Logo'] != null)
+  //               Positioned(
+  //                 top: 10.h,
+  //                 child: Container(
+  //                   height: 80.h,
+  //                   width: 80.w,
+  //                   decoration: BoxDecoration(
+  //                     shape: BoxShape.circle,
+  //                     color: Colors.white,
+  //                   ),
+  //                   padding: EdgeInsets.all(8),
+  //                   child: CloudStorage().imageLoader(
+  //                     reference: block['Project Logo'],
+  //                     height: 60.h,
+  //                     width: 60.w,
+  //                     fit: BoxFit.contain,
+  //                   ),
+  //                 ),
+  //               )
+  //           ],
+  //         ),
+  //       ));
+  //     }
+  //   }
 
-  HomebuildPreview() {
-    List<Widget> preview = [
-      Container(),
-      Container(),
-      Container(),
-      sb50(),
-    ];
+  //   return preview;
+  // }
+  List<Widget> HomebuildPreview() {
+    List<Widget> preview = [];
 
     for (var block in project!.data!) {
       if (block['type'] == "Project Logo") {
-        preview[0] = CloudStorage().imageLoader(
-            reference: block['image'],
-            height: Get.height / 2,
-            width: Get.width,
-            fit: BoxFit.contain);
-      }
-      if (block['type'] == "Developer Name") {
-        preview[1] = Padding(
-          padding: EdgeInsets.only(top: 20.h),
-          child: EraText(
-              textAlign: TextAlign.center,
-              text: block['developer_name'],
-              color: AppColors.hint,
-              fontSize: EraTheme.subHeaderWeb),
+        var logoBlock = project!.data!.firstWhere(
+          (item) => item['type'] == "Banner Images",
+          orElse: () => null,
         );
-      }
-      if (block['type'] == "Carousel") {
-        preview[2] = Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-                height: Get.height,
-                padding: EdgeInsets.only(
-                    right: EraTheme.paddingWidthAdmin * 2,
-                    left: EraTheme.paddingWidthAdmin * 2,
-                    top: EraTheme.paddingWidth20,
-                    bottom: EraTheme.paddingWidth20),
-                decoration: BoxDecoration(color: AppColors.carouselBgColor),
-                child: CarouselSlider(
-                  items: block['images'].map<Widget>((image) {
-                    return Container(
-                      child: CloudStorage().imageLoader(
-                        reference: image,
-                        fit: BoxFit.cover,
-                        width: Get.width,
-                        height: Get.height,
-                      ),
-                    );
 
-                    //CloudStorage().imageLoader(ref: image);
-                  }).toList(),
-                  options: CarouselOptions(
-                    enlargeCenterPage: true,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                    autoPlay: true,
-                    viewportFraction: 0.8,
-                    height: Get.height / 1.2,
+        preview.add(Card(
+          elevation: 5,
+          margin: EdgeInsets.all(16.0),
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (logoBlock != null)
+                  CloudStorage().imageLoader(
+                    reference: logoBlock['image'],
+                    height: 250.0,
+                    width: Get.width,
+                    fit: BoxFit.cover,
                   ),
-                )),
-            sb40(),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: EraTheme.paddingWidthAdmin * 3),
-              child: Button(
-                height: EraTheme.buttonH60,
-                text: 'LEARN MORE',
-                fontSize: EraTheme.paragraphWeb,
-                onTap: () {
-                  Get.find<HomsController>().getBack = true.obs;
-                  Get.to(ProjectViewWeb(),
-                      binding: ProjectViewBinding(), arguments: project);
-                  // projectArgument = project;
-
-                  //    Get.to(ProjectViewWeb(),
-                  // binding: ProjectViewBinding(), arguments: project);
-                },
-                bgColor: AppColors.kRedColor,
-                borderRadius: BorderRadius.circular(30),
-              ),
+                SizedBox(height: 16.0),
+                CloudStorage().imageLoader(
+                  reference: block['image'],
+                  height: 150.0,
+                  width: Get.width,
+                  fit: BoxFit.cover,
+                ),
+              ],
             ),
-            sb10()
-          ],
-        );
+          ),
+        ));
       }
     }
+
     return preview;
   }
 
@@ -1844,7 +1914,7 @@ class ProjectViewsWeb extends StatelessWidget {
       child: EraText(
         text: text,
         color: color ?? AppColors.kRedColor,
-        fontSize: EraTheme.headerWeb,
+        fontSize: EraTheme.h1,
         fontWeight: FontWeight.bold,
         textAlign: textAlign ?? TextAlign.center,
       ),
@@ -1857,7 +1927,7 @@ class ProjectViewsWeb extends StatelessWidget {
       child: EraText(
         text: text,
         color: color ?? AppColors.black,
-        fontSize: EraTheme.paragraphWeb,
+        fontSize: EraTheme.bodyText,
         fontWeight: FontWeight.w500,
         maxLines: 20,
       ),
@@ -1866,16 +1936,17 @@ class ProjectViewsWeb extends StatelessWidget {
 
   Widget infoTilePreview(
       String icon, TextEditingController controller, hintText, onChanged) {
-    return Row(
-      children: [
-        Image.asset(icon, width: 100.w, height: 100.h),
-        EraText(
-          text: controller.text + hintText,
-          // controller: controller,
-          fontSize: 20.sp,
-          color: AppColors.black,
-        )
-      ],
+    return Container(
+      child: Row(
+        children: [
+          Image.asset(icon, width: 80.w, height: 80.h),
+          EraText(
+            text: controller.text + hintText,
+            fontSize: EraTheme.bodyText,
+            color: AppColors.black,
+          )
+        ],
+      ),
     );
   }
 
