@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/website/home/pages/home_web.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_controller.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +153,7 @@ class BuyWeb extends GetView<ListingsWebController> {
                         ClipRRect(
                             borderRadius: BorderRadius.circular(10.r),
                             child: CloudStorage().imageLoader(
-                              height: 350.h,
+                              height: 340.h,
                               width: Get.width,
                               fit: BoxFit.cover,
                               reference: listing.photos != null
@@ -169,7 +170,7 @@ class BuyWeb extends GetView<ListingsWebController> {
                           child: EraText(
                             text:
                                 listing.name! == "" ? "No Name" : listing.name!,
-                            fontSize: EraTheme.subHeader,
+                            fontSize: EraTheme.h3,
                             color: AppColors.kRedColor,
                             fontWeight: FontWeight.bold,
                           ),
@@ -178,7 +179,7 @@ class BuyWeb extends GetView<ListingsWebController> {
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: EraText(
                             text: listing.type!,
-                            fontSize: EraTheme.paragraph,
+                            fontSize: EraTheme.h5,
                             color: AppColors.black,
                             fontWeight: FontWeight.bold,
                             lineHeight: 1,
@@ -188,59 +189,26 @@ class BuyWeb extends GetView<ListingsWebController> {
                           height: 5.h,
                         ),
                         Row(
-                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  AppEraAssets.area,
-                                  width: 55.w,
-                                  height: 55.w,
-                                ),
-                                SizedBox(width: 2.w),
-                                EraText(
-                                  text: '${listing.floorArea} sqm',
-                                  fontSize: EraTheme.paragraph - 1.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.black,
-                                ),
-                              ],
+                            HomeWeb.buildFeatureIcon(
+                              icon: AppEraAssets.area,
+                              label: '${listing.floorArea} sqm',
                             ),
-                            SizedBox(width: 10.w),
-                            Image.asset(
-                              AppEraAssets.bed,
-                              width: 55.w,
-                              height: 55.w,
+                            SizedBox(width: 2.w),
+                            HomeWeb.buildFeatureIcon(
+                              icon: AppEraAssets.bed,
+                              label: '${listing.beds}',
                             ),
-                            EraText(
-                              text: '${listing.beds}',
-                              fontSize: EraTheme.paragraph - 1.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
+                            SizedBox(width: 2.w),
+                            HomeWeb.buildFeatureIcon(
+                              icon: AppEraAssets.tub,
+                              label: '${listing.baths}',
                             ),
-                            SizedBox(width: 10.w),
-                            Image.asset(
-                              AppEraAssets.tub,
-                              width: 55.w,
-                              height: 55.w,
-                            ),
-                            EraText(
-                              text: '${listing.baths}',
-                              fontSize: EraTheme.paragraph - 1.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
-                            ),
-                            SizedBox(width: 10.w),
-                            Image.asset(
-                              AppEraAssets.car,
-                              width: 55.w,
-                              height: 55.w,
-                            ),
-                            EraText(
-                              text: '${listing.cars}',
-                              fontSize: EraTheme.paragraph - 1.sp,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
+                            SizedBox(width: 2.w),
+                            HomeWeb.buildFeatureIcon(
+                              icon: AppEraAssets.car,
+                              label: '${listing.cars}',
                             ),
                           ],
                         ),
@@ -251,7 +219,7 @@ class BuyWeb extends GetView<ListingsWebController> {
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: EraText(
                             text: 'Description:',
-                            fontSize: EraTheme.header - 8.sp,
+                            fontSize: EraTheme.h6,
                             color: AppColors.black,
                             fontWeight: FontWeight.w600,
                             lineHeight: 1,
@@ -265,11 +233,11 @@ class BuyWeb extends GetView<ListingsWebController> {
                           child: Text(
                             listing.description ?? "No description.",
                             style: TextStyle(
-                              fontSize: EraTheme.paragraph - 4.sp,
+                              fontSize: EraTheme.caption,
                               fontWeight: FontWeight.w500,
                               color: AppColors.black,
                             ),
-                            maxLines: 5,
+                            maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -287,7 +255,7 @@ class BuyWeb extends GetView<ListingsWebController> {
                                   : listing.price,
                             ),
                             color: AppColors.blue,
-                            fontSize: EraTheme.header,
+                            fontSize: EraTheme.h4,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

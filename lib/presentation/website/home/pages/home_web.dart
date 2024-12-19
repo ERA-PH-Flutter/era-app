@@ -391,22 +391,22 @@ class HomeWeb extends GetView<HomeWebController> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    _buildFeatureIcon(
+                                    buildFeatureIcon(
                                       icon: AppEraAssets.area,
                                       label: '${listing.floorArea} sqm',
                                     ),
                                     SizedBox(width: 2.w),
-                                    _buildFeatureIcon(
+                                    buildFeatureIcon(
                                       icon: AppEraAssets.bed,
                                       label: '${listing.beds}',
                                     ),
                                     SizedBox(width: 2.w),
-                                    _buildFeatureIcon(
+                                    buildFeatureIcon(
                                       icon: AppEraAssets.tub,
                                       label: '${listing.baths}',
                                     ),
                                     SizedBox(width: 2.w),
-                                    _buildFeatureIcon(
+                                    buildFeatureIcon(
                                       icon: AppEraAssets.car,
                                       label: '${listing.cars}',
                                     ),
@@ -495,7 +495,6 @@ class HomeWeb extends GetView<HomeWebController> {
 
           // same widget as the oone in the my dashboard wfaill change it later
           Container(
-            color: AppColors.hint.withOpacity(0.1),
             padding: EdgeInsets.symmetric(
                 horizontal: EraTheme.paddingWidthAdmin * 3),
             child: Column(
@@ -540,34 +539,32 @@ class HomeWeb extends GetView<HomeWebController> {
                   height: 50.h,
                 ),
                 SizedBox(
-                  width: Get.width / 1.2,
+                  width: Get.width,
                   child: GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
+                      childAspectRatio: 0.8,
                       mainAxisSpacing: 16,
                       crossAxisSpacing: 16,
-                      childAspectRatio: 0.8,
                     ),
                     itemCount: controller.news.length,
-                    itemBuilder: (context, i) => Padding(
-                      padding: EdgeInsets.only(
-                          left: 8.w, right: 8.w, top: 8.h, bottom: 8.h),
-                      child: GestureDetector(
-                        onTap: () {
-                          HomsController homsController =
-                              Get.find<HomsController>();
-                          a.selectedIndex.value = 11;
-                          homsController.onNavbarItemSelected(11);
-                          newsArgument = {
-                            "title": controller.news[i].title,
-                            "image": controller.news[i].image,
-                            "description": controller.news[i].description,
-                          };
-                        },
+                    itemBuilder: (context, i) => GestureDetector(
+                      onTap: () {
+                        HomsController homsController =
+                            Get.find<HomsController>();
+                        a.selectedIndex.value = 11;
+                        homsController.onNavbarItemSelected(11);
+                        newsArgument = {
+                          "title": controller.news[i].title,
+                          "image": controller.news[i].image,
+                          "description": controller.news[i].description,
+                        };
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15.w),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(20),
@@ -578,60 +575,51 @@ class HomeWeb extends GetView<HomeWebController> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(12.sp),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            sb40(),
+                            EraText(
+                              text: controller.news[i].title.toUpperCase(),
+                              fontSize: EraTheme.h3,
+                              color: AppColors.kRedColor,
+                              fontWeight: FontWeight.bold,
+                              textOverflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
+                            SizedBox(height: 8.h),
+                            EraText(
+                              text: controller.news[i].description,
+                              fontSize: EraTheme.h6,
+                              color: AppColors.hint,
+                              fontWeight: FontWeight.w500,
+                              maxLines: 3,
+                              textOverflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 16.h),
+                            GestureDetector(
+                              onTap: () {
+                                HomsController homsController =
+                                    Get.find<HomsController>();
+                                a.selectedIndex.value = 11;
+                                homsController.onNavbarItemSelected(11);
+                                newsArgument = {
+                                  "title": controller.news[i].title,
+                                  "image": controller.news[i].image,
+                                  "description": controller.news[i].description,
+                                };
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   EraText(
-                                    text:
-                                        controller.news[i].title.toUpperCase(),
-                                    fontSize: EraTheme.h3,
-                                    color: AppColors.kRedColor,
+                                    text: 'READ MORE',
+                                    fontSize: EraTheme.h5,
+                                    color: AppColors.blue,
                                     fontWeight: FontWeight.bold,
-                                    textOverflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
                                   ),
-                                  SizedBox(height: 8.h),
-                                  EraText(
-                                    text: controller.news[i].description,
-                                    fontSize: EraTheme.h6,
-                                    color: AppColors.hint,
-                                    fontWeight: FontWeight.w500,
-                                    maxLines: 3,
-                                    textOverflow: TextOverflow.ellipsis,
-                                  ),
-                                  SizedBox(height: 16.h),
-                                  GestureDetector(
-                                    onTap: () {
-                                      HomsController homsController =
-                                          Get.find<HomsController>();
-                                      a.selectedIndex.value = 11;
-                                      homsController.onNavbarItemSelected(11);
-                                      newsArgument = {
-                                        "title": controller.news[i].title,
-                                        "image": controller.news[i].image,
-                                        "description":
-                                            controller.news[i].description,
-                                      };
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        EraText(
-                                          text: 'READ MORE',
-                                          fontSize: EraTheme.h5,
-                                          color: AppColors.blue,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        sbw10(),
-                                        Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: AppColors.blue,
-                                          size: EraTheme.h6,
-                                        ),
-                                      ],
-                                    ),
+                                  sbw10(),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: AppColors.blue,
+                                    size: EraTheme.h6,
                                   ),
                                 ],
                               ),
@@ -744,6 +732,25 @@ class HomeWeb extends GetView<HomeWebController> {
           ),
         ],
       ),
+    );
+  }
+
+  static Widget buildFeatureIcon(
+      {required String icon, required String label}) {
+    return Row(
+      children: [
+        Image.asset(
+          icon,
+          width: 55.w,
+          height: 55.h,
+        ),
+        EraText(
+          text: label,
+          fontSize: EraTheme.sbodyText,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
+        ),
+      ],
     );
   }
 }
@@ -862,24 +869,6 @@ Widget featuredProject() {
         fontWeight: FontWeight.w500,
         color: AppColors.hint,
         textAlign: TextAlign.start,
-      ),
-    ],
-  );
-}
-
-Widget _buildFeatureIcon({required String icon, required String label}) {
-  return Row(
-    children: [
-      Image.asset(
-        icon,
-        width: 55.w,
-        height: 55.h,
-      ),
-      EraText(
-        text: label,
-        fontSize: EraTheme.sbodyText,
-        fontWeight: FontWeight.w500,
-        color: AppColors.black,
       ),
     ],
   );

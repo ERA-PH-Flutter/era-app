@@ -914,7 +914,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.black,
                                   ),
-                                  maxLines: 5,
+                                  maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),

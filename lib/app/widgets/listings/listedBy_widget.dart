@@ -52,7 +52,7 @@ class ListedBy extends StatelessWidget {
         EraText(
           text: text ?? 'Listed By:',
           fontWeight: FontWeight.bold,
-          fontSize: EraTheme.h2,
+          fontSize: EraTheme.h4,
           color: AppColors.black,
         ),
         SizedBox(height: 10.h),
@@ -66,8 +66,8 @@ class ListedBy extends StatelessWidget {
                     shape: BoxShape.circle, color: AppColors.hint),
                 child: CloudStorage().imageLoader(
                   reference: image,
-                  width: 55.w,
-                  height: 55.w,
+                  width: 80.w,
+                  height: 80.w,
                 ),
               ),
               SizedBox(
@@ -80,7 +80,7 @@ class ListedBy extends StatelessWidget {
                     width: 200.w,
                     child: EraText(
                       text: '$agentFirstName $agentLastName',
-                      fontSize: EraTheme.bodyText,
+                      fontSize: EraTheme.h5,
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                       textOverflow: TextOverflow.ellipsis,
