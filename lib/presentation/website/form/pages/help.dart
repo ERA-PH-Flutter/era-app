@@ -163,7 +163,7 @@ class HelpWeb extends GetView<FormWebController> {
   }) {
     return Container(
       width: 300.w,
-      height: 300.h,
+      height: 325.h,
       padding: EdgeInsets.all(20.h),
       decoration: BoxDecoration(
         color: Colors.white,
