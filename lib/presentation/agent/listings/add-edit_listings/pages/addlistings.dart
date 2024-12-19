@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 import '../../../../../app/constants/screens.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
@@ -685,7 +686,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
         SizedBox(height: 5.h),
         Obx(
           () => Container(
-            height: 55.h,
+            height: 60.h,
             alignment: Alignment.center,
             padding: EdgeInsets.symmetric(horizontal: 21.w),
             decoration: BoxDecoration(
@@ -710,6 +711,8 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                     textAlign: TextAlign.center,
                     color: Colors.grey,
                     fontSize: EraTheme.h5,
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w400, fontSize: 20.sp),
                   ),
                 ),
                 items: Types!.map<DropdownMenuItem<String>>((String value) {

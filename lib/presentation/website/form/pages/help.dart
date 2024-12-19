@@ -53,23 +53,25 @@ class HelpWeb extends GetView<FormWebController> {
                   ),
                   sb40(),
                   BoxWidget.build(
-                      child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                     child: Column(
                       children: [
-                        SizedBox(height: 10.h),
-                        AppTextField(
-                          hint: 'AI Search',
-                          svgIcon: AppEraAssets.ai3,
-                          bgColor: AppColors.white,
-                          //  controller: controller.aiSearch,
+                        SizedBox(
+                          height: 60.h,
+                          child: AppTextField(
+                              hint: 'Use AI Search',
+                              svgIcon: AppEraAssets.ai3,
+                              bgColor: AppColors.white,
+                              isSuffix: true,
+                              obscureText: false,
+                              suffixIcons: AppEraAssets.send),
                         ),
-                        SizedBox(height: 10.h),
-                  //      SearchWidget.build(() async {}),
-                        SizedBox(height: 10.h),
                       ],
                     ),
                   )),
+                  SizedBox(height: 10.h),
                 ],
               ),
             ),

@@ -80,9 +80,9 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                           SizedBox(height: 15.h),
 
                           SizedBox(
-                            height: 55.h,
+                            height: 60.h,
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
                               child: Obx(() {
                                 if (!searchResultController
                                     .showFullSearch.value) {
@@ -130,76 +130,85 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                           //FILTERED SEARCH
                           Obx(() {
                             if (searchResultController.showFullSearch.value) {
-                              return Column(
-                                children: [
-                                  Column(
-                                    children: [
-                                      SizedBox(height: 10.h),
-                                      AddListings.dropDownAddlistings1(
-                                          color: AppColors.white,
-                                          selectedItem:
-                                              controller.selectedLocation,
-                                          Types: projectsController.location,
-                                          onChanged: (value) => controller
-                                              .selectedLocation.value = value!,
-                                          name: 'Location',
-                                          hintText: 'Select Location'),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          EraText(
-                                              text: 'Name',
-                                              fontSize: 20.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: AppColors.white),
-                                          SizedBox(height: 5.h),
-                                          Container(
-                                            height: 60.h,
-                                            child: TextformfieldWidget(
-                                              style: TextStyle(
-                                                fontSize: 20.sp,
-                                                color: AppColors.hint,
-                                                height: 0.0,
-                                                fontFamily: GoogleFonts.lato(
-                                                        fontWeight:
-                                                            FontWeight.w400)
-                                                    .fontFamily,
-                                              ),
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: EraTheme
-                                                          .paddingWidth),
-                                              radius: 99,
-                                              controller: controller.agentName,
-                                              hintText: '  Find Agent by Name',
-                                              maxLines: 1,
-                                              keyboardType: TextInputType.text,
-                                              hintstlye: TextStyle(
+                              return Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 10.h),
+                                    AddListings.dropDownAddlistings1(
+                                        color: AppColors.white,
+                                        selectedItem:
+                                            controller.selectedLocation,
+                                        Types: projectsController.location,
+                                        onChanged: (value) => controller
+                                            .selectedLocation.value = value!,
+                                        name: 'Location',
+                                        hintText: 'Select Location'),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        EraText(
+                                            text: 'Find Agent',
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.white),
+                                        SizedBox(height: 5.h),
+                                        Container(
+                                          height: 60.h,
+                                          child: TextFormField(
+                                            decoration: InputDecoration(
+                                              filled: true,
+                                              fillColor: AppColors.white,
+                                              hintText: ' Find Agent by Name',
+                                              hintStyle: TextStyle(
                                                 textBaseline:
                                                     TextBaseline.alphabetic,
                                                 fontSize: 20.sp,
                                                 color: AppColors.hint,
-                                                height: 0.0,
-                                                fontFamily: GoogleFonts.lato(
-                                                        fontWeight:
-                                                            FontWeight.w400)
-                                                    .fontFamily,
+                                                fontFamily:
+                                                    GoogleFonts.montserrat(
+                                                            fontWeight:
+                                                                FontWeight.w400)
+                                                        .fontFamily,
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(99),
+                                                borderSide: BorderSide(
+                                                  color: AppColors.hint,
+                                                  width: 1,
+                                                ),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(99),
+                                                borderSide: BorderSide(
+                                                  color: AppColors.primary,
+                                                  width: 1,
+                                                ),
                                               ),
                                             ),
+
+                                            // contentPadding:
+                                            //     EdgeInsets.symmetric(
+                                            //         horizontal: EraTheme
+                                            //             .paddingWidth),
+
+                                            controller: controller.agentName,
                                           ),
-                                          SizedBox(height: 20.h),
-                                        ],
-                                      ),
-                                      SizedBox(height: 20.h),
-                                      SearchWidget(onTap: () {
-                                        controller.search();
-                                      }),
-                                      // SearchWidget.build(),
-                                      SizedBox(height: 20.h),
-                                    ],
-                                  ),
-                                ],
+                                        ),
+                                        SizedBox(height: 20.h),
+                                      ],
+                                    ),
+                                    SizedBox(height: 20.h),
+                                    SearchWidget(onTap: () {
+                                      controller.search();
+                                    }),
+                                    // SearchWidget.build(),
+                                    SizedBox(height: 20.h),
+                                  ],
+                                ),
                               );
                             }
                             return Container();

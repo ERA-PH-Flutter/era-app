@@ -59,7 +59,8 @@ class ProjectsList extends GetView<ProjectsListWebController> {
                       SizedBox(height: 10.h),
                       Obx(() {
                         if (!searchController.showFullSearch.value) {
-                          return Padding(
+                          return Container(
+                            height: 60.h,
                             padding: EdgeInsets.symmetric(horizontal: 10.w),
                             child: AppTextField(
                                 onSuffixTap: () async {

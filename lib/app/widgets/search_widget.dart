@@ -15,7 +15,7 @@ class SearchWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 53.h,
+        height: 60.h,
         decoration: BoxDecoration(
           color: AppColors.kRedColor,
           borderRadius: BorderRadius.circular(20.0),
