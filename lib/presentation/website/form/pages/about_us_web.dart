@@ -422,7 +422,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -436,235 +436,291 @@ class AboutUsWeb extends GetView<FormWebController> {
   Widget build(BuildContext context) {
     Get.find<FormWebController>();
     return SingleChildScrollView(
-      child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CachedNetworkImage(
-              imageUrl:
-                  'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-              fit: BoxFit.cover,
-              height: Get.height - 100.h,
-              width: Get.width,
-            ),
-            sb30(),
-            EraText(
-                text: 'About Us',
-                fontSize: EraTheme.subHeaderWeb,
-                fontWeight: FontWeight.bold,
-                color: AppColors.kRedColor),
-            sb20(),
-            _buildDescription(
-                'Welcome to a new ERA of property discovery and management.'),
-            SizedBox(
-              height: 20.h,
-            ),
-            _buildDescription(
-                'ERA Real Estate Philippines is a proud member of ERA Real Estate, the largest real estate network in the Asia-Pacific region with more than 23,400 trusted advisers in over 640 offices across 13 countries. We provide exceptional real estate services, guiding you through buying, selling, and investing.'),
-            SizedBox(
-              height: 20.h,
-            ),
-            _buildDescription(
-                'We are committed to revolutionizing your real estate experience through innovative technology and unparalleled service. Our mission is to make property transactions seamless, transparent, and tailored to your unique needs.'),
-            SizedBox(
-              height: 20.h,
-            ),
-            _buildDescription(
-                'We envision a world where searching for and managing real estate is as simple as a few taps on your phone. With the ERA Real Estate Philippines app, we aim to redefine the property landscape in the Philippines by providing cutting-edge tools and resources that enable you to make informed decisions with confidence.'),
-            SizedBox(
-              height: 20.h,
-            ),
-            _buildDescription(
-                'At ERA Real Estate Philippines, we empower you to achieve your real estate dreams. Discover the ERA difference today!'),
-            sb40(),
-            EraText(
-              text: 'What We Do',
-              fontSize: EraTheme.subHeaderWeb,
-              color: AppColors.kRedColor,
-              fontWeight: FontWeight.bold,
-            ),
-            sb40(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildDescription('Real Estate Brokerage Services:',
-                          fontWeight: FontWeight.w600),
-                      _buildDescription(
-                          'Discover unparalleled expertise and personalized guidance with our premier real estate brokerage services. Whether you’re buying, selling, or investing, our seasoned professionals are committed to guiding you through every step of the process.'),
-                      sb20(),
-                      _buildDescription('Agent & Broker Training:',
-                          fontWeight: FontWeight.w600),
-                      _buildDescription(
-                          'Elevate the careers of our agents and brokers with our comprehensive training and development programs. Our courses are designed to enhance their skills and boost their success, covering everything from mastering market trends and effective client communication to advanced negotiation tactics and cutting-edge technology.'),
-                      sb20(),
-                      _buildDescription('Franchise Arrangements:',
-                          fontWeight: FontWeight.w600),
-                      _buildDescription(
-                          'Explore limitless possibilities of real estate franchising through our dynamic franchise arrangements. As part of our network, you’ll benefit from a proven business model, robust marketing support, and extensive operational resources tailored to maximize your growth and profitability.'),
-                      sb20(),
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              CachedNetworkImage(
+                imageUrl:
+                    'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+                fit: BoxFit.cover,
+                height: Get.height - 150.h,
+                width: Get.width,
+              ),
+              Container(
+                height: Get.height - 150.h,
+                width: Get.width,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black.withOpacity(0.6),
+                      Colors.transparent,
                     ],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Container(),
+              ),
+              Positioned(
+                bottom: 30,
+                left: 30,
+                child: EraText(
+                  text: 'Welcome to a New ERA of Real Estate',
+                  fontSize: EraTheme.headerWeb,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildDescription('Property Valuation: ',
-                            fontWeight: FontWeight.w600),
-                        _buildDescription(
-                            'Accurate property valuation is the cornerstone of successful real estate transactions. At ERA Real Estate Philippines, we offer meticulous property valuation services designed to provide clarity and confidence to buyers, sellers, and investors alike. Backed by comprehensive market analysis and expert insights, our valuation process ensures you receive an informed and fair assessment of your property’s worth.'),
-                        sb20(),
-                        _buildDescription('Other Services:',
-                            fontWeight: FontWeight.w600),
-                        _buildDescription('• Legal'),
-                        _buildDescription('• Taxation'),
-                        _buildDescription('• Accounting'),
-                        _buildDescription('• Marketing'),
-                        _buildDescription('• Branding'),
-                      ],
-                    )),
-              ],
-            ),
-            joinUs(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  _buildDescription(text, {fontWeight, fontSize, color}) {
-    return EraText(
-        text: text,
-        maxLines: 50,
-        fontSize: fontSize ?? EraTheme.paragraphWeb,
-        fontWeight: fontWeight ?? FontWeight.w500,
-        color: color ?? AppColors.black);
-  }
-
-  Widget text(String text) {
-    return Column(
-      children: [
-        Container(
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
-            child: EraText(
-              text: text,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.black,
-              maxLines: 50,
-            )),
-      ],
-    );
-  }
-
-  static Widget joinUs() {
-    return Stack(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: EraTheme.paddingWidthAdmin * 3, vertical: 40.h),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 EraText(
-                  text: 'Why Join Us?',
-                  fontSize: EraTheme.headerWeb,
-                  color: AppColors.kRedColor,
+                  text: 'About Us',
+                  fontSize: EraTheme.h1,
                   fontWeight: FontWeight.bold,
+                  color: AppColors.kRedColor,
                 ),
                 sb20(),
-                ...buildWidgetColumn3(),
+                _buildDescription(
+                  'Welcome to a new ERA of property discovery and management.',
+                ),
+                sb20(),
+                _buildDescription(
+                    'ERA Real Estate Philippines is a proud member of ERA Real Estate, the largest real estate network in the Asia-Pacific region with more than 23,400 trusted advisers in over 640 offices across 13 countries. We provide exceptional real estate services, guiding you through buying, selling, and investing.'),
+                sb20(),
+                _buildDescription(
+                    'We envision a world where searching for and managing real estate is as simple as a few taps on your phone. With the ERA Real Estate Philippines app, we aim to redefine the property landscape in the Philippines by providing cutting-edge tools and resources that enable you to make informed decisions with confidence.'),
+                sb20(),
+                _buildDescription(
+                    'At ERA Real Estate Philippines, we empower you to achieve your real estate dreams. Discover the ERA difference today!'),
+                sb40(),
+                EraText(
+                  text: 'What We Do',
+                  fontSize: EraTheme.h1,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.kRedColor,
+                ),
+                sb30(),
+                _buildServices(),
+                sb40(),
+                buildJoinUsSection(),
               ],
             ),
-            Positioned(
-              left: 0,
-              right: 0,
-              child: Image.asset(
-                AppEraAssets.careerEra,
-                fit: BoxFit.cover,
+          ),
+        ],
+      ),
+    );
+  }
+
+  _buildDescription(String text, {FontWeight? fontWeight, double? fontSize}) {
+    return EraText(
+      text: text,
+      fontSize: fontSize ?? EraTheme.paragraphWeb,
+      fontWeight: fontWeight ?? FontWeight.w500,
+      color: AppColors.black,
+      maxLines: 50,
+    );
+  }
+
+  // What We Do Section
+  Widget _buildServices() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildServiceTile(
+                'Real Estate Brokerage Services',
+                'Discover unparalleled expertise and personalized guidance with our premier real estate brokerage services. Whether you’re buying, selling, or investing, our seasoned professionals are committed to guiding you through every step of the processionals are committed to guiding you through every step of the process.',
               ),
-            ),
-          ],
-        )
+              _buildServiceTile(
+                'Agent & Broker Training',
+                'Elevate the careers of our agents and brokers with our comprehensive training and development programs. Our courses are designed to enhance their skills and boost their success, covering everything from mastering market trends and effective client communication to advanced negotiation tactics and cutting-edge technology.',
+              ),
+              _buildServiceTile(
+                'Franchise Arrangements',
+                'Explore limitless possibilities of real estate franchising through our dynamic franchise arrangements. As part of our network, you’ll benefit from a proven business model, robust marketing support, and extensive operational resources tailored to maximize your growth and profitability.',
+              ),
+            ],
+          ),
+        ),
+        SizedBox(width: 30),
+        Expanded(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildServiceTile(
+                'Property Valuation',
+                'Accurate property valuation is the cornerstone of successful real estate transactions. At ERA Real Estate Philippines, we offer meticulous property valuation services designed to provide clarity and confidence to buyers, sellers, and investors alike. Backed by comprehensive market analysis and expert insights, our valuation process ensures you receive an informed and fair assessment of your property’s worth.',
+              ),
+              _buildServiceTile('Other Services:',
+                  '• Legal\n• Taxation\n• Accounting\n• Marketing\n• Branding'),
+            ],
+          ),
+        ),
       ],
     );
   }
 
+  Widget _buildServiceTile(String title, String description) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 20.sp),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          EraText(
+            text: title,
+            fontSize: EraTheme.h2,
+            fontWeight: FontWeight.bold,
+            color: AppColors.kRedColor,
+          ),
+          sb10(),
+          EraText(
+            text: description,
+            fontSize: EraTheme.bodyText,
+            color: AppColors.black,
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Widget buildJoinUsSection() {
+    return Container(
+      padding: EdgeInsets.all(30),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.white, AppColors.hint.withOpacity(0.6)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            blurRadius: 10,
+            offset: Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    EraText(
+                      text: 'Why Join Us?',
+                      fontSize: EraTheme.headerWeb,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.kRedColor,
+                    ),
+                    sb20(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: buildWidgetColumn3(),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Positioned(
+                  left: 0,
+                  right: 0,
+                  child: Opacity(
+                    opacity: 0.8,
+                    child: Image.asset(
+                      AppEraAssets.careerEra,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // static Widget joinUs() {
+  //   return Stack(
+  //     children: [
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               EraText(
+  //                 text: 'Why Join Us?',
+  //                 fontSize: EraTheme.headerWeb,
+  //                 color: AppColors.kRedColor,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //               sb20(),
+  //               ...buildWidgetColumn3(),
+  //             ],
+  //           ),
+  //           Positioned(
+  //             top: 0,
+  //             left: 0,
+  //             child: Image.asset(
+  //               height: 150.h,
+  //               AppEraAssets.careerEra,
+  //               fit: BoxFit.contain,
+  //             ),
+  //           ),
+  //         ],
+  //       )
+  //     ],
+  //   );
+  // }
+
   static List<Widget> buildWidgetColumn3() {
     return [
-      Row(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BottomWidgets.bigCircle(),
-          sbw10(),
-          BottomWidgets.eraJoinTitle(
+          BottomWidgets.bigCircle(
             text: 'Training & Development',
           ),
-        ],
-      ),
-      sb20(),
-      Row(
-        children: [
-          BottomWidgets.bigCircle(),
-          sbw10(),
-          BottomWidgets.eraJoinTitle(
+          sb20(),
+          BottomWidgets.bigCircle(
             text: 'Reputable developer properties',
           ),
-        ],
-      ),
-      sb20(),
-      Row(
-        children: [
-          BottomWidgets.bigCircle(),
-          sbw10(),
-          BottomWidgets.eraJoinTitle(
+          sb20(),
+          BottomWidgets.bigCircle(
             text: 'Favorable Commission Terms',
           ),
-        ],
-      ),
-      sb20(),
-      Row(
-        children: [
-          BottomWidgets.bigCircle(),
-          sbw10(),
-          BottomWidgets.eraJoinTitle(
+          sb20(),
+          BottomWidgets.bigCircle(
             text: 'Advanced Digital Platforms',
           ),
-        ],
-      ),
-      sb20(),
-      Row(
-        children: [
-          BottomWidgets.bigCircle(),
-          sbw10(),
-          BottomWidgets.eraJoinTitle(
+          sb20(),
+          BottomWidgets.bigCircle(
             text: 'Administrative Support',
           ),
-        ],
-      ),
-      sb20(),
-      Row(
-        children: [
-          BottomWidgets.bigCircle(),
-          sbw10(),
-          BottomWidgets.eraJoinTitle(
+          sb20(),
+          BottomWidgets.bigCircle(
             text: 'Access to our office spaces & facilities',
           ),
+          sb20(),
         ],
       ),
-      sb20(),
     ];
   }
 }

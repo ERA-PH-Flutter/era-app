@@ -67,7 +67,7 @@ class CompanyNewsPageWeb extends GetView<NewsWebController> {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
-          child: AboutUsWeb.joinUs(),
+          child: AboutUsWeb.buildJoinUsSection(),
         ),
         sb50(),
       ],

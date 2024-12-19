@@ -36,7 +36,7 @@ class JoinEraWeb extends GetView<FormWebController> {
           sb15(),
           //text era
           _buildTextJoinEra(),
-          AboutUsWeb.joinUs(),
+          AboutUsWeb.buildJoinUsSection(),
           sb50(),
           Container(
             padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),

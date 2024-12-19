@@ -208,7 +208,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                   hintText: 'Description',
                                   controller: controller.phoneNum,
                                   MaxLines: 10,
-                                 ),
+                                ),
                                 sb20(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -227,7 +227,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                   ],
                                 ),
                                 sb50(),
-                                AboutUsWeb.joinUs(),
+                                AboutUsWeb.buildJoinUsSection(),
                               ],
                             )
                             // Padding(
