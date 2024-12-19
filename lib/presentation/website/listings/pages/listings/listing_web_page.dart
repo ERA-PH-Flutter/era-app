@@ -21,6 +21,7 @@ import '../../../../../app/widgets/interactive_property_image.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
+import '../../../home/pages/home_web.dart';
 import '../../controllers/listings_web_controller.dart';
 
 class BuyWebListingPage extends GetView<ListingsWebController> {
@@ -727,7 +728,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
           EraText(
             text: 'Similar Listings',
             color: AppColors.kRedColor,
-            fontSize: EraTheme.headerWeb,
+            fontSize: EraTheme.h1,
             fontWeight: FontWeight.bold,
           ),
           sb20(),
@@ -792,7 +793,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                           : AppStrings.noUserImageWhite)
                                       : AppStrings.noUserImageWhite,
                                   fit: BoxFit.cover,
-                                  height: 300.h,
+                                  height: 340.h,
                                   width: Get.width,
                                 ),
 
@@ -809,14 +810,13 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                               sb17(),
                               Container(
                                 width: Get.width,
-                                height: 30.h,
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: EraText(
                                   textOverflow: TextOverflow.ellipsis,
                                   text: listing.name! == ""
                                       ? "No Name"
                                       : listing.name!,
-                                  fontSize: EraTheme.header - 5.sp,
+                                  fontSize: EraTheme.h3,
                                   color: AppColors.kRedColor,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -825,7 +825,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: EraText(
                                   text: listing.type!,
-                                  fontSize: EraTheme.header - 12.sp,
+                                  fontSize: EraTheme.h5,
                                   color: AppColors.black,
                                   fontWeight: FontWeight.bold,
                                   lineHeight: 1,
@@ -833,59 +833,26 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                               ),
                               sb5(),
                               Row(
-                                //crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        AppEraAssets.area,
-                                        width: 55.w,
-                                        height: 55.w,
-                                      ),
-                                      SizedBox(width: 2.w),
-                                      EraText(
-                                        text: '${listing.floorArea} sqm',
-                                        fontSize: EraTheme.paragraph - 1.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.black,
-                                      ),
-                                    ],
+                                  HomeWeb.buildFeatureIcon(
+                                    icon: AppEraAssets.area,
+                                    label: '${listing.floorArea} sqm',
                                   ),
-                                  sbw10(),
-                                  Image.asset(
-                                    AppEraAssets.bed,
-                                    width: 55.w,
-                                    height: 55.w,
+                                  SizedBox(width: 2.w),
+                                  HomeWeb.buildFeatureIcon(
+                                    icon: AppEraAssets.bed,
+                                    label: '${listing.beds}',
                                   ),
-                                  EraText(
-                                    text: '${listing.beds}',
-                                    fontSize: EraTheme.paragraph - 1.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.black,
+                                  SizedBox(width: 2.w),
+                                  HomeWeb.buildFeatureIcon(
+                                    icon: AppEraAssets.tub,
+                                    label: '${listing.baths}',
                                   ),
-                                  sbw10(),
-                                  Image.asset(
-                                    AppEraAssets.tub,
-                                    width: 55.w,
-                                    height: 55.w,
-                                  ),
-                                  EraText(
-                                    text: '${listing.baths}',
-                                    fontSize: EraTheme.paragraph - 1.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.black,
-                                  ),
-                                  sbw10(),
-                                  Image.asset(
-                                    AppEraAssets.car,
-                                    width: 55.w,
-                                    height: 55.w,
-                                  ),
-                                  EraText(
-                                    text: '${listing.cars}',
-                                    fontSize: EraTheme.paragraph - 1.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.black,
+                                  SizedBox(width: 2.w),
+                                  HomeWeb.buildFeatureIcon(
+                                    icon: AppEraAssets.car,
+                                    label: '${listing.cars}',
                                   ),
                                 ],
                               ),
@@ -894,7 +861,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: EraText(
                                   text: 'Description:',
-                                  fontSize: EraTheme.header - 8.sp,
+                                  fontSize: EraTheme.h6,
                                   color: AppColors.black,
                                   fontWeight: FontWeight.w600,
                                   lineHeight: 1,
@@ -910,7 +877,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                       ? "No description."
                                       : listing.description!,
                                   style: TextStyle(
-                                    fontSize: EraTheme.paragraph - 4.sp,
+                                    fontSize: EraTheme.caption,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.black,
                                   ),
@@ -932,7 +899,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                         : listing.price,
                                   ),
                                   color: AppColors.blue,
-                                  fontSize: EraTheme.header,
+                                  fontSize: EraTheme.h4,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
