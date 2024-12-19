@@ -44,7 +44,6 @@ class AgentListViewWeb extends StatelessWidget {
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              // Card Container
               Container(
                 height: 450.h,
                 width: 450.w,
@@ -121,17 +120,20 @@ class AgentListViewWeb extends StatelessWidget {
                   ),
                 ),
               ),
-
               Positioned(
                 top: 0.h,
                 right: 20.w,
                 left: 20.w,
                 child: Align(
                   alignment: Alignment.topCenter,
-                  child: CloudStorage().imageLoaderProvider(
-                    height: 280.h,
-                    width: 300.w,
-                    reference: '${agent.image ?? AppStrings.noUserImageWhite}',
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: CloudStorage().imageLoaderProvider(
+                      height: 280.h,
+                      width: 300.w,
+                      reference:
+                          '${agent.image ?? AppStrings.noUserImageWhite}',
+                    ),
                   ),
                 ),
               ),

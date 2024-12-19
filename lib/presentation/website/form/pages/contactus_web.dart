@@ -71,7 +71,7 @@ class ContactUsWeb extends GetView<FormWebController> {
               ],
             ),
             sb10(),
-            AboutUsWeb.joinUs(),
+            AboutUsWeb.buildJoinUsSection(),
           ],
         ),
       ),

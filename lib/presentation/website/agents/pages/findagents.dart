@@ -34,37 +34,62 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
         Get.put(SearchResultController());
     ProjectsWebController projectsController = Get.put(ProjectsWebController());
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       width: Get.width,
       child: Column(
         children: [
-          CachedNetworkImage(
-            imageUrl:
-                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-            fit: BoxFit.cover,
-            width: Get.width,
-            height: Get.height / 1.2,
+          Stack(
+            children: [
+              CachedNetworkImage(
+                imageUrl:
+                    'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+                fit: BoxFit.cover,
+                width: Get.width,
+                height: Get.height - 150.h,
+              ),
+              Container(
+                width: Get.width,
+                height: Get.height - 150.h,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black.withOpacity(0.6),
+                      Colors.transparent,
+                    ],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 50,
+                left: 20,
+                right: 20,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    EraText(
+                      text: 'Find Your Trusted Agent',
+                      fontSize: EraTheme.h1,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    SizedBox(height: 10.h),
+                    EraText(
+                      text: 'Connect with professionals ready to assist you.',
+                      fontSize: EraTheme.h5,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          // SizedBox(
-          //   height: Get.height - 330.h,
-          //   width: Get.width,
-          //   child: YoutubePlayer(
-          //     controller: ytController.youtubePlayerController,
-          //     bottomActions: const [
-          //       CurrentPosition(),
-          //       ProgressBar(isExpanded: true),
-          //       RemainingDuration(),
-          //       FullScreenButton(),
-          //     ],
-          //   ),
-          // ),
           sb50(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: EraTheme.paddingWidthAdmin * 5),
+                    horizontal: EraTheme.paddingWidthAdmin * 8),
                 child: Column(
                   children: [
                     EraText(
@@ -298,41 +323,44 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
   }
 
   _loaded() {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      sb40(),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        sb40(),
 
-      FutureBuilder(
-        future: FirebaseFirestore.instance
-            .collection('users')
-            .where('status', isEqualTo: 'approved')
-            .count()
-            .get(),
-        builder: (data, snapshot) {
-          if (snapshot.hasData) {
-            return EraText(
-              text: "${snapshot.data!.count} ERA Agents",
-              fontSize: EraTheme.h1,
-              fontWeight: FontWeight.bold,
-              color: AppColors.kRedColor,
-              textAlign: TextAlign.center,
-            );
-          } else {
-            return CircularProgressIndicator();
-          }
-        },
-      ),
-      EraText(
-        text: "Your Go-To Professionals for Seamless Property Transactions",
-        fontSize: EraTheme.h2,
-        fontWeight: FontWeight.w600,
-        color: AppColors.hint,
-        textAlign: TextAlign.start,
-      ),
-      // Obx(() => EraText(
+        FutureBuilder(
+          future: FirebaseFirestore.instance
+              .collection('users')
+              .where('status', isEqualTo: 'approved')
+              .count()
+              .get(),
+          builder: (data, snapshot) {
+            if (snapshot.hasData) {
+              return EraText(
+                text: "${snapshot.data!.count} ERA Agents",
+                fontSize: EraTheme.h1,
+                fontWeight: FontWeight.bold,
+                color: AppColors.kRedColor,
+                textAlign: TextAlign.center,
+              );
+            } else {
+              return CircularProgressIndicator();
+            }
+          },
+        ),
+        EraText(
+          text: "Your Go-To Professionals for Seamless Property Transactions",
+          fontSize: EraTheme.h2,
+          fontWeight: FontWeight.w600,
+          color: AppColors.hint,
+          textAlign: TextAlign.start,
+        ),
+        // Obx(() => EraText(
 
-      Obx(
-        () => AgentListViewWeb(agentInfo: controller.results.value),
-      )
-    ]);
+        Obx(
+          () => AgentListViewWeb(agentInfo: controller.results.value),
+        )
+      ]),
+    );
   }
 }
