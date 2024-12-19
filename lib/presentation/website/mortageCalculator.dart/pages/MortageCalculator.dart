@@ -1,150 +1,126 @@
-import 'dart:io';
-import 'dart:math';
-import 'package:eraphilippines/app/constants/assets.dart';
-import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
-import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/pieChart.dart';
-import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
+ 
 import '../controllers/MortageCalculator_controller.dart';
 
-class MortageCalculatorWeb extends GetView<MortageCalculatorWController> {
-  const MortageCalculatorWeb({super.key});
-
+class MortgageCalculatorWeb extends GetView<MortageCalculatorWController> {
   @override
   Widget build(BuildContext context) {
- //   Get.put(MortageCalculatorWController());
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          EraText(
-            text: 'Mortgage Calculator',
-            fontSize: EraTheme.headerWeb,
-            color: AppColors.kRedColor,
-            fontWeight: FontWeight.bold,
-          ),
-          EraText(
-            text: 'Simply Calculate Your Mortgage Payment',
-            fontSize: EraTheme.paragraphWeb,
-            color: AppColors.black,
-            fontWeight: FontWeight.w400,
-          ),
-          sb50(),
-
-          // Form Fields and Pie Chart Section
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 1,
-                child: _rowTextField(),
-              ),
-              sbw40(),
-              Expanded(
-                flex: 1,
-                child: pieChart(),
-              ),
-            ],
-          ),
-          sb50(),
-        ],
-      ),
-    );
-  }
-
-  Widget pieChart() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(10),
-        border:
-            Border.all(color: AppColors.kRedColor.withOpacity(0.7), width: 2),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(8.sp),
-            child: EraText(
-              text: 'Mortgage Payment Breakdown',
-              fontSize: EraTheme.headerWeb,
-              color: AppColors.blue,
+          // Title Section
+          Text(
+            "Mortgage Calculator",
+            style: TextStyle(
+              fontSize: 32.sp,
               fontWeight: FontWeight.bold,
+              color: Colors.blue.shade700,
             ),
           ),
           SizedBox(height: 10.h),
-          Obx(() => Piechart(
-              downPayment: controller.downP.value,
-              interestAmount: controller.interestAmount.value,
-              initialAmount: controller.initialAmount.value)),
-          EraText(
-              text: 'Summary of Payment',
-              fontSize: EraTheme.subHeaderWeb,
-              color: AppColors.kRedColor),
-          Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    EraText(
-                      text: 'Downpayment: ',
-                      fontSize: EraTheme.buttonText,
-                      color: AppColors.black,
-                    ),
-                    Obx(
-                      () => EraText(
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 30.sp,
-                            color: AppColors.downPayment,
-                            fontWeight: FontWeight.bold),
-                        text: controller.downP.value,
-                      ),
-                    ),
-                  ],
-                ),
-                EraText(
-                  text: 'Monthly Payment: ',
-                  fontSize: EraTheme.buttonText,
-                  color: AppColors.black,
-                ),
-                TextField(
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 30.sp,
-                      color: AppColors.downPayment,
-                      fontWeight: FontWeight.bold),
-                  controller: controller.monthlyP,
-                  readOnly: true,
-                  decoration: InputDecoration.collapsed(hintText: ''),
-                )
-              ],
+          Text(
+            "Simply calculate your mortgage payment.",
+            style: TextStyle(
+              fontSize: 18.sp,
+              color: Colors.black54,
             ),
           ),
-          Center(
-            child: IconButton(
-              alignment: Alignment.center,
-              onPressed: () {
-                controller.reset();
-              },
-              icon: Image.asset(
-                AppEraAssets.reset,
-                height: 50.h,
-                color: AppColors.blue,
-                width: 50.w,
+          SizedBox(height: 30.h),
+
+           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: _buildInputSection(),
+              ),
+              SizedBox(width: 20.w),
+              Expanded(
+                flex: 1,
+                child: _buildPieChartSection(),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInputSection() {
+    return Container(
+      padding: EdgeInsets.all(20.r),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildTextField("Property Amount", controller.propertyAmount),
+          SizedBox(height: 15.h),
+          _buildTextField("Down Payment (%)", controller.downPayment),
+          SizedBox(height: 15.h),
+          _buildTextField("Loan Term (Years)", controller.loanTerm),
+          SizedBox(height: 15.h),
+          _buildTextField("Interest Rate (%)", controller.interestRate),
+          SizedBox(height: 25.h),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              backgroundColor: Colors.blue.shade600,
+            ),
+            onPressed: () async {
+              var initial =
+                  controller.propertyAmount.text.replaceAll(',', '').toInt();
+              controller.downP.value =
+                  (controller.downPayment.text.toInt() * initial / 100)
+                      .toString()
+                      .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                          (Match m) => '${m[1]},');
+              controller.initialAmount.value = (initial -
+                      (controller.downPayment.text.toInt() * initial / 100))
+                  .toDouble();
+              var loanTerms = (controller.loanTerm.text.toInt() * 12);
+              var interest =
+                  (controller.interestRate.text.toDouble() / 100) / 12;
+              controller.monthlyAmount.value = (controller.initialAmount.value *
+                      interest *
+                      pow(1 + interest, loanTerms)) /
+                  (pow(1 + interest, loanTerms) - 1);
+              controller.interestAmount.value =
+                  (controller.monthlyAmount.value * loanTerms) -
+                      controller.initialAmount.value;
+              controller.monthlyP.text = NumberFormat.currency(
+                locale: 'en_PH',
+                symbol: 'Php ',
+              ).format(controller.monthlyAmount.value);
+            },
+            child: Center(
+              child: Text(
+                "CALCULATE",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -153,373 +129,92 @@ class MortageCalculatorWeb extends GetView<MortageCalculatorWController> {
     );
   }
 
-  Widget _rowTextField() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        _buildTextField(
-          title: 'Property Amount',
-          controller: controller.propertyAmount,
-          onChanged: (value) {
-            String digitsOnly = value.replaceAll(RegExp(r'[^0-9]'), '');
-            String formattedValue = digitsOnly.replaceAllMapped(
-              RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
-              (Match m) => '${m[1]},',
-            );
-            controller.propertyAmount.text = formattedValue;
-            controller.propertyAmount.selection = TextSelection.fromPosition(
-              TextPosition(offset: formattedValue.length),
-            );
-          },
-        ),
-        sbw30(),
-        _buildTextField(
-          title: 'Down Payment',
-          controller: controller.downPayment,
-        ),
-        sbw30(),
-        _buildTextField(
-          title: 'Loan Term',
-          controller: controller.loanTerm,
-        ),
-        sbw30(),
-        _buildTextField(
-          title: 'Interest Rate',
-          controller: controller.interestRate,
-        ),
-        sb30(),
-        Button(
-          borderRadius: BorderRadius.circular(20.r),
-          width: Get.width,
-          bgColor: AppColors.kRedColor,
-          text: 'CALCULATE',
-          fontSize: EraTheme.paragraphWeb,
-          fontWeight: FontWeight.w500,
-          height: EraTheme.buttonH60,
-          onTap: () async {
-            var initial =
-                controller.propertyAmount.text.replaceAll(',', '').toInt();
-            controller.downP.value =
-                (controller.downPayment.text.toInt() * initial / 100)
-                    .toString()
-                    .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                        (Match m) => '${m[1]},');
-            controller.initialAmount.value = (initial -
-                    (controller.downPayment.text.toInt() * initial / 100))
-                .toDouble();
-            var loanTerms = (controller.loanTerm.text.toInt() * 12);
-            var interest = (controller.interestRate.text.toDouble() / 100) / 12;
-            controller.monthlyAmount.value = (controller.initialAmount.value *
-                    interest *
-                    pow(1 + interest, loanTerms)) /
-                (pow(1 + interest, loanTerms) - 1);
-            controller.interestAmount.value =
-                (controller.monthlyAmount.value * loanTerms) -
-                    controller.initialAmount.value;
-            controller.monthlyP.text = NumberFormat.currency(
-              locale: 'en_PH',
-              symbol: 'Php ',
-            ).format(controller.monthlyAmount.value);
-          },
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTextField({
-    String? title,
-    TextEditingController? controller,
-    Function(String)? onChanged,
-  }) {
+  Widget _buildTextField(String label, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        EraText(
-          text: title!,
-          fontSize: EraTheme.paragraphWeb,
-          color: AppColors.black,
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
+            color: Colors.blue.shade700,
+          ),
         ),
         SizedBox(height: 10.h),
-        TextformfieldWidget(
-          onChanged: onChanged,
-          suffixIcon: Align(
-            widthFactor: 1.5,
-            child: Image.asset(
-              AppEraAssets.currency,
-              height: 35.h,
-              color: AppColors.kRedColor,
-            ),
-          ),
-          keyboardType: TextInputType.number,
+        TextField(
           controller: controller,
-          maxLines: 1,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.grey.shade100,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: BorderSide.none,
+            ),
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
+          ),
         ),
       ],
     );
   }
-}
 
-  // SingleChildScrollView(
-    //   controller: controller.scrollController,
-    //   child: Container(
-    //     width: Get.width,
-    //     padding:
-    //         EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         EraText(
-    //           text: 'MORTGAGE CALCULATOR',
-    //           fontSize: EraTheme.headerWeb,
-    //           color: AppColors.kRedColor,
-    //           fontWeight: FontWeight.bold,
-    //         ),
-    //         SizedBox(height: 15.h),
-    //         Container(
-    //           height: 450.h,
-    //           decoration: BoxDecoration(
-    //             color: AppColors.white,
-    //             borderRadius: BorderRadius.circular(10),
-    //             border: Border.all(
-    //                 color: AppColors.kRedColor.withOpacity(0.7), width: 2),
-    //           ),
-    //           child: Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               Padding(
-    //                 padding: EdgeInsets.all(8.0),
-    //                 child: EraText(
-    //                   text: 'Mortgage Payment Breakdown',
-    //                   fontSize: 18.sp,
-    //                   color: AppColors.blue,
-    //                   fontWeight: FontWeight.bold,
-    //                 ),
-    //               ),
-    //               SizedBox(height: 10.h),
-    //               Obx(() => Piechart(
-    //                   downPayment: controller.downP.value,
-    //                   interestAmount: controller.interestAmount.value,
-    //                   initialAmount: controller.initialAmount.value))
-    //             ],
-    //           ),
-    //         ),
-    //         SizedBox(height: 40.h),
-    //         EraText(
-    //           text: 'Property Amount',
-    //           fontSize: 20.sp,
-    //           color: AppColors.black,
-    //         ),
-    //         SizedBox(height: 10.h),
-    //         TextformfieldWidget(
-    //           onChanged: (value) {
-    //             String digitsOnly = value.replaceAll(RegExp(r'[^0-9]'), '');
-    //             String formattedValue = digitsOnly.replaceAllMapped(
-    //               RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
-    //               (Match m) => '${m[1]},',
-    //             );
-    //             controller.propertyAmount.text = formattedValue;
-    //             controller.propertyAmount.selection =
-    //                 TextSelection.fromPosition(
-    //               TextPosition(offset: formattedValue.length),
-    //             );
-    //           },
-    //           suffixIcon: Align(
-    //             widthFactor: 1.5,
-    //             child: Image.asset(
-    //               AppEraAssets.currency,
-    //               height: 35.h,
-    //               color: AppColors.kRedColor,
-    //             ),
-    //           ),
-    //           hintText: 'eg: 100000.00',
-    //           keyboardType: TextInputType.number,
-    //           controller: controller.propertyAmount,
-    //           maxLines: 1,
-    //         ),
-    //         EraText(
-    //           text: 'Down Payment',
-    //           fontSize: 20.sp,
-    //           color: AppColors.black,
-    //         ),
-    //         SizedBox(height: 10.h),
-    //         TextformfieldWidget(
-    //           suffixIcon: Align(
-    //             widthFactor: 1.5,
-    //             child: Image.asset(
-    //               AppEraAssets.percentage,
-    //               height: 35.h,
-    //               color: AppColors.kRedColor,
-    //             ),
-    //           ),
-    //           hintText: 'eg: 10%',
-    //           onChanged: (value) {
-    //             //controller.downP.value = value == "" ? "0" : (controller.propertyAmount.text.toDouble() * value.toInt() /100).toString();
-    //           },
-    //           keyboardType: TextInputType.number,
-    //           controller: controller.downPayment,
-    //           maxLines: 1,
-    //         ),
-    //         EraText(
-    //           text: 'Loan Term',
-    //           fontSize: 20.sp,
-    //           color: AppColors.black,
-    //         ),
-    //         SizedBox(height: 10.h),
-    //         TextformfieldWidget(
-    //           onChanged: (value) {},
-    //           suffixIcon: Align(
-    //             widthFactor: 1.5,
-    //             child: Image.asset(
-    //               AppEraAssets.loan,
-    //               height: 35.h,
-    //               color: AppColors.kRedColor,
-    //             ),
-    //           ),
-    //           hintText: 'eg: 10 years',
-    //           keyboardType: TextInputType.number,
-    //           controller: controller.loanTerm,
-    //           maxLines: 1,
-    //         ),
-    //         SizedBox(height: 10.h),
-    //         EraText(
-    //           text: 'Interest Rate',
-    //           fontSize: 20.sp,
-    //           color: AppColors.black,
-    //         ),
-    //         SizedBox(height: 10.h),
-    //         TextformfieldWidget(
-    //           suffixIcon: Align(
-    //             widthFactor: 1.5,
-    //             child: Image.asset(
-    //               AppEraAssets.percentage,
-    //               height: 35.h,
-    //               color: AppColors.kRedColor,
-    //             ),
-    //           ),
-    //           hintText: 'eg: 10%',
-    //           keyboardType: TextInputType.number,
-    //           controller: controller.interestRate,
-    //           maxLines: 1,
-    //         ),
-    //         SizedBox(height: 30.h),
-    //         SizedBox(height: 10.h),
-    //         Button(
-    //           borderRadius: BorderRadius.circular(20.r),
-    //           width: Get.width,
-    //           bgColor: AppColors.kRedColor,
-    //           text: 'CALCULATE',
-    //           fontSize: EraTheme.buttonText,
-    //           fontWeight: FontWeight.w500,
-    //           onTap: () async {
-    //             controller.scrollController.animateTo(
-    //                 controller.scrollController.position.maxScrollExtent,
-    //                 duration: Duration(seconds: 1),
-    //                 curve: Curves.easeInOut);
-    //             var initial =
-    //                 controller.propertyAmount.text.replaceAll(',', '').toInt();
-    //             controller.downP.value =
-    //                 (controller.downPayment.text.toInt() * initial / 100)
-    //                     .toString()
-    //                     .replaceAllMapped(
-    //                         RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-    //                         (Match m) => '${m[1]},');
-    //             controller.initialAmount.value = (initial -
-    //                     (controller.downPayment.text.toInt() * initial / 100))
-    //                 .toDouble();
-    //             var loanTerms = (controller.loanTerm.text.toInt() * 12);
-    //             var interest =
-    //                 (controller.interestRate.text.toDouble() / 100) / 12;
-    //             controller.monthlyAmount.value =
-    //                 (controller.initialAmount.value *
-    //                         interest *
-    //                         pow(1 + interest, loanTerms)) /
-    //                     (pow(1 + interest, loanTerms) - 1);
-    //             controller.interestAmount.value =
-    //                 (controller.monthlyAmount.value * loanTerms) -
-    //                     controller.initialAmount.value;
-    //             controller.monthlyP.text = NumberFormat.currency(
-    //               locale: 'en_PH',
-    //               symbol: 'Php ',
-    //             ).format(controller.monthlyAmount.value);
-    //           },
-    //         ),
-    //         SizedBox(height: 20.h),
-    //         Center(
-    //           child: EraText(
-    //             text: 'Downpayment',
-    //             fontSize: EraTheme.buttonText,
-    //             color: AppColors.black,
-    //           ),
-    //         ),
-    //         Obx(
-    //           () => Center(
-    //             child: EraText(
-    //               textAlign: TextAlign.center,
-    //               style: TextStyle(
-    //                   fontSize: 50.sp,
-    //                   color: AppColors.downPayment,
-    //                   fontWeight: FontWeight.bold),
-    //               text: controller.downP.value,
-    //             ),
-    //           ),
-    //         ),
-    //         SizedBox(height: 20.h),
-    //         Center(
-    //           child: EraText(
-    //             text: 'Monthly Payment',
-    //             fontSize: EraTheme.buttonText,
-    //             color: AppColors.black,
-    //           ),
-    //         ),
-    //         TextField(
-    //           textAlign: TextAlign.center,
-    //           style: TextStyle(
-    //               fontSize: 50.sp,
-    //               color: AppColors.downPayment,
-    //               fontWeight: FontWeight.bold),
-    //           controller: controller.monthlyP,
-    //           readOnly: true,
-    //           decoration: new InputDecoration.collapsed(hintText: ''),
-    //         ),
-    //         Center(
-    //           child: EraText(text: ''),
-    //         ),
-    //         Center(
-    //           child: IconButton(
-    //             alignment: Alignment.center,
-    //             onPressed: () {
-    //               controller.reset();
-    //             },
-    //             icon: Image.asset(
-    //               AppEraAssets.reset,
-    //               height: 50.h,
-    //               color: AppColors.blue,
-    //               width: 50.w,
-    //             ),
-    //           ),
-    //         ),
-    //         // Center(
-    //         //   child: TextButton(
-    //         //       style: ButtonStyle(
-    //         //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-    //         //           RoundedRectangleBorder(
-    //         //             borderRadius: BorderRadius.circular(20.r),
-    //         //           ),
-    //         //         ),
-    //         //         backgroundColor:
-    //         //             MaterialStateProperty.all(AppColors.blue),
-    //         //       ),
-    //         //       onPressed: () {
-    //         //         controller.reset();
-    //         //       },
-    //         //       child: EraText(
-    //         //         text: 'RESET',
-    //         //         color: AppColors.white,
-    //         //         fontSize: 20.sp,
-    //         //         fontWeight: FontWeight.w500,
-    //         //       )),
-    //         // ),
-    //       ],
-    //     ),
-    //   ),
-    // );
+  Widget _buildPieChartSection() {
+    return Container(
+      padding: EdgeInsets.all(20.r),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Text(
+            "Payment Breakdown",
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue.shade700,
+            ),
+          ),
+          SizedBox(height: 20.h),
+          Obx(() {
+            return Piechart(
+              downPayment: controller.downP.value,
+              interestAmount: controller.interestAmount.value,
+              initialAmount: controller.initialAmount.value,
+            );
+          }),
+          SizedBox(height: 20.h),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              backgroundColor: Colors.red.shade600,
+            ),
+            onPressed: () => controller.reset(),
+            child: Center(
+              child: Text(
+                "RESET",
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+ 
+}

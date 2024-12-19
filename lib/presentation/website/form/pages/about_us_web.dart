@@ -527,8 +527,7 @@ class AboutUsWeb extends GetView<FormWebController> {
     );
   }
 
-  // What We Do Section
-  Widget _buildServices() {
+   Widget _buildServices() {
     return Row(
       children: [
         Expanded(

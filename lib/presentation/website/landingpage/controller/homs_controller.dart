@@ -64,22 +64,22 @@ class HomsController extends GetxController {
     FindAgentsWeb(), //3
     HelpWeb(), //04
     // CompanyNewsWeb(),
-    AboutUsWeb(), //5
-    JoinEraWeb(), //6
-    SellPropertyWeb(), //7
-    ContactUsWeb(), //8
-    MortageCalculatorWeb(), //9
-    CompanyNewsWeb(), //10
-    CompanyNewsPageWeb(), // 11
-    BuyWebListingPage(), // 12
-    AgentDashBoardWeb(), //13
-    ProjectViewsWeb(), //14
-    AddListingsWeb(), //15
-    FavWeb(), //16
-    AgentsMyListingWeb(), //17
-    EditListingWeb(), //18
-    ArchivedWeb(), //19
-    SoldPropertiesWeb() //20
+    //AboutUsWeb(), //5
+    JoinEraWeb(), //5
+    SellPropertyWeb(), //6
+    // ContactUsWeb(), //7
+    MortgageCalculatorWeb(), //7
+    CompanyNewsWeb(), //8
+    CompanyNewsPageWeb(), // 9
+    BuyWebListingPage(), // 10
+    AgentDashBoardWeb(), //11
+    ProjectViewsWeb(), //12
+    AddListingsWeb(), //13
+    FavWeb(), //14
+    AgentsMyListingWeb(), //15
+    EditListingWeb(), //16
+    ArchivedWeb(), //17
+    SoldPropertiesWeb() //18
   ].obs;
 
   HomsController() {
@@ -102,10 +102,10 @@ class HomsController extends GetxController {
     'SEARCH',
     'FIND AGENTS',
     'HELP',
-    'ABOUT US',
+    //  'ABOUT US',
     'JOIN US',
     'SELL PROPERTY',
-    'CONTACT US',
+    //  'CONTACT US',
     'MORTGAGE CALCULATOR',
   ];
 
@@ -128,53 +128,53 @@ class HomsController extends GetxController {
       case 4:
         FormBinding().dependencies();
         break;
+      // case 5:
+      //   FormBinding().dependencies();
+      //   break;
       case 5:
         FormBinding().dependencies();
         break;
       case 6:
         FormBinding().dependencies();
         break;
+      // case 7:
+      //   FormBinding().dependencies();
+      //   break;
       case 7:
-        FormBinding().dependencies();
+        MortageCalculatorBinding().dependencies();
         break;
       case 8:
-        FormBinding().dependencies();
+        NewsBinding().dependencies();
         break;
       case 9:
-        MortageCalculatorBinding().dependencies();
+        NewsBinding().dependencies();
         break;
       case 10:
-        NewsBinding().dependencies();
-        break;
-      case 11:
-        NewsBinding().dependencies();
-        break;
-      case 12:
         ListingsWebBinding().dependencies();
         break;
-      case 13:
+      case 11:
         AgentDashboardWebBinding().dependencies();
         break;
-      case 14:
+      case 12:
         MortageCalculatorBinding().dependencies();
         break;
-      case 15:
+      case 13:
         //  EditListingsBinding().dependencies();
         AddListingsBinding().dependencies();
         break;
-      case 16:
+      case 14:
         FavWebBinding().dependencies();
         break;
-      case 17:
+      case 15:
         AgentListingsWebBinding().dependencies();
         break;
-      case 18:
+      case 16:
         EditListingsBinding().dependencies();
         break;
-      case 19:
+      case 17:
         ArchivedWebBinding().dependencies();
         break;
-      case 20:
+      case 18:
         SoldBindingWeb().dependencies();
         break;
       default:

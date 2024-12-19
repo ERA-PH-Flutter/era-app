@@ -9,6 +9,8 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
+import '../../../../app/widgets/button.dart';
+import '../../../../app/widgets/createaccount_widget.dart';
 import '../../../global.dart';
 import '../controllers/form_web_controller.dart';
 import 'about_us_web.dart';
@@ -30,11 +32,108 @@ class HelpWeb extends GetView<FormWebController> {
             sb80(),
             _buildFaqSection(),
             sb50(),
-            AboutUsWeb.buildJoinUsSection(),
+            _buildContactUsSection(),
             sb50(),
+            AboutUsWeb.buildJoinUsSection(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildContactUsSection() {
+    return Column(
+      children: [
+        // Hero Section
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              height: 200.h,
+              color: AppColors.kRedColor,
+            ),
+            Column(
+              children: [
+                EraText(
+                  text: "Get in Touch",
+                  fontSize: EraTheme.headerWeb + 10,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                sb10(),
+                EraText(
+                  text:
+                      "Have questions? We'd love to help! Reach out to us below.",
+                  fontSize: EraTheme.paragraphWeb,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          ],
+        ),
+        sb30(),
+
+        Card(
+          elevation: 5,
+          color: AppColors.white,
+          margin: EdgeInsets.all(10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.r),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EraText(
+                  text: "Send us a message",
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blue,
+                ),
+                sb20(),
+                SharedWidgets.textFormfield(
+                  hintText: 'Full Name',
+                  controller: controller.nameC,
+                  textInputType: TextInputType.text,
+                ),
+                sb10(),
+                SharedWidgets.textFormfield(
+                  controller: controller.emailAC,
+                  hintText: 'Email',
+                  textInputType: TextInputType.emailAddress,
+                ),
+                sb10(),
+                SharedWidgets.dropDown(
+                  controller.selectedSubj,
+                  controller.subject,
+                  (value) {
+                    controller.selectedSubj.value = value;
+                  },
+                  '',
+                  'Select Subject Type',
+                ),
+                sb10(),
+                SharedWidgets.textFormfield(
+                  controller: controller.messageC,
+                  hintText: 'Type your message here',
+                  textInputType: TextInputType.multiline,
+                  MaxLines: 5,
+                ),
+                sb30(),
+                Button.button2(
+                  Get.width,
+                  53.h,
+                  () async {
+                    await controller.submitContact();
+                  },
+                  'Send',
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -43,8 +142,8 @@ class HelpWeb extends GetView<FormWebController> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.blue.withOpacity(0.9),
-            AppColors.blue2.withOpacity(0.7),
+            AppColors.blue2.withOpacity(0.9),
+            AppColors.blue3.withOpacity(0.7),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -62,14 +161,14 @@ class HelpWeb extends GetView<FormWebController> {
             text: user != null
                 ? '${_greetUser()} ${user!.firstname}'
                 : _greetUser(),
-            fontSize: 24.sp,
+            fontSize: EraTheme.h2,
             color: AppColors.white,
             fontWeight: FontWeight.bold,
           ),
           sb20(),
           EraText(
             text: 'What do you want to know?',
-            fontSize: 18.sp,
+            fontSize: EraTheme.h3,
             color: AppColors.white.withOpacity(0.9),
           ),
           sb40(),
@@ -93,9 +192,9 @@ class HelpWeb extends GetView<FormWebController> {
   String _greetUser() {
     final hour = DateTime.now().hour;
 
-    if (12 < hour) return 'GoodMorning';
-    if (18 < hour) return 'Good Afternoon';
-    return 'Good Evening';
+    if (12 < hour) return 'GoodMorning,';
+    if (18 < hour) return 'Good Afternoon,';
+    return 'Good Evening,';
   }
 
   Widget _buildContactOptions() {

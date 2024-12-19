@@ -1,236 +1,129 @@
-import 'dart:io';
+// import 'package:eraphilippines/presentation/website/form/controllers/form_web_controller.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:get/get.dart';
+// import 'package:url_launcher/url_launcher.dart';
+// import '../../../../../app/constants/assets.dart';
+// import '../../../../../app/constants/colors.dart';
+// import '../../../../../app/widgets/app_text.dart';
+// import '../../../../../app/widgets/button.dart';
+// import '../../../../../app/constants/sized_box.dart';
+// import '../../../../app/constants/theme.dart';
+// import '../../../../app/widgets/createaccount_widget.dart';
+// import 'about_us_web.dart';
 
-import 'package:eraphilippines/app/constants/assets.dart';
-import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
-import 'package:eraphilippines/presentation/website/form/controllers/form_web_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../../../../app/constants/sized_box.dart';
-import '../../../../app/constants/theme.dart';
-import 'about_us_web.dart';
+// class ContactUsWeb extends GetView<FormWebController> {
+//   const ContactUsWeb({super.key});
 
-class ContactUsWeb extends GetView<FormWebController> {
-  const ContactUsWeb({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     Get.put(FormWebController());
+//     return SingleChildScrollView(
+//       child: Container(
+//         padding: EdgeInsets.symmetric(
+//           horizontal: EraTheme.paddingWidthAdmin * 3,
+//           vertical: 20.h,
+//         ),
+//         child: Column(
+//           children: [
+//             // Hero Section
+//             Stack(
+//               alignment: Alignment.center,
+//               children: [
+//                 Container(
+//                   height: 200.h,
+//                   color: AppColors.kRedColor.withOpacity(0.7),
+//                 ),
+//                 Column(
+//                   children: [
+//                     EraText(
+//                       text: "Get in Touch",
+//                       fontSize: EraTheme.headerWeb + 10,
+//                       fontWeight: FontWeight.bold,
+//                       color: Colors.white,
+//                     ),
+//                     sb10(),
+//                     EraText(
+//                       text:
+//                           "Have questions? We'd love to help! Reach out to us below.",
+//                       fontSize: EraTheme.paragraphWeb,
+//                       color: Colors.white,
+//                     ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//             sb30(),
 
-  @override
-  Widget build(BuildContext context) {
-    Get.put(FormWebController());
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage(AppEraAssets.bgWeb), fit: BoxFit.cover),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            sb20(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                EraText(
-                  text: "Contact Us",
-                  fontSize: EraTheme.headerWeb,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.blue,
-                ),
-                sbw10(),
-                Icon(
-                  Icons.phone,
-                  color: AppColors.blue,
-                  size: 80,
-                ),
-              ],
-            ),
-            sb20(),
-            EraText(
-              text:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non congue libero. Nullam eget odio nisl. In vitae nisi dapibus, mollis enim eget, efficitur est. Morbi euismod leo id nisl consectetur, nec vehicula nunc placerat. Phasellus dictum nibh eleifend sapien egestas, at elementum velit faucibus. Sed ullamcorper lectus ac sapien aliquam, non hendrerit eros ullamcorper.",
-              fontSize: EraTheme.paragraphWeb - 10.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.black,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: findUsWeb(),
-                ),
-                SizedBox(width: 20.w),
-                Expanded(
-                  flex: 1,
-                  child: contactsWeb(),
-                ),
-              ],
-            ),
-            sb10(),
-            AboutUsWeb.buildJoinUsSection(),
-          ],
-        ),
-      ),
-    );
-  }
+//             // Form and Contact Details
+//             Card(
+//               elevation: 5,
+//               margin: EdgeInsets.all(10),
+//               shape: RoundedRectangleBorder(
+//                 borderRadius: BorderRadius.circular(15.r),
+//               ),
+//               child: Padding(
+//                 padding: EdgeInsets.all(20.0),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     EraText(
+//                       text: "Send us a message",
+//                       fontSize: 20.sp,
+//                       fontWeight: FontWeight.bold,
+//                       color: AppColors.blue,
+//                     ),
+//                     sb20(),
+//                     SharedWidgets.textFormfield(
+//                       hintText: 'Full Name',
+//                       controller: controller.nameC,
+//                       textInputType: TextInputType.text,
+//                     ),
+//                     sb10(),
+//                     SharedWidgets.textFormfield(
+//                       controller: controller.emailAC,
+//                       hintText: 'Email',
+//                       textInputType: TextInputType.emailAddress,
+//                     ),
+//                     sb10(),
+//                     SharedWidgets.dropDown(
+//                       controller.selectedSubj,
+//                       controller.subject,
+//                       (value) {
+//                         controller.selectedSubj.value = value;
+//                       },
+//                       '',
+//                       'Select Subject Type',
+//                     ),
+//                     sb10(),
+//                     SharedWidgets.textFormfield(
+//                       controller: controller.messageC,
+//                       hintText: 'Type your message here',
+//                       textInputType: TextInputType.multiline,
+//                       MaxLines: 5,
+//                     ),
+//                     sb30(),
+//                     Button.button2(
+//                       Get.width,
+//                       53.h,
+//                       () async {
+//                         await controller.submitContact();
+//                       },
+//                       'Send',
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//             SizedBox(width: 20.w),
 
-  // Contacts Section
-  Widget contactsWeb() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SharedWidgets.textFormfield(
-          hintText: 'Full Name',
-          controller: controller.nameC,
-          textInputType: TextInputType.text,
-        ),
-        SharedWidgets.textFormfield(
-          controller: controller.emailAC,
-          hintText: 'Email',
-          textInputType: TextInputType.emailAddress,
-        ),
-        SharedWidgets.dropDown(
-          controller.selectedSubj,
-          controller.subject,
-          (value) {
-            controller.selectedSubj.value = value;
-          },
-          '',
-          'Select Subject Type',
-        ),
-        SharedWidgets.textFormfield(
-          controller: controller.messageC,
-          hintText: 'Type your message here',
-          textInputType: TextInputType.multiline,
-          MaxLines: 5,
-        ),
-        sb30(),
-        Button.button2(
-          Get.width,
-          53.h,
-          () async {
-            await controller.submitContact();
-          },
-          'Send',
-        ),
-        sb30(),
-      ],
-    );
-  }
+//             sb30(),
 
-  // Find Us Section
-  Widget findUsWeb() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'Visit ERA Philippines to learn more about this project.',
-            fontSize: 22.sp,
-            fontWeight: FontWeight.bold,
-            color: AppColors.kRedColor,
-          ),
-          SizedBox(height: 20.h),
-          Container(
-            padding: EdgeInsets.only(
-              left: 8.w,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  AppEraAssets.markerIcon,
-                  width: 50.w,
-                  height: 50.h,
-                ),
-                SizedBox(
-                  width: 5.w,
-                ),
-                EraText(
-                  text:
-                      '1212 Century Spire Bldg. Century City,\nKalayaan Ave. Makati City',
-                  fontSize: 17.sp,
-                  color: AppColors.black,
-                  maxLines: 2,
-                  fontWeight: FontWeight.bold,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          GestureDetector(
-            onTap: () {
-              launchUrl(controller.whatsappUrl);
-            },
-            child: Container(
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 12.w, right: 12.w, top: 12.h, bottom: 12.h),
-                    child: Image.asset(
-                      AppEraAssets.whatsappIcon,
-                      width: 40.w,
-                      height: 40.h,
-                    ),
-                  ),
-                  Container(
-                    width: 250.w,
-                    child: EraText(
-                      text: '+639177710572',
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.black,
-                      textOverflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          sb10(),
-          GestureDetector(
-            onTap: () {
-              launchUrl(controller.emailUrl);
-            },
-            child: Container(
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(
-                        left: 12.w, right: 12.w, top: 12.h, bottom: 12.h),
-                    child: Image.asset(
-                      AppEraAssets.emailIcon,
-                      width: 40.w,
-                      height: 40.h,
-                    ),
-                  ),
-                  Container(
-                    width: 250.w,
-                    child: EraText(
-                      text: 'sales@eraphilippines.com',
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.black,
-                      textOverflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-        ],
-      ),
-    );
-  }
-}
+//             // Join Us Section
+//             AboutUsWeb.buildJoinUsSection(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

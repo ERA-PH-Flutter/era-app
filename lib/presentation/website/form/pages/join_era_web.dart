@@ -5,8 +5,7 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/website/authentication/controller/authentication_controller.dart';
 import 'package:eraphilippines/presentation/website/form/pages/about_us_web.dart';
-import 'package:eraphilippines/router/route_string.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +13,7 @@ import 'package:get/get.dart';
 
 import '../../../../../app/widgets/button.dart';
 
-import '../../authentication/pages/create_account_web.dart';
+ import '../../authentication/pages/create_account_web.dart';
 import '../controllers/form_web_controller.dart';
 
 class JoinEraWeb extends GetView<FormWebController> {
@@ -22,145 +21,271 @@ class JoinEraWeb extends GetView<FormWebController> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
-      child: Column(
-        children: [
-          CachedNetworkImage(
-            imageUrl:
-                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-            fit: BoxFit.cover,
-            height: Get.height,
-            width: Get.width,
-          ),
-          sb15(),
-          //text era
-          _buildTextJoinEra(),
-          AboutUsWeb.buildJoinUsSection(),
-          sb50(),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-            width: Get.width,
-            child: Button(
-              borderRadius: BorderRadius.circular(99),
-              onTap: () {
-                //   Get.toNamed(RouteString.TermsConditionWeb);
-                //   TermsConditionWeb();
-                showDialog(
-                    context: Get.context!,
-                    builder: (context) {
-                      return Dialog(
-                          shape: RoundedRectangleBorder(side: BorderSide.none),
-                          insetPadding: EdgeInsets.symmetric(
-                              horizontal: EraTheme.paddingWidthAdmin * 6,
-                              vertical: EraTheme.paddingWidthAdmin * 2),
-                          backgroundColor: AppColors.white,
-                          child: Scaffold(
-                            appBar: AppBar(
-                              backgroundColor: AppColors.white,
-                              surfaceTintColor: AppColors.white,
-                              automaticallyImplyLeading: false,
-                              centerTitle: true,
-                              title: EraText(
-                                text: 'Terms and Conditions',
-                                fontSize: EraTheme.paragraphWeb,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.black,
-                              ),
-                              scrolledUnderElevation: 4,
-                              toolbarHeight: 100.h,
-                              elevation: 0,
-                            ),
-                            body: Stack(
-                              children: [
-                                // SliverAppBar(),
-                                CustomScrollView(
-                                  controller: controller.scrollController,
-                                  slivers: [
-                                    SliverToBoxAdapter(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              EraTheme.paddingWidthAdmin -
-                                                  10.sp,
-                                        ),
-                                        child: termsAndConditionWidget(),
-                                      ),
+    return Column(
+      children: [
+        Stack(
+          children: [
+            Container(
+              height: Get.height,
+              width: Get.width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.kRedColor,
+                    AppColors.kRedColor.withOpacity(0.7),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: -50,
+                    left: -50,
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: -70,
+                    right: -70,
+                    child: Container(
+                      height: 250,
+                      width: 250,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Center(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 20,
+                      offset: Offset(0, 10),
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+                    fit: BoxFit.cover,
+                    height: Get.height * 0.6,
+                    width: Get.width * 0.85,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 100.h,
+              left: 0,
+              right: 0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  EraText(
+                    text: 'Join ERA Today!',
+                    fontSize: EraTheme.h1,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    textAlign: TextAlign.center,
+                  ),
+                  EraText(
+                    text:
+                        'Be part of an international brand with 2,390 offices globally.',
+                    fontSize: EraTheme.h6,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white.withOpacity(0.7),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 15.h),
+                  Button(
+                    text: "Get Started", fontSize: EraTheme.h6,
+                    onTap: () {
+                      showDialog(
+                          context: Get.context!,
+                          builder: (context) {
+                            return Dialog(
+                                shape: RoundedRectangleBorder(
+                                    side: BorderSide.none),
+                                insetPadding: EdgeInsets.symmetric(
+                                    horizontal: EraTheme.paddingWidthAdmin * 6,
+                                    vertical: EraTheme.paddingWidthAdmin * 2),
+                                backgroundColor: AppColors.white,
+                                child: Scaffold(
+                                  appBar: AppBar(
+                                    backgroundColor: AppColors.white,
+                                    surfaceTintColor: AppColors.white,
+                                    automaticallyImplyLeading: false,
+                                    centerTitle: true,
+                                    title: EraText(
+                                      text: 'Terms and Conditions',
+                                      fontSize: EraTheme.paragraphWeb,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.black,
                                     ),
-                                  ],
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: BottomAppBar(
-                                    color: AppColors.white,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Obx(
-                                          () => Button(
-                                            text: 'Accept',
-                                            color: AppColors.blue,
-                                            width: Get.width / 5,
-                                            onTap: controller.isAtBottom.value
-                                                ? () {
-                                                    AuthenticationWebController
-                                                        controllerAuth =
-                                                        Get.put(
-                                                            AuthenticationWebController());
-                                                    // Get.toNamed(RouteString
-                                                    //     .createaccountweb);
-                                                    createAccountWeb(
-                                                        controller:
-                                                            controllerAuth);
-                                                  }
-                                                : null,
+                                    scrolledUnderElevation: 4,
+                                    toolbarHeight: 100.h,
+                                    elevation: 0,
+                                  ),
+                                  body: Stack(
+                                    children: [
+                                      // SliverAppBar(),
+                                      CustomScrollView(
+                                        controller: controller.scrollController,
+                                        slivers: [
+                                          SliverToBoxAdapter(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal:
+                                                    EraTheme.paddingWidthAdmin -
+                                                        10.sp,
+                                              ),
+                                              child: termsAndConditionWidget(),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: BottomAppBar(
+                                          color: AppColors.white,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Obx(
+                                                () => Button(
+                                                  text: 'Accept',
+                                                  color: AppColors.blue,
+                                                  width: Get.width / 5,
+                                                  onTap: controller
+                                                          .isAtBottom.value
+                                                      ? () {
+                                                          AuthenticationWebController
+                                                              controllerAuth =
+                                                              Get.put(
+                                                                  AuthenticationWebController());
+                                                          // Get.toNamed(RouteString
+                                                          //     .createaccountweb);
+                                                          createAccountWeb(
+                                                              controller:
+                                                                  controllerAuth);
+                                                        }
+                                                      : null,
 
-                                            fontSize: EraTheme.paragraphWeb,
+                                                  fontSize:
+                                                      EraTheme.paragraphWeb,
 
-                                            bgColor: controller.isAtBottom.value
-                                                ? AppColors.white
-                                                : AppColors.hint
-                                                    .withOpacity(0.2),
-                                            // borderSide: BorderSide(color: AppColors.blue),
-                                            border: Border.all(
-                                                color: AppColors.blue),
-                                            borderRadius:
-                                                BorderRadius.circular(30),
+                                                  bgColor: controller
+                                                          .isAtBottom.value
+                                                      ? AppColors.white
+                                                      : AppColors.hint
+                                                          .withOpacity(0.2),
+                                                  // borderSide: BorderSide(color: AppColors.blue),
+                                                  border: Border.all(
+                                                      color: AppColors.blue),
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                ),
+                                              ),
+                                              sbw20(),
+                                              Button(
+                                                text: 'Decline',
+                                                width: Get.width / 5,
+                                                fontSize: EraTheme.paragraphWeb,
+                                                onTap: () {
+                                                  Get.back();
+                                                },
+                                                bgColor: AppColors.blue,
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        sbw20(),
-                                        Button(
-                                          text: 'Decline',
-                                          width: Get.width / 5,
-                                          fontSize: EraTheme.paragraphWeb,
-                                          onTap: () {
-                                            Get.back();
-                                          },
-                                          bgColor: AppColors.blue,
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          ));
-                    });
-              },
-              height: 53.h,
-              width: Get.width / 2,
-              text: "Get Started",
-              fontSize: EraTheme.paragraphWeb,
-              bgColor: AppColors.kRedColor,
+                                ));
+                          });
+                    },
+                     bgColor: Colors.white,
+                    color: AppColors.kRedColor,
+                    borderRadius: BorderRadius.circular(30),
+                    width: 200.w,
+                  ),
+                  //       _buildRichText(),
+                ],
+              ),
             ),
+          ],
+        ),
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              sb15(),
+              //text era
+              _buildTextJoinEra(),
+
+              EraText(
+                text: 'About Us',
+                fontSize: EraTheme.h1,
+                fontWeight: FontWeight.bold,
+                color: AppColors.kRedColor,
+              ),
+              sb20(),
+              _buildDescription(
+                'Welcome to a new ERA of property discovery and management.',
+              ),
+              sb20(),
+              _buildDescription(
+                  'ERA Real Estate Philippines is a proud member of ERA Real Estate, the largest real estate network in the Asia-Pacific region with more than 23,400 trusted advisers in over 640 offices across 13 countries. We provide exceptional real estate services, guiding you through buying, selling, and investing.'),
+              sb20(),
+              _buildDescription(
+                  'We envision a world where searching for and managing real estate is as simple as a few taps on your phone. With the ERA Real Estate Philippines app, we aim to redefine the property landscape in the Philippines by providing cutting-edge tools and resources that enable you to make informed decisions with confidence.'),
+              sb20(),
+              _buildDescription(
+                  'At ERA Real Estate Philippines, we empower you to achieve your real estate dreams. Discover the ERA difference today!'),
+              sb40(),
+              EraText(
+                text: 'What We Do',
+                fontSize: EraTheme.h1,
+                fontWeight: FontWeight.bold,
+                color: AppColors.kRedColor,
+              ),
+              sb30(),
+              _buildServices(),
+              sb40(),
+
+              AboutUsWeb.buildJoinUsSection(),
+
+              sb50(),
+            ],
           ),
-          _buildRichText(),
-          sb50(),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -168,6 +293,7 @@ class JoinEraWeb extends GetView<FormWebController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        sb20(),
         EraText(
             textAlign: TextAlign.start,
             text: 'Join Us Today!',
@@ -411,6 +537,72 @@ class JoinEraWeb extends GetView<FormWebController> {
             '8.2 ERA Philippines commits to not selling your personal information to any third party without your clear approval. Nonetheless, we are not liable for the actions or behaviors of third-party sites that you may access through links or directions from the ERA Philippines website.\n\n'),
         sb30(),
       ],
+    );
+  }
+
+  // What We Do Section
+  Widget _buildServices() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildServiceTile(
+                'Real Estate Brokerage Services',
+                'Discover unparalleled expertise and personalized guidance with our premier real estate brokerage services. Whether you’re buying, selling, or investing, our seasoned professionals are committed to guiding you through every step of the processionals are committed to guiding you through every step of the process.',
+              ),
+              _buildServiceTile(
+                'Agent & Broker Training',
+                'Elevate the careers of our agents and brokers with our comprehensive training and development programs. Our courses are designed to enhance their skills and boost their success, covering everything from mastering market trends and effective client communication to advanced negotiation tactics and cutting-edge technology.',
+              ),
+              _buildServiceTile(
+                'Franchise Arrangements',
+                'Explore limitless possibilities of real estate franchising through our dynamic franchise arrangements. As part of our network, you’ll benefit from a proven business model, robust marketing support, and extensive operational resources tailored to maximize your growth and profitability.',
+              ),
+            ],
+          ),
+        ),
+        SizedBox(width: 30),
+        Expanded(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildServiceTile(
+                'Property Valuation',
+                'Accurate property valuation is the cornerstone of successful real estate transactions. At ERA Real Estate Philippines, we offer meticulous property valuation services designed to provide clarity and confidence to buyers, sellers, and investors alike. Backed by comprehensive market analysis and expert insights, our valuation process ensures you receive an informed and fair assessment of your property’s worth.',
+              ),
+              _buildServiceTile('Other Services:',
+                  '• Legal\n• Taxation\n• Accounting\n• Marketing\n• Branding'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildServiceTile(String title, String description) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 20.sp),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          EraText(
+            text: title,
+            fontSize: EraTheme.h2,
+            fontWeight: FontWeight.bold,
+            color: AppColors.kRedColor,
+          ),
+          sb10(),
+          EraText(
+            text: description,
+            fontSize: EraTheme.bodyText,
+            color: AppColors.black,
+          ),
+        ],
+      ),
     );
   }
 }

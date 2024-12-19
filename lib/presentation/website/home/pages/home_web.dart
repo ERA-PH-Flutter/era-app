@@ -71,7 +71,8 @@ class HomeWeb extends GetView<HomeWebController> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SizedBox(
+          Container(
+
               // TODO NIKKO  not working
               width: Get.width,
               child: Stack(

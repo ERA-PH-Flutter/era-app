@@ -30,5 +30,6 @@ class MortageCalculatorWController extends GetxController with BaseController {
     monthlyP.text = "0.0";
     downPayment.text = "0.0";
     downP.value = "0.0";
+    
   }
 }

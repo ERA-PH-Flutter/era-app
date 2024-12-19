@@ -1,96 +1,72 @@
-import 'package:eraphilippines/app/constants/sized_box.dart';
-import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
-import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/presentation/website/agents/pages/dashboard_web.dart';
-import 'package:eraphilippines/presentation/website/authentication/controller/authentication_binding.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
-import 'package:eraphilippines/presentation/website/landingpage/pages/homepage.dart';
 import 'package:eraphilippines/router/route_string.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import '../../../presentation/global.dart';
-import '../../../presentation/website/agents/pages/settingAgent.dart';
 import '../../../presentation/website/authentication.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
-import '../../constants/strings.dart';
 import '../../constants/theme.dart';
 import '../app_text.dart';
 
 class Navbar extends GetResponsiveView<HomsController> {
   Navbar()
       : super(
-            settings: ResponsiveScreenSettings(
-                desktopChangePoint: 1000,
-                tabletChangePoint: 768,
-                watchChangePoint: 300));
-
-  @override
-  Widget phone() {
-    Get.put(HomsController());
-
-    return Container(
-        width: Get.width,
-        height: 56.h,
-        child: Row(
-          children: [
-            IconButton(
-                onPressed: () {
-                  print('Menu button clicked!');
-                  controller.scaffoldKey.currentState?.openEndDrawer();
-                },
-                icon: Icon(Icons.menu)),
-          ],
-        ));
-  }
+          settings: ResponsiveScreenSettings(
+            desktopChangePoint: 1000,
+            tabletChangePoint: 768,
+            watchChangePoint: 300,
+          ),
+        );
 
   @override
   Widget desktop() {
     return Obx(
       () => Container(
-        // color: AppColors.black,
-        padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth200),
-        height: 160.h,
+        padding: EdgeInsets.symmetric(horizontal: 24.w),
+        height: 120.h,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              color: AppColors.white,
+            GestureDetector(
+              onTap: () => Get.toNamed(RouteString.home),
               child: Image.asset(
                 AppEraAssets.eraPh,
-                height: Get.height,
+                height: 250.h,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: _buildNavItems(controller.items.sublist(0, 5)),
-            ),
-            //_showOverlay(),
             Spacer(),
-            //  if()
+            ..._buildNavItems(controller.items),
+            Spacer(),
             user == null
-                ? Builder(
-                    builder: (context) {
-                      return Padding(
-                        padding: EdgeInsets.only(right: 20.w),
-                        child: Button(
-                          borderRadius: BorderRadius.circular(20),
-                          width: 300.w,
-                          onTap: () {
-                            showAuthenticationDialog();
-                          },
-                          text: "AGENT/BROKER LOGIN",
-                          bgColor: AppColors.kRedColor,
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      );
-                    },
+                ? ElevatedButton(
+                    onPressed: () => showAuthenticationDialog(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.kRedColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 24.w, vertical: 24.h),
+                    ),
+                    child: EraText(
+                      text: "AGENT/BROKER LOGIN",
+                      fontSize: EraTheme.h6,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.white,
+                    ),
                   )
                 : _showOverlayProfile(),
           ],
@@ -100,305 +76,51 @@ class Navbar extends GetResponsiveView<HomsController> {
   }
 
   List<Widget> _buildNavItems(List<String> items) {
-    List<Widget> navItems = [];
-
-    for (var item in items) {
-      navItems.add(InkWell(
+    return items.map((item) {
+      final isActive =
+          controller.navBarSelectedIndex.value == items.indexOf(item);
+      return InkWell(
         onTap: () {
-          if (controller.getBack.value) {
-            /// MISSY CHANGE THIS for each index
-            Get.offAll(HomePages());
-          } else {
-            controller.isMoreSelected.value = false;
-
-            controller.navBarSelectedIndex.value =
-                controller.items.indexOf(item);
-            controller
-                .onNavbarItemSelected(controller.navBarSelectedIndex.value);
-          }
+          controller.navBarSelectedIndex.value = items.indexOf(item);
+          controller.onNavbarItemSelected(items.indexOf(item));
         },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.only(left: 20.w),
-              child: EraText(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              EraText(
                 text: item,
-                color: controller.isMoreSelected.value == true
-                    ? Colors.black
-                    : controller.navBarSelectedIndex.value ==
-                            controller.items.indexOf(item)
-                        ? AppColors.kRedColor
-                        : Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: EraTheme.h4,
+                color: isActive ? AppColors.kRedColor : Colors.black,
+                fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                fontSize: EraTheme.h6 - 3.sp,
               ),
-            ),
-            SizedBox(height: 4),
-            AnimatedContainer(
-              duration: Duration(milliseconds: 500),
-              height: 2,
-              width: 20,
-              color: controller.isMoreSelected.value == true
-                  ? Colors.transparent
-                  : controller.navBarSelectedIndex.value ==
-                          controller.items.indexOf(item)
-                      ? AppColors.kRedColor
-                      : Colors.transparent,
-            ),
-          ],
+              if (isActive)
+                Container(
+                  margin: EdgeInsets.only(top: 4.h),
+                  height: 2,
+                  width: 24.w,
+                  color: AppColors.kRedColor,
+                ),
+            ],
+          ),
         ),
-      ));
-      if (item == 'HELP') {
-        navItems.add(
-          _showOverlay(),
-        );
-      }
-    }
-    return navItems;
+      );
+    }).toList();
   }
 
   Widget _showOverlayProfile() {
     return GestureDetector(
-      onTap: () {
-        controller.loginOverlay.isShowing
-            ? controller.loginOverlay.hide()
-            : controller.loginOverlay.show();
-      },
-      child: CompositedTransformTarget(
-        link: controller.link,
-        child: OverlayPortal(
-          controller: controller.loginOverlay,
-          overlayChildBuilder: (BuildContext context) {
-            return Positioned(
-              top: 120.h,
-              left: Get.width / 1.4,
-              bottom: 0,
-              child: Align(
-                alignment: AlignmentDirectional.topStart,
-                child: MenuWidget(
-                    width: 300.w,
-                    child: ListView(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            selectedIndex.value = 13;
-                            Get.find<HomsController>().onNavbarItemSelected(13);
-                            print('Profile clicked');
-                            controller.loginOverlay.hide();
-                          },
-                          child: ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Icon(Icons.person),
-                                sbw10(),
-                                EraText(
-                                  text: 'Profile',
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: EraTheme.subHeader,
-                                  textAlign: TextAlign.start,
-                                ),
-                              ],
-                            ),
-                            trailing: Icon(Icons.navigate_next),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(RouteString.settingsWeb);
-                            controller.loginOverlay.hide();
-                          },
-                          child: ListTile(
-                            title: GestureDetector(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(Icons.settings),
-                                  sbw10(),
-                                  EraText(
-                                    text: 'Settings',
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: EraTheme.subHeader,
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            trailing: Icon(Icons.navigate_next),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            await Authentication().logout();
-                            controller.loginOverlay.hide();
-                            Get.deleteAll();
-                            Get.toNamed(RouteString.webLandingPage);
-                          },
-                          child: ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Icon(Icons.logout),
-                                sbw10(),
-                                EraText(
-                                  text: 'Logout',
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: EraTheme.subHeader,
-                                  textAlign: TextAlign.start,
-                                ),
-                              ],
-                            ),
-                            trailing: Icon(Icons.navigate_next),
-                          ),
-                        ),
-                      ],
-                    )),
-              ),
-            );
-          },
-          child: GestureDetector(
-            onTap: () {
-              controller.loginOverlay.toggle();
-            },
-            child: agentProfile(),
+      onTap: () => controller.loginOverlay.toggle(),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundImage: NetworkImage(user!.image!),
+            radius: 20.h,
           ),
-        ),
+          Icon(Icons.arrow_drop_down),
+        ],
       ),
-    );
-  }
-
-  Widget _showOverlay() {
-    return GestureDetector(
-      onTap: () {
-        controller.isMoreSelected.value = !controller.isMoreSelected.value;
-        if (controller.isMoreSelected.value) {
-          controller.controllerOverlay.show();
-        } else {
-          controller.controllerOverlay.hide();
-        }
-      },
-      child: controller.isMoreSelected.value == false
-          ? Container(
-              padding: EdgeInsets.only(left: 20.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      EraText(
-                        text: 'MORE',
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: EraTheme.h4,
-                      ),
-                      Icon(Icons.arrow_drop_down),
-                    ],
-                  ),
-                  SizedBox(height: 4),
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 500),
-                    height: 2,
-                    width: 20,
-                    color: controller.isMoreSelected.value
-                        ? AppColors.kRedColor
-                        : Colors.transparent,
-                  ),
-                ],
-              ),
-            )
-          : OverlayPortal(
-              controller: controller.controllerOverlay,
-              overlayChildBuilder: (BuildContext context) {
-                return Positioned(
-                  top: 75.h,
-                  right: Get.width / 2.1,
-                  child: Wrap(
-                    children: [
-                      Container(
-                        // height: Get.height,
-                        width: 220.w,
-                        padding: EdgeInsets.symmetric(horizontal: 12.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(13.r),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: controller.items.sublist(5).map((item) {
-                            return ListTile(
-                              title: Column(
-                                children: [
-                                  EraText(
-                                    textAlign: TextAlign.center,
-                                    text: item,
-                                    color:
-                                        controller.navBarSelectedIndex.value ==
-                                                controller.items.indexOf(item)
-                                            ? AppColors.kRedColor
-                                            : Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: EraTheme.subHeader,
-                                  ),
-                                  AnimatedContainer(
-                                    duration: Duration(milliseconds: 500),
-                                    height: 2,
-                                    width: 20,
-                                    color:
-                                        controller.navBarSelectedIndex.value ==
-                                                controller.items.indexOf(item)
-                                            ? AppColors.kRedColor
-                                            : Colors.transparent,
-                                  ),
-                                ],
-                              ),
-                              onTap: () {
-                                controller.navBarSelectedIndex.value =
-                                    controller.items.indexOf(item);
-                                controller.onNavbarItemSelected(
-                                    controller.navBarSelectedIndex.value);
-                                controller.controllerOverlay.hide();
-                              },
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.w),
-                        child: EraText(
-                          text: 'MORE',
-                          color: AppColors.kRedColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: EraTheme.subHeader,
-                        ),
-                      ),
-                      Icon(Icons.arrow_drop_down),
-                    ],
-                  ),
-                  SizedBox(height: 4),
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 500),
-                    height: 2,
-                    width: 20,
-                    color: controller.isMoreSelected.value
-                        ? AppColors.kRedColor
-                        : Colors.transparent,
-                  ),
-                ],
-              ),
-            ),
     );
   }
 }
@@ -430,7 +152,6 @@ Widget agentProfile() {
     reference: user!.image,
     width: 100.h,
     height: 100.h,
-    // borderRadius: BorderRadius.circular(999),
     shadow: [
       BoxShadow(
           spreadRadius: 2,
