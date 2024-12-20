@@ -93,12 +93,15 @@ class HomePages extends GetResponsiveView<HomsController> {
                 horizontal: EraTheme.paddingWidthAdmin * 3, vertical: 20),
             width: Get.width,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _columnListing(),
+                sbw40(),
                 _columnNews(),
+                sbw40(),
                 _columnAboutUs(),
+                sbw40(),
                 _columnERAph(),
               ],
             ),
@@ -207,17 +210,16 @@ class HomePages extends GetResponsiveView<HomsController> {
               child: Image.asset(
                 fit: BoxFit.cover,
                 AppEraAssets.eraPh,
-                height: 150.h,
-                width: 150.w,
+                width: 200.w,
+                height: 220.h,
               ),
             ),
             sbw10(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildLinkText('Address'),
-                _buildLinkText('ERA APAC Centre 3000'),
-                _buildLinkText('Somewhere in the Philippines'),
+                _buildLinkText(
+                    'Address: 1212 Century Spire Bldg.\nCentury City, Kalayaan Ave.\nMakati City'),
                 _buildLinkTextWithIcon(
                   'Phone: +639177710572',
                   onTap: () {
@@ -240,7 +242,7 @@ class HomePages extends GetResponsiveView<HomsController> {
     return EraText(
       text: text,
       color: AppColors.blue2,
-      fontSize: EraTheme.bodyText,
+      fontSize: EraTheme.h6,
     );
   }
 
@@ -249,7 +251,7 @@ class HomePages extends GetResponsiveView<HomsController> {
       onTap: onTap,
       child: EraText(
         text: text,
-        fontSize: EraTheme.paragraphWeb - 10.sp,
+        fontSize: EraTheme.h6,
         color: AppColors.blue2,
       ),
     );
