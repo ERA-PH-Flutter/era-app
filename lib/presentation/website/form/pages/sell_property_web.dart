@@ -33,10 +33,15 @@ class SellPropertyWeb extends GetView<FormWebController> {
                   sb50(),
                   Container(
                     decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Color(0xFFC50000), Color(0xFF8C0909)])),
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.kRedColor,
+                          AppColors.kRedColor.withOpacity(0.7),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
                     height: Get.height - 500.h,
                     width: Get.width - 200.h,
                     child: Row(

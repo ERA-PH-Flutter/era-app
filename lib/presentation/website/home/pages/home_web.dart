@@ -7,8 +7,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/button.dart';
-
+ 
 import 'package:eraphilippines/presentation/website/home/controllers/home_web_controller.dart';
 
 import 'package:eraphilippines/repository/listing.dart';
@@ -17,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+ 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../app/constants/screens.dart';
@@ -29,8 +28,7 @@ import '../../../global.dart';
 import '../../landingpage/controller/homs_controller.dart' as a;
 import '../../landingpage/controller/homs_controller.dart';
 import '../../listings/controllers/listings_web_controller.dart';
-import '../../news/controllers/news_controller.dart';
-
+ 
 List<String> imagePaths = [
   // 'assets/images/image.png',
   // 'assets/images/image2.png',
@@ -247,7 +245,14 @@ class HomeWeb extends GetView<HomeWebController> {
                 sb70(),
                 viewOtherProjects(
                     text: 'View other projects',
-                    onTap: () => Get.toNamed("/project-main")),
+                    onTap: () {
+                          HomsController homsController =
+                            Get.find<HomsController>();
+                        a.selectedIndex.value = 1;
+                        //  Get.lazyPut(() => NewsWebController());
+                        //await Get.find<NewsWebController>().getNews();
+                        homsController.onNavbarItemSelected(1);
+                    }),
                 sb20(),
                 EraText(
                   textAlign: TextAlign.center,
@@ -444,9 +449,9 @@ class HomeWeb extends GetView<HomeWebController> {
                                 GestureDetector(
                                   onTap: () {
                                     listingArgument = listing;
-                                    a.selectedIndex.value = 12;
+                                    a.selectedIndex.value = 10;
                                     Get.find<HomsController>()
-                                        .onNavbarItemSelected(12);
+                                        .onNavbarItemSelected(10);
                                   },
                                   child: Padding(
                                     padding:
@@ -516,10 +521,10 @@ class HomeWeb extends GetView<HomeWebController> {
                       onTap: () async {
                         HomsController homsController =
                             Get.find<HomsController>();
-                        a.selectedIndex.value = 9;
+                        a.selectedIndex.value = 8;
                         //  Get.lazyPut(() => NewsWebController());
                         //await Get.find<NewsWebController>().getNews();
-                        homsController.onNavbarItemSelected(9);
+                        homsController.onNavbarItemSelected(8);
                       },
                       child: EraText(
                           text: 'See all',
@@ -555,8 +560,8 @@ class HomeWeb extends GetView<HomeWebController> {
                       onTap: () {
                         HomsController homsController =
                             Get.find<HomsController>();
-                        a.selectedIndex.value = 10;
-                        homsController.onNavbarItemSelected(10);
+                        a.selectedIndex.value = 9;
+                        homsController.onNavbarItemSelected(9);
                         newsArgument = {
                           "title": controller.news[i].title,
                           "image": controller.news[i].image,

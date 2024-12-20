@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
@@ -11,54 +12,107 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../agent/utility/controller/base_controller.dart';
 import '../../../global.dart';
+import '../../landingpage/controller/homs_controller.dart';
 
 class SettingsPageWeb extends GetView<AgentsWebController> {
   SettingsPageWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(EraTheme.paddingWidthAdmin * 3),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                EraText(
-                  text: 'Edit Profile',
-                  fontSize: EraTheme.headerWeb,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black,
-                ),
-                IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: Icon(
-                      CupertinoIcons.forward,
-                      color: AppColors.black,
-                    ))
-              ],
+    return Padding(
+      padding: EdgeInsets.all(EraTheme.paddingWidthAdmin * 3),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              EraText(
+                text: 'Edit Profile',
+                fontSize: EraTheme.headerWeb,
+                fontWeight: FontWeight.w500,
+                color: AppColors.black,
+              ),
+              IconButton(
+                  onPressed: () {
+                    HomsController homsController = Get.find<HomsController>();
+                    selectedIndex.value = 11;
+                    homsController.onNavbarItemSelected(11);
+                  },
+                  icon: Icon(
+                    CupertinoIcons.forward,
+                    color: AppColors.black,
+                  ))
+            ],
+          ),
+          SizedBox(height: 10.h),
+          agentProfile(),
+          sb40(),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
-            SizedBox(height: 10.h),
-            agentProfile(),
-            textField(
-                labelText: 'Full Name',
-                hintText: "${user!.firstname ?? ""} ${user!.lastname ?? ""}",
-                isPasswordTextField: false),
-            textField(
-                labelText: 'Email',
-                hintText: user!.email ?? "",
-                isPasswordTextField: false),
-            textField(
-                labelText: 'Password',
-                hintText: '***********',
-                isPasswordTextField: true),
-          ],
-        ),
+            color: Colors.white.withOpacity(0.9),
+            elevation: 3,
+            margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+            child: Padding(
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  textField(
+                    labelText: 'Full Name',
+                    hintText:
+                        "${user!.firstname ?? ""} ${user!.lastname ?? ""}",
+                    isPasswordTextField: false,
+                  ),
+                  SizedBox(height: 20.h),
+                  textField(
+                    labelText: 'Email',
+                    hintText: user!.email ?? "",
+                    isPasswordTextField: false,
+                  ),
+                  SizedBox(height: 20.h),
+                  textField(
+                    labelText: 'Password',
+                    hintText: '***********',
+                    isPasswordTextField: true,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 30.h),
+          //   Center(
+          //     child: ElevatedButton(
+          //       onPressed: () {
+          //         BaseController().showSuccessDialog(
+          //             description: "Change profile image success!",
+          //             title: "Success",
+          //             hitApi: () {
+          //             selectedIndex.value = 11;
+          //                   Get.find<HomsController>().onNavbarItemSelected(11);
+          //              });
+          //       },
+          //       style: ElevatedButton.styleFrom(
+          //         backgroundColor: AppColors.blue,
+          //         padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 30.w),
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(12),
+          //         ),
+          //       ),
+          //       child: EraText(
+          //         text: 'Save Changes',
+          //         fontSize: 16.sp,
+          //         fontWeight: FontWeight.bold,
+          //         color: AppColors.white,
+          //       ),
+          //     ),
+          //   ),
+          // ],
+        ],
       ),
     );
   }
@@ -114,6 +168,7 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                   BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
                     child: AlertDialog(
+                      contentPadding: EdgeInsets.all(24),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -129,7 +184,8 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(
-                            width: Get.width,
+                            width: 250.w,
+                            height: 40.h,
                             child: ElevatedButton(
                               onPressed: () {
                                 controller.getImagePic(controller.image);
@@ -150,7 +206,8 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                           ),
                           SizedBox(height: 5.h),
                           SizedBox(
-                            width: Get.width,
+                            width: 250.w,
+                            height: 40.h,
                             child: ElevatedButton(
                               onPressed: () {
                                 controller.getImageGallery();
@@ -222,13 +279,14 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
       bool? isPasswordTextField}) {
     return Column(
       children: [
-        EraText(
-          text: text ?? '',
-          fontSize: 18.sp,
-          fontWeight: FontWeight.bold,
-          color: AppColors.hint,
-          lineHeight: 1.0,
-        ),
+        // EraText(
+        //   text: text ?? '',
+        //   fontSize: EraTheme.h2,
+        //   fontWeight: FontWeight.bold,
+        //   color: AppColors.black,
+        //   // lineHeight: 1.0,
+        // ),
+        // sb20(),
         TextField(
           enabled: false,
           enableInteractiveSelection: false,
@@ -244,10 +302,24 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                 : null,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: labelText,
+            labelStyle:
+                TextStyle(color: AppColors.black, fontSize: fontSize ?? 22.sp),
             hintText: hintText,
             hintStyle: hintstlye ??
-                TextStyle(color: AppColors.black, fontSize: fontSize ?? 18.sp),
+                TextStyle(color: AppColors.black, fontSize: fontSize ?? 20.sp),
+            contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+            filled: true,
+            fillColor: AppColors.white,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.white),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: AppColors.blue),
+            ),
           ),
+          obscureText: isPasswordTextField ?? false,
         ),
       ],
     );

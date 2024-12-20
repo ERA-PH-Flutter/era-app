@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../presentation/website/landingpage/controller/homs_controller.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
 import '../../constants/sized_box.dart';
@@ -106,6 +107,12 @@ class AgentListViewWeb extends StatelessWidget {
                         text: 'VIEW LISTING',
                         fontSize: 14.sp,
                         onTap: () {
+                          selectedIndex.value = 19;
+                          HomsController homsController =
+                              Get.find<HomsController>();
+                          homsController.onNavbarItemSelected(
+                            19,
+                          );
                           // Get.to(AgentListings(),
                           //     binding: AgentListingsBinding(),
                           //     arguments: [agent.id]);

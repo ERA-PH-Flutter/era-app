@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/sized_box.dart';
+import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -202,15 +203,26 @@ class Navbar extends GetResponsiveView<HomsController> {
                     Divider(thickness: 1, height: 1, color: Colors.grey[300]),
                     sb10(),
                     buildMenuWidget(
-                      icon: Icons.settings,
-                      label: "Settings",
-                    ),
+                        icon: Icons.settings,
+                        label: "Settings",
+                        onTap: () {
+                          selectedIndex.value = 20;
+                          Get.find<HomsController>().onNavbarItemSelected(20);
+                          controller.overlayPortal.hide();
+                        }),
                     sb10(),
                     Divider(thickness: 1, height: 1, color: Colors.grey[300]),
                     sb10(),
                     buildMenuWidget(
                       icon: Icons.logout,
                       label: "Log-out",
+                      onTap: ()async{
+                        await Authentication().logout();
+                        controller.overlayPortal.hide();
+                        Get.deleteAll();
+                        Get.toNamed(RouteString.webLandingPage);
+                   //     controller.
+                      },
                     ),
                   ],
                 ),

@@ -121,8 +121,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                         findAgentsandOffices(),
                         SizedBox(height: 25.h),
                         sb25(),
-
-                        //TODO NIKKO company news is not showing
+                    
                       ],
                     ),
                   ),
@@ -487,8 +486,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                     color: AppColors.kRedColor),
                 GestureDetector(
                   onTap: () {
-                    selectedIndex.value = 9;
-                    Get.find<HomsController>().onNavbarItemSelected(9);
+                    selectedIndex.value = 8;
+                    Get.find<HomsController>().onNavbarItemSelected(8);
                   },
                   child: EraText(
                       text: 'See all',
@@ -524,8 +523,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 itemBuilder: (context, i) => GestureDetector(
                   onTap: () {
                     HomsController homsController = Get.find<HomsController>();
-                    selectedIndex.value = 10;
-                    homsController.onNavbarItemSelected(10);
+                    selectedIndex.value = 9;
+                    homsController.onNavbarItemSelected(9);
                     newsArgument = {
                       "title": controller.news[i].title,
                       "image": controller.news[i].image,
@@ -741,7 +740,9 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                         //     arguments: controller.listings[index]);
                         HomsController homsController =
                             Get.find<HomsController>();
-                        homsController.onNavbarItemSelected(10);
+                        homsController.onNavbarItemSelected(
+                          15,
+                        );
                       },
                       child: Container(
                           width: 200.w,

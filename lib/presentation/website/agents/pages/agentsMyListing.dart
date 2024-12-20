@@ -8,6 +8,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/sold_properties/custom_sort.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/presentation/website/home/pages/home_web.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +18,9 @@ import 'package:intl/intl.dart';
 import '../../../../app/constants/assets.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/services/firebase_database.dart';
-
 import '../controllers/agent_myListingWeb_controller.dart';
 
 class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
-  // final String? by;
-
   const AgentsMyListingWeb({super.key});
 
   @override
@@ -179,117 +177,82 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                       Get.find<HomsController>().onNavbarItemSelected(10);
                     },
                     child: Container(
-                        margin: EdgeInsets.only(
-                          bottom: 16.h,
-                          right: 20.w,
-                        ),
-                        padding: EdgeInsets.zero,
+                        margin: EdgeInsets.all(8.sp),
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10.r),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: Offset(0, 0),
-                                  spreadRadius: 1,
-                                  blurRadius: 10,
-                                  color: Colors.black12)
-                            ]),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              blurRadius: 10,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ClipRRect(
-                                borderRadius: BorderRadius.circular(10.r),
-                                child: CloudStorage().imageLoader(
-                                  height: 350.h,
-                                  width: Get.width,
-                                  fit: BoxFit.cover,
-                                  reference: listing.photos != null
-                                      ? (listing.photos!.isNotEmpty
-                                          ? listing.photos!.first
-                                          : AppStrings.noUserImageWhite)
-                                      : AppStrings.noUserImageWhite,
-                                )),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                              child: CloudStorage().imageLoader(
+                                reference: listing.photos?.isNotEmpty == true
+                                    ? listing.photos!.first
+                                    : AppStrings.noUserImageWhite,
+                                width: Get.width,
+                                height: 340.h,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                             SizedBox(
                               height: 17.h,
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              padding: EdgeInsets.only(
+                                  left: 14.w, right: 14.w, top: 10.h),
                               child: EraText(
-                                text: listing.name! == ""
-                                    ? "No Name"
-                                    : listing.name!,
-                                fontSize: EraTheme.subHeader,
+                                text: listing.name?.isNotEmpty == true
+                                    ? listing.name!
+                                    : "No Name",
+                                fontSize: EraTheme.h3,
                                 color: AppColors.kRedColor,
                                 fontWeight: FontWeight.bold,
+                                textOverflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 14.w),
                               child: EraText(
-                                text: listing.type!,
-                                fontSize: EraTheme.paragraph,
+                                text: listing.type ?? "Unknown Type",
+                                fontSize: EraTheme.h5,
                                 color: AppColors.black,
-                                fontWeight: FontWeight.bold,
-                                lineHeight: 1,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
+                            SizedBox(height: 8.h),
                             Row(
-                              //crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      AppEraAssets.area,
-                                      width: 55.w,
-                                      height: 55.w,
-                                    ),
-                                    SizedBox(width: 2.w),
-                                    EraText(
-                                      text: '${listing.floorArea} sqm',
-                                      fontSize: EraTheme.paragraph - 1.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.black,
-                                    ),
-                                  ],
+                                HomeWeb.buildFeatureIcon(
+                                  icon: AppEraAssets.area,
+                                  label: '${listing.floorArea} sqm',
                                 ),
-                                SizedBox(width: 10.w),
-                                Image.asset(
-                                  AppEraAssets.bed,
-                                  width: 55.w,
-                                  height: 55.w,
+                                SizedBox(width: 2.w),
+                                HomeWeb.buildFeatureIcon(
+                                  icon: AppEraAssets.bed,
+                                  label: '${listing.beds}',
                                 ),
-                                EraText(
-                                  text: '${listing.beds}',
-                                  fontSize: EraTheme.paragraph - 1.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.black,
+                                SizedBox(width: 2.w),
+                                HomeWeb.buildFeatureIcon(
+                                  icon: AppEraAssets.tub,
+                                  label: '${listing.baths}',
                                 ),
-                                SizedBox(width: 10.w),
-                                Image.asset(
-                                  AppEraAssets.tub,
-                                  width: 55.w,
-                                  height: 55.w,
-                                ),
-                                EraText(
-                                  text: '${listing.baths}',
-                                  fontSize: EraTheme.paragraph - 1.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.black,
-                                ),
-                                SizedBox(width: 10.w),
-                                Image.asset(
-                                  AppEraAssets.car,
-                                  width: 55.w,
-                                  height: 55.w,
-                                ),
-                                EraText(
-                                  text: '${listing.cars}',
-                                  fontSize: EraTheme.paragraph - 1.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.black,
+                                SizedBox(width: 2.w),
+                                HomeWeb.buildFeatureIcon(
+                                  icon: AppEraAssets.car,
+                                  label: '${listing.cars}',
                                 ),
                               ],
                             ),
@@ -300,31 +263,26 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                               padding: EdgeInsets.symmetric(horizontal: 14.w),
                               child: EraText(
                                 text: 'Description:',
-                                fontSize: EraTheme.header - 8.sp,
+                                fontSize: EraTheme.h6,
                                 color: AppColors.black,
                                 fontWeight: FontWeight.w600,
                                 lineHeight: 1,
                               ),
                             ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
+                            SizedBox(height: 6.h),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 14.w),
-                              child: Text(
-                                listing.description ?? "No description.",
-                                style: TextStyle(
-                                  fontSize: EraTheme.paragraph - 4.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.black,
-                                ),
-                                maxLines: 5,
-                                overflow: TextOverflow.ellipsis,
+                              child: EraText(
+                                text: listing.description?.isNotEmpty == true
+                                    ? listing.description!
+                                    : "No description available.",
+                                fontSize: EraTheme.caption,
+                                color: AppColors.black,
+                                maxLines: 3,
+                                textOverflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
+                            sb20(),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 14.w),
                               child: EraText(
@@ -432,8 +390,8 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                     ),
                   ),
                   Positioned(
-                    top: 10.h,
-                    right: 30.w,
+                    top: 20.h,
+                    right: 20.w,
                     child: Visibility(
                       visible: !(listing.isSold ?? false),
                       child: Container(

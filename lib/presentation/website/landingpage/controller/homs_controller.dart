@@ -1,5 +1,6 @@
 import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylistingWeb_binding.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/agentsMyListing.dart';
+import 'package:eraphilippines/presentation/website/agents/pages/settingAgent.dart';
 import 'package:eraphilippines/presentation/website/form/pages/help.dart';
 import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/archivedlisting/pages/archived.dart';
@@ -49,8 +50,7 @@ class HomsController extends GetxController {
   double? buttonWidth;
 
   RxBool isDropdownVisible = false.obs;
-  var overlayPortal =
-      OverlayPortalController();  
+  var overlayPortal = OverlayPortalController();
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   ScrollController scrollController = ScrollController();
@@ -84,6 +84,7 @@ class HomsController extends GetxController {
     ArchivedWeb(), //17
     SoldPropertiesWeb(), //18
     AgentListingsWeb(), //19
+    SettingsPageWeb(), //20
   ].obs;
 
   HomsController() {
@@ -99,13 +100,15 @@ class HomsController extends GetxController {
   //     if (!isNavbarVisible.value) isNavbarVisible.value = true;
   //   }
   // }
-void _scrollListener() {
-  if (scrollController.position.userScrollDirection == ScrollDirection.reverse) {
-    if (isNavbarVisible.value) isNavbarVisible.value = false;
-  } else if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
-    if (!isNavbarVisible.value) isNavbarVisible.value = true;
+  void _scrollListener() {
+    if (scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      if (isNavbarVisible.value) isNavbarVisible.value = false;
+    } else if (scrollController.position.userScrollDirection ==
+        ScrollDirection.forward) {
+      if (!isNavbarVisible.value) isNavbarVisible.value = true;
+    }
   }
-}
 
   final items = [
     'HOME',
@@ -188,7 +191,7 @@ void _scrollListener() {
       case 18:
         SoldBindingWeb().dependencies();
         break;
-        case 19:
+      case 19:
         AgentDashboardWebBinding().dependencies();
         break;
       default:

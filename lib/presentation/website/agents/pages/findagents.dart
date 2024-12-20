@@ -21,6 +21,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/constants/screens.dart';
 import '../../../../app/widgets/listings_web/agentlistview.dart';
+import '../../landingpage/controller/homs_controller.dart';
 import '../controllers/agentYT_controller.dart';
 
 class FindAgentsWeb extends GetView<AgentsWebController> {
