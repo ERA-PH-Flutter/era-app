@@ -78,13 +78,13 @@ class FavWeb extends GetView<FavWebController> {
                   children: [
                     IconButton(
                         onPressed: () {
-                          selectedIndex.value = 13;
-                          Get.find<HomsController>().onNavbarItemSelected(13);
+                          selectedIndex.value = 11;
+                          Get.find<HomsController>().onNavbarItemSelected(11);
                         },
-                        icon: Icon(Icons.arrow_back)),
+                        icon: Icon(Icons.arrow_back_ios)),
                     EraText(
                       text: 'MY FAVORITES',
-                      fontSize: EraTheme.headerWeb,
+                      fontSize: EraTheme.h2,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blue,
                     ),
@@ -238,7 +238,7 @@ class FavWeb extends GetView<FavWebController> {
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            mainAxisExtent: 150,
+                            mainAxisExtent: 250,
                           ),
                           itemCount: controller.favoritesList.length,
                           itemBuilder: (context, i) => Obx(() {
@@ -253,9 +253,9 @@ class FavWeb extends GetView<FavWebController> {
                                     } else {
                                       listingArgument =
                                           controller.favoritesList[i];
-                                      selectedIndex.value = 12;
+                                      selectedIndex.value = 10;
                                       Get.find<HomsController>()
-                                          .onNavbarItemSelected(12);
+                                          .onNavbarItemSelected(10);
                                     }
                                   },
                                   onLongPress: (index) {

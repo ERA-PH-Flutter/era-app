@@ -5,7 +5,7 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/website/authentication/controller/authentication_controller.dart';
 import 'package:eraphilippines/presentation/website/form/pages/about_us_web.dart';
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 
 import '../../../../../app/widgets/button.dart';
 
- import '../../authentication/pages/create_account_web.dart';
+import '../../authentication/pages/create_account_web.dart';
 import '../controllers/form_web_controller.dart';
 
 class JoinEraWeb extends GetView<FormWebController> {
@@ -118,7 +118,8 @@ class JoinEraWeb extends GetView<FormWebController> {
                   ),
                   SizedBox(height: 15.h),
                   Button(
-                    text: "Get Started", fontSize: EraTheme.h6,
+                    text: "Get Started",
+                    fontSize: EraTheme.h6,
                     onTap: () {
                       showDialog(
                           context: Get.context!,
@@ -228,7 +229,7 @@ class JoinEraWeb extends GetView<FormWebController> {
                                 ));
                           });
                     },
-                     bgColor: Colors.white,
+                    bgColor: Colors.white,
                     color: AppColors.kRedColor,
                     borderRadius: BorderRadius.circular(30),
                     width: 200.w,
@@ -248,7 +249,7 @@ class JoinEraWeb extends GetView<FormWebController> {
               sb15(),
               //text era
               _buildTextJoinEra(),
-
+              sb50(),
               EraText(
                 text: 'About Us',
                 fontSize: EraTheme.h1,
@@ -259,16 +260,17 @@ class JoinEraWeb extends GetView<FormWebController> {
               _buildDescription(
                 'Welcome to a new ERA of property discovery and management.',
               ),
-              sb20(),
+
+              sb40(),
               _buildDescription(
                   'ERA Real Estate Philippines is a proud member of ERA Real Estate, the largest real estate network in the Asia-Pacific region with more than 23,400 trusted advisers in over 640 offices across 13 countries. We provide exceptional real estate services, guiding you through buying, selling, and investing.'),
-              sb20(),
+              sb40(),
               _buildDescription(
                   'We envision a world where searching for and managing real estate is as simple as a few taps on your phone. With the ERA Real Estate Philippines app, we aim to redefine the property landscape in the Philippines by providing cutting-edge tools and resources that enable you to make informed decisions with confidence.'),
-              sb20(),
+              sb40(),
               _buildDescription(
                   'At ERA Real Estate Philippines, we empower you to achieve your real estate dreams. Discover the ERA difference today!'),
-              sb40(),
+              sb50(),
               EraText(
                 text: 'What We Do',
                 fontSize: EraTheme.h1,
@@ -293,24 +295,21 @@ class JoinEraWeb extends GetView<FormWebController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        sb20(),
+        sb50(),
         EraText(
             textAlign: TextAlign.start,
             text: 'Join Us Today!',
             fontSize: EraTheme.headerWeb,
             fontWeight: FontWeight.w600,
             color: AppColors.kRedColor),
-        sb30(),
+        sb40(),
         _buildDescription(
             'Be part of an international brand with 2,390 offices and over 40,500 realtors globally.'),
-        SizedBox(
-          height: 20.h,
-        ),
+        sb40(),
         _buildDescription(
             'ERA Real Estate was founded on the principle of collaboration.'),
         _buildDescription(
             'The idea that by working together and supporting one another, we can create a stronger, more knowledgeable community of real estate professionals who are better prepared to serve your unique needs.'),
-        sb20(),
       ],
     );
   }
@@ -542,43 +541,31 @@ class JoinEraWeb extends GetView<FormWebController> {
 
   // What We Do Section
   Widget _buildServices() {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 1,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildServiceTile(
-                'Real Estate Brokerage Services',
-                'Discover unparalleled expertise and personalized guidance with our premier real estate brokerage services. Whether you’re buying, selling, or investing, our seasoned professionals are committed to guiding you through every step of the processionals are committed to guiding you through every step of the process.',
-              ),
-              _buildServiceTile(
-                'Agent & Broker Training',
-                'Elevate the careers of our agents and brokers with our comprehensive training and development programs. Our courses are designed to enhance their skills and boost their success, covering everything from mastering market trends and effective client communication to advanced negotiation tactics and cutting-edge technology.',
-              ),
-              _buildServiceTile(
-                'Franchise Arrangements',
-                'Explore limitless possibilities of real estate franchising through our dynamic franchise arrangements. As part of our network, you’ll benefit from a proven business model, robust marketing support, and extensive operational resources tailored to maximize your growth and profitability.',
-              ),
-            ],
-          ),
+        _buildServiceTile(
+          'Real Estate Brokerage Services',
+          'Discover unparalleled expertise and personalized guidance with our premier real estate brokerage services. Whether you’re buying, selling, or investing, our seasoned professionals are committed to guiding you through every step of the processionals are committed to guiding you through every step of the process.',
         ),
-        SizedBox(width: 30),
-        Expanded(
-          flex: 1,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildServiceTile(
-                'Property Valuation',
-                'Accurate property valuation is the cornerstone of successful real estate transactions. At ERA Real Estate Philippines, we offer meticulous property valuation services designed to provide clarity and confidence to buyers, sellers, and investors alike. Backed by comprehensive market analysis and expert insights, our valuation process ensures you receive an informed and fair assessment of your property’s worth.',
-              ),
-              _buildServiceTile('Other Services:',
-                  '• Legal\n• Taxation\n• Accounting\n• Marketing\n• Branding'),
-            ],
-          ),
+        sb40(),
+        _buildServiceTile(
+          'Agent & Broker Training',
+          'Elevate the careers of our agents and brokers with our comprehensive training and development programs. Our courses are designed to enhance their skills and boost their success, covering everything from mastering market trends and effective client communication to advanced negotiation tactics and cutting-edge technology.',
         ),
+        sb40(),
+        _buildServiceTile(
+          'Franchise Arrangements',
+          'Explore limitless possibilities of real estate franchising through our dynamic franchise arrangements. As part of our network, you’ll benefit from a proven business model, robust marketing support, and extensive operational resources tailored to maximize your growth and profitability.',
+        ),
+        sb40(),
+        _buildServiceTile(
+          'Property Valuation',
+          'Accurate property valuation is the cornerstone of successful real estate transactions. At ERA Real Estate Philippines, we offer meticulous property valuation services designed to provide clarity and confidence to buyers, sellers, and investors alike. Backed by comprehensive market analysis and expert insights, our valuation process ensures you receive an informed and fair assessment of your property’s worth.',
+        ),
+        sb40(),
+        _buildServiceTile('Other Services:',
+            '• Legal\n• Taxation\n• Accounting\n• Marketing\n• Branding'),
       ],
     );
   }

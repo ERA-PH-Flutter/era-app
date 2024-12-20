@@ -372,7 +372,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                           EraText(
                             text: 'Description',
                             color: AppColors.black,
-                            fontSize: EraTheme.h2,
+                            fontSize: EraTheme.h4,
                             fontWeight: FontWeight.w600,
                           ),
                           sb10(),
@@ -551,6 +551,8 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
             ),
             sb30(),
             Container(
+              //color: AppColors.black,
+              padding: EdgeInsets.only(left: 90.w),
               width: Get.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -583,7 +585,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
             child: EraText(
               text: text,
               color: color ?? AppColors.black,
-              fontSize: EraTheme.bodyText,
+              fontSize: EraTheme.h4,
               fontWeight: FontWeight.w500,
               lineHeight: 0.9,
             ),
@@ -592,7 +594,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
             child: EraText(
               text: text2,
               color: AppColors.black,
-              fontSize: EraTheme.bodyText,
+              fontSize: EraTheme.h4,
               fontWeight: FontWeight.w500,
               lineHeight: 0.9,
             ),

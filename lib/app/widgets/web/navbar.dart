@@ -1,3 +1,4 @@
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../presentation/global.dart';
+
 import '../../../presentation/website/authentication.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
@@ -50,6 +52,7 @@ class Navbar extends GetResponsiveView<HomsController> {
             Spacer(),
             ..._buildNavItems(controller.items),
             Spacer(),
+            //   _showOverlayProfile()
             user == null
                 ? ElevatedButton(
                     onPressed: () => showAuthenticationDialog(),
@@ -93,7 +96,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                 text: item,
                 color: isActive ? AppColors.kRedColor : Colors.black,
                 fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-                fontSize: EraTheme.h6 - 3.sp,
+                fontSize: EraTheme.h6,
               ),
               if (isActive)
                 Container(
@@ -109,39 +112,118 @@ class Navbar extends GetResponsiveView<HomsController> {
     }).toList();
   }
 
-  Widget _showOverlayProfile() {
-    return GestureDetector(
-      onTap: () => controller.loginOverlay.toggle(),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(user!.image!),
-            radius: 20.h,
+  Widget _AgentProfile() {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Card(
+          elevation: 8,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
           ),
-          Icon(Icons.arrow_drop_down),
-        ],
-      ),
+          child: CloudStorage().imageLoaderProvider(
+            reference: user!.image!,
+            width: 100.w,
+            height: 100.h,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned(
+          bottom: -5,
+          right: -5,
+          child: Container(
+            height: 36.h,
+            width: 36.w,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.5),
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.4),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                ),
+              ],
+            ),
+            child: Icon(
+              Icons.arrow_drop_down,
+              color: Colors.black87,
+              size: 24.sp,
+            ),
+          ),
+        ),
+      ],
     );
   }
-}
 
-class MenuWidget extends StatelessWidget {
-  const MenuWidget({
-    super.key,
-    this.width,
-    this.child,
-  });
-  final Widget? child;
-  final double? width;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width ?? 200,
-      height: 250.h,
-      child: Card(
-        color: AppColors.white,
-        child: child,
+  Widget _showOverlayProfile() {
+    return GestureDetector(
+      onTap: () {
+        controller.overlayPortal.isShowing
+            ? controller.overlayPortal.show()
+            : controller.overlayPortal.hide();
+      },
+      child: OverlayPortal(
+        controller: controller.overlayPortal,
+        overlayChildBuilder: (BuildContext context) {
+          return Positioned(
+            top: 120,
+            right: 20,
+            child: Card(
+              elevation: 8,
+              // borderRadius: BorderRadius.circular(12.0),
+              child: Container(
+                width: 300.w,
+                padding: EdgeInsets.symmetric(vertical: 8.h),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildMenuWidget(
+                      icon: Icons.person,
+                      label: user!.firstname!,
+                      onTap: () {
+                        selectedIndex.value = 11;
+                        Get.find<HomsController>().onNavbarItemSelected(11);
+                        controller.overlayPortal.hide();
+                      },
+                    ),
+                    sb10(),
+                    Divider(thickness: 1, height: 1, color: Colors.grey[300]),
+                    sb10(),
+                    buildMenuWidget(
+                      icon: Icons.settings,
+                      label: "Settings",
+                    ),
+                    sb10(),
+                    Divider(thickness: 1, height: 1, color: Colors.grey[300]),
+                    sb10(),
+                    buildMenuWidget(
+                      icon: Icons.logout,
+                      label: "Log-out",
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+        child: GestureDetector(
+          onTap: () {
+            controller.overlayPortal.toggle();
+          },
+          child: _AgentProfile(),
+        ),
       ),
     );
   }
@@ -159,5 +241,34 @@ Widget agentProfile() {
           color: Colors.black.withOpacity(0.2),
           offset: Offset(1, 1))
     ],
+  );
+}
+
+Widget buildMenuWidget(
+    {IconData? icon, String? label, void Function()? onTap}) {
+  return ListTile(
+    leading: Container(
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.4),
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.4),
+            spreadRadius: 1,
+            blurRadius: 5,
+          ),
+        ],
+      ),
+      height: 48.h,
+      width: 48.w,
+      child: Icon(icon, color: AppColors.kRedColor, size: 24.sp),
+    ),
+    title: EraText(
+      text: label!,
+      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
+    ),
+    onTap: onTap,
+    hoverColor: AppColors.kRedColor.withOpacity(0.1),
+    // trailing: Icon(Icons.arrow_forward_ios),
   );
 }

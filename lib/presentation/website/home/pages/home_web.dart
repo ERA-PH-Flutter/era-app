@@ -328,8 +328,8 @@ class HomeWeb extends GetView<HomeWebController> {
                     return GestureDetector(
                       onTap: () async {
                         listingArgument = listing;
-                        a.selectedIndex.value = 12;
-                        Get.find<HomsController>().onNavbarItemSelected(12);
+                        a.selectedIndex.value = 10;
+                        Get.find<HomsController>().onNavbarItemSelected(10);
                       },
                       child: Container(
                         margin: EdgeInsets.all(8.sp),
@@ -516,10 +516,10 @@ class HomeWeb extends GetView<HomeWebController> {
                       onTap: () async {
                         HomsController homsController =
                             Get.find<HomsController>();
-                        a.selectedIndex.value = 10;
+                        a.selectedIndex.value = 9;
                         //  Get.lazyPut(() => NewsWebController());
                         //await Get.find<NewsWebController>().getNews();
-                        homsController.onNavbarItemSelected(10);
+                        homsController.onNavbarItemSelected(9);
                       },
                       child: EraText(
                           text: 'See all',
@@ -555,8 +555,8 @@ class HomeWeb extends GetView<HomeWebController> {
                       onTap: () {
                         HomsController homsController =
                             Get.find<HomsController>();
-                        a.selectedIndex.value = 11;
-                        homsController.onNavbarItemSelected(11);
+                        a.selectedIndex.value = 10;
+                        homsController.onNavbarItemSelected(10);
                         newsArgument = {
                           "title": controller.news[i].title,
                           "image": controller.news[i].image,

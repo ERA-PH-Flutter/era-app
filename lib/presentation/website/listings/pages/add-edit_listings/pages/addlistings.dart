@@ -8,12 +8,12 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/era_place_search.dart';
- import 'package:eraphilippines/presentation/global.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agent_myListingWeb_controller.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/listing_web_controller.dart';
-  import 'package:eraphilippines/router/route_string.dart';
+import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,9 +22,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:reorderables/reorderables.dart';
 
 import '../../../../../../app/constants/screens.dart';
- import '../../../../../../repository/listing.dart';
+import '../../../../../../repository/listing.dart';
 import '../../../../../agent/utility/controller/base_controller.dart';
- 
 
 class AddListingsWeb extends GetView<AddListingsController>
     with BaseController {
@@ -43,20 +42,33 @@ class AddListingsWeb extends GetView<AddListingsController>
 
   _loaded() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+      padding: EdgeInsets.symmetric(
+        horizontal: EraTheme.paddingWidthAdmin * 3,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          EraText(
-            text: 'PROPERTY INFORMATION',
-            color: AppColors.black,
-            fontSize: EraTheme.header,
-            fontWeight: FontWeight.w500,
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    selectedIndex.value = 11;
+                    Get.find<HomsController>().onNavbarItemSelected(11);
+                  },
+                  icon: Icon(Icons.arrow_back_ios)),
+              EraText(
+                text: 'PROPERTY INFORMATION',
+                color: AppColors.black,
+                fontSize: EraTheme.h2,
+                fontWeight: FontWeight.w500,
+              ),
+            ],
           ),
+          sb40(),
           EraText(
             text: 'CREATE LISTING',
             color: AppColors.black,
-            fontSize: EraTheme.header,
+            fontSize: EraTheme.h4,
             fontWeight: FontWeight.w600,
           ),
           propertyWidgetDetails(),
@@ -114,7 +126,8 @@ class AddListingsWeb extends GetView<AddListingsController>
                     text: 'Pick Address',
                     onTap: () {
                       //ListingsController listingsController = Get.find<ListingsController>();
-                      controller.addEditListingsState.value = AddEditListingsState.location_pick;
+                      controller.addEditListingsState.value =
+                          AddEditListingsState.location_pick;
                     },
                   ),
                 )
@@ -257,7 +270,8 @@ class AddListingsWeb extends GetView<AddListingsController>
               await settings!.update();
               controller.showSuccessDialogProjects(
                   hitApi: () {
-                    Get.back();Get.back();
+                    Get.back();
+                    Get.back();
                     Get.find<HomsController>().onNavbarItemSelected(13);
                   },
                   title: "Add Listing Success",
@@ -876,7 +890,7 @@ class AddListingsWeb extends GetView<AddListingsController>
         children: [
           EraText(
             text: text ?? ' Upload Photo *',
-            fontSize: 18.sp,
+            fontSize: EraTheme.h5,
             color: AppColors.black,
             fontWeight: FontWeight.w500,
           ),

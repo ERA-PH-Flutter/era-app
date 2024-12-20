@@ -14,6 +14,7 @@ import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../../app/widgets/web/project_views_web.dart';
 import '../../agents/bindings/agent_dashboard_binding.dart';
 import '../../agents/bindings/agent_web_binding.dart';
+import '../../agents/pages/agent_listings.dart';
 import '../../agents/pages/dashboard_web.dart';
 import '../../agents/pages/findagents.dart';
 import '../../form/controllers/form_web_binding.dart';
@@ -47,9 +48,11 @@ class HomsController extends GetxController {
   var link = LayerLink();
   double? buttonWidth;
 
+  RxBool isDropdownVisible = false.obs;
+  var overlayPortal =
+      OverlayPortalController();  
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  var controllerOverlay = OverlayPortalController();
-  var loginOverlay = OverlayPortalController();
+
   ScrollController scrollController = ScrollController();
 
   final Uri emailUrl = Uri.parse(
@@ -79,22 +82,30 @@ class HomsController extends GetxController {
     AgentsMyListingWeb(), //15
     EditListingWeb(), //16
     ArchivedWeb(), //17
-    SoldPropertiesWeb() //18
+    SoldPropertiesWeb(), //18
+    AgentListingsWeb(), //19
   ].obs;
 
   HomsController() {
     scrollController.addListener(_scrollListener);
   }
 
-  void _scrollListener() {
-    if (scrollController.position.userScrollDirection ==
-        ScrollDirection.reverse) {
-      if (isNavbarVisible.value) isNavbarVisible.value = false;
-    } else if (scrollController.position.userScrollDirection ==
-        ScrollDirection.forward) {
-      if (!isNavbarVisible.value) isNavbarVisible.value = true;
-    }
+  // void _scrollListener() {
+  //   if (scrollController.position.userScrollDirection ==
+  //       ScrollDirection.reverse) {
+  //     if (isNavbarVisible.value) isNavbarVisible.value = false;
+  //   } else if (scrollController.position.userScrollDirection ==
+  //       ScrollDirection.forward) {
+  //     if (!isNavbarVisible.value) isNavbarVisible.value = true;
+  //   }
+  // }
+void _scrollListener() {
+  if (scrollController.position.userScrollDirection == ScrollDirection.reverse) {
+    if (isNavbarVisible.value) isNavbarVisible.value = false;
+  } else if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
+    if (!isNavbarVisible.value) isNavbarVisible.value = true;
   }
+}
 
   final items = [
     'HOME',
@@ -176,6 +187,9 @@ class HomsController extends GetxController {
         break;
       case 18:
         SoldBindingWeb().dependencies();
+        break;
+        case 19:
+        AgentDashboardWebBinding().dependencies();
         break;
       default:
         break;

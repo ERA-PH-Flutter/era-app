@@ -23,17 +23,13 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Obx(() => switch (controller.agentListingsState.value) {
-                AgentListingsState.loading => _loading(),
-                AgentListingsState.loaded => _loaded(),
-                AgentListingsState.empty => _empty(),
-                AgentListingsState.error => _error(),
-              })
-        ],
-      ),
+    return SafeArea(
+      child: Obx(() => switch (controller.agentListingsState.value) {
+            AgentListingsState.loading => _loading(),
+            AgentListingsState.loaded => _loaded(),
+            AgentListingsState.empty => _empty(),
+            AgentListingsState.error => _error(),
+          }),
     );
   }
 
@@ -53,12 +49,13 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        Get.back();
+                        selectedIndex.value = 11;
+                        Get.find<HomsController>().onNavbarItemSelected(11);
                       },
-                      icon: Icon(Icons.arrow_back)),
+                      icon: Icon(Icons.arrow_back_ios)),
                   sbw10(),
                   EraText(
-                    text: "MY LISTINGS",
+                    text: "LISTINGS",
                     fontSize: EraTheme.headerWeb,
                     color: AppColors.blue,
                     fontWeight: FontWeight.w600,
@@ -141,10 +138,10 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
             itemCount: controller.listings.length,
             itemBuilder: (context, index) {
               Listing listing = controller.listings[index];
-              return GestureDetector( 
+              return GestureDetector(
                 onTap: () async {
                   listingArgument = listing;
-                  selectedIndex.value = 12;
+                  selectedIndex.value = 11;
                   Get.find<HomsController>().onNavbarItemSelected(12);
                 },
                 child: Container(

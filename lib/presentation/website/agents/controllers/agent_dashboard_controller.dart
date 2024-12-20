@@ -19,7 +19,7 @@ class AgentDashboardWebController extends GetxController {
   var listings = [].obs;
   var favorites = [].obs;
   var news = [];
- // ScrollController scrollController = ScrollController();
+  // ScrollController scrollController = ScrollController();
   RxBool scrolling = false.obs;
 
   @override
@@ -31,9 +31,9 @@ class AgentDashboardWebController extends GetxController {
         user!.favorites!.removeAt(i);
       }
     }
+
     listings.value = await Database().searchListingsByUserId(user!.id!);
     listings.shuffle();
-    favorites.shuffle();
     await getNews();
     // scrollController.addListener(() async {
     //   if (!scrolling.value) {

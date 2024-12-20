@@ -58,14 +58,14 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        selectedIndex.value = 13;
-                        Get.find<HomsController>().onNavbarItemSelected(13);
+                        selectedIndex.value = 11;
+                        Get.find<HomsController>().onNavbarItemSelected(11);
                       },
                       icon: Icon(Icons.arrow_back_ios)),
                   sbw10(),
                   EraText(
                     text: "MY LISTINGS",
-                    fontSize: EraTheme.headerWeb,
+                    fontSize: EraTheme.h2,
                     color: AppColors.blue,
                     fontWeight: FontWeight.w600,
                   ),
@@ -175,8 +175,8 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                       // await Database().addViews(listing.id);
                       // Get.toNamed('/propertyInfo', arguments: listing);
                       listingArgument = listing;
-                      selectedIndex.value = 12;
-                      Get.find<HomsController>().onNavbarItemSelected(12);
+                      selectedIndex.value = 10;
+                      Get.find<HomsController>().onNavbarItemSelected(10);
                     },
                     child: Container(
                         margin: EdgeInsets.only(

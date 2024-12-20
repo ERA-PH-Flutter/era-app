@@ -33,7 +33,7 @@ class HelpWeb extends GetView<FormWebController> {
             _buildFaqSection(),
             sb50(),
             _buildContactUsSection(),
-            sb50(),
+            sb80(),
             AboutUsWeb.buildJoinUsSection(),
           ],
         ),
@@ -42,98 +42,107 @@ class HelpWeb extends GetView<FormWebController> {
   }
 
   Widget _buildContactUsSection() {
-    return Column(
-      children: [
-        // Hero Section
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              height: 200.h,
-              color: AppColors.kRedColor,
-            ),
-            Column(
-              children: [
-                EraText(
-                  text: "Get in Touch",
-                  fontSize: EraTheme.headerWeb + 10,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                sb10(),
-                EraText(
-                  text:
-                      "Have questions? We'd love to help! Reach out to us below.",
-                  fontSize: EraTheme.paragraphWeb,
-                  color: Colors.white,
-                ),
-              ],
-            ),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            AppColors.kRedColor.withOpacity(0.9),
+            AppColors.kRedColor.withOpacity(0.7),
           ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
-        sb30(),
-
-        Card(
-          elevation: 5,
-          color: AppColors.white,
-          margin: EdgeInsets.all(10),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.r),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        children: [
+          // Hero Section
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Column(
+                children: [
+                  EraText(
+                    text: "Get in Touch",
+                    fontSize: EraTheme.headerWeb + 10,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  sb10(),
+                  EraText(
+                    text:
+                        "Have questions? We'd love to help! Reach out to us below.",
+                    fontSize: EraTheme.paragraphWeb,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ],
           ),
-          child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                EraText(
-                  text: "Send us a message",
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.blue,
-                ),
-                sb20(),
-                SharedWidgets.textFormfield(
-                  hintText: 'Full Name',
-                  controller: controller.nameC,
-                  textInputType: TextInputType.text,
-                ),
-                sb10(),
-                SharedWidgets.textFormfield(
-                  controller: controller.emailAC,
-                  hintText: 'Email',
-                  textInputType: TextInputType.emailAddress,
-                ),
-                sb10(),
-                SharedWidgets.dropDown(
-                  controller.selectedSubj,
-                  controller.subject,
-                  (value) {
-                    controller.selectedSubj.value = value;
-                  },
-                  '',
-                  'Select Subject Type',
-                ),
-                sb10(),
-                SharedWidgets.textFormfield(
-                  controller: controller.messageC,
-                  hintText: 'Type your message here',
-                  textInputType: TextInputType.multiline,
-                  MaxLines: 5,
-                ),
-                sb30(),
-                Button.button2(
-                  Get.width,
-                  53.h,
-                  () async {
-                    await controller.submitContact();
-                  },
-                  'Send',
-                ),
-              ],
+          sb30(),
+
+          Card(
+            elevation: 5,
+            color: AppColors.white,
+            margin: EdgeInsets.all(10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.r),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  EraText(
+                    text: "Send us a message",
+                    fontSize: EraTheme.h1,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.kRedColor,
+                  ),
+                  sb20(),
+                  SharedWidgets.textFormfield(
+                    hintText: 'Full Name',
+                    controller: controller.nameC,
+                    textInputType: TextInputType.text,
+                  ),
+                  sb10(),
+                  SharedWidgets.textFormfield(
+                    controller: controller.emailAC,
+                    hintText: 'Email',
+                    textInputType: TextInputType.emailAddress,
+                  ),
+                  sb10(),
+                  SharedWidgets.dropDown(
+                    controller.selectedSubj,
+                    controller.subject,
+                    (value) {
+                      controller.selectedSubj.value = value;
+                    },
+                    '',
+                    'Select Subject Type',
+                  ),
+                  sb10(),
+                  SharedWidgets.textFormfield(
+                    controller: controller.messageC,
+                    hintText: 'Type your message here',
+                    textInputType: TextInputType.multiline,
+                    MaxLines: 10,
+                  ),
+                  sb30(),
+                  Button.button2(
+                    Get.width,
+                    53.h,
+                    () async {
+                      await controller.submitContact();
+                    },
+                    'Send',
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

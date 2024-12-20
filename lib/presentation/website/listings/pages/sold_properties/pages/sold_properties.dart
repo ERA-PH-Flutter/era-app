@@ -46,13 +46,13 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
             children: [
               IconButton(
                   onPressed: () {
-                    a.selectedIndex.value = 13;
-                    Get.find<a.HomsController>().onNavbarItemSelected(13);
+                    a.selectedIndex.value = 11;
+                    Get.find<a.HomsController>().onNavbarItemSelected(11);
                   },
                   icon: Icon(Icons.arrow_back_ios)),
               EraText(
                 text: 'SOLD PROPERTIES',
-                      fontSize: EraTheme.headerWeb,
+                fontSize: EraTheme.headerWeb,
                 color: AppColors.blue,
                 fontWeight: FontWeight.w600,
               ),
@@ -74,8 +74,8 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
               Listing listing = controller.soldListings[index];
               return GestureDetector(
                 onTap: () async {
-                  a.selectedIndex.value = 17;
-                  Get.find<a.HomsController>().onNavbarItemSelected(17);
+                  a.selectedIndex.value = 10;
+                  Get.find<a.HomsController>().onNavbarItemSelected(10);
                   // await Database().addViews(listing.id);
                   // Get.toNamed('/propertyInfo', arguments: listing);
                 },

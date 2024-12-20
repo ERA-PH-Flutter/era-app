@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,12 +29,10 @@ class CustomSortPopup extends StatelessWidget {
       color: AppColors.white,
       icon: Row(
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: AppColors.white,
-              fontSize: 15.sp,
-            ),
+          EraText(
+            text: title,
+            color: AppColors.white,
+            fontSize: 20.sp,
           ),
           Icon(
             Icons.arrow_drop_down,

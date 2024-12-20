@@ -22,13 +22,21 @@ class AgentListingsWebController extends GetxController {
   }
 
   loadListing() async {
-    user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid); // changed the arguments not sure if it will affect anything
-    listings = (await Database().searchListingsByUserId(FirebaseAuth.instance.currentUser!.uid));
+    user = await EraUser().getById(FirebaseAuth.instance.currentUser!
+        .uid); // changed the arguments not sure if it will affect anything
+    listings = (await Database()
+        .searchListingsByUserId(FirebaseAuth.instance.currentUser!.uid));
     if (listings.isEmpty) {
       agentListingsState.value = AgentListingsState.empty;
     } else {
       agentListingsState.value = AgentListingsState.loaded;
     }
+    // user = await EraUser().getById(Get.arguments[0]);
+    // listings = (await Database().searchListingsByUserId(Get.arguments[0]));
+    // if (listings.isEmpty) {
+    //   agentListingsState.value = AgentListingsState.empty;
+    // } else {
+    //   agentListingsState.value = AgentListingsState.loaded;
+    // }
   }
- 
 }

@@ -38,7 +38,7 @@ class ArchivedWeb extends GetView<ArchivedWebController> {
           padding: EdgeInsets.symmetric(horizontal: 15.h),
           child: EraText(
               text: 'ARCHIVED LISTINGS',
-              fontSize: EraTheme.headerWeb,
+              fontSize: EraTheme.h2,
               color: AppColors.blue,
               fontWeight: FontWeight.w600),
         ),
@@ -124,8 +124,8 @@ class ArchivedWeb extends GetView<ArchivedWebController> {
                   //    type: listingModels[i].type,
                   onTap: () async {
                     listingArgument = controller.archiveListings[i];
-                    selectedIndex.value = 12;
-                    Get.find<HomsController>().onNavbarItemSelected(12);
+                    selectedIndex.value = 11;
+                    Get.find<HomsController>().onNavbarItemSelected(11);
                     // Get.toNamed('/propertyInfo',
                     //     arguments: controller.favoritesList[i]);
                   },
@@ -160,8 +160,8 @@ class ArchivedWeb extends GetView<ArchivedWebController> {
             children: [
               IconButton(
                   onPressed: () {
-                    selectedIndex.value = 13;
-                    Get.find<HomsController>().onNavbarItemSelected(13);
+                    selectedIndex.value = 11;
+                    Get.find<HomsController>().onNavbarItemSelected(11);
                   },
                   icon: Icon(
                     Icons.arrow_back_ios_rounded,

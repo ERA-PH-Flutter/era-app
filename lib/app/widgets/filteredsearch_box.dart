@@ -197,7 +197,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
           if (!showFullSearch.value)
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
-              height: 60.h,
               child: CupertinoTextField(
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w400, fontSize: 20.sp),

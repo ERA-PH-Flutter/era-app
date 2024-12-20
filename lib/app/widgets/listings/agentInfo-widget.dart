@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../presentation/global.dart';
 import '../../constants/sized_box.dart';
 import '../../constants/theme.dart';
 import '../app_text.dart';
@@ -28,8 +29,8 @@ class AgentInfoWidget {
     return Row(
       children: [
         CloudStorage().imageLoaderProvider(
-            width: 120.w,
-            height: 150.h,
+            width: 200.w,
+            height: 220.h,
             borderRadius: BorderRadius.circular(8.0),
             reference: imageProvider),
         Padding(
@@ -40,7 +41,7 @@ class AgentInfoWidget {
               agentText(
                 '$firstName $lastName',
                 AppColors.blue,
-                18.sp,
+                EraTheme.h2,
                 FontWeight.bold,
                 1.2,
               ),
@@ -48,7 +49,7 @@ class AgentInfoWidget {
               agentText(
                 role!.toUpperCase(),
                 AppColors.black,
-                12.sp,
+                EraTheme.h4,
                 FontWeight.w400,
                 0.9,
               ),
@@ -62,7 +63,6 @@ class AgentInfoWidget {
               agentContact(
                 onTap: () => launchUrl(emailUrl),
                 iconPath: AppEraAssets.emailIcon,
-                color: AppColors.kRedColor,
                 text: email,
               ),
             ],
@@ -81,18 +81,19 @@ class AgentInfoWidget {
     String? role,
   }) {
     final Uri whatsAppUrl2 = Uri.parse('https://wa.me/$whatsApp');
-
     final Uri emailUrl =
         Uri.parse('mailto:$email?subject=Your%20Subject&body=Your%20Message');
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CloudStorage().imageLoaderProvider(
-            width: 200.w,
-            height: 220.h,
-            borderRadius: BorderRadius.circular(8.0),
-            reference: imageProvider),
-        Container(
-          padding: EdgeInsets.only(left: 10.w),
+          width: 200.w,
+          height: 220.h,
+          borderRadius: BorderRadius.circular(10.0),
+          reference: imageProvider,
+        ),
+        SizedBox(width: 20.w),
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -103,7 +104,7 @@ class AgentInfoWidget {
                 FontWeight.bold,
                 1.2,
               ),
-              sb10(),
+              SizedBox(height: 10.h),
               agentText(
                 role!.toUpperCase(),
                 AppColors.black,
@@ -111,21 +112,21 @@ class AgentInfoWidget {
                 FontWeight.w400,
                 0.9,
               ),
-              sb10(),
+              SizedBox(height: 15.h),
               agentContact(
                 onTap: () => launchUrl(whatsAppUrl2),
                 iconPath: AppEraAssets.whatsappIcon,
                 text: whatsApp,
-                width: 50.w,
-                height: 50.h,
+                width: 40.w,
+                height: 40.h,
               ),
-              sb10(),
+              SizedBox(height: 15.h),
               agentContact(
                 onTap: () => launchUrl(emailUrl),
                 iconPath: AppEraAssets.emailIcon,
                 text: email,
-                width: 50.w,
-                height: 50.h,
+                width: 40.w,
+                height: 40.h,
               ),
             ],
           ),
@@ -158,10 +159,10 @@ class AgentInfoWidget {
             ),
             sbw5(),
             Container(
-              width: 190.w,
+              width: 250.w,
               child: EraText(
                 text: text!,
-                fontSize: 15.sp,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
                 color: AppColors.black,
                 textOverflow: TextOverflow.ellipsis,
