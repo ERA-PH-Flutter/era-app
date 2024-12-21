@@ -26,6 +26,7 @@ class LoginPageController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
   var text = "".obs;
   var passwordVisible = false.obs;
+  var emailReset = TextEditingController();
   var confirmPasswordVisible = false.obs;
   var selectedGender = RxnString();
   var selectedEducation = RxnString();

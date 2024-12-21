@@ -4,15 +4,18 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../app/widgets/navigation/customenavigationbar.dart';
 import '../../../global.dart';
+import '../../utility/controller/base_controller.dart';
 import '../controllers/authentication_controller.dart';
 
 class LoginPage extends GetView<LoginPageController> {
+
   const LoginPage({super.key});
 
   @override
@@ -125,7 +128,71 @@ class LoginPage extends GetView<LoginPageController> {
                                   SizedBox(height: 20.h),
                                   GestureDetector(
                                     onTap: () {
-                                      // Get.toNamed("");
+                                      showModalBottomSheet(
+                                          isDismissible: true,
+                                          backgroundColor: Colors.transparent,
+                                          context: Get.context!,
+                                          isScrollControlled: true,
+                                          builder: (context) {
+                                            return Padding(
+                                              padding: EdgeInsets.only(bottom: MediaQuery
+                                                  .of(context)
+                                                  .viewInsets
+                                                  .bottom),
+                                              child: Wrap(
+                                                children: [
+                                                  Container(
+                                                      padding: EdgeInsets.all(16.h),
+                                                      margin: EdgeInsets.all(16.h),
+                                                      width:Get.width,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(10.r),
+                                                          color: AppColors.white
+                                                      ),
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            height: 48.h,
+                                                            child: CupertinoTextField(
+                                                              placeholder: "Email Address",
+                                                              controller: controller.emailReset,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(10.r),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 6.h,),
+                                                          Button(
+                                                            height: 48.h,
+                                                            onTap: ()async{
+                                                              try{
+                                                                BaseController().showLoading();
+                                                                await FirebaseAuth.instance.sendPasswordResetEmail(email: controller.emailReset.text);
+                                                                BaseController().showSuccessDialog(
+                                                                    hitApi: (){
+                                                                      Get.back();Get.back();Get.back();
+                                                                    },
+                                                                    title: "Email Sent!",
+                                                                    description: "Reset password link has been sent to your email."
+                                                                );
+                                                              }catch(e){
+                                                                BaseController().showErroDialog(
+                                                                    title: "ERROR",
+                                                                    description: "Email incorrect! or not registered to ERA Philippines"
+                                                                );
+                                                              }
+
+                                                            },
+                                                          )
+                                                        ],
+                                                      )
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }
+                                      );
+
                                     },
                                     child: EraText(
                                       text: 'Forgot Password?',
