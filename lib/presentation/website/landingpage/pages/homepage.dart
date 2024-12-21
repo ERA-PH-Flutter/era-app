@@ -110,35 +110,48 @@ class HomePages extends GetResponsiveView<HomsController> {
         ),
 
         /// not final
-        // Container(
-        //   width: Get.width,
-        //   padding: EdgeInsets.symmetric(vertical: 20),
-        //   color: AppColors.blue2,
-        //   child: Column(
-        //     children: [
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         children: [
-        //           FaIcon(FontAwesomeIcons.facebook,
-        //                   color: AppColors.white, size: 30)
-        //               .paddingAll(8.sp),
-        //           FaIcon(FontAwesomeIcons.instagram,
-        //                   color: AppColors.white, size: 30)
-        //               .paddingAll(8.sp),
-        //           FaIcon(FontAwesomeIcons.xTwitter,
-        //                   color: AppColors.white, size: 30)
-        //               .paddingAll(8.sp),
-        //         ],
-        //       ),
-        //       EraText(
-        //         text:
-        //             '© 2024 ERA Real Estate Philippines. All rights reserved.',
-        //         color: AppColors.white,
-        //         fontSize: EraTheme.paragraphWeb - 10.sp,
-        //       ),
-        //     ],
-        //   ),
-        // ),
+        Container(
+          width: Get.width,
+          padding: EdgeInsets.symmetric(vertical: 20),
+          color: AppColors.blue2,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Card(
+                    elevation: 5,
+                    color: Colors.white.withOpacity(0.7),
+                    child: FaIcon(FontAwesomeIcons.facebook,
+                            color: AppColors.white, size: 30)
+                        .paddingAll(8.sp),
+                  ),
+                  sbw20(),
+                  Card(
+                    elevation: 5,
+                    color: Colors.white.withOpacity(0.7),
+                    child: FaIcon(FontAwesomeIcons.instagram,
+                            color: AppColors.white, size: 30)
+                        .paddingAll(8.sp),
+                  ),
+                  // FaIcon(FontAwesomeIcons.xTwitter,
+                  //         color: AppColors.white, size: 30)
+                  //     .paddingAll(8.sp),
+
+                  // FaIcon(FontAwesomeIcons.linkedin,
+                  //         color: AppColors.white, size: 30)
+                  //     .paddingAll(8.sp),
+                ],
+              ),
+              EraText(
+                text:
+                    '© 2024 ERA Real Estate Philippines. All rights reserved.',
+                color: AppColors.white,
+                fontSize: EraTheme.paragraphWeb - 10.sp,
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
