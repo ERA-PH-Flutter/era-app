@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/services/local_storage.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +10,7 @@ import 'package:get/get.dart';
 import '../../presentation/global.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
+import '../models/settings.dart' as a;
 import '../services/firebase_storage.dart';
 import 'app_text_listing.dart';
 import 'navigation/customenavigationbar.dart';
@@ -42,35 +45,31 @@ class QuickLinksModel {
   ];
 
   initialize() async {
-    // List<Widget> items = [];
-    // var ql = Get.find<LocalStorageService>().images!['quick_links'];
-    // for (int index = 0; index < ql.length; index++) {
-    //   items.add(await quickSearchIcon(
-    //       ql[index], categories[index][1], categories[index][2]));
-    // }
-    // if (ql.length != categories.length) {
-    //   return Container();
-    // }
-    // return Column(
-    //   crossAxisAlignment: CrossAxisAlignment.start,
-    //   children: [
-    //     TextListing(
-    //       text: 'Quick Links',
-    //       fontSize: 18.sp,
-    //       fontWeight: FontWeight.w500,
-    //       color: AppColors.black,
-    //     ),
-    //     SizedBox(height: 10.h),
-    //     SingleChildScrollView(
-    //       scrollDirection: Axis.horizontal,
-    //       child: Row(
-    //         children: items,
-    //       ),
-    //     ),
-    //     SizedBox(height: 10.h),
-    //   ],
-    // );
-    return Container();
+    List<Widget> items = [];
+    //var ql = a.Settings.fromJSON((await FirebaseFirestore.instance.collection('settings').doc('main').get()).data()!);
+    for (int index = 0; index < categories.length; index++) {
+      items.add(await quickSearchIcon(
+          (await CloudStorage().getFileBytes(docRef: categories[index][0]))!, categories[index][1], categories[index][2]));
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextListing(
+          text: 'Quick Links',
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
+        ),
+        SizedBox(height: 10.h),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: items,
+          ),
+        ),
+        SizedBox(height: 10.h),
+      ],
+    );
   }
 
   download() async {
@@ -82,7 +81,7 @@ class QuickLinksModel {
     return paths;
   }
 
-  Future<Widget> quickSearchIcon(String icon, target, type) async {
+  Future<Widget> quickSearchIcon(Uint8List icon, target, type) async {
     return GestureDetector(
       onTap: () async {
         selectedIndex.value = 2;
@@ -92,7 +91,6 @@ class QuickLinksModel {
           duration: Duration(milliseconds: 500),
           curve: Curves.easeInOut,
         );
-
         Get.find<SearchResultController>().searchListingType(type);
       },
       child: Column(
@@ -102,7 +100,7 @@ class QuickLinksModel {
             width: 100.h,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.r),
-                image: DecorationImage(image: FileImage(File(icon)))),
+                image: DecorationImage(image: MemoryImage(icon))),
           ),
         ],
       ),
