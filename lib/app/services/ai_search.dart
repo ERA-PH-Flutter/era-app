@@ -67,7 +67,8 @@ class AI {
       print('Error calling function: res.data ${res.data}');
 
       return data.where((e) => projectIds.contains(e.id)).toList();
-    } catch (e) {
+    } catch (e,ex) {
+      print(ex);
       print('Error calling function: $e');
       return [];
     }

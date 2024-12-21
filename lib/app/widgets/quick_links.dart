@@ -1,11 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart' as a;
+import 'package:eraphilippines/presentation/website/listings/controllers/buyweb_binding.dart';
+import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_binding.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/addlistings_controller.dart';
+import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/pages/addlistings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
 import '../../presentation/global.dart';
+import '../../presentation/website/listings/controllers/listings_web_controller.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../services/firebase_storage.dart';
@@ -60,6 +66,9 @@ class QuickLinksModel {
   Future<Widget> quickSearchIcon(String icon, target, type) async {
     return GestureDetector(
       onTap: () async {
+        ListingsWebBinding().dependencies();
+        ListingsWebController s =  Get.find<ListingsWebController>();
+        s.listingsWebState.value = ListingsWebState.loading;
         var listings = (await FirebaseFirestore.instance
                 .collection('listings')
                 .where(target ?? 'category', isEqualTo: type)
@@ -69,12 +78,11 @@ class QuickLinksModel {
           return listing.data();
         }).toList();
 
-        selectedIndex.value = 2;
-        pageViewController = PageController(initialPage: 2);
-        currentRoute = '/searchresult';
-        Get.offAll(BaseScaffold(),
-            binding: SearchResultBinding(),
-            arguments: [data, 'All $type listings!']);
+
+        s.loadData(data);
+        a.selectedIndex.value = 2;
+        Get.find<a.HomsController>().onNavbarItemSelected(2);
+
       },
       child: Column(
         children: [

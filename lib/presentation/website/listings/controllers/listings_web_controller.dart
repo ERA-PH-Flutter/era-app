@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 
 import '../../../../../app/services/local_storage.dart';
 import '../../../../../repository/listing.dart';
+import '../../../../app/models/ai_filters.dart';
+import '../../../../app/services/ai_search.dart';
 import '../../../global.dart';
 
 enum ListingsWebState {
@@ -95,5 +97,22 @@ class ListingsWebController extends GetxController {
       listingsWebState.value = ListingsWebState.loaded;
     }
     update();
+  }
+  Future searchListingQuery(
+      {required String query,
+        List<AiFilters> overrideAiFilters = const []}) async {
+    listingsWebState.value = ListingsWebState.loading;
+    print('gemini search overrideAiFilters 1 $overrideAiFilters');
+
+    List<Listing> listings = await AI(query: query)
+        .listingSearch(overrideAiFilters: overrideAiFilters);
+    listings.forEach((listing){
+      if(listing.runtimeType == Listing){
+        data.add(listing);
+      }
+    });
+    searchQuery.value = query.toString();
+    listingsWebState.value =
+    listings.isEmpty ? ListingsWebState.empty : ListingsWebState.loaded;
   }
 }

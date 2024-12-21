@@ -9,6 +9,7 @@ import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart'
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +19,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import '../../presentation/global.dart';
+import '../../presentation/website/landingpage/controller/homs_controller.dart' as a;
+import '../../presentation/website/listings/controllers/listings_web_binding.dart';
+import '../../presentation/website/listings/controllers/listings_web_controller.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../constants/screens.dart';
@@ -162,24 +166,39 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
 
   aiSearch() async {
     try {
+      ListingsWebBinding().dependencies();
+      ListingsWebController s =  Get.find<ListingsWebController>();
+      s.listingsWebState.value = ListingsWebState.loading;
       var searchQuery = "";
       BaseController().showLoading();
       searchQuery = aiSearchController.text;
       var data = await AI(query: searchQuery).listingSearch();
-      currentRoute = '/searchresult';
-      Get.find<SearchResultController>().searchResultState.value =
-          SearchResultState.loading;
-      Get.find<SearchResultController>().data.value = data;
-      BaseController().hideLoading();
-      selectedIndex.value = 2;
-      pageViewController.animateToPage(
-        2,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+      // currentRoute = '/searchresult';
+      // Get.find<Searc hResultController>().searchResultState.value =
+      //     SearchResultState.loading;
+      // Get.find<SearchResultController>().data.value = data;
+      // BaseController().hideLoading();
+      if(data.isNotEmpty){
+        for (var d in data) {
+          if(d.runtimeType == Listing){
+            s.data.add(d);
+          }
+        }
+      }else{
+        s.listingsWebState.value = ListingsWebState.empty;
+      }
 
-      Get.find<SearchResultController>().searchResultState.value =
-          data.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
+      a.selectedIndex.value = 2;
+      Get.find<a.HomsController>().onNavbarItemSelected(2);
+      // selectedIndex.value = 2;
+      // pageViewController.animateToPage(
+      //   2,
+      //   duration: Duration(milliseconds: 500),
+      //   curve: Curves.easeInOut,
+      // );
+      //
+      // Get.find<SearchResultController>().searchResultState.value =
+      //     data.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
     } catch (e) {
       print('error AI search $e');
     } finally {
@@ -792,17 +811,19 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
 
                                   try {
                                     if (widget.animateToPage2) {
-                                      pageViewController.animateToPage(
-                                        2,
-                                        duration: Duration(milliseconds: 500),
-                                        curve: Curves.easeInOut,
-                                      );
-                                      selectedIndex.value = 2;
-                                      currentRoute = '/searchresult';
+                                      // pageViewController.animateToPage(
+                                      //   2,
+                                      //   duration: Duration(milliseconds: 500),
+                                      //   curve: Curves.easeInOut,
+                                      // );
+                                      // selectedIndex.value = 2;
+                                      // currentRoute = '/searchresult';
                                     }
                                     print(
                                         "gemini search overrideAiFilters ${priceMin.value != "" && priceMax.value != ""}");
-                                    Get.find<SearchResultController>()
+                                    a.selectedIndex.value = 2;
+                                    Get.find<a.HomsController>().onNavbarItemSelected(2);
+                                    Get.find<ListingsWebController>()
                                         .searchListingQuery(
                                             query: searchQuery,
                                             overrideAiFilters: [
