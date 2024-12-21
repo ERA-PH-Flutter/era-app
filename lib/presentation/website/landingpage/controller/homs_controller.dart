@@ -37,6 +37,7 @@ import '../../mortageCalculator.dart/controllers/MortageCalculator_binding.dart'
 import '../../mortageCalculator.dart/pages/MortageCalculator.dart';
 import '../../news/controllers/news_binding.dart';
 import '../../news/pages/companynews.dart';
+import '../../privacy_policy/privacy-policy.dart';
 import '../../projects/controllers/projects_binding.dart';
 
 RxInt selectedIndex = 0.obs;
@@ -59,6 +60,10 @@ class HomsController extends GetxController {
       'mailto:sales@eraphilippines.com?subject=Your%20Subject&body=Your%20Message');
 
   final Uri whatsappUrl = Uri.parse('https://wa.me/639177710572');
+
+  final Uri facebook = Uri.parse(
+      'https://www.facebook.com/profile.php?id=61556521950596&mibextid=wwXIfr&rdid=KQZJrEeFQYosVzxe&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F15W4JqJJRc%2F%3Fmibextid%3DwwXIfr#');
+  final Uri instagram = Uri.parse('https://www.instagram.com/era_philippines/');
 
   RxList<Widget> pages = [
     HomeWeb(), //0
@@ -85,6 +90,7 @@ class HomsController extends GetxController {
     SoldPropertiesWeb(), //18
     AgentListingsWeb(), //19
     SettingsPageWeb(), //20
+    PrivacyPolicy(), //21
   ].obs;
 
   HomsController() {
@@ -100,6 +106,8 @@ class HomsController extends GetxController {
   //     if (!isNavbarVisible.value) isNavbarVisible.value = true;
   //   }
   // }
+
+  
   void _scrollListener() {
     if (scrollController.position.userScrollDirection ==
         ScrollDirection.reverse) {

@@ -193,79 +193,84 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
     return BoxWidget.build(
       child: Column(
         children: [
-          SizedBox(height: 10.h),
-          if (!showFullSearch.value)
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              child: CupertinoTextField(
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w400, fontSize: 20.sp),
-                controller: aiSearchController,
-                placeholder: 'Use AI Search',
-                prefix: Row(
-                  children: [
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Image.asset(
-                      AppEraAssets.ai3,
-                      height: 30.h,
+          if (!showFullSearch.value) sb10(),
+          Container(
+            //  color: Colors.black,
+            // height: Get.height,
+            //width: Get.width,
+            height: 60.h,
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.w,
+            ),
+            child: CupertinoTextField(
+              style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.w400, fontSize: 20.sp),
+              controller: aiSearchController,
+              placeholder: 'Use AI Search',
+              prefix: Row(
+                children: [
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Image.asset(
+                    AppEraAssets.ai3,
+                    height: 30.h,
+                    color: AppColors.kRedColor,
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.r),
+                color: AppColors.white,
+              ),
+              suffix: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      await Permission.audio.request().isGranted;
+                      if (speechStarted) {
+                        aiSearchController.text = "";
+                        speechStarted = false;
+                        speech.stop();
+                        setState(() {});
+                      } else {
+                        speechStarted = true;
+                        setState(() {});
+                        if (speechEnabled) {
+                          startListening();
+                        } else {
+                          await initSpeech();
+                          startListening();
+                        }
+                      }
+                    },
+                    child: speechStarted
+                        ? Icon(Icons.hearing)
+                        : Icon(
+                            Icons.mic,
+                            size: 25.sp,
+                          ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      await aiSearch();
+                    },
+                    child: Image.asset(
+                      AppEraAssets.send,
+                      height: 27.5.h,
                       color: AppColors.kRedColor,
                     ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.r),
-                  color: AppColors.white,
-                ),
-                suffix: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        await Permission.audio.request().isGranted;
-                        if (speechStarted) {
-                          aiSearchController.text = "";
-                          speechStarted = false;
-                          speech.stop();
-                          setState(() {});
-                        } else {
-                          speechStarted = true;
-                          setState(() {});
-                          if (speechEnabled) {
-                            startListening();
-                          } else {
-                            await initSpeech();
-                            startListening();
-                          }
-                        }
-                      },
-                      child: speechStarted
-                          ? Icon(Icons.hearing)
-                          : Icon(
-                              Icons.mic,
-                              size: 25.sp,
-                            ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        await aiSearch();
-                      },
-                      child: Image.asset(
-                        AppEraAssets.send,
-                        height: 27.5.h,
-                        color: AppColors.kRedColor,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                ],
               ),
             ),
+          ),
           SizedBox(height: 5.h),
           GestureDetector(
             onTap: () {
@@ -287,7 +292,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
             if (showFullSearch.value) {
               return Column(
                 children: [
-                  Padding(
+                  Container(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: Column(
                       children: [
@@ -444,79 +449,71 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                  child: Expanded(
-                                    flex: 1,
-                                    child: Tooltip(
-                                      message: "Enter the minimum price (PHP)",
-                                      child: TextFormField(
-                                        keyboardType: TextInputType.number,
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter
-                                              .digitsOnly,
-                                        ],
-                                        onChanged: (value) {
-                                          value = value.replaceAll(',', '');
-                                          if (value.isNotEmpty) {
-                                            final formattedValue =
-                                                value.replaceAllMapped(
-                                              RegExp(
-                                                  r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                              (Match m) => '${m[1]},',
-                                            );
-                                            controllerPriceMin.value =
-                                                controllerPriceMin.value
-                                                    .copyWith(
-                                              text: formattedValue,
-                                              selection:
-                                                  TextSelection.collapsed(
-                                                      offset: formattedValue
-                                                          .length),
-                                            );
-                                          }
-                                          priceMin.value = value;
-                                        },
-                                        controller: controllerPriceMin,
-                                        decoration: InputDecoration(
-                                          prefixIcon: Padding(
-                                            padding: EdgeInsets.all(12.sp),
-                                            child: EraText(
-                                              text: 'PHP:',
-                                              style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 20.sp,
-                                                color: AppColors.black,
-                                              ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Tooltip(
+                                    message: "Enter the minimum price (PHP)",
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ],
+                                      onChanged: (value) {
+                                        value = value.replaceAll(',', '');
+                                        if (value.isNotEmpty) {
+                                          final formattedValue =
+                                              value.replaceAllMapped(
+                                            RegExp(
+                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                            (Match m) => '${m[1]},',
+                                          );
+                                          controllerPriceMin.value =
+                                              controllerPriceMin.value.copyWith(
+                                            text: formattedValue,
+                                            selection: TextSelection.collapsed(
+                                                offset: formattedValue.length),
+                                          );
+                                        }
+                                        priceMin.value = value;
+                                      },
+                                      controller: controllerPriceMin,
+                                      decoration: InputDecoration(
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(12.sp),
+                                          child: EraText(
+                                            text: 'PHP:',
+                                            style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 20.sp,
+                                              color: AppColors.black,
                                             ),
                                           ),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 15, horizontal: 15),
-                                          hintText: 'Min Price',
-                                          hintStyle: TextStyle(
-                                              fontFamily:
-                                                  GoogleFonts.montserrat(
-                                                          fontWeight:
-                                                              FontWeight.w400)
-                                                      .fontFamily,
-                                              fontSize: EraTheme.h6,
-                                              color: AppColors.hint),
-                                          fillColor: AppColors.white,
-                                          filled: true,
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(99),
-                                            borderSide: BorderSide(
-                                              color: AppColors.hint,
-                                              width: 1,
-                                            ),
+                                        ),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 15, horizontal: 15),
+                                        hintText: 'Min Price',
+                                        hintStyle: TextStyle(
+                                            fontFamily: GoogleFonts.montserrat(
+                                                    fontWeight: FontWeight.w400)
+                                                .fontFamily,
+                                            fontSize: EraTheme.h6,
+                                            color: AppColors.hint),
+                                        fillColor: AppColors.white,
+                                        filled: true,
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(99),
+                                          borderSide: BorderSide(
+                                            color: AppColors.hint,
+                                            width: 1,
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(99),
-                                            borderSide: BorderSide(
-                                              color: AppColors.primary,
-                                              width: 1,
-                                            ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(99),
+                                          borderSide: BorderSide(
+                                            color: AppColors.primary,
+                                            width: 1,
                                           ),
                                         ),
                                       ),
@@ -524,79 +521,71 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   ),
                                 ),
                                 SizedBox(width: 16),
-                                SizedBox(
-                                  child: Expanded(
-                                    flex: 1,
-                                    child: Tooltip(
-                                      message: "Enter the maximum price (PHP)",
-                                      child: TextFormField(
-                                        keyboardType: TextInputType.number,
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter
-                                              .digitsOnly,
-                                        ],
-                                        onChanged: (value) {
-                                          value = value.replaceAll(',', '');
-                                          if (value.isNotEmpty) {
-                                            final formattedValue =
-                                                value.replaceAllMapped(
-                                              RegExp(
-                                                  r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                              (Match m) => '${m[1]},',
-                                            );
-                                            controllerPriceMax.value =
-                                                controllerPriceMax.value
-                                                    .copyWith(
-                                              text: formattedValue,
-                                              selection:
-                                                  TextSelection.collapsed(
-                                                      offset: formattedValue
-                                                          .length),
-                                            );
-                                          }
-                                          priceMax.value = value;
-                                        },
-                                        controller: controllerPriceMax,
-                                        decoration: InputDecoration(
-                                          prefixIcon: Padding(
-                                            padding: EdgeInsets.all(12.sp),
-                                            child: EraText(
-                                              text: 'PHP:',
-                                              style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 20.sp,
-                                                color: AppColors.black,
-                                              ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Tooltip(
+                                    message: "Enter the maximum price (PHP)",
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ],
+                                      onChanged: (value) {
+                                        value = value.replaceAll(',', '');
+                                        if (value.isNotEmpty) {
+                                          final formattedValue =
+                                              value.replaceAllMapped(
+                                            RegExp(
+                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                            (Match m) => '${m[1]},',
+                                          );
+                                          controllerPriceMax.value =
+                                              controllerPriceMax.value.copyWith(
+                                            text: formattedValue,
+                                            selection: TextSelection.collapsed(
+                                                offset: formattedValue.length),
+                                          );
+                                        }
+                                        priceMax.value = value;
+                                      },
+                                      controller: controllerPriceMax,
+                                      decoration: InputDecoration(
+                                        prefixIcon: Padding(
+                                          padding: EdgeInsets.all(12.sp),
+                                          child: EraText(
+                                            text: 'PHP:',
+                                            style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 20.sp,
+                                              color: AppColors.black,
                                             ),
                                           ),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 15, horizontal: 15),
-                                          hintText: 'Max Price',
-                                          hintStyle: TextStyle(
-                                              fontFamily:
-                                                  GoogleFonts.montserrat(
-                                                          fontWeight:
-                                                              FontWeight.w400)
-                                                      .fontFamily,
-                                              fontSize: EraTheme.h6,
-                                              color: AppColors.hint),
-                                          fillColor: AppColors.white,
-                                          filled: true,
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(99),
-                                            borderSide: BorderSide(
-                                              color: AppColors.hint,
-                                              width: 1,
-                                            ),
+                                        ),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 15, horizontal: 15),
+                                        hintText: 'Max Price',
+                                        hintStyle: TextStyle(
+                                            fontFamily: GoogleFonts.montserrat(
+                                                    fontWeight: FontWeight.w400)
+                                                .fontFamily,
+                                            fontSize: EraTheme.h6,
+                                            color: AppColors.hint),
+                                        fillColor: AppColors.white,
+                                        filled: true,
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(99),
+                                          borderSide: BorderSide(
+                                            color: AppColors.hint,
+                                            width: 1,
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(99),
-                                            borderSide: BorderSide(
-                                              color: AppColors.primary,
-                                              width: 1,
-                                            ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(99),
+                                          borderSide: BorderSide(
+                                            color: AppColors.primary,
+                                            width: 1,
                                           ),
                                         ),
                                       ),

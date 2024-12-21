@@ -2,6 +2,7 @@ import 'package:eraphilippines/app.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:get/get.dart';
 import 'app/services/local_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,6 +10,8 @@ import 'firebase_options.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 void main() async {
+  usePathUrlStrategy();
+
   await initServices();
   runApp(const App());
 }

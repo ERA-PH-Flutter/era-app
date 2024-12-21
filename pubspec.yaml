@@ -8,8 +8,10 @@ environment:
   sdk: '>=3.3.3 <4.0.0'
 
 dependencies:
+ 
   flutter:
     sdk: flutter
+ 
   font_awesome_flutter: ^10.2.1
 
   cupertino_icons: ^1.0.6
@@ -72,7 +74,12 @@ dependencies:
   full_screen_image: ^2.0.0
   circle_nav_bar: ^2.1.0+1
   webview_flutter_web: ^0.2.3+4
-  
+
+
+  flutter_web_plugins:
+    sdk: flutter
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

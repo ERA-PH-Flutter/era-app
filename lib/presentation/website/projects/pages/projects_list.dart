@@ -125,8 +125,8 @@ class ProjectsList extends GetView<ProjectsListWebController> {
               //     arguments: controller.projects[i]);
               projectArgument = controller.projects[i];
               HomsController homsController = Get.find<HomsController>();
-              selectedIndex.value = 14;
-              homsController.onNavbarItemSelected(14);
+              selectedIndex.value = 12;
+              homsController.onNavbarItemSelected(12);
             },
             child: Wrap(children: [
               Column(

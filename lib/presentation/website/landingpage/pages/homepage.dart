@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -13,6 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/web/mobile_drawer.dart';
 import '../../../../app/widgets/web/navbar.dart';
+import '../../listings/controllers/listings_web_controller.dart';
 
 class HomePages extends GetResponsiveView<HomsController> {
   HomePages({super.key});
@@ -98,11 +100,7 @@ class HomePages extends GetResponsiveView<HomsController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _columnListing(),
-                sbw40(),
-                _columnNews(),
-                sbw40(),
                 _columnAboutUs(),
-                sbw40(),
                 _columnERAph(),
               ],
             ),
@@ -119,28 +117,17 @@ class HomePages extends GetResponsiveView<HomsController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Card(
-                    elevation: 5,
-                    color: Colors.white.withOpacity(0.7),
-                    child: FaIcon(FontAwesomeIcons.facebook,
-                            color: AppColors.white, size: 30)
-                        .paddingAll(8.sp),
+                  socialMedia(
+                      onTap: () {
+                        launchUrl(controller.facebook);
+                      },
+                      faIcon: FontAwesomeIcons.facebook),
+                  socialMedia(
+                    faIcon: FontAwesomeIcons.instagram,
+                    onTap: () {
+                      launchUrl(controller.instagram);
+                    },
                   ),
-                  sbw20(),
-                  Card(
-                    elevation: 5,
-                    color: Colors.white.withOpacity(0.7),
-                    child: FaIcon(FontAwesomeIcons.instagram,
-                            color: AppColors.white, size: 30)
-                        .paddingAll(8.sp),
-                  ),
-                  // FaIcon(FontAwesomeIcons.xTwitter,
-                  //         color: AppColors.white, size: 30)
-                  //     .paddingAll(8.sp),
-
-                  // FaIcon(FontAwesomeIcons.linkedin,
-                  //         color: AppColors.white, size: 30)
-                  //     .paddingAll(8.sp),
                 ],
               ),
               EraText(
@@ -161,32 +148,28 @@ class HomePages extends GetResponsiveView<HomsController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         sb30(),
-        _sectionTitle('LISTINGS'),
+        _sectionTitle(
+          'LISTINGS',
+        ),
         sb10(),
-        _buildLinkText('Pre-Launched Projects'),
-        _buildLinkText('Residential'),
-        _buildLinkText('Commercial'),
-        _buildLinkText('Rental'),
-        _buildLinkText('Auction'),
-      ],
-    );
-  }
-
-  Widget _columnNews() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        sb30(),
-        _sectionTitle('NEWS'),
-        sb10(),
-        _buildLinkText('ERA GLOBAL'),
-        _buildLinkText('ERA Asia Pacific'),
-        _buildLinkText('ERA Singapore'),
-        _buildLinkText('We Are ERA'),
-        _buildLinkText('Press Room'),
-        _buildLinkText('Careers'),
-        _buildLinkText('Privacy Policy'),
-        _buildLinkText('Security Policy'),
+        _buildLinkText(
+            text: 'Projects',
+            onTap: () {
+              selectedIndex.value = 1;
+              Get.find<HomsController>().onNavbarItemSelected(1);
+            }),
+        _buildLinkText(
+          text: 'Residential',
+        ),
+        _buildLinkText(
+          text: 'Commercial',
+        ),
+        _buildLinkText(
+          text: 'Rental',
+        ),
+        _buildLinkText(
+          text: 'Auction',
+        ),
       ],
     );
   }
@@ -198,13 +181,32 @@ class HomePages extends GetResponsiveView<HomsController> {
         sb30(),
         _sectionTitle('ABOUT US'),
         sb10(),
-        _buildLinkText('Join As Agent'),
-        _buildLinkText('Why Us?'),
-        _buildLinkText('ERA Teach Tools'),
-        _buildLinkText('Ultimate Agent'),
-        _buildLinkText('Training'),
-        _buildLinkText('Our Services'),
-        _buildLinkText('Contact Us'),
+        _buildLinkText(
+            text: 'Join Us',
+            onTap: () {
+              selectedIndex.value = 5;
+              Get.find<HomsController>().onNavbarItemSelected(5);
+            }),
+        // _buildLinkText(text: 'Why Us?', onTap: () {
+        //   selectedIndex.value = 4;
+        //       Get.find<HomsController>().onNavbarItemSelected(4);
+        // }),
+        // _buildLinkText('ERA Teach Tools'),
+        //  _buildLinkText('Ultimate Agent'),
+        //    _buildLinkText('Training'),
+        //     _buildLinkText('Our Services'),
+        _buildLinkText(
+            text: 'Contact Us',
+            onTap: () {
+              selectedIndex.value = 4;
+              Get.find<HomsController>().onNavbarItemSelected(4);
+            }),
+        _buildLinkText(
+            text: 'Privacy Policy',
+            onTap: () {
+              selectedIndex.value = 21;
+              Get.find<HomsController>().onNavbarItemSelected(21);
+            }),
       ],
     );
   }
@@ -235,7 +237,9 @@ class HomePages extends GetResponsiveView<HomsController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildLinkText(
-                    'Address: 1212 Century Spire Bldg.\nCentury City, Kalayaan Ave.\nMakati City'),
+                    text:
+                        'Address: 1212 Century Spire Bldg.\nCentury City, Kalayaan Ave.\nMakati City',
+                    onTap: () {}),
                 _buildLinkTextWithIcon(
                   'Phone: +639177710572',
                   onTap: () {
@@ -271,11 +275,52 @@ class HomePages extends GetResponsiveView<HomsController> {
     );
   }
 
-  Widget _buildLinkText(String text) {
-    return EraText(
-      text: text,
-      color: AppColors.blue2,
-      fontSize: EraTheme.h6,
+  Widget _buildLinkText({String? text, void Function()? onTap}) {
+    return GestureDetector(
+      onTap: onTap ??
+          () async {
+            List eraTranslated = [
+              ['type', 'pre_selling'],
+              ['type', 'pre_selling'],
+              ['type', 'pre_selling'],
+              ['type', 'pre_selling'],
+              ['type', 'pre_selling']
+            ];
+            List eraList = [
+              'PRE-SELLING',
+              'RESIDENTIAL',
+              'RENTAL',
+              'COMMERCIAL',
+              'AUCTION'
+            ];
+            var listings = (await FirebaseFirestore.instance
+                    .collection('listings')
+                    .where('type', isEqualTo: text!.toLowerCase())
+                    .get())
+                .docs;
+            var data = listings.map((listing) {
+              return listing.data();
+            }).toList();
+            selectedIndex.value = 2;
+            Get.find<HomsController>().onIndexChanged();
+            Get.find<HomsController>().update();
+            Get.find<ListingsWebController>()
+                .listingsWebState(ListingsWebState.loading);
+            Get.find<ListingsWebController>().searchQuery.value = text;
+            await Get.find<ListingsWebController>().loadData(data);
+            if (data.isEmpty) {
+              Get.find<ListingsWebController>()
+                  .listingsWebState(ListingsWebState.empty);
+            } else {
+              Get.find<ListingsWebController>()
+                  .listingsWebState(ListingsWebState.loaded);
+            }
+          },
+      child: EraText(
+        text: text!,
+        color: AppColors.blue2,
+        fontSize: EraTheme.h6,
+      ),
     );
   }
 
@@ -290,159 +335,18 @@ class HomePages extends GetResponsiveView<HomsController> {
     );
   }
 
-  // Widget _buildFooter() {
-  //   return Column(
-  //     children: [
-  //       Card(
-  //         color: AppColors.white,
-  //         elevation: 7,
-  //         child: Container(
-  //           padding: EdgeInsets.symmetric(
-  //               horizontal: EraTheme.paddingWidthAdmin * 3, vertical: 20),
-  //           width: Get.width,
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             children: [
-  //               _columnListing(),
-  //               sbw40(),
-  //               _columnNews(),
-  //               sbw40(),
-  //               _columnAboutUs(),
-  //               sbw40(),
-  //               _columnERAph(),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //       Container(
-  //         width: Get.width,
-  //         height: 80.h,
-  //         color: AppColors.blue2,
-  //         child: Center(
-  //           child: EraText(
-  //             text: '© 2024 ERA Real Estate Philippines. All rights reserved.',
-  //             color: AppColors.white,
-  //             fontSize: EraTheme.paragraphWeb - 15.sp,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  // Widget _columnListing() {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       sb30(),
-  //       EraText(
-  //         text: 'LISTINGS',
-  //         color: AppColors.blue2,
-  //         fontSize: EraTheme.h2,
-  //         fontWeight: FontWeight.bold,
-  //       ),
-  //       sb10(),
-  //       _buildLinkText('Pre-Launched Projects'),
-  //       _buildLinkText('Residential'),
-  //       _buildLinkText('Commercial'),
-  //       _buildLinkText('Rental'),
-  //       _buildLinkText('Auction'),
-  //     ],
-  //   );
-  // }
-
-//   Widget _columnNews() {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         sb30(),
-//         EraText(
-//           text: 'NEWS',
-//           color: AppColors.blue2,
-//           fontSize: EraTheme.h2,
-//           fontWeight: FontWeight.bold,
-//         ),
-//         sb10(),
-//         _buildLinkText('ERA GLOBAL'),
-//         _buildLinkText('ERA Asia Pacific'),
-//         _buildLinkText('ERA Singapore'),
-//         _buildLinkText('We Are ERA'),
-//         _buildLinkText('Press Room'),
-//         _buildLinkText('Careers'),
-//         _buildLinkText('Privacy Policy'),
-//         _buildLinkText('Security Policy'),
-//       ],
-//     );
-//   }
-
-//   Widget _columnAboutUs() {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         sb30(),
-//         EraText(
-//           text: 'ABOUT US',
-//           color: AppColors.blue2,
-//           fontSize: EraTheme.h2,
-//           fontWeight: FontWeight.bold,
-//         ),
-//         sb10(),
-//         _buildLinkText('Join As Agent'),
-//         _buildLinkText('Why Us?'),
-//         _buildLinkText('ERA Teach Tools'),
-//         _buildLinkText('Ultimate Agent'),
-//         _buildLinkText('Training'),
-//         _buildLinkText('Our Services'),
-//         _buildLinkText('Contact Us'),
-//       ],
-//     );
-//   }
-
-//   Widget _columnERAph() {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         sb30(),
-//         EraText(
-//           text: 'ERA PHILLIPINES',
-//           color: AppColors.blue2,
-//           fontSize: EraTheme.h2,
-//           fontWeight: FontWeight.bold,
-//         ),
-//         sb10(),
-//         Row(
-//           children: [
-//             Container(
-//               color: AppColors.hint.withOpacity(0.1),
-//               child: Image.asset(
-//                 fit: BoxFit.cover,
-//                 AppEraAssets.eraPh,
-//                 width: 200.w,
-//                 height: 220.h,
-//               ),
-//             ),
-//             sbw10(),
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 _buildLinkText(
-//                     'Address: 1212 Century Spire Bldg.\nCentury City, Kalayaan Ave.\nMakati City'),
-//                 _buildLinkTextWithIcon(
-//                   'Phone: +639177710572',
-//                   onTap: () {
-//                     launchUrl(controller.whatsappUrl);
-//                   },
-//                 ),
-//                 _buildLinkTextWithIcon('Email: sales@eraphilippines.com',
-//                     onTap: () {
-//                   launchUrl(controller.emailUrl);
-//                 }),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
+  Widget socialMedia({void Function()? onTap, IconData? faIcon}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 8,
+        color: AppColors.blue.withOpacity(0.4),
+        child:
+            FaIcon(faIcon, color: AppColors.white, size: 30).paddingAll(8.sp),
+      ),
+    );
+  }
+// Widget _urlLaunch(){
+//   return GestureDetector(onTap: ,)
+// }
 }

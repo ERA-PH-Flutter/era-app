@@ -102,7 +102,7 @@ class BuyWeb extends GetView<ListingsWebController> {
                 children: [
                   EraText(
                     text: 'Here\'s what I found for you!',
-                    fontSize: 23.sp,
+                    fontSize: EraTheme.h2,
                     color: AppColors.blue,
                     fontWeight: FontWeight.w600,
                   ),
@@ -128,8 +128,8 @@ class BuyWeb extends GetView<ListingsWebController> {
                     // await Database().addViews(listing.id);
                     // Get.toNamed('/propertyInfo', arguments: listing);
                     listingArgument = listing;
-                    selectedIndex.value = 12;
-                    Get.find<HomsController>().onNavbarItemSelected(12);
+                    selectedIndex.value = 10;
+                    Get.find<HomsController>().onNavbarItemSelected(10);
                   },
                   child: Container(
                     margin: EdgeInsets.only(
