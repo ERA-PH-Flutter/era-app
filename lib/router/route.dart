@@ -6,6 +6,7 @@ import 'package:eraphilippines/presentation/website/listings/pages/add-edit_list
 import 'package:eraphilippines/presentation/website/listings/pages/archivedlisting/controllers/archived_binding.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/archivedlisting/pages/archived.dart';
 import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
+import 'package:eraphilippines/presentation/website/privacy_policy/privacy-policy.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:get/get.dart';
 import '../presentation/agent/home/controllers/home_binding.dart';
@@ -48,8 +49,6 @@ appRoutes() => [
         page: () => SoldProperties(),
         binding: SoldBinding(),
       ),
-
-      
       GetPage(
         name: RouteString.termsAndConditions,
         page: () => TermsCondition(),
@@ -91,15 +90,16 @@ appRoutes() => [
           name: RouteString.settingsWeb,
           page: () => SettingsPageWeb(),
           binding: AgentWebBinding()),
-            GetPage(
+      GetPage(
           name: RouteString.archivedWeb,
           page: () => ArchivedWeb(),
           binding: ArchivedWebBinding()),
-               GetPage(
+      GetPage(
         name: RouteString.soldPropertiesWeb,
         page: () => SoldPropertiesWeb(),
         binding: SoldBindingWeb(),
       ),
+      GetPage(name: RouteString.privacyPolicy, page: () => PrivacyPolicy(),),
     ];
 
 class MyMiddleware extends GetMiddleware {}

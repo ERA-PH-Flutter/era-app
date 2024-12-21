@@ -605,10 +605,10 @@ Widget title({text}) {
   );
 }
 
-Widget paragraph(paragraph) {
+Widget paragraph(text) {
   return EraText(
     textAlign: TextAlign.start,
-    text: paragraph,
+    text: text,
     fontSize: EraTheme.paragraphWeb - 4.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.black,

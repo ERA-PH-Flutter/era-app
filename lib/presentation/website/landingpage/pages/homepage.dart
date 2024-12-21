@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
+import 'package:eraphilippines/presentation/website/privacy_policy/privacy-policy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -204,8 +205,9 @@ class HomePages extends GetResponsiveView<HomsController> {
         _buildLinkText(
             text: 'Privacy Policy',
             onTap: () {
-              selectedIndex.value = 21;
-              Get.find<HomsController>().onNavbarItemSelected(21);
+              Get.toNamed('/privacy-policy');
+              // selectedIndex.value = 21;
+              // Get.find<HomsController>().onNavbarItemSelected(21);
             }),
       ],
     );
