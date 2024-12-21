@@ -28,6 +28,7 @@ class LoginPageController extends GetxController with BaseController {
   var passwordVisible = false.obs;
   var confirmPasswordVisible = false.obs;
   var selectedGender = RxnString();
+  var emailReset =TextEditingController();
   var selectedEducation = RxnString();
   var selectedStatus = RxnString();
   var selectedSpeciality = RxnString();
