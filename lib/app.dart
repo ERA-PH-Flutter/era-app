@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:eraphilippines/app/theme.dart';
 import 'package:eraphilippines/presentation/agent/splash/controllers/splash_binding.dart';
 import 'package:eraphilippines/presentation/agent/splash/pages/splash.dart';
@@ -33,6 +35,12 @@ class _AppState extends State<App> {
       minTextAdapt: true,
       splitScreenMode: true,
       child: GetMaterialApp(
+        scrollBehavior: MaterialScrollBehavior().copyWith(dragDevices: {
+          PointerDeviceKind.touch,
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown,
+        }),
         debugShowCheckedModeBanner: false,
         theme: MyTheme.getDefault(),
         initialRoute: "/",

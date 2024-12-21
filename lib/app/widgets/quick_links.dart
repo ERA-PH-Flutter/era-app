@@ -49,7 +49,9 @@ class QuickLinksModel {
     //var ql = a.Settings.fromJSON((await FirebaseFirestore.instance.collection('settings').doc('main').get()).data()!);
     for (int index = 0; index < categories.length; index++) {
       items.add(await quickSearchIcon(
-          (await CloudStorage().getFileBytes(docRef: categories[index][0]))!, categories[index][1], categories[index][2]));
+          (await CloudStorage().getFileBytes(docRef: categories[index][0]))!,
+          categories[index][1],
+          categories[index][2]));
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,9 +65,7 @@ class QuickLinksModel {
         SizedBox(height: 10.h),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            children: items,
-          ),
+          child: Row(children: items),
         ),
         SizedBox(height: 10.h),
       ],

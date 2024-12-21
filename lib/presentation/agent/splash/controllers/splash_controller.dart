@@ -82,10 +82,11 @@ class SplashController extends GetxController {
     }
     var shortestSide = MediaQuery.of(Get.context!).size.shortestSide;
     currentRoute = '/home';
-    kIsWeb1 && user != null
-        ? Get.toNamed(RouteString.landingPage)
-        : kIsWeb1
-            ? Get.toNamed(RouteString.adminLogin) //admingLogin
+    kIsWeb && user != null
+        ? Get.offAndToNamed('/base') //Get.toNamed(RouteString.landingPage)
+        : kIsWeb
+            ? Get.offAndToNamed(
+                '/base') //Get.toNamed(RouteString.adminLogin) //admingLogin
             : shortestSide < 600
                 ? Get.offAndToNamed('/base')
                 : Get.offAndToNamed('/base');
