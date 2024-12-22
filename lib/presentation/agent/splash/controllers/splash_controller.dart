@@ -45,7 +45,6 @@ class SplashController extends GetxController {
 
   @override
   void onInit() async {
-    // Get.put(AddListingsController()); // init
     if (FirebaseAuth.instance.currentUser != null) {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
@@ -63,7 +62,12 @@ class SplashController extends GetxController {
     _typeWrittingAnimation();
     await isReady.future;
     await Future.delayed(const Duration(milliseconds: 500));
+    String currentRoute = Get.currentRoute;
 
+    if (currentRoute == RouteString.privacyPolicy) {
+      return;
+    }
+    
     var shortestSide = MediaQuery.of(Get.context!).size.shortestSide;
     //currentRoute = '/webLandingPage';
     kIsWeb && user != null

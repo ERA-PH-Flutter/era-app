@@ -63,7 +63,7 @@ class _AppState extends State<App> {
         home: const Splash(),
 
  
-        // onGenerateRoute: (settings) {
+        // onGenerateRoute: (settings) { 
         //   switch (settings.name) {
         //     case "privacy-policy":
         //       return GetPageRoute(page: () => PrivacyPolicy());
