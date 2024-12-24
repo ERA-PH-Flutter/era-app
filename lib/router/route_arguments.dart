@@ -42,7 +42,7 @@ import '../presentation/website/projects/pages/projects_list.dart';
 import '../presentation/website/re_route/re_route_args.dart';
 import '../presentation/website/terms_conditions_web/privacy_policy_binding.dart';
 
-class RouteArgs{
+class RouteArgs {
   static List routeArguments = [
     ReRouteArgs(
       name: "/",
@@ -159,17 +159,22 @@ class RouteArgs{
       page: PrivacyPolicy(),
       binding: PrivacyPolicyBinding(),
     ),
-  
+    ReRouteArgs(
+      name: "/agent-listings",
+      page: AgentListingsWeb(),
+      binding: AgentDashboardWebBinding(),
+    ),
   ];
-  static getArgs(routeName){
-    String? id = routeName.split("/").length > 2 ? routeName.split("/")[2] : null;
+  static getArgs(routeName) {
+    String? id =
+        routeName.split("/").length > 2 ? routeName.split("/")[2] : null;
 
     for (ReRouteArgs route in routeArguments) {
-      if(id != null && route.name ==  "/${routeName.split("/")[1]}"){
+      if (id != null && route.name == "/${routeName.split("/")[1]}") {
         ReRouteArgs tempRoute = route;
         idArgument = id;
         return tempRoute;
-      }else if (id == null && route.name == routeName){
+      } else if (id == null && route.name == routeName) {
         return route;
       }
     }

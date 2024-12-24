@@ -67,5 +67,7 @@ static String joinUsWeb = "/joinUsWeb";
   static String archivedWeb = "/archivedWeb";
   static String soldPropertiesWeb = "/soldPropertiesWeb";
   static String privacyPolicy = "/privacy-policy";
+
+
   
 }
