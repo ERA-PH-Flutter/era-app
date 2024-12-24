@@ -180,10 +180,7 @@ class HomeWebController extends GetxController {
         projects.addAll(previewWidgets.map((widget) {
           return GestureDetector(
             onTap: () {
-              projectArgument = pr;
-              HomsController homsController = Get.find<HomsController>();
-              selectedIndex.value = 12;
-              homsController.onNavbarItemSelected(12);
+              Get.toNamed('/projects/${pr.id}');
             },
             child: widget,
           );

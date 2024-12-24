@@ -12,6 +12,7 @@ import 'package:eraphilippines/presentation/website/agents/bindings/agent_dashbo
 import 'package:eraphilippines/presentation/website/agents/controllers/agent_dashboard_controller.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agents_controller.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/agent_listings.dart';
+import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_controller.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -223,8 +224,9 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 //   arguments: user!.id,
                 // );
 
-                selectedIndex.value = 18;
-                Get.find<HomsController>().onNavbarItemSelected(18);
+                // selectedIndex.value = 18;
+                // Get.find<HomsController>().onNavbarItemSelected(18);
+                Get.toNamed('/sold-properties');
               },
               child: Image.asset(
                 AppEraAssets.sold,
@@ -321,9 +323,10 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
             GestureDetector(
               onTap: () {
                 // listingArgument = controller.listings;
-                selectedIndex.value = 17;
-                Get.find<HomsController>().onNavbarItemSelected(17);
+                // selectedIndex.value = 17;
+                // Get.find<HomsController>().onNavbarItemSelected(17);
                 //        Get.toNamed("/archivedWeb", arguments: controller.listings);
+                Get.toNamed('/archives');
               },
               child: Image.asset(
                 AppEraAssets.archived,
@@ -365,10 +368,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                       onTap: () {
                         // Get.toNamed('/propertyInfo',
                         //     arguments: controller.favorites[index]);
-                        listingArgument = controller.favorites[index];
-
-                        selectedIndex.value = 10;
-                        Get.find<HomsController>().onNavbarItemSelected(10);
+                        Get.delete<ListingsWebController>();
+                        Get.toNamed('/view-listing/${controller.favorites[index].id}');
                       },
                       child: Container(
                           width: 200.w,
@@ -421,8 +422,9 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
               GestureDetector(
                 onTap: () {
                   //     Get.toNamed("/favWeb");
-                  selectedIndex.value = 14;
-                  Get.find<HomsController>().onNavbarItemSelected(14);
+                  // selectedIndex.value = 14;
+                  // Get.find<HomsController>().onNavbarItemSelected(14);
+                  Get.toNamed('/my-favorites');
                 },
                 child: Image.asset(
                   AppEraAssets.fav,
@@ -486,8 +488,9 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                     color: AppColors.kRedColor),
                 GestureDetector(
                   onTap: () {
-                    selectedIndex.value = 8;
-                    Get.find<HomsController>().onNavbarItemSelected(8);
+                    // selectedIndex.value = 8;
+                    // Get.find<HomsController>().onNavbarItemSelected(8);
+                    Get.toNamed('/news');
                   },
                   child: EraText(
                       text: 'See all',
@@ -522,14 +525,15 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                 itemCount: controller.news.length,
                 itemBuilder: (context, i) => GestureDetector(
                   onTap: () {
-                    HomsController homsController = Get.find<HomsController>();
-                    selectedIndex.value = 9;
-                    homsController.onNavbarItemSelected(9);
-                    newsArgument = {
-                      "title": controller.news[i].title,
-                      "image": controller.news[i].image,
-                      "description": controller.news[i].description
-                    };
+                    // HomsController homsController = Get.find<HomsController>();
+                    // selectedIndex.value = 9;
+                    // homsController.onNavbarItemSelected(9);
+                    // newsArgument = {
+                    //   "title": controller.news[i].title,
+                    //   "image": controller.news[i].image,
+                    //   "description": controller.news[i].description
+                    // };
+                    Get.toNamed('/view-news/${controller.news[i].id}');
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -643,7 +647,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                   Row(
                     children: [
                       iconAgents(user.image ?? AppStrings.noUserImageWhite, () {
-                        listingArgument = user.id!;
+                        // listingArgument = user.id!;
                         selectedIndex.value = 19;
                         HomsController homsController =
                             Get.find<HomsController>();
@@ -711,12 +715,12 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
             children: [
               GestureDetector(
                 onTap: () {
-                  print('add listing clicked');
-                  selectedIndex.value = 13;
-                  Get.find<HomsController>().onNavbarItemSelected(13);
+                  // selectedIndex.value = 13;
+                  // Get.find<HomsController>().onNavbarItemSelected(13);
                   // Get.toNamed(
                   //   '/addListings',
                   // );
+                  Get.toNamed('/add-listing');
                 },
                 child: Image.asset(
                   AppEraAssets.addIcon,
@@ -738,11 +742,15 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                       onTap: () {
                         // Get.toNamed('/propertyInfo',
                         //     arguments: controller.listings[index]);
-                        HomsController homsController =
-                            Get.find<HomsController>();
-                        homsController.onNavbarItemSelected(
-                          15,
-                        );
+                        // HomsController homsController =
+                        //     Get.find<HomsController>();
+                        // homsController.onNavbarItemSelected(
+                        //   15,
+                        // );
+                        print("aa");
+                        // listingArgument = controller.listings[index];
+                        Get.delete<ListingsWebController>();
+                        Get.toNamed('/view-listing/${controller.listings[index].id}');
                       },
                       child: Container(
                           width: 200.w,
@@ -802,10 +810,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
               // Get.toNamed('/agentMyListingWeb', arguments: [user!.id]);
               GestureDetector(
                 onTap: () {
-                  HomsController homsController = Get.find<HomsController>();
-                  homsController.onNavbarItemSelected(
-                    15,
-                  );
+                  Get.toNamed('/my-listings');
                 },
                 child: Image.asset(
                   AppEraAssets.manageListings,

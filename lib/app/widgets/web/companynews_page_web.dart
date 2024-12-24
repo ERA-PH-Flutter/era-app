@@ -10,6 +10,7 @@ import '../../../presentation/global.dart';
 import '../../../presentation/website/form/pages/about_us_web.dart';
 import '../../../presentation/website/landingpage/controller/homs_controller.dart';
 import '../../../presentation/website/news/controllers/news_controller.dart';
+import '../../constants/screens.dart';
 import 'navbar.dart';
 
 class CompanyNewsPageWeb extends GetView<NewsWebController> {
@@ -17,88 +18,98 @@ class CompanyNewsPageWeb extends GetView<NewsWebController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(NewsWebController());
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: EraTheme.paddingWidthAdmin * 3),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                sb40(),
+      child: Obx(()=>switch(controller.newsState.value){
+        NewsState.loading => _loading(),
+        NewsState.loaded => _loaded(),
+      }),
+    );
+  }
 
-                EraText(
-                  text: newsArgument['title'] ?? "Company News",
-                  color: AppColors.kRedColor,
-                  fontSize: EraTheme.subHeaderWeb + 4,
-                  fontWeight: FontWeight.bold,
-                  textAlign: TextAlign.start,
-                ),
+  _loading(){
+    return Screens.loading();
+  }
 
-                sb30(),
+  _loaded(){
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: EraTheme.paddingWidthAdmin * 3),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              sb40(),
 
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10.r),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 10,
-                          offset: Offset(0, 5),
-                        ),
-                      ],
-                    ),
-                    child: CloudStorage().imageLoader(
-                      reference: newsArgument['image'],
-                      fit: BoxFit.cover,
-                    ),
+              EraText(
+                text: controller.newsArgument['title'] ?? "Company News",
+                color: AppColors.kRedColor,
+                fontSize: EraTheme.subHeaderWeb + 4,
+                fontWeight: FontWeight.bold,
+                textAlign: TextAlign.start,
+              ),
+
+              sb30(),
+
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.r),
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: CloudStorage().imageLoader(
+                    reference: controller.newsArgument['image'],
+                    fit: BoxFit.cover,
                   ),
                 ),
+              ),
 
-                sb40(),
-                EraText(
-                  text: newsArgument['description'] ?? "",
-                  color: AppColors.black.withOpacity(0.8),
-                  fontSize: EraTheme.h6,
-                  textAlign: TextAlign.start,
-                  maxLines: 100,
-                  fontWeight: FontWeight.w400,
-                ),
-                // Container(
-                //   padding: EdgeInsets.all(20.r),
-                //   decoration: BoxDecoration(
-                //     color: Colors.white,
-                //     borderRadius: BorderRadius.circular(10.r),
-                //     boxShadow: [
-                //       BoxShadow(
-                //         color: Colors.black.withOpacity(0.1),
-                //         blurRadius: 10,
-                //         offset: Offset(0, 4),
-                //       ),
-                //     ],
-                //   ),
-                //   child: EraText(
-                //     text: newsArgument['description'] ?? "",
-                //     color: AppColors.black.withOpacity(0.8),
-                //     fontSize: EraTheme.h6,
-                //     textAlign: TextAlign.start,
-                //     maxLines: 100,
-                //     fontWeight: FontWeight.w400,
-                //   ),
-                // ),
+              sb40(),
+              EraText(
+                text: controller.newsArgument['description'] ?? "",
+                color: AppColors.black.withOpacity(0.8),
+                fontSize: EraTheme.h6,
+                textAlign: TextAlign.start,
+                maxLines: 100,
+                fontWeight: FontWeight.w400,
+              ),
+              // Container(
+              //   padding: EdgeInsets.all(20.r),
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: BorderRadius.circular(10.r),
+              //     boxShadow: [
+              //       BoxShadow(
+              //         color: Colors.black.withOpacity(0.1),
+              //         blurRadius: 10,
+              //         offset: Offset(0, 4),
+              //       ),
+              //     ],
+              //   ),
+              //   child: EraText(
+              //     text: newsArgument['description'] ?? "",
+              //     color: AppColors.black.withOpacity(0.8),
+              //     fontSize: EraTheme.h6,
+              //     textAlign: TextAlign.start,
+              //     maxLines: 100,
+              //     fontWeight: FontWeight.w400,
+              //   ),
+              // ),
 
-                //_buildRelatedArticlesSection(),
+              //_buildRelatedArticlesSection(),
 
-                sb50(),
-                AboutUsWeb.buildJoinUsSection(),
-              ],
-            ),
+              sb50(),
+              AboutUsWeb.buildJoinUsSection(),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

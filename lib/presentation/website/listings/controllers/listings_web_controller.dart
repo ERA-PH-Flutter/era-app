@@ -43,11 +43,13 @@ class ListingsWebController extends GetxController {
   var selectedPropertyTypeSearch = RxnString();
   var selectedLocationSearch = RxnString();
   var selectedPriceSearch = RxnString();
-
   @override
   void onInit() async {
     data.clear();
+
     listingsWebState.value = ListingsWebState.loading;
+    listingArgument = await Listing().getListing(idArgument);
+    //print('id: ${listingArgument.name}');
     quickLinks = await QuickLinksModel().initialize();
     try {
       if (Get.arguments == null || Get.arguments.isEmpty && data.isEmpty) {
@@ -59,8 +61,8 @@ class ListingsWebController extends GetxController {
         }
         loadData(tempData);
       } else {
-        loadData(Get.arguments[0]);
-        searchQuery.value = Get.arguments[1];
+        loadData(listingArgument);
+        searchQuery.value = "aa";
       }
     } catch (e, ex) {
       print(e);

@@ -4,7 +4,10 @@ import 'package:eraphilippines/app/theme.dart';
 import 'package:eraphilippines/presentation/agent/splash/controllers/splash_binding.dart';
 import 'package:eraphilippines/presentation/agent/splash/pages/splash.dart';
 import 'package:eraphilippines/presentation/website/privacy_policy/privacy-policy.dart';
+import 'package:eraphilippines/presentation/website/re_route/re_route.dart';
 import 'package:eraphilippines/router/route.dart';
+import 'package:eraphilippines/router/route_arguments.dart';
+import 'package:eraphilippines/router/web_routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -57,21 +60,10 @@ class _AppState extends State<App> {
         }),
         debugShowCheckedModeBanner: false,
         theme: MyTheme.getDefault(),
-        initialRoute: "/",
-        getPages: appRoutes(),
+        initialRoute: "/home",
+        getPages: appRoutesWeb(),
         initialBinding: SplashBinding(),
-        home: const Splash(),
-
- 
-        // onGenerateRoute: (settings) { 
-        //   switch (settings.name) {
-        //     case "privacy-policy":
-        //       return GetPageRoute(page: () => PrivacyPolicy());
-        //     default:
-        //       return GetPageRoute(
-        //           page: () => Splash(), binding: SplashBinding());
-        //   }
-        // },
+        home: Splash(),
       ),
     );
   }

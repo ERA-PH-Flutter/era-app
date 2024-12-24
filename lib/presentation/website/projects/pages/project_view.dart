@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/widgets/web/navbar.dart';
+import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/presentation/website/projects/controllers/project_view_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/web/project_views_web.dart';
+import '../../../../repository/project.dart';
 
 class ProjectViewWeb extends GetView<ProjectViewWebController> {
   @override
@@ -59,7 +61,7 @@ class ProjectViewWeb extends GetView<ProjectViewWebController> {
         children: [
           Container(
             height: Get.height,
-            child: ProjectViewsWeb(project: Get.arguments),
+            child: ProjectViewsWeb(project: Project.getById(idArgument)),
           ),
         ],
       ),

@@ -24,7 +24,7 @@ import '../../../../app/widgets/listings_web/agentlistview.dart';
 import '../../landingpage/controller/homs_controller.dart';
 import '../controllers/agentYT_controller.dart';
 
-class FindAgentsWeb extends GetView<AgentsWebController> {
+  class FindAgentsWeb extends GetView<AgentsWebController> {
   const FindAgentsWeb({super.key});
 
   @override

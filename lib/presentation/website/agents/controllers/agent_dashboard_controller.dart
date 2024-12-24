@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/services/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../app/services/local_storage.dart';
@@ -24,6 +25,7 @@ class AgentDashboardWebController extends GetxController {
 
   @override
   void onInit() async {
+    user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     for (int i = 0; i < user!.favorites!.length; i++) {
       if (await Database().doDocumentExist(user!.favorites![i])) {
         favorites.add(await Listing().getListing(user!.favorites![i]));

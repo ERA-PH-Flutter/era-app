@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/screens.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -21,6 +20,7 @@ import '../../../../../app/widgets/interactive_property_image.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
+import '../../../../global.dart';
 import '../../../home/pages/home_web.dart';
 import '../../controllers/listings_web_controller.dart';
 
@@ -31,6 +31,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
 
   @override
   Widget build(BuildContext context) {
+
     return Obx(() => switch (controller.listingsWebState.value) {
           ListingsWebState.loading => Screens.loading(),
           ListingsWebState.loaded => _loaded(),
@@ -229,83 +230,81 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                               );
                             })),
                       )),
-                      Obx(() {
-                        return Positioned(
-                          bottom: 20.h,
-                          left: 0,
-                          right: 0,
-                          child: Container(
-                            width: Get.width,
-                            height: 260.h,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 12.h, horizontal: 10.w),
-                            decoration: BoxDecoration(
-                                color: AppColors.black.withOpacity(0.5),
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(20))),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: List.generate(
-                                  listingArgument.photos!.length,
-                                  (index) {
-                                    final image =
-                                        listingArgument.photos![index];
-                                    final isSelected =
-                                        controller.currentImage.value == image;
-                                    return GestureDetector(
-                                      onTap: () {
-                                        controller.currentImage.value = image;
-                                      },
-                                      child: AnimatedContainer(
-                                        width: Get.width / 7,
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 5.w),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            border: Border.all(
-                                              color: AppColors.hint
-                                                  .withOpacity(0.9),
-                                              width: isSelected ? 5.w : 1.w,
-                                            )),
-                                        duration: Duration(milliseconds: 200),
-                                        curve: Curves.easeInOut,
-                                        child: ClipRRect(
+                      Positioned(
+                        bottom: 20.h,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          width: Get.width,
+                          height: 260.h,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12.h, horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              color: AppColors.black.withOpacity(0.5),
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: List.generate(
+                                listingArgument.photos!.length,
+                                    (index) {
+                                  final image =
+                                  listingArgument.photos![index];
+                                  final isSelected =
+                                      controller.currentImage.value == image;
+                                  return GestureDetector(
+                                    onTap: () {
+                                      controller.currentImage.value = image;
+                                    },
+                                    child: AnimatedContainer(
+                                      width: Get.width / 7,
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 5.w),
+                                      decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(16),
-                                          child: CloudStorage().imageLoader(
-                                            width: Get.width / 7,
-                                            height: Get.height,
-                                            reference: image,
-                                          ),
+                                          BorderRadius.circular(16),
+                                          border: Border.all(
+                                            color: AppColors.hint
+                                                .withOpacity(0.9),
+                                            width: isSelected ? 5.w : 1.w,
+                                          )),
+                                      duration: Duration(milliseconds: 200),
+                                      curve: Curves.easeInOut,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                        BorderRadius.circular(16),
+                                        child: CloudStorage().imageLoader(
+                                          width: Get.width / 7,
+                                          height: Get.height,
+                                          reference: image,
                                         ),
                                       ),
+                                    ),
 
-                                      //    Container(
-                                      //     margin: EdgeInsets.symmetric(
-                                      //         horizontal: 5.w),
-                                      //     decoration: BoxDecoration(
-                                      //       border: Border.all(
-                                      //         color: AppColors.hint
-                                      //             .withOpacity(0.9),
-                                      //         width: isSelected ? 5.w : 1.w,
-                                      //       ),
-                                      //     ),
-                                      //     child: CloudStorage().imageLoader(
-                                      //       width: Get.width / 7,
-                                      //       height: Get.height,
-                                      //       reference: image,
-                                      //     ),
-                                      //   ),
-                                    );
-                                  },
-                                ),
+                                    //    Container(
+                                    //     margin: EdgeInsets.symmetric(
+                                    //         horizontal: 5.w),
+                                    //     decoration: BoxDecoration(
+                                    //       border: Border.all(
+                                    //         color: AppColors.hint
+                                    //             .withOpacity(0.9),
+                                    //         width: isSelected ? 5.w : 1.w,
+                                    //       ),
+                                    //     ),
+                                    //     child: CloudStorage().imageLoader(
+                                    //       width: Get.width / 7,
+                                    //       height: Get.height,
+                                    //       reference: image,
+                                    //     ),
+                                    //   ),
+                                  );
+                                },
                               ),
                             ),
                           ),
-                        );
-                      }),
+                        ),
+                      ),
                       Obx(() {
                         controller.isFav.value;
                         if (user != null) {

@@ -11,13 +11,20 @@ enum NewsState {
 
 class NewsWebController extends GetxController {
   var store = Get.find<LocalStorageService>();
-  var newsState = NewsState.loaded.obs;
+  var newsState = NewsState.loading.obs;
 
   var news = [];
+  var newsArgument;
   @override
   void onInit() async {
-    await getNews();
-    newsState.value = NewsState.loaded;
+    if(idArgument == null){
+      await getNews();
+      newsState.value = NewsState.loaded;
+    }else{
+      newsArgument = (await News(id: idArgument).getNews()).toMap();
+      newsState.value = NewsState.loaded;
+    }
+
     super.onInit();
   }
 

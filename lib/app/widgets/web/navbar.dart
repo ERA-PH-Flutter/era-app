@@ -27,54 +27,52 @@ class Navbar extends GetResponsiveView<HomsController> {
 
   @override
   Widget desktop() {
-    return Obx(
-      () => Container(
-        padding: EdgeInsets.symmetric(horizontal: 24.w),
-        height: 120.h,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
-              offset: Offset(0, 2),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      height: 120.h,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () => Get.toNamed('/home'),
+            child: Image.asset(
+              AppEraAssets.eraPh,
+              height: 250.h,
             ),
-          ],
-        ),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () => Get.toNamed(RouteString.home),
-              child: Image.asset(
-                AppEraAssets.eraPh,
-                height: 250.h,
+          ),
+          Spacer(),
+          ..._buildNavItems(controller.items),
+          Spacer(),
+          //   _showOverlayProfile()
+          user == null
+              ? ElevatedButton(
+            onPressed: () => showAuthenticationDialog(),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.kRedColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 24.w, vertical: 24.h),
             ),
-            Spacer(),
-            ..._buildNavItems(controller.items),
-            Spacer(),
-            //   _showOverlayProfile()
-            user == null
-                ? ElevatedButton(
-                    onPressed: () => showAuthenticationDialog(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.kRedColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 24.w, vertical: 24.h),
-                    ),
-                    child: EraText(
-                      text: "AGENT/BROKER LOGIN",
-                      fontSize: EraTheme.h6,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.white,
-                    ),
-                  )
-                : _showOverlayProfile(),
-          ],
-        ),
+            child: EraText(
+              text: "AGENT/BROKER LOGIN",
+              fontSize: EraTheme.h6,
+              fontWeight: FontWeight.bold,
+              color: AppColors.white,
+            ),
+          )
+              : _showOverlayProfile(),
+        ],
       ),
     );
   }
@@ -82,11 +80,12 @@ class Navbar extends GetResponsiveView<HomsController> {
   List<Widget> _buildNavItems(List<String> items) {
     return items.map((item) {
       final isActive =
-          controller.navBarSelectedIndex.value == items.indexOf(item);
+          Get.currentRoute == "/${item.toLowerCase().replaceAll(" ", "-")}";
       return InkWell(
         onTap: () {
-          controller.navBarSelectedIndex.value = items.indexOf(item);
-          controller.onNavbarItemSelected(items.indexOf(item));
+          // controller.navBarSelectedIndex.value = items.indexOf(item);
+          // controller.onNavbarItemSelected(items.indexOf(item));
+          Get.toNamed("/${item.toLowerCase().replaceAll(" ", "-")}");
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -194,9 +193,10 @@ class Navbar extends GetResponsiveView<HomsController> {
                       icon: Icons.person,
                       label: user!.firstname!,
                       onTap: () {
-                        selectedIndex.value = 11;
-                        Get.find<HomsController>().onNavbarItemSelected(11);
-                        controller.overlayPortal.hide();
+                        // selectedIndex.value = 11;
+                        // Get.find<HomsController>().onNavbarItemSelected(11);
+                        controller.overlayPortal = OverlayPortalController();
+                        Get.toNamed('/agent-dashboard');
                       },
                     ),
                     sb10(),
@@ -206,9 +206,10 @@ class Navbar extends GetResponsiveView<HomsController> {
                         icon: Icons.settings,
                         label: "Settings",
                         onTap: () {
-                          selectedIndex.value = 20;
-                          Get.find<HomsController>().onNavbarItemSelected(20);
-                          controller.overlayPortal.hide();
+                          // selectedIndex.value = 20;
+                          // Get.find<HomsController>().onNavbarItemSelected(20);
+                          controller.overlayPortal = OverlayPortalController();
+                          Get.toNamed('/settings');
                         }),
                     sb10(),
                     Divider(thickness: 1, height: 1, color: Colors.grey[300]),
@@ -218,9 +219,9 @@ class Navbar extends GetResponsiveView<HomsController> {
                       label: "Log-out",
                       onTap: ()async{
                         await Authentication().logout();
-                        controller.overlayPortal.hide();
+                        controller.overlayPortal = OverlayPortalController();
                         Get.deleteAll();
-                        Get.toNamed(RouteString.webLandingPage);
+                        Get.toNamed('/home');
                    //     controller.
                       },
                     ),

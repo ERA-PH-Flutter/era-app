@@ -80,9 +80,10 @@ class QuickLinksModel {
 
 
         s.loadData(data);
-        a.selectedIndex.value = 2;
-        Get.find<a.HomsController>().onNavbarItemSelected(2);
-
+        s.searchQuery.value = "search";
+        // a.selectedIndex.value = 2;
+        // Get.find<a.HomsController>().onNavbarItemSelected(2);
+        Get.toNamed('/search');
       },
       child: Column(
         children: [

@@ -144,12 +144,11 @@ void showAuthenticationDialog() {
                                     description:
                                         "Please use admin account to have access!",
                                     hitApi: () {
-                                      Get.toNamed(RouteString.webLandingPage);
+                                      Get.toNamed('/home ');
                                     });
                               }
                               else {
-                                selectedIndex.value = 0;
-                                Get.toNamed(RouteString.homs);
+                                Get.toNamed('/agent-dashboard');
                               }
                             } else {
                               BaseController().showSuccessDialog(

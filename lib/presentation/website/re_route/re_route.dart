@@ -2,17 +2,22 @@ import 'package:eraphilippines/presentation/website/re_route/re_route_controller
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../app/widgets/web/navbar.dart';
+
 class ReRoute extends GetView<ReRouteController>{
-  const ReRoute({super.key});
+  final String? params;
+  const ReRoute({this.params,super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          //navbar
-          controller.args!.page
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Get.currentRoute != "/privacy-policy" ? Navbar() : Container(),
+            controller.args!.page
+          ],
+        ),
       ),
     );
   }

@@ -123,13 +123,17 @@ class BuyWeb extends GetView<ListingsWebController> {
             itemBuilder: (context, index) {
               if (controller.data[index] != null) {
                 Listing listing = Listing.fromJSON(controller.data[index]);
+                print('id: ${listing.id}');
                 return GestureDetector(
                   onTap: () async {
                     // await Database().addViews(listing.id);
                     // Get.toNamed('/propertyInfo', arguments: listing);
-                    listingArgument = listing;
-                    selectedIndex.value = 10;
-                    Get.find<HomsController>().onNavbarItemSelected(10);
+                    // listingArgument = listing;
+                    // selectedIndex.value = 10;
+                    // Get.find<HomsController>().onNavbarItemSelected(10);;
+                    Get.delete<ListingsWebController>();
+                    // listingArgument = await Listing().getListing(idArgument);
+                    Get.toNamed('/view-listing/${listing.id}');
                   },
                   child: Container(
                     margin: EdgeInsets.only(

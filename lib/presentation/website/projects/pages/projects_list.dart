@@ -120,13 +120,8 @@ class ProjectsList extends GetView<ProjectsListWebController> {
             i < controller.count.value) {
           projects.add(GestureDetector(
             onTap: () {
-              // Get.to(ProjectViewWeb(),
-              //     binding: ProjectViewBinding(),
-              //     arguments: controller.projects[i]);
               projectArgument = controller.projects[i];
-              HomsController homsController = Get.find<HomsController>();
-              selectedIndex.value = 12;
-              homsController.onNavbarItemSelected(12);
+              Get.toNamed('/view-project/${controller.projects[i].id}');
             },
             child: Wrap(children: [
               Column(

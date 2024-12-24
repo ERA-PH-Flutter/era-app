@@ -333,7 +333,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
 
   _empty() {
     return SizedBox(
-      height: Get.height - 225.h,
+
       width: Get.width,
       child: Padding(
         padding:
@@ -341,16 +341,14 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: Icon(Icons.arrow_back)),
-            Center(
-              child: EraText(
-                text: "This User don't have any listings!",
-                color: Colors.black,
-                fontSize: 16.sp,
+            SizedBox(
+              height: Get.height - 225.h,
+              child: Center(
+                child: EraText(
+                  text: "This User don't have any listings!",
+                  color: Colors.black,
+                  fontSize: 23.sp,
+                ),
               ),
             ),
           ],

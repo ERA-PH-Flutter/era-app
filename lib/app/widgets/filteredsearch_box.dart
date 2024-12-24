@@ -178,6 +178,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
       //     SearchResultState.loading;
       // Get.find<SearchResultController>().data.value = data;
       // BaseController().hideLoading();
+      s.searchQuery.value = searchQuery;
       if(data.isNotEmpty){
         for (var d in data) {
           if(d.runtimeType == Listing){
@@ -188,8 +189,9 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
         s.listingsWebState.value = ListingsWebState.empty;
       }
 
-      a.selectedIndex.value = 2;
-      Get.find<a.HomsController>().onNavbarItemSelected(2);
+      // a.selectedIndex.value = 2;
+      // Get.find<a.HomsController>().onNavbarItemSelected(2);
+      Get.toNamed('/search');
       // selectedIndex.value = 2;
       // pageViewController.animateToPage(
       //   2,
@@ -821,8 +823,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     }
                                     print(
                                         "gemini search overrideAiFilters ${priceMin.value != "" && priceMax.value != ""}");
-                                    a.selectedIndex.value = 2;
-                                    Get.find<a.HomsController>().onNavbarItemSelected(2);
                                     Get.find<ListingsWebController>()
                                         .searchListingQuery(
                                             query: searchQuery,
@@ -905,6 +905,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                             ),
                                           ],
                                         ]);
+                                    Get.toNamed('/search');
                                   } catch (e) {
                                     Get.find<SearchResultController>()
                                         .searchResultState

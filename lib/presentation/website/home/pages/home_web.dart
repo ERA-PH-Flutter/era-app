@@ -244,12 +244,14 @@ class HomeWeb extends GetView<HomeWebController> {
                 viewOtherProjects(
                     text: 'View other projects',
                     onTap: () {
-                      HomsController homsController =
-                          Get.find<HomsController>();
-                      a.selectedIndex.value = 1;
-                      //  Get.lazyPut(() => NewsWebController());
-                      //await Get.find<NewsWebController>().getNews();
-                      homsController.onNavbarItemSelected(1);
+                      // HomsController homsController =
+                      //     Get.find<HomsController>();
+                      // a.selectedIndex.value = 1;
+                      // //  Get.lazyPut(() => NewsWebController());
+                      // //await Get.find<NewsWebController>().getNews();
+                      // homsController.onNavbarItemSelected(1);
+
+                      Get.toNamed('/projects');
                     }),
                 sb20(),
                 EraText(
@@ -330,9 +332,11 @@ class HomeWeb extends GetView<HomeWebController> {
                     Listing listing = controller.listings[index];
                     return GestureDetector(
                       onTap: () async {
-                        listingArgument = listing;
-                        a.selectedIndex.value = 10;
-                        Get.find<HomsController>().onNavbarItemSelected(10);
+                        // listingArgument = listing;
+                        // a.selectedIndex.value = 10;
+                        // Get.find<HomsController>().onNavbarItemSelected(10);
+                        Get.delete<ListingsWebController>();
+                        Get.toNamed('/view-listing/${listing.id}'); 
                       },
                       child: Container(
                         margin: EdgeInsets.all(8.sp),
@@ -488,8 +492,9 @@ class HomeWeb extends GetView<HomeWebController> {
                   child: viewOtherProjects(
                       text: 'View other listings',
                       onTap: () {
-                        a.selectedIndex.value = 2;
-                        Get.find<HomsController>().onNavbarItemSelected(2);
+                        // a.selectedIndex.value = 2;
+                        // Get.find<HomsController>().onNavbarItemSelected(2);
+                        Get.toNamed('/search');
                       }),
                 ),
                 sb10(),
@@ -517,12 +522,13 @@ class HomeWeb extends GetView<HomeWebController> {
                         color: AppColors.kRedColor),
                     GestureDetector(
                       onTap: () async {
-                        HomsController homsController =
-                            Get.find<HomsController>();
-                        a.selectedIndex.value = 8;
-                        //  Get.lazyPut(() => NewsWebController());
-                        //await Get.find<NewsWebController>().getNews();
-                        homsController.onNavbarItemSelected(8);
+                        // HomsController homsController =
+                        //     Get.find<HomsController>();
+                        // a.selectedIndex.value = 8;
+                        // //  Get.lazyPut(() => NewsWebController());
+                        // //await Get.find<NewsWebController>().getNews();
+                        // homsController.onNavbarItemSelected(8);
+                        Get.toNamed('/news');
                       },
                       child: EraText(
                           text: 'See all',
@@ -556,15 +562,16 @@ class HomeWeb extends GetView<HomeWebController> {
                     itemCount: controller.news.length,
                     itemBuilder: (context, i) => GestureDetector(
                       onTap: () {
-                        HomsController homsController =
-                            Get.find<HomsController>();
-                        a.selectedIndex.value = 9;
-                        homsController.onNavbarItemSelected(9);
-                        newsArgument = {
-                          "title": controller.news[i].title,
-                          "image": controller.news[i].image,
-                          "description": controller.news[i].description,
-                        };
+                        // HomsController homsController =
+                        //     Get.find<HomsController>();
+                        // a.selectedIndex.value = 9;
+                        // homsController.onNavbarItemSelected(9);
+                        // newsArgument = {
+                        //   "title": controller.news[i].title,
+                        //   "image": controller.news[i].image,
+                        //   "description": controller.news[i].description,
+                        // };
+                        Get.toNamed('/view-news/${controller.news[i].id}');
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -600,15 +607,7 @@ class HomeWeb extends GetView<HomeWebController> {
                             SizedBox(height: 16.h),
                             GestureDetector(
                               onTap: () {
-                                HomsController homsController =
-                                    Get.find<HomsController>();
-                                a.selectedIndex.value = 9;
-                                homsController.onNavbarItemSelected(9);
-                                newsArgument = {
-                                  "title": controller.news[i].title,
-                                  "image": controller.news[i].image,
-                                  "description": controller.news[i].description,
-                                };
+                                Get.toNamed('/view-news/${controller.news[i].id}');
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -802,6 +801,13 @@ Widget _buildUploadPhoto({required String text, required String image}) {
         'COMMERCIAL',
         'AUCTION'
       ];
+      List types = [
+        'sub-type',
+        'type',
+        'type',
+        'type',
+        'type'
+      ];
       var listings = (await FirebaseFirestore.instance
               .collection('listings')
               .where('type', isEqualTo: text.toLowerCase())
@@ -810,13 +816,14 @@ Widget _buildUploadPhoto({required String text, required String image}) {
       var data = listings.map((listing) {
         return listing.data();
       }).toList();
-      a.selectedIndex.value = 2;
-      Get.find<a.HomsController>().onIndexChanged();
-      Get.find<a.HomsController>().update();
-      Get.find<ListingsWebController>()
-          .listingsWebState(ListingsWebState.loading);
-      Get.find<ListingsWebController>().searchQuery.value = text;
-      await Get.find<ListingsWebController>().loadData(data);
+      // a.selectedIndex.value = 2;
+      // Get.find<a.HomsController>().onIndexChanged();
+      // Get.find<a.HomsController>().update();
+      Get.lazyPut(()=>ListingsWebController());
+      var s = Get.find<ListingsWebController>();
+      s.listingsWebState(ListingsWebState.loading);
+      s.searchQuery.value = text;
+      await s.loadData(data);
       if (data.isEmpty) {
         Get.find<ListingsWebController>()
             .listingsWebState(ListingsWebState.empty);
@@ -824,6 +831,7 @@ Widget _buildUploadPhoto({required String text, required String image}) {
         Get.find<ListingsWebController>()
             .listingsWebState(ListingsWebState.loaded);
       }
+      Get.toNamed('/search');
     },
     child: CloudStorage().imageLoaderProvider(
       reference: image,
