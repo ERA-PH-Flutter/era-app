@@ -205,7 +205,7 @@ class HomeWeb extends GetView<HomeWebController> {
                 crossAxisCount: 3,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
-                mainAxisExtent: Get.height - 400.h,
+                mainAxisExtent: Get.height - 395.h,
               ),
               itemCount: controller.projects.length,
               itemBuilder: (context, index) {
@@ -336,7 +336,7 @@ class HomeWeb extends GetView<HomeWebController> {
                         // a.selectedIndex.value = 10;
                         // Get.find<HomsController>().onNavbarItemSelected(10);
                         Get.delete<ListingsWebController>();
-                        Get.toNamed('/view-listing/${listing.id}'); 
+                        Get.toNamed('/view-listing/${listing.id}');
                       },
                       child: Container(
                         margin: EdgeInsets.all(8.sp),
@@ -607,7 +607,8 @@ class HomeWeb extends GetView<HomeWebController> {
                             SizedBox(height: 16.h),
                             GestureDetector(
                               onTap: () {
-                                Get.toNamed('/view-news/${controller.news[i].id}');
+                                Get.toNamed(
+                                    '/view-news/${controller.news[i].id}');
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -801,13 +802,7 @@ Widget _buildUploadPhoto({required String text, required String image}) {
         'COMMERCIAL',
         'AUCTION'
       ];
-      List types = [
-        'sub-type',
-        'type',
-        'type',
-        'type',
-        'type'
-      ];
+      List types = ['sub-type', 'type', 'type', 'type', 'type'];
       var listings = (await FirebaseFirestore.instance
               .collection('listings')
               .where('type', isEqualTo: text.toLowerCase())
@@ -819,7 +814,7 @@ Widget _buildUploadPhoto({required String text, required String image}) {
       // a.selectedIndex.value = 2;
       // Get.find<a.HomsController>().onIndexChanged();
       // Get.find<a.HomsController>().update();
-      Get.lazyPut(()=>ListingsWebController());
+      Get.lazyPut(() => ListingsWebController());
       var s = Get.find<ListingsWebController>();
       s.listingsWebState(ListingsWebState.loading);
       s.searchQuery.value = text;
