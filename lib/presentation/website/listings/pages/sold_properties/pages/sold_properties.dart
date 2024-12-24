@@ -46,8 +46,10 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
             children: [
               IconButton(
                   onPressed: () {
-                    a.selectedIndex.value = 11;
-                    Get.find<a.HomsController>().onNavbarItemSelected(11);
+                    // a.selectedIndex.value = 11;
+                    // Get.find<a.HomsController>().onNavbarItemSelected(11);
+                                            Get.toNamed('/agent-dashboard');
+
                   },
                   icon: Icon(Icons.arrow_back_ios)),
               EraText(

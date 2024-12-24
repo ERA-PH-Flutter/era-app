@@ -50,8 +50,19 @@ class HomsController extends GetxController {
   var link = LayerLink();
   double? buttonWidth;
 
+
+  
   RxBool isDropdownVisible = false.obs;
-  var overlayPortal = OverlayPortalController();
+  var dashboard= OverlayPortalController();
+    var settingAgent= OverlayPortalController();
+        var logOut= OverlayPortalController();
+
+        var overlayPortal =  OverlayPortalController();
+
+  RxString selectedOption = ''.obs;
+  void selectOption(String option) {
+    selectedOption.value = option;
+  }
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   ScrollController scrollController = ScrollController();

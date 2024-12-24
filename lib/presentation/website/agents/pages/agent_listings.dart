@@ -49,8 +49,10 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        selectedIndex.value = 11;
-                        Get.find<HomsController>().onNavbarItemSelected(11);
+                                           Get.toNamed('/agent-dashboard');
+
+                        // selectedIndex.value = 11;
+                        // Get.find<HomsController>().onNavbarItemSelected(11);
                       },
                       icon: Icon(Icons.arrow_back_ios)),
                   sbw10(),

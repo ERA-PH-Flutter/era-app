@@ -37,9 +37,11 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
               ),
               IconButton(
                   onPressed: () {
-                    HomsController homsController = Get.find<HomsController>();
-                    selectedIndex.value = 11;
-                    homsController.onNavbarItemSelected(11);
+                    // HomsController homsController = Get.find<HomsController>();
+                    // selectedIndex.value = 11;
+                    // homsController.onNavbarItemSelected(11);
+                                            Get.toNamed('/agent-dashboard');
+
                   },
                   icon: Icon(
                     CupertinoIcons.forward,

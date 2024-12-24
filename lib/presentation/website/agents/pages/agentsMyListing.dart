@@ -56,8 +56,9 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        selectedIndex.value = 11;
-                        Get.find<HomsController>().onNavbarItemSelected(11);
+                        Get.toNamed('/agent-dashboard');
+                        // selectedIndex.value = 11;
+                        // Get.find<HomsController>().onNavbarItemSelected(11);
                       },
                       icon: Icon(Icons.arrow_back_ios)),
                   sbw10(),
@@ -315,6 +316,7 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                                           // Get.find<HomsController>()
                                           //     .onNavbarItemSelected(18);
                                           Get.toNamed('/edit-listing');
+                                          print('click ka bi pota@');
                                         },
                                         text: 'Edit',
                                         color: AppColors.blue,

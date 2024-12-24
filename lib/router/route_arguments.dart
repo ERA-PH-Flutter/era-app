@@ -159,6 +159,7 @@ class RouteArgs{
       page: PrivacyPolicy(),
       binding: PrivacyPolicyBinding(),
     ),
+  
   ];
   static getArgs(routeName){
     String? id = routeName.split("/").length > 2 ? routeName.split("/")[2] : null;

@@ -73,7 +73,7 @@ class HomePages extends GetResponsiveView<HomsController> {
                           child: controller.pages[selectedIndex.value],
                         ),
                       ),
-                      _buildFooter(),
+                      buildFooter(),
                     ],
                   ),
                 ],
@@ -86,7 +86,7 @@ class HomePages extends GetResponsiveView<HomsController> {
     );
   }
 
-  Widget _buildFooter() {
+    Widget buildFooter() {
     return Column(
       children: [
         Card(

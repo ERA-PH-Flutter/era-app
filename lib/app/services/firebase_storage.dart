@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -127,6 +128,27 @@ class CloudStorage {
     return FutureBuilder(
       future: ref.child(reference).getDownloadURL(),
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+            width: width,
+            height: height,
+            color: color ?? Colors.grey[300],
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (snapshot.hasError) {
+          return Container(
+            width: width,
+            height: height,
+            color: color ?? Colors.red[300],
+            child: Center(
+                child:
+
+                    // Image.asset(AppEraAssets.eraPh)
+
+                    Icon(Icons.error, color: Colors.white)),
+          );
+        }
         if (snapshot.hasData) {
           return Container(
             width: width,

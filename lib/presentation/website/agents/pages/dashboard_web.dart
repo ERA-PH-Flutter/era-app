@@ -107,7 +107,6 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                           ),
                         ),
                         SizedBox(height: 25.h),
-
                         SizedBox(height: 25.h),
                         myListings(),
                         SizedBox(height: 25.h),
@@ -122,7 +121,6 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                         findAgentsandOffices(),
                         SizedBox(height: 25.h),
                         sb25(),
-                    
                       ],
                     ),
                   ),
@@ -369,7 +367,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                         // Get.toNamed('/propertyInfo',
                         //     arguments: controller.favorites[index]);
                         Get.delete<ListingsWebController>();
-                        Get.toNamed('/view-listing/${controller.favorites[index].id}');
+                        Get.toNamed(
+                            '/view-listing/${controller.favorites[index].id}');
                       },
                       child: Container(
                           width: 200.w,
@@ -648,12 +647,13 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                     children: [
                       iconAgents(user.image ?? AppStrings.noUserImageWhite, () {
                         // listingArgument = user.id!;
-                        selectedIndex.value = 19;
-                        HomsController homsController =
-                            Get.find<HomsController>();
-                        homsController.onNavbarItemSelected(
-                          19,
-                        );
+                        // selectedIndex.value = 19;
+                        // HomsController homsController =
+                        //     Get.find<HomsController>();
+                        // homsController.onNavbarItemSelected(
+                        //   19,
+                        // );
+                        // Get.toNamed('/')
                         // Get.to(AgentListingsWeb(),
                         //     arguments: [user.id],
                         //     binding: AgentDashboardWebBinding());
@@ -750,7 +750,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                         print("aa");
                         // listingArgument = controller.listings[index];
                         Get.delete<ListingsWebController>();
-                        Get.toNamed('/view-listing/${controller.listings[index].id}');
+                        Get.toNamed(
+                            '/view-listing/${controller.listings[index].id}');
                       },
                       child: Container(
                           width: 200.w,

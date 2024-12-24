@@ -52,8 +52,10 @@ class AddListingsWeb extends GetView<AddListingsController>
             children: [
               IconButton(
                   onPressed: () {
-                    selectedIndex.value = 11;
-                    Get.find<HomsController>().onNavbarItemSelected(11);
+                    // selectedIndex.value = 11;
+                    // Get.find<HomsController>().onNavbarItemSelected(11);
+                                            Get.toNamed('/agent-dashboard');
+
                   },
                   icon: Icon(Icons.arrow_back_ios)),
               EraText(

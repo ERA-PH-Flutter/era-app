@@ -58,8 +58,11 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
               children: [
                 IconButton(
                     onPressed: () {
-                      selectedIndex.value = 13;
-                      Get.find<HomsController>().onNavbarItemSelected(13);
+                      // selectedIndex.value = 13;
+                      // Get.find<HomsController>().onNavbarItemSelected(13);
+                      Get.toNamed('/agent-dashboard');
+
+                      print('way ni');
                     },
                     icon: Icon(Icons.arrow_back_ios)),
                 sbw10(),
