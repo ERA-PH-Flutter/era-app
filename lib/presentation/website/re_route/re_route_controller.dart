@@ -27,16 +27,6 @@ class ReRouteController extends GetxController {
     scrollController.addListener(_scrollListener);
   }
 
-  // void _scrollListener() {
-  //   if (scrollController.position.userScrollDirection ==
-  //       ScrollDirection.reverse) {
-  //     if (isNavbarVisible.value) isNavbarVisible.value = false;
-  //   } else if (scrollController.position.userScrollDirection ==
-  //       ScrollDirection.forward) {
-  //     if (!isNavbarVisible.value) isNavbarVisible.value = true;
-  //   }
-  // }
-
   void _scrollListener() {
     if (scrollController.position.userScrollDirection ==
         ScrollDirection.reverse) {

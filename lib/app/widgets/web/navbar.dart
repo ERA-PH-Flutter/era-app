@@ -120,7 +120,7 @@ class Navbar extends GetResponsiveView<HomsController> {
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
           splashRadius: 24,
-          offset: const Offset(0, 110),
+          offset: const Offset(0, 100),
           color: Colors.white,
           onSelected: (String value) {
             switch (value) {
