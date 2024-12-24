@@ -31,13 +31,10 @@ import 'package:eraphilippines/presentation/website/news/controllers/news_bindin
 import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
 import 'package:eraphilippines/presentation/website/privacy_policy/privacy-policy.dart';
 import 'package:eraphilippines/presentation/website/projects/controllers/projects_binding.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
-
 import '../presentation/website/agents/pages/agent_listings.dart';
 import '../presentation/website/form/controllers/form_web_binding.dart';
 import '../presentation/website/home/controllers/home_web_binding.dart';
 import '../presentation/website/home/pages/home_web.dart';
-import '../presentation/website/projects/pages/project_view.dart';
 import '../presentation/website/projects/pages/projects_list.dart';
 import '../presentation/website/re_route/re_route_args.dart';
 import '../presentation/website/terms_conditions_web/privacy_policy_binding.dart';

@@ -1,13 +1,14 @@
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/presentation/website/re_route/re_route_args.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 import '../../../router/route_arguments.dart';
 
-enum ReRouteState {loading,loaded,error}
+enum ReRouteState { loading, loaded, error }
 
-class ReRouteController extends GetxController{
+class ReRouteController extends GetxController {
   var reRouteState = ReRouteState.loading.obs;
   ReRouteArgs? args;
   ScrollController scrollController = ScrollController();
@@ -21,6 +22,31 @@ class ReRouteController extends GetxController{
   final Uri facebook = Uri.parse(
       'https://www.facebook.com/profile.php?id=61556521950596&mibextid=wwXIfr&rdid=KQZJrEeFQYosVzxe&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F15W4JqJJRc%2F%3Fmibextid%3DwwXIfr#');
   final Uri instagram = Uri.parse('https://www.instagram.com/era_philippines/');
+
+  ReRouteController() {
+    scrollController.addListener(_scrollListener);
+  }
+
+  // void _scrollListener() {
+  //   if (scrollController.position.userScrollDirection ==
+  //       ScrollDirection.reverse) {
+  //     if (isNavbarVisible.value) isNavbarVisible.value = false;
+  //   } else if (scrollController.position.userScrollDirection ==
+  //       ScrollDirection.forward) {
+  //     if (!isNavbarVisible.value) isNavbarVisible.value = true;
+  //   }
+  // }
+
+  void _scrollListener() {
+    if (scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      if (isNavbarVisible.value) isNavbarVisible.value = false;
+    } else if (scrollController.position.userScrollDirection ==
+        ScrollDirection.forward) {
+      if (!isNavbarVisible.value) isNavbarVisible.value = true;
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -38,11 +64,11 @@ class ReRouteController extends GetxController{
   // }
 }
 
-class ReRouteBinding extends Bindings{
+class ReRouteBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(()=>HomsController());
-    Get.lazyPut(()=>ReRouteController());
+    Get.lazyPut(() => HomsController());
+    Get.lazyPut(() => ReRouteController());
     var controller = Get.find<ReRouteController>();
     ReRouteArgs args = RouteArgs.getArgs(Get.currentRoute);
     args.binding.dependencies();

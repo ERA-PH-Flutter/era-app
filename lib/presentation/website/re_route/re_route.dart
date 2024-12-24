@@ -21,6 +21,7 @@ class ReRoute extends GetView<ReRouteController> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: CustomScrollView(
         controller: controller.scrollController,
