@@ -311,9 +311,10 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                                         height: EraTheme.buttonH60,
                                         onTap: () {
                                           editListingArgument = listing;
-                                          selectedIndex.value = 18;
-                                          Get.find<HomsController>()
-                                              .onNavbarItemSelected(18);
+                                          // selectedIndex.value = 18;
+                                          // Get.find<HomsController>()
+                                          //     .onNavbarItemSelected(18);
+                                          Get.toNamed('/edit-listing');
                                         },
                                         text: 'Edit',
                                         color: AppColors.blue,
