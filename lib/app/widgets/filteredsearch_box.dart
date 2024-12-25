@@ -185,6 +185,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
             s.data.add(d);
           }
         }
+        s.listingsWebState.value = ListingsWebState.loaded;
       }else{
         s.listingsWebState.value = ListingsWebState.empty;
       }
