@@ -657,8 +657,9 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                         // Get.to(AgentListingsWeb(),
                         //     arguments: [user.id],
                         //     binding: AgentDashboardWebBinding());
-                      //error 
+                        //error
                         // Get.toNamed('/agent-listings${user.id!}');
+                        Get.toNamed("/view-agent/${user.id!}");
                       }, "${user.firstname} ${user.lastname}"),
                       sbw10(),
                     ],
