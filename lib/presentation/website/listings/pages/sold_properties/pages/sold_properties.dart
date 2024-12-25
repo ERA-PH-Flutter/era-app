@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../app/constants/screens.dart';
+import '../../../controllers/listings_web_controller.dart';
 import '../controllers/sold_properties_controller.dart';
 
 class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
@@ -48,8 +49,7 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
                   onPressed: () {
                     // a.selectedIndex.value = 11;
                     // Get.find<a.HomsController>().onNavbarItemSelected(11);
-                                            Get.toNamed('/agent-dashboard');
-
+                    Get.toNamed('/agent-dashboard');
                   },
                   icon: Icon(Icons.arrow_back_ios)),
               EraText(
@@ -76,8 +76,8 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
               Listing listing = controller.soldListings[index];
               return GestureDetector(
                 onTap: () async {
-                  a.selectedIndex.value = 10;
-                  Get.find<a.HomsController>().onNavbarItemSelected(10);
+                  Get.delete<ListingsWebController>();
+                  Get.toNamed('/view-listing/${listing.id}');
                   // await Database().addViews(listing.id);
                   // Get.toNamed('/propertyInfo', arguments: listing);
                 },
@@ -267,6 +267,26 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
                           ),
                         ),
                       ),
+                      Positioned(
+                        bottom: 10.h,
+                        left: 0.w,
+                        child: GestureDetector(
+                          onTap: () {
+                            //unsold
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8.w, vertical: 4.h),
+                            color: AppColors.blue,
+                            child: EraText(
+                              text: 'CLICK TO UNSOLD',
+                              color: Colors.white,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -288,12 +308,43 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
   }
 
   _empty() {
-    return Center(
-      child: EraText(
-        text: "Nothing is sold in your List!",
-        color: Colors.black,
-        fontSize: EraTheme.paragraph,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Get.toNamed('/agent-dashboard');
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios_rounded,
+                    color: Colors.black,
+                    size: 20.sp,
+                  )),
+            ],
+          ),
+          Center(
+            child: EraText(
+              text: "Nothing is sold in your List!",
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
     );
+
+    // Row(
+    //   children: [
+    //     Center(
+    //       child: EraText(
+    //         text: "Nothing is sold in your List!",
+    //         color: Colors.black,
+    //         fontSize: EraTheme.paragraph,
+    //       ),
+    //     ),
+    //   ],
+    // );
   }
 }

@@ -23,6 +23,7 @@ import '../../../../app/constants/sized_box.dart';
 import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../global.dart';
 import '../../landingpage/controller/homs_controller.dart';
+import '../controllers/agent_myListingWeb_controller.dart';
 
 class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
   AgentDashBoardWeb({
@@ -623,7 +624,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
         ),
         SizedBox(height: 10.h),
         SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
+          //  scrollDirection: Axis.horizontal,
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('users')
@@ -659,6 +660,9 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                         //     binding: AgentDashboardWebBinding());
                         //error
                         // Get.toNamed('/agent-listings${user.id!}');
+
+                        Get.delete<AgentListingsWebController>();
+
                         Get.toNamed("/view-agent/${user.id!}");
                       }, "${user.firstname} ${user.lastname}"),
                       sbw10(),
