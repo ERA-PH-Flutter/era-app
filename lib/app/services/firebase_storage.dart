@@ -137,6 +137,7 @@ class CloudStorage {
           );
         }
         if (snapshot.hasError) {
+          print("Error: ${snapshot.error}");
           return Container(
             width: width,
             height: height,
