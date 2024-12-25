@@ -413,11 +413,9 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                             width: 150.w,
                             onTap: () async {
                               await Database().listingMarkAsSold(listing.id);
-                              controller.agentListingsState.value =
-                                  AgentListingsState.loading;
+                              controller.agentListingsState.value = AgentListingsState.loading;
                               await controller.loadListing();
-                              controller.agentListingsState.value =
-                                  AgentListingsState.loaded;
+                              controller.agentListingsState.value = AgentListingsState.loaded;
                               Get.showSnackbar(GetSnackBar(
                                 title: "Success",
                                 message: "Listing has been mark as sold!",

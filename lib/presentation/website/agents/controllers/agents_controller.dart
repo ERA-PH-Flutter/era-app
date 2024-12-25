@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -42,6 +44,7 @@ class AgentsWebController extends GetxController with BaseController {
 
   @override
   void onInit() async {
+    image.value = ((await CloudStorage().getFileBytes(docRef: (await EraUser().getById(FirebaseAuth.instance.currentUser!.uid)).image ?? AppStrings.noUserImageWhite))!);
     try {
       var randomUser = (await FirebaseFirestore.instance
               .collection('users')
@@ -58,7 +61,7 @@ class AgentsWebController extends GetxController with BaseController {
     } catch (e) {
       agentState.value = AgentsStateWeb.error;
     }
-
+    agentState.value = AgentsStateWeb.loaded;
     super.onInit();
   }
 
@@ -120,7 +123,7 @@ class AgentsWebController extends GetxController with BaseController {
   }
 
   final picker = ImagePicker();
-  Rx<File?> image = Rx<File?>(null);
+  Rx<Uint8List?> image = Rx<Uint8List?>(null);
   final removeImage = false.obs;
 
   Future<void> getImageGallery() async {
@@ -128,15 +131,15 @@ class AgentsWebController extends GetxController with BaseController {
       final List<XFile>? imagePicks = await picker.pickMultiImage();
       if (imagePicks != null && imagePicks.isNotEmpty) {
         showLoading();
-        image.value = File(imagePicks[0].path);
+        image.value = await imagePicks[0].readAsBytes();
         try {
           var ref = await FirebaseStorage.instance
               .ref('users/images/${user!.id}.png')
               .delete();
-        } catch (e) {
-          print(e);
+        } catch (e,ex) {
+          print('settings error: $e');
         }
-        var im = await CloudStorage().upload(
+        var im = await CloudStorage().uploadFromMemory(
             file: image.value!,
             target: 'users/images',
             customName: '${user!.id}.png');
@@ -163,7 +166,7 @@ class AgentsWebController extends GetxController with BaseController {
           await picker.pickImage(source: ImageSource.camera);
 
       if (imagePick != null) {
-        image.value = File(imagePick.path);
+        image.value = await File(imagePick.path).readAsBytes();
         try {
           var ref = await FirebaseStorage.instance
               .ref('users/images/${user!.id}.png')
@@ -171,8 +174,12 @@ class AgentsWebController extends GetxController with BaseController {
         } catch (e) {
           print(e);
         }
-        await CloudStorage().deleteFileDirect(docRef: previousPicture);
-        var im = await CloudStorage().upload(
+        try{
+          await CloudStorage().deleteFileDirect(docRef: previousPicture);
+        }catch(e){
+          print("settings error: $e");
+        }
+        var im = await CloudStorage().uploadFromMemory(
             file: image.value!,
             target: 'users/images',
             customName: '${user!.id}.png');
@@ -182,9 +189,7 @@ class AgentsWebController extends GetxController with BaseController {
             description: "Change profile image success!",
             title: "Success",
             hitApi: () {
-              Get.back();
-              Get.back();
-              Get.back();
+              Get.offAndToNamed('/settings');
             });
       }
     } on PlatformException catch (e) {

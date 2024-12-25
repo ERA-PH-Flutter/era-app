@@ -76,10 +76,11 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
               Listing listing = controller.soldListings[index];
               return GestureDetector(
                 onTap: () async {
-                  a.selectedIndex.value = 10;
-                  Get.find<a.HomsController>().onNavbarItemSelected(10);
+                  // a.selectedIndex.value = 10;
+                  // Get.find<a.HomsController>().onNavbarItemSelected(10);
                   // await Database().addViews(listing.id);
                   // Get.toNamed('/propertyInfo', arguments: listing);
+                  Get.toNamed('/view-listing/${listing.id}');
                 },
                 child: Container(
                   margin: EdgeInsets.only(bottom: 16.h),

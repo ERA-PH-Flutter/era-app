@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/screens.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -21,6 +22,29 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
 
   @override
   Widget build(BuildContext context) {
+    return Obx(()=>switch(controller.agentState.value){
+      AgentsStateWeb.loaded => _loaded(),
+      AgentsStateWeb.loading => _loading(),
+      AgentsStateWeb.empty => _empty(),
+      AgentsStateWeb.error => _error(),
+      AgentsStateWeb.blank => _error(),
+      AgentsStateWeb.noFeaturedAgent => _empty()
+    });
+  }
+
+  _error(){
+    return Screens.error();
+  }
+
+  _empty(){
+    return Screens.empty();
+  }
+
+  _loading(){
+    return Screens.loading();
+  }
+
+  _loaded(){
     return Padding(
       padding: EdgeInsets.all(EraTheme.paddingWidthAdmin * 3),
       child: Column(
@@ -37,10 +61,7 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
               ),
               IconButton(
                   onPressed: () {
-                    // HomsController homsController = Get.find<HomsController>();
-                    // selectedIndex.value = 11;
-                    // homsController.onNavbarItemSelected(11);
-                                            Get.toNamed('/agent-dashboard');
+                    Get.toNamed('/agent-dashboard');
 
                   },
                   icon: Icon(
@@ -67,7 +88,7 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                   textField(
                     labelText: 'Full Name',
                     hintText:
-                        "${user!.firstname ?? ""} ${user!.lastname ?? ""}",
+                    "${user!.firstname ?? ""} ${user!.lastname ?? ""}",
                     isPasswordTextField: false,
                   ),
                   SizedBox(height: 20.h),
@@ -149,7 +170,7 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             image: controller.image.value != null
-                                ? FileImage(controller.image.value!)
+                                ? MemoryImage(controller.image.value!)
                                 : CachedNetworkImageProvider(snapshot.data!)
                                     as ImageProvider)));
               } else {
@@ -182,33 +203,33 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                         color: AppColors.blue,
                       ),
                       content: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          // SizedBox(
+                          //   width: 250.w,
+                          //   height: 40.h,
+                          //   child: ElevatedButton(
+                          //     onPressed: () {
+                          //       controller.getImagePic(controller.image);
+                          //     },
+                          //     style: ElevatedButton.styleFrom(
+                          //       shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.circular(10),
+                          //       ),
+                          //       backgroundColor: AppColors.blue,
+                          //     ),
+                          //     child: EraText(
+                          //       text: 'Take a Picture',
+                          //       fontSize: 15.sp,
+                          //       fontWeight: FontWeight.bold,
+                          //       color: AppColors.white,
+                          //     ),
+                          //   ),
+                          // ),
+                          // SizedBox(height: 5.h),
                           SizedBox(
-                            width: 250.w,
-                            height: 40.h,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                controller.getImagePic(controller.image);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                backgroundColor: AppColors.blue,
-                              ),
-                              child: EraText(
-                                text: 'Take a Picture',
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 5.h),
-                          SizedBox(
-                            width: 250.w,
+                            width: 300.w,
                             height: 40.h,
                             child: ElevatedButton(
                               onPressed: () {
