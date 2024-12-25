@@ -49,7 +49,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        Get.toNamed('/agent-dashboard');
+                                           Get.toNamed('/agent-dashboard');
 
                         // selectedIndex.value = 11;
                         // Get.find<HomsController>().onNavbarItemSelected(11);
@@ -112,7 +112,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                   children: [
                     AgentInfoWidget.agentInformation(
                       imageProvider:
-                      '${controller.user.image == null || controller.user.image == "" ? AppStrings.noUserImageWhite : controller.user.image}',
+                          '${controller.user.image == null || controller.user.image == "" ? AppStrings.noUserImageWhite : controller.user.image}',
                       firstName: '${controller.user!.firstname}',
                       lastName: '${controller.user!.lastname}',
                       whatsApp: '${controller.user!.whatsApp}',
@@ -140,10 +140,11 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
             itemCount: controller.listings.length,
             itemBuilder: (context, index) {
               Listing listing = controller.listings[index];
-              // print(listg)
               return GestureDetector(
                 onTap: () async {
-                  Get.toNamed('/view-listing/${listing.id}');
+                  listingArgument = listing;
+                  selectedIndex.value = 11;
+                  Get.find<HomsController>().onNavbarItemSelected(12);
                 },
                 child: Container(
                   margin: EdgeInsets.only(bottom: 16.h),

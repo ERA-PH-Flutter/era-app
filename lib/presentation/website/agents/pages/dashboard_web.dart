@@ -646,7 +646,20 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                   Row(
                     children: [
                       iconAgents(user.image ?? AppStrings.noUserImageWhite, () {
-                        Get.toNamed('/agent-listings/${user.id!}');
+                        // listingArgument = user.id!;
+                        // selectedIndex.value = 19;
+                        // HomsController homsController =
+                        //     Get.find<HomsController>();
+                        // homsController.onNavbarItemSelected(
+                        //   19,
+                        // );
+                        // Get.toNamed('/')
+                        // Get.to(AgentListingsWeb(),
+                        //     arguments: [user.id],
+                        //     binding: AgentDashboardWebBinding());
+                        //error
+                        // Get.toNamed('/agent-listings${user.id!}');
+                        Get.toNamed("/view-agent/${user.id!}");
                       }, "${user.firstname} ${user.lastname}"),
                       sbw10(),
                     ],
@@ -730,6 +743,15 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
+                        // Get.toNamed('/propertyInfo',
+                        //     arguments: controller.listings[index]);
+                        // HomsController homsController =
+                        //     Get.find<HomsController>();
+                        // homsController.onNavbarItemSelected(
+                        //   15,
+                        // );
+                        print("aa");
+                        // listingArgument = controller.listings[index];
                         Get.delete<ListingsWebController>();
                         Get.toNamed(
                             '/view-listing/${controller.listings[index].id}');

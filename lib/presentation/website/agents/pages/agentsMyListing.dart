@@ -18,6 +18,7 @@ import 'package:intl/intl.dart';
 import '../../../../app/constants/assets.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/services/firebase_database.dart';
+import '../../listings/controllers/listings_web_controller.dart';
 import '../controllers/agent_myListingWeb_controller.dart';
 
 class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
@@ -173,9 +174,8 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                     onTap: () async {
                       // await Database().addViews(listing.id);
                       // Get.toNamed('/propertyInfo', arguments: listing);
-                      listingArgument = listing;
-                      selectedIndex.value = 10;
-                      Get.find<HomsController>().onNavbarItemSelected(10);
+                      Get.delete<ListingsWebController>();
+                      Get.toNamed('/view-listing/${listing.id}');
                     },
                     child: Container(
                         margin: EdgeInsets.all(8.sp),
@@ -210,9 +210,10 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                             SizedBox(
                               height: 17.h,
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 14.w, right: 14.w, top: 10.h),
+                            Container(
+                              // width: Get.width,
+                              // height: 30.h,
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
                               child: EraText(
                                 text: listing.name?.isNotEmpty == true
                                     ? listing.name!
@@ -448,6 +449,11 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            IconButton(
+                onPressed: () {
+                  Get.toNamed('/agent-dashboard');
+                },
+                icon: Icon(Icons.arrow_back_ios)),
             EraText(
               text: "You dont have any listings!",
               color: Colors.black,

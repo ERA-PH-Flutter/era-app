@@ -313,22 +313,30 @@ class FavWeb extends GetView<FavWebController> {
   }
 
   _empty() {
-    return SizedBox(
-      height: Get.height - 300.h,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 50.h,
-            ),
-            EraText(
-              fontSize: EraTheme.paragraph,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Get.toNamed('/agent-dashboard');
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios_rounded,
+                    color: Colors.black,
+                    size: 20.sp,
+                  )),
+            ],
+          ),
+          Center(
+            child: EraText(
               text: "No Favorite Listings added!",
               color: Colors.black,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

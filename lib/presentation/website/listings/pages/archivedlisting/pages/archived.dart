@@ -36,11 +36,20 @@ class ArchivedWeb extends GetView<ArchivedWebController> {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.h),
-          child: EraText(
-              text: 'ARCHIVED LISTINGS',
-              fontSize: EraTheme.h2,
-              color: AppColors.blue,
-              fontWeight: FontWeight.w600),
+          child: Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Get.toNamed('/agent-dashboard');
+                  },
+                  icon: Icon(Icons.arrow_back_ios)),
+              EraText(
+                  text: 'ARCHIVED LISTINGS',
+                  fontSize: EraTheme.h2,
+                  color: AppColors.blue,
+                  fontWeight: FontWeight.w600),
+            ],
+          ),
         ),
         SizedBox(
           height: 10.h,
@@ -160,8 +169,7 @@ class ArchivedWeb extends GetView<ArchivedWebController> {
             children: [
               IconButton(
                   onPressed: () {
-                    selectedIndex.value = 11;
-                    Get.find<HomsController>().onNavbarItemSelected(11);
+                     Get.toNamed('/agent-dashboard');
                   },
                   icon: Icon(
                     Icons.arrow_back_ios_rounded,
