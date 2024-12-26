@@ -83,6 +83,8 @@ class HomeWeb extends GetView<HomeWebController> {
                               width: Get.width);
                         }).toList(),
                         options: CarouselOptions(
+                          scrollDirection: Axis.horizontal,
+                          //   scrollPhysics: PageScrollPhysics(),
                           autoPlayInterval: Duration(seconds: 7),
                           autoPlay: true,
                           viewportFraction: 1,

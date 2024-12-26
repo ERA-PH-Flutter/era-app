@@ -22,29 +22,29 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()=>switch(controller.agentState.value){
-      AgentsStateWeb.loaded => _loaded(),
-      AgentsStateWeb.loading => _loading(),
-      AgentsStateWeb.empty => _empty(),
-      AgentsStateWeb.error => _error(),
-      AgentsStateWeb.blank => _error(),
-      AgentsStateWeb.noFeaturedAgent => _empty()
-    });
+    return Obx(() => switch (controller.agentState.value) {
+          AgentsStateWeb.loaded => _loaded(),
+          AgentsStateWeb.loading => _loading(),
+          AgentsStateWeb.empty => _empty(),
+          AgentsStateWeb.error => _error(),
+          AgentsStateWeb.blank => _error(),
+          AgentsStateWeb.noFeaturedAgent => _empty()
+        });
   }
 
-  _error(){
+  _error() {
     return Screens.error();
   }
 
-  _empty(){
+  _empty() {
     return Screens.empty();
   }
 
-  _loading(){
+  _loading() {
     return Screens.loading();
   }
 
-  _loaded(){
+  _loaded() {
     return Padding(
       padding: EdgeInsets.all(EraTheme.paddingWidthAdmin * 3),
       child: Column(
@@ -62,7 +62,6 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
               IconButton(
                   onPressed: () {
                     Get.toNamed('/agent-dashboard');
-
                   },
                   icon: Icon(
                     CupertinoIcons.forward,
@@ -88,20 +87,17 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                   textField(
                     labelText: 'Full Name',
                     hintText:
-                    "${user!.firstname ?? ""} ${user!.lastname ?? ""}",
-                    isPasswordTextField: false,
+                        "${user!.firstname ?? ""} ${user!.lastname ?? ""}",
                   ),
                   SizedBox(height: 20.h),
                   textField(
                     labelText: 'Email',
                     hintText: user!.email ?? "",
-                    isPasswordTextField: false,
                   ),
                   SizedBox(height: 20.h),
                   textField(
                     labelText: 'Password',
-                    hintText: '***********',
-                    isPasswordTextField: true,
+                    hintText: '********',
                   ),
                 ],
               ),
@@ -292,14 +288,14 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
     ));
   }
 
-  Widget textField(
-      {required String hintText,
-      TextStyle? hintstlye,
-      double? fontSize,
-      Color? color,
-      String? text,
-      String? labelText,
-      bool? isPasswordTextField}) {
+  Widget textField({
+    required String hintText,
+    TextStyle? hintstlye,
+    double? fontSize,
+    Color? color,
+    String? text,
+    String? labelText,
+  }) {
     return Column(
       children: [
         // EraText(
@@ -314,15 +310,17 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
           enabled: false,
           enableInteractiveSelection: false,
           decoration: InputDecoration(
-            suffixIcon: isPasswordTextField != null && isPasswordTextField
-                ? IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.grey,
-                    ),
-                  )
-                : null,
+            // suffixIcon: isPasswordTextField != null && isPasswordTextField
+            //     ? IconButton(
+            //         onPressed: () {
+
+            //         },
+            //         icon: Icon(
+            //           Icons.remove_red_eye,
+            //           color: Colors.grey,
+            //         ),
+            //       )
+            //     : null,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: labelText,
             labelStyle:
@@ -342,7 +340,7 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
               borderSide: BorderSide(color: AppColors.blue),
             ),
           ),
-          obscureText: isPasswordTextField ?? false,
+          //obscureText: isPasswordTextField ?? false,
         ),
       ],
     );

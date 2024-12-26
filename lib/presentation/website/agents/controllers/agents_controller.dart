@@ -44,19 +44,24 @@ class AgentsWebController extends GetxController with BaseController {
 
   @override
   void onInit() async {
-    image.value = ((await CloudStorage().getFileBytes(docRef: (await EraUser().getById(FirebaseAuth.instance.currentUser!.uid)).image ?? AppStrings.noUserImageWhite))!);
+    image.value = ((await CloudStorage().getFileBytes(
+        docRef:
+            (await EraUser().getById(FirebaseAuth.instance.currentUser!.uid))
+                    .image ??
+                AppStrings.noUserImageWhite))!);
     try {
-      var randomUser = (await FirebaseFirestore.instance
+      var allUser = (await FirebaseFirestore.instance
               .collection('users')
               .where('status', isEqualTo: 'approved')
               .get())
           .docs;
-      randomUser.shuffle();
-      for (int i = 0;
-          i < (randomUser.length > 6 ? 6 : randomUser.length);
-          i++) {
-        results.add(EraUser.fromJSON(randomUser[i].data()));
-      }
+
+      // results.addAll(allUser.map((e) {
+      //   EraUser.fromJSON(e.data());
+      // }));
+
+      results.addAll(allUser.map((e) => EraUser.fromJSON(e.data())));
+
       agentState.value = AgentsStateWeb.loaded;
     } catch (e) {
       agentState.value = AgentsStateWeb.error;
@@ -136,7 +141,7 @@ class AgentsWebController extends GetxController with BaseController {
           var ref = await FirebaseStorage.instance
               .ref('users/images/${user!.id}.png')
               .delete();
-        } catch (e,ex) {
+        } catch (e, ex) {
           print('settings error: $e');
         }
         var im = await CloudStorage().uploadFromMemory(
@@ -174,9 +179,9 @@ class AgentsWebController extends GetxController with BaseController {
         } catch (e) {
           print(e);
         }
-        try{
+        try {
           await CloudStorage().deleteFileDirect(docRef: previousPicture);
-        }catch(e){
+        } catch (e) {
           print("settings error: $e");
         }
         var im = await CloudStorage().uploadFromMemory(

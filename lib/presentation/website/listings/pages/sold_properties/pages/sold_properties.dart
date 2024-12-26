@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../app/constants/screens.dart';
+import '../../../../../../app/constants/sized_box.dart';
 import '../../../controllers/listings_web_controller.dart';
 import '../controllers/sold_properties_controller.dart';
 
@@ -51,8 +52,7 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
                   onPressed: () {
                     // a.selectedIndex.value = 11;
                     // Get.find<a.HomsController>().onNavbarItemSelected(11);
-                                            Get.toNamed('/agent-dashboard');
-
+                    Get.toNamed('/agent-dashboard');
                   },
                   icon: Icon(Icons.arrow_back_ios)),
               EraText(
@@ -69,8 +69,9 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
           GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              crossAxisSpacing: 10.w,
-              mainAxisExtent: Get.height - 250.h,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              mainAxisExtent: Get.height,
             ),
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -97,7 +98,7 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Get.delete<ListingsWebController>();
                             Get.toNamed('/view-listing/${listing.id}');
                           },
@@ -271,38 +272,40 @@ class SoldPropertiesWeb extends GetView<SoldPropertiesWebController> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-
                             ],
                           ),
                         ),
                         SizedBox(
                           height: 15.h,
                         ),
-                        GestureDetector(
-                          // padding: EdgeInsets.zero,
-                          onTap: ()async{
-                            controller.soldState.value = SoldState.loading;
-                            listing.isSold = false;
-                            await listing.updateListing();
-                            await controller.loadSold();
-                            controller.soldState.value = SoldState.loaded;
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8.w, vertical: 4.h),
-                            color: AppColors.blue,
-                            child: EraText(
-                              text: 'CLICK TO UNSOLD',
-                              color: Colors.white,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
+                        Container(
+                          color: Colors.black,
+                          child: GestureDetector(
+                            // padding: EdgeInsets.zero,
+                            onTap: () async {
+                              print('clicked');
+                              controller.soldState.value = SoldState.loading;
+                              listing.isSold = false;
+                              await listing.updateListing();
+                              await controller.loadSold();
+                              controller.soldState.value = SoldState.loaded;
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8.w, vertical: 4.h),
+                              color: AppColors.blue,
+                              child: EraText(
+                                text: 'CLICK TO UNSOLD',
+                                color: Colors.white,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(
                           height: 15.h,
                         ),
-
                       ],
                     ),
                   ),

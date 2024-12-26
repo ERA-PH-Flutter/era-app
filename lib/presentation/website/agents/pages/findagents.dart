@@ -24,7 +24,7 @@ import '../../../../app/widgets/listings_web/agentlistview.dart';
 import '../../landingpage/controller/homs_controller.dart';
 import '../controllers/agentYT_controller.dart';
 
-  class FindAgentsWeb extends GetView<AgentsWebController> {
+class FindAgentsWeb extends GetView<AgentsWebController> {
   const FindAgentsWeb({super.key});
 
   @override
@@ -324,7 +324,7 @@ import '../controllers/agentYT_controller.dart';
   }
 
   _loaded() {
-    return Padding(
+    return Container(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         sb40(),
@@ -356,11 +356,13 @@ import '../controllers/agentYT_controller.dart';
           color: AppColors.hint,
           textAlign: TextAlign.start,
         ),
+
+        sb50(),
         // Obx(() => EraText(
 
         Obx(
-          () => AgentListViewWeb(agentInfo: controller.results.value),
-        )
+          () => AgentListViewWeb(agentInfo: controller.results.toList()),
+        ),
       ]),
     );
   }

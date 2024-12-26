@@ -889,6 +889,7 @@ class ProjectViewsWeb extends StatelessWidget {
                                 );
                               }).toList(),
                               options: CarouselOptions(
+                                scrollDirection: Axis.horizontal,
                                 enlargeCenterPage: true,
                                 enlargeStrategy:
                                     CenterPageEnlargeStrategy.height,
@@ -1887,7 +1888,7 @@ class ProjectViewsWeb extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),  
+                    ),
                   ClipRRect(
                     borderRadius:
                         BorderRadius.vertical(bottom: Radius.circular(15.sp)),
