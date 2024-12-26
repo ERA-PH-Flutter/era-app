@@ -172,7 +172,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                             currentRoute = '/home';
                                             selectedIndex.value = 0;
                                             pageViewController = PageController(initialPage: 0);
-                                            Get.offAndToNamed('/base');
+                                            Get.offAndToNamed('/home');
                                           }, currentRoute == '/home'),
                                           user != null
                                               ? _buildMenuCard('MY DASHBOARD', () {

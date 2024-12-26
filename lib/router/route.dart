@@ -77,7 +77,7 @@ appRoutes() => [
           page: () => const HarayaProject(),
           binding: ProjectsBinding()),
       GetPage(
-          name: '/base', page: () => BaseScaffold(), binding: HomeBinding()),
+          name: '/home', page: () => BaseScaffold(), binding: HomeBinding()),
       GetPage(
           name: RouteString.laya,
           page: () => const LayaProject(),
