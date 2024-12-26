@@ -25,9 +25,8 @@ class FavWebController extends GetxController with BaseController {
 
   @override
   void onInit() async {
-    var firebaseUser = FirebaseAuth.instance.currentUser;
-    if(user == null && firebaseUser != null){
-      user = await EraUser().getById(firebaseUser.uid);
+    await setUser();
+    if(user != null){
       if (user!.favorites!.isNotEmpty) {
         for (int i = 0; i < user!.favorites!.length; i++) {
           if (await Database().doDocumentExist(user!.favorites![i])) {

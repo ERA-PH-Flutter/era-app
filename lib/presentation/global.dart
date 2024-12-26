@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../app/models/settings.dart';
@@ -15,24 +16,14 @@ var subCategory = [
   "Factory",
   "Farm",
   "Hotel",
-  //"House and Lot",
   "House",
   "Lot",
   "Industrial Lot",
   "Office",
   "Parking Lot",
-  //"Residential",
   "Resort",
-  // "Townhouse",
-  //"Warehouse",
-  //"Penthouse",
   "Beach House",
-  // "Loft",
   "School",
-  //"Room",
-  //"Memorial",
-  /// "Coworking Space",
-  // "Studio",
 ];
 
 var propertyT = [
@@ -41,17 +32,6 @@ var propertyT = [
   'Commercial',
   'Rental',
   'Auction',
-  // "House and Lot",
-  // "Condominium",
-  // "Townhouse",
-  // "Commercial",
-  // "Industrial",
-  // "Agricultural",
-  // "Land",
-  // "Foreclosed",
-  // "Pre-selling",
-  // "Rent to Own",
-  // "Others",
 ];
 var newsArgument;
 var listingArgument;
@@ -59,3 +39,14 @@ var projectArgument;
 var agentArgument;
 var editListingArgument;
 var idArgument;
+
+setUser()async{
+  if(user == null && FirebaseAuth.instance.currentUser != null){
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    user = await EraUser().getById(firebaseUser!.uid);
+  }else if(user != null){
+    // return user;
+  }else{
+    throw Exception('Error user not login!');
+  }
+}

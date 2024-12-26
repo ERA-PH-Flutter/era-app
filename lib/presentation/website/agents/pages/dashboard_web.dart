@@ -419,7 +419,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.delete<FavWebController>();
+                  //Get.delete<FavWebController>();
                   Get.toNamed('/my-favorites');
                 },
                 child: Image.asset(

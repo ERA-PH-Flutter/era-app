@@ -23,6 +23,7 @@ import 'dart:html' as web;
 import '../../../../../../app/constants/theme.dart';
 import '../../../../../../app/widgets/fav/favItems_widgets.dart';
 import '../../../../../../app/widgets/listings/agentInfo-widget.dart';
+import '../../../../../../app/widgets/listings/listing_items_web.dart';
 import '../../../../../../app/widgets/sold_properties/custom_sort.dart';
 import '../../../../../../repository/listing.dart';
 import '../../../../../global.dart';
@@ -366,7 +367,7 @@ class FavWeb extends GetView<FavWebController> {
           ),
         ),
         SizedBox(
-          height: Get.height - 275.h,
+          // height: Get.height - 275.h,
           child: preview(),
         )
       ],
@@ -413,75 +414,82 @@ class FavWeb extends GetView<FavWebController> {
 
   Widget preview() {
     controller.screenshotControllers.clear();
-    return SizedBox(
-      height: Get.height - 400.h,
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          // crossAxisSpacing: 10.w
-        ),
-        controller: ScrollController(),
-        itemCount: controller.selectedItems.length,
-        shrinkWrap: true,
-        // scrollDirection: Axis.vertical,
-        itemBuilder: (context, index) {
-          Listing listing = controller.selectedListings[index];
-          var sc = ScreenshotController();
-          controller.screenshotControllers.add(sc);
-          return Screenshot(
-            controller: sc,
-            child: Column(
-              children: [
-                index == 0
-                    ? (Column(children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: EraTheme.paddingWidth),
-                          child: AgentInfoWidget.agentInformation(
-                            imageProvider: user!.image != null
-                                ? user!.image!
-                                : AppStrings.noUserImageWhite,
-                            firstName: '${user!.firstname}',
-                            lastName: '${user!.lastname}',
-                            whatsApp: '${user!.whatsApp}',
-                            email: '${user!.email}',
-                            role: '${user!.role}',
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                      ]))
-                    : Container(),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 7.5.h),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                  child: ListingItemss(
-                    image: listing.photos?.first,
-                    name: listing.name ?? "Test",
-                    type: listing.type!,
-                    areas: listing.floorArea!,
-                    beds: listing.beds ?? 0,
-                    baths: listing.baths ?? 0,
-                    cars: listing.cars ?? 0,
-                    price: listing.price ?? 0,
-                    description: listing.description ?? "No description added!",
-                    showListedby: false,
-                    isSold: listing.isSold ?? false,
-                    fromSold: false,
+    var sc = ScreenshotController();
+    controller.screenshotControllers.add(sc);
+    return Builder(
+      builder: (context){
+        List<Widget> widgets = [];
+        List<Widget> tempWidgets = [];
+        for(int i = 0;i<controller.selectedListings.length;i++){
+          Listing listing = controller.selectedListings[i];
+          tempWidgets.length >= 2 ? tempWidgets.clear() : null;
+          tempWidgets.add(
+              Column(
+                children: [
+                  i == 0
+                      ? (Column(children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: EraTheme.paddingWidth),
+                      child: AgentInfoWidget.agentInformation(
+                        imageProvider: user!.image != null
+                            ? user!.image!
+                            : AppStrings.noUserImageWhite,
+                        firstName: '${user!.firstname}',
+                        lastName: '${user!.lastname}',
+                        whatsApp: '${user!.whatsApp}',
+                        email: '${user!.email}',
+                        role: '${user!.role}',
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                  ]))
+                      : Container(),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 7.5.h),
+                    padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                    child: ListingItemsWeb(
+                      image: listing.photos?.first,
+                      name: listing.name ?? "Test",
+                      type: listing.type!,
+                      areas: listing.floorArea!,
+                      beds: listing.beds ?? 0,
+                      baths: listing.baths ?? 0,
+                      cars: listing.cars ?? 0,
+                      price: listing.price ?? 0,
+                      description: listing.description ?? "No description added!",
+                      showListedby: false,
+                      isSold: listing.isSold ?? false,
+                      fromSold: false,
+                    ),
                   ),
-                ),
-                // index != 0
-                //     ? SizedBox(
-                //         height: 130.h,
-                //       )
-                //     : Container()
-              ],
-            ),
+                  i > 1 && i + 1 % 2 == 0
+                      ? SizedBox(
+                    height: 230.h,
+                  )
+                      : Container()
+                ],
+              )
           );
-        },
-      ),
+          if((i + 1) % 2 == 0){
+            var sc = ScreenshotController();
+            controller.screenshotControllers.add(sc);
+            widgets.add(Screenshot(
+              controller: sc,
+              child: Column(
+                children: tempWidgets,
+              ),
+            ));
+
+          }
+
+        }
+        return Column(
+          children: widgets
+        );
+      },
     );
   }
 
