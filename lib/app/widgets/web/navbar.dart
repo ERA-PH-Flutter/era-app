@@ -133,9 +133,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                 Get.toNamed('/settings');
                 break;
               case 'logout':
-                Get.find<HomsController>();
-                controller.selectedOption(value);
-                Authentication().logout();
+                 Authentication().logout();
                 Get.deleteAll();
                 Get.toNamed('/home');
                 break;

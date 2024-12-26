@@ -14,8 +14,13 @@ class SoldPropertiesWebController extends GetxController {
   var soldListings = [].obs;
   @override
   void onInit() async {
+    await loadSold();
+    super.onInit();
+  }
+  loadSold()async{
+    soldListings.clear();
     List<Listing> listings =
-        await Database().searchListingsByUserId(FirebaseAuth.instance.currentUser!.uid);
+    await Database().searchListingsByUserId(FirebaseAuth.instance.currentUser!.uid);
     for (var listing in listings) {
       if (listing.isSold ?? false) {
         soldListings.add(listing);
@@ -26,6 +31,5 @@ class SoldPropertiesWebController extends GetxController {
     } else {
       soldState.value = SoldState.loaded;
     }
-    super.onInit();
   }
 }

@@ -15,7 +15,9 @@ import '../../../../app/constants/sized_box.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/listings/agentInfo-widget.dart';
 import '../../../global.dart';
+import '../../home/pages/home_web.dart';
 import '../../landingpage/controller/homs_controller.dart';
+import '../../listings/controllers/listings_web_controller.dart';
 import '../controllers/agent_myListingWeb_controller.dart';
 
 class AgentListingsWeb extends GetView<AgentListingsWebController> {
@@ -49,10 +51,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                 children: [
                   IconButton(
                       onPressed: () {
-                                           Get.toNamed('/agent-dashboard');
-
-                        // selectedIndex.value = 11;
-                        // Get.find<HomsController>().onNavbarItemSelected(11);
+                        Get.toNamed('/agent-dashboard');
                       },
                       icon: Icon(Icons.arrow_back_ios)),
                   sbw10(),
@@ -131,9 +130,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
           GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              crossAxisSpacing: 10.w,
-              mainAxisSpacing: 10.h,
-              childAspectRatio: 0.7,
+              mainAxisExtent: Get.height - 180.h,
             ),
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -142,28 +139,30 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
               Listing listing = controller.listings[index];
               return GestureDetector(
                 onTap: () async {
-                  listingArgument = listing;
-                  selectedIndex.value = 11;
-                  Get.find<HomsController>().onNavbarItemSelected(12);
+                  Get.delete<ListingsWebController>();
+                  Get.toNamed('/view-listing/${listing.id}');
                 },
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 16.h),
-                  padding: EdgeInsets.zero,
+                  margin: EdgeInsets.all(8.sp),
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.r),
-                      boxShadow: const [
-                        BoxShadow(
-                            offset: Offset(0, 0),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                            color: Colors.black12)
-                      ]),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(10.r),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
                         child: CloudStorage().imageLoader(
                           reference: listing.photos != null
                               ? (listing.photos!.isNotEmpty
@@ -171,91 +170,89 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                                   : AppStrings.noUserImageWhite)
                               : AppStrings.noUserImageWhite,
                           width: Get.width,
-                          height: 300.h,
+                          height: 340.h,
+                          fit: BoxFit.cover,
                         ),
                       ),
                       SizedBox(
                         height: 17.h,
                       ),
-                      Container(
-                        width: Get.width,
-                        height: 30.h,
+                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: 14.w),
                         child: EraText(
-                          textOverflow: TextOverflow.ellipsis,
-                          text: listing.name! == "" ? "No Name" : listing.name!,
-                          fontSize: EraTheme.header - 5.sp,
+                          text: listing.name?.isNotEmpty == true
+                              ? listing.name!
+                              : "No Name",
+                          fontSize: EraTheme.h3,
                           color: AppColors.kRedColor,
                           fontWeight: FontWeight.bold,
+                          textOverflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 14.w),
                         child: EraText(
                           text: listing.type!,
-                          fontSize: EraTheme.header - 12.sp,
+                          fontSize: EraTheme.h5,
                           color: AppColors.black,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           lineHeight: 1,
                         ),
                       ),
                       SizedBox(
                         height: 5.h,
                       ),
+                      SizedBox(height: 8.h),
                       Row(
                         //crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                AppEraAssets.area,
-                                width: 55.w,
-                                height: 55.w,
-                              ),
-                              SizedBox(width: 2.w),
-                              EraText(
-                                text: '${listing.floorArea} sqm',
-                                fontSize: EraTheme.paragraph - 1.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.black,
-                              ),
-                            ],
+                          // Row(
+                          //   children: [
+                          //     Image.asset(
+                          //       AppEraAssets.area,
+                          //       width: 55.w,
+                          //       height: 55.w,
+                          //     ),
+                          //     SizedBox(width: 2.w),
+                          //     EraText(
+                          //       text: '${listing.floorArea} sqm',
+                          //       fontSize: EraTheme.paragraph - 1.sp,
+                          //       fontWeight: FontWeight.w500,
+                          //       color: AppColors.black,
+                          //     ),
+                          //   ],
+                          // ),
+                          // SizedBox(width: 10.w),
+                          // Image.asset(
+                          //   AppEraAssets.bed,
+                          //   width: 55.w,
+                          //   height: 55.w,
+                          // ),
+                          // EraText(
+                          //   text: '${listing.beds}',
+                          //   fontSize: EraTheme.paragraph - 1.sp,
+                          //   fontWeight: FontWeight.w500,
+                          //   color: AppColors.black,
+                          // ),
+                          HomeWeb.buildFeatureIcon(
+                            icon: AppEraAssets.area,
+                            label: '${listing.floorArea} sqm',
                           ),
-                          SizedBox(width: 10.w),
-                          Image.asset(
-                            AppEraAssets.bed,
-                            width: 55.w,
-                            height: 55.w,
+                          SizedBox(width: 2.w),
+                          HomeWeb.buildFeatureIcon(
+                            icon: AppEraAssets.bed,
+                            label: '${listing.beds}',
                           ),
-                          EraText(
-                            text: '${listing.beds}',
-                            fontSize: EraTheme.paragraph - 1.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.black,
+                          SizedBox(width: 2.w),
+                          HomeWeb.buildFeatureIcon(
+                            icon: AppEraAssets.tub,
+                            label: '${listing.baths}',
                           ),
-                          SizedBox(width: 10.w),
-                          Image.asset(
-                            AppEraAssets.tub,
-                            width: 55.w,
-                            height: 55.w,
-                          ),
-                          EraText(
-                            text: '${listing.baths}',
-                            fontSize: EraTheme.paragraph - 1.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.black,
-                          ),
-                          SizedBox(width: 10.w),
-                          Image.asset(
-                            AppEraAssets.car,
-                            width: 55.w,
-                            height: 55.w,
-                          ),
-                          EraText(
-                            text: '${listing.cars}',
-                            fontSize: EraTheme.paragraph - 1.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.black,
+                          SizedBox(width: 2.w),
+                          HomeWeb.buildFeatureIcon(
+                            icon: AppEraAssets.car,
+                            label: '${listing.cars}',
                           ),
                         ],
                       ),
@@ -266,7 +263,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                         padding: EdgeInsets.symmetric(horizontal: 14.w),
                         child: EraText(
                           text: 'Description:',
-                          fontSize: EraTheme.header - 8.sp,
+                          fontSize: EraTheme.h6,
                           color: AppColors.black,
                           fontWeight: FontWeight.w600,
                           lineHeight: 1,
@@ -277,17 +274,14 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 14.w),
-                        child: Text(
-                          listing.description == ""
+                        child: EraText(
+                          text: listing.description == ""
                               ? "No description."
                               : listing.description!,
-                          style: TextStyle(
-                            fontSize: EraTheme.paragraph - 4.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.black,
-                          ),
-                          maxLines: 5,
-                          overflow: TextOverflow.ellipsis,
+                          fontSize: EraTheme.caption,
+                          color: AppColors.black,
+                          maxLines: 3,
+                          textOverflow: TextOverflow.ellipsis,
                         ),
                       ),
                       SizedBox(
@@ -306,9 +300,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
+                      sb20(),
                     ],
                   ),
                 ),
@@ -343,6 +335,11 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            IconButton(
+                onPressed: () {
+                  Get.toNamed('/agent-dashboard');
+                },
+                icon: Icon(Icons.arrow_back_ios)),
             SizedBox(
               height: Get.height - 225.h,
               child: Center(
