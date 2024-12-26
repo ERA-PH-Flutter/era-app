@@ -1,4 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:pdf/pdf.dart';
+import 'package:flutter/src/widgets/image.dart' as image;
+import 'package:pdf/widgets.dart' as pw;
 import 'dart:math';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
@@ -15,7 +19,7 @@ import 'package:image_to_pdf_converter/image_to_pdf_converter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import '../../../../../../app/constants/screens.dart';
-
+import 'dart:html' as web;
 import '../../../../../../app/constants/theme.dart';
 import '../../../../../../app/widgets/fav/favItems_widgets.dart';
 import '../../../../../../app/widgets/listings/agentInfo-widget.dart';
@@ -356,19 +360,7 @@ class FavWeb extends GetView<FavWebController> {
                 GestureDetector(
                   onTap: () async {
                     controller.showLoading();
-                    if (Platform.isAndroid) {
-                      var androidInfo = await DeviceInfoPlugin().androidInfo;
-                      var version = androidInfo.version.release.toInt();
-                      if (version < 13) {
-                        if (await Permission.storage.request().isGranted) {
-                          downloadPDF();
-                        }
-                      } else {
-                        if (await Permission.photos.request().isGranted) {
-                          downloadPDF();
-                        }
-                      }
-                    }
+                    downloadPDF();
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -412,41 +404,40 @@ class FavWeb extends GetView<FavWebController> {
   }
 
   downloadPDF() async {
-    final tempDir = await getTemporaryDirectory();
+    // final tempDir = await getTemporaryDirectory();
     List<File?> listOfFiles = [];
+    final pdf = pw.Document();
     print(controller.screenshotControllers.length);
     for (var sc in controller.screenshotControllers) {
       var a = await sc.capture();
       if (a != null) {
-        var file = await File(
-                "${tempDir.path}/${DateTime.now().microsecondsSinceEpoch}.png")
-            .writeAsBytes(a);
-        listOfFiles.add(file);
+        pdf.addPage(
+          pw.Page(
+            build: (pw.Context context) {
+              return pw.Image(pw.MemoryImage(a));
+            }
+          )
+        );
       }
-      //print(listOfFiles);
     }
-    File a = await ImageToPdf.imageList(listOfFiles: listOfFiles);
-    var pdfFileName =
-        '${user!.firstname}_${user!.lastname}_${DateTime.now().microsecondsSinceEpoch}_listing.pdf';
-    var downloadsFolder = Directory('/storage/emulated/0/Download');
+    // File a = await ImageToPdf.;
+    var pdfFileName = '${user!.firstname}_${user!.lastname}_${DateTime.now().microsecondsSinceEpoch}_listing.pdf';
+    // var downloadsFolder = Directory('/storage/emulated/0/Download');
 
-    File pdfFile =
-        await (await File('${downloadsFolder.path}/$pdfFileName').create())
-            .writeAsBytes(await a.readAsBytes());
-    //launchUrl(pdfFile.path); todo missy
+    // File pdfFile =
+    //     await (await File('${downloadsFolder.path}/$pdfFileName').create())
+    //         .writeAsBytes(await a.readAsBytes());
+    //launchUrl(pdfFile.path);
+    var savedFile = await pdf.save();
+    List<int> fileInts = List.from(savedFile);
+    web.AnchorElement()
+      ..href = "data:application/octet-stream;charset=utf-16le;base64,${base64.encode(fileInts)}"
+      ..setAttribute("download", pdfFileName)
+      ..click();
     controller.showSuccessDialog(
         title: "Success",
         description: "PDF has been downloaded",
         hitApi: () {
-          AwesomeNotifications().createNotification(
-              content: NotificationContent(
-            id: Random().nextInt(1000),
-            channelKey: 'download_channel',
-            actionType: ActionType.Default,
-            title: 'File Downloaded',
-            body:
-                'Pdf file has been downloaded, look for $pdfFileName at the download folder!',
-          ));
           Get.back();
           Get.back();
         });
@@ -456,7 +447,12 @@ class FavWeb extends GetView<FavWebController> {
     controller.screenshotControllers.clear();
     return SizedBox(
       height: Get.height - 400.h,
-      child: ListView.builder(
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1,
+          // crossAxisSpacing: 10.w
+        ),
+        controller: ScrollController(),
         itemCount: controller.selectedItems.length,
         shrinkWrap: true,
         // scrollDirection: Axis.vertical,
@@ -508,11 +504,11 @@ class FavWeb extends GetView<FavWebController> {
                     fromSold: false,
                   ),
                 ),
-                index != 0
-                    ? SizedBox(
-                        height: 130.h,
-                      )
-                    : Container()
+                // index != 0
+                //     ? SizedBox(
+                //         height: 130.h,
+                //       )
+                //     : Container()
               ],
             ),
           );

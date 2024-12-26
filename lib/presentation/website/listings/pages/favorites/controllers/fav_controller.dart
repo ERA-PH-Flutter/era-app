@@ -1,4 +1,6 @@
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/repository/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -11,6 +13,7 @@ enum FavState { loading, loaded, error, empty, preview }
 class FavWebController extends GetxController with BaseController {
   var favoritesList = [].obs;
   List<ScreenshotController> screenshotControllers = [];
+  var screenshotController = ScreenshotController();
   var selectedItems = <int>[].obs;
   var selectedCount = 0.obs;
   var selectedListings = [].obs;
@@ -22,7 +25,9 @@ class FavWebController extends GetxController with BaseController {
 
   @override
   void onInit() async {
-    if (user != null) {
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    if(user == null && firebaseUser != null){
+      user = await EraUser().getById(firebaseUser.uid);
       if (user!.favorites!.isNotEmpty) {
         for (int i = 0; i < user!.favorites!.length; i++) {
           if (await Database().doDocumentExist(user!.favorites![i])) {
