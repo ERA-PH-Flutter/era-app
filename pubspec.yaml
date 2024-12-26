@@ -43,6 +43,7 @@ dependencies:
   speech_to_text: ^7.0.0
   reorderables: ^0.6.0
   interactive_viewer_2: ^0.0.10
+  pdf: ^3.11.1
 
   #firebase
   firebase_core: ^3.2.0

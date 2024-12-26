@@ -153,3 +153,4 @@ windows/flutter/generated_plugins.cmake
 /functions/lib/node_modules
 /functions/node_modules
 /functions/
+/public/
