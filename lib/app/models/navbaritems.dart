@@ -33,7 +33,7 @@ List<AppPngAssets> navBarItems = [
       selectedIcon: AppEraAssets.project1,
       label: "PROJECTS",
       selectedLabel: "PROJECTS",
-      onTap: () => Get.offAllNamed("/project-main")),
+      onTap: () => Get.offAllNamed("/projects")),
   AppPngAssets(
       defaultIcon: AppEraAssets.search,
       selectedIcon: AppEraAssets.search1,

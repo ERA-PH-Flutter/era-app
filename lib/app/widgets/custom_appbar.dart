@@ -190,13 +190,13 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                                             selectedIndex.value = 1;
                                             pageViewController =
                                                 PageController(initialPage: 1);
-                                            currentRoute = '/project-main';
+                                            currentRoute = '/projects';
                                             Get.off(BaseScaffold(),
                                                 binding: HomeBinding());
                                           },
-                                              currentRoute == '/project-main' ||
+                                              currentRoute == '/projects' ||
                                                   Get.currentRoute ==
-                                                      '/project-main'),
+                                                      '/projects'),
                                           _buildMenuCard('FIND AGENTS', () {
                                             selectedIndex.value = 3;
                                             pageViewController =

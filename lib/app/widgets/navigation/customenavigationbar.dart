@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -28,8 +29,10 @@ import '../app_text.dart';
 var selectedIndex = 0.obs;
 
 class BaseScaffold extends StatefulWidget {
+  final String? page;
   const BaseScaffold({
     super.key,
+    this.page
   });
 
   @override
@@ -37,11 +40,38 @@ class BaseScaffold extends StatefulWidget {
 }
 
 class _BaseScaffoldState extends State<BaseScaffold> {
+  Timer? _timer;
   @override
   void initState() {
-
+    _timer = Timer.periodic(Duration(milliseconds: 500), (tick){
+      if(pageViewController.hasClients){
+        if(widget.page != null){
+          switch(widget.page){
+            case 'projects':
+              currentRoute = "/projects";
+              selectedIndex.value = 1;
+              pageViewController.animateToPage(1, duration: Duration(seconds: 1), curve: Curves.easeInOut,);
+            case 'search':
+              currentRoute = "/search";
+              selectedIndex.value = 2;
+              pageViewController.animateToPage(2, duration: Duration(seconds: 1), curve: Curves.easeInOut,);
+            case 'find-agents':
+              currentRoute = "/findAgents";
+              selectedIndex.value = 3;
+              pageViewController.animateToPage(3, duration: Duration(seconds: 1), curve: Curves.easeInOut,);
+            default:
+              currentRoute = "/help";
+              selectedIndex.value = 4;
+              pageViewController.animateToPage(4, duration: Duration(seconds: 1), curve: Curves.easeInOut,);
+          }
+        }
+        _timer?.cancel();
+      }
+    });
     super.initState();
   }
+
+  @override
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ class RouteString {
   static String laya = "/laya";
   static String aurelia = "/aurelia";
 
-  static String projectmain = "/project-main";
+  static String projectmain = "/projects";
 
   static String contactus = "/contactus";
   static String aboutus = "/aboutus";

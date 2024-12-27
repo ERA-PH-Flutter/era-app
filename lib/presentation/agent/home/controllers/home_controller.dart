@@ -214,7 +214,7 @@ class HomeController extends GetxController {
         Get.toNamed('/home');
         break;
       case 1:
-        Get.toNamed('/project-main');
+        Get.toNamed('/projects');
         break;
       case 2:
         Get.toNamed('/searchresult');

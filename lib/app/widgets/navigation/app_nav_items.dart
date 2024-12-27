@@ -48,7 +48,7 @@ class AppNavItems extends StatelessWidget {
                   Get.offAll(BaseScaffold(), binding: HomeBinding());
                 } else if (index == 2) {
                   selectedIndex.value = 1;
-                  currentRoute = '/project-main';
+                  currentRoute = '/projects';
                   pageViewController = PageController(initialPage: 1);
                   Get.offAll(BaseScaffold(), binding: ProjectsBinding());
                 } else if (index == 3) {

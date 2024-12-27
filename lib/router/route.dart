@@ -62,10 +62,10 @@ appRoutes() => [
           name: RouteString.addListings,
           page: () => const AddListings(),
           binding: AddListingsBinding()),
-      GetPage(
-          name: RouteString.home,
-          page: () => const Home(),
-          binding: HomeBinding()),
+      // GetPage(
+      //     name: RouteString.home,
+      //     page: () => const Home(),
+      //     binding: HomeBinding()),
       GetPage(
           name: RouteString.loginpage,
           page: () => const LoginPage(),
@@ -87,17 +87,15 @@ appRoutes() => [
           name: RouteString.aurelia,
           page: () => const AureliaProject(),
           binding: ProjectsBinding()),
-
-      GetPage(
-        name: RouteString.projectmain,
-        page: () => const ProjectMain(),
-        binding: ProjectsBinding(),
-      ),
-      // GetPage(
-      //     name: RouteString.contactus,
-      //     page: () => const ContactUs(),
-      //     binding: ContactUsBinding()),
-      GetPage(
+  GetPage(
+      name: '/projects', page: () => BaseScaffold(page: 'projects'), binding: HomeBinding()),
+  GetPage(
+      name: '/search', page: () => BaseScaffold(page: 'search'), binding: HomeBinding()),
+  GetPage(
+      name: '/find-agents', page: () => BaseScaffold(page: 'findAgents'), binding: HomeBinding()),
+  GetPage(
+      name: '/help', page: () => BaseScaffold(page: 'help'), binding: HomeBinding()),
+  GetPage(
           name: RouteString.aboutus,
           page: () => const AboutUs(),
           binding: ContactUsBinding()),

@@ -81,15 +81,17 @@ class SplashController extends GetxController {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
     var shortestSide = MediaQuery.of(Get.context!).size.shortestSide;
-    currentRoute = '/home';
-    kIsWeb && user != null
-        ? Get.offAndToNamed('/home') //Get.toNamed(RouteString.landingPage)
-        : kIsWeb
-            ? Get.offAndToNamed(
-                '/home') //Get.toNamed(RouteString.adminLogin) //admingLogin
-            : shortestSide < 600
-                ? Get.offAndToNamed('/home')
-                : Get.offAndToNamed('/home');
+    if(Get.currentRoute == "/" || Get.currentRoute == "/home"){
+      currentRoute = '/home';
+      kIsWeb && user != null
+          ? Get.offAndToNamed('/home') //Get.toNamed(RouteString.landingPage)
+          : kIsWeb
+          ? Get.offAndToNamed(
+          '/home') //Get.toNamed(RouteString.adminLogin) //admingLogin
+          : shortestSide < 600
+          ? Get.offAndToNamed('/home')
+          : Get.offAndToNamed('/home');
+    }
   }
 
   loadLocalImage() async {
