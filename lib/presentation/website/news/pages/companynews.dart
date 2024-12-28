@@ -61,14 +61,15 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
               itemCount: controller.news.length,
               itemBuilder: (context, i) => GestureDetector(
                 onTap: () {
-                  HomsController homsController = Get.find<HomsController>();
-                  selectedIndex.value = 9;
-                  homsController.onNavbarItemSelected(9);
-                  newsArgument = {
-                    "title": controller.news[i].title,
-                    "image": controller.news[i].image,
-                    "description": controller.news[i].description
-                  };
+                  // HomsController homsController = Get.find<HomsController>();
+                  // selectedIndex.value = 9;
+                  // homsController.onNavbarItemSelected(9);
+                  // newsArgument = {
+                  //   "title": controller.news[i].title,
+                  //   "image": controller.news[i].image,
+                  //   "description": controller.news[i].description
+                  // };
+                  Get.toNamed('/view-news/${controller.news[i].id}');
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 50.h),
