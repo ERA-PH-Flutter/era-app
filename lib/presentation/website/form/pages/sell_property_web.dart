@@ -91,60 +91,6 @@ class SellPropertyWeb extends GetView<FormWebController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            EraText(
-                              text: 'Are you looking to sell your property?',
-                              color: AppColors.hint,
-                              fontSize: EraTheme.text15 + 3.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            sb10(),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 20,
-                                  child: Obx(() => Checkbox(
-                                        value: controller.isCheckedYes.value,
-                                        onChanged: (value) {
-                                          controller.isCheckedYes.value =
-                                              !controller.isCheckedYes.value;
-                                        },
-                                      )),
-                                ),
-                                sbw10(),
-                                Expanded(
-                                  child: EraText(
-                                    text: 'YES',
-                                    color: AppColors.hint,
-                                    fontSize: EraTheme.text15 + 3.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 20,
-                                  child: Obx(() => Checkbox(
-                                        value: controller.isCheckedNotNow.value,
-                                        onChanged: (value) {
-                                          controller.isCheckedNotNow.value =
-                                              !controller.isCheckedNotNow.value;
-                                        },
-                                      )),
-                                ),
-                                sbw10(),
-                                Expanded(
-                                  child: EraText(
-                                    text: 'NOT NOW',
-                                    color: AppColors.hint,
-                                    fontSize: EraTheme.text15,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            sb20(),
                             Column(
                               children: [
                                 SharedWidgets.textFormfield(

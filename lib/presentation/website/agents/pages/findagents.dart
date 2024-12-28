@@ -29,8 +29,6 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
 
   @override
   Widget build(BuildContext context) {
-    agentYtController ytController = Get.put(agentYtController());
-    Get.put(AgentsWebController());
     SearchResultController searchResultController =
         Get.put(SearchResultController());
     ProjectsWebController projectsController = Get.put(ProjectsWebController());
@@ -104,16 +102,17 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                       child: Column(
                         children: [
                           SizedBox(height: 15.h),
-
-                          SizedBox(
-                            height: 60.h,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              child: Obx(() {
-                                if (!searchResultController
-                                    .showFullSearch.value) {
-                                  return AppTextField(
+                          if (!searchResultController.showFullSearch.value)
+                            SizedBox(
+                              height: 60.h,
+                              child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.w),
+                                  child: AppTextField(
                                       onPressed: () {},
+                                      onChange: (value) {
+                                        controller.aiObs.value = value;
+                                      },
                                       controller: searchResultController
                                           .aiSearchController,
                                       hint: 'Use AI Search',
@@ -126,12 +125,8 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                             searchResultController
                                                 .aiSearchController.text);
                                       },
-                                      suffixIcons: AppEraAssets.send);
-                                }
-                                return Container();
-                              }),
+                                      suffixIcons: AppEraAssets.send)),
                             ),
-                          ),
 
                           SizedBox(height: 10.h),
                           GestureDetector(
@@ -183,6 +178,10 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                         Container(
                                           height: 60.h,
                                           child: TextFormField(
+                                            onChanged: (value) {
+                                              controller.agentNameObs.value =
+                                                  value ;
+                                            },
                                             decoration: InputDecoration(
                                               filled: true,
                                               fillColor: AppColors.white,
@@ -215,12 +214,6 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                                 ),
                                               ),
                                             ),
-
-                                            // contentPadding:
-                                            //     EdgeInsets.symmetric(
-                                            //         horizontal: EraTheme
-                                            //             .paddingWidth),
-
                                             controller: controller.agentName,
                                           ),
                                         ),
@@ -228,9 +221,54 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                       ],
                                     ),
                                     SizedBox(height: 20.h),
-                                    SearchWidget(onTap: () {
-                                      controller.search();
-                                    }),
+
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                            flex: 4,
+                                            child: Obx(() {
+                                              if (Get.find<
+                                                          AgentsWebController>()
+                                                      .agentState
+                                                      .value ==
+                                                  AgentsStateWeb.loading) {
+                                                return Screens.loadingTwo();
+                                              }
+                                              return SearchWidget(onTap: () {
+                                                controller.search();
+                                              });
+                                            })),
+                                        Obx(
+                                          () {
+                                            if (controller.selectedLocation
+                                                        .value !=
+                                                    null ||
+                                                controller.agentNameObs.value !=
+                                                    "" ||
+                                                controller.aiObs.value != "") {
+                                              return Expanded(
+                                                  flex: 1,
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      controller
+                                                          .selectedLocation
+                                                          .value = null;
+                                                      controller.agentName
+                                                          .clear();
+                                                      searchResultController
+                                                          .aiSearchController
+                                                          .clear();
+
+                                                     },
+                                                    icon: Icon(Icons.clear),
+                                                    color: AppColors.white,
+                                                  ));
+                                            }
+                                            return Container();
+                                          },
+                                        )
+                                      ],
+                                    ),
                                     // SearchWidget.build(),
                                     SizedBox(height: 20.h),
                                   ],

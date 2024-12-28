@@ -29,6 +29,8 @@ class AgentsWebController extends GetxController with BaseController {
   var results = [].obs;
   var agentCount = [].obs;
   var selectedLocation = RxnString();
+  var agentNameObs = "".obs;
+  var aiObs = "".obs;
   TextEditingController agentId = TextEditingController();
   TextEditingController agentLocation = TextEditingController();
   TextEditingController agentName = TextEditingController();
@@ -50,19 +52,25 @@ class AgentsWebController extends GetxController with BaseController {
                     .image ??
                 AppStrings.noUserImageWhite))!);
     try {
+      // var allUser = (await FirebaseFirestore.instance
+      //         .collection('users')
+      //         .where('status', isEqualTo: 'approved')
+      //         .get())
+      //     .docs;
+
+      // results.addAll(allUser.map((e) => EraUser.fromJSON(e.data())));
+
+      //agentState.value = AgentsStateWeb.loaded;
+
       var allUser = (await FirebaseFirestore.instance
               .collection('users')
               .where('status', isEqualTo: 'approved')
               .get())
           .docs;
 
-      // results.addAll(allUser.map((e) {
-      //   EraUser.fromJSON(e.data());
-      // }));
-
       results.addAll(allUser.map((e) => EraUser.fromJSON(e.data())));
-
-      agentState.value = AgentsStateWeb.loaded;
+      agentState.value =
+          results.isNotEmpty ? AgentsStateWeb.loaded : AgentsStateWeb.empty;
     } catch (e) {
       agentState.value = AgentsStateWeb.error;
     }
@@ -95,9 +103,9 @@ class AgentsWebController extends GetxController with BaseController {
     resultText.value = "SEARCH RESULTS";
     agentState.value = AgentsStateWeb.loading;
     showLoading();
-    if (agentName.text != "") {
+    if (agentName.value != "") {
       results.value = (await Database().searchUser(
-              searchParam: 'full_name', searchQuery: agentName.text)) ??
+              searchParam: 'full_name', searchQuery: agentName.value)) ??
           [];
       hideLoading();
     } else if (agentId.text != "") {
