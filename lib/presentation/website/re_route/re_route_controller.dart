@@ -24,7 +24,11 @@ class ReRouteController extends GetxController {
   final Uri instagram = Uri.parse('https://www.instagram.com/era_philippines/');
 
   ReRouteController() {
-    scrollController.addListener(_scrollListener);
+    try{
+      scrollController.addListener(_scrollListener);
+    }catch(e){
+      reRouteState.value = ReRouteState.error;
+    }
   }
 
   void _scrollListener() {
