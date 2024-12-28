@@ -55,73 +55,86 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
           sb50(),
           Container(
             width: Get.width,
-            child: ListView.builder(
+            child: ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
+              separatorBuilder: (context, index) => sb40(),
               itemCount: controller.news.length,
-              itemBuilder: (context, i) => GestureDetector(
-                onTap: () {
-                  // HomsController homsController = Get.find<HomsController>();
-                  // selectedIndex.value = 9;
-                  // homsController.onNavbarItemSelected(9);
-                  // newsArgument = {
-                  //   "title": controller.news[i].title,
-                  //   "image": controller.news[i].image,
-                  //   "description": controller.news[i].description
-                  // };
-                  Get.toNamed('/view-news/${controller.news[i].id}');
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 50.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            EraText(
-                              text: controller.news[i].title.toUpperCase(),
-                              fontSize: EraTheme.h3,
-                              color: AppColors.kRedColor,
-                              fontWeight: FontWeight.bold,
-                              textOverflow: TextOverflow.ellipsis,
-                              maxLines: 3,
-                            ),
-                            sb10(),
-                            EraText(
-                              text: controller.news[i].description,
-                              fontSize: EraTheme.h6,
-                              color: AppColors.black,
-                              fontWeight: FontWeight.w500,
-                              maxLines: 5,
-                            ),
-                            sb50(),
-                          ],
+              itemBuilder: (context, i) => Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: Offset(0, 2))
+                    ]),
+                child: GestureDetector(
+                  onTap: () {
+                    // HomsController homsController = Get.find<HomsController>();
+                    // selectedIndex.value = 9;
+                    // homsController.onNavbarItemSelected(9);
+                    // newsArgument = {
+                    //   "title": controller.news[i].title,
+                    //   "image": controller.news[i].image,
+                    //   "description": controller.news[i].description
+                    // };
+                    Get.toNamed('/view-news/${controller.news[i].id}');
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              EraText(
+                                text: controller.news[i].title.toUpperCase(),
+                                fontSize: EraTheme.h3,
+                                color: AppColors.kRedColor,
+                                fontWeight: FontWeight.bold,
+                                textOverflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                              ),
+                              sb10(),
+                              EraText(
+                                text: controller.news[i].description,
+                                fontSize: EraTheme.h6,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w500,
+                                maxLines: 5,
+                              ),
+                              sb50(),
+                            ],
+                          ),
                         ),
-                      ),
-                      sbw50(),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          children: [
-                            Container(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: CloudStorage().imageLoader(
-                                  reference: controller.news[i].image,
-                                  height: 350.h,
-                                  width: Get.width,
-                                  fit: BoxFit.cover,
+                        sbw50(),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Container(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: CloudStorage().imageLoader(
+                                    reference: controller.news[i].image,
+                                    height: 350.h,
+                                    width: Get.width,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -45,10 +45,12 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
   }
 
   _loaded() {
-    return Padding(
-      padding: EdgeInsets.all(EraTheme.paddingWidthAdmin * 3),
+    return Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: EraTheme.paddingWidthAdmin * 3, vertical: 50.h  ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -11,101 +11,206 @@ import '../../../presentation/website/form/pages/about_us_web.dart';
 import '../../../presentation/website/landingpage/controller/homs_controller.dart';
 import '../../../presentation/website/news/controllers/news_controller.dart';
 import '../../constants/screens.dart';
-import 'navbar.dart';
 
 class CompanyNewsPageWeb extends GetView<NewsWebController> {
   CompanyNewsPageWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Obx(()=>switch(controller.newsState.value){
-        NewsState.loading => _loading(),
-        NewsState.loaded => _loaded(),
-      }),
-    );
+    return Obx(() => switch (controller.newsState.value) {
+          NewsState.loading => _loading(),
+          NewsState.loaded => _loaded(),
+        });
   }
 
-  _loading(){
+  _loading() {
     return Screens.loading();
   }
 
-  _loaded(){
+  _loaded() {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: EraTheme.paddingWidthAdmin * 3),
+          padding:
+              EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               sb40(),
-
               EraText(
-                text: controller.newsArgument['title'] ?? "Company News",
+                text: controller.newsArgument['title'] ?? "No Title",
                 color: AppColors.kRedColor,
                 fontSize: EraTheme.subHeaderWeb + 4,
                 fontWeight: FontWeight.bold,
                 textAlign: TextAlign.start,
               ),
-
               sb30(),
-
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10.r),
-                child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 10,
-                        offset: Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: CloudStorage().imageLoader(
-                    reference: controller.newsArgument['image'],
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-
+              _buildImageSection(),
               sb40(),
-              EraText(
-                text: controller.newsArgument['description'] ?? "",
-                color: AppColors.black.withOpacity(0.8),
-                fontSize: EraTheme.h6,
-                textAlign: TextAlign.start,
-                maxLines: 100,
-                fontWeight: FontWeight.w400,
-              ),
-              // Container(
-              //   padding: EdgeInsets.all(20.r),
-              //   decoration: BoxDecoration(
-              //     color: Colors.white,
-              //     borderRadius: BorderRadius.circular(10.r),
-              //     boxShadow: [
-              //       BoxShadow(
-              //         color: Colors.black.withOpacity(0.1),
-              //         blurRadius: 10,
-              //         offset: Offset(0, 4),
-              //       ),
-              //     ],
-              //   ),
-              //   child: EraText(
-              //     text: newsArgument['description'] ?? "",
-              //     color: AppColors.black.withOpacity(0.8),
-              //     fontSize: EraTheme.h6,
-              //     textAlign: TextAlign.start,
-              //     maxLines: 100,
-              //     fontWeight: FontWeight.w400,
-              //   ),
-              // ),
+              _buildDescriptionSection(),
+              sb50(),
+              // _buildFooterSection(),
 
-              //_buildRelatedArticlesSection(),
-
+              ///  _buildGridView(),
               sb50(),
               AboutUsWeb.buildJoinUsSection(),
+
+              //                     child: Row(
+              //                       mainAxisAlignment: MainAxisAlignment.end,
+              //                       children: [
+              //                         EraText(
+              //                           text: 'READ MORE',
+              //                           fontSize: EraTheme.h5,
+              //                           color: AppColors.blue,
+              //                           fontWeight: FontWeight.bold,
+              //                         ),
+              //                         sbw10(),
+              //                         Icon(
+              //                           Icons.arrow_forward_ios,
+              //                           color: AppColors.blue,
+              //                           size: EraTheme.h6,
+              //                         ),
+              //                       ],
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         height: 20.h,
+              //       ),
+              //       sb50(),
+              //       AboutUsWeb.buildJoinUsSection(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildImageSection() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10.r),
+      child: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: Offset(0, 5),
+            ),
+          ],
+        ),
+        child: CloudStorage().imageLoader(
+          reference: controller.newsArgument['image'],
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDescriptionSection() {
+    return EraText(
+      text: controller.newsArgument?['description'] ?? "",
+      color: AppColors.black.withOpacity(0.8),
+      fontSize: EraTheme.h6,
+      textAlign: TextAlign.start,
+      maxLines: 100,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  Widget _buildFooterSection() {
+    return EraText(
+      text:
+          'Stay updated with ERA Philippines\' latest services and innovations in real estate excellence',
+      fontSize: EraTheme.paragraphWeb,
+      fontWeight: FontWeight.w500,
+      color: AppColors.hint,
+    );
+  }
+
+  Widget _buildGridView() {
+    return SizedBox(
+      height: 300.h,
+      width: Get.width,
+      child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          childAspectRatio: 0.8,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+        ),
+        itemCount: controller.news.length,
+        itemBuilder: (context, i) => GestureDetector(
+          onTap: () {
+            Get.toNamed('/view-news/${controller.news[i].id}');
+          },
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: _buildGridTile(i),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGridTile(int index) {
+    final newsItem = controller.news[index];
+    return Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: CloudStorage().imageLoader(
+            reference: newsItem.image,
+            height: 350.h,
+            width: Get.width,
+            fit: BoxFit.cover,
+          ),
+        ),
+        sb40(),
+        EraText(
+          text: newsItem.title.toUpperCase(),
+          fontSize: EraTheme.h3,
+          color: AppColors.kRedColor,
+          fontWeight: FontWeight.bold,
+          textOverflow: TextOverflow.ellipsis,
+          maxLines: 2,
+        ),
+        SizedBox(height: 8.h),
+        EraText(
+          text: newsItem.description,
+          fontSize: EraTheme.h6,
+          color: AppColors.hint,
+          fontWeight: FontWeight.w500,
+          maxLines: 3,
+          textOverflow: TextOverflow.ellipsis,
+        ),
+        SizedBox(height: 16.h),
+        GestureDetector(
+          onTap: () {
+            Get.toNamed('/view-news/${controller.news[index].id}');
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              EraText(
+                text: 'READ MORE',
+                fontSize: EraTheme.h5,
+                color: AppColors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+              sbw10(),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: AppColors.blue,
+                size: EraTheme.h6,
+              ),
             ],
           ),
         ),
