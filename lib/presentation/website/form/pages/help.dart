@@ -182,15 +182,24 @@ class HelpWeb extends GetView<FormWebController> {
           ),
           sb40(),
           BoxWidget.build(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-              child: AppTextField(
-                hint: 'Use AI Search',
-                svgIcon: AppEraAssets.ai3,
-                bgColor: AppColors.white,
-                isSuffix: true,
-                suffixIcons: AppEraAssets.send,
-              ),
+            child: Column(
+              children: [
+                SizedBox(height: 15.h),
+                SizedBox(
+                  height: 60.h,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: AppTextField(
+                      hint: 'Use AI Search',
+                      svgIcon: AppEraAssets.ai3,
+                      bgColor: AppColors.white,
+                      isSuffix: true,
+                      suffixIcons: AppEraAssets.send,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15.h),
+              ],
             ),
           ),
         ],

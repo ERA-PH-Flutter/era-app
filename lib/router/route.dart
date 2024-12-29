@@ -82,10 +82,10 @@ appRoutes() => [
           name: RouteString.editListingsWeb,
           page: () => EditListingWeb(),
           binding: AddListingsBinding()),
-      GetPage(
-          name: RouteString.joinUsWeb,
-          page: () => JoinEraWeb(),
-          binding: FormBinding()),
+      // GetPage(
+      //     name: RouteString.joinUsWeb,
+      //     page: () => JoinEraWeb(),
+      //     binding: FormBinding()),
       GetPage(
           name: RouteString.settingsWeb,
           page: () => SettingsPageWeb(),
@@ -99,7 +99,10 @@ appRoutes() => [
         page: () => SoldPropertiesWeb(),
         binding: SoldBindingWeb(),
       ),
-      GetPage(name: RouteString.privacyPolicy, page: () => PrivacyPolicy(),),
+      GetPage(
+        name: RouteString.privacyPolicy,
+        page: () => PrivacyPolicy(),
+      ),
     ];
 
 class MyMiddleware extends GetMiddleware {}

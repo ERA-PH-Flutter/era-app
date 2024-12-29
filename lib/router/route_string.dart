@@ -61,13 +61,11 @@ class RouteString {
   static String companyNewsWeb = "/companyNewsWeb";
   static String homs = "/homs";
   static String createaccountweb = "/createaccountweb";
-    static String editListingsWeb = "/editListingsWeb";
-static String joinUsWeb = "/joinUsWeb";
+  static String editListingsWeb = "/editListingsWeb";
+  // static String joinUsWeb = "/join-era";
   static String settingsWeb = "/settingsWeb";
   static String archivedWeb = "/archivedWeb";
   static String soldPropertiesWeb = "/soldPropertiesWeb";
   static String privacyPolicy = "/privacy-policy";
-
-
-  
+  //static String contactUs = "/contact-us";
 }

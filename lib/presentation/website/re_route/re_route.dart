@@ -88,7 +88,7 @@ class ReRoute extends GetView<ReRouteController> {
         /// not final
         Container(
           width: Get.width,
-          padding: EdgeInsets.symmetric(vertical: 20),
+          //   padding: EdgeInsets.symmetric(vertical: 20),
           color: AppColors.blue2,
           child: Column(
             children: [
@@ -133,8 +133,10 @@ class ReRoute extends GetView<ReRouteController> {
         _buildLinkText(
             text: 'Projects',
             onTap: () {
-              selectedIndex.value = 1;
-              Get.find<HomsController>().onNavbarItemSelected(1);
+              // selectedIndex.value = 1;
+              // Get.find<HomsController>().onNavbarItemSelected(1);
+
+              Get.toNamed('/projects');
             }),
         _buildLinkText(
           text: 'Residential',
@@ -162,8 +164,10 @@ class ReRoute extends GetView<ReRouteController> {
         _buildLinkText(
             text: 'Join Us',
             onTap: () {
-              selectedIndex.value = 5;
-              Get.find<HomsController>().onNavbarItemSelected(5);
+              Get.toNamed('/join-us');
+
+              // selectedIndex.value = 5;
+              // Get.find<HomsController>().onNavbarItemSelected(5);
             }),
         // _buildLinkText(text: 'Why Us?', onTap: () {
         //   selectedIndex.value = 4;
@@ -176,8 +180,7 @@ class ReRoute extends GetView<ReRouteController> {
         _buildLinkText(
             text: 'Contact Us',
             onTap: () {
-              selectedIndex.value = 4;
-              Get.find<HomsController>().onNavbarItemSelected(4);
+              Get.toNamed('/help');
             }),
         _buildLinkText(
             text: 'Privacy Policy',
