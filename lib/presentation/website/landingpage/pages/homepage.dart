@@ -5,6 +5,7 @@ import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/presentation/website/privacy_policy/privacy-policy.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -300,8 +301,8 @@ class HomePages extends GetResponsiveView<HomsController> {
                     .where('type', isEqualTo: text!.toLowerCase())
                     .get())
                 .docs;
-            var data = listings.map((listing) {
-              return listing.data();
+            List<Listing> data = listings.map((listing) {
+              return Listing.fromJSON(listing.data());
             }).toList();
             selectedIndex.value = 2;
             Get.find<HomsController>().onIndexChanged();

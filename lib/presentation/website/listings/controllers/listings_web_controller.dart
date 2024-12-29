@@ -20,7 +20,7 @@ class ListingsWebController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var listingsWebState = ListingsWebState.loading.obs;
   var aiSearchController = TextEditingController();
-  var data = [].obs;
+  RxList<Listing> data = <Listing>[].obs;
   var searchQuery = ''.obs;
   var expanded = false.obs;
   Widget? quickLinks;
@@ -53,11 +53,10 @@ class ListingsWebController extends GetxController {
     quickLinks = await QuickLinksModel().initialize();
     try {
       if (Get.arguments == null || Get.arguments.isEmpty && data.isEmpty) {
-        var tempData = [];
+        List<Listing> tempData = [];
         for (int i = 0; i < settings!.featuredListings!.length; i++) {
           tempData.add(
-              (await Listing().getListing(settings!.featuredListings![i]))
-                  .toMap());
+              (await Listing().getListing(settings!.featuredListings![i])));
         }
         loadData(tempData);
       } else {
@@ -79,13 +78,13 @@ class ListingsWebController extends GetxController {
     super.onClose();
   }
 
-  loadData(loadedData) {
+  loadData(List<Listing>? loadedData) {
     listingsWebState.value = ListingsWebState.loading;
     data.clear();
     loadedData = loadedData ?? [];
     loadedData.forEach((d) {
-      if (d != null) {
-        if (!(d['is_sold'] ?? false)) {
+      if (d.id != null) {
+        if (!(d.isSold ?? false)) {
           data.add(d);
         }
       }
@@ -100,21 +99,22 @@ class ListingsWebController extends GetxController {
     }
     update();
   }
+
   Future searchListingQuery(
       {required String query,
-        List<AiFilters> overrideAiFilters = const []}) async {
+      List<AiFilters> overrideAiFilters = const []}) async {
     listingsWebState.value = ListingsWebState.loading;
     print('gemini search overrideAiFilters 1 $overrideAiFilters');
 
     List<Listing> listings = await AI(query: query)
         .listingSearch(overrideAiFilters: overrideAiFilters);
-    listings.forEach((listing){
-      if(listing.runtimeType == Listing){
+    listings.forEach((listing) {
+      if (listing.runtimeType == Listing) {
         data.add(listing);
       }
     });
     searchQuery.value = query.toString();
     listingsWebState.value =
-    listings.isEmpty ? ListingsWebState.empty : ListingsWebState.loaded;
+        listings.isEmpty ? ListingsWebState.empty : ListingsWebState.loaded;
   }
 }

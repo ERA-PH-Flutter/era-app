@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/presentation/website/re_route/re_route_controller.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -312,7 +313,7 @@ class ReRoute extends GetView<ReRouteController> {
             Get.find<ListingsWebController>()
                 .listingsWebState(ListingsWebState.loading);
             Get.find<ListingsWebController>().searchQuery.value = text;
-            await Get.find<ListingsWebController>().loadData(data);
+            await Get.find<ListingsWebController>().loadData(data.map((e)=>Listing.fromJSON(e)).toList());
             if (data.isEmpty) {
               Get.find<ListingsWebController>()
                   .listingsWebState(ListingsWebState.empty);

@@ -5,6 +5,7 @@ class EraUser {
   FirebaseFirestore db = FirebaseFirestore.instance;
   String? id;
   String? firstname;
+  String? fullname;
   String? lastname;
   String? role;
   String? email;
@@ -29,6 +30,7 @@ class EraUser {
   EraUser(
       {this.id,
       this.firstname,
+      this.fullname,
       this.lastname,
       this.role,
       this.email,
@@ -56,6 +58,7 @@ class EraUser {
     return EraUser(
         id: json['id'],
         firstname: json['first_name'],
+        fullname: json['full_name'],
         lastname: json['last_name'],
         role: json['role'],
         email: json['email'],
@@ -92,6 +95,7 @@ class EraUser {
         firstname: "",
         lastname: "",
         role: "user",
+        fullname:"",
         email: "test@g.co",
         whatsApp: "0000-000-0900",
         image: "");

@@ -19,7 +19,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import '../../presentation/global.dart';
-import '../../presentation/website/landingpage/controller/homs_controller.dart' as a;
+import '../../presentation/website/landingpage/controller/homs_controller.dart'
+    as a;
 import '../../presentation/website/listings/controllers/listings_web_binding.dart';
 import '../../presentation/website/listings/controllers/listings_web_controller.dart';
 import '../constants/assets.dart';
@@ -167,7 +168,9 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
   aiSearch() async {
     try {
       ListingsWebBinding().dependencies();
-      ListingsWebController s =  Get.find<ListingsWebController>();
+      ListingsWebController s = Get.find<ListingsWebController>();
+      s.data.clear();
+
       s.listingsWebState.value = ListingsWebState.loading;
       var searchQuery = "";
       BaseController().showLoading();
@@ -179,14 +182,14 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
       // Get.find<SearchResultController>().data.value = data;
       // BaseController().hideLoading();
       s.searchQuery.value = searchQuery;
-      if(data.isNotEmpty){
+      if (data.isNotEmpty) {
         for (var d in data) {
-          if(d.runtimeType == Listing){
+          if (d.runtimeType == Listing) {
             s.data.add(d);
           }
         }
         s.listingsWebState.value = ListingsWebState.loaded;
-      }else{
+      } else {
         s.listingsWebState.value = ListingsWebState.empty;
       }
 

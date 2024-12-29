@@ -48,7 +48,7 @@ class AgentsWebController extends GetxController with BaseController {
   void onInit() async {
     image.value = ((await CloudStorage().getFileBytes(
         docRef:
-            (await EraUser().getById(FirebaseAuth.instance.currentUser!.uid))
+            (await EraUser().getById(FirebaseAuth.instance.currentUser?.uid))
                     .image ??
                 AppStrings.noUserImageWhite))!);
     try {

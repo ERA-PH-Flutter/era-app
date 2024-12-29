@@ -820,7 +820,7 @@ Widget _buildUploadPhoto({required String text, required String image}) {
       var s = Get.find<ListingsWebController>();
       s.listingsWebState(ListingsWebState.loading);
       s.searchQuery.value = text;
-      await s.loadData(data);
+      await s.loadData(data.map((e)=>Listing.fromJSON(e)).toList());
       if (data.isEmpty) {
         Get.find<ListingsWebController>()
             .listingsWebState(ListingsWebState.empty);

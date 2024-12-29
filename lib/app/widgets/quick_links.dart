@@ -6,6 +6,7 @@ import 'package:eraphilippines/presentation/website/listings/controllers/buyweb_
 import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_binding.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/pages/addlistings.dart';
+import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -79,7 +80,7 @@ class QuickLinksModel {
         }).toList();
 
 
-        s.loadData(data);
+        s.loadData(data.map((e)=>Listing.fromJSON(e)).toList());
         s.searchQuery.value = "search";
         // a.selectedIndex.value = 2;
         // Get.find<a.HomsController>().onNavbarItemSelected(2);

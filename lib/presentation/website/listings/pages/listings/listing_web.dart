@@ -121,8 +121,8 @@ class BuyWeb extends GetView<ListingsWebController> {
             shrinkWrap: true,
             itemCount: controller.data.length,
             itemBuilder: (context, index) {
-              if (controller.data[index] != null) {
-                Listing listing = Listing.fromJSON(controller.data[index]);
+              if (controller.data[index].id != null) {
+                Listing listing = controller.data[index];
                 print('id: ${listing.id}');
                 return GestureDetector(
                   onTap: () async {
