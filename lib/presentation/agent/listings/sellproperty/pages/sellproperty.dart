@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -77,6 +76,12 @@ class SellProperty extends GetView<SellPropertyController> {
                         controller: controller.propertyLocation),
                     SizedBox(height: 20.h),
                     SharedWidgets.textFormfield(
+                        onChanged: (value) {
+                          value = value.replaceAll(',', '');
+                          controller.price.text = value.replaceAllMapped(
+                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              (Match m) => '${m[1]},');
+                        },
                         name: 'Price',
                         textInputType: TextInputType.number,
                         hintText: 'Price',
@@ -181,6 +186,7 @@ class SellProperty extends GetView<SellPropertyController> {
                       color: AppColors.hint,
                       keyboardType: TextInputType.multiline,
                       textInputAction: TextInputAction.newline,
+                      controller: controller.desc,
                     ),
                     sb30(),
                     Button(
@@ -212,10 +218,10 @@ class SellProperty extends GetView<SellPropertyController> {
                                   controller.propertyLocation.clear();
                                   controller.price.clear();
                                   controller.desc.clear();
+
                                   Get.back();
                                 });
-                          } catch (e) {
-                          }
+                          } catch (e) {}
                         },
                         bgColor: AppColors.kRedColor,
                         borderRadius: BorderRadius.circular(30),
