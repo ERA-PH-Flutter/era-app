@@ -35,6 +35,7 @@ import '../presentation/website/agents/pages/agent_listings.dart';
 import '../presentation/website/form/controllers/form_web_binding.dart';
 import '../presentation/website/home/controllers/home_web_binding.dart';
 import '../presentation/website/home/pages/home_web.dart';
+import '../presentation/website/news/controllers/news_webpage_controller.dart';
 import '../presentation/website/projects/pages/projects_list.dart';
 import '../presentation/website/re_route/re_route_args.dart';
 import '../presentation/website/terms_conditions_web/privacy_policy_binding.dart';
@@ -149,7 +150,7 @@ class RouteArgs {
     ReRouteArgs(
       name: "/view-news",
       page: CompanyNewsPageWeb(),
-      binding: NewsBinding(),
+      binding: NewsPageBinding(),
     ),
     ReRouteArgs(
       name: "/privacy-policy",
@@ -172,6 +173,7 @@ class RouteArgs {
         idArgument = id;
         return tempRoute;
       } else if (id == null && route.name == routeName) {
+        idArgument = null;
         return route;
       }
     }

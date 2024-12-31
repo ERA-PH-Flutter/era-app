@@ -72,7 +72,7 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
                           offset: Offset(0, 2))
                     ]),
                 child: GestureDetector(
-                  onTap: () {
+                  onTap: ()async{
                     // HomsController homsController = Get.find<HomsController>();
                     // selectedIndex.value = 9;
                     // homsController.onNavbarItemSelected(9);
@@ -81,6 +81,9 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
                     //   "image": controller.news[i].image,
                     //   "description": controller.news[i].description
                     // };
+                    // Get.put(NewsWebController());
+                    // await Get.delete<NewsWebController>();
+
                     Get.toNamed('/view-news/${controller.news[i].id}');
                   },
                   child: Padding(

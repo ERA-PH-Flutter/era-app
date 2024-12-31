@@ -10,9 +10,10 @@ import '../../../presentation/global.dart';
 import '../../../presentation/website/form/pages/about_us_web.dart';
 import '../../../presentation/website/landingpage/controller/homs_controller.dart';
 import '../../../presentation/website/news/controllers/news_controller.dart';
+import '../../../presentation/website/news/controllers/news_webpage_controller.dart';
 import '../../constants/screens.dart';
 
-class CompanyNewsPageWeb extends GetView<NewsWebController> {
+class CompanyNewsPageWeb extends GetView<NewsWebPageController> {
   CompanyNewsPageWeb({super.key});
 
   @override

@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 import '../../../router/route_arguments.dart';
+import '../../global.dart';
 
 enum ReRouteState { loading, loaded, error }
 
@@ -67,6 +68,7 @@ class ReRouteBinding extends Bindings {
     ReRouteArgs args = RouteArgs.getArgs(Get.currentRoute);
     args.binding.dependencies();
     controller.args = args;
+    print("idArgs: $idArgument" );
     controller.reRouteState.value = ReRouteState.loaded;
   }
 }
