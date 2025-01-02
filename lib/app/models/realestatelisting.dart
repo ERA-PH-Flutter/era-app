@@ -1,11 +1,4 @@
-import 'package:eraphilippines/app/services/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import '../../repository/user.dart';
-import '../constants/assets.dart';
-import '../constants/colors.dart';
-import '../widgets/app_text.dart';
 
 class RealEstateListing {
   final String image;
