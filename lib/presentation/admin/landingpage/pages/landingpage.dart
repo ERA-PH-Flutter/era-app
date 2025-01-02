@@ -37,6 +37,8 @@ import 'package:get/get.dart';
 import '../../../global.dart';
 import '../../content-management/pages/find_agent_page.dart';
 import '../../content-management/pages/join_era.dart';
+import '../../properties/pages/approval_propertyinformation.dart';
+import '../../properties/pages/listing_approval_list.dart';
 import '../../statitics/pages/statistics_admin.dart';
 
 class LandingPage extends GetView<LandingPageController> {
@@ -66,7 +68,9 @@ class LandingPage extends GetView<LandingPageController> {
     LogListAdmin(), //20
     FindAgentPage(), //21
     JoinEraPage(), //22
-    DevTool(),
+    DevTool(), //23
+    ListingApproval(), //24
+    ApprovalPropertyinformation(), //25
     // UploadNews(), //14
     // UploadNews(), //15
   ];
@@ -260,6 +264,7 @@ class LandingPage extends GetView<LandingPageController> {
                 _buildMenuItem('VIEW PROJECT', 19),
 
                 _buildMenuItem('PROPERTY LISTINGS', 5),
+                _buildMenuItem('LISTING APPROVAL', 24),
                 // _buildMenuItem('PROPERTY INFORMATION', 6),
                 _buildMenuItem('ADD LISTINGS', 7),
                 //_buildMenuItem('EDIT LISTINGS', 8),
@@ -272,7 +277,6 @@ class LandingPage extends GetView<LandingPageController> {
               children: [
                 _buildMenuItem('HOMEPAGE', 9),
                 _buildMenuItem('FIND AGENTS', 21),
-
                 _buildMenuItem('ADD ABOUT US', 10),
                 _buildMenuItem('JOIN ERA', 22),
               ],
