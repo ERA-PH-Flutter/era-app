@@ -89,7 +89,9 @@ class ListedBy extends StatelessWidget {
                   EraText(
                     text: agentRole == 'agent'
                         ? 'ERA Infinity Agent'
-                        :  agentRole == 'broker' ? 'ERA Infinity Broker' : "ERA Admin",
+                        : agentRole == 'broker'
+                            ? 'ERA Infinity Broker'
+                            : "ERA Admin",
                     fontSize: EraTheme.paragraph - 4.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black,

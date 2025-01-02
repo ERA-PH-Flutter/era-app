@@ -247,7 +247,7 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                 fontWeight: FontWeight.bold,
                               ),
                               content: SizedBox(
-                                height: 200.h,
+                                height: 280.h,
                                 child: Column(
                                   children: [
                                     EraText(

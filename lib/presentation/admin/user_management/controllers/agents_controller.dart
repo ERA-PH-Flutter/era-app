@@ -61,7 +61,12 @@ class AgentAdminController extends GetxController with BaseController {
   var agentType = ['ASC', 'AMM', 'MM', 'SMM', 'MD', 'SMD', 'ADD', 'BDD'];
   var selectedAgentType = RxnString();
 
-  var agentRole = ['ERA Infinity Agent', ' ERA Infinity Broker'];
+  var agentRole = [
+    'ERA Agent',
+    'ERA Broker',
+    'ERA Infinity Agent',
+    'ERA Infinity Broker'
+  ];
   var selectedAgentRole = RxnString();
 
   var selectedGender = RxnString();
