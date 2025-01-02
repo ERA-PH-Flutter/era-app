@@ -516,6 +516,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                         try {
                           await Listing(
                               by: user!.id,
+                              isApprove: true,
                               name: addListingsController
                                   .propertyNameController.text,
                               price: addListingsController
