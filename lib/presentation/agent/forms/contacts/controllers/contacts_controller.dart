@@ -74,8 +74,9 @@ class ContactusController extends GetxController {
         'type': selectedSubj.value
       });
       BaseController().showSuccessDialog(
-          title: "Success",
-          description: "Wait for an admin to contact you!",
+          title: "Message Sent",
+          okayButton: "Close",
+          description: "We've received your message and will get back to you soon. Thank you",
           hitApi: () {
             name.clear();
             number.clear();

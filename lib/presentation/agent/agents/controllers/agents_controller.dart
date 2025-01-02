@@ -161,6 +161,7 @@ class AgentsController extends GetxController with BaseController {
         showSuccessDialog(
             description: "Change profile image success!",
             title: "Success",
+            okayButton: "Close",
             hitApi: () {
               Get.back();
               Get.back();
@@ -207,6 +208,7 @@ class AgentsController extends GetxController with BaseController {
         showSuccessDialog(
             description: "Change profile image success!",
             title: "Success",
+            okayButton: "Close",
             hitApi: () {
               Get.back();
               Get.back();

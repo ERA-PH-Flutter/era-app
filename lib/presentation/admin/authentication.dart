@@ -191,9 +191,9 @@ class AuthenticationPage extends GetView {
                                                                     hitApi: (){
                                                                       Get.back();Get.back();Get.back();
                                                                     },
-                                                                    title: "Email Sent!",
-                                                                    description: "Reset password link has been sent to your email.",
-                                                                    okayButton: "Okay"
+                                                                    title: "Email Sent",
+                                                                    description: "A reset password link has been sent to your email. Please check your inbox.",
+                                                                    okayButton: "Close"
                                                                 );
                                                               }catch(e){
                                                                 BaseController().showErroDialog(

@@ -161,9 +161,10 @@ class LoginPageController extends GetxController with BaseController {
           await user.add();
           await userInfo.add();
           showSuccessDialogProjects(
-              title: "Create account Success!",
+              title: "Account Created",
               description:
-                  "Account creation was successful please wait for admin approval!",
+                  "Account creation was successful. Please wait for admin approval.",
+              okayButton: "Close",
               hitApi: () {
                 Get.offAllNamed(RouteString.loginpage);
               });

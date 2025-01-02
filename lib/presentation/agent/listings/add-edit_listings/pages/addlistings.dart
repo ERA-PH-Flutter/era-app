@@ -606,8 +606,9 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 hitApi: () {
                   Get.offAllNamed(RouteString.agentDashBoard);
                 },
-                title: "Add Listing Success",
-                description: "Listing has been uploaded to the database.");
+                okayButton: "Close",
+                title: "Listing Uploaded",
+                description: "Your property has been submitted for review. Once approved, this will be published accordingly.");
           } catch (e) {}
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
