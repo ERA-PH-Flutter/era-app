@@ -190,7 +190,8 @@ class FindAgents extends GetView<AgentsController> {
 
                   //controller.agentCount.toString()} to count the number of agents
                   SizedBox(height: 20.h),
-                  FutureBuilder(
+                  /*
+FutureBuilder(
                     future: FirebaseFirestore.instance
                         .collection('users')
                         .where('status', isEqualTo: 'approved')
@@ -209,6 +210,14 @@ class FindAgents extends GetView<AgentsController> {
                         return CircularProgressIndicator();
                       }
                     },
+                  ),
+                  */
+                  EraText(
+                    text: "Featured Agents",
+                    fontSize: EraTheme.small + 6.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.kRedColor,
+                    textAlign: TextAlign.center,
                   ),
                   EraText(
                     text:
@@ -309,10 +318,9 @@ class FindAgents extends GetView<AgentsController> {
       Obx(
         () {
           return LoadMore(
-            length:
-                (controller.results.length / controller.pageSize).ceil() > 0
-                    ? (controller.results.length / controller.pageSize).ceil()
-                    : 1,
+            length: (controller.results.length / controller.pageSize).ceil() > 0
+                ? (controller.results.length / controller.pageSize).ceil()
+                : 1,
             child: ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),

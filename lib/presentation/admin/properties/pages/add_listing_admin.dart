@@ -537,7 +537,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                   .toInt(),
                               cars: addListingsController.carsController.text
                                   .toInt(),
-                              floorArea: addListingsController.areaController.text
+                              lotArea: addListingsController.areaController.text
                                   .toDouble(),
                               status: addListingsController.selectedOfferT.value
                                   .toString(),
