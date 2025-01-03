@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/widgets/box_widget.dart';
@@ -87,11 +88,14 @@ class ListingApproval extends GetView<ListingApprovalController> {
               if (snapshot.hasData) {
                 var data = snapshot.data!.docs;
                 if(data.isEmpty){
-                  return Center(
-                    child: EraText(
-                      text: 'No listings found for approval',
-                      fontSize: 23.sp,
-                      color: Colors.black,
+                  return SizedBox(
+                    height: Get.height - 300.h,
+                    child: Center(
+                      child: EraText(
+                        text: 'No listings found for approval',
+                        fontSize: 23.sp,
+                        color: Colors.black,
+                      ),
                     ),
                   );
                 }
@@ -99,7 +103,7 @@ class ListingApproval extends GetView<ListingApprovalController> {
                   shrinkWrap: true,
                   itemCount: data.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
+                    crossAxisCount: 3,
                     crossAxisSpacing: 20.w,
                     mainAxisExtent: 900.h,
                   ),
@@ -137,17 +141,29 @@ class ListingApproval extends GetView<ListingApprovalController> {
                                 crossAxisAlignment:
                                 CrossAxisAlignment.start,
                                 children: [
-                                  CloudStorage().imageLoaderProvider(
-                                    height: 400.h,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10.r),
-                                        topRight: Radius.circular(10.r)),
-                                    width: Get.width - 400.w,
-                                    reference: listing.photos != null
+                                  FutureBuilder(
+                                    future: CloudStorage().getFileBytes(docRef: listing.photos != null
                                         ? (listing.photos!.isNotEmpty
                                         ? listing.photos!.first
                                         : AppStrings.noUserImageWhite)
-                                        : AppStrings.noUserImageWhite,
+                                        : AppStrings.noUserImageWhite,),
+                                    builder: (context,snapshot){
+                                      if(snapshot.hasData){
+                                        return Container(
+                                          width: Get.width,
+                                          height: 400.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(10.r),
+                                                topRight: Radius.circular(10.r)),
+                                          ),
+                                          child: Image.memory(snapshot.data!,fit: BoxFit.cover,),
+                                        );
+                                      }
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
                                   ),
                                   SizedBox(
                                     height: 17.h,
@@ -297,28 +313,92 @@ class ListingApproval extends GetView<ListingApprovalController> {
                                       future: EraUser().getById(listing.by),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
-                                          var user1 = snapshot.data;
+                                          var user = snapshot.data!;
+                                          final Uri whatsAppUrl2 = user.whatsApp != null
+                                              ? Uri.parse('https://wa.me/${user.whatsApp}')
+                                              : Uri.parse('https://wa.me/null');
+                                          final Uri emailUrl = user.email != null
+                                              ? Uri.parse('mailto:${user.email}?subject=Your%20Subject&body=Your%20Message')
+                                              : Uri.parse('https://mail.google.com/');
                                           return Padding(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 14.w),
-                                            child: ListedBy(
-                                                image: user1!.image ??
-                                                    AppStrings
-                                                        .noUserImageWhite,
-                                                agentFirstName:
-                                                user1.firstname ??
-                                                    "No Name",
-                                                agentRole:
-                                                user1.role ?? "Agent",
-                                                agentLastName:
-                                                user1.lastname ?? ""),
-                                          );
-                                        } else {
-                                          return Center(
-                                            child:
-                                            CircularProgressIndicator(),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                EraText(
+                                                  text:'Listed By:',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: EraTheme.paragraph,
+                                                  color: AppColors.black,
+                                                ),
+                                                SizedBox(height: 10.h),
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        clipBehavior: Clip.antiAlias,
+                                                        decoration: BoxDecoration(
+                                                            shape: BoxShape.circle, color: AppColors.hint),
+                                                        child: FutureBuilder(
+                                                          future: CloudStorage().getFileBytes(docRef:  user.image ?? AppStrings.noUserImageWhite,),
+                                                          builder: (context,snapshot){
+                                                            if(snapshot.hasData){
+                                                              return Container(
+                                                                width: 55.w,
+                                                                height: 55.w,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.only(
+                                                                      topLeft: Radius.circular(10.r),
+                                                                      topRight: Radius.circular(10.r)),
+                                                                ),
+                                                                child: Image.memory(snapshot.data!,fit: BoxFit.cover,),
+                                                              );
+                                                            }
+                                                            return Center(
+                                                              child: CircularProgressIndicator(),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 20.w,
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 200.w,
+                                                            child: EraText(
+                                                              text: '${user.firstname} ${user.lastname}',
+                                                              fontSize: EraTheme.paragraph,
+                                                              fontWeight: FontWeight.bold,
+                                                              color: AppColors.black,
+                                                              textOverflow: TextOverflow.ellipsis,
+                                                            ),
+                                                          ),
+                                                          EraText(
+                                                            text:  user.role != null ? (user.role!.contains("admin") ? "ERA Admin" : user.role!) : "No role" ,
+                                                            fontSize: EraTheme.paragraph - 4.sp,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: AppColors.black,
+                                                          ),
+                                                          // SizedBox(height: 5.h),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(height: 10.h),
+                                              ],
+                                            )
                                           );
                                         }
+                                        return Center(
+                                          child:
+                                          CircularProgressIndicator(),
+                                        );
                                       }),
                                 ],
                               ),
@@ -387,17 +467,19 @@ class ListingApproval extends GetView<ListingApprovalController> {
                                                 )),
                                             _menuOptions("Approved",
                                                     () async {
-                                                  Get.put(ListingsController());
-                                                  var c = Get.find<
-                                                      AddListingsController>();
-                                                  await c.assignData(listing.id,
-                                                      isWeb: true);
-                                                  Get.find<
-                                                      LandingPageController>()
-                                                      .onSectionSelected(8);
+                                                  controller.listingApprovalState.value = ListingApprovalState.loading;
+                                                  listing.isApprove = true;
+                                                  await listing.updateListing();
+                                                  await Logs(
+                                                      title:
+                                                      "${user!.firstname} ${user!.lastname} approve a listing with ID ${listing.propertyId}",
+                                                      type: "listing")
+                                                      .add();
+                                                  controller.listingApprovalState.value = ListingApprovalState.loaded;
                                                 }, Icons.check),
                                             _menuOptions("Decline",
                                                     () async {
+                                                  controller.listingApprovalState.value = ListingApprovalState.loading;
                                                   listing.photos!.isNotEmpty
                                                       ? await CloudStorage()
                                                       .deleteAll(
@@ -411,6 +493,7 @@ class ListingApproval extends GetView<ListingApprovalController> {
                                                       "${user!.firstname} ${user!.lastname} added a listing with ID ${listing.propertyId}",
                                                       type: "listing")
                                                       .add();
+                                                  controller.listingApprovalState.value = ListingApprovalState.loaded;
                                                 }, Icons.delete_rounded),
                                             SizedBox(
                                               height: 20.h,
