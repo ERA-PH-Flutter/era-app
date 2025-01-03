@@ -76,9 +76,7 @@ class AgentsItems extends StatelessWidget {
                           color: AppColors.blue,
                         ),
                         EraText(
-                          text: agentInfo.role == 'agent'
-                              ? 'ERA Infinity Agent'
-                              : 'ERA Infinity Broker',
+                          text: agentInfo.role.contains('admin') ? "ERA Admin" : agentInfo.role,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.black,
@@ -195,9 +193,9 @@ class AgentsItems extends StatelessWidget {
                           ),
                         ),
                         EraText(
-                          text: agentInfo.role == 'agent'
-                              ? 'ERA Infinity Agent'
-                              : 'ERA Infinity Broker',
+                          text: agentInfo.role.contains('admin')
+                              ? 'ERA Admin'
+                              : agentInfo.role,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                           color: AppColors.black,

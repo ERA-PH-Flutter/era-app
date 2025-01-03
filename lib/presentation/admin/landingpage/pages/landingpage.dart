@@ -58,7 +58,7 @@ class LandingPage extends GetView<LandingPageController> {
     AboutUsPage(), //10
     ViewAllNews(), //11
     UploadNews(), //12
-    ListingApproval(), // StatisticsAdmin(), //STATISTICS 13
+    StatisticsAdmin(), //STATISTICS 13
     GeneralFaq(), //14
     SellPropertyAdmin(), //15
     ContactUsAdmin(), //16
