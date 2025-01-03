@@ -217,6 +217,7 @@ class AddListingsController extends GetxController with BaseController {
     bathsController.text = listing!.baths.toString();
     carsController.text = listing!.cars.toString();
     areaController.text = listing!.lotArea.toString();
+    floorArea.text = listing!.floorArea.toString();
     selectedOfferT.value =
         offerT.contains(listing!.status) ? listing!.status : null;
     locationController.text = listing!.location ?? "";
@@ -324,6 +325,7 @@ class AddListingsController extends GetxController with BaseController {
       listing!.status = selectedOfferT.value.toString();
       listing!.location = add == null ? locationController.text : add.city;
       listing!.type = selectedPropertyT.value.toString();
+      listing!.floorArea = floorArea.text.toDouble();
       listing!.subCategory = selectedPropertySubCategory.value.toString();
       listing!.description = descController.text;
       listing!.view = selectedView.value.toString();
