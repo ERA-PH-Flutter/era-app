@@ -226,7 +226,13 @@ class PropertyInformationAdmin extends GetView<ListingsAdminController> {
                                               "",
                                         ),
                                         shorterSummary(
-                                          text: 'Area',
+                                          text: 'Floor Area',
+                                          text2: controller.listing?.floorArea
+                                                  .toString() ??
+                                              "",
+                                        ),
+                                        shorterSummary(
+                                          text: 'Lot Area',
                                           text2: controller.listing?.lotArea
                                                   .toString() ??
                                               "",

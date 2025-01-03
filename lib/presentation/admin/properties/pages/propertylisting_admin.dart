@@ -236,7 +236,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4,
                         crossAxisSpacing: 20.w,
-                        mainAxisExtent: 887.5.h,
+                        mainAxisExtent: 900.h,
                       ),
                       itemBuilder: (context, index) {
                         Listing listing = Listing.fromJSON(data[index].data());
@@ -337,7 +337,7 @@ class PropertylistAdmin extends GetView<ListingsAdminController> {
                                               SizedBox(width: 2.w),
                                               EraText(
                                                 text:
-                                                    '${listing.lotArea!.toStringAsFixed(listing.lotArea!.truncateToDouble() == listing.lotArea ? 0 : 1)} sqm',
+                                                    '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
                                                 fontSize:
                                                     EraTheme.paragraph - 1.sp,
                                                 fontWeight: FontWeight.w500,
