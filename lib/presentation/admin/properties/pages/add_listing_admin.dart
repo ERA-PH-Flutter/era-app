@@ -108,7 +108,9 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                     text3: 'Rooms *',
                     controller3: addListingsController.bedsController,
                     text4: 'Bathrooms *',
-                    controller4: addListingsController.bathsController),
+                    controller4: addListingsController.bathsController,
+                    text5: 'Floor Area *',
+                    controller5: addListingsController.floorArea),
                 SizedBox(
                   height: 10.h,
                 ),
@@ -527,6 +529,8 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                   .pricePerSqmController.text
                                   .replaceAll(',', '')
                                   .toDouble(),
+                              floorArea: addListingsController.floorArea.text
+                                  .toDouble(),
                               beds: addListingsController.bedsController.text
                                   .toInt(),
                               baths: addListingsController.bathsController.text
@@ -568,7 +572,8 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                               },
                               okayButton: "Close",
                               title: "Listing Uploaded",
-                              description: "Your property has been submitted for review. Once approved, this will be published accordingly.");
+                              description:
+                                  "Your property has been submitted for review. Once approved, this will be published accordingly.");
                         } catch (e) {}
                       },
                       margin: EdgeInsets.symmetric(horizontal: 5),

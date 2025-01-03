@@ -94,7 +94,9 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                 text3: 'Rooms *',
                 controller3: addListingsController.bedsController,
                 text4: 'Bathrooms *',
-                controller4: addListingsController.bathsController),
+                controller4: addListingsController.bathsController,
+                text5: 'Floor Area *',
+                controller5: addListingsController.floorArea),
             SizedBox(
               height: 10.h,
             ),

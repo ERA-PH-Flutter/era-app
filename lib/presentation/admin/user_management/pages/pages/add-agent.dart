@@ -258,7 +258,10 @@ class AddAgent extends GetView<AgentAdminController> {
                                     position:
                                         controller.selectedAgentType.value,
                                     description: controller.descriptionA.text,
-                                    role: controller.selectedAgentRole.value == "ERA Infinity Agent" ? "agent" : "broker",
+                                    role: controller.selectedAgentRole.value ==
+                                            "ERA Infinity Agent"
+                                        ? "agent"
+                                        : "broker",
                                     eraId:
                                         "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
                                     status: "approved")
@@ -518,102 +521,121 @@ class AddAgent extends GetView<AgentAdminController> {
     String? text4,
     TextEditingController? controller4,
     TextInputType? keyboardType,
+    String? text5,
+    TextEditingController? controller5,
   }) {
     return Row(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(
-              text: text!,
-              fontSize: 18.sp,
-              color: AppColors.black,
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: 60.h,
-              width: Get.width / 5.1 - 3.w,
-              child: TextformfieldWidget(
+        Expanded(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              EraText(
+                text: text!,
+                fontSize: 18.sp,
+                color: AppColors.black,
+                fontWeight: FontWeight.w500,
+              ),
+              TextformfieldWidget(
                 controller: controller,
                 fontSize: 18.sp,
                 maxLines: 1,
                 keyboardType: keyboardType ?? TextInputType.text,
                 onChanged: onChanged,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(
           width: 20.w,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(
-              text: text2!,
-              fontSize: 18.sp,
-              color: AppColors.black,
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: 60.h,
-              width: Get.width / 5.1 - 3.w,
-              child: TextformfieldWidget(
+        Expanded(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              EraText(
+                text: text2!,
+                fontSize: 18.sp,
+                color: AppColors.black,
+                fontWeight: FontWeight.w500,
+              ),
+              TextformfieldWidget(
                 controller: controller2,
                 fontSize: 18.sp,
                 maxLines: 1,
                 keyboardType: keyboardType ?? TextInputType.text,
               ),
-            ),
-          ],
+            ],
+          ),
+        ),
+        sbw20(),
+        Expanded(
+          flex: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              EraText(
+                text: text5!,
+                fontSize: 18.sp,
+                color: AppColors.black,
+                fontWeight: FontWeight.w500,
+              ),
+              TextformfieldWidget(
+                controller: controller5,
+                fontSize: 18.sp,
+                maxLines: 1,
+                keyboardType: keyboardType ?? TextInputType.text,
+              ),
+            ],
+          ),
         ),
         SizedBox(
           width: 20.w,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(
-              text: text3!,
-              fontSize: 18.sp,
-              color: AppColors.black,
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: 60.h,
-              width: Get.width / 5.1 - 3.w,
-              child: TextformfieldWidget(
+        Expanded(
+          flex: 3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              EraText(
+                text: text3!,
+                fontSize: 18.sp,
+                color: AppColors.black,
+                fontWeight: FontWeight.w500,
+              ),
+              TextformfieldWidget(
                 controller: controller3,
                 fontSize: 18.sp,
                 maxLines: 1,
                 keyboardType: keyboardType ?? TextInputType.text,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(
           width: 20.w,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            EraText(
-              text: text4!,
-              fontSize: 18.sp,
-              color: AppColors.black,
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: 60.h,
-              width: Get.width / 5.1 - 3.w,
-              child: TextformfieldWidget(
+        Expanded(
+          flex: 3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              EraText(
+                text: text4!,
+                fontSize: 18.sp,
+                color: AppColors.black,
+                fontWeight: FontWeight.w500,
+              ),
+              TextformfieldWidget(
                 controller: controller4,
                 fontSize: 18.sp,
                 maxLines: 1,
                 keyboardType: keyboardType ?? TextInputType.text,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

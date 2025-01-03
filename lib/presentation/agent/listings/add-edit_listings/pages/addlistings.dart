@@ -584,6 +584,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 baths: controller.bathsController.text.toInt(),
                 cars: controller.carsController.text.toInt(),
                 lotArea: double.tryParse(controller.areaController.text) ?? 0.0,
+                floorArea: double.tryParse(controller.floorArea.text) ?? 0.0,
                 status: controller.selectedOfferT.value.toString(),
                 // view: controller.selectedView.value.toString(),
                 location: controller.add.city,
@@ -608,7 +609,8 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 },
                 okayButton: "Close",
                 title: "Listing Uploaded",
-                description: "Your property has been submitted for review. Once approved, this will be published accordingly.");
+                description:
+                    "Your property has been submitted for review. Once approved, this will be published accordingly.");
           } catch (e) {}
         }, 'CREATE LISTING'),
         SizedBox(height: 20.h),
