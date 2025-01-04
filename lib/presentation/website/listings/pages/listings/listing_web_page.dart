@@ -31,7 +31,6 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
 
   @override
   Widget build(BuildContext context) {
-
     return Obx(() => switch (controller.listingsWebState.value) {
           ListingsWebState.loading => Screens.loading(),
           ListingsWebState.loaded => _loaded(),
@@ -248,9 +247,8 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                             child: Row(
                               children: List.generate(
                                 listingArgument.photos!.length,
-                                    (index) {
-                                  final image =
-                                  listingArgument.photos![index];
+                                (index) {
+                                  final image = listingArgument.photos![index];
                                   final isSelected =
                                       controller.currentImage.value == image;
                                   return GestureDetector(
@@ -259,21 +257,20 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                     },
                                     child: AnimatedContainer(
                                       width: Get.width / 7,
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 5.w),
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 5.w),
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                          BorderRadius.circular(16),
+                                              BorderRadius.circular(16),
                                           border: Border.all(
-                                            color: AppColors.hint
-                                                .withOpacity(0.9),
+                                            color:
+                                                AppColors.hint.withOpacity(0.9),
                                             width: isSelected ? 5.w : 1.w,
                                           )),
                                       duration: Duration(milliseconds: 200),
                                       curve: Curves.easeInOut,
                                       child: ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(16),
+                                        borderRadius: BorderRadius.circular(16),
                                         child: CloudStorage().imageLoader(
                                           width: Get.width / 7,
                                           height: Get.height,
@@ -476,8 +473,12 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                           text2: listingArgument?.cars.toString() ?? "",
                         ),
                         shorterSummary(
-                          text: 'Area',
+                          text: 'Floor Area',
                           text2: listingArgument?.floorArea.toString() ?? "",
+                        ),
+                        shorterSummary(
+                          text: 'Area',
+                          text2: listingArgument?.area.toString() ?? "",
                         ),
                         shorterSummary(
                           text: 'View',
