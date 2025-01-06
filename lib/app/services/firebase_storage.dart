@@ -99,11 +99,21 @@ class CloudStorage {
       future: ref.child(reference).getDownloadURL(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return CachedNetworkImage(
-            imageUrl: snapshot.data!,
+          return Image.network(
+             snapshot.data!,
             fit: fit ?? BoxFit.cover,
             height: height,
             width: width,
+            loadingBuilder: (context, child, loadingProgress) {
+              return        Center(
+              child: SizedBox(
+                  width: 28,
+                  height: 28,
+                  child: CircularProgressIndicator.adaptive()));
+            },errorBuilder: (context, error, stackTrace) {
+          return Icon(Icons.broken_image);
+              
+            },
           );
         } else {
           return Center(
