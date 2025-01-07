@@ -196,6 +196,11 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(
+                              color: listing.isApprove
+                                  ? Colors.transparent
+                                  : AppColors.kRedColor,
+                              width: listing.isApprove ? 0 : 2.w),
                           boxShadow: const [
                             BoxShadow(
                                 offset: Offset(0, 0),
@@ -423,7 +428,7 @@ class AgentsMyListing extends GetView<AgentListingsController> {
                     top: 10.h,
                     right: 10.w,
                     child: Visibility(
-                      visible: !(listing.isSold ?? false),
+                      visible: !(listing.isSold ?? false) && listing.isApprove,
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(99.r),

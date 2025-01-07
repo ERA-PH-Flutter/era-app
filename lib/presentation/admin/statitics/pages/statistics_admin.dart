@@ -33,16 +33,54 @@ class StatisticsAdmin extends GetView<StatisticsController> {
             SizedBox(height: 30.h),
             Row(
               children: [
-                _createSummaryTile(text: "Total Users",target: FirebaseFirestore.instance.collection("users").snapshots(),difference: "100%",collection:'users'),
-                SizedBox(width: 15.w,),
-                _createSummaryTile(text: "Total Listings",target: FirebaseFirestore.instance.collection("listings").snapshots(),difference: "100%",icon: Icons.real_estate_agent_rounded,collection:'listings'),
-                SizedBox(width: 15.w,),
-                _createSummaryTile(text: "Total Projects",target:FirebaseFirestore.instance.collection("projects").snapshots(),difference: "100%",icon: Icons.apartment,collection:'projects'),
-                SizedBox(width: 15.w,),
-                _createSummaryTile(text: "Total Sold Listings",target: FirebaseFirestore.instance.collection("listings").where('is_sold', isEqualTo: true).snapshots(),difference: "100%",icon: Icons.attach_money,collection:'listings sold'),
+                _createSummaryTile(
+                    text: "Total Users",
+                    target: FirebaseFirestore.instance
+                        .collection("users")
+                        .where('status', isEqualTo: 'approved')
+                        .snapshots(),
+                    difference: "100%",
+                    collection: 'users'),
+                SizedBox(
+                  width: 15.w,
+                ),
+                _createSummaryTile(
+                    text: "Total Listings",
+                    target: FirebaseFirestore.instance
+                        .collection("listings")
+                        .where('is_approve', isEqualTo: true)
+                        .snapshots(),
+                    difference: "100%",
+                    icon: Icons.real_estate_agent_rounded,
+                    collection: 'listings'),
+                SizedBox(
+                  width: 15.w,
+                ),
+                _createSummaryTile(
+                    text: "Total Projects",
+                    target: FirebaseFirestore.instance
+                        .collection("projects")
+                        .snapshots(),
+                    difference: "100%",
+                    icon: Icons.apartment,
+                    collection: 'projects'),
+                SizedBox(
+                  width: 15.w,
+                ),
+                _createSummaryTile(
+                    text: "Total Sold Listings",
+                    target: FirebaseFirestore.instance
+                        .collection("listings")
+                        .where('is_sold', isEqualTo: true)
+                        .snapshots(),
+                    difference: "100%",
+                    icon: Icons.attach_money,
+                    collection: 'listings sold'),
               ],
             ),
-            SizedBox(height: 20.h,),
+            SizedBox(
+              height: 20.h,
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -61,26 +99,25 @@ class StatisticsAdmin extends GetView<StatisticsController> {
       ),
     );
   }
-  _createSummaryTile({
-    text,
-    required Stream<QuerySnapshot<Map<String, dynamic>>> target,
-    difference,
-    icon,
-    required collection
-  }){
+
+  _createSummaryTile(
+      {text,
+      required Stream<QuerySnapshot<Map<String, dynamic>>> target,
+      difference,
+      icon,
+      required collection}) {
     return Flexible(
       child: Wrap(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 20.w),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
             decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
-                  offset: Offset(0, 0),
-                  blurRadius: 3,
-                  spreadRadius: 0,
-                  color: Colors.black12
-                )
+                    offset: Offset(0, 0),
+                    blurRadius: 3,
+                    spreadRadius: 0,
+                    color: Colors.black12)
               ],
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.r),
@@ -101,9 +138,9 @@ class StatisticsAdmin extends GetView<StatisticsController> {
                         ),
                         StreamBuilder(
                           stream: target,
-                          builder: (context,snapshot){
+                          builder: (context, snapshot) {
                             int count = 0;
-                            if(snapshot.hasData){
+                            if (snapshot.hasData) {
                               count = snapshot.data!.docs.length;
                             }
                             return EraText(
@@ -122,14 +159,15 @@ class StatisticsAdmin extends GetView<StatisticsController> {
                                 offset: Offset(0, 0),
                                 blurRadius: 2,
                                 spreadRadius: 0,
-                                color: AppColors.kRedColor.withOpacity(0.3)
-                            )
+                                color: AppColors.kRedColor.withOpacity(0.3))
                           ],
                           color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(10.r)
-                      ),
+                          borderRadius: BorderRadius.circular(10.r)),
                       padding: EdgeInsets.all(12.5.w),
-                      child: Icon(icon ?? Icons.person,size: 25.sp,),
+                      child: Icon(
+                        icon ?? Icons.person,
+                        size: 25.sp,
+                      ),
                     )
                   ],
                 ),
@@ -141,36 +179,40 @@ class StatisticsAdmin extends GetView<StatisticsController> {
                       color: Colors.grey,
                       fontWeight: FontWeight.w300,
                     ),
-                    SizedBox(width: 10.w,),
+                    SizedBox(
+                      width: 10.w,
+                    ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                       decoration: BoxDecoration(
                           color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(5.r)
-                      ),
+                          borderRadius: BorderRadius.circular(5.r)),
                       child: Row(
                         children: [
                           FutureBuilder(
-                            future: controller.calculateDifference(collection),
-                            builder: (context,AsyncSnapshot<int> snapshot) {
-                              if(snapshot.hasData){
-                                return EraText(
-                                  text: "${snapshot.data!}%",
-                                  fontSize: 20.sp,
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.w400,
-                                );
-                              }else{
-                                return EraText(
-                                  text: "0",
-                                  fontSize: 20.sp,
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.w400,
-                                );
-                              }
-                            }
+                              future:
+                                  controller.calculateDifference(collection),
+                              builder: (context, AsyncSnapshot<int> snapshot) {
+                                if (snapshot.hasData) {
+                                  return EraText(
+                                    text: "${snapshot.data!}%",
+                                    fontSize: 20.sp,
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.w400,
+                                  );
+                                } else {
+                                  return EraText(
+                                    text: "0",
+                                    fontSize: 20.sp,
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.w400,
+                                  );
+                                }
+                              }),
+                          SizedBox(
+                            width: 5.w,
                           ),
-                          SizedBox(width: 5.w,),
                           Icon(
                             Icons.north_east,
                             size: 22.sp,
@@ -187,23 +229,28 @@ class StatisticsAdmin extends GetView<StatisticsController> {
       ),
     );
   }
-  _buildGraph(){
+
+  _buildGraph() {
     DateTime selectedDate = DateTime.now();
     final startOfWeek = selectedDate.subtract(Duration(days: 7));
     final endOfWeek = startOfWeek.add(Duration(days: 7));
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('listings')
+      stream: FirebaseFirestore.instance
+          .collection('listings')
+          .where('is_approve', isEqualTo: true)
           .where('date_created', isGreaterThanOrEqualTo: startOfWeek)
-          .where('date_created', isLessThanOrEqualTo: endOfWeek).snapshots(),
-      builder: (context,snapshot){
+          .where('date_created', isLessThanOrEqualTo: endOfWeek)
+          .snapshots(),
+      builder: (context, snapshot) {
         List<FlSpot> graphData = [];
-        if(snapshot.hasData){
+        if (snapshot.hasData) {
           var data = snapshot.data!;
           int highest = 0;
-          for(int i = 6;i!=0;i--){
+          for (int i = 6; i != 0; i--) {
             int count = 0;
             for (var doc in data.docs) {
-              if(doc['date_created'].toDate().day == selectedDate.subtract(Duration(days: i)).day){
+              if (doc['date_created'].toDate().day ==
+                  selectedDate.subtract(Duration(days: i)).day) {
                 count++;
               }
             }
@@ -214,15 +261,14 @@ class StatisticsAdmin extends GetView<StatisticsController> {
           return Container(
             margin: EdgeInsets.only(right: 5.w),
             width: Get.width,
-            padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 20.w),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
             decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
                     offset: Offset(0, 0),
                     blurRadius: 3,
                     spreadRadius: 0,
-                    color: Colors.black12
-                )
+                    color: Colors.black12)
               ],
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.r),
@@ -237,7 +283,9 @@ class StatisticsAdmin extends GetView<StatisticsController> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(
+                  height: 20.h,
+                ),
                 SizedBox(
                   height: 530.h,
                   child: LineChart(
@@ -270,22 +318,26 @@ class StatisticsAdmin extends GetView<StatisticsController> {
                       ),
                       borderData: FlBorderData(
                         show: true,
-                        border: Border.all(color: const Color(0xff37434d),width: 0.5),
+                        border: Border.all(
+                            color: const Color(0xff37434d), width: 0.5),
                       ),
                       minX: 0,
                       maxX: 6,
                       minY: 0,
-                      maxY: controller.maxValue.toDouble()
-                      ,
+                      maxY: controller.maxValue.toDouble(),
                       lineBarsData: [
                         LineChartBarData(
                           spots: graphData,
                           isCurved: true,
                           gradient: LinearGradient(
                             colors: [
-                              ColorTween(begin: gradientColors[0], end: gradientColors[1])
+                              ColorTween(
+                                      begin: gradientColors[0],
+                                      end: gradientColors[1])
                                   .lerp(0.2)!,
-                              ColorTween(begin: gradientColors[0], end: gradientColors[1])
+                              ColorTween(
+                                      begin: gradientColors[0],
+                                      end: gradientColors[1])
                                   .lerp(0.2)!,
                             ],
                           ),
@@ -298,10 +350,14 @@ class StatisticsAdmin extends GetView<StatisticsController> {
                             show: true,
                             gradient: LinearGradient(
                               colors: [
-                                ColorTween(begin: gradientColors[0], end: gradientColors[1])
+                                ColorTween(
+                                        begin: gradientColors[0],
+                                        end: gradientColors[1])
                                     .lerp(0.2)!
                                     .withOpacity(0.1),
-                                ColorTween(begin: gradientColors[0], end: gradientColors[1])
+                                ColorTween(
+                                        begin: gradientColors[0],
+                                        end: gradientColors[1])
                                     .lerp(0.2)!
                                     .withOpacity(0.1),
                               ],
@@ -315,25 +371,28 @@ class StatisticsAdmin extends GetView<StatisticsController> {
               ],
             ),
           );
-        }else{
-          return Center(child: CircularProgressIndicator(),);
+        } else if (snapshot.hasError) {
+          print(snapshot.error);
         }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }
-  _buildSold(){
+
+  _buildSold() {
     return Container(
       width: Get.width,
       margin: EdgeInsets.only(left: 10.w),
-      padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
               offset: Offset(0, 0),
               blurRadius: 3,
               spreadRadius: 0,
-              color: Colors.black12
-          )
+              color: Colors.black12)
         ],
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.r),
@@ -348,40 +407,46 @@ class StatisticsAdmin extends GetView<StatisticsController> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 20.h,),
+          SizedBox(
+            height: 20.h,
+          ),
           StreamBuilder(
-            stream: FirebaseFirestore.instance.collection('listings').where('is_sold',isEqualTo: true).limit(10).snapshots(),
-            builder: (context,snapshot){
-              if(snapshot.hasData){
+            stream: FirebaseFirestore.instance
+                .collection('listings')
+                .where('is_sold', isEqualTo: true)
+                .limit(10)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
                 var data = snapshot.data!;
                 return ListView.builder(
                   itemCount: data.docs.length,
                   shrinkWrap: true,
-                  itemBuilder: (context,index){
+                  itemBuilder: (context, index) {
                     return Container(
                       width: Get.width,
-                      padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.w),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.w, vertical: 10.w),
                       decoration: BoxDecoration(
                         boxShadow: const [
                           BoxShadow(
                               offset: Offset(0, 0),
                               blurRadius: 3,
                               spreadRadius: 0,
-                              color: Colors.black12
-                          )
+                              color: Colors.black12)
                         ],
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10.r),
                       ),
                       child: EraText(
-                        text: "${index+1}. ${data.docs[index]['name']}",
+                        text: "${index + 1}. ${data.docs[index]['name']}",
                         color: Colors.black,
                         fontSize: 20.sp,
                       ),
                     );
                   },
                 );
-              }else{
+              } else {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
@@ -392,6 +457,7 @@ class StatisticsAdmin extends GetView<StatisticsController> {
       ),
     );
   }
+
   List<Color> gradientColors = [
     AppColors.kRedColor,
     AppColors.blue,
@@ -434,15 +500,17 @@ class StatisticsAdmin extends GetView<StatisticsController> {
       child: text,
     );
   }
+
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 15,
     );
     int maxValue = controller.maxValue;
-    if(maxValue > 10){
-      if(value.toInt() % 3 == 0){
-        return Text(value.toInt().toString(), style: style, textAlign: TextAlign.left);
+    if (maxValue > 10) {
+      if (value.toInt() % 3 == 0) {
+        return Text(value.toInt().toString(),
+            style: style, textAlign: TextAlign.left);
       }
     }
     return Container();

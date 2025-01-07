@@ -4,13 +4,9 @@ import 'package:get/get.dart';
 import '../../../../app/services/local_storage.dart';
 import '../../../../repository/listing.dart';
 
-enum AgentListingsState{
-  loading,
-  loaded,
-  error,
-  empty
-}
-class AgentListingsController extends GetxController{
+enum AgentListingsState { loading, loaded, error, empty }
+
+class AgentListingsController extends GetxController {
   var store = Get.find<LocalStorageService>();
   var agentListingsState = AgentListingsState.loading.obs;
   var sortBy = 'date'.obs;
@@ -19,18 +15,18 @@ class AgentListingsController extends GetxController{
   List<Listing> listings = [];
   var data = [].obs;
   @override
-  void onInit()async{
+  void onInit() async {
     loadListing();
     super.onInit();
   }
-  loadListing()async{
+
+  loadListing() async {
     user = await EraUser().getById(Get.arguments[0]);
-    listings = (await Database().searchListingsByUserId(Get.arguments[0]));
-    if(listings.isEmpty){
+    listings = (await Database().searchAllListingsByUserId(Get.arguments[0]));
+    if (listings.isEmpty) {
       agentListingsState.value = AgentListingsState.empty;
-    }else{
+    } else {
       agentListingsState.value = AgentListingsState.loaded;
     }
-
   }
 }

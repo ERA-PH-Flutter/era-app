@@ -21,8 +21,8 @@ import 'package:get/get.dart';
 import '../../../../../repository/logs.dart';
 import '../../../../../repository/user.dart';
 
-class Roster extends GetView<AgentAdminController> {
-  const Roster({super.key});
+class DeletedRoster extends GetView<AgentAdminController> {
+  const DeletedRoster({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,39 +44,43 @@ class Roster extends GetView<AgentAdminController> {
             ),
             SizedBox(height: 10.h),
             EraText(
-              text: 'FIND AGENT',
+              text: 'DELETED AGENT',
               color: AppColors.kRedColor,
               fontSize: EraTheme.header,
               fontWeight: FontWeight.bold,
             ),
-            buildField(),
-            SizedBox(height: 10.h),
-            Padding(
-              padding: EdgeInsets.only(left: Get.width - 520.w),
-              child: Button(
-                onTap: () async {
-                  controller.agentState.value = AgentAdminState.loading;
-                  controller.searchStream = controller.getStream();
-                  // await Future.delayed(Duration(seconds: 1));
-                  controller.agentState.value = AgentAdminState.loaded;
-                },
-                margin: EdgeInsets.symmetric(horizontal: 5),
-                width: 150.w,
-                text: 'SEARCH',
-                fontSize: EraTheme.buttonFontSizeSmall,
-                bgColor: AppColors.kRedColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
+            // buildField(),
+            // SizedBox(height: 10.h),
+            // Padding(
+            //   padding: EdgeInsets.only(left: Get.width - 520.w),
+            //   child: Button(
+            //     onTap: () async {
+            //       controller.agentState.value = AgentAdminState.loading;
+            //       controller.searchStream =
+            //           controller.getStream(status: 'deleted');
+            //       // await Future.delayed(Duration(seconds: 1));
+            //       controller.agentState.value = AgentAdminState.loaded;
+            //     },
+            //     margin: EdgeInsets.symmetric(horizontal: 5),
+            //     width: 150.w,
+            //     text: 'SEARCH',
+            //     fontSize: EraTheme.buttonFontSizeSmall,
+            //     bgColor: AppColors.kRedColor,
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            // ),
             Obx(() {
               if (controller.agentState.value == AgentAdminState.loaded) {
                 return StreamBuilder(
-                  stream: controller.searchStream,
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .orderBy('full_name')
+                      .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<EraUser> users = [];
                       for (var doc in snapshot.data!.docs) {
-                        if (doc.data()['status'] == "approved") {
+                        if (doc.data()['status'] == "deleted") {
                           users.add(
                             EraUser.fromJSON(
                               {...doc.data(), 'id': doc.id},
@@ -88,6 +92,7 @@ class Roster extends GetView<AgentAdminController> {
                     } else if (snapshot.hasError) {
                       print(snapshot.error);
                     }
+
                     return Center(
                       child: CircularProgressIndicator(),
                     );
@@ -280,112 +285,17 @@ class Roster extends GetView<AgentAdminController> {
                                         ],
                                       ),
                                     )),
-                                menuOptions("Message", () async {
-                                  Get.dialog(AlertDialog(
-                                    backgroundColor: AppColors.white,
-                                    title: GestureDetector(
-                                        onTap: () {
-                                          Get.back();
-                                        },
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Icon(
-                                            Icons.close,
-                                            color: AppColors.black,
-                                          ),
-                                        )),
-                                    content: Wrap(
-                                      children: [
-                                        SizedBox(
-                                          width: Get.width / 2.5,
-                                          child: Column(
-                                            children: [
-                                              TextformfieldWidget(
-                                                controller: controller.title,
-                                                hintText: 'TITLE',
-                                                maxLines: 1,
-                                                fontSize: 15.sp,
-                                                textInputAction:
-                                                    TextInputAction.newline,
-                                                keyboardType:
-                                                    TextInputType.multiline,
-                                                color: AppColors.hint,
-                                              ),
-                                              sb10(),
-                                              TextformfieldWidget(
-                                                controller: controller.message,
-                                                hintText:
-                                                    'Type your message here',
-                                                maxLines: 5,
-                                                fontSize: 15.sp,
-                                                textInputAction:
-                                                    TextInputAction.newline,
-                                                keyboardType:
-                                                    TextInputType.multiline,
-                                                color: AppColors.hint,
-                                              ),
-                                              sb30(),
-                                              Button(
-                                                width: Get.width,
-                                                onTap: () async {
-                                                  var messageDoc =
-                                                      FirebaseFirestore.instance
-                                                          .collection(
-                                                              'messages')
-                                                          .doc();
-                                                  await messageDoc.set({
-                                                    'date': DateTime.now(),
-                                                    'from':
-                                                        "${user!.firstname ?? "ERA Admin"} ${user!.lastname ?? ""}",
-                                                    "title":
-                                                        controller.title.text,
-                                                    'subject':
-                                                        controller.message.text,
-                                                    'to': listingModels[i].id
-                                                  });
-                                                  BaseController()
-                                                      .showSuccessDialog(
-                                                          title: "Success",
-                                                          description:
-                                                              "Message has been sent!",
-                                                          hitApi: () {
-                                                            controller.title
-                                                                .clear();
-                                                            controller.message
-                                                                .clear();
-                                                            Get.back();
-                                                            Get.back();
-                                                          });
-                                                },
-                                                fontSize: EraTheme
-                                                    .buttonFontSizeSmall,
-                                                text: 'SUBMIT',
-                                                bgColor: AppColors.blue,
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ));
-                                  // todo open modal with message textfield title and description
-                                }, CupertinoIcons.chat_bubble_fill),
-                                menuOptions("Edit", () async {
-                                  Get.find<AgentAdminController>()
-                                      .setValues(listingModels[i]);
-                                  controllers.onSectionSelected(1);
+                                menuOptions("Restore", () async {
+                                  // Get.find<AgentAdminController>()
+                                  //     .setValues(listingModels[i]);
+                                  // controllers.onSectionSelected(1);
+                                  controller.agentState.value =
+                                      AgentAdminState.loading;
+                                  listingModels[i].status == "approved";
+                                  await listingModels[i].update();
+                                  controller.agentState.value =
+                                      AgentAdminState.loaded;
                                 }, Icons.edit),
-                                menuOptions("Delete", () async {
-                                  await listingModels[i].deleteOtherUser(
-                                      userId: listingModels[i].id ?? '');
-                                  await Logs(
-                                          title:
-                                              "${user!.firstname} ${user!.lastname} remove an agent with ID ${listingModels[i].eraId}",
-                                          type: "account")
-                                      .add();
-                                }, Icons.delete_rounded),
                               ])),
                         ],
                       );
@@ -523,83 +433,3 @@ class Roster extends GetView<AgentAdminController> {
     );
   }
 }
-
-
-  // Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            //   Button(
-            //     onTap: () {
-            //       //NOT DONE YET TO DO NIKKO
-            //       BaseController().showSuccessDialog(
-            //           title: "Confirm",
-            //           description: "Do you want to delete this User?",
-            //           hitApi: () async {
-            //             BaseController().showLoading();
-            //             await EraUser().delete();
-            //             BaseController().hideLoading();
-
-            //             Get.back();
-            //           },
-            //           cancelable: true);
-            //     },
-            //     width: 170.w,
-            //     fontSize: EraTheme.buttonFontSizeSmall,
-            //     text: 'DELETE',
-            //     bgColor: AppColors.kRedColor,
-            //     borderRadius: BorderRadius.circular(30),
-            //   ),
-            //   sbw10(),
-            //   Button(
-            //     onTap: () {
-            //       Get.dialog(
-            // AlertDialog(
-            //         backgroundColor: AppColors.white,
-            //         title: GestureDetector(
-            //             onTap: () {
-            //               Get.back();
-            //             },
-            //             child: Align(
-            //               alignment: Alignment.centerRight,
-            //               child: Icon(
-            //                 Icons.close,
-            //                 color: AppColors.black,
-            //               ),
-            //             )),
-            //         content: Stack(
-            //           children: [
-            //             SizedBox(
-            //               height: 250.h,
-            //               width: Get.width - 400.w,
-            //               child: Column(
-            //                 children: [
-            //                   TextformfieldWidget(
-            //                     controller: controller.message,
-            //                     hintText: 'Type your message here',
-            //                     maxLines: 5,
-            //                     fontSize: 15.sp,
-            //                     textInputAction: TextInputAction.newline,
-            //                     keyboardType: TextInputType.multiline,
-            //                     color: AppColors.hint,
-            //                   ),
-            //                   sb30(),
-            //                   Button(
-            //                     onTap: () {},
-            //                     width: 170.w,
-            //                     fontSize: EraTheme.buttonFontSizeSmall,
-            //                     text: 'SUBMIT',
-            //                     bgColor: AppColors.blue,
-            //                     borderRadius: BorderRadius.circular(30),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ));
-            //     },
-            //     width: 170.w,
-            //     fontSize: EraTheme.buttonFontSizeSmall,
-            //     text: 'MESSAGE',
-            //     bgColor: AppColors.blue,
-            //     borderRadius: BorderRadius.circular(30),
-            //   ),
-            // ]),

@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -99,17 +100,38 @@ class CloudStorage {
       future: ref.child(reference).getDownloadURL(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return CachedNetworkImage(
-            imageUrl: snapshot.data!,
-            fit: fit ?? BoxFit.cover,
-            height: height,
-            width: width,
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return kIsWeb
+              ? Image.network(
+                  snapshot.data!,
+                  fit: fit ?? BoxFit.cover,
+                  height: height,
+                  width: width,
+                )
+              : CachedNetworkImage(
+                  imageUrl: snapshot.data!,
+                  fit: fit ?? BoxFit.cover,
+                  height: height,
+                  width: width,
+                );
+        } else if (snapshot.hasError) {
+          return kIsWeb
+              ? Image.network(
+                  'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/images%2Fno_image_listings_white.png?alt=media&token=2ff92a9d-c7c1-4e63-a61f-e9273a979b08',
+                  fit: fit ?? BoxFit.cover,
+                  height: height,
+                  width: width,
+                )
+              : CachedNetworkImage(
+                  imageUrl:
+                      'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/images%2Fno_image_listings_white.png?alt=media&token=2ff92a9d-c7c1-4e63-a61f-e9273a979b08',
+                  fit: fit ?? BoxFit.cover,
+                  height: height,
+                  width: width,
+                );
         }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }

@@ -27,6 +27,7 @@ import 'package:eraphilippines/presentation/admin/user_management/controllers/ag
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/approvedagents.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/delete_account.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/roster.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -71,6 +72,7 @@ class LandingPage extends GetView<LandingPageController> {
     DevTool(), //23
     ListingApproval(), //24
     ApprovalPropertyinformation(), //25
+    DeletedRoster(), //26
     // UploadNews(), //14
     // UploadNews(), //15
   ];
@@ -252,6 +254,7 @@ class LandingPage extends GetView<LandingPageController> {
                 _buildMenuItem('ROSTER', 0),
                 _buildMenuItem('ADD AGENT', 1),
                 _buildMenuItem('APPROVAL NEW AGENT', 2),
+                _buildMenuItem('DELETED ACCOUNT', 26),
                 //     _buildMenuItem('VIEW AGENTS/BROKERS', 3),
               ],
               index: 1,

@@ -186,7 +186,10 @@ class AI {
     };
     print('gemini search here 1 query $query');
     if (query.isEmpty && overrideAiFilters.isEmpty) {
-      return (await FirebaseFirestore.instance.collection('listings').get())
+      return (await FirebaseFirestore.instance
+              .collection('listings')
+              .where('is_approve', isEqualTo: true)
+              .get())
           .docs
           .map((e) => Listing.fromJSON(e.data()))
           .toList();
@@ -198,8 +201,9 @@ class AI {
 
     print('gemini search here 1 result listing $result');
 
-    Query<Map<String, dynamic>> firebaseQuery =
-        FirebaseFirestore.instance.collection('listings');
+    Query<Map<String, dynamic>> firebaseQuery = FirebaseFirestore.instance
+        .collection('listings')
+        .where('is_approve', isEqualTo: true);
     List<AiFilters> prompts = [];
     result!.forEach((key, value) {
       if (['type', 'sub_category', 'view', 'status'].contains(key)) {

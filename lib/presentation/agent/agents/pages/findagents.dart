@@ -227,7 +227,6 @@ FutureBuilder(
                     color: AppColors.hint,
                     textAlign: TextAlign.start,
                   ),
-                  SizedBox(height: 20.h),
                   Obx(() => switch (controller.agentState.value) {
                         AgentsState.loading => _loading(),
                         AgentsState.loaded => _loaded(),
