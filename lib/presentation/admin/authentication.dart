@@ -75,8 +75,7 @@ class AuthenticationPage extends GetView {
                                 width: 300.w,
                                 child: TextFormField(
                                   controller: pass,
-                                  obscureText:
-                                      isPasswordNotVisible.value,
+                                  obscureText: isPasswordNotVisible.value,
                                   style: TextStyle(
                                       color: AppColors.black, fontSize: 15.sp),
                                   decoration: InputDecoration(
@@ -85,12 +84,11 @@ class AuthenticationPage extends GetView {
                                     fillColor: AppColors.white,
                                     filled: true,
                                     suffixIcon: IconButton(
-                                      icon: Icon(
-                                          isPasswordNotVisible.value
-                                              ? CupertinoIcons.eye_fill
-                                              : CupertinoIcons.eye_slash_fill),
+                                      icon: Icon(isPasswordNotVisible.value
+                                          ? CupertinoIcons.eye_fill
+                                          : CupertinoIcons.eye_slash_fill),
                                       onPressed: () {
-                                       isPasswordNotVisible.value =
+                                        isPasswordNotVisible.value =
                                             !isPasswordNotVisible.value;
                                       },
                                     ),
@@ -114,25 +112,41 @@ class AuthenticationPage extends GetView {
                                 children: [
                                   Button(
                                       width: 300.w,
-                                      onTap: ()async{
+                                      onTap: () async {
                                         BaseController().showLoading();
-                                        await Authentication().login(email: email.text,password: pass.text);
-                                        if(FirebaseAuth.instance.currentUser != null){
+                                        await Authentication().login(
+                                            email: email.text,
+                                            password: pass.text);
+                                        if (FirebaseAuth.instance.currentUser !=
+                                            null) {
                                           BaseController().hideLoading();
-                                          user = await EraUser().getById( FirebaseAuth.instance.currentUser!.uid);
-                                          if(user!.role!.toLowerCase() != "admin"){
+                                          user = await EraUser().getById(
+                                              FirebaseAuth
+                                                  .instance.currentUser!.uid);
+                                          if (user!.role!.toLowerCase() !=
+                                              "admin") {
                                             user = null;
                                             await Authentication().logout();
-                                            BaseController().showSuccessDialog(title: "ERROR",description: "Please use admin account to have access!",hitApi: (){
-                                              Get.back();
-                                            });
-                                          }else{
-                                            Get.toNamed(RouteString.landingPage);
+                                            BaseController().showSuccessDialog(
+                                                title: "ERROR",
+                                                description:
+                                                    "Please use admin account to have access!",
+                                                hitApi: () {
+                                                  Get.back();
+                                                });
+                                          } else {
+                                            Get.toNamed(
+                                                RouteString.landingPage);
                                           }
-                                        }else{
-                                          BaseController().showSuccessDialog(title: "ERROR",description: "Password or email incorrect",hitApi: (){
-                                            Get.back();Get.back();
-                                          });
+                                        } else {
+                                          BaseController().showSuccessDialog(
+                                              title: "ERROR",
+                                              description:
+                                                  "Password or email incorrect",
+                                              hitApi: () {
+                                                Get.back();
+                                                Get.back();
+                                              });
                                         }
                                       },
                                       text: "L O G I N",
@@ -150,72 +164,98 @@ class AuthenticationPage extends GetView {
                                           isScrollControlled: true,
                                           builder: (context) {
                                             return Padding(
-                                              padding: EdgeInsets.only(bottom: MediaQuery
-                                                  .of(context)
-                                                  .viewInsets
-                                                  .bottom),
+                                              padding: EdgeInsets.only(
+                                                  bottom: MediaQuery.of(context)
+                                                      .viewInsets
+                                                      .bottom),
                                               child: Wrap(
                                                 children: [
                                                   Container(
-                                                      padding: EdgeInsets.all(16.h),
-                                                      margin: EdgeInsets.all(16.h),
-                                                      width:Get.width,
+                                                      padding:
+                                                          EdgeInsets.all(16.h),
+                                                      margin:
+                                                          EdgeInsets.all(16.h),
+                                                      width: Get.width,
                                                       decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(10.r),
-                                                          color: AppColors.white
-                                                      ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.r),
+                                                          color:
+                                                              AppColors.white),
                                                       child: Column(
                                                         children: [
-                                                          Container(
+                                                          SizedBox(
                                                             height: 48.h,
-                                                            child: CupertinoTextField(
-                                                              placeholder: "Email Address",
-                                                              controller: emailReset,
-                                                              decoration: BoxDecoration(
-                                                                color: Colors.grey[200],
-                                                                borderRadius: BorderRadius.circular(10.r),
+                                                            child:
+                                                                CupertinoTextField(
+                                                              placeholder:
+                                                                  "Email Address",
+                                                              controller:
+                                                                  emailReset,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .grey[200],
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
                                                               ),
                                                             ),
                                                           ),
-                                                          SizedBox(height: 12.h,),
+                                                          SizedBox(
+                                                            height: 12.h,
+                                                          ),
                                                           Button(
-                                                            bgColor: AppColors.kRedColor,
+                                                            bgColor: AppColors
+                                                                .kRedColor,
                                                             height: 48.h,
                                                             text: "Send Email",
                                                             width: Get.width,
-                                                            onTap: ()async{
-                                                              try{
-                                                                BaseController().showLoading();
-                                                                await FirebaseAuth.instance.sendPasswordResetEmail(email: emailReset.text);
-                                                                BaseController().showSuccessDialog(
-                                                                    hitApi: (){
-                                                                      Get.back();Get.back();Get.back();
-                                                                    },
-                                                                    title: "Email Sent",
-                                                                    description: "A reset password link has been sent to your email. Please check your inbox.",
-                                                                    okayButton: "Close"
-                                                                );
-                                                              }catch(e){
-                                                                BaseController().showErroDialog(
-                                                                    onTap: (){
-                                                                      Get.back();
-                                                                    },
-                                                                    title: "ERROR",
-                                                                    description: "Email incorrect! or not registered to ERA Philippines"
-                                                                );
+                                                            onTap: () async {
+                                                              try {
+                                                                BaseController()
+                                                                    .showLoading();
+                                                                await FirebaseAuth
+                                                                    .instance
+                                                                    .sendPasswordResetEmail(
+                                                                        email: emailReset
+                                                                            .text);
+                                                                BaseController()
+                                                                    .showSuccessDialog(
+                                                                        hitApi:
+                                                                            () {
+                                                                          Get.back();
+                                                                          Get.back();
+                                                                          Get.back();
+                                                                        },
+                                                                        title:
+                                                                            "Email Sent",
+                                                                        description:
+                                                                            "A reset password link has been sent to your email. Please check your inbox.",
+                                                                        okayButton:
+                                                                            "Close");
+                                                              } catch (e) {
+                                                                BaseController()
+                                                                    .showErroDialog(
+                                                                        onTap:
+                                                                            () {
+                                                                          Get.back();
+                                                                        },
+                                                                        title:
+                                                                            "ERROR",
+                                                                        description:
+                                                                            "Email incorrect! or not registered to ERA Philippines");
                                                               }
-
                                                             },
                                                           )
                                                         ],
-                                                      )
-                                                  ),
+                                                      )),
                                                 ],
                                               ),
                                             );
-                                          }
-                                      );
-
+                                          });
                                     },
                                     child: EraText(
                                       text: 'Forgot Password?',

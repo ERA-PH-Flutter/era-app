@@ -3,20 +3,13 @@ import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
-import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
-import 'package:eraphilippines/repository/listing.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/theme.dart';
-import '../../../../app/widgets/button.dart';
-import '../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
-import '../controllers/listing_admin_controller.dart';
 
 class ApprovalPropertyinformation extends GetView<ListingsAdminController> {
   const ApprovalPropertyinformation({super.key});

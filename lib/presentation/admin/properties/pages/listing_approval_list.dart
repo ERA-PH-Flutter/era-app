@@ -5,25 +5,17 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/app_textfield.dart';
-import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
-import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/admin/landingpage/controllers/landingpage_controller.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/listingsAdmin_controller.dart';
-import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../app/constants/sized_box.dart';
-import '../../../../app/widgets/box_widget.dart';
 import '../../../../repository/logs.dart';
 import '../../../global.dart';
-import '../controllers/listing_admin_controller.dart';
 import '../controllers/listing_approval_controller.dart';
 
 class ListingApproval extends GetView<ListingApprovalController> {
@@ -315,11 +307,13 @@ class ListingApproval extends GetView<ListingApprovalController> {
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
                                           var user = snapshot.data!;
+                                          // ignore: unused_local_variable
                                           final Uri whatsAppUrl2 = user.whatsApp !=
                                                   null
                                               ? Uri.parse(
                                                   'https://wa.me/${user.whatsApp}')
                                               : Uri.parse('https://wa.me/null');
+                                          // ignore: unused_local_variable
                                           final Uri emailUrl = user.email !=
                                                   null
                                               ? Uri.parse(
@@ -467,10 +461,12 @@ class ListingApproval extends GetView<ListingApprovalController> {
                                     icon: Icon(
                                       Icons.more_horiz_rounded,
                                       color: Colors.white,
-                                      shadows: const [
+                                      size: 30.sp,
+                                      shadows: [
                                         BoxShadow(
                                             offset: Offset(0, 0),
-                                            color: Colors.white,
+                                            color:
+                                                Colors.black.withOpacity(0.8),
                                             blurRadius: 5,
                                             spreadRadius: 1)
                                       ],
@@ -580,6 +576,7 @@ class ListingApproval extends GetView<ListingApprovalController> {
     );
   }
 
+  // ignore: unused_element
   _empty() {
     return Center(
       child: Text('Error'),

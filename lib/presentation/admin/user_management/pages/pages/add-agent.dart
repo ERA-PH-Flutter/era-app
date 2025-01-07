@@ -258,10 +258,7 @@ class AddAgent extends GetView<AgentAdminController> {
                                     position:
                                         controller.selectedAgentType.value,
                                     description: controller.descriptionA.text,
-                                    role: controller.selectedAgentRole.value ==
-                                            "ERA Infinity Agent"
-                                        ? "agent"
-                                        : "broker",
+                                    role: controller.selectedAgentRole.value,
                                     eraId:
                                         "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
                                     status: "approved")

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
@@ -11,7 +10,6 @@ import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/se
 import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projects_list.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -21,8 +19,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../presentation/agent/forms/contacts/pages/help.dart';
 import '../../../presentation/agent/home/pages/home.dart';
 import '../../../presentation/global.dart';
-import 'package:circle_nav_bar/circle_nav_bar.dart';
-
 import '../app_text.dart';
 
 var selectedIndex = 0.obs;

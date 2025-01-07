@@ -20,7 +20,6 @@ import '../../presentation/global.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
 import '../constants/screens.dart';
-import '../constants/theme.dart';
 import '../services/ai_search.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -746,8 +745,6 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       showFullSearch.value = false;
                                     });
                                   }
-
-                                  ;
                                 });
                               }),
                             ),
