@@ -81,7 +81,7 @@ class Listing {
         owner: json["owner"],
         leads: json["leads"],
         views: json["views"],
-        isApprove: json["is_approve"],
+        isApprove: json["is_approve"] == null ? false : json['is_approve'],
         propertyId: json['property_id'] ?? "Invalid",
         dateCreated: (json["date_created"] == null)
             ? DateTime.now()
@@ -124,7 +124,7 @@ class Listing {
       "garage": cars,
       "is_sold": isSold ?? false,
       "latLng": latLng ?? [0, 0],
-      "is_approve" : isApprove,
+      "is_approve": isApprove,
       "address": address ?? "",
       "property_id": propertyId
     };

@@ -91,7 +91,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             buttonBackgroundColor: AppColors.blue,
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 300),
-            height: 70,
+            height: 65,
             items: navBarItems.map((item) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -100,20 +100,18 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                   selectedIndex.value == navBarItems.indexOf(item)
                       ? Image.asset(
                           item.selectedIcon,
-                          width: 60,
-                          height: 55,
                           fit: BoxFit.cover,
                         )
                       : Image.asset(
                           item.defaultIcon,
-                          width: 50,
-                          height: 50,
+                          width: 44,
+                          height: 44,
                           fit: BoxFit.cover,
                         ),
                   Obx(
                     () => selectedIndex.value == navBarItems.indexOf(item)
                         ? SizedBox.shrink()
-                        : EraText(text: item.label, fontSize: 10.sp),
+                        : EraText(text: item.label, fontSize: 11.sp),
                   ),
                 ],
               );
