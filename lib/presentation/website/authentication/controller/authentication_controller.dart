@@ -1,5 +1,9 @@
 import 'dart:io';
+import 'package:eraphilippines/app/constants/strings.dart';
+import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:eraphilippines/presentation/website/authentication.dart';
+import 'package:eraphilippines/repository/user.dart';
 
 import 'package:flutter/cupertino.dart';
 
@@ -56,7 +60,77 @@ class AuthenticationWebController extends GetxController with BaseController {
   TextEditingController educationL = TextEditingController();
   TextEditingController experience = TextEditingController();
   TextEditingController specialization = TextEditingController();
+  var formKey = GlobalKey<FormState>();
 
+  Future signUp() async {
+    showLoading();
+    try {
+      var result = await Authentication()
+          .signup(email: emailAd.text, password: passwordC.text);
+      if (!result.contains("error")) {
+        var user = EraUser(
+          id: result,
+          firstname: firstName.text,
+          lastname: lastName.text,
+          //age: age.text.toInt(),
+          //gender: selectedGender.value,
+          whatsApp: fullContactNo.value,
+          email: emailAd.text,
+        );
+        var userInfo = EraUserInfo(
+            id: result,
+            status: selectedStatus.value,
+            recruiter: recruiter.text,
+            education: selectedEducation.value,
+            experience: experience.text.toInt(),
+            transaction: selectedTransaction.value,
+            pastTransaction: selectedTransaction.value,
+            specialization: selectedSpeciality.value);
+
+        await Authentication().logout();
+        if (result != null) {
+          await user.add();
+          await userInfo.add();
+          showSuccessDialogProjects(
+              title: "Account Created",
+              description:
+                  "Account creation was successful. Please wait for admin approval.",
+              okayButton: "Close",
+              hitApi: () {
+                showAuthenticationDialog();
+              });
+        }
+      } else {
+        showSuccessDialog(
+            hitApi: () {
+              Get.back();
+            },
+            title: "Failed",
+            description: result.toString());
+        //throw Error();
+      }
+    } catch (error) {
+      BaseController()
+          .showErroDialog(onTap: () {}, description: error.toString());
+    }
+    reset();
+  }
+
+  void reset() {
+    firstName.clear();
+    passwordC.clear();
+    lastName.clear();
+    age.clear();
+    gender.clear();
+    contactNo.clear();
+    emailAd.clear();
+    status.clear();
+    recruiter.clear();
+    educationL.clear();
+    experience.clear();
+    specialization.clear();
+    selectedGender.value = null;
+  }
   // login() async {
   //   showLoading();
   //   var login = await Authentication()

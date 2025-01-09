@@ -5,22 +5,6 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../../../app/services/local_storage.dart';
 import '../../../agent/utility/controller/base_controller.dart';
 
-// enum BuyWebState { loading, loaded, error, empty }
-
-// enum AdminSection {
-//   agentProfile,
-//   addAgent,
-//   approvedAgents,
-//   roster,
-//   addProject,
-//   propertyList,
-//   propertyInfo,
-//   addProperty,
-// //    editProperty,
-//   homepage,
-//   aboutUs,
-// }
-
 class FormWebController extends GetxController {
   var store = Get.find<LocalStorageService>();
   //var buylandingState = BuyWebState.loading.obs;
@@ -36,6 +20,7 @@ class FormWebController extends GetxController {
   TextEditingController emailAd = TextEditingController();
   TextEditingController message = TextEditingController();
   TextEditingController propertyLoc = TextEditingController();
+  TextEditingController price = TextEditingController();
 
   final ScrollController scrollController = ScrollController();
 
@@ -107,11 +92,41 @@ class FormWebController extends GetxController {
       print(ex);
     }
   }
-  // @override
-  // void onInit() {
-  //   buylandingState.value = BuyWebState.loaded;
-  //   super.onInit();
-  // }
+
+  submitSellProperty() async {
+    print("acheck");
+    try {
+      var sellDoc =
+          FirebaseFirestore.instance.collection('sell_properties').doc();
+      await sellDoc.set({
+        'id': sellDoc.id,
+        'name': name.text,
+        'contact_number': phoneNum.text,
+        'email': emailAd.text,
+        'type': selectedProperty.value,
+        'location': propertyLoc.text,
+        'price': price.text,
+        'desc': message.text,
+      });
+      BaseController().showSuccessDialog(
+          title: "Success",
+          description:
+              "Your Property info has been submitted to admin. Wait for an admin to contact you!",
+          hitApi: () {
+            name.clear();
+            phoneNum.clear();
+            emailAd.clear();
+            selectedProperty.value = null;
+            propertyLoc.clear();
+            price.clear();
+            message.clear();
+
+            Get.back();
+          });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Future<void> onInit() async {

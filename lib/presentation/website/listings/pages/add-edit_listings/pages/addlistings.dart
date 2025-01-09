@@ -54,8 +54,7 @@ class AddListingsWeb extends GetView<AddListingsController>
                   onPressed: () {
                     // selectedIndex.value = 11;
                     // Get.find<HomsController>().onNavbarItemSelected(11);
-                                            Get.toNamed('/agent-dashboard');
-
+                    Get.toNamed('/agent-dashboard');
                   },
                   icon: Icon(Icons.arrow_back_ios)),
               EraText(
@@ -272,12 +271,31 @@ class AddListingsWeb extends GetView<AddListingsController>
               await settings!.update();
               controller.showSuccessDialogProjects(
                   hitApi: () {
-                    Get.back();
-                    Get.back();
-                    Get.find<HomsController>().onNavbarItemSelected(13);
+                    // Get.back();
+                    // Get.back();
+                    controller.propertyNameController.clear();
+                    controller.propertyCostController.clear();
+                    controller.pricePerSqmController.clear();
+                    controller.bedsController.clear();
+                    controller.bathsController.clear();
+                    controller.carsController.clear();
+                    controller.areaController.clear();
+                    controller.descController.clear();
+                    controller.addressController.clear();
+                    controller.selectedOfferT.value = null;
+                    controller.selectedView.value = null;
+                    controller.selectedPropertyT.value = null;
+                    controller.floorArea.clear();
+
+                    controller.selectedPropertySubCategory.value = null;
+                    controller.images.clear();
+
+                    Get.toNamed('/agent-dashboard');
                   },
-                  title: "Add Listing Success",
-                  description: "Listing has been uploaded to the database.");
+                  okayButton: "Close",
+                  title: "Listing Uploaded",
+                  description:
+                      "Your property has been submitted for review. Once approved, this will be published accordingly.");
             } catch (e) {}
           }, 'CREATE LISTING'),
           SizedBox(height: 20.h),
@@ -745,12 +763,17 @@ class AddListingsWeb extends GetView<AddListingsController>
               hintText: 'Price Per Sqm',
               onChanged: (value) {
                 value = value.replaceAll(',', '');
-                controller.pricePerSqmController.text = value.replaceAllMapped(
-                    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                    (Match m) => '${m[1]},');
-                controller.pricePerSqmController.value = TextEditingValue(
-                    text: value,
-                    selection: TextSelection.collapsed(offset: value.length));
+                if (value.isNotEmpty) {
+                  controller.pricePerSqmController.text =
+                      value.replaceAllMapped(
+                          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                          (Match m) => '${m[1]},');
+                  controller.pricePerSqmController.value = TextEditingValue(
+                      text: controller.pricePerSqmController.text,
+                      selection: TextSelection.collapsed(
+                          offset:
+                              controller.pricePerSqmController.text.length));
+                }
               },
             )),
         sbw10(),

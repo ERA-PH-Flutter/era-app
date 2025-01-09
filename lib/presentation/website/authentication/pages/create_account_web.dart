@@ -1,4 +1,5 @@
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/website/authentication/controller/authentication_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -45,7 +46,7 @@ createAccountWeb({
                     fontSize: EraTheme.subHeaderWeb,
                     fontWeight: FontWeight.bold,
                   ),
-                  _signInWidget(),
+                  signInWidget(),
                   sb10(),
                   EraText(
                     text: 'Already have an account? Sign in here',
@@ -276,7 +277,7 @@ void createAccountNextPage({required AuthenticationWebController controller}) {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           insetPadding: EdgeInsets.symmetric(
               horizontal: EraTheme.paddingWidthAdmin * 6,
-              vertical: EraTheme.paddingWidthAdmin),
+              vertical: EraTheme.paddingWidthAdmin - 20.h),
           child: Container(
             width: Get.width,
             decoration: BoxDecoration(
@@ -437,6 +438,19 @@ void createAccountNextPage({required AuthenticationWebController controller}) {
                           //   return;
                           // }
                           // controller.signUp();
+                          if (controller.formKey.currentState!.validate()) {
+                            if (controller.emailAd.value.text.isEmpty ||
+                                controller.passwordC.value.text.isEmpty) {
+                              AddListings.showErroDialogs(
+                                title: "Error",
+                                description:
+                                    "All fields are required! Only Description is optional",
+                              );
+                              return;
+                            }
+
+                            controller.signUp();
+                          }
                         },
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -451,7 +465,7 @@ void createAccountNextPage({required AuthenticationWebController controller}) {
       });
 }
 
-Widget _signInWidget() {
+Widget signInWidget() {
   return RichText(
     text: TextSpan(
       text: 'Already have an account?',

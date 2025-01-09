@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/website/form/controllers/form_web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,9 +19,8 @@ class SellPropertyWeb extends GetView<FormWebController> {
   const SellPropertyWeb({super.key});
 
   @override
-  @override
   Widget build(BuildContext context) {
-    Get.put(FormWebController());
+    //  Get.put(FormWebController());
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       child: SingleChildScrollView(
@@ -94,9 +95,9 @@ class SellPropertyWeb extends GetView<FormWebController> {
                             Column(
                               children: [
                                 SharedWidgets.textFormfield(
-                                    textInputType: TextInputType.text,
+                                    textInputType: TextInputType.emailAddress,
                                     hintText: 'Email Address',
-                                    controller: controller.phoneNum),
+                                    controller: controller.emailAd),
                                 sb10(),
                                 Row(
                                   children: [
@@ -111,7 +112,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                     Expanded(
                                       flex: 1,
                                       child: SharedWidgets.textFormfield(
-                                          textInputType: TextInputType.text,
+                                          textInputType: TextInputType.number,
                                           hintText: 'Phone Number',
                                           controller: controller.phoneNum),
                                     )
@@ -122,7 +123,8 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                     Expanded(
                                       flex: 2,
                                       child: SharedWidgets.textFormfield(
-                                          textInputType: TextInputType.text,
+                                          textInputType:
+                                              TextInputType.streetAddress,
                                           hintText: 'Property Location',
                                           controller: controller.propertyLoc),
                                     ),
@@ -147,9 +149,28 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 10.w),
                                         child: SharedWidgets.textFormfield(
-                                            textInputType: TextInputType.text,
+                                            onChanged: (value) {
+                                              value = value.replaceAll(',', '');
+                                              if (value.isNotEmpty) {
+                                                final formattedValue =
+                                                    value.replaceAllMapped(
+                                                        RegExp(
+                                                            r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                                        (Match m) =>
+                                                            '${m[1]},');
+                                                controller.price.value =
+                                                    TextEditingValue(
+                                                  text: formattedValue,
+                                                  selection:
+                                                      TextSelection.collapsed(
+                                                          offset: formattedValue
+                                                              .length),
+                                                );
+                                              }
+                                            },
+                                            textInputType: TextInputType.number,
                                             hintText: 'Price',
-                                            controller: controller.phoneNum),
+                                            controller: controller.price),
                                       ),
                                     ),
                                   ],
@@ -157,7 +178,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                 SharedWidgets.textFormfield(
                                   textInputType: TextInputType.multiline,
                                   hintText: 'Description',
-                                  controller: controller.phoneNum,
+                                  controller: controller.message,
                                   MaxLines: 10,
                                 ),
                                 sb20(),
@@ -166,7 +187,9 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                   children: [
                                     Button(
                                       alignment: Alignment.centerLeft,
-                                      onTap: () async {},
+                                      onTap: () {
+                                        controller.submitSellProperty();
+                                      },
                                       margin:
                                           EdgeInsets.symmetric(horizontal: 5),
                                       width: 250.w,
