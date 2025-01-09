@@ -40,13 +40,13 @@ var agentArgument;
 var editListingArgument;
 var idArgument;
 
-setUser()async{
-  if(user == null && FirebaseAuth.instance.currentUser != null){
+setUser() async {
+  if (user == null && FirebaseAuth.instance.currentUser != null) {
     var firebaseUser = FirebaseAuth.instance.currentUser;
     user = await EraUser().getById(firebaseUser!.uid);
-  }else if(user != null){
+  } else if (user != null) {
     // return user;
-  }else{
+  } else {
     throw Exception('Error user not login!');
   }
 }

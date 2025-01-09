@@ -136,20 +136,21 @@ void showAuthenticationDialog() {
                               BaseController().hideLoading();
                               user = await EraUser().getById(
                                   FirebaseAuth.instance.currentUser!.uid);
-                              if (user!.role!.toLowerCase() != "admin") {
-                                user = null;
-                                await Authentication().logout();
-                                BaseController().showSuccessDialog(
-                                    title: "ERROR",
-                                    description:
-                                        "Please use admin account to have access!",
-                                    hitApi: () {
-                                      Get.toNamed('/home ');
-                                    });
-                              }
-                              else {
-                                Get.toNamed('/agent-dashboard');
-                              }
+                              // if (user!.role!.toLowerCase() != "admin") {
+                              //   user = null;
+                              //   await Authentication().logout();
+                              //   BaseController().showSuccessDialog(
+                              //       title: "ERROR",
+                              //       description:
+                              //           "Please use admin account to have access!",
+                              //       hitApi: () {
+                              //         Get.toNamed('/home ');
+                              //       });
+                              // }
+                              // else {
+                              //   Get.toNamed('/agent-dashboard');
+                              // }
+                              Get.toNamed('/agent-dashboard');
                             } else {
                               BaseController().showSuccessDialog(
                                   title: "ERROR",
