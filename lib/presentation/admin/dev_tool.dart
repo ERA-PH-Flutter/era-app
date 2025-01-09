@@ -1,8 +1,10 @@
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../app/constants/colors.dart';
+import '../../app/constants/sized_box.dart';
 import '../../app/widgets/button.dart';
 
 class DevTool extends StatelessWidget {
@@ -10,21 +12,40 @@ class DevTool extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Button(
-      text: 'MIGRATE IMAGE THUMBNAIL',
-      onTap: ()async  {
-   HttpsCallable callable =
-        FirebaseFunctions.instance.httpsCallable('migrateGenerateThumbnail');
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // EraText(
+        //   text: 'Click to migrate image thumbnail',
+        //   fontSize: 32.sp,
+        //   fontWeight: FontWeight.bold,
+        //   color: AppColors.black,
+        // ),
+        Icon(
+          Icons.arrow_downward_sharp,
+          size: 100.w,
+          color: AppColors.hint,
+        ),
+        sb20(),
+        Button(
+          text: 'CLICK TO MIGRATE IMAGE THUMBNAIL',
+          fontSize: 24.sp,
+          onTap: () async {
+            HttpsCallable callable = FirebaseFunctions.instance
+                .httpsCallable('migrateGenerateThumbnail');
 
-    try {
-      await callable.call();
-    } catch (e) {
-      print('Error calling function: $e');
-    }
-      },
-      width: 200.w,
-      bgColor: AppColors.kRedColor,
-      borderRadius: BorderRadius.circular(30),
+            try {
+              await callable.call();
+            } catch (e) {
+              print('Error calling function: $e');
+            }
+          },
+          width: 500.w,
+          height: 80.h,
+          bgColor: AppColors.kRedColor,
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ],
     );
   }
 }

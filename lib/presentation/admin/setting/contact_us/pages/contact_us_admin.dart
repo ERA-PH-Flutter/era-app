@@ -128,12 +128,10 @@ class ContactUsAdmin extends GetView<ContactUsAController> {
 
   Widget _builTextField(text, maxLines) {
     return ListTile(
-      title: Expanded(
-        child: EraText(
-          text: text,
-          maxLines: maxLines,
-          color: AppColors.black,
-        ),
+      title: EraText(
+        text: text,
+        maxLines: maxLines,
+        color: AppColors.black,
       ),
     );
   }

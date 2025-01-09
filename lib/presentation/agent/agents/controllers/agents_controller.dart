@@ -24,6 +24,9 @@ class AgentsController extends GetxController with BaseController {
   var date = DateTime.now().obs;
   var agentState = AgentsState.loading.obs;
   var resultText = "".obs;
+  var aiObs = "".obs;
+  var agentNameObs = "".obs;
+
   var results = [].obs;
   var agentCount = [].obs;
   var count = 10.obs;
@@ -217,11 +220,11 @@ class AgentsController extends GetxController with BaseController {
       }
     } catch (e) {
       showErroDialog(
-        description: "Failed to pick image, Error: ${e.toString().contains("camera_access_denied") ? "Permission Denied" : "Failed to load Image"}",
-        onTap: (){
-          Get.back();
-        }
-      );
+          description:
+              "Failed to pick image, Error: ${e.toString().contains("camera_access_denied") ? "Permission Denied" : "Failed to load Image"}",
+          onTap: () {
+            Get.back();
+          });
     }
   }
 }

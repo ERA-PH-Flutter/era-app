@@ -15,24 +15,23 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        //height: Get.height - 150.h,
         alignment: Alignment.topCenter,
+
+        //     width: Get.width,
         padding:
             EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin - 5.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 20.h),
-            Row(
-              children: [
-                EraText(
-                  text: 'Sell Property Management',
-                  color: AppColors.black,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ],
+
+            EraText(
+              text: 'Sell Property Management',
+              color: AppColors.black,
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
             ),
+
             SizedBox(
               height: 20.h,
             ),
@@ -74,13 +73,9 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
                             ),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          title: Row(
-                            children: [
-                              EraText(
-                                text: property['name'],
-                                color: AppColors.black,
-                              ),
-                            ],
+                          title: EraText(
+                            text: property['name'],
+                            color: AppColors.black,
                           ),
                           children: [
                             _builTextField(
@@ -92,13 +87,14 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
                                 'Location: ${property['location']}', 1),
                             _builTextField('Price: ${property['price']}', 1),
                             _builTextField(
-                                'Description: ${property['description']}', 10),
+                                'Description: ${property['desc']}', 10),
                           ],
                         );
                       },
                     ),
                   );
                 } else {
+                  print('ERROR: ${snapshot.error}');
                   return Center(
                     child: CircularProgressIndicator(),
                   );
@@ -133,12 +129,10 @@ class SellPropertyAdmin extends GetView<SellPropertyAController> {
 
   Widget _builTextField(text, maxLines) {
     return ListTile(
-      title: Expanded(
-        child: EraText(
-          text: text,
-          maxLines: maxLines,
-          color: AppColors.black,
-        ),
+      title: EraText(
+        text: text,
+        maxLines: maxLines,
+        color: AppColors.black,
       ),
     );
   }
