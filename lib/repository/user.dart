@@ -144,7 +144,7 @@ class EraUser {
       "id": id,
       "first_name": firstname,
       "last_name": lastname,
-      "role": role ?? 'agent',
+      "role": role ?? "Agent",
       "email": email,
       "whats_app": whatsApp,
       "image": image,

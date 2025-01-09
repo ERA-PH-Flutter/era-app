@@ -17,7 +17,7 @@ class ListedBy extends StatelessWidget {
   final String image;
   final String agentFirstName;
   final String agentLastName;
-  final String agentRole;
+  final String? agentRole;
   final String? whatsapp;
   final String? whatsappIcon;
   final String? email;
@@ -29,7 +29,7 @@ class ListedBy extends StatelessWidget {
     this.listingId,
     required this.image,
     required this.agentFirstName,
-    required this.agentRole,
+    this.agentRole,
     required this.agentLastName,
     this.whatsapp,
     this.whatsappIcon,
@@ -87,11 +87,11 @@ class ListedBy extends StatelessWidget {
                     ),
                   ),
                   EraText(
-                    text: agentRole == "admin" ? "ERA Admin" : agentRole ,
+                    text: agentRole! == "admin" ? "ERA Admin" : agentRole!,
                     fontSize: EraTheme.paragraph - 4.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black,
-                  ),
+                  )
                   // SizedBox(height: 5.h),
                 ],
               ),

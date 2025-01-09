@@ -55,7 +55,6 @@ class AddAgent extends GetView<AgentAdminController> {
                             textInputType: TextInputType.text),
                       ),
                     ),
-
                     Expanded(
                       flex: 1,
                       child: Container(
@@ -75,18 +74,6 @@ class AddAgent extends GetView<AgentAdminController> {
                           hintText: 'PhoneNumber *',
                           textInputType: TextInputType.number),
                     ),
-                    // sb20(),
-                    // sbw20(),
-                    // Expanded(
-                    //   flex: 1,
-                    //   child: dropDownListings(
-                    //     selectedItem: controller.selectedAgentType,
-                    //     Types: controller.agentType,
-                    //     onChanged: (value) =>
-                    //         controller.selectedAgentType.value = value!,
-                    //     hintText: 'Agent Position *',
-                    //   ),
-                    //   ),
                   ],
                 ),
                 sb20(),
@@ -109,12 +96,11 @@ class AddAgent extends GetView<AgentAdminController> {
                         padding: EdgeInsets.only(right: 10.w),
                         child: textFormfield(
                           hintText: 'Age *',
-                          textInputType: TextInputType.text,
+                          textInputType: TextInputType.number,
                           controller: controller.age,
                         ),
                       ),
                     ),
-
                     Expanded(
                       flex: 1,
                       child: Container(
@@ -128,24 +114,6 @@ class AddAgent extends GetView<AgentAdminController> {
                         ),
                       ),
                     ),
-
-                    //    Expanded(
-                    //   flex: 1,
-                    //   child: textFormfield(
-                    //     hintText: 'Age *',
-                    //     textInputType: TextInputType.text,
-                    //     controller: controller.age,
-                    //     // onTap: () async {
-                    //     //   var date = await showDatePicker(
-                    //     //       context: Get.context!,
-                    //     //       firstDate: DateTime(1930),
-                    //     //       lastDate: DateTime(2005),
-                    //     //       currentDate: DateTime(2000));
-                    //     //   controller.dateBirthA.text =
-                    //     //       DateFormat('MM dd, yyyy').format(date!);
-                    //     // }
-                    //   ),
-                    // ),
                   ],
                 ),
                 sb20(),

@@ -119,6 +119,8 @@ class AgentAdminController extends GetxController with BaseController {
     emailAdressA.text = user.email!;
     //dateBirthA.text = user.birthday ?? "";
     //sexA.text = user.gender!;
+    selectedAgentType.value = user.role!;
+
     locationA.text = user.location!;
     phoneNA.text = user.whatsApp!;
     passwordA.text = "eraaccount";
@@ -140,6 +142,7 @@ class AgentAdminController extends GetxController with BaseController {
     agentListingssss!.licence = licensedNumA.text;
     agentListingssss!.whatsApp = phoneNA.text;
     agentListingssss!.position = selectedAgentType.value;
+    agentListingssss!.role = selectedAgentRole.value;
     agentListingssss!.description = descriptionA.text;
     agentListingssss!.office = officeLA.text;
     await agentListingssss!.update();
