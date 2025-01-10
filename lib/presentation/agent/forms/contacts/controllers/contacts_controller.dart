@@ -39,15 +39,15 @@ class ContactusController extends GetxController {
   @override
   onInit() async {
     super.onInit();
-    // youtubePlayerController = YoutubePlayerController(
-    //   initialVideoId: 'UcbQCfRCoeA',
-    //   flags: YoutubePlayerFlags(
-    //     enableCaption: false,
-    //     autoPlay: true,
-    //     mute: false,
-    //     forceHD: true,
-    //   ),
-    // );
+    youtubePlayerController = YoutubePlayerController(
+      initialVideoId: 'UcbQCfRCoeA',
+      flags: YoutubePlayerFlags(
+        enableCaption: false,
+        autoPlay: false,
+        mute: false,
+        forceHD: true,
+      ),
+    );
     faqs.value = (await FirebaseFirestore.instance
             .collection('faq')
             .orderBy('type')
@@ -76,7 +76,8 @@ class ContactusController extends GetxController {
       BaseController().showSuccessDialog(
           title: "Message Sent",
           okayButton: "Close",
-          description: "We've received your message and will get back to you soon. Thank you",
+          description:
+              "We've received your message and will get back to you soon. Thank you",
           hitApi: () {
             name.clear();
             number.clear();
