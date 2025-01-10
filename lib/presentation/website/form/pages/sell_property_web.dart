@@ -280,9 +280,8 @@ class SellPropertyWeb extends GetView<FormWebController> {
               Positioned(
                 top: 10.h,
                 right: 0,
-                child: CachedNetworkImage(
-                  imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+                child: Image.network(
+                  'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
                   fit: BoxFit.contain,
                   height: Get.height - 450.h,
                 ),

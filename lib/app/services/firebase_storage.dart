@@ -100,26 +100,30 @@ class CloudStorage {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Image.network(
-             snapshot.data!,
+            snapshot.data!,
             fit: fit ?? BoxFit.cover,
             height: height,
             width: width,
-            loadingBuilder: (context, child, loadingProgress) {
-              return        Center(
-              child: SizedBox(
-                  width: 28,
-                  height: 28,
-                  child: CircularProgressIndicator.adaptive()));
-            },errorBuilder: (context, error, stackTrace) {
-          return Icon(Icons.broken_image);
-              
-            },
+            // loadingBuilder: (context, child, loadingProgress) {
+            //   return Center(
+            //       child: SizedBox(
+            //           width: 28,
+            //           height: 28,
+            //          child: CircularProgressIndicator.adaptive())
+            //          );
+            // },
+            // errorBuilder: (context, error, stackTrace) {
+            //   return Icon(Icons.broken_image);
+            //},
           );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+        } else if (snapshot.hasError) {
+          print("error: ${snapshot.error}");
         }
+        return Center(
+          child: CircularProgressIndicator(
+            color: Colors.red,
+          ),
+        );
       },
     );
   }
@@ -138,6 +142,7 @@ class CloudStorage {
       future: ref.child(reference).getDownloadURL(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
+          print("waiting");
           return Container(
             width: width,
             height: height,
@@ -146,6 +151,7 @@ class CloudStorage {
           );
         }
         if (snapshot.hasError) {
+          print("error: ${snapshot.error}");
           return Container(
             width: width,
             height: height,
@@ -163,7 +169,7 @@ class CloudStorage {
                 boxShadow: shadow ?? [],
                 image: DecorationImage(
                     fit: fit ?? BoxFit.cover,
-                    image: CachedNetworkImageProvider(
+                    image: NetworkImage(
                       snapshot.data!,
                     ))),
             child: child,

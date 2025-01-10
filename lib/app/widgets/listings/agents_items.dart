@@ -325,7 +325,7 @@ class AgentsItems extends StatelessWidget {
                               width: 50.w,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
+                                  image: NetworkImage(
                                     snapshot.data!,
                                   ),
                                   fit: BoxFit.cover,
@@ -361,7 +361,7 @@ class AgentsItems extends StatelessWidget {
                               width: 50.w,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
+                                  image: NetworkImage(
                                     snapshot.data!,
                                   ),
                                   fit: BoxFit.cover,

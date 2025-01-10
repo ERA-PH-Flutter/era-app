@@ -38,9 +38,8 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
         children: [
           Stack(
             children: [
-              CachedNetworkImage(
-                imageUrl:
-                    'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+              Image.network(
+                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
                 fit: BoxFit.cover,
                 width: Get.width,
                 height: Get.height - 150.h,
@@ -180,7 +179,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                           child: TextFormField(
                                             onChanged: (value) {
                                               controller.agentNameObs.value =
-                                                  value ;
+                                                  value;
                                             },
                                             decoration: InputDecoration(
                                               filled: true,
@@ -258,8 +257,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                                       searchResultController
                                                           .aiSearchController
                                                           .clear();
-
-                                                     },
+                                                    },
                                                     icon: Icon(Icons.clear),
                                                     color: AppColors.white,
                                                   ));

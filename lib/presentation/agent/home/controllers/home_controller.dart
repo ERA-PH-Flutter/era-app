@@ -51,17 +51,13 @@ class HomeController extends GetxController {
     try {
       if (settings!.banners != null) {
         for (int i = 0; i < settings!.banners!.length; i++) {
-          var img = CachedNetworkImageProvider(
-           await CloudStorage().getFileDirect(docRef: settings!.banners![i]),
+          var img = NetworkImage(
+            await CloudStorage().getFileDirect(docRef: settings!.banners![i]),
           );
           await precacheImage(img, Get.context!);
           images.add(Container(
             decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: img
-              )
-            ),
+                image: DecorationImage(fit: BoxFit.cover, image: img)),
           ));
         }
       }
@@ -81,8 +77,7 @@ class HomeController extends GetxController {
   getNews() async {
     if (settings!.featuredNews!.isNotEmpty) {
       for (int i = 0; i < settings!.featuredNews!.length; i++) {
-        if(settings!.featuredNews![i] != ''){
-
+        if (settings!.featuredNews![i] != '') {
           news.add(await News(id: settings!.featuredNews![i]).getNews());
         }
       }

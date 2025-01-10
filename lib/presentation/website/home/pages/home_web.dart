@@ -148,8 +148,7 @@ class HomeWeb extends GetView<HomeWebController> {
                               print(
                                   ' controller.images.length ${controller.images.length}');
                               return AnimatedSmoothIndicator(
-                                activeIndex:
-                                    controller.carouselIndex.value.toInt(),
+                                activeIndex: controller.carouselIndex.value,
                                 count: imagePaths.length,
                                 effect: JumpingDotEffect(
                                   spacing: 25,
@@ -820,7 +819,7 @@ Widget _buildUploadPhoto({required String text, required String image}) {
       var s = Get.find<ListingsWebController>();
       s.listingsWebState(ListingsWebState.loading);
       s.searchQuery.value = text;
-      await s.loadData(data.map((e)=>Listing.fromJSON(e)).toList());
+      await s.loadData(data.map((e) => Listing.fromJSON(e)).toList());
       if (data.isEmpty) {
         Get.find<ListingsWebController>()
             .listingsWebState(ListingsWebState.empty);

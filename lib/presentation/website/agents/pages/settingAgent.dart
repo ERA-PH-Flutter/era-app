@@ -47,7 +47,7 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
   _loaded() {
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: EraTheme.paddingWidthAdmin * 3, vertical: 50.h  ),
+          horizontal: EraTheme.paddingWidthAdmin * 3, vertical: 50.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -169,7 +169,7 @@ class SettingsPageWeb extends GetView<AgentsWebController> {
                             fit: BoxFit.cover,
                             image: controller.image.value != null
                                 ? MemoryImage(controller.image.value!)
-                                : CachedNetworkImageProvider(snapshot.data!)
+                                : NetworkImage(snapshot.data!)
                                     as ImageProvider)));
               } else {
                 return Center(

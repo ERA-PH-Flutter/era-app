@@ -58,7 +58,7 @@ class Listing {
       this.isSold,
       this.latLng,
       this.propertyId,
-      this.isApproved,
+      this.isApproved = false,
       this.address});
   factory Listing.fromJSON(Map<String, dynamic> json) {
     return Listing(

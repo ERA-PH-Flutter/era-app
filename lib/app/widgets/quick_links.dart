@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart' as a;
+import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart'
+    as a;
 import 'package:eraphilippines/presentation/website/listings/controllers/buyweb_binding.dart';
 import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_binding.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/addlistings_controller.dart';
@@ -68,7 +69,7 @@ class QuickLinksModel {
     return GestureDetector(
       onTap: () async {
         ListingsWebBinding().dependencies();
-        ListingsWebController s =  Get.find<ListingsWebController>();
+        ListingsWebController s = Get.find<ListingsWebController>();
         s.listingsWebState.value = ListingsWebState.loading;
         var listings = (await FirebaseFirestore.instance
                 .collection('listings')
@@ -79,8 +80,7 @@ class QuickLinksModel {
           return listing.data();
         }).toList();
 
-
-        s.loadData(data.map((e)=>Listing.fromJSON(e)).toList());
+        s.loadData(data.map((e) => Listing.fromJSON(e)).toList());
         s.searchQuery.value = "search";
         // a.selectedIndex.value = 2;
         // Get.find<a.HomsController>().onNavbarItemSelected(2);
@@ -97,7 +97,7 @@ class QuickLinksModel {
                 borderRadius: BorderRadius.circular(10.r),
                 image: DecorationImage(
                     //  fit: BoxFit.co,
-                    image: CachedNetworkImageProvider(
+                    image: NetworkImage(
                         await CloudStorage().getFileDirect(docRef: icon)))),
           ),
         ],

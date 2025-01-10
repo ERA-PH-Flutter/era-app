@@ -41,7 +41,7 @@ class HomeWebController extends GetxController {
 
   var innerController = CarouselSliderController();
   var carouselC = PageController();
-  var carouselIndex = 0.obs;
+  RxInt carouselIndex = 0.obs;
   @override
   void onInit() async {
     try {

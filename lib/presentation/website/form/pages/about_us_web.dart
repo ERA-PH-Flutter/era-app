@@ -440,9 +440,8 @@ class AboutUsWeb extends GetView<FormWebController> {
         children: [
           Stack(
             children: [
-              CachedNetworkImage(
-                imageUrl:
-                    'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+              Image.network(
+                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
                 fit: BoxFit.cover,
                 height: Get.height - 150.h,
                 width: Get.width,
@@ -527,7 +526,7 @@ class AboutUsWeb extends GetView<FormWebController> {
     );
   }
 
-   Widget _buildServices() {
+  Widget _buildServices() {
     return Row(
       children: [
         Expanded(

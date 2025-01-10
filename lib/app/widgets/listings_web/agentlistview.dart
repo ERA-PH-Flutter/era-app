@@ -78,10 +78,8 @@ class AgentListViewWeb extends StatelessWidget {
                         color: AppColors.blue,
                       ),
                       EraText(
-                        text: agentInfo.role != null
-                            ? (agentInfo.role == 'admin'
-                                ? 'ERA Admin'
-                                : agentInfo.role)
+                        text: agent.role != null
+                            ? (agent.role == 'admin' ? 'ERA Admin' : agent.role)
                             : '',
                         fontSize: EraTheme.h5,
                         fontWeight: FontWeight.w400,
