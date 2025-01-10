@@ -140,9 +140,10 @@ class AuthenticationPage extends GetView {
                                           }
                                         } else {
                                           BaseController().showSuccessDialog(
-                                              title: "ERROR",
+                                              okayButton: "Close",
+                                              title: "Failed",
                                               description:
-                                                  "Password or email incorrect",
+                                                  "Incorrect password or email, please try again.",
                                               hitApi: () {
                                                 Get.back();
                                                 Get.back();

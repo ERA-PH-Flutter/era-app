@@ -114,9 +114,9 @@ class LoginPageController extends GetxController with BaseController {
             Get.back();
             Get.back();
           },
-          okayButton: "Okay",
+          okayButton: "Close",
           title: "Failed",
-          description: errorText);
+          description: "Incorrect password or email, please try again.");
     }
   }
 
