@@ -31,6 +31,7 @@ class Listing {
   List? latLng;
   String? address;
   String? propertyId;
+  bool? isApproved;
   Listing(
       {this.id,
       this.name,
@@ -57,6 +58,7 @@ class Listing {
       this.isSold,
       this.latLng,
       this.propertyId,
+      this.isApproved,
       this.address});
   factory Listing.fromJSON(Map<String, dynamic> json) {
     return Listing(
@@ -79,6 +81,7 @@ class Listing {
         owner: json["owner"],
         leads: json["leads"],
         views: json["views"],
+        isApproved: json["is_approved"] ?? false,
         propertyId: json['property_id'] ?? "Invalid",
         dateCreated: (json["date_created"] == null)
             ? DateTime.now()
@@ -122,7 +125,8 @@ class Listing {
       "is_sold": isSold ?? false,
       "latLng": latLng ?? [0, 0],
       "address": address ?? "",
-      "property_id": propertyId
+      "property_id": propertyId,
+      "is_approved": isApproved ?? false,
     };
   }
 
