@@ -70,9 +70,10 @@ class Home extends GetView<HomeController> {
                         );
                       }).toList(),
                       options: CarouselOptions(
+                        enlargeCenterPage: false,
                         autoPlayInterval: Duration(seconds: 7),
                         autoPlay: true,
-                        viewportFraction: 1,
+                        viewportFraction: 1.0,
                         aspectRatio: 1.2,
                         onPageChanged: (index, reason) =>
                             controller.carouselIndex.value = index,
