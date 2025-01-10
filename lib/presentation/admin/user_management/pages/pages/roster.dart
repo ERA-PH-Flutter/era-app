@@ -378,8 +378,11 @@ class Roster extends GetView<AgentAdminController> {
                                   controllers.onSectionSelected(1);
                                 }, Icons.edit),
                                 menuOptions("Delete", () async {
-                                  await listingModels[i].deleteOtherUser(
-                                      userId: listingModels[i].id ?? '');
+                                  // await listingModels[i].deleteOtherUser(
+                                  //     userId: listingModels[i].id ?? '');
+
+                                  listingModels[i].status = "deleted";
+                                  await listingModels[i].update();
                                   await Logs(
                                           title:
                                               "${user!.firstname} ${user!.lastname} remove an agent with ID ${listingModels[i].eraId}",

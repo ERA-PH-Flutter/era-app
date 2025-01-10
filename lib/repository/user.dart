@@ -140,6 +140,7 @@ class EraUser {
   }
 
   Map<String, dynamic> toMap() {
+    print(status);
     return {
       "id": id,
       "first_name": firstname,
