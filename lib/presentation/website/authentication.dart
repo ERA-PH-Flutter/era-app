@@ -31,6 +31,7 @@ var yrsExperience = TextEditingController();
 var totalTransaction = TextEditingController();
 var totalTrans5yrs = TextEditingController();
 var special = TextEditingController();
+var emailReset = TextEditingController();
 
 RxBool isPasswordNotVisible = true.obs;
 void showAuthenticationDialog() {
@@ -169,7 +170,88 @@ void showAuthenticationDialog() {
                       SizedBox(height: 20.h),
                       GestureDetector(
                         onTap: () {
-                          // Get.toNamed("");
+                          showModalBottomSheet(
+                              isDismissible: true,
+                              backgroundColor: Colors.transparent,
+                              context: Get.context!,
+                              isScrollControlled: true,
+                              builder: (context) {
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom),
+                                  child: Wrap(
+                                    children: [
+                                      Container(
+                                          padding: EdgeInsets.all(16.h),
+                                          margin: EdgeInsets.all(16.h),
+                                          width: Get.width,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
+                                              color: AppColors.white),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 48.h,
+                                                child: CupertinoTextField(
+                                                  placeholder: "Email Address",
+                                                  controller: emailReset,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey[200],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 12.h,
+                                              ),
+                                              Button(
+                                                bgColor: AppColors.kRedColor,
+                                                height: 48.h,
+                                                text: "Send Email",
+                                                width: Get.width,
+                                                onTap: () async {
+                                                  try {
+                                                    BaseController()
+                                                        .showLoading();
+                                                    await FirebaseAuth.instance
+                                                        .sendPasswordResetEmail(
+                                                            email: emailReset
+                                                                .text);
+                                                    BaseController()
+                                                        .showSuccessDialog(
+                                                            hitApi: () {
+                                                              Get.back();
+                                                              Get.back();
+                                                              Get.back();
+                                                            },
+                                                            title: "Email Sent",
+                                                            description:
+                                                                "A reset password link has been sent to your email. Please check your inbox.",
+                                                            okayButton:
+                                                                "Close");
+                                                  } catch (e) {
+                                                    BaseController()
+                                                        .showErroDialog(
+                                                            onTap: () {
+                                                              Get.back();
+                                                            },
+                                                            title: "ERROR",
+                                                            description:
+                                                                "Email incorrect! or not registered to ERA Philippines");
+                                                  }
+                                                },
+                                              )
+                                            ],
+                                          )),
+                                    ],
+                                  ),
+                                );
+                              });
                         },
                         child: EraText(
                           text: 'Forgot Password?',
