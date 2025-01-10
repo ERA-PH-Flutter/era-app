@@ -152,10 +152,21 @@ void showAuthenticationDialog() {
                               //   Get.toNamed('/agent-dashboard');
                               // }
                               Get.toNamed('/agent-dashboard');
+                              email.text = "";
+                              pass.text = "";
                             } else {
+                              var e = login.toString().split("error -")[0];
+                              var errorText = "An error occurred.";
+                              if (e == 'user-not-found') {
+                                errorText = 'No user found for that email.';
+                              } else if (e == 'wrong-password') {
+                                errorText = 'Wrong password provided.';
+                              }
                               BaseController().showSuccessDialog(
-                                  title: "ERROR",
-                                  description: "${login}",
+                                  okayButton: "Close",
+                                  title: "Failed",
+                                  description:
+                                      "Incorrect password or email, please try again.",
                                   hitApi: () {
                                     Get.back();
                                     Get.back();

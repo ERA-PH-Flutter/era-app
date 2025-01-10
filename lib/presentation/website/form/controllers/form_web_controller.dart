@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../../../app/services/local_storage.dart';
 import '../../../agent/utility/controller/base_controller.dart';
@@ -14,7 +15,7 @@ class FormWebController extends GetxController {
   var isCheckedNotNow = false.obs;
 
   late YoutubePlayerController youtubePlayerController;
-  //selling property
+
   TextEditingController name = TextEditingController();
   TextEditingController phoneNum = TextEditingController();
   TextEditingController emailAd = TextEditingController();
@@ -131,11 +132,13 @@ class FormWebController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    scrollController.addListener(_onScroll);
     // youtubePlayerController = YoutubePlayerController(
     //   initialVideoId: 'UcbQCfRCoeA',
     //   flags: YoutubePlayerFlags(
-    //     autoPlay: true,
+    //     autoPlay: false,
     //     mute: false,
+    //     useHybridComposition: true,
     //   ),
     // );
     faqs.value = (await FirebaseFirestore.instance
@@ -143,13 +146,14 @@ class FormWebController extends GetxController {
             .orderBy('type')
             .get())
         .docs;
-    scrollController.addListener(_onScroll);
   }
 
   @override
   void dispose() {
     scrollController.removeListener(_onScroll);
     scrollController.dispose();
+    youtubePlayerController.dispose();
+
     super.dispose();
   }
 }
