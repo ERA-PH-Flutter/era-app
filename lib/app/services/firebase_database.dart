@@ -24,12 +24,25 @@ class Database {
   }
 
   //LISTING
-  Future<List<Listing>> searchListingsByUserId(String id) async {
-    return (await db.collection("listings").where('by', isEqualTo: id).get())
-        .docs
-        .map((data) {
-      return Listing.fromJSON(data.data());
-    }).toList();
+  Future<List<Listing>> searchListingsByUserId(String id,
+      {isApprove = true}) async {
+    if (isApprove) {
+      return (await db
+              .collection("listings")
+              .where('is_approve', isEqualTo: true)
+              .where('by', isEqualTo: id)
+              .get())
+          .docs
+          .map((data) {
+        return Listing.fromJSON(data.data());
+      }).toList();
+    } else {
+      return (await db.collection("listings").where('by', isEqualTo: id).get())
+          .docs
+          .map((data) {
+        return Listing.fromJSON(data.data());
+      }).toList();
+    }
   }
 
   searchListing({

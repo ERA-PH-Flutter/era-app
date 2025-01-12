@@ -180,6 +180,12 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                     child: Container(
                         margin: EdgeInsets.all(8.sp),
                         decoration: BoxDecoration(
+                          border: Border.all(
+                            color: !listing.isApproved!
+                                ? AppColors.kRedColor
+                                : Colors.transparent,
+                            width: !listing.isApproved! ? 3.w : 0,
+                          ),
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
@@ -397,7 +403,8 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                     top: 20.h,
                     right: 20.w,
                     child: Visibility(
-                      visible: !(listing.isSold ?? false),
+                      visible:
+                          !(listing.isSold ?? false) && listing.isApproved!,
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(99.r),
@@ -414,9 +421,11 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                             width: 150.w,
                             onTap: () async {
                               await Database().listingMarkAsSold(listing.id);
-                              controller.agentListingsState.value = AgentListingsState.loading;
+                              controller.agentListingsState.value =
+                                  AgentListingsState.loading;
                               await controller.loadListing();
-                              controller.agentListingsState.value = AgentListingsState.loaded;
+                              controller.agentListingsState.value =
+                                  AgentListingsState.loaded;
                               Get.showSnackbar(GetSnackBar(
                                 title: "Success",
                                 message: "Listing has been mark as sold!",

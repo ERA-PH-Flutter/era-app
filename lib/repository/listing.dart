@@ -81,7 +81,7 @@ class Listing {
         owner: json["owner"],
         leads: json["leads"],
         views: json["views"],
-        isApproved: json["is_approved"] ?? false,
+        isApproved: json["is_approve"] ?? false,
         propertyId: json['property_id'] ?? "Invalid",
         dateCreated: (json["date_created"] == null)
             ? DateTime.now()

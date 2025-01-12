@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/presentation/website/agents/controllers/agent_myListingWeb_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -114,7 +115,7 @@ class AgentListViewWeb extends StatelessWidget {
                           // homsController.onNavbarItemSelected(
                           //   19,
                           // );
-
+                          Get.delete<AgentListingsWebController>();
                           Get.toNamed("/view-agent/${agent.id}");
 
                           // Get.to(AgentListings(),
