@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:io';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
