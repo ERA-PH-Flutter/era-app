@@ -181,6 +181,7 @@ class JoinEraPage extends GetView<ContentManagementController> {
               text: 'SUBMIT',
               bgColor: AppColors.kRedColor,
               onTap: () async {
+                var link = '';
                 BaseController().showLoading();
                 if (controller.selectedType.value == 'Image') {
                   controller.link = await CloudStorage().uploadFromMemory(
@@ -200,12 +201,15 @@ class JoinEraPage extends GetView<ContentManagementController> {
                         (snapshot.bytesTransferred / 1048576) /
                             (snapshot.totalBytes / 1048576);
                   })).onDone(() async {
+                    link = 'cms/join_era';
                     Get.back();
                   });
+                } else {
+                  link = controller.videoLinkJoinEra.text;
                 }
                 var data = {
                   "description": controller.descriptionJoinEra.text,
-                  "link": 'cms/join_era',
+                  "link": link,
                   "type": controller.selectedType.value.toLowerCase(),
                 };
                 await FirebaseFirestore.instance

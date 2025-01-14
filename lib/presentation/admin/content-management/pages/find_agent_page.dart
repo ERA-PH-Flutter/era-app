@@ -139,24 +139,29 @@ class FindAgentPage extends GetView<ContentManagementController> {
                 text: 'SUBMIT',
                 bgColor: AppColors.kRedColor,
                 onTap: () async {
+                  var link = '';
                   BaseController().showLoading();
                   if (controller.selectedType.value == 'Image') {
-                    controller.link = await CloudStorage().uploadFromMemory(
+                    link = await CloudStorage().uploadFromMemory(
                         file: controller.images.first,
                         target: "cms",
                         customName: "find_agent");
                   }
 
                   if (controller.selectedType.value == 'Video') {
-                    controller.link = await CloudStorage().uploadFromMemory(
+                    link = await CloudStorage().uploadFromMemory(
                         file: controller.video!,
                         target: "cms",
                         customName: "find_agent");
                   }
 
+                  if (controller.selectedType.value == 'Youtube') {
+                    link = controller.videoLinkAgent.text;
+                  }
+
                   var data = {
                     "description": controller.description.text,
-                    "link": controller.link,
+                    "link": link,
                     "type": controller.selectedType.value.toLowerCase(),
                   };
                   await FirebaseFirestore.instance
