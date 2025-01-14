@@ -62,7 +62,9 @@ class JoinEra extends GetView<ContactusController> {
                       var data = snapshot.data!.data()!;
                       if (data['type'] == "image") {
                         return CachedNetworkImage(
-                          imageUrl: data['url'],
+                          imageUrl: data['url'] != null
+                              ? data['url']
+                              : 'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
                           fit: BoxFit.cover,
                           width: Get.width,
                         );

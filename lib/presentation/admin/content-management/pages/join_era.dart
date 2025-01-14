@@ -92,6 +92,10 @@ class JoinEraPage extends GetView<ContentManagementController> {
                 children: [
                   // EraText(text: "Select Video",color: Colors.black,),
                   Button(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: EraTheme.paddingWidthAdmin - 5.w),
+                    width: Get.width,
+                    height: 60.h,
                     bgColor: AppColors.kRedColor,
                     text: 'SELECT VIDEO',
                     onTap: () async {
@@ -110,7 +114,7 @@ class JoinEraPage extends GetView<ContentManagementController> {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: EraTheme.paddingWidth + 43.sp),
+                        horizontal: EraTheme.paddingWidthAdmin),
                     child: SharedWidgets.textFormfield(
                       controller: controller.videoLinkAgent,
                       hintText: 'YOUTUBE LINK',
@@ -125,16 +129,16 @@ class JoinEraPage extends GetView<ContentManagementController> {
             return Container();
           }),
           //sb20(),
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth + 43.sp),
-            child: SharedWidgets.textFormfield(
-              controller: controller.descriptionJoinEra,
-              hintText: 'DESCRIPTION',
-              MaxLines: 15,
-              textInputType: TextInputType.multiline,
-            ),
-          ),
+          // Padding(
+          //   padding:
+          //       EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth + 43.sp),
+          //   child: SharedWidgets.textFormfield(
+          //     controller: controller.descriptionJoinEra,
+          //     hintText: 'DESCRIPTION',
+          //     MaxLines: 15,
+          //     textInputType: TextInputType.multiline,
+          //   ),
+          // ),
           sb40(),
           // Container(
           //   margin: EdgeInsets.only(right: 80.w),
@@ -185,28 +189,6 @@ class JoinEraPage extends GetView<ContentManagementController> {
                       customName: "join_era");
                 } else if (controller.selectedType.value == 'Video') {
                   var uploadProgress = 0.0.obs;
-                  // Get.dialog(Obx(() => Wrap(
-                  //       children: [
-                  //         Container(
-                  //           width: 200.w,
-                  //           padding: EdgeInsets.all(20.w),
-                  //           child: Center(
-                  //             child: Row(
-                  //               children: [
-                  //                 LinearProgressIndicator(
-                  //                   value: uploadProgress.value,
-                  //                 ),
-                  //                 EraText(
-                  //                   text:
-                  //                       '${(uploadProgress.value * 100).toStringAsFixed(2)}%',
-                  //                   color: Colors.black,
-                  //                 )
-                  //               ],
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     )));
 
                   (FirebaseStorage.instance
                       .ref('cms')
@@ -239,6 +221,28 @@ class JoinEraPage extends GetView<ContentManagementController> {
       ),
     );
   }
+  // Get.dialog(Obx(() => Wrap(
+  //       children: [
+  //         Container(
+  //           width: 200.w,
+  //           padding: EdgeInsets.all(20.w),
+  //           child: Center(
+  //             child: Row(
+  //               children: [
+  //                 LinearProgressIndicator(
+  //                   value: uploadProgress.value,
+  //                 ),
+  //                 EraText(
+  //                   text:
+  //                       '${(uploadProgress.value * 100).toStringAsFixed(2)}%',
+  //                   color: Colors.black,
+  //                 )
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     )));
 
   // import 'package:flutter/material.dart';
 }

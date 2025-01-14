@@ -8,6 +8,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -90,7 +91,22 @@ class FindAgentPage extends GetView<ContentManagementController> {
               } else if (controller.selectedType.value == 'Video') {
                 return Column(
                   children: [
-                    sb40(),
+                    Button(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: EraTheme.paddingWidthAdmin - 5.w),
+                      width: Get.width,
+                      height: 60.h,
+                      bgColor: AppColors.kRedColor,
+                      text: 'SELECT VIDEO',
+                      onTap: () async {
+                        var vid = (await FilePicker.platform.pickFiles(
+                            type: FileType.custom, allowedExtensions: ['mp4']));
+                        if (vid != null &&
+                            vid.files.first.bytes!.lengthInBytes < 104857600) {
+                          controller.video = vid.files.first.bytes;
+                        }
+                      },
+                    ),
                   ],
                 );
               } else if (controller.selectedType.value == 'Youtube') {
@@ -98,7 +114,7 @@ class FindAgentPage extends GetView<ContentManagementController> {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: EraTheme.paddingWidth + 43.sp),
+                          horizontal: EraTheme.paddingWidthAdmin),
                       child: SharedWidgets.textFormfield(
                         controller: controller.videoLinkAgent,
                         hintText: 'YOUTUBE LINK',
@@ -130,6 +146,14 @@ class FindAgentPage extends GetView<ContentManagementController> {
                         target: "cms",
                         customName: "find_agent");
                   }
+
+                  if (controller.selectedType.value == 'Video') {
+                    controller.link = await CloudStorage().uploadFromMemory(
+                        file: controller.video!,
+                        target: "cms",
+                        customName: "find_agent");
+                  }
+
                   var data = {
                     "description": controller.description.text,
                     "link": controller.link,
@@ -140,6 +164,19 @@ class FindAgentPage extends GetView<ContentManagementController> {
                       .doc('find_agents')
                       .set(data);
                   BaseController().hideLoading();
+                  controller.showSuccessDialog(
+                      title: "Success!",
+                      description: "Find agent has been updated!",
+                      hitApi: () {
+                        Get.back();
+                        controller.description.clear();
+                        controller.videoLinkAgent.clear();
+                        controller.images.clear();
+                      });
+                  print("Selected Type: ${controller.selectedType.value}");
+                  print("Link: ${controller.link}");
+                  print("Images: ${controller.images}");
+                  print("Video: ${controller.video}");
                 },
               ),
             )
@@ -148,6 +185,4 @@ class FindAgentPage extends GetView<ContentManagementController> {
       ),
     );
   }
-
-  // import 'package:flutter/material.dart';
 }
