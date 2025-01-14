@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -12,11 +13,13 @@ import 'package:eraphilippines/presentation/agent/agents/controllers/agents_cont
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:number_pagination/number_pagination.dart';
+import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/widgets/listings/agents_items.dart';
@@ -41,13 +44,58 @@ class FindAgents extends GetView<AgentsController> {
             //   fit: BoxFit.cover,
             //   width: Get.width,
             // ),
-            YoutubePlayer(
-              controller: controller.youtubePlayerController,
-              bottomActions: const [
-                CurrentPosition(),
-                ProgressBar(isExpanded: true),
-                RemainingDuration(),
-              ],
+            // YoutubePlayer(
+            //   controller: controller.youtubePlayerController,
+            //   bottomActions: const [
+            //     CurrentPosition(),
+            //     ProgressBar(isExpanded: true),
+            //     RemainingDuration(),
+            //   ],
+            // ),
+            FutureBuilder(
+              future: FirebaseFirestore.instance
+                  .collection('cms')
+                  .doc('find_agents')
+                  .get(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  var data = snapshot.data!.data()!;
+                  if (data['type'] == "image") {
+                    return CachedNetworkImage(
+                      imageUrl: data['url'],
+                      fit: BoxFit.cover,
+                      width: Get.width,
+                    );
+                  } else if (data['type'] == "youtube") {
+                    return YoutubePlayer(
+                      controller: controller.youtubePlayerController,
+                      bottomActions: const [
+                        CurrentPosition(),
+                        ProgressBar(isExpanded: true),
+                        RemainingDuration(),
+                      ],
+                    );
+                  } else if (data['type'] == "video") {
+                    var videoController = VideoPlayerController.networkUrl(
+                        Uri.parse(FirebaseStorage.instance
+                            .ref(data['url'])
+                            .getDownloadURL()
+                            .toString()));
+                    return videoController.value.isInitialized
+                        ? AspectRatio(
+                            aspectRatio: videoController.value.aspectRatio,
+                            child: VideoPlayer(videoController),
+                          )
+                        : Container();
+                    // return Container(
+                    //   width: Get.width,
+                    //   height: 200.h,
+                    //   child: VideoPlayer(controller.videoPlayerController),
+                    // );
+                  }
+                }
+                return Center(child: CircularProgressIndicator());
+              },
             ),
             Padding(
               padding: EdgeInsets.symmetric(
