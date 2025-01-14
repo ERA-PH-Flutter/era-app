@@ -142,14 +142,17 @@ class FindAgentPage extends GetView<ContentManagementController> {
                   var link = '';
                   BaseController().showLoading();
                   if (controller.selectedType.value == 'Image') {
-                    link = await CloudStorage().uploadFromMemory(
+                    link = "cms/find_agent";
+
+                    await CloudStorage().uploadFromMemory(
                         file: controller.images.first,
                         target: "cms",
                         customName: "find_agent");
                   }
 
                   if (controller.selectedType.value == 'Video') {
-                    link = await CloudStorage().uploadFromMemory(
+                    link = "cms/find_agent";
+                    await CloudStorage().uploadFromMemory(
                         file: controller.video!,
                         target: "cms",
                         customName: "find_agent");

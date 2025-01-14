@@ -62,11 +62,11 @@ class JoinEra extends GetView<ContactusController> {
                       var data = snapshot.data!.data()!;
                       if (data['type'] == "image") {
                         return CloudStorage().imageLoader(
-                            reference: data['url'],
+                            reference: data['link'],
                             fit: BoxFit.cover,
                             width: Get.width);
                       } else if (data['type'] == "youtube") {
-                        var url = data['url'].toString().split('/');
+                        var url = data['link'].toString().split('/');
                         controller.youtubePlayerController =
                             YoutubePlayerController(
                           initialVideoId: url[url.length - 1],
@@ -88,7 +88,7 @@ class JoinEra extends GetView<ContactusController> {
                       } else if (data['type'] == "video") {
                         return FutureBuilder(
                             future: FirebaseStorage.instance
-                                .ref(data['url'])
+                                .ref(data['link'])
                                 .getDownloadURL(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {

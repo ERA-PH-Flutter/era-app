@@ -183,7 +183,8 @@ class JoinEraPage extends GetView<ContentManagementController> {
                 var link = '';
                 BaseController().showLoading();
                 if (controller.selectedType.value == 'Image') {
-                  controller.link = await CloudStorage().uploadFromMemory(
+                  controller.link = "cms/join_era";
+                  await CloudStorage().uploadFromMemory(
                       file: controller.images.first,
                       target: "cms",
                       customName: "join_era");
