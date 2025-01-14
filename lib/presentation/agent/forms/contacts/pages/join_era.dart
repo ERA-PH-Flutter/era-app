@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/agent/forms/contacts/controllers/contacts_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -61,13 +61,22 @@ class JoinEra extends GetView<ContactusController> {
                     if (snapshot.hasData) {
                       var data = snapshot.data!.data()!;
                       if (data['type'] == "image") {
-                        return CachedNetworkImage(
-                          imageUrl: data['url'] ??
-                              'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-                          fit: BoxFit.cover,
-                          width: Get.width,
-                        );
+                        return CloudStorage().imageLoader(
+                            reference: data['url'],
+                            fit: BoxFit.cover,
+                            width: Get.width);
                       } else if (data['type'] == "youtube") {
+                        var url = data['url'].toString().split('/');
+                        controller.youtubePlayerController =
+                            YoutubePlayerController(
+                          initialVideoId: url[url.length - 1],
+                          flags: YoutubePlayerFlags(
+                            enableCaption: false,
+                            autoPlay: false,
+                            mute: false,
+                            forceHD: true,
+                          ),
+                        );
                         return YoutubePlayer(
                           controller: controller.youtubePlayerController,
                           bottomActions: const [
@@ -77,22 +86,27 @@ class JoinEra extends GetView<ContactusController> {
                           ],
                         );
                       } else if (data['type'] == "video") {
-                        var videoController = VideoPlayerController.networkUrl(
-                            Uri.parse(FirebaseStorage.instance
+                        return FutureBuilder(
+                            future: FirebaseStorage.instance
                                 .ref(data['url'])
-                                .getDownloadURL()
-                                .toString()));
-                        return videoController.value.isInitialized
-                            ? AspectRatio(
-                                aspectRatio: videoController.value.aspectRatio,
-                                child: VideoPlayer(videoController),
-                              )
-                            : Container();
-                        // return Container(
-                        //   width: Get.width,
-                        //   height: 200.h,
-                        //   child: VideoPlayer(controller.videoPlayerController),
-                        // );
+                                .getDownloadURL(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                var videoController =
+                                    VideoPlayerController.networkUrl(
+                                        Uri.parse(snapshot.data!));
+                                return videoController.value.isInitialized
+                                    ? AspectRatio(
+                                        aspectRatio:
+                                            videoController.value.aspectRatio,
+                                        child: VideoPlayer(videoController),
+                                      )
+                                    : Container();
+                              }
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            });
                       }
                     }
                     return Center(child: CircularProgressIndicator());

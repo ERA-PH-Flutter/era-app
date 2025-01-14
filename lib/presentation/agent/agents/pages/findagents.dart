@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -61,12 +62,22 @@ class FindAgents extends GetView<AgentsController> {
                 if (snapshot.hasData) {
                   var data = snapshot.data!.data()!;
                   if (data['type'] == "image") {
-                    return CachedNetworkImage(
-                      imageUrl: data['url'],
-                      fit: BoxFit.cover,
-                      width: Get.width,
-                    );
+                    return CloudStorage().imageLoader(
+                        reference: data['url'],
+                        fit: BoxFit.cover,
+                        width: Get.width);
                   } else if (data['type'] == "youtube") {
+                    var url = data['url'].toString().split('/');
+                    controller.youtubePlayerController =
+                        YoutubePlayerController(
+                      initialVideoId: url[url.length - 1],
+                      flags: YoutubePlayerFlags(
+                        enableCaption: false,
+                        autoPlay: false,
+                        mute: false,
+                        forceHD: true,
+                      ),
+                    );
                     return YoutubePlayer(
                       controller: controller.youtubePlayerController,
                       bottomActions: const [
@@ -76,22 +87,27 @@ class FindAgents extends GetView<AgentsController> {
                       ],
                     );
                   } else if (data['type'] == "video") {
-                    var videoController = VideoPlayerController.networkUrl(
-                        Uri.parse(FirebaseStorage.instance
+                    return FutureBuilder(
+                        future: FirebaseStorage.instance
                             .ref(data['url'])
-                            .getDownloadURL()
-                            .toString()));
-                    return videoController.value.isInitialized
-                        ? AspectRatio(
-                            aspectRatio: videoController.value.aspectRatio,
-                            child: VideoPlayer(videoController),
-                          )
-                        : Container();
-                    // return Container(
-                    //   width: Get.width,
-                    //   height: 200.h,
-                    //   child: VideoPlayer(controller.videoPlayerController),
-                    // );
+                            .getDownloadURL(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            var videoController =
+                                VideoPlayerController.networkUrl(
+                                    Uri.parse(snapshot.data!));
+                            return videoController.value.isInitialized
+                                ? AspectRatio(
+                                    aspectRatio:
+                                        videoController.value.aspectRatio,
+                                    child: VideoPlayer(videoController),
+                                  )
+                                : Container();
+                          }
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        });
                   }
                 }
                 return Center(child: CircularProgressIndicator());

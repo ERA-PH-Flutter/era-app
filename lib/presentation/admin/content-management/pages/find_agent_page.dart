@@ -178,10 +178,6 @@ class FindAgentPage extends GetView<ContentManagementController> {
                         controller.videoLinkAgent.clear();
                         controller.images.clear();
                       });
-                  print("Selected Type: ${controller.selectedType.value}");
-                  print("Link: ${controller.link}");
-                  print("Images: ${controller.images}");
-                  print("Video: ${controller.video}");
                 },
               ),
             )
