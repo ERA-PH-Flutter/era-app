@@ -19,7 +19,6 @@ class Project {
       this.title});
 
   factory Project.fromJSON(Map<String, dynamic> json) {
-    print('result gemini fromJson project id ${json['id']}');
     return Project(
       id: json['id'],
       data: json['data'],
