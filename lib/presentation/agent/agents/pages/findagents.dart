@@ -88,22 +88,19 @@ class FindAgents extends GetView<AgentsController> {
                       ],
                     );
                   } else if (data['type'] == "video") {
+                    print('video');
                     return FutureBuilder(
-                        future: FirebaseStorage.instance
-                            .ref(data['link'])
-                            .getDownloadURL(),
+                        future: controller.loadVideo(data['link']),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            var videoController =
-                                VideoPlayerController.networkUrl(
-                                    Uri.parse(snapshot.data!));
-                            return videoController.value.isInitialized
-                                ? AspectRatio(
-                                    aspectRatio:
-                                        videoController.value.aspectRatio,
-                                    child: VideoPlayer(videoController),
-                                  )
-                                : Container();
+                            return SizedBox(
+                              width: Get.width,
+                              height: 300.h,
+                              child: AspectRatio(
+                                aspectRatio: snapshot.data!.value.aspectRatio,
+                                child: VideoPlayer(snapshot.data!),
+                              ),
+                            );
                           }
                           return Center(
                             child: CircularProgressIndicator(),
