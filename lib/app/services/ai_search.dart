@@ -32,7 +32,6 @@ class AI {
     final list = docs
         .map((e) => EraUser.fromJSON(e.data() as Map<String, dynamic>))
         .toList();
-    print('result list ${list.length}');
 
     final Map<EraUser, double> filteredData = {};
 
