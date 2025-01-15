@@ -136,6 +136,7 @@ class AddListingsController extends GetxController with BaseController {
   TextEditingController carsController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController areaController = TextEditingController();
+  TextEditingController floorArea = TextEditingController();
   TextEditingController offerTypeController = TextEditingController();
   TextEditingController viewController = TextEditingController();
   TextEditingController locationController = TextEditingController();
@@ -238,7 +239,7 @@ class AddListingsController extends GetxController with BaseController {
         offerT.contains(listing!.status) ? listing!.status : offerT.first;
     locationController.text = listing!.location ?? "";
     selectedPropertyT.value =
-        propertyT.contains(listing!.type) ? listing!.type :'Pre-Selling';
+        propertyT.contains(listing!.type) ? listing!.type : 'Pre-Selling';
     selectedPropertySubCategory.value =
         subCategory.contains(listing!.subCategory)
             ? listing!.subCategory
@@ -246,7 +247,8 @@ class AddListingsController extends GetxController with BaseController {
     descController.text = listing!.description ?? "";
     addressController.text = listing!.address ?? "";
     addEditListingsState.value = AddEditListingsState.loaded;
-    selectedView.value = viewL.contains(listing!.view) ? listing!.view : viewL.first;
+    selectedView.value =
+        viewL.contains(listing!.view) ? listing!.view : viewL.first;
     addListingsState.value = AddListingsState.loaded;
   }
 
@@ -338,6 +340,7 @@ class AddListingsController extends GetxController with BaseController {
       listing!.baths = bathsController.text.toInt();
       listing!.cars = carsController.text.toInt();
       listing!.floorArea = areaController.text.toDouble();
+      listing!.lotArea = areaController.text.toDouble();
       listing!.status = selectedOfferT.value.toString();
       listing!.location = add == null ? locationController.text : add.city;
       listing!.type = selectedPropertyT.value.toString();
@@ -351,7 +354,7 @@ class AddListingsController extends GetxController with BaseController {
       await listing!.updateListing();
 
       !kIsWeb ? hideLoading() : null;
-    } catch (e,ex) {
+    } catch (e, ex) {
       print(ex);
       print(e);
     }

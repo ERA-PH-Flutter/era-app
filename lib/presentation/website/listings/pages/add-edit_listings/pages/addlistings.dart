@@ -249,6 +249,7 @@ class AddListingsWeb extends GetView<AddListingsController>
                   beds: controller.bedsController.text.toInt(),
                   baths: controller.bathsController.text.toInt(),
                   cars: controller.carsController.text.toInt(),
+                  floorArea: double.tryParse(controller.floorArea.text) ?? 0.0,
                   lotArea:
                       double.tryParse(controller.areaController.text) ?? 0.0,
                   status: controller.selectedOfferT.value.toString(),
