@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -17,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+//import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/constants/screens.dart';
@@ -36,51 +38,118 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
       width: Get.width,
       child: Column(
         children: [
-          Stack(
-            children: [
-              Image.network(
-                'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-                fit: BoxFit.cover,
-                width: Get.width,
-                height: Get.height - 150.h,
-              ),
-              Container(
-                width: Get.width,
-                height: Get.height - 150.h,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.black.withOpacity(0.6),
-                      Colors.transparent,
-                    ],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 50,
-                left: 20,
-                right: 20,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    EraText(
-                      text: 'Find Your Trusted Agent',
-                      fontSize: EraTheme.h1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    SizedBox(height: 10.h),
-                    EraText(
-                      text: 'Connect with professionals ready to assist you.',
-                      fontSize: EraTheme.h5,
-                      color: Colors.white.withOpacity(0.8),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          FutureBuilder(
+              future: FirebaseFirestore.instance
+                  .collection('cms')
+                  .doc('find_agents')
+                  .get(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  var data = snapshot.data!.data()!;
+                  if (data['type'] == "image") {
+                    return CloudStorage().imageLoader(
+                        reference: data['link'],
+                        fit: BoxFit.cover,
+                        width: Get.width);
+                  } else if (data['type'] == "youtube") {
+                    var url = data['link'].toString();
+                    // String? url = data['link'].toString();
+                    // //  controller.youtubePlayerController =
+
+                    // //  String? videoId = YoutubePlayer.convertUrlToId(url);
+                    // print("videoId : $url");
+                    // YoutubePlayerController(
+                    //   params: YoutubePlayerParams(
+                    //     // playlist: [videoId!],
+
+                    //     showControls: true,
+                    //     showFullscreenButton: true,
+                    //     //       autoPlay: false,
+                    //     mute: false,
+                    //   ),
+                    // );
+                    // YoutubePlayerController.fromVideoId(
+                    //   videoId: url,
+                    //   params:
+                    //       const YoutubePlayerParams(showFullscreenButton: true),
+                    //   autoPlay: false,
+
+                    // );
+                    String? videoId = YoutubePlayer.convertUrlToId(url);
+                    print("videoId : $videoId");
+                    controller.youtubePlayerController =
+                        YoutubePlayerController(
+                      initialVideoId: videoId!,
+                      flags: YoutubePlayerFlags(
+                        enableCaption: false,
+                        autoPlay: false,
+                        mute: false,
+                        forceHD: true,
+                      ),
+                    );
+                    return YoutubePlayer(
+                      controller: controller.youtubePlayerController,
+                      bottomActions: const [
+                        CurrentPosition(),
+                        ProgressBar(isExpanded: true),
+                        RemainingDuration(),
+                      ],
+                    );
+                  }
+
+                  //  CloudStorage().uploadFromMemory(
+                  //   file: snapshot.data!['link'],
+                  //   target: 'find_agents',
+                  //   customeName: 'cms',
+                  //   );
+                }
+                return Screens.loading();
+              }),
+          // Stack(
+          //   children: [
+          //     // Image.network(
+          //     //   'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+          //     //   fit: BoxFit.cover,
+          //     //   width: Get.width,
+          //     //   height: Get.height - 150.h,
+          //     // ),
+          //     Container(
+          //       width: Get.width,
+          //       height: Get.height - 150.h,
+          //       decoration: BoxDecoration(
+          //         gradient: LinearGradient(
+          //           colors: [
+          //             Colors.black.withOpacity(0.6),
+          //             Colors.transparent,
+          //           ],
+          //           begin: Alignment.bottomCenter,
+          //           end: Alignment.topCenter,
+          //         ),
+          //       ),
+          //     ),
+          //     Positioned(
+          //       bottom: 50,
+          //       left: 20,
+          //       right: 20,
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           EraText(
+          //             text: 'Find Your Trusted Agent',
+          //             fontSize: EraTheme.h1,
+          //             fontWeight: FontWeight.bold,
+          //           ),
+          //           SizedBox(height: 10.h),
+          //           EraText(
+          //             text: 'Connect with professionals ready to assist you.',
+          //             fontSize: EraTheme.h5,
+          //             color: Colors.white.withOpacity(0.8),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ],
+          // ),
           sb50(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
