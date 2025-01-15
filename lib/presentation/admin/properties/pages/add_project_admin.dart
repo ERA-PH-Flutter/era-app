@@ -284,10 +284,10 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                                                         .projectLego
                                                                   });
                                                                 } else {
-                                                                  Project p =
-                                                                      await Project
+                                                                  Project p = await Project
                                                                           .getById(
-                                                                              projectId);
+                                                                              projectId) ??
+                                                                      Project();
                                                                   project = Project
                                                                       .fromJSON({
                                                                     'id': p.id,

@@ -95,6 +95,8 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                 children: [
                   selectedIndex.value == navBarItems.indexOf(item)
                       ? Image.asset(
+                          width: 56,
+                          height: 56,
                           item.selectedIcon,
                           fit: BoxFit.cover,
                         )

@@ -52,6 +52,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() async {
+<<<<<<< HEAD
     //print(Get.find<LocalStorageService>().images);
     try {
       await getBanners();
@@ -64,6 +65,19 @@ class HomeController extends GetxController {
       homeState.value = HomeState.loaded;
     } catch (e) {
       print("errror: $e");
+=======
+    try {
+    await getBanners();
+    quickLinks = await QuickLinksModel().initialize();
+    await getNews();
+    await getImages();
+    await getListings();
+    await getProjects();
+    //await Future.delayed(Duration(seconds: 1,milliseconds: 500));
+    homeState.value = HomeState.loaded;
+    } catch (e) {
+      print('result $e');
+>>>>>>> 091cb2fad241f430dde986d760624f17225cb634
       homeState.value = HomeState.error;
     }
     super.onInit();
@@ -101,8 +115,13 @@ class HomeController extends GetxController {
   getProjects() async {
     if (settings!.featuredProjects != null) {
       for (int i = 0; i < settings!.featuredProjects!.length; i++) {
+<<<<<<< HEAD
         try {
           var pr = await Project.getById(settings!.featuredProjects![i]);
+=======
+        var pr = await Project.getById(settings!.featuredProjects![i]);
+        if (pr != null) {
+>>>>>>> 091cb2fad241f430dde986d760624f17225cb634
           projects.add(GestureDetector(
             onTap: () {
               Get.to(ProjectView(),
@@ -116,7 +135,11 @@ class HomeController extends GetxController {
               ],
             ),
           ));
+<<<<<<< HEAD
         } catch (e) {}
+=======
+        }
+>>>>>>> 091cb2fad241f430dde986d760624f17225cb634
       }
     }
   }

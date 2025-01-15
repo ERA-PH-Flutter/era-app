@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/project.dart';
+import 'package:eraphilippines/repository/user.dart';
 import 'package:get/get.dart';
 
 class AI {
@@ -18,12 +19,57 @@ class AI {
     };
     var result = await geminiSearch(data, name: "userSearch");
     Query firebaseQuery = FirebaseFirestore.instance.collection('users');
+    List<AiFilters> prompts = [];
+
     result!.forEach((key, value) {
-      firebaseQuery = firebaseQuery
-          .where(key, isGreaterThanOrEqualTo: value)
-          .where(key, isLessThanOrEqualTo: '$value\uf8ff');
+      if (key == "full_name") {
+        prompts.add(AiFilters(field: key, value: value, operator: "contains"));
+      } else {
+        prompts.add(AiFilters(field: key, value: value, operator: "=="));
+      }
     });
-    return (await firebaseQuery.get()).docs;
+    final docs = (await firebaseQuery.get()).docs;
+    final list = docs
+        .map((e) => EraUser.fromJSON(e.data() as Map<String, dynamic>))
+        .toList();
+
+    final Map<EraUser, double> filteredData = {};
+
+    for (var user in list) {
+      double score = 0;
+      bool matchEquals = true;
+
+      for (int i = 0; i < (prompts.length); i++) {
+        if (prompts[i].operator == "contains") {
+          if (user
+              .toMap()
+              .toString()
+              .toLowerCase()
+              .contains(prompts[i].value.toString().toLowerCase())) {
+            score++;
+          }
+          continue;
+        }
+        if (prompts[i].operator == "==") {
+          matchEquals = user.toMap()[prompts[i].field].toLowerCase() ==
+              prompts[i].value.toString().toLowerCase();
+
+          continue;
+        }
+      }
+
+      if (score >= 1 && matchEquals) {
+        filteredData[user] = score;
+      }
+    }
+
+    var sortedEntries = filteredData.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    Map<EraUser, double> sortedScores = {
+      for (var entry in sortedEntries) entry.key: entry.value
+    };
+
+    return sortedScores.keys.toList();
   }
 
   Future<List<Project>> projectSearch() async {
@@ -76,8 +122,6 @@ class AI {
   Future<List<Listing>> listingSearch({
     List<AiFilters> overrideAiFilters = const [],
   }) async {
-    print('gemini search overrideAiFilters 2 $overrideAiFilters');
-
     var geminiData = {
       "price": {
         "type": "object",
@@ -235,10 +279,7 @@ class AI {
       }
     }
     Iterable<Listing> listingData = [];
-    for (var element in prompts) {
-      print(
-          'gemini search result ${element.field} ${element.operator} ${element.value}');
-    }
+
     try {
       listingData = (await firebaseQuery.get())
           .docs
