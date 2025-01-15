@@ -52,7 +52,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() async {
-    print(Get.find<LocalStorageService>().images);
+    //print(Get.find<LocalStorageService>().images);
     try {
       await getBanners();
       quickLinks = await QuickLinksModel().initialize();
@@ -60,79 +60,63 @@ class HomeController extends GetxController {
       await getImages();
       await getListings();
       await getProjects();
-      //await Future.delayed(Duration(seconds: 1,milliseconds: 500));
+      await Future.delayed(Duration(seconds: 1, milliseconds: 500));
       homeState.value = HomeState.loaded;
     } catch (e) {
+      print("errror: $e");
       homeState.value = HomeState.error;
     }
     super.onInit();
   }
 
-  getBanners()async{
+  getBanners() async {
     var banners = Get.find<LocalStorageService>().images!['banners'];
     if (banners != null) {
       for (int i = 0; i < banners.length; i++) {
         images.add(Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: FileImage(
-                      File(banners[i])
-                  )
-              )
-          ),
+                  fit: BoxFit.cover, image: FileImage(File(banners[i])))),
         ));
       }
-      if(images.isEmpty){
-        images.add(
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(
-                          'assets/images/no_image_holder.jpg'
-                      )
-                  )
-              ),
-  //unahin nlg to muna              //wait lg sir dayne ni sesearch ko bat siya ganyan yung no such file or directory
-            )
-        );
+      if (images.isEmpty) {
+        images.add(Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/no_image_holder.jpg'))),
+          //unahin nlg to muna              //wait lg sir dayne ni sesearch ko bat siya ganyan yung no such file or directory
+        ));
       }
-    }else{
+    } else {
       images.add(Container(
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(
-                    'assets/images/no_image_holder.jpg'
-                )
-            )
-        ),
+                image: AssetImage('assets/images/no_image_holder.jpg'))),
       ));
     }
   }
 
-  getProjects()async{
+  getProjects() async {
     if (settings!.featuredProjects != null) {
       for (int i = 0; i < settings!.featuredProjects!.length; i++) {
-        var pr = await Project.getById(settings!.featuredProjects![i]);
-        projects.add(
-          GestureDetector(
+        try {
+          var pr = await Project.getById(settings!.featuredProjects![i]);
+          projects.add(GestureDetector(
             onTap: () {
               Get.to(ProjectView(),
-                  binding: ProjectViewBinding(),
-                  arguments: pr);
+                  binding: ProjectViewBinding(), arguments: pr);
             },
             child: Wrap(
               children: [
                 Column(
-                  children: ProjectViews(project: pr)
-                      .HomebuildPreview(),
+                  children: ProjectViews(project: pr).HomebuildPreview(),
                 ),
               ],
             ),
-          )
-        );
+          ));
+        } catch (e) {}
       }
     }
   }
@@ -140,8 +124,7 @@ class HomeController extends GetxController {
   getNews() async {
     if (settings!.featuredNews!.isNotEmpty) {
       for (int i = 0; i < settings!.featuredNews!.length; i++) {
-        if(settings!.featuredNews![i] != ''){
-
+        if (settings!.featuredNews![i] != '') {
           news.add(await News(id: settings!.featuredNews![i]).getNews());
         }
       }
@@ -161,21 +144,16 @@ class HomeController extends GetxController {
 
   getImages() async {
     var images = Get.find<LocalStorageService>().images!;
-    listingImages.add(PropertiesModels(
-        image: images['pre_selling'],
-        label: 'PRE-SELLING'));
-    listingImages.add(PropertiesModels(
-        image: images['residential'],
-        label: 'RESIDENTIAL'));
-    listingImages.add(PropertiesModels(
-        image: images['commercial'],
-        label: 'COMMERCIAL'));
-    listingImages.add(PropertiesModels(
-        image: images['rental'],
-        label: 'RENTAL'));
-    listingImages.add(PropertiesModels(
-        image: images['auction'],
-        label: 'AUCTION'));
+    listingImages.add(
+        PropertiesModels(image: images['pre_selling'], label: 'PRE-SELLING'));
+    listingImages.add(
+        PropertiesModels(image: images['residential'], label: 'RESIDENTIAL'));
+    listingImages.add(
+        PropertiesModels(image: images['commercial'], label: 'COMMERCIAL'));
+    listingImages
+        .add(PropertiesModels(image: images['rental'], label: 'RENTAL'));
+    listingImages
+        .add(PropertiesModels(image: images['auction'], label: 'AUCTION'));
   }
 
   void nextImage(int totalImg) {
