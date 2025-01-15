@@ -22,7 +22,11 @@ class AI {
     List<AiFilters> prompts = [];
 
     result!.forEach((key, value) {
-      prompts.add(AiFilters(field: key, value: value, operator: "contains"));
+      if (key == "full_name") {
+        prompts.add(AiFilters(field: key, value: value, operator: "contains"));
+      } else {
+        prompts.add(AiFilters(field: key, value: value, operator: "=="));
+      }
     });
     final docs = (await firebaseQuery.get()).docs;
     final list = docs
@@ -31,11 +35,10 @@ class AI {
     print('result list ${list.length}');
 
     final Map<EraUser, double> filteredData = {};
-    print(
-        'result ${prompts[0].field} ${prompts[0].value}  ${prompts[0].operator}');
 
     for (var user in list) {
       double score = 0;
+      bool matchEquals = true;
 
       for (int i = 0; i < (prompts.length); i++) {
         if (prompts[i].operator == "contains") {
@@ -48,9 +51,15 @@ class AI {
           }
           continue;
         }
+        if (prompts[i].operator == "==") {
+          matchEquals = user.toMap()[prompts[i].field].toLowerCase() ==
+              prompts[i].value.toString().toLowerCase();
+
+          continue;
+        }
       }
 
-      if (score >= 1) {
+      if (score >= 1 && matchEquals) {
         filteredData[user] = score;
       }
     }
@@ -114,8 +123,6 @@ class AI {
   Future<List<Listing>> listingSearch({
     List<AiFilters> overrideAiFilters = const [],
   }) async {
-    print('gemini search overrideAiFilters 2 $overrideAiFilters');
-
     var geminiData = {
       "price": {
         "type": "object",
