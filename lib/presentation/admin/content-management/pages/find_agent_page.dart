@@ -88,28 +88,31 @@ class FindAgentPage extends GetView<ContentManagementController> {
                     sb40(),
                   ],
                 );
-              } else if (controller.selectedType.value == 'Video') {
-                return Column(
-                  children: [
-                    Button(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: EraTheme.paddingWidthAdmin - 5.w),
-                      width: Get.width,
-                      height: 60.h,
-                      bgColor: AppColors.kRedColor,
-                      text: 'SELECT VIDEO',
-                      onTap: () async {
-                        var vid = (await FilePicker.platform.pickFiles(
-                            type: FileType.custom, allowedExtensions: ['mp4']));
-                        if (vid != null &&
-                            vid.files.first.bytes!.lengthInBytes < 104857600) {
-                          controller.video = vid.files.first.bytes;
-                        }
-                      },
-                    ),
-                  ],
-                );
-              } else if (controller.selectedType.value == 'Youtube') {
+              }
+
+              // else if (controller.selectedType.value == 'Video') {
+              //   return Column(
+              //     children: [
+              //       Button(
+              //         margin: EdgeInsets.symmetric(
+              //             horizontal: EraTheme.paddingWidthAdmin - 5.w),
+              //         width: Get.width,
+              //         height: 60.h,
+              //         bgColor: AppColors.kRedColor,
+              //         text: 'SELECT VIDEO',
+              //         onTap: () async {
+              //           var vid = (await FilePicker.platform.pickFiles(
+              //               type: FileType.custom, allowedExtensions: ['mp4']));
+              //           if (vid != null &&
+              //               vid.files.first.bytes!.lengthInBytes < 104857600) {
+              //             controller.video = vid.files.first.bytes;
+              //           }
+              //         },
+              //       ),
+              //     ],
+              //   );
+              // }
+              else if (controller.selectedType.value == 'Youtube') {
                 return Column(
                   children: [
                     Padding(
@@ -174,11 +177,11 @@ class FindAgentPage extends GetView<ContentManagementController> {
                   BaseController().hideLoading();
                   controller.showSuccessDialog(
                       title: "Success!",
-                      description: "Find agent has been updated!",
+                      description: "Find Agent Settings has been updated!",
                       hitApi: () {
                         Get.back();
-                        controller.description.clear();
                         controller.videoLinkAgent.clear();
+                        //   controller.images.first.clear();
                         controller.images.clear();
                       });
                 },

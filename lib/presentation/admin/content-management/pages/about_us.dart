@@ -6,6 +6,7 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/presentation/admin/content-management/controllers/content_management_controller.dart';
 import 'package:eraphilippines/presentation/admin/content-management/pages/uploadbanners_widget.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -38,21 +39,34 @@ class AboutUsPage extends GetView<ContentManagementController> {
             child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Button(
                 onTap: () async {
-                  controller.showLoading();
+                  BaseController().showLoading();
+                  var photo = await CloudStorage().uploadFromMemory(
+                    file: controller.images.first,
+                    target: "cms",
+                    customName: "about_us",
+                  );
+
                   await FirebaseFirestore.instance
                       .collection("cms")
                       .doc('about_us')
                       .set({
                     'description': controller.description.text,
-                    "photo": await CloudStorage().uploadFromMemory(
-                        file: controller.images.first, target: "cms"),
+                    "photo": photo
+
+                    // await CloudStorage().uploadFromMemory(
+                    //   file: controller.images.first,
+                    //   target: "cms",
+                    //   customName: "about_us",
+                    // ),
                   });
+
+                  BaseController().hideLoading();
                   controller.showSuccessDialog(
                       title: "Success!",
                       description: "About us has been updated!",
                       hitApi: () {
                         Get.back();
-                        Get.back();
+                        //    Get.back();
                       });
                 },
                 margin: EdgeInsets.symmetric(horizontal: 5),

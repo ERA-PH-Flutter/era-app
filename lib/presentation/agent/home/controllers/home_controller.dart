@@ -63,7 +63,11 @@ class HomeController extends GetxController {
       //await Future.delayed(Duration(seconds: 1,milliseconds: 500));
       homeState.value = HomeState.loaded;
     } catch (e) {
+<<<<<<< HEAD
       print('result $e');
+=======
+      print("errror: $e");
+>>>>>>> c826af21a0b2124a339f63d9364f5cef7f00a40d
       homeState.value = HomeState.error;
     }
     super.onInit();
@@ -101,6 +105,7 @@ class HomeController extends GetxController {
   getProjects() async {
     if (settings!.featuredProjects != null) {
       for (int i = 0; i < settings!.featuredProjects!.length; i++) {
+<<<<<<< HEAD
         var pr = await Project.getById(settings!.featuredProjects![i]);
         if (pr != null) {
           try {
@@ -121,6 +126,24 @@ class HomeController extends GetxController {
             print('error $e');
           }
         }
+=======
+        try {
+          var pr = await Project.getById(settings!.featuredProjects![i]);
+          projects.add(GestureDetector(
+            onTap: () {
+              Get.to(ProjectView(),
+                  binding: ProjectViewBinding(), arguments: pr);
+            },
+            child: Wrap(
+              children: [
+                Column(
+                  children: ProjectViews(project: pr!).HomebuildPreview(),
+                ),
+              ],
+            ),
+          ));
+        } catch (e) {}
+>>>>>>> c826af21a0b2124a339f63d9364f5cef7f00a40d
       }
     }
   }

@@ -96,7 +96,8 @@ class Home extends GetView<HomeController> {
                     alignment: Alignment.center,
                     child: GestureDetector(
                       onTap: () {
-                        controller.prevImage();
+                        // controller.
+                        // controller.prevImage();
                         controller.innerController.previousPage();
                       },
                       child: Image.asset(
@@ -116,7 +117,8 @@ class Home extends GetView<HomeController> {
                     alignment: Alignment.center,
                     child: GestureDetector(
                       onTap: () {
-                        controller.nextImage(controller.images.length);
+                        // controller
+                        //   controller.nextImage(controller.images.length);
                         controller.innerController.nextPage();
                       },
                       child: Image.asset(
