@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -13,11 +14,13 @@ import 'package:eraphilippines/presentation/agent/agents/controllers/agents_cont
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:number_pagination/number_pagination.dart';
+import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/widgets/listings/agents_items.dart';
@@ -42,13 +45,72 @@ class FindAgents extends GetView<AgentsController> {
             //   fit: BoxFit.cover,
             //   width: Get.width,
             // ),
-            YoutubePlayer(
-              controller: controller.youtubePlayerController,
-              bottomActions: const [
-                CurrentPosition(),
-                ProgressBar(isExpanded: true),
-                RemainingDuration(),
-              ],
+            // YoutubePlayer(
+            //   controller: controller.youtubePlayerController,
+            //   bottomActions: const [
+            //     CurrentPosition(),
+            //     ProgressBar(isExpanded: true),
+            //     RemainingDuration(),
+            //   ],
+            // ),
+            FutureBuilder(
+              future: FirebaseFirestore.instance
+                  .collection('cms')
+                  .doc('find_agents')
+                  .get(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  var data = snapshot.data!.data()!;
+                  if (data['type'] == "image") {
+                    return CloudStorage().imageLoader(
+                        reference: data['link'],
+                        fit: BoxFit.cover,
+                        width: Get.width);
+                  } else if (data['type'] == "youtube") {
+                    var url = data['link'].toString().split('/');
+
+                    controller.youtubePlayerController =
+                        YoutubePlayerController(
+                      initialVideoId: url[url.length - 1],
+                      flags: YoutubePlayerFlags(
+                        enableCaption: false,
+                        autoPlay: false,
+                        mute: false,
+                        forceHD: true,
+                      ),
+                    );
+                    return YoutubePlayer(
+                      controller: controller.youtubePlayerController,
+                      bottomActions: const [
+                        CurrentPosition(),
+                        ProgressBar(isExpanded: true),
+                        RemainingDuration(),
+                      ],
+                    );
+                  }
+                  // else if (data['type'] == "video") {
+                  //   print('video');
+                  //   return FutureBuilder(
+                  //       future: controller.loadVideo(data['link']),
+                  //       builder: (context, snapshot) {
+                  //         if (snapshot.hasData) {
+                  //           return SizedBox(
+                  //             width: Get.width,
+                  //             height: 300.h,
+                  //             child: AspectRatio(
+                  //               aspectRatio: snapshot.data!.value.aspectRatio,
+                  //               child: VideoPlayer(videoController),
+                  //             ),
+                  //           );
+                  //         }
+                  //         return Center(
+                  //           child: CircularProgressIndicator(),
+                  //         );
+                  //       });
+                  // }
+                }
+                return Center(child: CircularProgressIndicator());
+              },
             ),
             Padding(
               padding: EdgeInsets.symmetric(

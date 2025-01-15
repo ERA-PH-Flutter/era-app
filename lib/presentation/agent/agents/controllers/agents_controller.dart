@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/services/ai_search.dart';
@@ -41,6 +42,13 @@ class AgentsController extends GetxController with BaseController {
 
   late YoutubePlayerController youtubePlayerController;
 
+  Future<VideoPlayerController> loadVideo(ref) async {
+    var link = await FirebaseStorage.instance.ref(ref).getData();
+    var videoController = VideoPlayerController.file(File.fromRawPath(link!));
+    await videoController.initialize();
+    return videoController;
+  }
+
   void toggleSortDirection() {
     isAscending.value = !isAscending.value;
     updateSortOption(isAscending.value ? 'name_ascending' : 'name_descending');
@@ -52,15 +60,15 @@ class AgentsController extends GetxController with BaseController {
 
   @override
   void onInit() async {
-    youtubePlayerController = YoutubePlayerController(
-      initialVideoId: 'UcbQCfRCoeA',
-      flags: YoutubePlayerFlags(
-        enableCaption: false,
-        autoPlay: false,
-        mute: false,
-        forceHD: true,
-      ),
-    );
+    // youtubePlayerController = YoutubePlayerController(
+    //   initialVideoId: 'UcbQCfRCoeA',
+    //   flags: YoutubePlayerFlags(
+    //     enableCaption: false,
+    //     autoPlay: false,
+    //     mute: false,
+    //     forceHD: true,
+    //   ),
+    // );
     pageSize = count.value;
     try {
       var randomUser = (await FirebaseFirestore.instance

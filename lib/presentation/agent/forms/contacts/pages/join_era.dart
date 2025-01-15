@@ -1,13 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/agent/forms/contacts/controllers/contacts_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../../app/widgets/button.dart';
@@ -41,14 +44,76 @@ class JoinEra extends GetView<ContactusController> {
                 //   height: 250.h,
                 //   width: Get.width,
                 // ),
-                YoutubePlayer(
-                  controller: controller.youtubePlayerController,
-                  bottomActions: const [
-                    CurrentPosition(),
-                    ProgressBar(isExpanded: true),
-                    RemainingDuration(),
-                  ],
+                // YoutubePlayer(
+                //   controller: controller.youtubePlayerController,
+                //   bottomActions: const [
+                //     CurrentPosition(),
+                //     ProgressBar(isExpanded: true),
+                //     RemainingDuration(),
+                //   ],
+                // ),
+                FutureBuilder(
+                  future: FirebaseFirestore.instance
+                      .collection('cms')
+                      .doc('find_agents')
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var data = snapshot.data!.data()!;
+                      if (data['type'] == "image") {
+                        return CloudStorage().imageLoader(
+                            reference: data['link'],
+                            fit: BoxFit.cover,
+                            width: Get.width);
+                      } else if (data['type'] == "youtube") {
+                        var url = data['link'].toString().split('/');
+                        controller.youtubePlayerController =
+                            YoutubePlayerController(
+                          initialVideoId: url[url.length - 1],
+                          flags: YoutubePlayerFlags(
+                            enableCaption: false,
+                            autoPlay: false,
+                            mute: false,
+                            forceHD: true,
+                          ),
+                        );
+                        return YoutubePlayer(
+                          controller: controller.youtubePlayerController,
+                          bottomActions: const [
+                            CurrentPosition(),
+                            ProgressBar(isExpanded: true),
+                            RemainingDuration(),
+                          ],
+                        );
+                      }
+                      //  else if (data['type'] == "video") {
+                      //   return FutureBuilder(
+                      //       future: FirebaseStorage.instance
+                      //           .ref(data['link'])
+                      //           .getDownloadURL(),
+                      //       builder: (context, snapshot) {
+                      //         if (snapshot.hasData) {
+                      //           var videoController =
+                      //               VideoPlayerController.networkUrl(
+                      //                   Uri.parse(snapshot.data!));
+                      //           return videoController.value.isInitialized
+                      //               ? AspectRatio(
+                      //                   aspectRatio:
+                      //                       videoController.value.aspectRatio,
+                      //                   child: VideoPlayer(videoController),
+                      //                 )
+                      //               : Container();
+                      //         }
+                      //         return Center(
+                      //           child: CircularProgressIndicator(),
+                      //         );
+                      //       });
+                      // }
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  },
                 ),
+
                 SizedBox(height: 15.h),
                 Padding(
                   padding:

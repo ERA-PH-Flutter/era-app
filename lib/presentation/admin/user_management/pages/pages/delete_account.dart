@@ -282,16 +282,13 @@ class DeletedRoster extends GetView<AgentAdminController> {
                                   // Get.find<AgentAdminController>()
                                   //     .setValues(listingModels[i]);
                                   // controllers.onSectionSelected(1);
-                                  controller.agentState.value =
-                                      AgentAdminState.loading;
+
                                   try {
                                     listingModels[i].status = "approved";
                                     await listingModels[i].update();
                                   } catch (e) {
                                     print("eeerror: $e");
                                   }
-                                  controller.agentState.value =
-                                      AgentAdminState.loaded;
                                 }, Icons.edit),
                               ])),
                           menuOptions("Permanent Delete", () async {

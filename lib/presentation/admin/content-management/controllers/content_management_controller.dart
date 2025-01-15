@@ -26,6 +26,9 @@ class ContentManagementController extends GetxController with BaseController {
   final picker = ImagePicker();
   var listings = [].obs;
   var changeCategoryIcon = [].obs;
+  var selectedType = 'Image'.obs;
+  var link = "";
+  var video;
 
   final List<String> bannersImages = [];
   var listingImages = [];

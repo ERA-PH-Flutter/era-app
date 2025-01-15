@@ -207,9 +207,10 @@ class SellProperty extends GetView<SellPropertyController> {
                               'desc': controller.desc.text,
                             });
                             BaseController().showSuccessDialog(
-                                title: "Success",
+                                okayButton: 'Close',
+                                title: "Property Submitted",
                                 description:
-                                    "Your Property info has been submitted to admin. Wait for an admin to contact you!",
+                                    "Your Property info has been submitted to admin. Wait for an admin to contact you.",
                                 hitApi: () {
                                   controller.name.clear();
                                   controller.phoneNum.clear();
