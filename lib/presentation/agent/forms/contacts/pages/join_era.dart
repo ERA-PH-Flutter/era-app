@@ -64,10 +64,11 @@ class JoinEra extends GetView<ContactusController> {
                             fit: BoxFit.cover,
                             width: Get.width);
                       } else if (data['type'] == "youtube") {
-                        var url = data['link'].toString().split('/');
+                        var url = data['link'].toString();
+                        String? videoUrl = YoutubePlayer.convertUrlToId(url);
                         controller.youtubePlayerController =
                             YoutubePlayerController(
-                          initialVideoId: url[url.length - 1],
+                          initialVideoId: videoUrl!,
                           flags: YoutubePlayerFlags(
                             enableCaption: false,
                             autoPlay: false,

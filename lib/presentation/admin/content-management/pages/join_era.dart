@@ -85,29 +85,31 @@ class JoinEraPage extends GetView<ContentManagementController> {
                   ),
                 ],
               );
-            } else if (controller.selectedType.value == 'Video') {
-              return Column(
-                children: [
-                  // EraText(text: "Select Video",color: Colors.black,),
-                  Button(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: EraTheme.paddingWidthAdmin - 5.w),
-                    width: Get.width,
-                    height: 60.h,
-                    bgColor: AppColors.kRedColor,
-                    text: 'SELECT VIDEO',
-                    onTap: () async {
-                      var vid = (await FilePicker.platform.pickFiles(
-                          type: FileType.custom, allowedExtensions: ['mp4']));
-                      if (vid != null &&
-                          vid.files.first.bytes!.lengthInBytes < 104857600) {
-                        controller.video = vid.files.first.bytes;
-                      }
-                    },
-                  ),
-                ],
-              );
-            } else if (controller.selectedType.value == 'Youtube') {
+            }
+            // else if (controller.selectedType.value == 'Video') {
+            //   return Column(
+            //     children: [
+            //       // EraText(text: "Select Video",color: Colors.black,),
+            //       Button(
+            //         margin: EdgeInsets.symmetric(
+            //             horizontal: EraTheme.paddingWidthAdmin - 5.w),
+            //         width: Get.width,
+            //         height: 60.h,
+            //         bgColor: AppColors.kRedColor,
+            //         text: 'SELECT VIDEO',
+            //         onTap: () async {
+            //           var vid = (await FilePicker.platform.pickFiles(
+            //               type: FileType.custom, allowedExtensions: ['mp4']));
+            //           if (vid != null &&
+            //               vid.files.first.bytes!.lengthInBytes < 104857600) {
+            //             controller.video = vid.files.first.bytes;
+            //           }
+            //         },
+            //       ),
+            //     ],
+            //   );
+            // }
+            else if (controller.selectedType.value == 'Youtube') {
               return Column(
                 children: [
                   Padding(
@@ -205,9 +207,12 @@ class JoinEraPage extends GetView<ContentManagementController> {
                 //     Get.back();
                 //   });
                 // }
-                else {
-                  link = controller.videoLinkJoinEra.text;
+                else if (controller.selectedType.value == 'Youtube') {
+                  link = controller.videoLinkAgent.text;
                 }
+                // else {
+                //   link = controller.videoLinkJoinEra.text;
+                // }
                 var data = {
                   "description": controller.descriptionJoinEra.text,
                   "link": link,
@@ -218,6 +223,14 @@ class JoinEraPage extends GetView<ContentManagementController> {
                     .doc('join_era')
                     .set(data);
                 BaseController().hideLoading();
+
+                controller.showSuccessDialog(
+                    title: "Success!",
+                    description: "Join Era Settings has been updated!",
+                    hitApi: () {
+                      Get.back();
+                      // Get.back();
+                    });
               },
             ),
           ),

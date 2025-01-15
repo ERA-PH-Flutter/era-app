@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/screens.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +18,7 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppbar(),
       body: WillPopScope(
-        onWillPop: ()async{
+        onWillPop: () async {
           // selectedIndex.value = 0;
           // pageViewController = PageController(initialPage: 0);
           // currentRoute = '/home';
@@ -43,6 +46,7 @@ class AboutUs extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: AppColors.kRedColor),
                 ),
+
                 SizedBox(height: 10.h),
                 _buildDescription(
                     'Welcome to a new ERA of property discovery and management.'),
@@ -109,7 +113,7 @@ class AboutUs extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 40.h,
-                )
+                ),
                 // SizedBox(
                 //   width: Get.width,
                 //   child: Button(
@@ -118,6 +122,39 @@ class AboutUs extends StatelessWidget {
                 //
                 //   ),
                 // )
+
+                FutureBuilder(
+                    future: FirebaseFirestore.instance
+                        .collection('cms')
+                        .doc('about_us')
+                        .get(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var data = snapshot.data!.data();
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CloudStorage().imageLoader(
+                              reference: data?['photo'],
+                              fit: BoxFit.cover,
+                              width: Get.width,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: EraTheme.paddingWidth),
+                              child: EraText(
+                                  text: data?['description'],
+                                  maxLines: 50,
+                                  fontSize: EraTheme.paragraph,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.black),
+                            ),
+                          ],
+                        );
+                      }
+                      return Screens.loading();
+                    }),
               ],
             ),
           ),

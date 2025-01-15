@@ -65,11 +65,11 @@ class FindAgents extends GetView<AgentsController> {
                         fit: BoxFit.cover,
                         width: Get.width);
                   } else if (data['type'] == "youtube") {
-                    var url = data['link'].toString().split('/');
-
+                    var url = data['link']?.toString();
+                    String? videoId = YoutubePlayer.convertUrlToId(url!);
                     controller.youtubePlayerController =
                         YoutubePlayerController(
-                      initialVideoId: url[url.length - 1],
+                      initialVideoId: videoId!,
                       flags: YoutubePlayerFlags(
                         enableCaption: false,
                         autoPlay: false,
