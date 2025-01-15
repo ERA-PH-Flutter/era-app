@@ -58,7 +58,7 @@ class JoinEraPage extends GetView<ContentManagementController> {
                       padding: EdgeInsets.symmetric(
                           horizontal: EraTheme.paddingWidth),
                       value: controller.selectedType.value,
-                      items: ["Image", "Video", "Youtube"]
+                      items: ["Image", "Youtube"]
                           .map((item) => DropdownMenuItem(
                               value: item,
                               child: EraText(
@@ -188,23 +188,25 @@ class JoinEraPage extends GetView<ContentManagementController> {
                       file: controller.images.first,
                       target: "cms",
                       customName: "join_era");
-                } else if (controller.selectedType.value == 'Video') {
-                  var uploadProgress = 0.0.obs;
+                }
+                // else if (controller.selectedType.value == 'Video') {
+                //   var uploadProgress = 0.0.obs;
 
-                  (FirebaseStorage.instance
-                      .ref('cms')
-                      .child('join_era')
-                      .putData(controller.video!)
-                      .asStream()
-                      .listen((snapshot) {
-                    uploadProgress.value =
-                        (snapshot.bytesTransferred / 1048576) /
-                            (snapshot.totalBytes / 1048576);
-                  })).onDone(() async {
-                    link = 'cms/join_era';
-                    Get.back();
-                  });
-                } else {
+                //   (FirebaseStorage.instance
+                //       .ref('cms')
+                //       .child('join_era')
+                //       .putData(controller.video!)
+                //       .asStream()
+                //       .listen((snapshot) {
+                //     uploadProgress.value =
+                //         (snapshot.bytesTransferred / 1048576) /
+                //             (snapshot.totalBytes / 1048576);
+                //   })).onDone(() async {
+                //     link = 'cms/join_era';
+                //     Get.back();
+                //   });
+                // }
+                else {
                   link = controller.videoLinkJoinEra.text;
                 }
                 var data = {

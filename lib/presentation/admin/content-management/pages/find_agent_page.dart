@@ -59,7 +59,7 @@ class FindAgentPage extends GetView<ContentManagementController> {
                         padding: EdgeInsets.symmetric(
                             horizontal: EraTheme.paddingWidth),
                         value: controller.selectedType.value,
-                        items: ["Image", "Video", "Youtube"]
+                        items: ["Image", "Youtube"]
                             .map((item) => DropdownMenuItem(
                                 value: item,
                                 child: EraText(
@@ -150,13 +150,13 @@ class FindAgentPage extends GetView<ContentManagementController> {
                         customName: "find_agent");
                   }
 
-                  if (controller.selectedType.value == 'Video') {
-                    link = "cms/find_agent";
-                    await CloudStorage().uploadFromMemory(
-                        file: controller.video!,
-                        target: "cms",
-                        customName: "find_agent");
-                  }
+                  // if (controller.selectedType.value == 'Video') {
+                  //   link = "cms/find_agent";
+                  //   await CloudStorage().uploadFromMemory(
+                  //       file: controller.video!,
+                  //       target: "cms",
+                  //       customName: "find_agent");
+                  // }
 
                   if (controller.selectedType.value == 'Youtube') {
                     link = controller.videoLinkAgent.text;

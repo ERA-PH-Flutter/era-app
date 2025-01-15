@@ -87,26 +87,27 @@ class FindAgents extends GetView<AgentsController> {
                         RemainingDuration(),
                       ],
                     );
-                  } else if (data['type'] == "video") {
-                    print('video');
-                    return FutureBuilder(
-                        future: controller.loadVideo(data['link']),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return SizedBox(
-                              width: Get.width,
-                              height: 300.h,
-                              child: AspectRatio(
-                                aspectRatio: snapshot.data!.value.aspectRatio,
-                                child: VideoPlayer(snapshot.data!),
-                              ),
-                            );
-                          }
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        });
                   }
+                  // else if (data['type'] == "video") {
+                  //   print('video');
+                  //   return FutureBuilder(
+                  //       future: controller.loadVideo(data['link']),
+                  //       builder: (context, snapshot) {
+                  //         if (snapshot.hasData) {
+                  //           return SizedBox(
+                  //             width: Get.width,
+                  //             height: 300.h,
+                  //             child: AspectRatio(
+                  //               aspectRatio: snapshot.data!.value.aspectRatio,
+                  //               child: VideoPlayer(videoController),
+                  //             ),
+                  //           );
+                  //         }
+                  //         return Center(
+                  //           child: CircularProgressIndicator(),
+                  //         );
+                  //       });
+                  // }
                 }
                 return Center(child: CircularProgressIndicator());
               },

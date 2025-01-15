@@ -85,29 +85,30 @@ class JoinEra extends GetView<ContactusController> {
                             RemainingDuration(),
                           ],
                         );
-                      } else if (data['type'] == "video") {
-                        return FutureBuilder(
-                            future: FirebaseStorage.instance
-                                .ref(data['link'])
-                                .getDownloadURL(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                var videoController =
-                                    VideoPlayerController.networkUrl(
-                                        Uri.parse(snapshot.data!));
-                                return videoController.value.isInitialized
-                                    ? AspectRatio(
-                                        aspectRatio:
-                                            videoController.value.aspectRatio,
-                                        child: VideoPlayer(videoController),
-                                      )
-                                    : Container();
-                              }
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            });
                       }
+                      //  else if (data['type'] == "video") {
+                      //   return FutureBuilder(
+                      //       future: FirebaseStorage.instance
+                      //           .ref(data['link'])
+                      //           .getDownloadURL(),
+                      //       builder: (context, snapshot) {
+                      //         if (snapshot.hasData) {
+                      //           var videoController =
+                      //               VideoPlayerController.networkUrl(
+                      //                   Uri.parse(snapshot.data!));
+                      //           return videoController.value.isInitialized
+                      //               ? AspectRatio(
+                      //                   aspectRatio:
+                      //                       videoController.value.aspectRatio,
+                      //                   child: VideoPlayer(videoController),
+                      //                 )
+                      //               : Container();
+                      //         }
+                      //         return Center(
+                      //           child: CircularProgressIndicator(),
+                      //         );
+                      //       });
+                      // }
                     }
                     return Center(child: CircularProgressIndicator());
                   },
