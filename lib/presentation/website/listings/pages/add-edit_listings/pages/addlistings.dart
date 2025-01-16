@@ -800,7 +800,7 @@ class AddListingsWeb extends GetView<AddListingsController>
           flex: 1,
           child: SharedWidgets.textFormfield(
             controller: controller.bedsController,
-            hintText: 'Bedrooms',
+            hintText: 'Beds',
             textInputType: TextInputType.number,
           ),
         ),
@@ -809,7 +809,7 @@ class AddListingsWeb extends GetView<AddListingsController>
           flex: 1,
           child: SharedWidgets.textFormfield(
             controller: controller.bathsController,
-            hintText: 'Batrooms',
+            hintText: 'Baths',
             textInputType: TextInputType.number,
           ),
         ),
