@@ -31,11 +31,34 @@ class AboutUs extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CachedNetworkImage(
-                  imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/about-us%2Faboutuspic.png?alt=media&token=0bb205a5-3807-4066-bb1d-18f410d64d9f',
-                  fit: BoxFit.cover,
-                ),
+                // CachedNetworkImage(
+                //   imageUrl:
+                //       'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/about-us%2Faboutuspic.png?alt=media&token=0bb205a5-3807-4066-bb1d-18f410d64d9f',
+                //   fit: BoxFit.cover,
+                // ),
+
+                FutureBuilder(
+                    future: FirebaseFirestore.instance
+                        .collection('cms')
+                        .doc('about_us')
+                        .get(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var data = snapshot.data!.data();
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CloudStorage().imageLoader(
+                              reference: data?['photo'],
+                              fit: BoxFit.cover,
+                              //  width: Get.width,
+                            ),
+                          ],
+                        );
+                      }
+                      return Screens.loading();
+                    }),
                 SizedBox(height: 15.h),
                 Padding(
                   padding:
@@ -122,39 +145,6 @@ class AboutUs extends StatelessWidget {
                 //
                 //   ),
                 // )
-
-                FutureBuilder(
-                    future: FirebaseFirestore.instance
-                        .collection('cms')
-                        .doc('about_us')
-                        .get(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        var data = snapshot.data!.data();
-
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CloudStorage().imageLoader(
-                              reference: data?['photo'],
-                              fit: BoxFit.cover,
-                              width: Get.width,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: EraTheme.paddingWidth),
-                              child: EraText(
-                                  text: data?['description'],
-                                  maxLines: 50,
-                                  fontSize: EraTheme.paragraph,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.black),
-                            ),
-                          ],
-                        );
-                      }
-                      return Screens.loading();
-                    }),
               ],
             ),
           ),

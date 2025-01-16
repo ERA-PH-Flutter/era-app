@@ -201,6 +201,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
             SizedBox(
               height: 48.h,
               child: CupertinoTextField(
+                textCapitalization: TextCapitalization.sentences,
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w400, fontSize: 20.sp),
                 controller: aiSearchController,
