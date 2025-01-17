@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
-import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -53,7 +52,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() async {
-    print(Get.find<LocalStorageService>().images);
+    //print(Get.find<LocalStorageService>().images);
     try {
       await getBanners();
       quickLinks = await QuickLinksModel().initialize();
@@ -69,86 +68,54 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  // getBanners()async{
-  //   var banners = Get.find<LocalStorageService>().images!['banners'];
-  //   if (banners != null) {
-  //     for (int i = 0; i < banners.length; i++) {
-  //       images.add(Container(
-  //         decoration: BoxDecoration(
-  //             image: DecorationImage(
-  //                 fit: BoxFit.cover,
-  //                 image: FileImage(
-  //                     File(banners[i])
-  //                 )
-  //             )
-  //         ),
-  //       ));
-  //     }
-  //     if(images.isEmpty){
-  //       images.add(
-  //           Container(
-  //             decoration: BoxDecoration(
-  //                 image: DecorationImage(
-  //                     fit: BoxFit.cover,
-  //                     image: AssetImage(
-  //                         'assets/images/no_image_holder.jpg'
-  //                     )
-  //                 )
-  //             ),
-  // //unahin nlg to muna              //wait lg sir dayne ni sesearch ko bat siya ganyan yung no such file or directory
-  //           )
-  //       );
-  //     }
-  //   }else{
-  //     images.add(Container(
-  //       decoration: BoxDecoration(
-  //           image: DecorationImage(
-  //               fit: BoxFit.cover,
-  //               image: AssetImage(
-  //                   'assets/images/no_image_holder.jpg'
-  //               )
-  //           )
-  //       ),
-  //     ));
-  //   }
-  // }
-
-  getBanners()async{
-    for (var banner in settings!.banners!) {
-      images.add(Container(
+  getBanners() async {
+    var banners = Get.find<LocalStorageService>().images!['banners'];
+    if (banners != null) {
+      for (int i = 0; i < banners.length; i++) {
+        images.add(Container(
           decoration: BoxDecoration(
-          image: DecorationImage(
-          fit: BoxFit.cover,
-          image: MemoryImage(
-            (await CloudStorage().getFileBytes(docRef: banner))!
-          ))
-          )
-      )
-    );
+              image: DecorationImage(
+                  fit: BoxFit.cover, image: FileImage(File(banners[i])))),
+        ));
+      }
+      if (images.isEmpty) {
+        images.add(Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/no_image_holder.jpg'))),
+          //unahin nlg to muna              //wait lg sir dayne ni sesearch ko bat siya ganyan yung no such file or directory
+        ));
+      }
+    } else {
+      images.add(Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/images/no_image_holder.jpg'))),
+      ));
     }
   }
 
-  getProjects()async{
+  getProjects() async {
     if (settings!.featuredProjects != null) {
       for (int i = 0; i < settings!.featuredProjects!.length; i++) {
-        var pr = await Project.getById(settings!.featuredProjects![i]);
-        projects.add(
-          GestureDetector(
+        try {
+          var pr = await Project.getById(settings!.featuredProjects![i]);
+          projects.add(GestureDetector(
             onTap: () {
               Get.to(ProjectView(),
-                  binding: ProjectViewBinding(),
-                  arguments: pr);
+                  binding: ProjectViewBinding(), arguments: pr);
             },
             child: Wrap(
               children: [
                 Column(
-                  children: ProjectViews(project: pr)
-                      .HomebuildPreview(),
+                  children: ProjectViews(project: pr!).HomebuildPreview(),
                 ),
               ],
             ),
-          )
-        );
+          ));
+        } catch (e) {}
       }
     }
   }
@@ -156,8 +123,7 @@ class HomeController extends GetxController {
   getNews() async {
     if (settings!.featuredNews!.isNotEmpty) {
       for (int i = 0; i < settings!.featuredNews!.length; i++) {
-        if(settings!.featuredNews![i] != ''){
-
+        if (settings!.featuredNews![i] != '') {
           news.add(await News(id: settings!.featuredNews![i]).getNews());
         }
       }
@@ -176,22 +142,17 @@ class HomeController extends GetxController {
   }
 
   getImages() async {
-    //var images = Get.find<LocalStorageService>().images!;
-    listingImages.add(PropertiesModels(
-        image: settings!.preSellingPicture!,
-        label: 'PRE-SELLING'));
-    listingImages.add(PropertiesModels(
-        image: settings!.residentialPicture!,
-        label: 'RESIDENTIAL'));
-    listingImages.add(PropertiesModels(
-        image: settings!.commercialPicture!,
-        label: 'COMMERCIAL'));
-    listingImages.add(PropertiesModels(
-        image: settings!.rentalPicture!,
-        label: 'RENTAL'));
-    listingImages.add(PropertiesModels(
-        image: settings!.auctionPicture!,
-        label: 'AUCTION'));
+    var images = Get.find<LocalStorageService>().images!;
+    listingImages.add(
+        PropertiesModels(image: images['pre_selling'], label: 'PRE-SELLING'));
+    listingImages.add(
+        PropertiesModels(image: images['residential'], label: 'RESIDENTIAL'));
+    listingImages.add(
+        PropertiesModels(image: images['commercial'], label: 'COMMERCIAL'));
+    listingImages
+        .add(PropertiesModels(image: images['rental'], label: 'RENTAL'));
+    listingImages
+        .add(PropertiesModels(image: images['auction'], label: 'AUCTION'));
   }
 
   void nextImage(int totalImg) {
@@ -214,7 +175,7 @@ class HomeController extends GetxController {
         Get.toNamed('/home');
         break;
       case 1:
-        Get.toNamed('/projects');
+        Get.toNamed('/project-main');
         break;
       case 2:
         Get.toNamed('/searchresult');

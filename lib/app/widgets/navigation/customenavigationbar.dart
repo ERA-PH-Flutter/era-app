@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/presentation/admin/properties/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/agent/agents/pages/findagents.dart';
@@ -12,7 +10,6 @@ import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/se
 import 'package:eraphilippines/presentation/agent/projects/controllers/projects_controller.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projects_list.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -22,17 +19,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../presentation/agent/forms/contacts/pages/help.dart';
 import '../../../presentation/agent/home/pages/home.dart';
 import '../../../presentation/global.dart';
-import 'package:circle_nav_bar/circle_nav_bar.dart';
-
 import '../app_text.dart';
 
 var selectedIndex = 0.obs;
 
 class BaseScaffold extends StatefulWidget {
-  final String? page;
   const BaseScaffold({
     super.key,
-    this.page
   });
 
   @override
@@ -40,45 +33,17 @@ class BaseScaffold extends StatefulWidget {
 }
 
 class _BaseScaffoldState extends State<BaseScaffold> {
-  Timer? _timer;
   @override
   void initState() {
-    _timer = Timer.periodic(Duration(milliseconds: 500), (tick){
-      if(pageViewController.hasClients){
-        if(widget.page != null){
-          switch(widget.page){
-            case 'projects':
-              currentRoute = "/projects";
-              selectedIndex.value = 1;
-              pageViewController.animateToPage(1, duration: Duration(seconds: 1), curve: Curves.easeInOut,);
-            case 'search':
-              currentRoute = "/search";
-              selectedIndex.value = 2;
-              pageViewController.animateToPage(2, duration: Duration(seconds: 1), curve: Curves.easeInOut,);
-            case 'find-agents':
-              currentRoute = "/findAgents";
-              selectedIndex.value = 3;
-              pageViewController.animateToPage(3, duration: Duration(seconds: 1), curve: Curves.easeInOut,);
-            default:
-              currentRoute = "/help";
-              selectedIndex.value = 4;
-              pageViewController.animateToPage(4, duration: Duration(seconds: 1), curve: Curves.easeInOut,);
-          }
-        }
-        _timer?.cancel();
-      }
-    });
-    super.initState();
-  }
-
-  @override
-
-  @override
-  Widget build(BuildContext context) {
     Get.put(HomeController());
     Get.put(ProjectsListController());
     Get.put(ProjectsController());
     Get.put(SearchResultController());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     //changeIndex(['/home','/project-main', '/searchresult','/findagents','/help'].contains(Get.currentRoute) ? ['/home','/project-main','/searchresult','/findagents','/help'].indexOf(Get.currentRoute) : 0);
     return Scaffold(
       extendBody: true,
@@ -122,7 +87,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             buttonBackgroundColor: AppColors.blue,
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 300),
-            height: 70,
+            height: 65,
             items: navBarItems.map((item) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -130,21 +95,21 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                 children: [
                   selectedIndex.value == navBarItems.indexOf(item)
                       ? Image.asset(
+                          width: 56,
+                          height: 56,
                           item.selectedIcon,
-                          width: 60,
-                          height: 55,
                           fit: BoxFit.cover,
                         )
                       : Image.asset(
                           item.defaultIcon,
-                          width: 50,
-                          height: 50,
+                          width: 44,
+                          height: 44,
                           fit: BoxFit.cover,
                         ),
                   Obx(
                     () => selectedIndex.value == navBarItems.indexOf(item)
                         ? SizedBox.shrink()
-                        : EraText(text: item.label, fontSize: 10.sp),
+                        : EraText(text: item.label, fontSize: 11.sp),
                   ),
                 ],
               );

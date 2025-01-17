@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
@@ -360,13 +361,10 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     },
                                     controller: controllerPriceMin,
                                     decoration: InputDecoration(
-                                      constraints: const BoxConstraints(
-                                          maxHeight: 70, minHeight: 35),
-                                      isDense: true,
                                       prefixIcon: Padding(
                                         padding: EdgeInsets.only(
-                                          left: 5.w,
-                                          top: 12.h,
+                                          left: 8.w,
+                                          top: 5.h,
                                         ),
                                         child: EraText(
                                             textAlign: TextAlign.center,
@@ -374,8 +372,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                             fontSize: 18.sp,
                                             color: AppColors.black),
                                       ),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 10.h, horizontal: 10.w),
+                                      contentPadding: EdgeInsets.zero,
                                       hintText: 'Min Price',
                                       fillColor: AppColors.white,
                                       filled: true,
@@ -422,8 +419,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       //     prefixIcon: Icon(Icons.attach_money),
                                       prefixIcon: Padding(
                                         padding: EdgeInsets.only(
-                                          left: 5.w,
-                                          top: 12.h,
+                                          left: 8.w,
+                                          top: 5.h,
                                         ),
                                         child: EraText(
                                             textAlign: TextAlign.center,
@@ -470,6 +467,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                           isForSale.value = value ?? 0;
                                         }),
                                   ),
+                                  sbw10(),
                                   EraText(
                                       text: 'BUY',
                                       color: AppColors.white.withOpacity(0.6),
@@ -491,6 +489,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                           isForSale.value = value ?? 0;
                                         }),
                                   ),
+                                  sbw10(),
                                   EraText(
                                       text: 'RENT',
                                       color: AppColors.white.withOpacity(0.6),

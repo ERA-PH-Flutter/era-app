@@ -49,10 +49,15 @@ class Project {
     await projDocs.set(toMap());
   }
 
-  static getById(id) async {
-    return Project.fromJSON(
+  static Future<Project?> getById(id) async {
+    final data =
         (await FirebaseFirestore.instance.collection('projects').doc(id).get())
-            .data()!);
+            .data();
+
+    if (data != null) {
+      return Project.fromJSON(data);
+    }
+    return null;
   }
 
   updateProject() async {

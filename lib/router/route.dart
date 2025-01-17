@@ -87,15 +87,15 @@ appRoutes() => [
           name: RouteString.aurelia,
           page: () => const AureliaProject(),
           binding: ProjectsBinding()),
-  GetPage(
-      name: '/projects', page: () => BaseScaffold(page: 'projects'), binding: HomeBinding()),
-  GetPage(
-      name: '/search', page: () => BaseScaffold(page: 'search'), binding: HomeBinding()),
-  GetPage(
-      name: '/find-agents', page: () => BaseScaffold(page: 'findAgents'), binding: HomeBinding()),
-  GetPage(
-      name: '/help', page: () => BaseScaffold(page: 'help'), binding: HomeBinding()),
-  GetPage(
+      // GetPage(
+      //     name: '/projects', page: () => BaseScaffold(page: 'projects'), binding: HomeBinding()),
+      // GetPage(
+      //     name: '/search', page: () => BaseScaffold(page: 'search'), binding: HomeBinding()),
+      // GetPage(
+      //     name: '/find-agents', page: () => BaseScaffold(page: 'findAgents'), binding: HomeBinding()),
+      // GetPage(
+      //     name: '/help', page: () => BaseScaffold(page: 'help'), binding: HomeBinding()),
+      GetPage(
           name: RouteString.aboutus,
           page: () => const AboutUs(),
           binding: ContactUsBinding()),
