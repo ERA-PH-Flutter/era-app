@@ -34,6 +34,7 @@ class AgentsWebController extends GetxController with BaseController {
   TextEditingController agentId = TextEditingController();
   TextEditingController agentLocation = TextEditingController();
   TextEditingController agentName = TextEditingController();
+  late YoutubePlayerController youtubePlayerController;
 
   void toggleSortDirection() {
     isAscending.value = !isAscending.value;

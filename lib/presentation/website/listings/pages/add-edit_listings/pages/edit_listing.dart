@@ -675,7 +675,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
         Expanded(
           flex: 1,
           child: SharedWidgets.textFormfield(
-            controller: a.areaController,
+            controller: a.floorArea,
             hintText: 'Floor Area',
             textInputType: TextInputType.number,
           ),
@@ -694,7 +694,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
           flex: 1,
           child: SharedWidgets.textFormfield(
             controller: a.bedsController,
-            hintText: 'Bedrooms',
+            hintText: 'Beds',
             textInputType: TextInputType.number,
           ),
         ),
@@ -703,7 +703,7 @@ class EditListingWeb extends GetView<ListingsController> with BaseController {
           flex: 1,
           child: SharedWidgets.textFormfield(
             controller: a.bathsController,
-            hintText: 'Batrooms',
+            hintText: 'Baths',
             textInputType: TextInputType.number,
           ),
         ),

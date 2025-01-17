@@ -102,11 +102,13 @@ class AuthenticationWebController extends GetxController with BaseController {
         }
       } else {
         showSuccessDialog(
-            hitApi: () {
-              Get.back();
-            },
-            title: "Failed",
-            description: result.toString());
+          hitApi: () {
+            Get.back();
+          },
+          title: "Email Already Exists",
+          description: "Please log in to your registered account",
+          okayButton: "Close",
+        );
         //throw Error();
       }
     } catch (error) {

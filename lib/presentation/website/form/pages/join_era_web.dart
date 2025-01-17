@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
+import 'package:eraphilippines/app/constants/screens.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/website/authentication/controller/authentication_controller.dart';
 import 'package:eraphilippines/presentation/website/form/pages/about_us_web.dart';
@@ -82,14 +85,32 @@ class JoinEraWeb extends GetView<FormWebController> {
                   ],
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-                    fit: BoxFit.cover,
-                    height: Get.height * 0.6,
-                    width: Get.width * 0.85,
-                  ),
-                ),
+                    borderRadius: BorderRadius.circular(20),
+                    child: FutureBuilder(
+                        future: FirebaseFirestore.instance
+                            .collection('cms')
+                            .doc('about_us')
+                            .get(),
+                        builder: (contect, snapshot) {
+                          if (snapshot.hasData) {
+                            var data = snapshot.data!.data();
+                            return CloudStorage().imageLoader(
+                              reference: data!['photo'],
+                              height: Get.height * 0.6,
+                              width: Get.width * 0.85,
+                              fit: BoxFit.cover,
+                            );
+                          }
+                          return Screens.loading();
+                        })
+
+                    // Image.network(
+                    //   'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+                    //   fit: BoxFit.cover,
+                    //   height: Get.height * 0.6,
+                    //   width: Get.width * 0.85,
+                    // ),
+                    ),
               ),
             ),
             Positioned(
