@@ -13,12 +13,14 @@ class SharedWidgets {
     String? name,
     TextEditingController? controller,
     int? MaxLines = 1,
+    void Function(String)? onChanged,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         EraText(text: name ?? "", fontSize: 18.sp, color: AppColors.black),
         TextFormField(
+          onChanged: onChanged,
           maxLines: MaxLines,
           controller: controller,
           textInputAction: TextInputAction.newline,

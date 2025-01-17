@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -77,6 +76,12 @@ class SellProperty extends GetView<SellPropertyController> {
                         controller: controller.propertyLocation),
                     SizedBox(height: 20.h),
                     SharedWidgets.textFormfield(
+                        onChanged: (value) {
+                          value = value.replaceAll(',', '');
+                          controller.price.text = value.replaceAllMapped(
+                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              (Match m) => '${m[1]},');
+                        },
                         name: 'Price',
                         textInputType: TextInputType.number,
                         hintText: 'Price',
@@ -201,9 +206,10 @@ class SellProperty extends GetView<SellPropertyController> {
                               'desc': controller.desc.text,
                             });
                             BaseController().showSuccessDialog(
-                                title: "Success",
+                                okayButton: 'Close',
+                                title: "Property Submitted",
                                 description:
-                                    "Your Property info has been submitted to admin. Wait for an admin to contact you!",
+                                    "Your Property info has been submitted to admin. Wait for an admin to contact you.",
                                 hitApi: () {
                                   controller.name.clear();
                                   controller.phoneNum.clear();
@@ -214,8 +220,7 @@ class SellProperty extends GetView<SellPropertyController> {
                                   controller.desc.clear();
                                   Get.back();
                                 });
-                          } catch (e) {
-                          }
+                          } catch (e) {}
                         },
                         bgColor: AppColors.kRedColor,
                         borderRadius: BorderRadius.circular(30),

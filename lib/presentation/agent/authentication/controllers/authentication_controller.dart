@@ -28,7 +28,7 @@ class LoginPageController extends GetxController with BaseController {
   var passwordVisible = false.obs;
   var confirmPasswordVisible = false.obs;
   var selectedGender = RxnString();
-  var emailReset =TextEditingController();
+  var emailReset = TextEditingController();
   var selectedEducation = RxnString();
   var selectedStatus = RxnString();
   var selectedSpeciality = RxnString();
@@ -114,9 +114,9 @@ class LoginPageController extends GetxController with BaseController {
             Get.back();
             Get.back();
           },
-          okayButton: "Okay",
+          okayButton: "Close",
           title: "Failed",
-          description: errorText);
+          description: "Incorrect password or email, please try again.");
     }
   }
 
@@ -161,20 +161,23 @@ class LoginPageController extends GetxController with BaseController {
           await user.add();
           await userInfo.add();
           showSuccessDialogProjects(
-              title: "Create account Success!",
+              title: "Account Created",
               description:
-                  "Account creation was successful please wait for admin approval!",
+                  "Account creation was successful. Please wait for admin approval.",
+              okayButton: "Close",
               hitApi: () {
                 Get.offAllNamed(RouteString.loginpage);
               });
         }
       } else {
         showSuccessDialog(
-            hitApi: () {
-              Get.back();
-            },
-            title: "Failed",
-            description: result.toString());
+          hitApi: () {
+            Get.back();
+          },
+          title: "Email Already Exists",
+          description: "Please log in to your registered account",
+          okayButton: "Close",
+        );
         //throw Error();
       }
     } catch (error) {

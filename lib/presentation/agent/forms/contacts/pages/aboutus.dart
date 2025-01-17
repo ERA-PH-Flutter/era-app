@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../app/constants/screens.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
 
 class AboutUs extends StatelessWidget {
@@ -15,7 +18,7 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppbar(),
       body: WillPopScope(
-        onWillPop: ()async{
+        onWillPop: () async {
           // selectedIndex.value = 0;
           // pageViewController = PageController(initialPage: 0);
           // currentRoute = '/home';
@@ -28,11 +31,28 @@ class AboutUs extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CachedNetworkImage(
-                  imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/about-us%2Faboutuspic.png?alt=media&token=0bb205a5-3807-4066-bb1d-18f410d64d9f',
-                  fit: BoxFit.cover,
-                ),
+                FutureBuilder(
+                    future: FirebaseFirestore.instance
+                        .collection('cms')
+                        .doc('about_us')
+                        .get(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var data = snapshot.data!.data();
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CloudStorage().imageLoader(
+                              reference: data?['photo'],
+                              fit: BoxFit.cover,
+                              //  width: Get.width,
+                            ),
+                          ],
+                        );
+                      }
+                      return Screens.loading();
+                    }),
                 SizedBox(height: 15.h),
                 Padding(
                   padding:
