@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/screens.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
@@ -13,12 +12,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../agent/utility/controller/base_controller.dart';
 import '../../../global.dart';
-import '../../landingpage/controller/homs_controller.dart';
 
 class SettingsPageWeb extends GetView<AgentsWebController> {
-  SettingsPageWeb({super.key});
+  const SettingsPageWeb({super.key});
 
   @override
   Widget build(BuildContext context) {

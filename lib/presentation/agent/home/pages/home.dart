@@ -10,8 +10,6 @@ import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
 
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
 
-import 'package:eraphilippines/presentation/website/projects/controllers/project_list_controller.dart';
-
 import 'package:eraphilippines/repository/listing.dart';
 
 import 'package:flutter/material.dart';
@@ -438,7 +436,7 @@ class Home extends GetView<HomeController> {
                   ),
                 ),
               ),
-              //TODO: Nikko
+
               GestureDetector(
                 onTap: () {
                   Get.toNamed(

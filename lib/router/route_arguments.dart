@@ -1,7 +1,6 @@
 import 'package:eraphilippines/app/widgets/web/companynews_page_web.dart';
 import 'package:eraphilippines/app/widgets/web/project_views_web.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/controllers/addlistings_bindings.dart';
-import 'package:eraphilippines/presentation/agent/listings/archivedlisting/controllers/archived_binding.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/presentation/website/agents/bindings/agent_dashboard_binding.dart';
 import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylistingWeb_binding.dart';

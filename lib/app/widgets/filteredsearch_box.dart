@@ -5,7 +5,6 @@ import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
@@ -19,8 +18,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import '../../presentation/global.dart';
-import '../../presentation/website/landingpage/controller/homs_controller.dart'
-    as a;
 import '../../presentation/website/listings/controllers/listings_web_binding.dart';
 import '../../presentation/website/listings/controllers/listings_web_controller.dart';
 import '../constants/assets.dart';

@@ -14,7 +14,7 @@ import '../../../presentation/website/news/controllers/news_webpage_controller.d
 import '../../constants/screens.dart';
 
 class CompanyNewsPageWeb extends GetView<NewsWebPageController> {
-  CompanyNewsPageWeb({super.key});
+  const CompanyNewsPageWeb({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
-import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/repository/listing.dart';
@@ -43,7 +42,7 @@ class ArchivedItems extends StatelessWidget {
         archivedC.toggleSelection(index);
         onLongPress(index);
       },
-      child: Container(
+      child: SizedBox(
         width: Get.width,
         height: Get.height,
         child: Stack(

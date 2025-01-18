@@ -7,6 +7,7 @@ import '../../constants/theme.dart';
 import '../app_text.dart';
 
 class AppDrawer extends GetView<HomsController> {
+  const AppDrawer({super.key});
   @override
   Widget build(BuildContext context) {
     return Drawer(

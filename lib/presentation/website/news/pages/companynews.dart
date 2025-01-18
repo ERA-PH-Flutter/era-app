@@ -2,12 +2,8 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/web/navbar.dart';
-import 'package:eraphilippines/presentation/global.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -53,7 +49,7 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
           Divider(color: AppColors.kRedColor, thickness: 0.5),
 
           sb50(),
-          Container(
+          SizedBox(
             width: Get.width,
             child: ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
@@ -72,7 +68,7 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
                           offset: Offset(0, 2))
                     ]),
                 child: GestureDetector(
-                  onTap: ()async{
+                  onTap: () async {
                     // HomsController homsController = Get.find<HomsController>();
                     // selectedIndex.value = 9;
                     // homsController.onNavbarItemSelected(9);
@@ -122,15 +118,13 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
                           flex: 1,
                           child: Column(
                             children: [
-                              Container(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: CloudStorage().imageLoader(
-                                    reference: controller.news[i].image,
-                                    height: 350.h,
-                                    width: Get.width,
-                                    fit: BoxFit.cover,
-                                  ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: CloudStorage().imageLoader(
+                                  reference: controller.news[i].image,
+                                  height: 350.h,
+                                  width: Get.width,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ],
@@ -154,4 +148,3 @@ class CompanyNewsWeb extends GetView<NewsWebController> {
 //     return Scaffold(
 
 //       body: Saf
- 

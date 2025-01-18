@@ -3,13 +3,13 @@ import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/presentation/website/projects/controllers/project_view_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/web/project_views_web.dart';
 import '../../../../repository/project.dart';
 
 class ProjectViewWeb extends GetView<ProjectViewWebController> {
+  const ProjectViewWeb({super.key});
   @override
   Widget build(BuildContext context) {
     Get.put(ProjectViewWebController());
@@ -59,7 +59,7 @@ class ProjectViewWeb extends GetView<ProjectViewWebController> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: Get.height,
             child: ProjectViewsWeb(project: Project.getById(idArgument)),
           ),

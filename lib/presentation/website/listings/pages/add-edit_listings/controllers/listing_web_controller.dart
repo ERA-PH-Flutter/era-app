@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../../../../../../repository/listing.dart';
 import '../../../../../agent/listings/add-edit_listings/controllers/addlistings_controller.dart';
 import '../../../../../global.dart';
- 
-enum AdminEditState {loading,loaded,picker}
+
+enum AdminEditState { loading, loaded, picker }
 
 class ListingsController extends GetxController {
   var state = AdminEditState.loading.obs;
@@ -13,15 +13,15 @@ class ListingsController extends GetxController {
   Listing? listing;
   var args;
   @override
-  onReady()async{
-    try{
+  onReady() async {
+    try {
       listing = editListingArgument;
-      await c.assignData(listing!.id!,isWeb: true);
+      await c.assignData(listing!.id!, isWeb: true);
       state.value = AdminEditState.loaded;
-    }on PlatformException catch (e) {
+    } on PlatformException catch (e) {
       print('PlatformException: ${e.message}');
       // Handle the error
-    }catch(e,ex){
+    } catch (e) {
       print(e);
     }
     super.onInit();

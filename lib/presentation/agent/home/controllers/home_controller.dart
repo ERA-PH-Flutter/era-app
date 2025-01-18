@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';

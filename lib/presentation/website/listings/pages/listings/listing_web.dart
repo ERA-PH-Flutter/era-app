@@ -6,7 +6,6 @@ import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/website/home/pages/home_web.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/controllers/listings_web_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +16,6 @@ import '../../../../../../app/widgets/filteredsearch_box.dart';
 import '../../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../../repository/listing.dart';
 import '../../../../../../repository/user.dart';
-import '../../../../global.dart';
 
 class BuyWeb extends GetView<ListingsWebController> {
   const BuyWeb({super.key});

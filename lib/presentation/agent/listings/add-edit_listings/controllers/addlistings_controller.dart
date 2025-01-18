@@ -39,7 +39,7 @@ class AddListingsController extends GetxController with BaseController {
   Listing? listing;
 
   generateMarker(position) async {
-    marker?.value = {
+    marker.value = {
       Marker(
           anchor: const Offset(0.5, 0.5),
           draggable: true,
@@ -151,12 +151,12 @@ class AddListingsController extends GetxController with BaseController {
         for (var image in imagePick) {
           images.add(File(image.path));
           if (Get.currentRoute == '/editListings') {
-            imagePick.forEach((image) async {
+            for (var image in imagePick) {
               var a = await CloudStorage().upload(
                   file: File(image.path), target: 'listings/${user!.id}');
               listing?.photos!.add(a);
               await listing!.updateListing();
-            });
+            }
           }
         }
       }
@@ -196,6 +196,7 @@ class AddListingsController extends GetxController with BaseController {
     images.clear();
   }
 
+  @override
   onInit() async {
     super.onInit();
     if (Get.currentRoute == '/editListings') {

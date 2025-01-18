@@ -1,6 +1,4 @@
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
-import 'package:eraphilippines/repository/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:screenshot/screenshot.dart';
 

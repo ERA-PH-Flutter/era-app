@@ -9,11 +9,8 @@ import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/era_place_search.dart';
 import 'package:eraphilippines/presentation/global.dart';
-import 'package:eraphilippines/presentation/website/agents/controllers/agent_myListingWeb_controller.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/addlistings_controller.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/listing_web_controller.dart';
-import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -297,6 +294,7 @@ class AddListingsWeb extends GetView<AddListingsController>
                   title: "Listing Uploaded",
                   description:
                       "Your property has been submitted for review. Once approved, this will be published accordingly.");
+              // ignore: empty_catches
             } catch (e) {}
           }, 'CREATE LISTING'),
           SizedBox(height: 20.h),

@@ -11,11 +11,10 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:eraphilippines/app/services/functions.dart';
- 
+
 import '../../../../../../app/services/local_storage.dart';
 import '../../../../../../repository/listing.dart';
 import '../../../../../agent/listings/add-edit_listings/pages/addlistings.dart';
-import '../pages/addlistings.dart';
 
 enum AddListingsState { loading, loaded, location_pick }
 
@@ -336,6 +335,7 @@ class AddListingsController extends GetxController with BaseController {
       await listing!.updateListing();
 
       !kIsWeb ? hideLoading() : null;
+      // ignore: empty_catches
     } catch (e) {}
   }
 }

@@ -1,17 +1,14 @@
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
-import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/models/geocode.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/app/widgets/era_place_search.dart';
-import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/controllers/listing_web_controller.dart';
-import 'package:eraphilippines/router/route_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,8 +17,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:reorderables/reorderables.dart';
 
 import '../../../../../../app/constants/screens.dart';
-import '../../../../../../app/widgets/custom_appbar.dart';
-import '../../../../../../repository/listing.dart';
 import '../../../../../../repository/logs.dart';
 import '../../../../../agent/utility/controller/base_controller.dart';
 import '../../../../landingpage/controller/homs_controller.dart';

@@ -1,26 +1,16 @@
 import 'dart:async';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/presentation/global.dart';
-import 'package:eraphilippines/presentation/website/home/controllers/home_web_binding.dart';
-import 'package:eraphilippines/presentation/website/home/pages/home_web.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
-import 'package:eraphilippines/presentation/website/re_route/re_route.dart';
-import 'package:eraphilippines/presentation/website/re_route/re_route_controller.dart';
 import 'package:eraphilippines/repository/user.dart';
-import 'package:eraphilippines/router/route_arguments.dart';
 import 'package:eraphilippines/router/route_string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/models/settings.dart';
 import '../../../../app/services/firebase_database.dart';
 import '../../../../app/services/local_storage.dart';
-import '../../../website/listings/pages/add-edit_listings/controllers/addlistings_controller.dart';
-import '../../../website/re_route/re_route_args.dart';
 
 enum SplashState {
   loaded,

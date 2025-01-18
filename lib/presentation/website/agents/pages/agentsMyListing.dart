@@ -9,7 +9,6 @@ import 'package:eraphilippines/app/widgets/sold_properties/custom_sort.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/presentation/website/home/pages/home_web.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

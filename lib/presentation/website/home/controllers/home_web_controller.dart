@@ -1,26 +1,16 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/models/propertieslisting.dart';
-import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/app/widgets/web/project_views_web.dart';
 import 'package:eraphilippines/presentation/global.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
-import 'package:eraphilippines/presentation/website/projects/controllers/project_views_binding.dart';
-import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:eraphilippines/repository/news.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../app/services/local_storage.dart';
 import 'package:eraphilippines/app/models/settings.dart' as era_settings;
 
 import '../../../../app/constants/strings.dart';
-import '../../../../app/constants/theme.dart';
 import '../../../../repository/listing.dart';
 import '../../../../repository/project.dart';
 
@@ -175,16 +165,20 @@ class HomeWebController extends GetxController {
 
     if (settings!.featuredProjects != null) {
       for (int i = 0; i < settings!.featuredProjects!.length; i++) {
-        var pr = await Project.getById(settings!.featuredProjects![i]);
-        var previewWidgets = ProjectViewsWeb(project: pr).HomebuildPreview();
-        projects.addAll(previewWidgets.map((widget) {
-          return GestureDetector(
-            onTap: () {
-              Get.toNamed('/projects/${pr.id}');
-            },
-            child: widget,
-          );
-        }));
+        try {
+          var pr = await Project.getById(settings!.featuredProjects![i]);
+          var previewWidgets = ProjectViewsWeb(project: pr).HomebuildPreview();
+          projects.addAll(previewWidgets.map((widget) {
+            return GestureDetector(
+              onTap: () {
+                Get.toNamed('/projects/${pr.id}');
+              },
+              child: widget,
+            );
+          }));
+        } catch (e) {
+          print(e);
+        }
       }
     }
   }

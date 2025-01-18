@@ -1,24 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:pdf/pdf.dart';
-import 'package:flutter/src/widgets/image.dart' as image;
 import 'package:pdf/widgets.dart' as pw;
-import 'dart:math';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/favorites/controllers/fav_controller.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/listings/listingItems_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:image_to_pdf_converter/image_to_pdf_converter.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import '../../../../../../app/constants/screens.dart';
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as web;
 import '../../../../../../app/constants/theme.dart';
 import '../../../../../../app/widgets/fav/favItems_widgets.dart';
@@ -417,63 +409,62 @@ class FavWeb extends GetView<FavWebController> {
     var sc = ScreenshotController();
     controller.screenshotControllers.add(sc);
     return Builder(
-      builder: (context){
+      builder: (context) {
         List<Widget> widgets = [];
         List<Widget> tempWidgets = [];
-        for(int i = 0;i<controller.selectedListings.length;i++){
+        for (int i = 0; i < controller.selectedListings.length; i++) {
           Listing listing = controller.selectedListings[i];
           tempWidgets.length >= 2 ? tempWidgets.clear() : null;
-          tempWidgets.add(
-              Column(
-                children: [
-                  i == 0
-                      ? (Column(children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: EraTheme.paddingWidth),
-                      child: AgentInfoWidget.agentInformation(
-                        imageProvider: user!.image != null
-                            ? user!.image!
-                            : AppStrings.noUserImageWhite,
-                        firstName: '${user!.firstname}',
-                        lastName: '${user!.lastname}',
-                        whatsApp: '${user!.whatsApp}',
-                        email: '${user!.email}',
-                        role: '${user!.role}',
+          tempWidgets.add(Column(
+            children: [
+              i == 0
+                  ? (Column(children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: EraTheme.paddingWidth),
+                        child: AgentInfoWidget.agentInformation(
+                          imageProvider: user!.image != null
+                              ? user!.image!
+                              : AppStrings.noUserImageWhite,
+                          firstName: '${user!.firstname}',
+                          lastName: '${user!.lastname}',
+                          whatsApp: '${user!.whatsApp}',
+                          email: '${user!.email}',
+                          role: '${user!.role}',
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                  ]))
-                      : Container(),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 7.5.h),
-                    padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
-                    child: ListingItemsWeb(
-                      image: listing.photos?.first,
-                      name: listing.name ?? "Test",
-                      type: listing.type!,
-                      areas: listing.floorArea!,
-                      beds: listing.beds ?? 0,
-                      baths: listing.baths ?? 0,
-                      cars: listing.cars ?? 0,
-                      price: listing.price ?? 0,
-                      description: listing.description ?? "No description added!",
-                      showListedby: false,
-                      isSold: listing.isSold ?? false,
-                      fromSold: false,
-                    ),
-                  ),
-                  i > 1 && i + 1 % 2 == 0
-                      ? SizedBox(
-                    height: 230.h,
-                  )
-                      : Container()
-                ],
-              )
-          );
-          if((i + 1) % 2 == 0){
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                    ]))
+                  : Container(),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 7.5.h),
+                padding:
+                    EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
+                child: ListingItemsWeb(
+                  image: listing.photos?.first,
+                  name: listing.name ?? "Test",
+                  type: listing.type!,
+                  areas: listing.floorArea!,
+                  beds: listing.beds ?? 0,
+                  baths: listing.baths ?? 0,
+                  cars: listing.cars ?? 0,
+                  price: listing.price ?? 0,
+                  description: listing.description ?? "No description added!",
+                  showListedby: false,
+                  isSold: listing.isSold ?? false,
+                  fromSold: false,
+                ),
+              ),
+              i > 1 && i + 1 % 2 == 0
+                  ? SizedBox(
+                      height: 230.h,
+                    )
+                  : Container()
+            ],
+          ));
+          if ((i + 1) % 2 == 0) {
             var sc = ScreenshotController();
             controller.screenshotControllers.add(sc);
             widgets.add(Screenshot(
@@ -482,13 +473,9 @@ class FavWeb extends GetView<FavWebController> {
                 children: tempWidgets,
               ),
             ));
-
           }
-
         }
-        return Column(
-          children: widgets
-        );
+        return Column(children: widgets);
       },
     );
   }

@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 enum _Key { userID, settings, downloadedImage }
 
 class LocalStorageService extends GetxService {
+  // ignore: prefer_typing_uninitialized_variables
   var _sharedPreferences;
   Future<LocalStorageService> init() async {
     _sharedPreferences = await SharedPreferences.getInstance();

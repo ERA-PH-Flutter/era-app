@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
@@ -69,7 +67,7 @@ class HomeWeb extends GetView<HomeWebController> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
+          SizedBox(
               width: Get.width,
               child: Stack(
                 children: [
@@ -134,7 +132,7 @@ class HomeWeb extends GetView<HomeWebController> {
                   ),
                   Positioned(
                     bottom: 0,
-                    child: Container(
+                    child: SizedBox(
                       height: 50,
                       width: Get.width,
                       child: Row(
@@ -699,11 +697,9 @@ class HomeWeb extends GetView<HomeWebController> {
   }
 
   _empty() {
-    return Container(
-      child: EraText(
-        text: 'No content available',
-        color: AppColors.black,
-      ),
+    return EraText(
+      text: 'No content available',
+      color: AppColors.black,
     );
   }
 

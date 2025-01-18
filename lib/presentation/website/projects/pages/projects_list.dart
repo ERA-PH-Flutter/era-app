@@ -1,6 +1,5 @@
 import 'package:eraphilippines/app/widgets/web/project_views_web.dart';
 import 'package:eraphilippines/presentation/website/projects/controllers/project_list_controller.dart';
-import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,11 +16,9 @@ import '../../../../app/widgets/app_text.dart';
 import '../../../../app/widgets/app_textfield.dart';
 import '../../../../app/widgets/box_widget.dart';
 
-import '../../../admin/properties/controllers/project_view_binding.dart';
 import '../../../agent/listings/searchresult/controllers/searchresult_controller.dart';
 import '../../../agent/utility/controller/base_controller.dart';
 import '../../../global.dart';
-import '../../landingpage/controller/homs_controller.dart';
 //todo add text
 
 class ProjectsList extends GetView<ProjectsListWebController> {

@@ -10,7 +10,17 @@
 analyzer:
   errors:
     avoid_print: ignore
+    camel_case_types: ignore
+    constant_identifier_names: ignore
+    deprecated_member_use: ignore
+    file_names: ignore
+    invalid_use_of_protected_member: ignore
+    must_be_immutable: ignore
+    non_constant_identifier_names: ignore
     prefer_const_constructors: ignore
+    prefer_typing_uninitialized_variables: ignore
+    unused_element: ignore
+    unused_local_variable: ignore
 include: package:flutter_lints/flutter.yaml
 
 linter:

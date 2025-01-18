@@ -417,7 +417,6 @@
 //   }
 // }
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
@@ -433,6 +432,7 @@ import '../controllers/form_web_controller.dart';
 class AboutUsWeb extends GetView<FormWebController> {
   const AboutUsWeb({super.key});
 
+  @override
   Widget build(BuildContext context) {
     Get.find<FormWebController>();
     return SingleChildScrollView(

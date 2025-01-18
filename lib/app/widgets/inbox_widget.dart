@@ -3,13 +3,14 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../presentation/global.dart';
 import 'custom_appbar.dart';
 
 class InboxWidget extends StatelessWidget {
+  const InboxWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -21,8 +22,7 @@ class InboxWidget extends StatelessWidget {
             itemCount: snapshot.data?.docs.length,
             itemBuilder: (context, index) {
               final message = Message.fromJson(data![index]);
-              if (data![index]['to'] == "all" ||
-                  data[index]['to'] == user!.id) {
+              if (data[index]['to'] == "all" || data[index]['to'] == user!.id) {
                 return Column(
                   children: [
                     ListTile(
@@ -54,6 +54,7 @@ class InboxWidget extends StatelessWidget {
                   ],
                 );
               }
+              return Container();
             },
           );
         }
@@ -118,6 +119,8 @@ class InboxScreen extends StatelessWidget {
             'It is a long establishedss fact that a reader will be distracted by the readable content of a page when looking at its layout.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layoutsss.',
         time: '10:30 AM'),
   ];
+
+  InboxScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

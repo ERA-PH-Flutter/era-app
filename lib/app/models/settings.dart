@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 
-class Settings{
+class Settings {
   final String? settingsId;
   final String appName;
   List? featuredListings;
@@ -10,6 +10,7 @@ class Settings{
   List? featuredNews;
   List? featuredAgents;
   final int fileSizeLimit;
+  // ignore: prefer_typing_uninitialized_variables
   final listingLimit;
   bool isMaintenance;
   String? splashAd;
@@ -21,69 +22,75 @@ class Settings{
   double? exchangeRate;
   int? agentCount;
   int? listingCount;
-  Settings({
-    required this.appName,
-    this.settingsId,
-    this.featuredListings,
-    this.featuredProjects,
-    this.featuredNews,
-    this.fileSizeLimit = 10,
-    this.isMaintenance = false,
-    required this.splashAd,
-    this.preSellingPicture,
-    this.residentialPicture,
-    this.auctionPicture,
-    this.commercialPicture,
-    this.rentalPicture,
-    this.banners,
-    this.featuredAgents,
-    this.exchangeRate,
-    this.agentCount,
-    this.listingCount,
-    this.listingLimit
-  });
-  factory Settings.fromJSON(Map<String,dynamic> json){
+  Settings(
+      {required this.appName,
+      this.settingsId,
+      this.featuredListings,
+      this.featuredProjects,
+      this.featuredNews,
+      this.fileSizeLimit = 10,
+      this.isMaintenance = false,
+      required this.splashAd,
+      this.preSellingPicture,
+      this.residentialPicture,
+      this.auctionPicture,
+      this.commercialPicture,
+      this.rentalPicture,
+      this.banners,
+      this.featuredAgents,
+      this.exchangeRate,
+      this.agentCount,
+      this.listingCount,
+      this.listingLimit});
+  factory Settings.fromJSON(Map<String, dynamic> json) {
     return Settings(
-      appName: json['app_name'],
-      featuredListings: json['featured_listings'] ?? [],
-      featuredProjects: json['featured_projects'] ?? [],
-      featuredNews: json['featured_news'] ?? [],
-      fileSizeLimit: json['file_size'] ?? 10,
-      isMaintenance: json['maintenance'] ?? false,
-      splashAd: json['splash_ad'] ?? "",
-      preSellingPicture: json['pre_selling_picture'] ?? "",
-      residentialPicture: json['residential_picture'] ?? "",
-      auctionPicture: json['auction_picture'] ?? "",
-      commercialPicture: json['commercial_picture'] ?? "",
-      rentalPicture: json['rental_picture'] ?? "",
-      banners: json["banners"] ?? [],
-      featuredAgents: json["featured_agents"] ?? [],
-      exchangeRate: json["exchange_rate"] ?? 0,
-      settingsId: json['id'],
-      listingCount: json['listing_count'],
-      agentCount: json['agent_count'],
-      listingLimit: json['listing_limit']
-    );
+        appName: json['app_name'],
+        featuredListings: json['featured_listings'] ?? [],
+        featuredProjects: json['featured_projects'] ?? [],
+        featuredNews: json['featured_news'] ?? [],
+        fileSizeLimit: json['file_size'] ?? 10,
+        isMaintenance: json['maintenance'] ?? false,
+        splashAd: json['splash_ad'] ?? "",
+        preSellingPicture: json['pre_selling_picture'] ?? "",
+        residentialPicture: json['residential_picture'] ?? "",
+        auctionPicture: json['auction_picture'] ?? "",
+        commercialPicture: json['commercial_picture'] ?? "",
+        rentalPicture: json['rental_picture'] ?? "",
+        banners: json["banners"] ?? [],
+        featuredAgents: json["featured_agents"] ?? [],
+        exchangeRate: json["exchange_rate"] ?? 0,
+        settingsId: json['id'],
+        listingCount: json['listing_count'],
+        agentCount: json['agent_count'],
+        listingLimit: json['listing_limit']);
   }
-  updatePicture(target,previousPicture,newPicture)async{
+  updatePicture(target, previousPicture, newPicture) async {
     await CloudStorage().deleteFileDirect(docRef: previousPicture);
-    switch(target){
+    switch (target) {
       case "residential":
-        residentialPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "residential.png");
+        residentialPicture = await CloudStorage().uploadFromMemory(
+            file: newPicture,
+            target: 'settings',
+            customName: "residential.png");
       case "rental":
-        rentalPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "rental.png");
+        rentalPicture = await CloudStorage().uploadFromMemory(
+            file: newPicture, target: 'settings', customName: "rental.png");
       case "commercial":
-        commercialPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "commercial.png");
+        commercialPicture = await CloudStorage().uploadFromMemory(
+            file: newPicture, target: 'settings', customName: "commercial.png");
       case "pre-selling":
-        preSellingPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "preSelling.png");
+        preSellingPicture = await CloudStorage().uploadFromMemory(
+            file: newPicture, target: 'settings', customName: "preSelling.png");
       default:
-        auctionPicture = await CloudStorage().uploadFromMemory(file: newPicture, target: 'settings',customName: "auction.png");
+        auctionPicture = await CloudStorage().uploadFromMemory(
+            file: newPicture, target: 'settings', customName: "auction.png");
     }
     await update();
   }
-  deletePicture(target,previousPicture)async{
+
+  deletePicture(target, previousPicture) async {
     await CloudStorage().deleteFileDirect(docRef: previousPicture);
-    switch(target){
+    switch (target) {
       case "residential":
         residentialPicture = null;
       case "rental":
@@ -97,36 +104,47 @@ class Settings{
     }
     await update();
   }
-  updateBanner(bannerImage)async{
-    banners!.add(await CloudStorage().uploadFromMemory(file: bannerImage, target: 'banners',customName: "banner_${banners!.length}"));
+
+  updateBanner(bannerImage) async {
+    banners!.add(await CloudStorage().uploadFromMemory(
+        file: bannerImage,
+        target: 'banners',
+        customName: "banner_${banners!.length}"));
     await update();
   }
-  addToFeaturedListings(id)async{
-    if(!featuredListings!.contains(id)){
+
+  addToFeaturedListings(id) async {
+    if (!featuredListings!.contains(id)) {
       featuredListings!.add(id);
       await update();
-    }else{
+    } else {
       featuredListings!.removeAt(featuredListings!.indexOf(id));
       await update();
     }
   }
-  addToFeaturedNews(id)async{
-    if(!featuredNews!.contains(id)){
+
+  addToFeaturedNews(id) async {
+    if (!featuredNews!.contains(id)) {
       featuredNews!.add(id);
       await update();
-    }else{
+    } else {
       featuredNews!.removeAt(featuredNews!.indexOf(id));
       await update();
     }
   }
-  update()async{
-    try{
-      await FirebaseFirestore.instance.collection('settings').doc(settingsId).update(toMap());
-    }catch(e){
+
+  update() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('settings')
+          .doc(settingsId)
+          .update(toMap());
+    } catch (e) {
       print(e);
     }
   }
-  toMap(){
+
+  toMap() {
     return {
       'app_name': appName,
       'featured_listings': featuredListings,
@@ -144,9 +162,9 @@ class Settings{
       'featured_agents': featuredAgents,
       'exchange_rate': exchangeRate,
       'id': settingsId,
-      'agent_count' : agentCount,
-      'listing_count' : listingCount,
-      'listing_limit' : listingLimit
+      'agent_count': agentCount,
+      'listing_count': listingCount,
+      'listing_limit': listingLimit
     };
   }
 }

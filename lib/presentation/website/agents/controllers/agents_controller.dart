@@ -104,6 +104,7 @@ class AgentsWebController extends GetxController with BaseController {
     resultText.value = "SEARCH RESULTS";
     agentState.value = AgentsStateWeb.loading;
     showLoading();
+    // ignore: unrelated_type_equality_checks
     if (agentName.value != "") {
       results.value = (await Database().searchUser(
               searchParam: 'full_name', searchQuery: agentName.value)) ??
@@ -142,15 +143,15 @@ class AgentsWebController extends GetxController with BaseController {
 
   Future<void> getImageGallery() async {
     try {
-      final List<XFile>? imagePicks = await picker.pickMultiImage();
-      if (imagePicks != null && imagePicks.isNotEmpty) {
+      final List<XFile> imagePicks = await picker.pickMultiImage();
+      if (imagePicks.isNotEmpty) {
         showLoading();
         image.value = await imagePicks[0].readAsBytes();
         try {
           var ref = await FirebaseStorage.instance
               .ref('users/images/${user!.id}.png')
               .delete();
-        } catch (e, ex) {
+        } catch (e) {
           print('settings error: $e');
         }
         var im = await CloudStorage().uploadFromMemory(

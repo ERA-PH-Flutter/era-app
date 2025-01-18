@@ -12,11 +12,8 @@ import 'package:intl/intl.dart';
 import '../../../../app/constants/assets.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/constants/sized_box.dart';
-import '../../../../app/services/firebase_database.dart';
 import '../../../../app/widgets/listings/agentInfo-widget.dart';
-import '../../../global.dart';
 import '../../home/pages/home_web.dart';
-import '../../landingpage/controller/homs_controller.dart';
 import '../../listings/controllers/listings_web_controller.dart';
 import '../controllers/agent_myListingWeb_controller.dart';
 

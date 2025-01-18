@@ -4,7 +4,6 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
-import 'package:eraphilippines/presentation/website/privacy_policy/privacy-policy.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +26,7 @@ class HomePages extends GetResponsiveView<HomsController> {
       key: controller.scaffoldKey,
       endDrawer: AppDrawer(),
       body: Stack(children: [
-        Obx(() => Container(
+        Obx(() => SizedBox(
             width: Get.width,
             height: Get.height,
             child: controller.pages[selectedIndex.value])),
@@ -87,7 +86,7 @@ class HomePages extends GetResponsiveView<HomsController> {
     );
   }
 
-    Widget buildFooter() {
+  Widget buildFooter() {
     return Column(
       children: [
         Card(

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
@@ -171,17 +170,19 @@ class ListingsAdminController extends GetxController {
     super.onClose();
   }
 
-  uploadSingle(file)async{
-    return await CloudStorage().uploadFromMemory(file: file, target: 'projects');
+  uploadSingle(file) async {
+    return await CloudStorage()
+        .uploadFromMemory(file: file, target: 'projects');
   }
-  uploadMultiple(files)async{
+
+  uploadMultiple(files) async {
     var newImages = [];
     for (var image in files) {
-      newImages.add(await CloudStorage().uploadFromMemory(file: image, target: 'projects'));
+      newImages.add(await CloudStorage()
+          .uploadFromMemory(file: image, target: 'projects'));
     }
     return newImages;
   }
-
 
   void updateDeveloperName(String name) {
     developerName.value = name;
@@ -283,12 +284,12 @@ class ListingsAdminController extends GetxController {
         for (var image in imagePick) {
           images.add(File(image.path));
           if (Get.currentRoute == '/editListings') {
-            imagePick.forEach((image) async {
+            for (var image in imagePick) {
               var a = await CloudStorage().upload(
                   file: File(image.path), target: 'listings/${user!.id}');
               listing?.photos!.add(a);
               await listing!.updateListing();
-            });
+            }
           }
         }
       }
@@ -337,7 +338,7 @@ class ListingsAdminController extends GetxController {
     }
   }
 
-  @override
+  // @override
   // void onClose() {
   //   //arguments = null;
   //   Get.delete<SearchResultController>(force: true);
@@ -434,8 +435,10 @@ class ListingsAdminController extends GetxController {
           .snapshots();
     }
   }
-  loadWeb(link,webViewController)async{
-    await webViewController.loadRequest(Uri.parse("https://api.eraphilippines.com/proxy.php?url=${base64Encode(link)}"));
+
+  loadWeb(link, webViewController) async {
+    await webViewController.loadRequest(Uri.parse(
+        "https://api.eraphilippines.com/proxy.php?url=${base64Encode(link)}"));
     return true;
   }
 }

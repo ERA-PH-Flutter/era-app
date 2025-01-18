@@ -25,9 +25,9 @@ class ReRouteController extends GetxController {
   final Uri instagram = Uri.parse('https://www.instagram.com/era_philippines/');
 
   ReRouteController() {
-    try{
+    try {
       scrollController.addListener(_scrollListener);
-    }catch(e){
+    } catch (e) {
       reRouteState.value = ReRouteState.error;
     }
   }
@@ -42,13 +42,6 @@ class ReRouteController extends GetxController {
     }
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    //args = Get.arguments;
-    //args!.binding.dependencies();
-    //reRouteState.value = ReRouteState.loaded;
-  }
   // @override
   // void onReady() {
   //   print("ready");
@@ -68,7 +61,7 @@ class ReRouteBinding extends Bindings {
     ReRouteArgs args = RouteArgs.getArgs(Get.currentRoute);
     args.binding.dependencies();
     controller.args = args;
-    print("idArgs: $idArgument" );
+    print("idArgs: $idArgument");
     controller.reRouteState.value = ReRouteState.loaded;
   }
 }

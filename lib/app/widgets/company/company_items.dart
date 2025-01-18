@@ -23,6 +23,7 @@ void prevImage() {
 }
 
 class CompanyItems extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final companyItems;
   final bool showListedby;
 

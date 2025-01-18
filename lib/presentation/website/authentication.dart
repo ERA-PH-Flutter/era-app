@@ -1,13 +1,10 @@
-import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
-import 'package:eraphilippines/app/widgets/company/company_items.dart';
 
-import 'package:eraphilippines/router/route_string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,12 +54,10 @@ void showAuthenticationDialog() {
             padding: EdgeInsets.all(EraTheme.paddingWidth + 20.w),
             child: Column(
               children: [
-                Container(
-                  child: Image.asset(
-                    'assets/images/eraph_logo.png',
-                    fit: BoxFit.cover,
-                    height: Get.height / 3,
-                  ),
+                Image.asset(
+                  'assets/images/eraph_logo.png',
+                  fit: BoxFit.cover,
+                  height: Get.height / 3,
                 ),
                 SizedBox(
                   width: 300.w,

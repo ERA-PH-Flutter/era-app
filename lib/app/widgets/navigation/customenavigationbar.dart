@@ -4,7 +4,6 @@ import 'package:eraphilippines/app/widgets/custom_appbar.dart';
 import 'package:eraphilippines/presentation/website/projects/controllers/project_list_controller.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_binding.dart';
-import 'package:eraphilippines/presentation/agent/listings/searchresult/pages/searchresult.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -89,8 +88,8 @@ class _BaseScaffoldState extends State<BaseScaffold> {
           },
           child: PageView(
             controller: pageViewController,
-            physics: NeverScrollableScrollPhysics(),
-            children: [
+            physics: const NeverScrollableScrollPhysics(),
+            children: const [
               Home(),
               //   ProjectsList(),
               //      SearchResult(),
@@ -125,7 +124,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                   currentRoute = '/about';
                 }
                 pageViewController.animateToPage(index,
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut);
               },
               activeIndex: selectedIndex.value,

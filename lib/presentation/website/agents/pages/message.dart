@@ -2,7 +2,6 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/inbox_widget.dart';
-import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,7 +10,7 @@ import '../../../../app/widgets/custom_appbar.dart';
 class MessageScreen extends StatelessWidget {
   final Message message;
 
-  const MessageScreen({required this.message});
+  const MessageScreen({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {

@@ -159,6 +159,7 @@ class Listing {
   deleteListings() async {
     try {
       await db.collection("listings").doc(id).delete();
+      // ignore: empty_catches
     } catch (e) {}
   }
 

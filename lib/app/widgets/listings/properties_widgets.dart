@@ -14,56 +14,56 @@ class PropertiesWidgets extends StatelessWidget {
   final List listingsModels;
 
   const PropertiesWidgets({super.key, required this.listingsModels});
-  void _onTap(BuildContext context, String label)async{
+  void _onTap(BuildContext context, String label) async {
     var data;
     var searchQuery = "";
     if (label == "PRE-SELLING") {
       var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('type', isEqualTo: 'Pre-selling')
-          .get())
-        .docs;
-        data = listings.map((listing) {
+              .collection('listings')
+              .where('type', isEqualTo: 'Pre-selling')
+              .get())
+          .docs;
+      data = listings.map((listing) {
         return listing.data();
       }).toList();
       searchQuery = "Pre Selling Listings";
     } else if (label == "RESIDENTIAL") {
       var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('sub_category', isEqualTo: 'Residential')
-          .get())
+              .collection('listings')
+              .where('sub_category', isEqualTo: 'Residential')
+              .get())
           .docs;
-        data = listings.map((listing) {
+      data = listings.map((listing) {
         return listing.data();
       }).toList();
       searchQuery = "Residential Listings";
     } else if (label == "COMMERCIAL") {
       var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('type', isEqualTo: 'Commercial')
-          .get())
+              .collection('listings')
+              .where('type', isEqualTo: 'Commercial')
+              .get())
           .docs;
-        data = listings.map((listing) {
+      data = listings.map((listing) {
         return listing.data();
       }).toList();
       searchQuery = "Commercial Listings";
     } else if (label == "RENTAL") {
       var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('sub_category', isEqualTo: 'Rent to Own')
-          .get())
+              .collection('listings')
+              .where('sub_category', isEqualTo: 'Rent to Own')
+              .get())
           .docs;
-        data = listings.map((listing) {
+      data = listings.map((listing) {
         return listing.data();
       }).toList();
       searchQuery = "Rental Listings";
     } else if (label == "AUCTION") {
       var listings = (await FirebaseFirestore.instance
-          .collection('listings')
-          .where('type', isEqualTo: 'Others')
-          .get())
+              .collection('listings')
+              .where('type', isEqualTo: 'Others')
+              .get())
           .docs;
-        data = listings.map((listing) {
+      data = listings.map((listing) {
         return listing.data();
       }).toList();
       searchQuery = "Auction Listings";
@@ -72,7 +72,7 @@ class PropertiesWidgets extends StatelessWidget {
     pageViewController = PageController(initialPage: 2);
     currentRoute = '/searchresult';
     Get.offAll(BaseScaffold(),
-        arguments: [data, searchQuery],binding: SearchResultBinding());
+        arguments: [data, searchQuery], binding: SearchResultBinding());
   }
 
   @override

@@ -19,8 +19,6 @@ import '../../agents/pages/agent_listings.dart';
 import '../../agents/pages/dashboard_web.dart';
 import '../../agents/pages/findagents.dart';
 import '../../form/controllers/form_web_binding.dart';
-import '../../form/pages/about_us_web.dart';
-import '../../form/pages/contactus_web.dart';
 import '../../form/pages/sell_property_web.dart';
 import '../../home/pages/home_web.dart';
 import '../../listings/controllers/listings_web_binding.dart';
@@ -50,19 +48,18 @@ class HomsController extends GetxController {
   var link = LayerLink();
   double? buttonWidth;
 
-
-  
   RxBool isDropdownVisible = false.obs;
-  var dashboard= OverlayPortalController();
-    var settingAgent= OverlayPortalController();
-        var logOut= OverlayPortalController();
+  var dashboard = OverlayPortalController();
+  var settingAgent = OverlayPortalController();
+  var logOut = OverlayPortalController();
 
-        var overlayPortal =  OverlayPortalController();
+  var overlayPortal = OverlayPortalController();
 
   RxString selectedOption = ''.obs;
   void selectOption(String option) {
     selectedOption.value = option;
   }
+
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   ScrollController scrollController = ScrollController();
@@ -118,7 +115,6 @@ class HomsController extends GetxController {
   //   }
   // }
 
-  
   void _scrollListener() {
     if (scrollController.position.userScrollDirection ==
         ScrollDirection.reverse) {
@@ -219,11 +215,6 @@ class HomsController extends GetxController {
       //   FormBinding().dependencies();
       //   break;
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
   }
 
   onNavbarItemSelected(int v) {

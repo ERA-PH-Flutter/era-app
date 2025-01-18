@@ -1,7 +1,5 @@
 import 'package:eraphilippines/presentation/agent/terms_conditions/terms_condition.dart';
 import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylistingWeb_binding.dart';
-import 'package:eraphilippines/presentation/website/form/controllers/form_web_binding.dart';
-import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/add-edit_listings/pages/edit_listing.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/archivedlisting/controllers/archived_binding.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/archivedlisting/pages/archived.dart';

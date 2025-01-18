@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/presentation/website/form/pages/join_era_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

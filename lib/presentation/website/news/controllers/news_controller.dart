@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/news.dart';
 import 'package:get/get.dart';
 import '../../../../app/services/local_storage.dart';

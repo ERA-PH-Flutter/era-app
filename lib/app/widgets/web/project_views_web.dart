@@ -4,12 +4,8 @@ import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/image/image_widget.dart';
 import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
-import 'package:eraphilippines/presentation/admin/properties/controllers/project_view_binding.dart';
-import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
-import 'package:eraphilippines/presentation/website/projects/pages/project_view.dart';
 import 'package:eraphilippines/repository/project.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -20,7 +16,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../presentation/global.dart';
-import '../../../presentation/website/landingpage/controller/homs_controller.dart';
 import '../../constants/assets.dart';
 import '../../constants/sized_box.dart';
 
@@ -158,10 +153,60 @@ class ProjectViewsWeb extends StatelessWidget {
                       ),
                     );
                   } else if (data['type'] == "Blurb") {
-                    return Container(
-                      // padding: EdgeInsets.symmetric(
-                      //     horizontal: 30.w, vertical: 15.h),
-                      child: Column(
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        title(
+                          padding: EdgeInsets.zero,
+                          text: data['title'],
+                        ),
+                        sb30(),
+                        Builder(builder: (context) {
+                          if (kIsWeb) {
+                            return CloudStorage().imageLoaderProvider(
+                              reference: data['image'],
+                              height: Get.height / 1.5,
+                              width: Get.width,
+                            );
+                          }
+                          return ImageWidget(
+                            thumbnailUrl: data['image'],
+                            height: 250.h,
+                            width: Get.width,
+                          );
+                          // CloudStorage().imageLoaderProvider(
+                          //   reference: data['image'],
+                          //   height: 250.h,
+                          //   width: Get.width,
+                          // );
+                        }),
+                        sb20(),
+                        description(text: data['description']),
+                      ],
+                    );
+                  } else if (data['type'] == "Location") {
+                    return SizedBox(
+                      height: Get.height,
+                      width: Get.width,
+                      child: GoogleMap(
+                        initialCameraPosition: CameraPosition(
+                            target: LatLng(
+                                data['location'][0], data['location'][1]),
+                            zoom: 15),
+                        markers: {
+                          Marker(
+                              position: LatLng(
+                                  data['location'][0], data['location'][1]),
+                              markerId: MarkerId('mainPin'),
+                              icon: BitmapDescriptor.defaultMarker)
+                        },
+                        zoomControlsEnabled: false,
+                        myLocationButtonEnabled: true,
+                      ),
+                    );
+                  } else if (data['type'] == "Outdoor Amenities") {
+                    if (data['sub_type'] == 'blurb') {
+                      return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           title(
@@ -191,64 +236,6 @@ class ProjectViewsWeb extends StatelessWidget {
                           sb20(),
                           description(text: data['description']),
                         ],
-                      ),
-                    );
-                  } else if (data['type'] == "Location") {
-                    return SizedBox(
-                      height: Get.height,
-                      width: Get.width,
-                      child: GoogleMap(
-                        initialCameraPosition: CameraPosition(
-                            target: LatLng(
-                                data['location'][0], data['location'][1]),
-                            zoom: 15),
-                        markers: {
-                          Marker(
-                              position: LatLng(
-                                  data['location'][0], data['location'][1]),
-                              markerId: MarkerId('mainPin'),
-                              icon: BitmapDescriptor.defaultMarker)
-                        },
-                        zoomControlsEnabled: false,
-                        myLocationButtonEnabled: true,
-                      ),
-                    );
-                  } else if (data['type'] == "Outdoor Amenities") {
-                    if (data['sub_type'] == 'blurb') {
-                      return Container(
-                        // padding: EdgeInsets.symmetric(
-                        //     horizontal: 30.w, vertical: 15.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            title(
-                              padding: EdgeInsets.zero,
-                              text: data['title'],
-                            ),
-                            sb30(),
-                            Builder(builder: (context) {
-                              if (kIsWeb) {
-                                return CloudStorage().imageLoaderProvider(
-                                  reference: data['image'],
-                                  height: Get.height / 1.5,
-                                  width: Get.width,
-                                );
-                              }
-                              return ImageWidget(
-                                thumbnailUrl: data['image'],
-                                height: 250.h,
-                                width: Get.width,
-                              );
-                              // CloudStorage().imageLoaderProvider(
-                              //   reference: data['image'],
-                              //   height: 250.h,
-                              //   width: Get.width,
-                              // );
-                            }),
-                            sb20(),
-                            description(text: data['description']),
-                          ],
-                        ),
                       );
                     } else if (data['sub_type'] == 'gallery') {
                       return SizedBox(
@@ -274,7 +261,7 @@ class ProjectViewsWeb extends StatelessWidget {
                                         backgroundColor: Colors.transparent,
                                         shadowColor: Colors.transparent,
                                         surfaceTintColor: Colors.transparent,
-                                        child: Container(
+                                        child: SizedBox(
                                           width: Get.width,
                                           height: Get.height,
                                           child: Stack(
@@ -535,37 +522,33 @@ class ProjectViewsWeb extends StatelessWidget {
                     }
                   } else if (data['type'] == "Indoor Amenities") {
                     if (data['sub_type'] == 'blurb') {
-                      return Container(
-                        // padding: EdgeInsets.symmetric(
-                        //     horizontal: 30.w, vertical: 15.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            title(
-                              padding: EdgeInsets.zero,
-                              text: data['title'],
-                            ),
-                            sb30(),
-                            Builder(
-                              builder: (context) {
-                                if (kIsWeb) {
-                                  return CloudStorage().imageLoaderProvider(
-                                    reference: data['image'],
-                                    width: Get.width,
-                                    height: Get.height / 1.5,
-                                  );
-                                }
-                                return ImageWidget(
-                                  thumbnailUrl: data['image'],
-                                  height: 250.h,
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          title(
+                            padding: EdgeInsets.zero,
+                            text: data['title'],
+                          ),
+                          sb30(),
+                          Builder(
+                            builder: (context) {
+                              if (kIsWeb) {
+                                return CloudStorage().imageLoaderProvider(
+                                  reference: data['image'],
                                   width: Get.width,
+                                  height: Get.height / 1.5,
                                 );
-                              },
-                            ),
-                            sb20(),
-                            description(text: data['description']),
-                          ],
-                        ),
+                              }
+                              return ImageWidget(
+                                thumbnailUrl: data['image'],
+                                height: 250.h,
+                                width: Get.width,
+                              );
+                            },
+                          ),
+                          sb20(),
+                          description(text: data['description']),
+                        ],
                       );
                     } else if (data['sub_type'] == 'gallery') {
                       return SizedBox(
@@ -858,7 +841,7 @@ class ProjectViewsWeb extends StatelessWidget {
                             textAlign: TextAlign.start,
                           ),
                           sb10(),
-                          Container(
+                          SizedBox(
                             height: Get.height / 1.3,
 
                             // padding: EdgeInsets.only(
@@ -1863,7 +1846,7 @@ class ProjectViewsWeb extends StatelessWidget {
         );
 
         preview.add(
-          Container(
+          SizedBox(
             width: Get.width,
             child: Card(
               shape: RoundedRectangleBorder(
@@ -1939,17 +1922,15 @@ class ProjectViewsWeb extends StatelessWidget {
 
   Widget infoTilePreview(
       String icon, TextEditingController controller, hintText, onChanged) {
-    return Container(
-      child: Row(
-        children: [
-          Image.asset(icon, width: 180.w, height: 180.h),
-          EraText(
-            text: controller.text + hintText,
-            fontSize: EraTheme.bodyText,
-            color: AppColors.black,
-          )
-        ],
-      ),
+    return Row(
+      children: [
+        Image.asset(icon, width: 180.w, height: 180.h),
+        EraText(
+          text: controller.text + hintText,
+          fontSize: EraTheme.bodyText,
+          color: AppColors.black,
+        )
+      ],
     );
   }
 

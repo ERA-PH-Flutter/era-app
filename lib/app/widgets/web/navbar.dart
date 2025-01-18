@@ -14,7 +14,7 @@ import '../../constants/theme.dart';
 import '../app_text.dart';
 
 class Navbar extends GetResponsiveView<HomsController> {
-  Navbar()
+  Navbar({super.key})
       : super(
           settings: ResponsiveScreenSettings(
             desktopChangePoint: 1000,
@@ -133,7 +133,7 @@ class Navbar extends GetResponsiveView<HomsController> {
                 Get.toNamed('/settings');
                 break;
               case 'logout':
-                 Authentication().logout();
+                Authentication().logout();
                 Get.deleteAll();
                 Get.toNamed('/home');
                 break;

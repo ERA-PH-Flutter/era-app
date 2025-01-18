@@ -3,10 +3,8 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../presentation/global.dart';
 import '../../constants/sized_box.dart';
 import '../../constants/theme.dart';
 import '../app_text.dart';
@@ -158,7 +156,7 @@ class AgentInfoWidget {
               height: height,
             ),
             sbw5(),
-            Container(
+            SizedBox(
               width: 250.w,
               child: EraText(
                 text: text!,

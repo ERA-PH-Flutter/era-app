@@ -552,7 +552,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 },
                 title: "Add Listing Success",
                 description: "Listing has been uploaded to the database.");
-          } catch (e, ex) {
+          } catch (e) {
             print(e);
           }
         }, 'CREATE LISTING'),

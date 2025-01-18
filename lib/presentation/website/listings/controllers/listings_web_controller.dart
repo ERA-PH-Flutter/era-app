@@ -82,13 +82,13 @@ class ListingsWebController extends GetxController {
     listingsWebState.value = ListingsWebState.loading;
     data.clear();
     loadedData = loadedData ?? [];
-    loadedData.forEach((d) {
+    for (var d in loadedData) {
       if (d.id != null) {
         if (!(d.isSold ?? false)) {
           data.add(d);
         }
       }
-    });
+    }
     //data.assignAll(loadedData);
 
     if (data.isEmpty) {
@@ -108,11 +108,11 @@ class ListingsWebController extends GetxController {
 
     List<Listing> listings = await AI(query: query)
         .listingSearch(overrideAiFilters: overrideAiFilters);
-    listings.forEach((listing) {
+    for (var listing in listings) {
       if (listing.runtimeType == Listing) {
         data.add(listing);
       }
-    });
+    }
     searchQuery.value = query.toString();
     listingsWebState.value =
         listings.isEmpty ? ListingsWebState.empty : ListingsWebState.loaded;

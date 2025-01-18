@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/screens.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,7 +14,6 @@ import '../../../../../app/constants/strings.dart';
 import '../../../../../app/services/firebase_storage.dart';
 import '../../../../../app/widgets/app_text.dart';
 import '../../../../../app/widgets/image/image_widget.dart';
-import '../../../../../app/widgets/interactive_property_image.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
@@ -25,7 +22,7 @@ import '../../../home/pages/home_web.dart';
 import '../../controllers/listings_web_controller.dart';
 
 class BuyWebListingPage extends GetView<ListingsWebController> {
-  BuyWebListingPage({
+  const BuyWebListingPage({
     super.key,
   });
 
@@ -102,7 +99,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                       .indexOf(controller.currentImage.value),
                                 );
                                 return Dialog(
-                                  child: Container(
+                                  child: SizedBox(
                                       width: Get.width,
                                       height: Get.height,
                                       child: Stack(
@@ -122,7 +119,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                                                         .photos![index];
                                               },
                                               itemBuilder: (context, index) {
-                                                return Container(
+                                                return SizedBox(
                                                   width: Get.width,
                                                   height: Get.height,
                                                   child: CloudStorage().imageLoader(

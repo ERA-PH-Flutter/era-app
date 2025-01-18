@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
@@ -9,7 +8,6 @@ import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
-import 'package:eraphilippines/app/widgets/textformfield_widget.dart';
 import 'package:eraphilippines/presentation/agent/listings/add-edit_listings/pages/addlistings.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/website/agents/controllers/agents_controller.dart';
@@ -23,8 +21,6 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../app/constants/screens.dart';
 import '../../../../app/widgets/listings_web/agentlistview.dart';
-import '../../landingpage/controller/homs_controller.dart';
-import '../controllers/agentYT_controller.dart';
 
 class FindAgentsWeb extends GetView<AgentsWebController> {
   const FindAgentsWeb({super.key});
@@ -34,7 +30,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
     SearchResultController searchResultController =
         Get.put(SearchResultController());
     ProjectsWebController projectsController = Get.put(ProjectsWebController());
-    return Container(
+    return SizedBox(
       width: Get.width,
       child: Column(
         children: [
@@ -243,7 +239,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                             fontWeight: FontWeight.w500,
                                             color: AppColors.white),
                                         SizedBox(height: 5.h),
-                                        Container(
+                                        SizedBox(
                                           height: 60.h,
                                           child: TextFormField(
                                             onChanged: (value) {

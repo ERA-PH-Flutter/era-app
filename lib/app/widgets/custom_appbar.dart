@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/inbox_widget.dart';
 import 'package:eraphilippines/presentation/agent/home/controllers/home_binding.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';

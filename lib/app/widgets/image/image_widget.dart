@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,11 @@ class ImageWidget extends StatelessWidget {
   final width;
 
   const ImageWidget(
-      {required this.thumbnailUrl, this.fit, this.height, this.width});
+      {super.key,
+      required this.thumbnailUrl,
+      this.fit,
+      this.height,
+      this.width});
 
   @override
   Widget build(BuildContext context) {

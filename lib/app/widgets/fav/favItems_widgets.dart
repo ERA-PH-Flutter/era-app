@@ -32,111 +32,109 @@ class FavItems extends StatelessWidget {
     final FavWebController favC = Get.find();
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        child: Stack(
-          children: [
-            Obx(() {
-              favC.selectionModeActive.value;
-              return Card(
-                color: AppColors.white,
-                elevation: 7,
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: CloudStorage().imageLoaderProvider(
-                        width: 150.w,
-                        height: Get.height,
-                        reference:
-                            '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10.r),
-                            bottomLeft: Radius.circular(10.r)),
-                      ),
+      child: Stack(
+        children: [
+          Obx(() {
+            favC.selectionModeActive.value;
+            return Card(
+              color: AppColors.white,
+              elevation: 7,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: CloudStorage().imageLoaderProvider(
+                      width: 150.w,
+                      height: Get.height,
+                      reference:
+                          '${listing.photos != null ? (listing.photos!.isNotEmpty ? listing.photos!.first : AppStrings.noUserImageWhite) : AppStrings.noUserImageWhite}',
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10.r),
+                          bottomLeft: Radius.circular(10.r)),
                     ),
-                    sbw5(),
-                    Expanded(
-                      flex: 2,
-                      child: FutureBuilder(
-                        future: EraUser().getById(listing.by),
-                        builder: (context, AsyncSnapshot<EraUser> snapshot) {
-                          if (snapshot.hasData) {
-                            return Padding(
-                              padding: EdgeInsets.only(top: 10.h, left: 10.w),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 40.h,
-                                    width: Get.width - 220.w,
-                                    child: EraText(
-                                      textOverflow: TextOverflow.ellipsis,
-                                      text:
-                                          '${snapshot.data?.firstname ?? "Admin"} ${snapshot.data?.lastname ?? ""}',
-                                      color: AppColors.blue,
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                  ),
+                  sbw5(),
+                  Expanded(
+                    flex: 2,
+                    child: FutureBuilder(
+                      future: EraUser().getById(listing.by),
+                      builder: (context, AsyncSnapshot<EraUser> snapshot) {
+                        if (snapshot.hasData) {
+                          return Padding(
+                            padding: EdgeInsets.only(top: 10.h, left: 10.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 40.h,
+                                  width: Get.width - 220.w,
+                                  child: EraText(
+                                    textOverflow: TextOverflow.ellipsis,
+                                    text:
+                                        '${snapshot.data?.firstname ?? "Admin"} ${snapshot.data?.lastname ?? ""}',
+                                    color: AppColors.blue,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  EraText(
-                                    text: listing.type!,
+                                ),
+                                EraText(
+                                  text: listing.type!,
+                                  color: AppColors.black,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  maxLines: 3,
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: 5.h),
+                                SizedBox(
+                                  width: 350.w,
+                                  child: EraText(
+                                    text:
+                                        listing.description ?? "No Description",
                                     color: AppColors.black,
                                     fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                     maxLines: 3,
                                     textOverflow: TextOverflow.ellipsis,
                                   ),
-                                  SizedBox(height: 5.h),
-                                  SizedBox(
-                                    width: 350.w,
-                                    child: EraText(
-                                      text: listing.description ??
-                                          "No Description",
-                                      color: AppColors.black,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w500,
-                                      maxLines: 3,
-                                      textOverflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5.h),
-                                  EraText(
-                                    text: NumberFormat.currency(
-                                      locale: 'en_PH',
-                                      symbol: 'PHP ',
-                                    ).format(listing.price),
-                                    color: AppColors.blue,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              );
-            }),
-            Positioned(
-              bottom: 10.w,
-              right: 10.w,
-              child: GestureDetector(
-                  onTap: () {},
-                  child: Icon(
-                    CupertinoIcons.heart_fill,
-                    color: AppColors.kRedColor,
-                    size: 40.sp,
-                  )),
-            ),
-          ],
-        ),
+                                ),
+                                SizedBox(height: 5.h),
+                                EraText(
+                                  text: NumberFormat.currency(
+                                    locale: 'en_PH',
+                                    symbol: 'PHP ',
+                                  ).format(listing.price),
+                                  color: AppColors.blue,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
+                  )
+                ],
+              ),
+            );
+          }),
+          Positioned(
+            bottom: 10.w,
+            right: 10.w,
+            child: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  CupertinoIcons.heart_fill,
+                  color: AppColors.kRedColor,
+                  size: 40.sp,
+                )),
+          ),
+        ],
       ),
     );
   }

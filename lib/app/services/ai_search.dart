@@ -18,7 +18,7 @@ class AI {
     };
     var result = await geminiSearch(data, name: "userSearch");
 
-    print('gemini search user ${result }');
+    print('gemini search user $result ');
     Query firebaseQuery = FirebaseFirestore.instance.collection('users');
     result!.forEach((key, value) {
       firebaseQuery = firebaseQuery
@@ -305,7 +305,7 @@ class AI {
         if (score >= 1 && (minMatch && maxMatch && equalsMatch)) {
           filteredData[data] = score;
 
-          print('gemini search data ${data.name} ${score} ${data.beds}');
+          print('gemini search data ${data.name} $score ${data.beds}');
         }
       }
 

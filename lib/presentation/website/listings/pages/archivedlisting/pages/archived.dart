@@ -1,14 +1,12 @@
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
-import 'package:eraphilippines/app/widgets/archived/archived_listings.dart';
 import 'package:eraphilippines/presentation/website/listings/pages/archivedlisting/controllers/archived_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../../app/constants/screens.dart';
-import '../../../../../../app/services/firebase_database.dart';
 import '../../../../../../app/widgets/archived/archivedItems_widgets.dart';
 import '../../../../../global.dart';
 import '../../../../landingpage/controller/homs_controller.dart';

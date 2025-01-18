@@ -5,7 +5,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget child;
   final double height;
 
-  CustomAppBar({
+  const CustomAppBar({
+    super.key,
     required this.child,
     this.height = kToolbarHeight,
   });
