@@ -89,7 +89,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
             AddAgent.buildTextFormField4(
                 text: 'Price per sqm *',
                 controller: addListingsController.pricePerSqmController,
-                text2: 'Area *',
+                text2: 'Lot Area *',
                 controller2: addListingsController.areaController,
                 text3: 'Rooms *',
                 controller3: addListingsController.bedsController,

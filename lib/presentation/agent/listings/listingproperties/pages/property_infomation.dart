@@ -680,11 +680,14 @@ class PropertyInformation extends GetView<ListingController> {
             iconsWidgets(
                 AppEraAssets.money2,
                 listing.ppsqm! >= 1000000
-                    ? '${listing.ppsqm! / 1000000}M'
+                    ? '${(listing.ppsqm! / 1000000)}M'
                     : listing.ppsqm! >= 1000
-                        ? '${listing.ppsqm! / 1000}K'
+                        ? '${(listing.ppsqm! / 1000)}K'
                         : '${listing.ppsqm}'),
-            iconsWidgets(AppEraAssets.area, '${listing.floorArea} sqm'),
+            iconsWidgets(
+              AppEraAssets.area,
+              '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
+            ),
             iconsWidgets(AppEraAssets.bed, '${listing.beds}'),
           ],
         ),
@@ -737,8 +740,15 @@ class PropertyInformation extends GetView<ListingController> {
             shorterSummary(text: 'Baths', text2: '${listing.baths}'),
             shorterSummary(text: 'Garage', text2: '${listing.cars}'),
             shorterSummary(
-                text: 'Floor Area', text2: '${listing.floorArea} sqm'),
-            shorterSummary(text: 'Lot Area', text2: '${listing.lotArea} sqm'),
+              text: 'Floor Area',
+              text2:
+                  '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
+            ),
+            shorterSummary(
+              text: 'Lot Area',
+              text2:
+                  '${listing.lotArea!.toStringAsFixed(listing.lotArea!.truncateToDouble() == listing.lotArea ? 0 : 1)} sqm',
+            ),
             //shorterSummary('Offer Type', listing.type),
             shorterSummary(text: 'View', text2: listing.view ?? "None"),
             shorterSummary(

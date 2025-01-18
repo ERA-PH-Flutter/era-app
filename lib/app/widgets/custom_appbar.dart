@@ -43,9 +43,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Row(
                 children: [
-                  (Platform.isIOS) &&
-                          Navigator.canPop(context) &&
-                          currentRoute != '/home'
+                  // (Platform.isIOS) &&
+                  Navigator.canPop(context) && currentRoute != '/home'
                       ? Row(
                           children: [
                             SizedBox(

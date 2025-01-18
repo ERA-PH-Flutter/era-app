@@ -211,6 +211,10 @@ class SearchResult extends GetView<SearchResultController> {
                                       EraText(
                                         text:
                                             '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
+
+                                        //     '${listing.floorArea!} sqm',
+
+                                        //  '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
                                         fontSize: EraTheme.paragraph - 1.sp,
                                         fontWeight: FontWeight.w500,
                                         color: AppColors.black,

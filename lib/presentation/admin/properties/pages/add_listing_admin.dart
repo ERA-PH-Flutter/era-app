@@ -103,7 +103,7 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                         );
                       }
                     },
-                    text2: 'Area*',
+                    text2: 'Lot Area*',
                     controller2: addListingsController.areaController,
                     text3: 'Rooms *',
                     controller3: addListingsController.bedsController,
