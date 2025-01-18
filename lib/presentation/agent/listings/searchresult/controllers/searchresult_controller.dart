@@ -76,9 +76,10 @@ class SearchResultController extends GetxController {
     try {
       if (Get.arguments == null || Get.arguments.isEmpty) {
         var tempData = [];
-        for (int i = 0; i < settings!.featuredListings!; i++) {
+        for (int i = 0; i < settings!.featuredListings!.length; i++) {
           tempData.add(
-              (await Listing().getListing(settings!.featuredListings!)).toMap());
+              (await Listing().getListing(settings!.featuredListings![i]))
+                  .toMap());
         }
         loadData(tempData.map((e) => Listing.fromJSON(e)).toList());
       } else {
