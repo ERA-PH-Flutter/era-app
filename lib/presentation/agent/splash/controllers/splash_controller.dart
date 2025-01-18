@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
-import 'package:eraphilippines/presentation/agent/home/controllers/home_controller.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/repository/user.dart';
-import 'package:eraphilippines/router/route_string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -81,16 +79,16 @@ class SplashController extends GetxController {
       user = await EraUser().getById(FirebaseAuth.instance.currentUser!.uid);
     }
     var shortestSide = MediaQuery.of(Get.context!).size.shortestSide;
-    if(Get.currentRoute == "/" || Get.currentRoute == "/home"){
+    if (Get.currentRoute == "/" || Get.currentRoute == "/home") {
       currentRoute = '/home';
       kIsWeb && user != null
           ? Get.offAndToNamed('/home') //Get.toNamed(RouteString.landingPage)
           : kIsWeb
-          ? Get.offAndToNamed(
-          '/home') //Get.toNamed(RouteString.adminLogin) //admingLogin
-          : shortestSide < 600
-          ? Get.offAndToNamed('/home')
-          : Get.offAndToNamed('/home');
+              ? Get.offAndToNamed(
+                  '/home') //Get.toNamed(RouteString.adminLogin) //admingLogin
+              : shortestSide < 600
+                  ? Get.offAndToNamed('/home')
+                  : Get.offAndToNamed('/home');
     }
   }
 

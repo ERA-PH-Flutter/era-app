@@ -73,6 +73,7 @@ class RoomsAndBedsFilter extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class PropertyTypeFilter extends StatelessWidget {
   var selectedPropertySubCategory = RxnString();
 

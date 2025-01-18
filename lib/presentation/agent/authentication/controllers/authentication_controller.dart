@@ -103,6 +103,7 @@ class LoginPageController extends GetxController with BaseController {
       }
     } else {
       var e = login.toString().split("error -")[0];
+      // ignore: unused_local_variable
       var errorText = "An error occurred.";
       if (e == 'user-not-found') {
         errorText = 'No user found for that email.';
