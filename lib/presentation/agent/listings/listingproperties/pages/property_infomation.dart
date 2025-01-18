@@ -35,12 +35,6 @@ class PropertyInformation extends GetView<ListingController> {
   final FavController favoritesController = Get.put(FavController());
   @override
   Widget build(BuildContext context) {
-    controller.images.clear();
-    listing.photos?.forEach((photo) {
-      if (photo != "") {
-        controller.images.add(photo);
-      }
-    });
     return Scaffold(
       appBar: CustomAppbar(),
       body: SingleChildScrollView(
@@ -397,12 +391,14 @@ class PropertyInformation extends GetView<ListingController> {
                   .where('type', isEqualTo: listing.type)
                   .get(),
               builder: (context, snapshot) {
-                var docs = snapshot.data!.docs;
-                var newDocs = [];
-                for (int i = 0; i < (docs.length < 4 ? docs.length : 4); i++) {
-                  newDocs.add(Listing.fromJSON(docs[i].data()));
-                }
                 if (snapshot.hasData) {
+                  var docs = snapshot.data!.docs;
+                  var newDocs = [];
+                  for (int i = 0;
+                      i < (docs.length < 4 ? docs.length : 4);
+                      i++) {
+                    newDocs.add(Listing.fromJSON(docs[i].data()));
+                  }
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
@@ -411,7 +407,8 @@ class PropertyInformation extends GetView<ListingController> {
                       var listing = newDocs[index];
                       return GestureDetector(
                         onTap: () async {
-                          await Database().addViews(listing.id);
+                          //await Database().addViews(listing.id);
+                          Get.back();
                           Get.toNamed('/propertyInfo', arguments: listing);
                         },
                         child: Container(
