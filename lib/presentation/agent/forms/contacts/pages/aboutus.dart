@@ -44,13 +44,14 @@ class AboutUs extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var data = snapshot.data!.data();
-
+                        print('data: $data');
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CloudStorage().imageLoader(
                               reference: data?['photo'],
                               fit: BoxFit.cover,
+
                               //  width: Get.width,
                             ),
                           ],
@@ -58,6 +59,7 @@ class AboutUs extends StatelessWidget {
                       }
                       return Screens.loading();
                     }),
+
                 SizedBox(height: 15.h),
                 Padding(
                   padding:
