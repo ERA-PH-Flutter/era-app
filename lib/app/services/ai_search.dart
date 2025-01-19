@@ -295,7 +295,7 @@ class AI {
       bool maxMatch = true;
       bool equalsMatch = true;
       for (int i = 0; i < (prompts.length); i++) {
-        if (prompts[i].field == "name") {
+        if (prompts[i].field == "name" || prompts[i].field == "location") {
           if (data
               .toMap()
               .toString()
