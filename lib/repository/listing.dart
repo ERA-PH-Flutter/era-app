@@ -135,6 +135,20 @@ class Listing {
         (await db.collection('listings').doc(id).get()).data() ?? {});
   }
 
+  // Future<List<Listing>> getAllListings() async {
+  //   QuerySnapshot querySnapshot =
+  //       await db.collection('listings').orderBy('date_created').get();
+  //   return querySnapshot.docs
+  //       .map((doc) => Listing.fromJSON(doc.data() as Map<String, dynamic>))
+  //       .toList();
+  // }
+  Stream<QuerySnapshot<Map<String, dynamic>>> getstreamSearch() {
+    return FirebaseFirestore.instance
+        .collection('listings')
+        .orderBy('date_created')
+        .snapshots();
+  }
+
   addListing(images, userId) async {
     photos = [];
     for (int i = 0; i < images!.length; i++) {

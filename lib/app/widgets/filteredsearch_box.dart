@@ -6,6 +6,7 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/findproperties_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -174,7 +175,10 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
       Get.find<SearchResultController>().searchResultState.value =
           SearchResultState.loading;
       Get.find<SearchResultController>().data.value = data;
-      BaseController().hideLoading();
+      // Get.find<FindpropertiesController>().findPropertiesState.value =
+      //     FindPropertiesState.loading;
+      // Get.find<FindpropertiesController>().data.value = data;
+      // BaseController().hideLoading();
       selectedIndex.value = 2;
       pageViewController.animateToPage(
         2,
@@ -184,6 +188,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
 
       Get.find<SearchResultController>().searchResultState.value =
           data.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
+      // Get.find<FindpropertiesController>().findPropertiesState.value =
+      //     data.isEmpty ? FindPropertiesState.empty : FindPropertiesState.loaded;
     } catch (e) {
       print('error AI search $e');
     } finally {
