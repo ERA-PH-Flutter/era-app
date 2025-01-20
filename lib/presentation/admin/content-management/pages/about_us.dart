@@ -51,7 +51,8 @@ class AboutUsPage extends GetView<ContentManagementController> {
                     var photos = await CloudStorage().uploadFromMemory(
                       file: controller.aboutusImage.first,
                       target: "cms",
-                      customName: "about_us",
+                      customName:
+                          "about_us_${DateTime.now().microsecondsSinceEpoch}.png",
                     );
                     await FirebaseFirestore.instance
                         .collection("cms")
