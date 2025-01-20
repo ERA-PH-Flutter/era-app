@@ -10,6 +10,7 @@ import 'package:eraphilippines/presentation/website/form/pages/about_us_web.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../../../app/widgets/button.dart';
 
@@ -64,194 +65,81 @@ class JoinEraWeb extends GetView<FormWebController> {
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Center(
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.w),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
+                  Center(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: 40.w, vertical: 40.h),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 20,
+                            offset: Offset(0, 10),
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: FutureBuilder(
+                            future: FirebaseFirestore.instance
+                                .collection('cms')
+                                .doc('about_us')
+                                .get(),
+                            builder: (contect, snapshot) {
+                              if (snapshot.hasData) {
+                                var data = snapshot.data!.data();
+                                print('DATA PHOTO: ${data!['photo']}');
+
+                                // if (data['type'] == "image") {
+                                //   return CloudStorage().imageLoader(
+                                //       reference: data['link'],
+                                //       fit: BoxFit.cover,
+                                //       width: Get.width);
+                                // } else if (data['type'] == 'youtube') {
+                                //   var url = data['link'].toString();
+                                //   String? videoUrl =
+                                //       YoutubePlayer.convertUrlToId(url);
+                                //   controller.youtubePlayerController =
+                                //       YoutubePlayerController(
+                                //     initialVideoId: videoUrl!,
+                                //     flags: YoutubePlayerFlags(
+                                //       enableCaption: false,
+                                //       autoPlay: false,
+                                //       mute: false,
+                                //       forceHD: true,
+                                //     ),
+                                //   );
+                                //   return YoutubePlayer(
+                                //     controller:
+                                //         controller.youtubePlayerController,
+                                //     bottomActions: const [
+                                //       CurrentPosition(),
+                                //       ProgressBar(isExpanded: true),
+                                //       RemainingDuration(),
+                                //     ],
+                                //   );
+                                // }
+                                return CloudStorage().imageLoader(
+                                  reference: data['photo'],
+                                  height: Get.height * 0.8,
+                                  width: Get.width * 0.85,
+                                  fit: BoxFit.cover,
+                                );
+                              }
+                              return Screens.loading();
+                            }),
+
+                        // Image.network(
+                        //   'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
+                        //   fit: BoxFit.cover,
+                        //   height: Get.height * 0.6,
+                        //   width: Get.width * 0.85,
+                        // ),
+                      ),
                     ),
-                  ],
-                ),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: FutureBuilder(
-                        future: FirebaseFirestore.instance
-                            .collection('cms')
-                            .doc('about_us')
-                            .get(),
-                        builder: (contect, snapshot) {
-                          if (snapshot.hasData) {
-                            var data = snapshot.data!.data();
-                            return CloudStorage().imageLoader(
-                              reference: data!['photo'],
-                              height: Get.height * 0.6,
-                              width: Get.width * 0.85,
-                              fit: BoxFit.cover,
-                            );
-                          }
-                          return Screens.loading();
-                        })
-
-                    // Image.network(
-                    //   'https://firebasestorage.googleapis.com/v0/b/era-philippines.appspot.com/o/heroimages%2Fimage.png?alt=media&token=1de06091-9a20-4fb2-a6bb-fa2cfcf8daea',
-                    //   fit: BoxFit.cover,
-                    //   height: Get.height * 0.6,
-                    //   width: Get.width * 0.85,
-                    // ),
-                    ),
-              ),
-            ),
-            Positioned(
-              bottom: 100.h,
-              left: 0,
-              right: 0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  EraText(
-                    text: 'Join ERA Today!',
-                    fontSize: EraTheme.h1,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    textAlign: TextAlign.center,
                   ),
-                  EraText(
-                    text:
-                        'Be part of an international brand with 2,390 offices globally.',
-                    fontSize: EraTheme.h6,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white.withOpacity(0.7),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 15.h),
-                  Button(
-                    text: "Get Started",
-                    fontSize: EraTheme.h6,
-                    onTap: () {
-                      showDialog(
-                          context: Get.context!,
-                          builder: (context) {
-                            return Dialog(
-                                shape: RoundedRectangleBorder(
-                                    side: BorderSide.none),
-                                insetPadding: EdgeInsets.symmetric(
-                                    horizontal: EraTheme.paddingWidthAdmin * 6,
-                                    vertical: EraTheme.paddingWidthAdmin * 2),
-                                backgroundColor: AppColors.white,
-                                child: Scaffold(
-                                  appBar: AppBar(
-                                    backgroundColor: AppColors.white,
-                                    surfaceTintColor: AppColors.white,
-                                    automaticallyImplyLeading: false,
-                                    centerTitle: true,
-                                    title: EraText(
-                                      text: 'Terms and Conditions',
-                                      fontSize: EraTheme.paragraphWeb,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.black,
-                                    ),
-                                    scrolledUnderElevation: 4,
-                                    toolbarHeight: 100.h,
-                                    elevation: 0,
-                                  ),
-                                  body: Stack(
-                                    children: [
-                                      // SliverAppBar(),
-                                      CustomScrollView(
-                                        controller: controller.scrollController,
-                                        slivers: [
-                                          SliverToBoxAdapter(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal:
-                                                    EraTheme.paddingWidthAdmin -
-                                                        10.sp,
-                                              ),
-                                              child: termsAndConditionWidget(),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: BottomAppBar(
-                                          color: AppColors.white,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Obx(
-                                                () => Button(
-                                                  text: 'Accept',
-                                                  color: AppColors.blue,
-                                                  width: Get.width / 5,
-                                                  onTap: controller
-                                                          .isAtBottom.value
-                                                      ? () {
-                                                          AuthenticationWebController
-                                                              controllerAuth =
-                                                              Get.put(
-                                                                  AuthenticationWebController());
-                                                          // Get.toNamed(RouteString
-                                                          //     .createaccountweb);
-                                                          createAccountWeb(
-                                                              controller:
-                                                                  controllerAuth);
-                                                        }
-                                                      : null,
-
-                                                  fontSize:
-                                                      EraTheme.paragraphWeb,
-
-                                                  bgColor: controller
-                                                          .isAtBottom.value
-                                                      ? AppColors.white
-                                                      : AppColors.hint
-                                                          .withOpacity(0.2),
-                                                  // borderSide: BorderSide(color: AppColors.blue),
-                                                  border: Border.all(
-                                                      color: AppColors.blue),
-                                                  borderRadius:
-                                                      BorderRadius.circular(30),
-                                                ),
-                                              ),
-                                              sbw20(),
-                                              Button(
-                                                text: 'Decline',
-                                                width: Get.width / 5,
-                                                fontSize: EraTheme.paragraphWeb,
-                                                onTap: () {
-                                                  Get.back();
-                                                },
-                                                bgColor: AppColors.blue,
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ));
-                          });
-                    },
-                    bgColor: Colors.white,
-                    color: AppColors.kRedColor,
-                    borderRadius: BorderRadius.circular(30),
-                    width: 200.w,
-                  ),
-                  //       _buildRichText(),
                 ],
               ),
             ),
@@ -265,7 +153,188 @@ class JoinEraWeb extends GetView<FormWebController> {
             children: [
               sb15(),
               //text era
-              _buildTextJoinEra(),
+
+              Row(
+                children: [
+                  Expanded(flex: 1, child: _buildTextJoinEra()),
+                  sbw50(),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      width: Get.width,
+                      height: 350.h,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.w, vertical: 20.h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          colors: [
+                            AppColors.kRedColor,
+                            AppColors.kRedColor.withOpacity(0.7),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          EraText(
+                            text: 'Join ERA Today!',
+                            fontSize: EraTheme.h1,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.white,
+                            textAlign: TextAlign.center,
+                          ),
+                          EraText(
+                            text:
+                                'Be part of an international brand with 2,390 offices globally.',
+                            fontSize: EraTheme.h6,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white.withOpacity(0.7),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 15.h),
+                          Button(
+                            text: "Get Started",
+                            fontSize: EraTheme.h6,
+                            bgColor: AppColors.white,
+                            onTap: () {
+                              showDialog(
+                                  context: Get.context!,
+                                  builder: (context) {
+                                    return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                            side: BorderSide.none),
+                                        insetPadding: EdgeInsets.symmetric(
+                                            horizontal:
+                                                EraTheme.paddingWidthAdmin * 6,
+                                            vertical:
+                                                EraTheme.paddingWidthAdmin * 2),
+                                        backgroundColor: AppColors.white,
+                                        child: Scaffold(
+                                          appBar: AppBar(
+                                            backgroundColor: AppColors.white,
+                                            surfaceTintColor: AppColors.white,
+                                            automaticallyImplyLeading: false,
+                                            centerTitle: true,
+                                            title: EraText(
+                                              text: 'Terms and Conditions',
+                                              fontSize: EraTheme.paragraphWeb,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.black,
+                                            ),
+                                            scrolledUnderElevation: 4,
+                                            toolbarHeight: 100.h,
+                                            elevation: 0,
+                                          ),
+                                          body: Stack(
+                                            children: [
+                                              // SliverAppBar(),
+                                              CustomScrollView(
+                                                controller:
+                                                    controller.scrollController,
+                                                slivers: [
+                                                  SliverToBoxAdapter(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                        horizontal: EraTheme
+                                                                .paddingWidthAdmin -
+                                                            10.sp,
+                                                      ),
+                                                      child:
+                                                          termsAndConditionWidget(),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Align(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: BottomAppBar(
+                                                  color: AppColors.white,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Obx(
+                                                        () => Button(
+                                                          text: 'Accept',
+                                                          color: AppColors.blue,
+                                                          width: Get.width / 5,
+                                                          onTap: controller
+                                                                  .isAtBottom
+                                                                  .value
+                                                              ? () {
+                                                                  AuthenticationWebController
+                                                                      controllerAuth =
+                                                                      Get.put(
+                                                                          AuthenticationWebController());
+                                                                  // Get.toNamed(RouteString
+                                                                  //     .createaccountweb);
+                                                                  createAccountWeb(
+                                                                      controller:
+                                                                          controllerAuth);
+                                                                }
+                                                              : null,
+
+                                                          fontSize: EraTheme
+                                                              .paragraphWeb,
+
+                                                          bgColor: controller
+                                                                  .isAtBottom
+                                                                  .value
+                                                              ? AppColors.white
+                                                              : AppColors.hint
+                                                                  .withOpacity(
+                                                                      0.2),
+                                                          // borderSide: BorderSide(color: AppColors.blue),
+                                                          border: Border.all(
+                                                              color: AppColors
+                                                                  .blue),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(30),
+                                                        ),
+                                                      ),
+                                                      sbw20(),
+                                                      Button(
+                                                        text: 'Decline',
+                                                        width: Get.width / 5,
+                                                        fontSize: EraTheme
+                                                            .paragraphWeb,
+                                                        onTap: () {
+                                                          Get.back();
+                                                        },
+                                                        bgColor: AppColors.blue,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ));
+                                  });
+                            },
+                            color: AppColors.kRedColor,
+                            borderRadius: BorderRadius.circular(30),
+                            width: 200.w,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
               sb50(),
               EraText(
                 text: 'About Us',
