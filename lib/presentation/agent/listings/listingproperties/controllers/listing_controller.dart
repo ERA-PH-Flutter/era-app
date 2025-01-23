@@ -44,7 +44,7 @@ class ListingController extends GetxController {
     listingState.value = ListingState.loading;
     quickLinks = await QuickLinksModel().initialize();
     try {
-      if (Get.arguments == null || Get.arguments.isEmpty) {
+      if (Get.arguments == null) {
         var tempData = [];
         for (int i = 0; i < settings!.featuredListings!.length; i++) {
           tempData.add(
@@ -60,6 +60,9 @@ class ListingController extends GetxController {
       listingState.value = ListingState.error;
     }
     super.onInit();
+    if (Get.currentRoute == "/propertyInfo") {
+      images.value = Get.arguments.photos;
+    }
     if (images.isNotEmpty) {
       currentImage.value = images[0];
     }

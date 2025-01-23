@@ -29,6 +29,7 @@ class ContentManagementController extends GetxController with BaseController {
   var selectedType = 'Image'.obs;
   var link = "";
   var video;
+  RxList aboutusImage = [].obs;
 
   final List<String> bannersImages = [];
   var listingImages = [];

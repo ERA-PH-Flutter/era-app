@@ -25,7 +25,13 @@ class AboutUsPage extends GetView<ContentManagementController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           sb30(),
-          UploadBannersWidget(text: 'UPLOAD IMAGE', maxImages: 1),
+          UploadBannersWidget(
+            text: 'UPLOAD IMAGE',
+            maxImages: 1,
+            onImageSelected: (image) {
+              controller.aboutusImage.add(image);
+            },
+          ),
           sb10(),
           Padding(
             padding:
@@ -40,34 +46,35 @@ class AboutUsPage extends GetView<ContentManagementController> {
               Button(
                 onTap: () async {
                   BaseController().showLoading();
-                  var photo = await CloudStorage().uploadFromMemory(
-                    file: controller.images.first,
-                    target: "cms",
-                    customName: "about_us",
-                  );
 
-                  await FirebaseFirestore.instance
-                      .collection("cms")
-                      .doc('about_us')
-                      .set({
-                    'description': controller.description.text,
-                    "photo": photo
+                  try {
+                    var photos = await CloudStorage().uploadFromMemory(
+                      file: controller.aboutusImage.first,
+                      target: "cms",
+                      customName:
+                          "about_us_${DateTime.now().microsecondsSinceEpoch}.png",
+                    );
+                    await FirebaseFirestore.instance
+                        .collection("cms")
+                        .doc('about_us')
+                        .set({
+                      'description': controller.description.text,
+                      "photo": photos,
+                    });
 
-                    // await CloudStorage().uploadFromMemory(
-                    //   file: controller.images.first,
-                    //   target: "cms",
-                    //   customName: "about_us",
-                    // ),
-                  });
-
-                  BaseController().hideLoading();
-                  controller.showSuccessDialog(
-                      title: "Success!",
-                      description: "About us has been updated!",
-                      hitApi: () {
-                        Get.back();
-                        //    Get.back();
-                      });
+                    BaseController().hideLoading();
+                    controller.showSuccessDialog(
+                        title: "Success!",
+                        description: "About us has been updated!",
+                        hitApi: () {
+                          Get.back();
+                          //    Get.back();
+                        });
+                  } catch (e) {
+                    print("Error uploading photo: $e");
+                    BaseController().hideLoading();
+                    return;
+                  }
                 },
                 margin: EdgeInsets.symmetric(horizontal: 5),
                 width: 150.w,

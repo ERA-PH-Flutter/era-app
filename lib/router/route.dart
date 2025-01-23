@@ -14,6 +14,7 @@ import 'package:eraphilippines/presentation/agent/agents/bindings/agent_listings
 import 'package:eraphilippines/presentation/agent/agents/pages/agent_listings.dart';
 import 'package:eraphilippines/presentation/agent/authentication/pages/nextPage.dart';
 import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
+import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/findproperties_binding.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/aurelia.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/haraya.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/laya.dart';
@@ -108,7 +109,7 @@ appRoutes() => [
       GetPage(
           name: RouteString.findproperties,
           page: () => const FindProperties(),
-          binding: ListingBinding()),
+          binding: FindPropertiesBinding()),
       GetPage(
           name: RouteString.searchresult,
           page: () => const SearchResult(),

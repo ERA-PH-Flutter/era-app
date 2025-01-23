@@ -10,6 +10,7 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/image/image_widget.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/listing_binding.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -404,12 +405,14 @@ class PropertyInformation extends GetView<ListingController> {
                     shrinkWrap: true,
                     itemCount: newDocs.length,
                     itemBuilder: (context, index) {
-                      var listing = newDocs[index];
+                      Listing listing = newDocs[index];
                       return GestureDetector(
                         onTap: () async {
                           //await Database().addViews(listing.id);
                           Get.back();
-                          Get.toNamed('/propertyInfo', arguments: listing);
+
+                          Get.offAndToNamed('/propertyInfo',
+                              arguments: listing);
                         },
                         child: Container(
                           width: 378.w,
