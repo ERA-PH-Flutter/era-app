@@ -72,7 +72,7 @@ class ReRoute extends GetView<ReRouteController> {
           elevation: 7,
           child: Container(
             padding: EdgeInsets.symmetric(
-                horizontal: EraTheme.paddingWidthAdmin * 3, vertical: 20),
+                horizontal: EraTheme.paddingWidthAdmin * 3, vertical: 10),
             width: Get.width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -85,11 +85,8 @@ class ReRoute extends GetView<ReRouteController> {
             ),
           ),
         ),
-
-        /// not final
         Container(
           width: Get.width,
-          //   padding: EdgeInsets.symmetric(vertical: 20),
           color: AppColors.blue2,
           child: Column(
             children: [
@@ -134,9 +131,6 @@ class ReRoute extends GetView<ReRouteController> {
         _buildLinkText(
             text: 'Projects',
             onTap: () {
-              // selectedIndex.value = 1;
-              // Get.find<HomsController>().onNavbarItemSelected(1);
-
               Get.toNamed('/projects');
             }),
         _buildLinkText(
@@ -166,18 +160,7 @@ class ReRoute extends GetView<ReRouteController> {
             text: 'Join Us',
             onTap: () {
               Get.toNamed('/join-us');
-
-              // selectedIndex.value = 5;
-              // Get.find<HomsController>().onNavbarItemSelected(5);
             }),
-        // _buildLinkText(text: 'Why Us?', onTap: () {
-        //   selectedIndex.value = 4;
-        //       Get.find<HomsController>().onNavbarItemSelected(4);
-        // }),
-        // _buildLinkText('ERA Teach Tools'),
-        //  _buildLinkText('Ultimate Agent'),
-        //    _buildLinkText('Training'),
-        //     _buildLinkText('Our Services'),
         _buildLinkText(
             text: 'Contact Us',
             onTap: () {
@@ -199,45 +182,54 @@ class ReRoute extends GetView<ReRouteController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         sb30(),
-        _sectionTitle('ERA PHILLIPINES'),
+        _sectionTitle('ERA PHILIPPINES'),
         sb10(),
-        Row(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.hint.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Image.asset(
-                AppEraAssets.eraPh,
-                width: 200.w,
-                height: 220.h,
-                fit: BoxFit.cover,
-              ),
-            ),
-            sbw10(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildLinkText(
-                    text:
-                        'Address: 1212 Century Spire Bldg.\nCentury City, Kalayaan Ave.\nMakati City',
-                    onTap: () {}),
-                _buildLinkTextWithIcon(
-                  'Phone: +639177710572',
-                  onTap: () {
-                    launchUrl(controller.whatsappUrl);
-                  },
+        Container(
+          height: 300.h,
+          width: 500.w,
+          child: Stack(
+            children: [
+              Positioned(
+                  top: -50.h,
+                  right: 0.w,
+                  child: Container(
+                    child: Image.asset(
+                      AppEraAssets.eraPh,
+                      width: 200.w,
+                      height: 260.h,
+                      fit: BoxFit.cover,
+                    ),
+                  )),
+              sbw10(),
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _buildLinkText(
+                        text:
+                            'Address: 1212 Century Spire Bldg.\nCentury City, Kalayaan Ave.\nMakati City',
+                        onTap: () {}),
+                    _buildLinkTextWithIcon(
+                      'Phone: +639177710572',
+                      onTap: () {
+                        launchUrl(controller.whatsappUrl);
+                      },
+                    ),
+                    _buildLinkTextWithIcon(
+                      'Email: sales@eraphilippines.com',
+                      onTap: () {
+                        launchUrl(controller.emailUrl);
+                      },
+                    ),
+                  ],
                 ),
-                _buildLinkTextWithIcon(
-                  'Email: sales@eraphilippines.com',
-                  onTap: () {
-                    launchUrl(controller.emailUrl);
-                  },
-                ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -313,7 +305,8 @@ class ReRoute extends GetView<ReRouteController> {
             Get.find<ListingsWebController>()
                 .listingsWebState(ListingsWebState.loading);
             Get.find<ListingsWebController>().searchQuery.value = text;
-            await Get.find<ListingsWebController>().loadData(data.map((e)=>Listing.fromJSON(e)).toList());
+            await Get.find<ListingsWebController>()
+                .loadData(data.map((e) => Listing.fromJSON(e)).toList());
             if (data.isEmpty) {
               Get.find<ListingsWebController>()
                   .listingsWebState(ListingsWebState.empty);

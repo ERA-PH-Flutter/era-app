@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
+import 'package:eraphilippines/app/services/local_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 
@@ -129,24 +130,40 @@ void showAuthenticationDialog() {
                             var login = await Authentication()
                                 .login(email: email.text, password: pass.text);
                             if (!login.contains("error")) {
-                              BaseController().hideLoading();
-                              user = await EraUser().getById(
-                                  FirebaseAuth.instance.currentUser!.uid);
-                              // if (user!.role!.toLowerCase() != "admin") {
-                              //   user = null;
-                              //   await Authentication().logout();
-                              //   BaseController().showSuccessDialog(
-                              //       title: "ERROR",
-                              //       description:
-                              //           "Please use admin account to have access!",
-                              //       hitApi: () {
-                              //         Get.toNamed('/home ');
-                              //       });
-                              // }
-                              // else {
-                              //   Get.toNamed('/agent-dashboard');
-                              // }
-                              Get.toNamed('/agent-dashboard');
+                              var id = FirebaseAuth.instance.currentUser!.uid;
+                              user = await EraUser().getById(id);
+
+                              if (user!.status == "approved") {
+                                Get.find<LocalStorageService>().userID = id;
+                                Get.toNamed('/agent-dashboard');
+                              } else if (user!.status == "disabled") {
+                                await Authentication().logout();
+
+                                user = null;
+                                BaseController().showSuccessDialog(
+                                    okayButton: "Close",
+                                    title: "Pending for Approval",
+                                    description:
+                                        "Wait for the ERA Admin to approve your account.",
+                                    hitApi: () {
+                                      Get.back();
+                                      Get.back();
+                                      // Get.toNamed('/home');
+                                    });
+                              } else {
+                                await FirebaseAuth.instance.signOut();
+                                user = null;
+                                BaseController().showSuccessDialog(
+                                    hitApi: () {
+                                      Get.back();
+                                      Get.back();
+                                    },
+                                    okayButton: "Close",
+                                    title: "Failed",
+                                    description:
+                                        "Account is deleted or Block by admin!");
+                              }
+                              // Get.toNamed('/agent-dashboard');
                               email.text = "";
                               pass.text = "";
                             } else {

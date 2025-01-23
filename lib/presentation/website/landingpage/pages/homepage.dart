@@ -218,21 +218,15 @@ class HomePages extends GetResponsiveView<HomsController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         sb30(),
-        _sectionTitle('ERA PHILLIPINES'),
+        _sectionTitle('ERA PHILIPPINES'),
         sb10(),
         Row(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.hint.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Image.asset(
-                AppEraAssets.eraPh,
-                width: 200.w,
-                height: 220.h,
-                fit: BoxFit.cover,
-              ),
+            Image.asset(
+              AppEraAssets.eraPh,
+              width: 200.w,
+              height: 220.h,
+              fit: BoxFit.cover,
             ),
             sbw10(),
             Column(
