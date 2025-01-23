@@ -23,6 +23,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      
       child: Obx(() => switch (controller.agentListingsState.value) {
             AgentListingsState.loading => _loading(),
             AgentListingsState.loaded => _loaded(),

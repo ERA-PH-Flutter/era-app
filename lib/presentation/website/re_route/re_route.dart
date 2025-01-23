@@ -24,7 +24,7 @@ class ReRoute extends GetView<ReRouteController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        controller: controller.scrollController,
+      controller: controller.scrollController,
         slivers: [
           Obx(
             () => SliverAppBar(
@@ -72,7 +72,8 @@ class ReRoute extends GetView<ReRouteController> {
           elevation: 7,
           child: Container(
             padding: EdgeInsets.symmetric(
-                horizontal: EraTheme.paddingWidthAdmin * 3, vertical: 10),
+              horizontal: EraTheme.paddingWidthAdmin * 3,
+            ),
             width: Get.width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -190,24 +191,11 @@ class ReRoute extends GetView<ReRouteController> {
           child: Stack(
             children: [
               Positioned(
-                  top: -50.h,
-                  right: 0.w,
-                  child: Container(
-                    child: Image.asset(
-                      AppEraAssets.eraPh,
-                      width: 200.w,
-                      height: 260.h,
-                      fit: BoxFit.cover,
-                    ),
-                  )),
-              sbw10(),
-              Positioned(
                 top: 0,
-                left: 0,
                 right: 0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     _buildLinkText(
                         text:
@@ -228,6 +216,18 @@ class ReRoute extends GetView<ReRouteController> {
                   ],
                 ),
               ),
+              Positioned(
+                  top: -20.h,
+                  left: 0.w,
+                  child: Container(
+                    child: Image.asset(
+                      AppEraAssets.eraPh,
+                      width: 200.w,
+                      height: 260.h,
+                      fit: BoxFit.cover,
+                    ),
+                  )),
+              sbw10(),
             ],
           ),
         ),

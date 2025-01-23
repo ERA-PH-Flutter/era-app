@@ -34,73 +34,73 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
       width: Get.width,
       child: Column(
         children: [
-          FutureBuilder(
-              future: FirebaseFirestore.instance
-                  .collection('cms')
-                  .doc('find_agents')
-                  .get(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var data = snapshot.data!.data()!;
-                  if (data['type'] == "image") {
-                    return CloudStorage().imageLoader(
-                        reference: data['link'],
-                        fit: BoxFit.cover,
-                        width: Get.width);
-                  } else if (data['type'] == "youtube") {
-                    var url = data['link'].toString();
-                    // String? url = data['link'].toString();
-                    // //  controller.youtubePlayerController =
+          // FutureBuilder(
+          //     future: FirebaseFirestore.instance
+          //         .collection('cms')
+          //         .doc('find_agents')
+          //         .get(),
+          //     builder: (context, snapshot) {
+          //       if (snapshot.hasData) {
+          //         var data = snapshot.data!.data()!;
+          //         if (data['type'] == "image") {
+          //           return CloudStorage().imageLoader(
+          //               reference: data['link'],
+          //               fit: BoxFit.cover,
+          //               width: Get.width);
+          //         } else if (data['type'] == "youtube") {
+          //           var url = data['link'].toString();
+          //           // String? url = data['link'].toString();
+          //           // //  controller.youtubePlayerController =
 
-                    // //  String? videoId = YoutubePlayer.convertUrlToId(url);
-                    // print("videoId : $url");
-                    // YoutubePlayerController(
-                    //   params: YoutubePlayerParams(
-                    //     // playlist: [videoId!],
+          //           // //  String? videoId = YoutubePlayer.convertUrlToId(url);
+          //           // print("videoId : $url");
+          //           // YoutubePlayerController(
+          //           //   params: YoutubePlayerParams(
+          //           //     // playlist: [videoId!],
 
-                    //     showControls: true,
-                    //     showFullscreenButton: true,
-                    //     //       autoPlay: false,
-                    //     mute: false,
-                    //   ),
-                    // );
-                    // YoutubePlayerController.fromVideoId(
-                    //   videoId: url,
-                    //   params:
-                    //       const YoutubePlayerParams(showFullscreenButton: true),
-                    //   autoPlay: false,
+          //           //     showControls: true,
+          //           //     showFullscreenButton: true,
+          //           //     //       autoPlay: false,
+          //           //     mute: false,
+          //           //   ),
+          //           // );
+          //           // YoutubePlayerController.fromVideoId(
+          //           //   videoId: url,
+          //           //   params:
+          //           //       const YoutubePlayerParams(showFullscreenButton: true),
+          //           //   autoPlay: false,
 
-                    // );
-                    String? videoId = YoutubePlayer.convertUrlToId(url);
-                    print("videoId : $videoId");
-                    controller.youtubePlayerController =
-                        YoutubePlayerController(
-                      initialVideoId: videoId!,
-                      flags: YoutubePlayerFlags(
-                        enableCaption: false,
-                        autoPlay: false,
-                        mute: false,
-                        forceHD: true,
-                      ),
-                    );
-                    return YoutubePlayer(
-                      controller: controller.youtubePlayerController,
-                      bottomActions: const [
-                        CurrentPosition(),
-                        ProgressBar(isExpanded: true),
-                        RemainingDuration(),
-                      ],
-                    );
-                  }
+          //           // );
+          //           String? videoId = YoutubePlayer.convertUrlToId(url);
+          //           print("videoId : $videoId");
+          //           controller.youtubePlayerController =
+          //               YoutubePlayerController(
+          //             initialVideoId: videoId!,
+          //             flags: YoutubePlayerFlags(
+          //               enableCaption: false,
+          //               autoPlay: false,
+          //               mute: false,
+          //               forceHD: true,
+          //             ),
+          //           );
+          //           return YoutubePlayer(
+          //             controller: controller.youtubePlayerController,
+          //             bottomActions: const [
+          //               CurrentPosition(),
+          //               ProgressBar(isExpanded: true),
+          //               RemainingDuration(),
+          //             ],
+          //           );
+          //         }
 
-                  //  CloudStorage().uploadFromMemory(
-                  //   file: snapshot.data!['link'],
-                  //   target: 'find_agents',
-                  //   customeName: 'cms',
-                  //   );
-                }
-                return Screens.loading();
-              }),
+          //         //  CloudStorage().uploadFromMemory(
+          //         //   file: snapshot.data!['link'],
+          //         //   target: 'find_agents',
+          //         //   customeName: 'cms',
+          //         //   );
+          //       }
+          //       return Screens.loading();
+          //     }),
           // Stack(
           //   children: [
           //     // Image.network(
@@ -178,7 +178,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                         controller.aiObs.value = value;
                                       },
                                       controller: searchResultController
-                                          .aiSearchController,
+                                          .aiSearchAgentsController,
                                       hint: 'Use AI Search',
                                       svgIcon: AppEraAssets.ai3,
                                       bgColor: AppColors.white,
@@ -187,7 +187,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                       onSuffixTap: () async {
                                         await controller.aiSearch(
                                             searchResultController
-                                                .aiSearchController.text);
+                                                .aiSearchAgentsController.text);
                                       },
                                       suffixIcons: AppEraAssets.send)),
                             ),
@@ -320,7 +320,7 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
                                                       controller.agentName
                                                           .clear();
                                                       searchResultController
-                                                          .aiSearchController
+                                                          .aiSearchAgentsController
                                                           .clear();
                                                     },
                                                     icon: Icon(Icons.clear),
