@@ -403,6 +403,7 @@ class EditPropertyAdmin extends GetView<ListingsController> {
                               type: "listing")
                           .add();
                       BaseController().showSuccessDialog(
+                          okayButton: 'Close',
                           description: "Edit Listing Success",
                           hitApi: () {
                             Get.back();

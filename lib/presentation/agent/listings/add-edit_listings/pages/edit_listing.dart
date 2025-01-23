@@ -562,6 +562,7 @@ class EditListing extends GetView<AddListingsController> {
         Button.button2(390.w, 50.h, () async {
           controller.updateListing();
           BaseController().showSuccessDialog(
+              okayButton: 'Close',
               description: "Edit Listing Success",
               hitApi: () {
                 Get.back();

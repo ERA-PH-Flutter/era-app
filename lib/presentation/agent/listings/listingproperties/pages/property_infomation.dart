@@ -680,10 +680,12 @@ class PropertyInformation extends GetView<ListingController> {
             iconsWidgets(
                 AppEraAssets.money2,
                 listing.ppsqm! >= 1000000
-                    ? '${(listing.ppsqm! / 1000000)}M'
+                    ? '${(listing.ppsqm! / 1000000).toStringAsFixed(0)}M'
                     : listing.ppsqm! >= 1000
-                        ? '${(listing.ppsqm! / 1000)}K'
-                        : '${listing.ppsqm}'),
+                        ? '${(listing.ppsqm! / 1000).toStringAsFixed(0)}K'
+                        : listing.ppsqm! >= 0
+                            ? (listing.ppsqm!).toStringAsFixed(0)
+                            : '${(listing.ppsqm!)}'),
             iconsWidgets(
               AppEraAssets.area,
               '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',

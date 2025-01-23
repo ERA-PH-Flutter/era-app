@@ -81,7 +81,7 @@ class LoginPageController extends GetxController with BaseController {
         selectedIndex.value = 0;
         pageViewController = PageController(initialPage: 0);
         Get.offAll(BaseScaffold(), binding: HomeBinding());
-      } else if (user!.status == "pending") {
+      } else if (user!.status == "disabled") {
         await FirebaseAuth.instance.signOut();
         user = null;
         showSuccessDialog(
@@ -89,9 +89,9 @@ class LoginPageController extends GetxController with BaseController {
               Get.back();
               Get.back();
             },
-            title: "Account Pending",
-            description:
-                "Wait for ERA Admin to approve and review your account!");
+            okayButton: "Close",
+            title: "Pending for Approval",
+            description: "Wait for the ERA Admin to approve your account.");
       } else {
         await FirebaseAuth.instance.signOut();
         user = null;
@@ -100,6 +100,7 @@ class LoginPageController extends GetxController with BaseController {
               Get.back();
               Get.back();
             },
+            okayButton: "Close",
             title: "Failed",
             description: "Account is deleted or Block by admin!");
       }
@@ -157,7 +158,6 @@ class LoginPageController extends GetxController with BaseController {
             transaction: selectedTransaction.value,
             pastTransaction: selectedTransaction.value,
             specialization: selectedSpeciality.value);
-
         await Authentication().logout();
         if (result != null) {
           await user.add();
