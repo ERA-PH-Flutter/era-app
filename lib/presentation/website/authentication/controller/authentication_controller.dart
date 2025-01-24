@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
-import 'package:eraphilippines/presentation/website/authentication.dart';
-import 'package:eraphilippines/repository/user.dart';
+import 'package:eraphilippines/presentation/website/authentication/pages/login_web.dart';
+ import 'package:eraphilippines/repository/user.dart';
 
 import 'package:flutter/cupertino.dart';
 
@@ -35,7 +35,7 @@ class AuthenticationWebController extends GetxController with BaseController {
   List<String> genderType = ['Female', 'Male'];
   List<String> educationType = ['High School', 'College', 'Masters', 'PhD'];
   List<String> statusType = [
-    'License Broker',
+    'Licensed Broker',
     'Accredited Salesperson',
     'No license',
   ];

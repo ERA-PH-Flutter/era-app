@@ -17,249 +17,212 @@ import '../../../../app/widgets/app_text.dart';
 import '../../../../app/widgets/button.dart';
 import '../../../../app/widgets/createaccount_widget.dart';
 
+import '../../../agent/utility/controller/base_controller.dart';
+
 createAccountWeb({
   required AuthenticationWebController controller,
 }) {
   showDialog(
       context: Get.context!,
       builder: (context) {
+        var formKey = GlobalKey<FormState>();
         return Dialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           insetPadding: EdgeInsets.symmetric(
             horizontal: EraTheme.paddingWidthAdmin * 6,
           ),
-          child: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(AppEraAssets.bgWeb), fit: BoxFit.cover)),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: EraTheme.paddingWidthAdmin * 3),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+          child: Form(
+            key: formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(AppEraAssets.bgWeb),
+                      fit: BoxFit.cover)),
+              child: Stack(
                 children: [
-                  sb70(),
-                  EraText(
-                    text: 'CREATE ACCOUNT',
-                    color: AppColors.kRedColor,
-                    fontSize: EraTheme.subHeaderWeb,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  signInWidget(),
-                  sb10(),
-                  EraText(
-                    text: 'Already have an account? Sign in here',
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SharedWidgets.textFormfield(
-                          controller: controller.firstName,
-                          hintText: 'First Name',
-                        ),
-                      ),
-                      sbw20(),
-                      Expanded(
-                        child: SharedWidgets.textFormfield(
-                          controller: controller.lastName,
-                          hintText: 'Last Name',
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SharedWidgets.textFormfield(
-                          controller: controller.age,
-                          hintText: 'Age',
-                        ),
-                      ),
-                      sbw20(),
-                      Expanded(
-                        child: SharedWidgets.textFormfield(
-                          controller: controller.email,
-                          hintText: 'Gender',
-                        ),
-                      ),
-                    ],
-                  ),
-                  sb20(),
-                  IntlPhoneField(
-                    pickerDialogStyle: PickerDialogStyle(
-                        backgroundColor: Colors.white, width: Get.width),
-                    focusNode: FocusNode(),
-                    style: TextStyle(
-                      color: AppColors.hint,
-                      background: Paint()..color = AppColors.white,
-                    ),
-                    decoration: InputDecoration(
-                      fillColor: AppColors.white,
-                      filled: true,
-                      labelText: 'Phone Number',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    keyboardType: TextInputType.phone,
-                    //    controller: controller.contactNo,
-                    initialCountryCode: 'PH',
-                    onChanged: (phone) {
-                      //     controller.contactNo.text = phone.number;
-
-                      //    controller.fullContactNo.value =
-                      '${phone.countryCode}${phone.number}';
-                    },
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Obx(
-                          () => TextFormField(
-                            obscureText: !controller.passwordVisible.value,
-                            controller: controller.password,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    controller.passwordVisible.value =
-                                        !controller.passwordVisible.value;
-                                  },
-                                  icon: Icon(controller.passwordVisible.value
-                                      ? CupertinoIcons.eye_fill
-                                      : CupertinoIcons.eye_slash_fill)),
-                              hintText: 'Password',
-                              hintStyle: TextStyle(
-                                  color: AppColors.hint, fontSize: 18.sp),
-                              labelStyle: TextStyle(color: AppColors.hint),
-                              filled: false,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: AppColors.hint),
+                  Positioned(
+                      top: 10,
+                      left: 10,
+                      child: IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(Icons.clear))),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: EraTheme.paddingWidthAdmin * 3),
+                    child: Stack(
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            sb70(),
+                            EraText(
+                              text: 'CREATE ACCOUNT',
+                              color: AppColors.kRedColor,
+                              fontSize: EraTheme.subHeaderWeb,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            signInWidget(),
+                            sb10(),
+                            EraText(
+                              text: 'Already have an account? Sign in here',
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: SharedWidgets.textFormfield(
+                                      controller: controller.firstName,
+                                      labelText: 'First Name'),
+                                ),
+                                sbw20(),
+                                Expanded(
+                                  flex: 1,
+                                  child: SharedWidgets.textFormfield(
+                                      controller: controller.lastName,
+                                      labelText: 'Last Name'),
+                                ),
+                              ],
+                            ),
+                            sb20(),
+                            IntlPhoneField(
+                              pickerDialogStyle:
+                                  PickerDialogStyle(width: Get.width),
+                              focusNode: FocusNode(),
+                              style: TextStyle(
+                                color: AppColors.hint,
+                                background: Paint()..color = AppColors.white,
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: AppColors.hint),
+                              decoration: InputDecoration(
+                                fillColor: AppColors.white,
+                                filled: true,
+                                labelText: 'Phone Number',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              keyboardType: TextInputType.number,
+                              //    controller: controller.contactNo,
+                              initialCountryCode: 'PH',
+                              onChanged: (phone) {
+                                //     controller.contactNo.text = phone.number;
+
+                                //    controller.fullContactNo.value =
+                                '${phone.countryCode}${phone.number}';
+                              },
+                            ),
+                            sb20(),
+                            Obx(
+                              () => TextFormField(
+                                validator: (value) {
+                                  if (value!.length < 10) {
+                                    return 'Use at least 10 characters';
+                                  }
+                                },
+                                obscureText: !controller.passwordVisible.value,
+                                controller: controller.password,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        controller.passwordVisible.value =
+                                            !controller.passwordVisible.value;
+                                      },
+                                      icon: Icon(
+                                          controller.passwordVisible.value
+                                              ? CupertinoIcons.eye_fill
+                                              : CupertinoIcons.eye_slash_fill)),
+                                  labelText: 'Password',
+                                  labelStyle: TextStyle(
+                                      color: AppColors.hint, fontSize: 18.sp),
+                                  filled: false,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide:
+                                        BorderSide(color: AppColors.hint),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide:
+                                        BorderSide(color: AppColors.hint),
+                                  ),
+                                ),
+                                keyboardType: TextInputType.none,
+                                // textInputAction: TextInputAction.newline,
                               ),
                             ),
-                            keyboardType: TextInputType.none,
-                            // textInputAction: TextInputAction.newline,
-                          ),
-                        ),
-                      ),
-                      sbw20(),
-                      Expanded(
-                        flex: 1,
-                        child: Obx(
-                          () => TextFormField(
-                            obscureText:
-                                !controller.confirmPasswordVisible.value,
-                            controller: controller.passwordC,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    controller.confirmPasswordVisible.value =
-                                        !controller
-                                            .confirmPasswordVisible.value;
-                                  },
-                                  icon: Icon(
-                                      controller.confirmPasswordVisible.value
-                                          ? CupertinoIcons.eye_fill
-                                          : CupertinoIcons.eye_slash_fill)),
-                              hintText: 'Password',
-                              hintStyle: TextStyle(
-                                  color: AppColors.hint, fontSize: 18.sp),
-                              labelStyle: TextStyle(color: AppColors.hint),
-                              filled: false,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: AppColors.hint),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: AppColors.hint),
-                              ),
+                            sbw20(),
+                            SharedWidgets.textFormfield(
+                                validator: (value) {
+                                  if (!RegExp(
+                                          r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                                      .hasMatch(value!)) {
+                                    return 'Enter a valid email address';
+                                  }
+                                  return null;
+                                },
+                                labelText: 'Email Address',
+                                controller: controller.emailAd),
+                            sb50(),
+                            Button(
+                              margin: EdgeInsets.zero,
+                              width: Get.width,
+                              bgColor: AppColors.kRedColor,
+                              text: 'CONTINUE',
+                              fontSize: EraTheme.paragraphWeb,
+                              fontWeight: FontWeight.w600,
+                              onTap: () {
+                                if (controller.firstName.text.isEmpty) {
+                                  AddListings.showErroDialogs(
+                                    title: "Error",
+                                    description: "All fields are required!",
+                                  );
+                                  return;
+                                }
+
+                                if (controller.lastName.text.isEmpty) {
+                                  AddListings.showErroDialogs(
+                                    title: "Error",
+                                    description: "All fields are required!",
+                                  );
+                                  return;
+                                }
+
+                                if (controller.password.text.isEmpty) {
+                                  AddListings.showErroDialogs(
+                                    title: "Error",
+                                    description: "All fields are required!",
+                                  );
+                                  return;
+                                }
+
+                                if (controller.emailAd.text.isEmpty) {
+                                  AddListings.showErroDialogs(
+                                    title: "Error",
+                                    description: "All fields are required!",
+                                  );
+                                  return;
+                                }
+                                if (formKey.currentState!.validate()) {
+                                  createAccountNextPage(controller: controller);
+                                } else {
+                                  BaseController().showSuccessDialog(
+                                      okayButton: 'Close',
+                                      title: 'Error',
+                                      description:
+                                          'Please correct the errors in the form before continuing.');
+                                }
+                              },
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            keyboardType: TextInputType.none,
-                            // textInputAction: TextInputAction.newline,
-                          ),
+                            sb50(),
+                          ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  SharedWidgets.textFormfield(
-                      hintText: 'Email Address',
-                      controller: controller.emailAd),
-                  sb50(),
-                  Button(
-                    margin: EdgeInsets.zero,
-                    width: Get.width,
-                    bgColor: AppColors.kRedColor,
-                    text: 'CONTINUE',
-                    fontSize: EraTheme.paragraphWeb,
-                    fontWeight: FontWeight.w600,
-                    onTap: () {
-                      // if (controller.firstName.text.isEmpty) {
-                      //   AddListings.showErroDialogs(
-                      //     title: "Error",
-                      //     description: "All fields are required!",
-                      //   );
-                      //   return;
-                      // }
-
-                      // if (controller.lastName.text.isEmpty) {
-                      //   AddListings.showErroDialogs(
-                      //     title: "Error",
-                      //     description: "All fields are required!",
-                      //   );
-                      //   return;
-                      // }
-
-                      // if (controller.passwordC.text.isEmpty) {
-                      //   AddListings.showErroDialogs(
-                      //     title: "Error",
-                      //     description: "All fields are required!",
-                      //   );
-                      //   return;
-                      // }
-
-                      // if (controller.age.text.isEmpty) {
-                      //   AddListings.showErroDialogs(
-                      //     title: "Error",
-                      //     description: "All fields are required!",
-                      //   );
-                      //   return;
-                      // }
-
-                      // if (controller.selectedGender.value == null) {
-                      //   AddListings.showErroDialogs(
-                      //     title: "Error",
-                      //     description: "All fields are required!",
-                      //   );
-                      //   return;
-                      // }
-
-                      // if (controller.contactNo.text.isEmpty) {
-                      //   AddListings.showErroDialogs(
-                      //     title: "Error",
-                      //     description: "All fields are required!",
-                      //   );
-                      //   return;
-                      // }
-
-                      // if (controller.emailAd.text.isEmpty) {
-                      //   AddListings.showErroDialogs(
-                      //     title: "Error",
-                      //     description: "All fields are required!",
-                      //   );
-                      //   return;
-                      // }
-                      createAccountNextPage(controller: controller);
-                    },
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  sb50(),
                 ],
               ),
             ),
@@ -327,7 +290,7 @@ void createAccountNextPage({required AuthenticationWebController controller}) {
                             child: SharedWidgets.textFormfield(
                                 name: 'N/A if not applicable',
                                 textInputType: TextInputType.text,
-                                hintText: 'Who is your Recruiter? ',
+                                labelText: 'Who is your Recruiter? ',
                                 controller: controller.recruiter),
                           ),
                           sbw10(),
@@ -335,7 +298,7 @@ void createAccountNextPage({required AuthenticationWebController controller}) {
                             flex: 1,
                             child: SharedWidgets.textFormfield(
                                 textInputType: TextInputType.number,
-                                hintText: 'Years of Experience',
+                                labelText: 'Years of Experience',
                                 controller: controller.experience),
                           ),
                         ],
@@ -382,65 +345,12 @@ void createAccountNextPage({required AuthenticationWebController controller}) {
                         fontSize: EraTheme.paragraphWeb,
                         fontWeight: FontWeight.w600,
                         onTap: () {
-                          // if (controller.selectedStatus.value == null) {
-                          //   AddListings.showErroDialogs(
-                          //     title: "Error",
-                          //     description: "All fields are required!",
-                          //   );
-                          //   return;
-                          // }
-
-                          // if (controller.recruiter.text.isEmpty) {
-                          //   AddListings.showErroDialogs(
-                          //     title: "Error",
-                          //     description: "All fields are required!",
-                          //   );
-                          //   return;
-                          // }
-
-                          // if (controller.selectedEducation.value == null) {
-                          //   AddListings.showErroDialogs(
-                          //     title: "Error",
-                          //     description: "All fields are required!",
-                          //   );
-                          //   return;
-                          // }
-                          // if (controller.experience.text.isEmpty) {
-                          //   AddListings.showErroDialogs(
-                          //     title: "Error",
-                          //     description: "All fields are required!",
-                          //   );
-                          //   return;
-                          // }
-                          // if (controller.selectedTransaction.value == null) {
-                          //   AddListings.showErroDialogs(
-                          //     title: "Error",
-                          //     description:
-                          //         "All fields are required! Only Description is optional",
-                          //   );
-                          //   return;
-                          // }
-                          // if (controller.selectedTransaction5years.value ==
-                          //     null) {
-                          //   AddListings.showErroDialogs(
-                          //     title: "Error",
-                          //     description:
-                          //         "All fields are required! Only Description is optional",
-                          //   );
-                          //   return;
-                          // }
-                          // if (controller.selectedSpeciality.value == null) {
-                          //   AddListings.showErroDialogs(
-                          //     title: "Error",
-                          //     description:
-                          //         "All fields are required! Only Description is optional",
-                          //   );
-                          //   return;
-                          // }
-                          // controller.signUp();
+                         
                           if (controller.formKey.currentState!.validate()) {
                             if (controller.emailAd.value.text.isEmpty ||
-                                controller.passwordC.value.text.isEmpty) {
+                                controller.password.value.text.isEmpty ||
+                                controller.lastName.text.isEmpty ||
+                                controller.firstName.text.isEmpty) {
                               AddListings.showErroDialogs(
                                 title: "Error",
                                 description:

@@ -1,4 +1,5 @@
 // shared_widgets.dart
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,18 +8,23 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 
 class SharedWidgets {
-  static Widget textFormfield(
-      {String? hintText,
-      TextInputType? textInputType,
-      String? name,
-      TextEditingController? controller,
-      int? MaxLines = 1,
-      Function(String)? onChanged}) {
+  static Widget textFormfield({
+    String? hintText,
+    TextInputType? textInputType,
+    String? name,
+    TextEditingController? controller,
+    int? MaxLines = 1,
+    Function(String)? onChanged,
+    String? Function(String?)? validator,
+    String? labelText,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         EraText(text: name ?? "", fontSize: 18.sp, color: AppColors.black),
+        sb10(),
         TextFormField(
+          validator: validator,
           onChanged: onChanged,
           maxLines: MaxLines,
           controller: controller,
@@ -27,6 +33,7 @@ class SharedWidgets {
             hintText: hintText,
             hintStyle: TextStyle(color: AppColors.hint, fontSize: 18.sp),
             labelStyle: TextStyle(color: AppColors.hint),
+            labelText: labelText,
             filled: false,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -130,10 +137,12 @@ class SharedWidgets {
       {RxnString? selectedItem,
       List<String>? Types,
       Function(String?)? onChanged,
+      String? labelText,
       String? hintText}) {
     return Obx(
       () => DropdownButtonFormField<String>(
         decoration: InputDecoration(
+          labelText: labelText,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: AppColors.hint),

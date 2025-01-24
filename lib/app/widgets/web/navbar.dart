@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../presentation/global.dart';
 
-import '../../../presentation/website/authentication.dart';
+ import '../../../presentation/website/authentication/pages/login_web.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
 import '../../constants/theme.dart';
