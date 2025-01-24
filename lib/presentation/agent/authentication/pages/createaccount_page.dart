@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,20 +111,7 @@ class CreateAccount extends GetView<LoginPageController> {
                           ),
                         ),
                         sb20(),
-                        // SharedWidgets.textFormfield(
-                        //   name: 'Age',
-                        //   textInputType: TextInputType.number,
-                        //   hintText: 'Age',
-                        //   controller: controller.age,
-                        // ),
-                        // SizedBox(height: 20.h),
-                        // SharedWidgets.dropDown(
-                        //     controller.selectedGender,
-                        //     controller.genderType,
-                        //     (value) => controller.selectedGender.value = value!,
-                        //     'Gender',
-                        //     'Gender'),
-                        // SizedBox(height: 30.h),
+
                         IntlPhoneField(
                           pickerDialogStyle: PickerDialogStyle(
                               backgroundColor: Colors.white, width: Get.width),
@@ -152,10 +140,19 @@ class CreateAccount extends GetView<LoginPageController> {
                           },
                         ),
                         SharedWidgets.textFormfield(
-                            name: 'example@mail.com',
-                            textInputType: TextInputType.text,
-                            hintText: 'Email Address',
-                            controller: controller.emailAd),
+                          name: 'example@gmail.com',
+                          textInputType: TextInputType.emailAddress,
+                          hintText: 'Email Address',
+                          controller: controller.emailAd,
+                          validator: (value) {
+                            if (!RegExp(
+                                    r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                                .hasMatch(value!)) {
+                              return 'Enter a valid email address';
+                            }
+                            return null;
+                          },
+                        ),
                         sb30(),
                         Button(
                           margin: EdgeInsets.zero,
@@ -196,7 +193,16 @@ class CreateAccount extends GetView<LoginPageController> {
                               );
                               return;
                             }
-                            Get.toNamed('/nextPage');
+                            if (controller.formKey.currentState!.validate()) {
+                              Get.toNamed('/nextPage');
+                            } else {
+                              BaseController().showSuccessDialog(
+                                okayButton: 'Close',
+                                title: "Error",
+                                description:
+                                    "Please correct the errors in the form before continuing.",
+                              );
+                            }
                           },
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -213,3 +219,17 @@ class CreateAccount extends GetView<LoginPageController> {
     );
   }
 }
+    // SharedWidgets.textFormfield(
+                        //   name: 'Age',
+                        //   textInputType: TextInputType.number,
+                        //   hintText: 'Age',
+                        //   controller: controller.age,
+                        // ),
+                        // SizedBox(height: 20.h),
+                        // SharedWidgets.dropDown(
+                        //     controller.selectedGender,
+                        //     controller.genderType,
+                        //     (value) => controller.selectedGender.value = value!,
+                        //     'Gender',
+                        //     'Gender'),
+                        // SizedBox(height: 30.h),

@@ -7,20 +7,21 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 
 class SharedWidgets {
-  static Widget textFormfield({
-    String? hintText,
-    TextInputType? textInputType,
-    String? name,
-    TextEditingController? controller,
-    int? MaxLines = 1,
-    void Function(String)? onChanged,
-  }) {
+  static Widget textFormfield(
+      {String? hintText,
+      TextInputType? textInputType,
+      String? name,
+      TextEditingController? controller,
+      int? MaxLines = 1,
+      void Function(String)? onChanged,
+      String? Function(String?)? validator}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         EraText(text: name ?? "", fontSize: 18.sp, color: AppColors.black),
         TextFormField(
-          onChanged:onChanged ,
+          validator: validator,
+          onChanged: onChanged,
           maxLines: MaxLines,
           controller: controller,
           textInputAction: TextInputAction.newline,

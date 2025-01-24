@@ -82,7 +82,7 @@ class Nextpage extends GetView<LoginPageController> {
                         controller.transaction,
                         (value) =>
                             controller.selectedTransaction.value = value!,
-                        'Total Number of Transaction',
+                        'Total Number of Transactions',
                         ' ',
                       ),
                       SizedBox(height: 20.h),
@@ -91,7 +91,7 @@ class Nextpage extends GetView<LoginPageController> {
                         controller.transaction,
                         (value) =>
                             controller.selectedTransaction5years.value = value!,
-                        'Total Number of Transaction in the Past 5 years',
+                        'Total Number of Transactions in the Past 5 years',
                         ' ',
                       ),
                       SizedBox(height: 20.h),

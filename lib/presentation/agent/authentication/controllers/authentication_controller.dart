@@ -38,10 +38,11 @@ class LoginPageController extends GetxController with BaseController {
   var selectedTransaction5years = RxnString();
   var fullContactNo = ''.obs;
   var formKey = GlobalKey<FormState>();
+
   List<String> genderType = ['Female', 'Male'];
   List<String> educationType = ['High School', 'College', 'Masters', 'PhD'];
   List<String> statusType = [
-    'License Broker',
+    'Licensed Broker',
     'Accredited Salesperson',
     'No license',
   ];
