@@ -50,26 +50,21 @@ class CreateAccount extends GetView<LoginPageController> {
                           children: [
                             Flexible(
                               child: SharedWidgets.textFormfield(
-                                  name: 'First Name',
                                   textInputType: TextInputType.text,
-                                  hintText: 'First Name',
+                                  labelText: 'First Name',
                                   controller: controller.firstName),
                             ),
                             SizedBox(width: 10.w),
                             Flexible(
                               child: SharedWidgets.textFormfield(
-                                  name: 'Last Name',
                                   textInputType: TextInputType.text,
-                                  hintText: 'Last Name',
+                                  labelText: 'Last Name',
                                   controller: controller.lastName),
                             ),
                           ],
                         ),
                         sb20(),
-                        EraText(
-                            text: 'Password',
-                            fontSize: 18.sp,
-                            color: AppColors.black),
+
                         //password
                         Obx(
                           () => TextFormField(
@@ -85,15 +80,14 @@ class CreateAccount extends GetView<LoginPageController> {
                             style: TextStyle(
                                 color: AppColors.black, fontSize: 18.sp),
                             decoration: InputDecoration(
-                              hintText: 'Password',
-                              hintStyle: TextStyle(
+                              labelText: 'Password',
+                              labelStyle: TextStyle(
                                   color: AppColors.hint, fontSize: 18.sp),
-                              labelStyle: TextStyle(color: AppColors.hint),
                               filled: false,
                               suffixIcon: IconButton(
                                 icon: Icon(controller.passwordVisible.value
-                                    ? CupertinoIcons.eye_fill
-                                    : CupertinoIcons.eye_slash_fill),
+                                    ? CupertinoIcons.eye_slash_fill
+                                    : CupertinoIcons.eye_fill),
                                 onPressed: () {
                                   controller.passwordVisible.value =
                                       !controller.passwordVisible.value;
@@ -110,7 +104,21 @@ class CreateAccount extends GetView<LoginPageController> {
                             ),
                           ),
                         ),
-                        sb20(),
+
+                        SharedWidgets.textFormfield(
+                          textInputType: TextInputType.emailAddress,
+                          labelText: 'Email Address',
+                          controller: controller.emailAd,
+                          validator: (value) {
+                            if (!RegExp(
+                                    r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                                .hasMatch(value!)) {
+                              return 'Enter a valid email address';
+                            }
+                            return null;
+                          },
+                        ),
+                        sb30(),
 
                         IntlPhoneField(
                           pickerDialogStyle: PickerDialogStyle(
@@ -139,20 +147,7 @@ class CreateAccount extends GetView<LoginPageController> {
                                 '${phone.countryCode}${phone.number}';
                           },
                         ),
-                        SharedWidgets.textFormfield(
-                          name: 'example@gmail.com',
-                          textInputType: TextInputType.emailAddress,
-                          hintText: 'Email Address',
-                          controller: controller.emailAd,
-                          validator: (value) {
-                            if (!RegExp(
-                                    r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
-                                .hasMatch(value!)) {
-                              return 'Enter a valid email address';
-                            }
-                            return null;
-                          },
-                        ),
+
                         sb30(),
                         Button(
                           margin: EdgeInsets.zero,

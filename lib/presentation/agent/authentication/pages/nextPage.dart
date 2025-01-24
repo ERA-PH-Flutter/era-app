@@ -50,17 +50,15 @@ class Nextpage extends GetView<LoginPageController> {
                     children: [
                       SizedBox(height: 20.h),
                       SharedWidgets.dropDown(
-                        controller.selectedStatus,
-                        controller.statusType,
-                        (value) => controller.selectedStatus.value = value!,
-                        'What is your Status',
-                        'What is your Status',
-                      ),
+                          controller.selectedStatus,
+                          controller.statusType,
+                          (value) => controller.selectedStatus.value = value!,
+                          'What is your Status'),
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
                           name: 'Who is your Recruiter',
                           textInputType: TextInputType.text,
-                          hintText: 'N/A if not applicable',
+                          labelText: 'N/A if not applicable',
                           controller: controller.recruiter),
                       SizedBox(height: 20.h),
                       SharedWidgets.dropDown(
@@ -68,13 +66,12 @@ class Nextpage extends GetView<LoginPageController> {
                         controller.educationType,
                         (value) => controller.selectedEducation.value = value!,
                         'Highest Education Level',
-                        'Highest Education Level',
                       ),
                       SizedBox(height: 20.h),
                       SharedWidgets.textFormfield(
                           name: 'Years of Experience',
                           textInputType: TextInputType.number,
-                          hintText: 'Years of Experience',
+                          labelText: 'Experience (in years)',
                           controller: controller.experience),
                       SizedBox(height: 20.h),
                       SharedWidgets.dropDown(
@@ -83,7 +80,6 @@ class Nextpage extends GetView<LoginPageController> {
                         (value) =>
                             controller.selectedTransaction.value = value!,
                         'Total Number of Transactions',
-                        ' ',
                       ),
                       SizedBox(height: 20.h),
                       SharedWidgets.dropDown(
@@ -92,14 +88,12 @@ class Nextpage extends GetView<LoginPageController> {
                         (value) =>
                             controller.selectedTransaction5years.value = value!,
                         'Total Number of Transactions in the Past 5 years',
-                        ' ',
                       ),
                       SizedBox(height: 20.h),
                       SharedWidgets.dropDown(
                         controller.selectedSpeciality,
                         controller.specialityType,
                         (value) => controller.selectedSpeciality.value = value!,
-                        'Specialization',
                         'Specialization',
                       ),
                       sb30(),

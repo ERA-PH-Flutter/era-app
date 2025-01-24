@@ -84,11 +84,11 @@ class PropertyTypeFilter extends StatelessWidget {
     return Column(
       children: [
         SharedWidgets.dropDown(
-            selectedPropertySubCategory,
-            subCategory,
-            (value) => selectedPropertySubCategory.value = value!,
-            'Subcategory',
-            'Subcategory'),
+          selectedPropertySubCategory,
+          subCategory,
+          (value) => selectedPropertySubCategory.value = value!,
+          'Subcategory',
+        ),
       ],
     );
   }
