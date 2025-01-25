@@ -54,7 +54,7 @@ class CompanyNewsPageWeb extends GetView<NewsWebPageController> {
 
               ///  _buildGridView(),
               sb50(),
-              AboutUsWeb.buildJoinUsSection(),
+              //        AboutUsWeb.buildJoinUsSection(),
 
               //                     child: Row(
               //                       mainAxisAlignment: MainAxisAlignment.end,

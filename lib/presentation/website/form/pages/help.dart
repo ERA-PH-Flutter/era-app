@@ -34,7 +34,7 @@ class HelpWeb extends GetView<FormWebController> {
             sb50(),
             _buildContactUsSection(),
             sb80(),
-            AboutUsWeb.buildJoinUsSection(),
+          //  AboutUsWeb.buildJoinUsSection(),
           ],
         ),
       ),

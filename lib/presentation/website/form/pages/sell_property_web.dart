@@ -10,7 +10,6 @@ import '../../../../app/constants/colors.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/button.dart';
 import '../../../../app/widgets/createaccount_widget.dart';
-import 'about_us_web.dart';
 
 class SellPropertyWeb extends GetView<FormWebController> {
   const SellPropertyWeb({super.key});
@@ -198,7 +197,7 @@ class SellPropertyWeb extends GetView<FormWebController> {
                                   ],
                                 ),
                                 sb50(),
-                                AboutUsWeb.buildJoinUsSection(),
+                                //             AboutUsWeb.buildJoinUsSection(),
                               ],
                             )
                             // Padding(
