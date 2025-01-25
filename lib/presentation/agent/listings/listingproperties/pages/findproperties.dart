@@ -2,9 +2,12 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/ai_search.dart';
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
+import 'package:eraphilippines/app/widgets/find_properties_search_box.dart';
 import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/listing_controller.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -40,8 +43,7 @@ class FindProperties extends GetView<FindpropertiesController> {
           return Future.value(false);
         },
         child: SingleChildScrollView(
-                  controller: controller.scrollController,
-
+          controller: controller.scrollController,
           scrollDirection: Axis.vertical,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidth),
@@ -60,7 +62,7 @@ class FindProperties extends GetView<FindpropertiesController> {
                 SizedBox(
                   height: 10.h,
                 ),
-                FilteredSearchBox(),
+                FindPropertiesSearchBox(),
                 SizedBox(height: 10.h),
                 Obx(() {
                   return controller.quickLinks.value;
@@ -89,6 +91,7 @@ class FindProperties extends GetView<FindpropertiesController> {
 
   _loaded() {
     return SingleChildScrollView(
+      controller: controller.scrollController,
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
