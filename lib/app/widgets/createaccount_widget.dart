@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 
+import '../constants/sized_box.dart';
+
 class SharedWidgets {
   static Widget textFormfield({
     String? hintText,
@@ -14,17 +16,22 @@ class SharedWidgets {
     TextEditingController? controller,
     int? MaxLines = 1,
     void Function(String)? onChanged,
+    String? Function(String?)? validator,
+    String? labelText,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         EraText(text: name ?? "", fontSize: 18.sp, color: AppColors.black),
+        sb10(),
         TextFormField(
+          validator: validator,
           onChanged: onChanged,
           maxLines: MaxLines,
           controller: controller,
           textInputAction: TextInputAction.newline,
           decoration: InputDecoration(
+            labelText: labelText,
             hintText: hintText,
             hintStyle: TextStyle(color: AppColors.hint, fontSize: 18.sp),
             labelStyle: TextStyle(color: AppColors.hint),
@@ -76,7 +83,7 @@ class SharedWidgets {
 
   // ignore: non_constant_identifier_names
   static Widget dropDown(RxnString selectedItem, List<String> Types,
-      Function(String?) onChanged, String name, String hintText) {
+      Function(String?) onChanged, String name) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -102,15 +109,6 @@ class SharedWidgets {
             iconEnabledColor: Colors.black,
             isExpanded: true,
             isDense: true,
-            hint: Align(
-              alignment: Alignment.centerLeft,
-              child: EraText(
-                text: hintText,
-                textAlign: TextAlign.center,
-                color: Colors.grey,
-                fontSize: 20.sp,
-              ),
-            ),
             items: Types.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,

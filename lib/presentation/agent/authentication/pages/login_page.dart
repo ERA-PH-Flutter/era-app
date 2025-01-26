@@ -203,11 +203,11 @@ class LoginPage extends GetView<LoginPageController> {
                                                                           Get.back();
                                                                         },
                                                                         title:
-                                                                            "Email Sent!",
+                                                                            "Email Sent",
                                                                         description:
-                                                                            "Reset password link has been sent to your email.",
+                                                                            "A reset password link has been sent to your email. Please check your inbox.",
                                                                         okayButton:
-                                                                            "Okay");
+                                                                            "Close");
                                                               } catch (e) {
                                                                 BaseController()
                                                                     .showErroDialog(

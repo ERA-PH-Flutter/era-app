@@ -1,19 +1,14 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
-
 import 'package:eraphilippines/app/services/firebase_database.dart';
-
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/company/company_items.dart';
 import 'package:eraphilippines/app/widgets/company/companynews_page.dart';
-
 import 'package:eraphilippines/app/widgets/listings/properties_widgets.dart';
-
 import 'package:eraphilippines/presentation/agent/forms/contacts/pages/join_era.dart';
 import 'package:eraphilippines/presentation/agent/projects/pages/projectmain.dart';
 import 'package:eraphilippines/repository/listing.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,7 +20,6 @@ import '../../../../app/constants/sized_box.dart';
 import '../../../../app/constants/strings.dart';
 import '../../../../app/constants/theme.dart';
 import '../../../../app/widgets/filteredsearch_box.dart';
-
 import '../../../../app/widgets/image/image_widget.dart';
 import '../../../global.dart';
 import '../controllers/home_controller.dart';
@@ -102,7 +96,8 @@ class Home extends GetView<HomeController> {
                     alignment: Alignment.center,
                     child: GestureDetector(
                       onTap: () {
-                        controller.prevImage();
+                        // controller.
+                        // controller.prevImage();
                         controller.innerController.previousPage();
                       },
                       child: Image.asset(
@@ -122,7 +117,8 @@ class Home extends GetView<HomeController> {
                     alignment: Alignment.center,
                     child: GestureDetector(
                       onTap: () {
-                        controller.nextImage(controller.images.length);
+                        // controller
+                        //   controller.nextImage(controller.images.length);
                         controller.innerController.nextPage();
                       },
                       child: Image.asset(

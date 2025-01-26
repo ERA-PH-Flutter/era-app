@@ -10,6 +10,7 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/image/image_widget.dart';
 import 'package:eraphilippines/app/widgets/listings/listedBy_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/listing_binding.dart';
 import 'package:eraphilippines/repository/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,12 +36,6 @@ class PropertyInformation extends GetView<ListingController> {
   final FavController favoritesController = Get.put(FavController());
   @override
   Widget build(BuildContext context) {
-    controller.images.clear();
-    listing.photos?.forEach((photo) {
-      if (photo != "") {
-        controller.images.add(photo);
-      }
-    });
     return Scaffold(
       appBar: CustomAppbar(),
       body: SingleChildScrollView(
@@ -397,22 +392,27 @@ class PropertyInformation extends GetView<ListingController> {
                   .where('type', isEqualTo: listing.type)
                   .get(),
               builder: (context, snapshot) {
-                var docs = snapshot.data!.docs;
-                var newDocs = [];
-                for (int i = 0; i < (docs.length < 4 ? docs.length : 4); i++) {
-                  newDocs.add(Listing.fromJSON(docs[i].data()));
-                }
                 if (snapshot.hasData) {
+                  var docs = snapshot.data!.docs;
+                  var newDocs = [];
+                  for (int i = 0;
+                      i < (docs.length < 4 ? docs.length : 4);
+                      i++) {
+                    newDocs.add(Listing.fromJSON(docs[i].data()));
+                  }
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     itemCount: newDocs.length,
                     itemBuilder: (context, index) {
-                      var listing = newDocs[index];
+                      Listing listing = newDocs[index];
                       return GestureDetector(
                         onTap: () async {
-                          await Database().addViews(listing.id);
-                          Get.toNamed('/propertyInfo', arguments: listing);
+                          //await Database().addViews(listing.id);
+                          Get.back();
+
+                          Get.offAndToNamed('/propertyInfo',
+                              arguments: listing);
                         },
                         child: Container(
                           width: 378.w,
@@ -680,11 +680,16 @@ class PropertyInformation extends GetView<ListingController> {
             iconsWidgets(
                 AppEraAssets.money2,
                 listing.ppsqm! >= 1000000
-                    ? '${listing.ppsqm! / 1000000}M'
+                    ? '${(listing.ppsqm! / 1000000).toStringAsFixed(0)}M'
                     : listing.ppsqm! >= 1000
-                        ? '${listing.ppsqm! / 1000}K'
-                        : '${listing.ppsqm}'),
-            iconsWidgets(AppEraAssets.area, '${listing.floorArea} sqm'),
+                        ? '${(listing.ppsqm! / 1000).toStringAsFixed(0)}K'
+                        : listing.ppsqm! >= 0
+                            ? (listing.ppsqm!).toStringAsFixed(0)
+                            : '${(listing.ppsqm!)}'),
+            iconsWidgets(
+              AppEraAssets.area,
+              '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
+            ),
             iconsWidgets(AppEraAssets.bed, '${listing.beds}'),
           ],
         ),
@@ -737,8 +742,15 @@ class PropertyInformation extends GetView<ListingController> {
             shorterSummary(text: 'Baths', text2: '${listing.baths}'),
             shorterSummary(text: 'Garage', text2: '${listing.cars}'),
             shorterSummary(
-                text: 'Floor Area', text2: '${listing.floorArea} sqm'),
-            shorterSummary(text: 'Lot Area', text2: '${listing.lotArea} sqm'),
+              text: 'Floor Area',
+              text2:
+                  '${listing.floorArea!.toStringAsFixed(listing.floorArea!.truncateToDouble() == listing.floorArea ? 0 : 1)} sqm',
+            ),
+            shorterSummary(
+              text: 'Lot Area',
+              text2:
+                  '${listing.lotArea!.toStringAsFixed(listing.lotArea!.truncateToDouble() == listing.lotArea ? 0 : 1)} sqm',
+            ),
             //shorterSummary('Offer Type', listing.type),
             shorterSummary(text: 'View', text2: listing.view ?? "None"),
             shorterSummary(

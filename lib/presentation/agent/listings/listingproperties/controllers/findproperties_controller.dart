@@ -9,7 +9,7 @@ import '../../../../../app/services/local_storage.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../global.dart';
 
-enum SearchResultState {
+enum FindPropertiesState {
   loading,
   loaded,
   error,
@@ -17,9 +17,9 @@ enum SearchResultState {
   searching,
 }
 
-class SearchResultController extends GetxController {
+class FindpropertiesController extends GetxController {
   var store = Get.find<LocalStorageService>();
-  var searchResultState = SearchResultState.loading.obs;
+  var findPropertiesState = FindPropertiesState.loading.obs;
   var aiSearchController = TextEditingController();
   var aiSearchAgentsController = TextEditingController();
 
@@ -71,7 +71,7 @@ class SearchResultController extends GetxController {
   Future<void> initListing() async {
     pageSize = count.value;
 
-    searchResultState.value = SearchResultState.loading;
+    findPropertiesState.value = FindPropertiesState.loading;
     quickLinks.value = await QuickLinksModel().initialize();
     data.clear();
     try {
@@ -92,7 +92,7 @@ class SearchResultController extends GetxController {
         searchQuery.value = Get.arguments[1];
       }
     } catch (e) {
-      searchResultState.value = SearchResultState.error;
+      findPropertiesState.value = FindPropertiesState.error;
     }
   }
 
@@ -105,32 +105,34 @@ class SearchResultController extends GetxController {
     }
     //data.assignAll(loadedData);
     if (data.isEmpty) {
-      searchResultState.value = SearchResultState.empty;
+      findPropertiesState.value = FindPropertiesState.empty;
     } else {
-      searchResultState.value = SearchResultState.loaded;
+      findPropertiesState.value = FindPropertiesState.loaded;
     }
   }
 
   Future searchListingType(String type) async {
-    searchResultState.value = SearchResultState.loading;
+    findPropertiesState.value = FindPropertiesState.loading;
     List<Listing> listings = await AI(query: type).listingSearch();
     data.value = listings;
     searchQuery.value = type.toString();
-    searchResultState.value =
-        listings.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
+    findPropertiesState.value = listings.isEmpty
+        ? FindPropertiesState.empty
+        : FindPropertiesState.loaded;
   }
 
   Future searchListingQuery(
       {required String query,
       List<AiFilters> overrideAiFilters = const []}) async {
-    searchResultState.value = SearchResultState.loading;
+    findPropertiesState.value = FindPropertiesState.loading;
     print('gemini search overrideAiFilters 1 $overrideAiFilters');
 
     List<Listing> listings = await AI(query: query)
         .listingSearch(overrideAiFilters: overrideAiFilters);
     data.value = listings;
     searchQuery.value = query.toString();
-    searchResultState.value =
-        listings.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
+    findPropertiesState.value = listings.isEmpty
+        ? FindPropertiesState.empty
+        : FindPropertiesState.loaded;
   }
 }

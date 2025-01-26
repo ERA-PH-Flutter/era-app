@@ -2,6 +2,7 @@ import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
+import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,26 +50,21 @@ class CreateAccount extends GetView<LoginPageController> {
                           children: [
                             Flexible(
                               child: SharedWidgets.textFormfield(
-                                  name: 'First Name',
                                   textInputType: TextInputType.text,
-                                  hintText: 'First Name',
+                                  labelText: 'First Name',
                                   controller: controller.firstName),
                             ),
                             SizedBox(width: 10.w),
                             Flexible(
                               child: SharedWidgets.textFormfield(
-                                  name: 'Last Name',
                                   textInputType: TextInputType.text,
-                                  hintText: 'Last Name',
+                                  labelText: 'Last Name',
                                   controller: controller.lastName),
                             ),
                           ],
                         ),
                         sb20(),
-                        EraText(
-                            text: 'Password',
-                            fontSize: 18.sp,
-                            color: AppColors.black),
+
                         //password
                         Obx(
                           () => TextFormField(
@@ -84,15 +80,14 @@ class CreateAccount extends GetView<LoginPageController> {
                             style: TextStyle(
                                 color: AppColors.black, fontSize: 18.sp),
                             decoration: InputDecoration(
-                              hintText: 'Password',
-                              hintStyle: TextStyle(
+                              labelText: 'Password',
+                              labelStyle: TextStyle(
                                   color: AppColors.hint, fontSize: 18.sp),
-                              labelStyle: TextStyle(color: AppColors.hint),
                               filled: false,
                               suffixIcon: IconButton(
                                 icon: Icon(controller.passwordVisible.value
-                                    ? CupertinoIcons.eye_fill
-                                    : CupertinoIcons.eye_slash_fill),
+                                    ? CupertinoIcons.eye_slash_fill
+                                    : CupertinoIcons.eye_fill),
                                 onPressed: () {
                                   controller.passwordVisible.value =
                                       !controller.passwordVisible.value;
@@ -109,21 +104,22 @@ class CreateAccount extends GetView<LoginPageController> {
                             ),
                           ),
                         ),
-                        sb20(),
-                        // SharedWidgets.textFormfield(
-                        //   name: 'Age',
-                        //   textInputType: TextInputType.number,
-                        //   hintText: 'Age',
-                        //   controller: controller.age,
-                        // ),
-                        // SizedBox(height: 20.h),
-                        // SharedWidgets.dropDown(
-                        //     controller.selectedGender,
-                        //     controller.genderType,
-                        //     (value) => controller.selectedGender.value = value!,
-                        //     'Gender',
-                        //     'Gender'),
-                        // SizedBox(height: 30.h),
+
+                        SharedWidgets.textFormfield(
+                          textInputType: TextInputType.emailAddress,
+                          labelText: 'Email Address',
+                          controller: controller.emailAd,
+                          validator: (value) {
+                            if (!RegExp(
+                                    r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                                .hasMatch(value!)) {
+                              return 'Enter a valid email address';
+                            }
+                            return null;
+                          },
+                        ),
+                        sb30(),
+
                         IntlPhoneField(
                           pickerDialogStyle: PickerDialogStyle(
                               backgroundColor: Colors.white, width: Get.width),
@@ -151,11 +147,7 @@ class CreateAccount extends GetView<LoginPageController> {
                                 '${phone.countryCode}${phone.number}';
                           },
                         ),
-                        SharedWidgets.textFormfield(
-                            name: 'example@mail.com',
-                            textInputType: TextInputType.text,
-                            hintText: 'Email Address',
-                            controller: controller.emailAd),
+
                         sb30(),
                         Button(
                           margin: EdgeInsets.zero,
@@ -196,7 +188,16 @@ class CreateAccount extends GetView<LoginPageController> {
                               );
                               return;
                             }
-                            Get.toNamed('/nextPage');
+                            if (controller.formKey.currentState!.validate()) {
+                              Get.toNamed('/nextPage');
+                            } else {
+                              BaseController().showSuccessDialog(
+                                okayButton: 'Close',
+                                title: "Error",
+                                description:
+                                    "Please correct the errors in the form before continuing.",
+                              );
+                            }
                           },
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -213,3 +214,17 @@ class CreateAccount extends GetView<LoginPageController> {
     );
   }
 }
+    // SharedWidgets.textFormfield(
+                        //   name: 'Age',
+                        //   textInputType: TextInputType.number,
+                        //   hintText: 'Age',
+                        //   controller: controller.age,
+                        // ),
+                        // SizedBox(height: 20.h),
+                        // SharedWidgets.dropDown(
+                        //     controller.selectedGender,
+                        //     controller.genderType,
+                        //     (value) => controller.selectedGender.value = value!,
+                        //     'Gender',
+                        //     'Gender'),
+                        // SizedBox(height: 30.h),

@@ -6,6 +6,7 @@ import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/filter_options.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
 import 'package:eraphilippines/app/widgets/search_widget.dart';
+import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/findproperties_controller.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,14 +25,15 @@ import '../services/ai_search.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 //ignore: must_be_immutable
-class FilteredSearchBox extends StatefulWidget {
-  const FilteredSearchBox({super.key, this.animateToPage2 = false});
+class FindPropertiesSearchBox extends StatefulWidget {
+  const FindPropertiesSearchBox({super.key, this.animateToPage2 = false});
   final bool animateToPage2;
   @override
-  State<FilteredSearchBox> createState() => _FilteredSearchBoxState();
+  State<FindPropertiesSearchBox> createState() =>
+      _FindPropertiesSearchBoxState();
 }
 
-class _FilteredSearchBoxState extends State<FilteredSearchBox> {
+class _FindPropertiesSearchBoxState extends State<FindPropertiesSearchBox> {
   var formKey = GlobalKey<FormState>();
 
   var showFullSearch = false.obs;
@@ -170,25 +172,13 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
       BaseController().showLoading();
       searchQuery = aiSearchController.text;
       var data = await AI(query: searchQuery).listingSearch();
-      currentRoute = '/searchresult';
-      Get.find<SearchResultController>().searchResultState.value =
-          SearchResultState.loading;
-      Get.find<SearchResultController>().data.value = data;
-      // Get.find<FindpropertiesController>().findPropertiesState.value =
-      //     FindPropertiesState.loading;
-      // Get.find<FindpropertiesController>().data.value = data;
-      // BaseController().hideLoading();
-      selectedIndex.value = 2;
-      pageViewController.animateToPage(
-        2,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+      currentRoute = '/findproperties';
+      Get.find<FindpropertiesController>().findPropertiesState.value =
+          FindPropertiesState.loading;
+      Get.find<FindpropertiesController>().data.value = data;
 
-      Get.find<SearchResultController>().searchResultState.value =
-          data.isEmpty ? SearchResultState.empty : SearchResultState.loaded;
-      // Get.find<FindpropertiesController>().findPropertiesState.value =
-      //     data.isEmpty ? FindPropertiesState.empty : FindPropertiesState.loaded;
+      Get.find<FindpropertiesController>().findPropertiesState.value =
+          data.isEmpty ? FindPropertiesState.empty : FindPropertiesState.loaded;
     } catch (e) {
       print('error AI search $e');
     } finally {
@@ -561,10 +551,10 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             Expanded(
                               flex: 4,
                               child: Obx(() {
-                                if (Get.find<SearchResultController>()
-                                        .searchResultState
+                                if (Get.find<FindpropertiesController>()
+                                        .findPropertiesState
                                         .value ==
-                                    SearchResultState.loading) {
+                                    FindPropertiesState.loading) {
                                   return Screens.loadingTwo();
                                 }
 
@@ -655,11 +645,11 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                         curve: Curves.easeInOut,
                                       );
                                       selectedIndex.value = 2;
-                                      currentRoute = '/searchresult';
+                                      currentRoute = '/findproperties';
                                     }
                                     print(
                                         "gemini search overrideAiFilters ${priceMin.value != "" && priceMax.value != ""}");
-                                    Get.find<SearchResultController>()
+                                    Get.find<FindpropertiesController>()
                                         .searchListingQuery(
                                             query: searchQuery,
                                             overrideAiFilters: [
@@ -742,9 +732,9 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                           ]
                                         ]);
                                   } catch (e) {
-                                    Get.find<SearchResultController>()
-                                        .searchResultState
-                                        .value = SearchResultState.loaded;
+                                    Get.find<FindpropertiesController>()
+                                        .findPropertiesState
+                                        .value = FindPropertiesState.loaded;
                                   } finally {
                                     setState(() {
                                       expanded.value = false;
@@ -773,9 +763,9 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                   child: IconButton(
                                     onPressed: () {
                                       final searchResultController =
-                                          Get.find<SearchResultController>();
+                                          Get.find<FindpropertiesController>();
                                       searchResultController.initListing();
-                                      currentRoute = '/searchresult';
+                                      currentRoute = '/findproperties';
 
                                       selectedPropertyTypeSearch.value = null;
                                       selectedLocation.value = null;

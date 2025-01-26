@@ -295,7 +295,7 @@ class AI {
       bool maxMatch = true;
       bool equalsMatch = true;
       for (int i = 0; i < (prompts.length); i++) {
-        if (prompts[i].field == "name") {
+        if (prompts[i].field == "name" || prompts[i].field == "location") {
           if (data
               .toMap()
               .toString()
@@ -364,15 +364,52 @@ class AI {
     };
     var result = await geminiSearch(data,
         name: "faqSearch", description: 'use the prompt and parse it');
-    Query firebaseQuery = FirebaseFirestore.instance.collection('faq');
+    Query firebaseQuery =
+        FirebaseFirestore.instance.collection('faq').orderBy('type');
+    List<AiFilters> prompts = [];
+
     result!.forEach((key, value) {
-      firebaseQuery = firebaseQuery
-          .where(key, isGreaterThanOrEqualTo: value)
-          .where(key, isLessThanOrEqualTo: '$value\uf8ff')
-          .orderBy('type');
+      prompts.add(AiFilters(field: key, value: value, operator: "contains"));
     });
+    final docs = (await firebaseQuery.get()).docs;
+    final list = docs;
+    if (query.isEmpty) {
+      BaseController().hideLoading();
+
+      return list;
+    }
+    final Map<dynamic, double> filteredData = {};
+
+    for (var faq in list) {
+      double score = 0;
+      bool matchEquals = true;
+
+      for (int i = 0; i < (prompts.length); i++) {
+        if (prompts[i].operator == "contains") {
+          if (faq
+              .data()
+              .toString()
+              .toLowerCase()
+              .contains(prompts[i].value.toString().toLowerCase())) {
+            score++;
+          }
+          continue;
+        }
+      }
+
+      if (score >= 1 && matchEquals) {
+        filteredData[faq] = score;
+      }
+    }
+
+    var sortedEntries = filteredData.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    Map<dynamic, double> sortedScores = {
+      for (var entry in sortedEntries) entry.key: entry.value
+    };
     BaseController().hideLoading();
-    return (await firebaseQuery.get()).docs;
+
+    return sortedScores.keys.toList();
   }
 
   List checkOperator(value) {

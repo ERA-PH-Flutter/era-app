@@ -88,7 +88,7 @@ class PropertyTypeFilter extends StatelessWidget {
             subCategory,
             (value) => selectedPropertySubCategory.value = value!,
             'Subcategory',
-            'Subcategory'),
+            ),
       ],
     );
   }

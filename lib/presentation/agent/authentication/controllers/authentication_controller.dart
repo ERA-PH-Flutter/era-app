@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:io';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/widgets/navigation/customenavigationbar.dart';
@@ -26,9 +28,9 @@ class LoginPageController extends GetxController with BaseController {
   var store = Get.find<LocalStorageService>();
   var text = "".obs;
   var passwordVisible = false.obs;
+  var emailReset = TextEditingController();
   var confirmPasswordVisible = false.obs;
   var selectedGender = RxnString();
-  var emailReset = TextEditingController();
   var selectedEducation = RxnString();
   var selectedStatus = RxnString();
   var selectedSpeciality = RxnString();
@@ -36,10 +38,11 @@ class LoginPageController extends GetxController with BaseController {
   var selectedTransaction5years = RxnString();
   var fullContactNo = ''.obs;
   var formKey = GlobalKey<FormState>();
+
   List<String> genderType = ['Female', 'Male'];
   List<String> educationType = ['High School', 'College', 'Masters', 'PhD'];
   List<String> statusType = [
-    'License Broker',
+    'Licensed Broker',
     'Accredited Salesperson',
     'No license',
   ];
@@ -79,7 +82,7 @@ class LoginPageController extends GetxController with BaseController {
         selectedIndex.value = 0;
         pageViewController = PageController(initialPage: 0);
         Get.offAll(BaseScaffold(), binding: HomeBinding());
-      } else if (user!.status == "pending") {
+      } else if (user!.status == "disabled") {
         await FirebaseAuth.instance.signOut();
         user = null;
         showSuccessDialog(
@@ -87,9 +90,9 @@ class LoginPageController extends GetxController with BaseController {
               Get.back();
               Get.back();
             },
-            title: "Account Pending",
-            description:
-                "Wait for ERA Admin to approve and review your account!");
+            okayButton: "Close",
+            title: "Pending for Approval",
+            description: "Wait for the ERA Admin to approve your account.");
       } else {
         await FirebaseAuth.instance.signOut();
         user = null;
@@ -98,12 +101,12 @@ class LoginPageController extends GetxController with BaseController {
               Get.back();
               Get.back();
             },
+            okayButton: "Close",
             title: "Failed",
             description: "Account is deleted or Block by admin!");
       }
     } else {
       var e = login.toString().split("error -")[0];
-      // ignore: unused_local_variable
       var errorText = "An error occurred.";
       if (e == 'user-not-found') {
         errorText = 'No user found for that email.';
@@ -156,7 +159,6 @@ class LoginPageController extends GetxController with BaseController {
             transaction: selectedTransaction.value,
             pastTransaction: selectedTransaction.value,
             specialization: selectedSpeciality.value);
-
         await Authentication().logout();
         if (result != null) {
           await user.add();
@@ -179,6 +181,7 @@ class LoginPageController extends GetxController with BaseController {
           description: "Please log in to your registered account",
           okayButton: "Close",
         );
+
         //throw Error();
       }
     } catch (error) {
