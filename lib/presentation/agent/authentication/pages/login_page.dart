@@ -134,72 +134,100 @@ class LoginPage extends GetView<LoginPageController> {
                                           isScrollControlled: true,
                                           builder: (context) {
                                             return Padding(
-                                              padding: EdgeInsets.only(bottom: MediaQuery
-                                                  .of(context)
-                                                  .viewInsets
-                                                  .bottom),
+                                              padding: EdgeInsets.only(
+                                                  bottom: MediaQuery.of(context)
+                                                      .viewInsets
+                                                      .bottom),
                                               child: Wrap(
                                                 children: [
                                                   Container(
-                                                      padding: EdgeInsets.all(16.h),
-                                                      margin: EdgeInsets.all(16.h),
-                                                      width:Get.width,
+                                                      padding:
+                                                          EdgeInsets.all(16.h),
+                                                      margin:
+                                                          EdgeInsets.all(16.h),
+                                                      width: Get.width,
                                                       decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(10.r),
-                                                          color: AppColors.white
-                                                      ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.r),
+                                                          color:
+                                                              AppColors.white),
                                                       child: Column(
                                                         children: [
-                                                          Container(
+                                                          SizedBox(
                                                             height: 48.h,
-                                                            child: CupertinoTextField(
-                                                              placeholder: "Email Address",
-                                                              controller: controller.emailReset,
-                                                              decoration: BoxDecoration(
-                                                                color: Colors.grey[200],
-                                                                borderRadius: BorderRadius.circular(10.r),
+                                                            child:
+                                                                CupertinoTextField(
+                                                              placeholder:
+                                                                  "Email Address",
+                                                              controller:
+                                                                  controller
+                                                                      .emailReset,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .grey[200],
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
                                                               ),
                                                             ),
                                                           ),
-                                                          SizedBox(height: 12.h,),
+                                                          SizedBox(
+                                                            height: 12.h,
+                                                          ),
                                                           Button(
-                                                            bgColor: AppColors.kRedColor,
+                                                            bgColor: AppColors
+                                                                .kRedColor,
                                                             height: 48.h,
                                                             text: "Send Email",
                                                             width: Get.width,
-                                                            onTap: ()async{
-                                                              try{
-                                                                BaseController().showLoading();
-                                                                await FirebaseAuth.instance.sendPasswordResetEmail(email: controller.emailReset.text);
-                                                                BaseController().showSuccessDialog(
-                                                                    hitApi: (){
-                                                                      Get.back();Get.back();Get.back();
-                                                                    },
-                                                                    title: "Email Sent!",
-                                                                    description: "Reset password link has been sent to your email.",
-                                                                    okayButton: "Okay"
-                                                                );
-                                                              }catch(e){
-                                                                BaseController().showErroDialog(
-                                                                    onTap: (){
-                                                                      Get.back();
-                                                                    },
-                                                                    title: "ERROR",
-                                                                    description: "Email incorrect! or not registered to ERA Philippines"
-                                                                );
+                                                            onTap: () async {
+                                                              try {
+                                                                BaseController()
+                                                                    .showLoading();
+                                                                await FirebaseAuth
+                                                                    .instance
+                                                                    .sendPasswordResetEmail(
+                                                                        email: controller
+                                                                            .emailReset
+                                                                            .text);
+                                                                BaseController()
+                                                                    .showSuccessDialog(
+                                                                        hitApi:
+                                                                            () {
+                                                                          Get.back();
+                                                                          Get.back();
+                                                                          Get.back();
+                                                                        },
+                                                                        title:
+                                                                            "Email Sent!",
+                                                                        description:
+                                                                            "Reset password link has been sent to your email.",
+                                                                        okayButton:
+                                                                            "Okay");
+                                                              } catch (e) {
+                                                                BaseController()
+                                                                    .showErroDialog(
+                                                                        onTap:
+                                                                            () {
+                                                                          Get.back();
+                                                                        },
+                                                                        title:
+                                                                            "ERROR",
+                                                                        description:
+                                                                            "Email incorrect! or not registered to ERA Philippines");
                                                               }
-
                                                             },
                                                           )
                                                         ],
-                                                      )
-                                                  ),
+                                                      )),
                                                 ],
                                               ),
                                             );
-                                          }
-                                      );
-
+                                          });
                                     },
                                     child: EraText(
                                       text: 'Forgot Password?',

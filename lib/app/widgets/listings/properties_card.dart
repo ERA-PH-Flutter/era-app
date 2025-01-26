@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class PropertiesCard extends StatelessWidget {
   final String image;

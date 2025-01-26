@@ -1,8 +1,4 @@
-import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eraphilippines/app/services/local_storage.dart';
 import 'package:eraphilippines/presentation/agent/listings/searchresult/controllers/searchresult_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +6,6 @@ import 'package:get/get.dart';
 import '../../presentation/global.dart';
 import '../constants/assets.dart';
 import '../constants/colors.dart';
-import '../models/settings.dart' as a;
 import '../services/firebase_storage.dart';
 import 'app_text_listing.dart';
 import 'navigation/customenavigationbar.dart';

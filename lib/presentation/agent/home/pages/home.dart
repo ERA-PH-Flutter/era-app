@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 
@@ -463,7 +461,7 @@ class Home extends GetView<HomeController> {
               SizedBox(
                 height: 50.h,
               ),
-              Container(
+              SizedBox(
                 height: Get.height / 2,
                 child: GridView.builder(
                   physics: ScrollPhysics(),
