@@ -214,11 +214,11 @@ class JoinEraWeb extends GetView<FormWebController> {
             ],
           ),
         ),
-        Image.asset(
-          height: 150.h,
-          AppEraAssets.careerEra,
-          fit: BoxFit.contain,
-        ),
+        // Image.asset(
+        //   height: 150.h,
+        //   AppEraAssets.careerEra,
+        //   fit: BoxFit.contain,
+        // ),
       ],
     );
   }
