@@ -363,7 +363,8 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                     return GestureDetector(
                       onTap: () {
                         Get.delete<ListingsWebController>();
-                        Get.toNamed('/view-listing/${controller.favorites[index].id}');
+                        Get.toNamed(
+                            '/view-listing/${controller.favorites[index].id}');
                       },
                       child: Container(
                           width: 200.w,
@@ -816,22 +817,24 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
 Widget iconAgents(String assetPath, Function()? onTap, String name) {
   return GestureDetector(
     onTap: onTap,
-    child: Column(
-      children: [
-        CloudStorage().imageLoaderProvider(
-            width: 200.w,
-            height: 220.h,
-            reference: assetPath,
-            borderRadius: BorderRadius.circular(10.r)),
-        EraText(
-          text: name,
-          textAlign: TextAlign.center,
-          color: AppColors.blue,
-          fontSize: 20.sp,
-          fontWeight: FontWeight.bold,
-          textOverflow: TextOverflow.ellipsis,
-        ),
-      ],
+    child: Container(
+      child: Column(
+        children: [
+          CloudStorage().imageLoaderProvider(
+              width: 200.w,
+              height: 220.h,
+              reference: assetPath,
+              borderRadius: BorderRadius.circular(10.r)),
+          EraText(
+            text: name,
+            textAlign: TextAlign.center,
+            color: AppColors.blue,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.bold,
+            textOverflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
     ),
   );
 }

@@ -114,7 +114,8 @@ class AgentListViewWeb extends StatelessWidget {
                           //   19,
                           // );
                           Get.delete<AgentListingsWebController>();
-                          Get.toNamed("/view-agent/${agent.id}");
+                           Get.toNamed("/find-agent-view-listings/${agent.id}");
+                        //  Get.toNamed("/view-agent/${agent.id}");
 
                           // Get.to(AgentListings(),
                           //     binding: AgentListingsBinding(),

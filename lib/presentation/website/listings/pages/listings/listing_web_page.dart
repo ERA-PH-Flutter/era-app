@@ -475,7 +475,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
                         ),
                         shorterSummary(
                           text: 'Area',
-                          text2: listingArgument?.area.toString() ?? "",
+                          text2: listingArgument?.lotArea.toString() ?? "",
                         ),
                         shorterSummary(
                           text: 'View',
@@ -681,7 +681,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
     );
   }
 
-  Widget listedByAgent({required Listing listing}) {
+ static Widget listedByAgent({required Listing listing}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       child: Row(

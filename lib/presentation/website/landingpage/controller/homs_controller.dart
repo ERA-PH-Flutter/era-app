@@ -15,7 +15,7 @@ import '../../../../app/widgets/web/companynews_page_web.dart';
 import '../../../../app/widgets/web/project_views_web.dart';
 import '../../agents/bindings/agent_dashboard_binding.dart';
 import '../../agents/bindings/agent_web_binding.dart';
-import '../../agents/pages/agent_listings.dart';
+import '../../agents/pages/agentListings.dart';
 import '../../agents/pages/dashboard_web.dart';
 import '../../agents/pages/findagents.dart';
 import '../../form/controllers/form_web_binding.dart';

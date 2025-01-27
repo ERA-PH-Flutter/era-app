@@ -17,6 +17,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../presentation/global.dart';
 import '../../constants/assets.dart';
+import '../../constants/screens.dart';
 import '../../constants/sized_box.dart';
 
 class ProjectViewsWeb extends StatelessWidget {
@@ -75,9 +76,7 @@ class ProjectViewsWeb extends StatelessWidget {
             );
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
+            return Screens.loading();
           }
           project = snapshot.data;
           if (project == null) {

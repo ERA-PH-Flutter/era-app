@@ -17,13 +17,12 @@ import '../../home/pages/home_web.dart';
 import '../../listings/controllers/listings_web_controller.dart';
 import '../controllers/agent_myListingWeb_controller.dart';
 
-class AgentListingsWeb extends GetView<AgentListingsWebController> {
-  const AgentListingsWeb({super.key});
+class FindAgentViewListing extends GetView<AgentListingsWebController> {
+  const FindAgentViewListing({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      
       child: Obx(() => switch (controller.agentListingsState.value) {
             AgentListingsState.loading => _loading(),
             AgentListingsState.loaded => _loaded(),
@@ -49,7 +48,8 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        Get.toNamed('/agent-dashboard');
+                        // Get.toNamed('/agent-dashboard');
+                        Get.toNamed('/find-agents');
                       },
                       icon: Icon(Icons.arrow_back_ios)),
                   sbw10(),
@@ -109,7 +109,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
                   children: [
                     AgentInfoWidget.agentInformation(
                       imageProvider:
-                          '${controller.user.image == null || controller.user.image == "" ? AppStrings.noUserImageWhite : controller.user.image}',
+                          '${controller.user!.image == null || controller.user!.image == "" ? AppStrings.noUserImageWhite : controller.user.image}',
                       firstName: '${controller.user!.firstname}',
                       lastName: '${controller.user!.lastname}',
                       whatsApp: '${controller.user!.whatsApp}',
@@ -121,6 +121,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
               ),
             ],
           ),
+
           SizedBox(
             height: 20.h,
           ),
@@ -325,7 +326,6 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
 
   _empty() {
     return SizedBox(
-
       width: Get.width,
       child: Padding(
         padding:
@@ -335,7 +335,7 @@ class AgentListingsWeb extends GetView<AgentListingsWebController> {
           children: [
             IconButton(
                 onPressed: () {
-                  Get.toNamed('/agent-dashboard');
+                  Get.toNamed('/find-agents');
                 },
                 icon: Icon(Icons.arrow_back_ios)),
             SizedBox(

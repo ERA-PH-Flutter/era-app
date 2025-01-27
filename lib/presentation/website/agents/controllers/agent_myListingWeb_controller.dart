@@ -27,7 +27,7 @@ class AgentListingsWebController extends GetxController {
   }
 
   loadListing() async {
-    user = await EraUser().getById(userID ??
+    user = await EraUser().getById(idArgument ??
         FirebaseAuth.instance.currentUser!
             .uid); // changed the arguments not sure if it will affect anything
     listings = (await Database().searchListingsByUserId(

@@ -7,6 +7,7 @@ import 'package:eraphilippines/presentation/website/agents/bindings/agent_mylist
 import 'package:eraphilippines/presentation/website/agents/bindings/agent_web_binding.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/agentsMyListing.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/dashboard_web.dart';
+import 'package:eraphilippines/presentation/website/agents/pages/findagentViewListing.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/findagents.dart';
 import 'package:eraphilippines/presentation/website/agents/pages/settingAgent.dart';
 import 'package:eraphilippines/presentation/website/form/pages/help.dart';
@@ -30,7 +31,8 @@ import 'package:eraphilippines/presentation/website/news/controllers/news_bindin
 import 'package:eraphilippines/presentation/website/news/pages/companynews.dart';
 import 'package:eraphilippines/presentation/website/privacy_policy/privacy-policy.dart';
 import 'package:eraphilippines/presentation/website/projects/controllers/projects_binding.dart';
-import '../presentation/website/agents/pages/agent_listings.dart';
+import '../presentation/website/agents/bindings/findagent_view_listing_binding.dart';
+import '../presentation/website/agents/pages/agentListings.dart';
 import '../presentation/website/form/controllers/form_web_binding.dart';
 import '../presentation/website/home/controllers/home_web_binding.dart';
 import '../presentation/website/home/pages/home_web.dart';
@@ -157,9 +159,9 @@ class RouteArgs {
       binding: PrivacyPolicyBinding(),
     ),
     ReRouteArgs(
-      name: "/agent-listings",
-      page: AgentListingsWeb(),
-      binding: AgentDashboardWebBinding(),
+      name: '/find-agent-view-listings',
+      page: FindAgentViewListing(),
+      binding: FindagentViewListingBinding(),
     ),
   ];
   static getArgs(routeName) {
