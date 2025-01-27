@@ -35,6 +35,7 @@ var propertyT = [
 var newsArgument;
 var listingArgument;
 var projectArgument;
+var projectIdArgument;
 var agentArgument;
 var editListingArgument;
 var idArgument;

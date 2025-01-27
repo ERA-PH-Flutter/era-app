@@ -171,7 +171,8 @@ class HomeWebController extends GetxController {
           projects.addAll(previewWidgets.map((widget) {
             return GestureDetector(
               onTap: () {
-                Get.toNamed('/projects/${pr.id}');
+                print('project ${pr.toMap()}');
+                Get.toNamed('/view-project/${pr.id}');
               },
               child: widget,
             );

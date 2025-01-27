@@ -165,7 +165,7 @@ class RouteArgs {
   static getArgs(routeName) {
     String? id =
         routeName.split("/").length > 2 ? routeName.split("/")[2] : null;
-
+    print('project route ${routeName.split("/")}');
     for (ReRouteArgs route in routeArguments) {
       if (id != null && route.name == "/${routeName.split("/")[1]}") {
         ReRouteArgs tempRoute = route;

@@ -1,5 +1,7 @@
 import 'package:eraphilippines/presentation/website/landingpage/controller/homs_controller.dart';
+import 'package:eraphilippines/presentation/website/projects/controllers/projects_controller.dart';
 import 'package:eraphilippines/presentation/website/re_route/re_route_args.dart';
+import 'package:eraphilippines/repository/project.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -54,7 +56,7 @@ class ReRouteController extends GetxController {
 
 class ReRouteBinding extends Bindings {
   @override
-  void dependencies() {
+  Future<void> dependencies() async {
     Get.lazyPut(() => HomsController());
     Get.lazyPut(() => ReRouteController());
     var controller = Get.find<ReRouteController>();
@@ -62,6 +64,13 @@ class ReRouteBinding extends Bindings {
     args.binding.dependencies();
     controller.args = args;
     print("idArgs: $idArgument");
+
+    if (Get.currentRoute.contains('view-project')) {
+
+      projectIdArgument = idArgument;
+    }
+    // pr
+
     controller.reRouteState.value = ReRouteState.loaded;
   }
 }
