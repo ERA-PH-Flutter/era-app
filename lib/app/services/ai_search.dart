@@ -281,9 +281,9 @@ class AI {
     Iterable<Listing> listingData = [];
 
     try {
-      listingData = (await firebaseQuery.get())
-          .docs
-          .map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
+      final docs = (await firebaseQuery.get()).docs;
+      listingData =
+          docs.map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
     } catch (e) {
       return [];
     }
@@ -291,46 +291,43 @@ class AI {
     final Map<Listing, double> filteredData = {};
     for (var data in listingData) {
       double score = 0;
-      bool minMatch = true;
-      bool maxMatch = true;
-      bool equalsMatch = true;
+      bool minMatch = false;
+      bool maxMatch = false;
+      bool equalsMatch = false;
       for (int i = 0; i < (prompts.length); i++) {
-        if (prompts[i].field == "name" || prompts[i].field == "location") {
-          if (data
-              .toMap()
-              .toString()
-              .toLowerCase()
-              .contains(prompts[i].value.toString().toLowerCase())) {
-            score++;
-          }
-          continue;
-        }
-
         if (prompts[i].operator == ">") {
-          score += .5;
-
           minMatch =
               ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value);
-          continue;
+          if (minMatch) {
+            score += .5;
+          }
         }
         if (prompts[i].operator == "<") {
-          score += .5;
-
           maxMatch =
               ((data.toMap()[prompts[i].field] ?? 0) <= prompts[i].value);
-          continue;
+          if (maxMatch) {
+            score += .5;
+          }
         }
         if (prompts[i].operator == "=") {
-          score++;
           equalsMatch =
               ((data.toMap()[prompts[i].field] ?? 0) == prompts[i].value);
-          continue;
+          if (equalsMatch) {
+            score++;
+          }
+        }
+
+        if (data
+            .toMap()
+            .toString()
+            .toLowerCase()
+            .contains(prompts[i].value.toString().toLowerCase())) {
+          score++;
         }
       }
       final querySplit = query.split(' ').map((e) => e.toLowerCase());
       for (var split in querySplit) {
         if (geminiData.toString().contains(split)) continue;
-        print('gemini search split $split');
 
         if (double.tryParse(split) == null) {
           if ((data
@@ -343,7 +340,9 @@ class AI {
         }
       }
 
-      if (score >= 1 && (minMatch && maxMatch && equalsMatch)) {
+      if (score >= 1 || (minMatch && maxMatch) || equalsMatch) {
+        print('gemini search dataid ${data.id}, ${data.name} ${score} ');
+
         filteredData[data] = score;
       }
     }
@@ -353,6 +352,8 @@ class AI {
     Map<Listing, double> sortedScores = {
       for (var entry in sortedEntries) entry.key: entry.value
     };
+
+    print('gemini search filteredData ${filteredData.keys.length}');
 
     return sortedScores.keys.toList();
   }
@@ -470,12 +471,22 @@ class AI {
         "responseMimeType": "text/plain"
       }
     };
-    final result = (await GetConnect().post(
-            'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key',
-            body,
-            headers: {'Content-Type': 'application/json'}))
-        .body['candidates']?[0]['content']?['parts']?[0]?['functionCall']?['args'];
-    print('result gemini $result');
-    return result ?? {};
+    try {
+      final geminiResult = (await GetConnect().post(
+          'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key',
+          body,
+          headers: {'Content-Type': 'application/json'}));
+      if (geminiResult.isOk) {
+        final result = geminiResult.body['candidates']?[0]['content']?['parts']
+            ?[0]?['functionCall']?['args'];
+        print('result gemini $result');
+        // add fallback if result has error
+        return result ?? {'field': data};
+      }
+    } catch (e) {
+      print('result gemini error $e');
+
+      return {'field': data};
+    }
   }
 }
