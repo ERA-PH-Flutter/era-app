@@ -295,6 +295,7 @@ class AI {
       bool maxMatch = false;
       bool equalsMatch = false;
       for (int i = 0; i < (prompts.length); i++) {
+        // add a score if only true
         if (prompts[i].operator == ">") {
           minMatch =
               ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value);
@@ -347,6 +348,7 @@ class AI {
       }
     }
 
+    // rank the results from highest to lowest
     var sortedEntries = filteredData.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
     Map<Listing, double> sortedScores = {
