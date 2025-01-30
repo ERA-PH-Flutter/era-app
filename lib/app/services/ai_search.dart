@@ -239,10 +239,12 @@ class AI {
           .toList();
     }
     var result = await geminiSearch(geminiData,
-        name: "getListing",
-        description:
-            "Assign accordingly. Do not assign value if not specified.");
-
+            name: "getListing",
+            description:
+                "Assign accordingly. Do not assign value if not specified.") ??
+        {};
+    // add the query to search
+    result['field'] = query;
     print('gemini search here 1 result listing $result');
 
     Query<Map<String, dynamic>> firebaseQuery = FirebaseFirestore.instance
