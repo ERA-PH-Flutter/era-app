@@ -241,7 +241,7 @@ class AI {
     var result = await geminiSearch(geminiData,
             name: "getListing",
             description:
-                "Assign accordingly. Do not assign value if not specified.") ??
+                "Assign accordingly and Correct the spelling of the following search term and return the corrected version of the value. Do not assign value if not specified. ") ??
         {};
     // add the query to search
     result['field'] = query;
