@@ -180,10 +180,10 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                         margin: EdgeInsets.all(8.sp),
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: !listing.isApproved!
+                            color: !listing.isApprove
                                 ? AppColors.kRedColor
                                 : Colors.transparent,
-                            width: !listing.isApproved! ? 3.w : 0,
+                            width: !listing.isApprove ? 3.w : 0,
                           ),
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
@@ -402,8 +402,7 @@ class AgentsMyListingWeb extends GetView<AgentListingsWebController> {
                     top: 20.h,
                     right: 20.w,
                     child: Visibility(
-                      visible:
-                          !(listing.isSold ?? false) && listing.isApproved!,
+                      visible: !(listing.isSold ?? false) && listing.isApprove,
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(99.r),
