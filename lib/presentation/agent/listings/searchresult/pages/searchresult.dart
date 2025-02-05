@@ -171,7 +171,7 @@ class SearchResult extends GetView<SearchResultController> {
                               ),
                               Container(
                                 width: Get.width,
-                                height: 40.h,
+                                // height: 40.h,
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
                                 child: EraText(
                                   textOverflow: TextOverflow.ellipsis,
