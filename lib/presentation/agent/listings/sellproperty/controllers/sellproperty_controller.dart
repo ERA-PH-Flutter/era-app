@@ -13,6 +13,8 @@ class SellPropertyController extends GetxController {
     super.onInit();
   }
 
+  var formKey = GlobalKey<FormState>();
+
   var selectedProperty = RxnString();
   var propertyTypes = [
     'Pre-Selling',

@@ -24,6 +24,9 @@ class AgentsController extends GetxController with BaseController {
   var date = DateTime.now().obs;
   var agentState = AgentsState.loading.obs;
   var resultText = "".obs;
+  var aiObs = "".obs;
+  var agentNameObs = "".obs;
+
   var results = [].obs;
   var agentCount = [].obs;
   var count = 10.obs;
@@ -37,6 +40,13 @@ class AgentsController extends GetxController with BaseController {
   ScrollController scrollController = ScrollController();
 
   late YoutubePlayerController youtubePlayerController;
+
+  // Future<VideoPlayerController> loadVideo(ref) async {
+  //   var link = await FirebaseStorage.instance.ref(ref).getData();
+  //   var videoController = VideoPlayerController.file(File.fromRawPath(link!));
+  //   await videoController.initialize();
+  //   return videoController;
+  // }
 
   void toggleSortDirection() {
     isAscending.value = !isAscending.value;
@@ -53,24 +63,33 @@ class AgentsController extends GetxController with BaseController {
     //   initialVideoId: 'UcbQCfRCoeA',
     //   flags: YoutubePlayerFlags(
     //     enableCaption: false,
-    //     autoPlay: true,
+    //     autoPlay: false,
     //     mute: false,
     //     forceHD: true,
     //   ),
     // );
     pageSize = count.value;
     try {
-      var randomUser = (await FirebaseFirestore.instance
+      // var randomUser = (await FirebaseFirestore.instance
+      //         .collection('users')
+      //         .where('status', isEqualTo: 'approved')
+      //         .get())
+      //     .docs;
+      // randomUser.shuffle();
+      // for (int i = 0;
+      //     i < (randomUser.length > 6 ? 6 : randomUser.length);
+      //     i++) {
+      //   results.add(EraUser.fromJSON(randomUser[i].data()));
+      // }
+      // agentState.value = AgentsState.loaded;
+      var allUser = (await FirebaseFirestore.instance
               .collection('users')
               .where('status', isEqualTo: 'approved')
               .get())
           .docs;
-      randomUser.shuffle();
-      for (int i = 0;
-          i < (randomUser.length > 6 ? 6 : randomUser.length);
-          i++) {
-        results.add(EraUser.fromJSON(randomUser[i].data()));
-      }
+
+      results.addAll(allUser.map((e) => EraUser.fromJSON(e.data())));
+
       agentState.value = AgentsState.loaded;
     } catch (e) {
       agentState.value = AgentsState.error;
@@ -84,21 +103,13 @@ class AgentsController extends GetxController with BaseController {
     resultText.value = "SEARCH RESULTS";
     agentState.value = AgentsState.loading;
     var userResult = await AI(query: query).userSearch();
-    if(userResult.isNotEmpty){
-      userResult.forEach((user){
-        if(user.status == "approved"){
+    if (userResult.isNotEmpty) {
+      userResult.forEach((user) {
+        if (user.status == "approved") {
           results.add(user);
         }
       });
     }
-    // var aiSearchResult = await AI(query: query).userSearch();
-    // if (aiSearchResult.isNotEmpty) {
-    //   aiSearchResult.forEach((user) {
-    //     if (user.data()['status'] == "approved") {
-    //       results.add(EraUser.fromJSON(user.data()));
-    //     }
-    //   });
-    // }
     BaseController().hideLoading();
     if (results.isNotEmpty) {
       agentState.value = AgentsState.loaded;
@@ -169,6 +180,7 @@ class AgentsController extends GetxController with BaseController {
         showSuccessDialog(
             description: "Change profile image success!",
             title: "Success",
+            okayButton: "Close",
             hitApi: () {
               Get.back();
               Get.back();
@@ -215,6 +227,7 @@ class AgentsController extends GetxController with BaseController {
         showSuccessDialog(
             description: "Change profile image success!",
             title: "Success",
+            okayButton: "Close",
             hitApi: () {
               Get.back();
               Get.back();
@@ -223,11 +236,11 @@ class AgentsController extends GetxController with BaseController {
       }
     } catch (e) {
       showErroDialog(
-        description: "Failed to pick image, Error: ${e.toString().contains("camera_access_denied") ? "Permission Denied" : "Failed to load Image"}",
-        onTap: (){
-          Get.back();
-        }
-      );
+          description:
+              "Failed to pick image, Error: ${e.toString().contains("camera_access_denied") ? "Permission Denied" : "Failed to load Image"}",
+          onTap: () {
+            Get.back();
+          });
     }
   }
 }

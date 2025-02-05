@@ -239,10 +239,12 @@ class AI {
           .toList();
     }
     var result = await geminiSearch(geminiData,
-        name: "getListing",
-        description:
-            "Assign accordingly. Do not assign value if not specified.");
-
+            name: "getListing",
+            description:
+                "Assign accordingly and Correct the spelling of the following search term and return the corrected version of the value. Do not assign value if not specified. ") ??
+        {};
+    // add the query to search
+    result['field'] = query;
     print('gemini search here 1 result listing $result');
 
     Query<Map<String, dynamic>> firebaseQuery = FirebaseFirestore.instance
@@ -281,9 +283,9 @@ class AI {
     Iterable<Listing> listingData = [];
 
     try {
-      listingData = (await firebaseQuery.get())
-          .docs
-          .map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
+      final docs = (await firebaseQuery.get()).docs;
+      listingData =
+          docs.map((e) => Listing.fromJSON({...e.data(), 'id': e.id}));
     } catch (e) {
       return [];
     }
@@ -291,46 +293,44 @@ class AI {
     final Map<Listing, double> filteredData = {};
     for (var data in listingData) {
       double score = 0;
-      bool minMatch = true;
-      bool maxMatch = true;
-      bool equalsMatch = true;
+      bool minMatch = false;
+      bool maxMatch = false;
+      bool equalsMatch = false;
       for (int i = 0; i < (prompts.length); i++) {
-        if (prompts[i].field == "name" || prompts[i].field == "location") {
-          if (data
-              .toMap()
-              .toString()
-              .toLowerCase()
-              .contains(prompts[i].value.toString().toLowerCase())) {
-            score++;
-          }
-          continue;
-        }
-
+        // add a score if only true
         if (prompts[i].operator == ">") {
-          score += .5;
-
           minMatch =
               ((data.toMap()[prompts[i].field] ?? 0) >= prompts[i].value);
-          continue;
+          if (minMatch) {
+            score += .5;
+          }
         }
         if (prompts[i].operator == "<") {
-          score += .5;
-
           maxMatch =
               ((data.toMap()[prompts[i].field] ?? 0) <= prompts[i].value);
-          continue;
+          if (maxMatch) {
+            score += .5;
+          }
         }
         if (prompts[i].operator == "=") {
-          score++;
           equalsMatch =
               ((data.toMap()[prompts[i].field] ?? 0) == prompts[i].value);
-          continue;
+          if (equalsMatch) {
+            score++;
+          }
+        }
+
+        if (data
+            .toMap()
+            .toString()
+            .toLowerCase()
+            .contains(prompts[i].value.toString().toLowerCase())) {
+          score++;
         }
       }
       final querySplit = query.split(' ').map((e) => e.toLowerCase());
       for (var split in querySplit) {
         if (geminiData.toString().contains(split)) continue;
-        print('gemini search split $split');
 
         if (double.tryParse(split) == null) {
           if ((data
@@ -343,16 +343,21 @@ class AI {
         }
       }
 
-      if (score >= 1 && (minMatch && maxMatch && equalsMatch)) {
+      if (score >= 1 || (minMatch && maxMatch) || equalsMatch) {
+        print('gemini search dataid ${data.id}, ${data.name} ${score} ');
+
         filteredData[data] = score;
       }
     }
 
+    // rank the results from highest to lowest
     var sortedEntries = filteredData.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
     Map<Listing, double> sortedScores = {
       for (var entry in sortedEntries) entry.key: entry.value
     };
+
+    print('gemini search filteredData ${filteredData.keys.length}');
 
     return sortedScores.keys.toList();
   }
@@ -470,12 +475,22 @@ class AI {
         "responseMimeType": "text/plain"
       }
     };
-    final result = (await GetConnect().post(
-            'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key',
-            body,
-            headers: {'Content-Type': 'application/json'}))
-        .body['candidates']?[0]['content']?['parts']?[0]?['functionCall']?['args'];
-    print('result gemini $result');
-    return result ?? {};
+    try {
+      final geminiResult = (await GetConnect().post(
+          'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key',
+          body,
+          headers: {'Content-Type': 'application/json'}));
+      if (geminiResult.isOk) {
+        final result = geminiResult.body['candidates']?[0]['content']?['parts']
+            ?[0]?['functionCall']?['args'];
+        print('result gemini $result');
+        // add fallback if result has error
+        return result ?? {'field': data};
+      }
+    } catch (e) {
+      print('result gemini error $e');
+
+      return {'field': data};
+    }
   }
 }

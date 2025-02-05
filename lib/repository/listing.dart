@@ -31,33 +31,36 @@ class Listing {
   List? latLng;
   String? address;
   String? propertyId;
-  Listing(
-      {this.id,
-      this.name,
-      this.type,
-      this.price,
-      this.baths,
-      this.photos,
-      this.floorArea,
-      this.location,
-      this.status,
-      this.lotArea,
-      this.beds,
-      this.ppsqm,
-      this.subCategory,
-      this.view,
-      this.description,
-      this.by,
-      this.dateUpdated,
-      this.dateCreated,
-      this.leads,
-      this.owner,
-      this.views,
-      this.cars,
-      this.isSold,
-      this.latLng,
-      this.propertyId,
-      this.address});
+  bool isApprove;
+  Listing({
+    this.id,
+    this.name,
+    this.type,
+    this.price,
+    this.baths,
+    this.photos,
+    this.floorArea,
+    this.location,
+    this.status,
+    this.lotArea,
+    this.beds,
+    this.ppsqm,
+    this.subCategory,
+    this.view,
+    this.description,
+    this.by,
+    this.dateUpdated,
+    this.dateCreated,
+    this.leads,
+    this.owner,
+    this.views,
+    this.cars,
+    this.isSold,
+    this.latLng,
+    this.propertyId,
+    this.address,
+    this.isApprove = false,
+  });
   factory Listing.fromJSON(Map<String, dynamic> json) {
     return Listing(
         id: json["id"],
@@ -79,6 +82,7 @@ class Listing {
         owner: json["owner"],
         leads: json["leads"],
         views: json["views"],
+        isApprove: json["is_approve"] == null ? false : json['is_approve'],
         propertyId: json['property_id'] ?? "Invalid",
         dateCreated: (json["date_created"] == null)
             ? DateTime.now()
@@ -122,7 +126,8 @@ class Listing {
       "is_sold": isSold ?? false,
       "latLng": latLng ?? [0, 0],
       "address": address ?? "",
-      "property_id": propertyId
+      "property_id": propertyId,
+      "is_approve": isApprove,
     };
   }
 

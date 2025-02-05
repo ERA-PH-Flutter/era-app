@@ -141,10 +141,10 @@ class CreateAccount extends GetView<LoginPageController> {
                           controller: controller.contactNo,
                           initialCountryCode: 'PH',
                           onChanged: (phone) {
-                            controller.contactNo.text = phone.number;
-
-                            controller.fullContactNo.value =
-                                '${phone.countryCode}${phone.number}';
+                            // controller.contactNo.text = phone.number;
+                            //   phone.completeNumber;
+                            // controller.fullContactNo.value =
+                            '${phone.countryCode}${phone.number}';
                           },
                         ),
 

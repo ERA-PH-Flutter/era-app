@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/app_textfield.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
@@ -18,6 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:number_pagination/number_pagination.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../../app/constants/screens.dart';
 import '../../../../app/widgets/listings/agents_items.dart';
 
@@ -48,6 +50,65 @@ class FindAgents extends GetView<AgentsController> {
             //     ProgressBar(isExpanded: true),
             //     RemainingDuration(),
             //   ],
+            // ),
+            // FutureBuilder(
+            //   future: FirebaseFirestore.instance
+            //       .collection('cms')
+            //       .doc('find_agents')
+            //       .get(),
+            //   builder: (context, snapshot) {
+            //     if (snapshot.hasData) {
+            //       var data = snapshot.data!.data()!;
+            //       if (data['type'] == "image") {
+            //         return CloudStorage().imageLoader(
+            //             reference: data['link'],
+            //             fit: BoxFit.cover,
+            //             width: Get.width);
+            //       } else if (data['type'] == "youtube") {
+            //         var url = data['link']?.toString();
+            //         String? videoId = YoutubePlayer.convertUrlToId(url!);
+            //         controller.youtubePlayerController =
+            //             YoutubePlayerController(
+            //           initialVideoId: videoId!,
+            //           flags: YoutubePlayerFlags(
+            //             enableCaption: false,
+            //             autoPlay: false,
+            //             mute: false,
+            //             forceHD: true,
+            //           ),
+            //         );
+            //         return YoutubePlayer(
+            //           controller: controller.youtubePlayerController,
+            //           bottomActions: const [
+            //             CurrentPosition(),
+            //             ProgressBar(isExpanded: true),
+            //             RemainingDuration(),
+            //           ],
+            //         );
+            //       }
+            // else if (data['type'] == "video") {
+            //   print('video');
+            //   return FutureBuilder(
+            //       future: controller.loadVideo(data['link']),
+            //       builder: (context, snapshot) {
+            //         if (snapshot.hasData) {
+            //           return SizedBox(
+            //             width: Get.width,
+            //             height: 300.h,
+            //             child: AspectRatio(
+            //               aspectRatio: snapshot.data!.value.aspectRatio,
+            //               child: VideoPlayer(videoController),
+            //             ),
+            //           );
+            //         }
+            //         return Center(
+            //           child: CircularProgressIndicator(),
+            //         );
+            //       });
+            // }
+            //     }
+            //     return Center(child: CircularProgressIndicator());
+            //   },
             // ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -190,7 +251,8 @@ class FindAgents extends GetView<AgentsController> {
 
                   //controller.agentCount.toString()} to count the number of agents
                   SizedBox(height: 20.h),
-                  FutureBuilder(
+                  /*
+FutureBuilder(
                     future: FirebaseFirestore.instance
                         .collection('users')
                         .where('status', isEqualTo: 'approved')
@@ -210,6 +272,14 @@ class FindAgents extends GetView<AgentsController> {
                       }
                     },
                   ),
+                  */
+                  EraText(
+                    text: "Featured Agents",
+                    fontSize: EraTheme.small + 6.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.kRedColor,
+                    textAlign: TextAlign.center,
+                  ),
                   EraText(
                     text:
                         "Your Go-To Professionals for Seamless Property Transactions",
@@ -218,7 +288,6 @@ class FindAgents extends GetView<AgentsController> {
                     color: AppColors.hint,
                     textAlign: TextAlign.start,
                   ),
-                  SizedBox(height: 20.h),
                   Obx(() => switch (controller.agentState.value) {
                         AgentsState.loading => _loading(),
                         AgentsState.loaded => _loaded(),
@@ -309,10 +378,9 @@ class FindAgents extends GetView<AgentsController> {
       Obx(
         () {
           return LoadMore(
-            length:
-                (controller.results.length / controller.pageSize).ceil() > 0
-                    ? (controller.results.length / controller.pageSize).ceil()
-                    : 1,
+            length: (controller.results.length / controller.pageSize).ceil() > 0
+                ? (controller.results.length / controller.pageSize).ceil()
+                : 1,
             child: ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:carousel_slider_plus/carousel_controller.dart';
 import 'package:eraphilippines/app/models/navbaritems.dart';
 import 'package:eraphilippines/app/services/firebase_auth.dart';
+import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -64,19 +65,23 @@ class HomeController extends GetxController {
       homeState.value = HomeState.loaded;
     } catch (e) {
       print('error ${e}');
+      // print('error in banners ${getBanners()}');
       homeState.value = HomeState.error;
     }
     super.onInit();
   }
 
-  getBanners() async {
-    var banners = Get.find<LocalStorageService>().images?['banners'];
-    if (banners != null) {
-      for (int i = 0; i < banners.length; i++) {
+  Future<dynamic> getBanners() async {
+    //  var banners = Get.find<LocalStorageService>().images?['banners'];
+    if (settings!.banners != null) {
+      for (int i = 0; i < settings!.banners!.length; i++) {
+        var img = NetworkImage(
+          await CloudStorage().getFileDirect(docRef: settings!.banners![i]),
+        );
+        await precacheImage(img, Get.context!);
         images.add(Container(
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover, image: FileImage(File(banners[i])))),
+              image: DecorationImage(fit: BoxFit.cover, image: img)),
         ));
       }
       if (images.isEmpty) {
@@ -85,7 +90,6 @@ class HomeController extends GetxController {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage('assets/images/no_image_holder.jpg'))),
-          //unahin nlg to muna              //wait lg sir dayne ni sesearch ko bat siya ganyan yung no such file or directory
         ));
       }
     } else {
@@ -155,6 +159,8 @@ class HomeController extends GetxController {
           .add(PropertiesModels(image: images['rental'], label: 'RENTAL'));
       listingImages
           .add(PropertiesModels(image: images['auction'], label: 'AUCTION'));
+    } else {
+      print('no images');
     }
   }
 
