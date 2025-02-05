@@ -21,7 +21,9 @@ class Screens {
   }
 
   static Widget error() {
-    return Container();
+    return Center(
+      child: Text('Error occurred.'),
+    );
   }
 
   static empty({height}) {

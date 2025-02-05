@@ -34,11 +34,18 @@ class Home extends GetView<HomeController> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: SafeArea(
-          child: Obx(() => switch (controller.homeState.value) {
-                HomeState.loading => _loading(),
-                HomeState.loaded => _loaded(),
-                HomeState.error => _error(),
-              }),
+          child: Obx(() {
+            print('controller.homeState.value ${controller.homeState.value}');
+
+            switch (controller.homeState.value) {
+              case HomeState.loading:
+                return _loading();
+              case HomeState.loaded:
+                return _loaded();
+              case HomeState.error:
+                return _error();
+            }
+          }),
         ),
       ),
     );

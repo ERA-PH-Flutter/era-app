@@ -63,13 +63,14 @@ class HomeController extends GetxController {
       //await Future.delayed(Duration(seconds: 1,milliseconds: 500));
       homeState.value = HomeState.loaded;
     } catch (e) {
+      print('error ${e}');
       homeState.value = HomeState.error;
     }
     super.onInit();
   }
 
   getBanners() async {
-    var banners = Get.find<LocalStorageService>().images!['banners'];
+    var banners = Get.find<LocalStorageService>().images?['banners'];
     if (banners != null) {
       for (int i = 0; i < banners.length; i++) {
         images.add(Container(
@@ -142,17 +143,19 @@ class HomeController extends GetxController {
   }
 
   getImages() async {
-    var images = Get.find<LocalStorageService>().images!;
-    listingImages.add(
-        PropertiesModels(image: images['pre_selling'], label: 'PRE-SELLING'));
-    listingImages.add(
-        PropertiesModels(image: images['residential'], label: 'RESIDENTIAL'));
-    listingImages.add(
-        PropertiesModels(image: images['commercial'], label: 'COMMERCIAL'));
-    listingImages
-        .add(PropertiesModels(image: images['rental'], label: 'RENTAL'));
-    listingImages
-        .add(PropertiesModels(image: images['auction'], label: 'AUCTION'));
+    var images = Get.find<LocalStorageService>().images;
+    if (images != null) {
+      listingImages.add(
+          PropertiesModels(image: images['pre_selling'], label: 'PRE-SELLING'));
+      listingImages.add(
+          PropertiesModels(image: images['residential'], label: 'RESIDENTIAL'));
+      listingImages.add(
+          PropertiesModels(image: images['commercial'], label: 'COMMERCIAL'));
+      listingImages
+          .add(PropertiesModels(image: images['rental'], label: 'RENTAL'));
+      listingImages
+          .add(PropertiesModels(image: images['auction'], label: 'AUCTION'));
+    }
   }
 
   void nextImage(int totalImg) {
