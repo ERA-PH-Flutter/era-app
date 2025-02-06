@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/box_widget.dart';
@@ -204,7 +205,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
           SizedBox(height: 10.h),
           if (!showFullSearch.value)
             SizedBox(
-              height: 48.h,
+              height: 58.h,
               child: CupertinoTextField(
                 textCapitalization: TextCapitalization.sentences,
                 style: GoogleFonts.montserrat(
@@ -364,13 +365,10 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                     },
                                     controller: controllerPriceMin,
                                     decoration: InputDecoration(
-                                      constraints: const BoxConstraints(
-                                          maxHeight: 70, minHeight: 35),
-                                      isDense: true,
                                       prefixIcon: Padding(
                                         padding: EdgeInsets.only(
                                           left: 5.w,
-                                          top: 12.h,
+                                          top: 7.h,
                                         ),
                                         child: EraText(
                                             textAlign: TextAlign.center,
@@ -378,10 +376,10 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                             fontSize: 18.sp,
                                             color: AppColors.black),
                                       ),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 10.h, horizontal: 10.w),
+                                      contentPadding: EdgeInsets.zero,
                                       hintText: 'Min Price',
                                       fillColor: AppColors.white,
+                                      hintStyle: TextStyle(fontSize: 16.sp),
                                       filled: true,
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
@@ -427,7 +425,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       prefixIcon: Padding(
                                         padding: EdgeInsets.only(
                                           left: 5.w,
-                                          top: 12.h,
+                                          top: 7.h,
                                         ),
                                         child: EraText(
                                             textAlign: TextAlign.center,
@@ -439,6 +437,8 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                       hintText: 'Max Price',
                                       fillColor: AppColors.white,
                                       filled: true,
+                                      hintStyle: TextStyle(fontSize: 16.sp),
+
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
                                         borderSide: BorderSide(
@@ -456,6 +456,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                             ),
                           ],
                         ),
+                        sb10(),
                         Obx(
                           () => Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -474,6 +475,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                           isForSale.value = value ?? 0;
                                         }),
                                   ),
+                                  sbw10(),
                                   EraText(
                                       text: 'BUY',
                                       color: AppColors.white.withOpacity(0.6),
@@ -495,6 +497,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                                           isForSale.value = value ?? 0;
                                         }),
                                   ),
+                                  sbw10(),
                                   EraText(
                                       text: 'RENT',
                                       color: AppColors.white.withOpacity(0.6),
@@ -508,7 +511,7 @@ class _FilteredSearchBoxState extends State<FilteredSearchBox> {
                         SizedBox(height: 10.h),
                         SizedBox(
                           width: Get.width,
-                          height: 53.h,
+                          height: 58.h,
                           child: ElevatedButton.icon(
                             style: ButtonStyle(
                               backgroundColor:

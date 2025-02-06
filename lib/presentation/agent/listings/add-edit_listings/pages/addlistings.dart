@@ -583,8 +583,8 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 beds: controller.bedsController.text.toInt(),
                 baths: controller.bathsController.text.toInt(),
                 cars: controller.carsController.text.toInt(),
-                lotArea: double.tryParse(controller.areaController.text) ?? 0.0,                floorArea: double.tryParse(controller.floorArea.text) ?? 0.0,
-
+                lotArea: double.tryParse(controller.areaController.text) ?? 0.0,
+                floorArea: double.tryParse(controller.floorArea.text) ?? 0.0,
                 status: controller.selectedOfferT.value.toString(),
                 // view: controller.selectedView.value.toString(),
                 location: controller.add.city,
@@ -607,7 +607,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
                 hitApi: () {
                   Get.offAllNamed(RouteString.agentDashBoard);
                 },
-                  okayButton: "Close",
+                okayButton: "Close",
                 title: "Listing Uploaded",
                 description:
                     "Your property has been submitted for review. Once approved, this will be published accordingly.");
@@ -742,7 +742,7 @@ class AddListings extends GetView<AddListingsController> with BaseController {
         SizedBox(height: 5.h),
         Obx(
           () => Container(
-            height: 50.h,
+            height: 60.h,
             alignment: Alignment.center,
             padding: EdgeInsets.symmetric(horizontal: 21.w),
             decoration: BoxDecoration(

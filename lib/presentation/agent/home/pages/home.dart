@@ -492,7 +492,7 @@ class Home extends GetView<HomeController> {
                             height: 250.h,
                           ),
                           Positioned(
-                            bottom: 10,
+                            bottom: -10,
                             left: 0,
                             right: 0,
                             child: Card(
@@ -516,14 +516,14 @@ class Home extends GetView<HomeController> {
                                       color: AppColors.kRedColor,
                                       fontWeight: FontWeight.bold,
                                       textOverflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
+                                      maxLines: 2,
                                     ),
                                     EraText(
                                       text: controller.news[i].description,
                                       fontSize: EraTheme.paragraph - 2.sp,
                                       color: AppColors.hint,
                                       fontWeight: FontWeight.w500,
-                                      maxLines: 5,
+                                      maxLines: 3,
                                       textOverflow: TextOverflow.ellipsis,
                                     ),
                                   ],
