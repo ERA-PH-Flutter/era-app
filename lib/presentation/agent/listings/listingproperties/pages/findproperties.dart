@@ -2,10 +2,8 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/find_properties_search_box.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -181,7 +179,6 @@ class FindProperties extends GetView<FindpropertiesController> {
                             ),
                             Container(
                               width: Get.width,
-                              height: 40.h,
                               padding: EdgeInsets.symmetric(horizontal: 14.w),
                               child: EraText(
                                 textOverflow: TextOverflow.ellipsis,

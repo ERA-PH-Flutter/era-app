@@ -47,25 +47,29 @@ class Help extends GetView<ContactusController> {
                   child: Column(
                 children: [
                   SizedBox(height: 10.h),
-                  AppTextField(
-                    hint: 'AI Search',
-                    svgIcon: AppEraAssets.ai3,
-                    bgColor: AppColors.white,
-                    controller: controller.aiSearch,
+                  Container(
+                    height: 58.h,
+                    child: AppTextField(
+                      hint: 'AI Search',
+                      svgIcon: AppEraAssets.ai3,
+                      bgColor: AppColors.white,
+                      controller: controller.aiSearch,
+                    ),
                   ),
                   SizedBox(height: 10.h),
-                     SearchWidget(onTap: () async{
-                    controller.faqs.value = await AI(query:controller.aiSearch.text).faqSearch();
+                  SearchWidget(onTap: () async {
+                    controller.faqs.value =
+                        await AI(query: controller.aiSearch.text).faqSearch();
                   }),
                   SizedBox(height: 10.h),
                 ],
               )),
               SizedBox(height: 20.h),
-              Obx((){
+              Obx(() {
                 List<Widget> faqWidgets = [];
                 var lastType = '';
-                for(int i = 0;i<controller.faqs.length;i++){
-                  if(lastType != controller.faqs[i].data()['type']){
+                for (int i = 0; i < controller.faqs.length; i++) {
+                  if (lastType != controller.faqs[i].data()['type']) {
                     lastType = controller.faqs[i].data()['type'];
                     faqWidgets.add(Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,14 +81,16 @@ class Help extends GetView<ContactusController> {
                           fontWeight: FontWeight.w600,
                         ),
                         SizedBox(height: 20.h),
-                        expansionTile(controller.faqs[i].data()['question'],controller.faqs[i].data()['answer']),
+                        expansionTile(controller.faqs[i].data()['question'],
+                            controller.faqs[i].data()['answer']),
                         SizedBox(height: 15.h),
                       ],
                     ));
-                  }else{
+                  } else {
                     faqWidgets.add(Column(
                       children: [
-                        expansionTile(controller.faqs[i].data()['question'],controller.faqs[i].data()['answer']),
+                        expansionTile(controller.faqs[i].data()['question'],
+                            controller.faqs[i].data()['answer']),
                         SizedBox(height: 15.h),
                       ],
                     ));

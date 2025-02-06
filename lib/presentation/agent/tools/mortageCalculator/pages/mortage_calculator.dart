@@ -23,7 +23,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
     return Scaffold(
       appBar: CustomAppbar(),
       body: WillPopScope(
-        onWillPop: ()async{
+        onWillPop: () async {
           // selectedIndex.value = 0;
           // pageViewController = PageController(initialPage: 0);
           // currentRoute = '/home';
@@ -47,7 +47,7 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                 ),
                 SizedBox(height: 15.h),
                 Container(
-                  height: 350.h,
+                  height: Get.height / 2,
                   decoration: BoxDecoration(
                     color: AppColors.white,
                     borderRadius: BorderRadius.circular(10),
@@ -190,7 +190,9 @@ class MortageCalculator extends GetView<MortageCalculatorController> {
                                 RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
                                 (Match m) => '${m[1]},');
                     controller.initialAmount.value = (initial -
-                            (controller.downPayment.text.toInt() * initial / 100))
+                            (controller.downPayment.text.toInt() *
+                                initial /
+                                100))
                         .toDouble();
                     var loanTerms = (controller.loanTerm.text.toInt() * 12);
                     var interest =

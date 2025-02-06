@@ -72,8 +72,10 @@ class ProjectMain extends GetView<ProjectsController> {
                 SizedBox(height: 10.h),
                 Obx(() {
                   if (!searchController.showFullSearch.value) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    return Container(
+                      height: 68.h,
+
+                      //    padding: EdgeInsets.symmetric(horizontal: 10.w),
                       child: AppTextField(
                           onPressed: () {},
                           controller: searchController.aiSearchController,
@@ -88,111 +90,111 @@ class ProjectMain extends GetView<ProjectsController> {
                   return Container();
                 }),
 
-                SizedBox(height: 5.h),
-                GestureDetector(
-                  onTap: () {
-                    searchController.expanded.value =
-                        !searchController.expanded.value;
-                    searchController.showFullSearch.value =
-                        !searchController.showFullSearch.value;
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0.h),
-                    child: Obx(() => EraText(
-                          text: searchController.expanded.value
-                              ? "Back to AI Search"
-                              : "Filtered Search",
-                          fontSize: 15.sp,
-                          textDecoration: TextDecoration.underline,
-                        )),
-                  ),
-                ),
+                // SizedBox(height: 5.h),
+                // GestureDetector(
+                //   onTap: () {
+                //     searchController.expanded.value =
+                //         !searchController.expanded.value;
+                //     searchController.showFullSearch.value =
+                //         !searchController.showFullSearch.value;
+                //   },
+                //   child: Padding(
+                //     padding: EdgeInsets.all(10.0.h),
+                //     child: Obx(() => EraText(
+                //           text: searchController.expanded.value
+                //               ? "Back to AI Search"
+                //               : "Filtered Search",
+                //           fontSize: 15.sp,
+                //           textDecoration: TextDecoration.underline,
+                //         )),
+                //   ),
+                // ),
 
                 //FILTERED SEARCH
-                Obx(() {
-                  if (searchController.showFullSearch.value) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          child: Column(
-                            children: [
-                              //different controller for each dropdown
-                              //Location
-                              AddListings.dropDownAddlistings1(
-                                  color: AppColors.white,
-                                  selectedItem: controller.selectedLocation,
-                                  Types: controller.location,
-                                  onChanged: (value) => controller
-                                      .selectedLocation.value = value!,
-                                  name: 'Location',
-                                  hintText: 'Select Location'),
+                // Obx(() {
+                //   if (searchController.showFullSearch.value) {
+                //     return Column(
+                //       children: [
+                //         Padding(
+                //           padding: EdgeInsets.symmetric(horizontal: 10.w),
+                //           child: Column(
+                //             children: [
+                //               //different controller for each dropdown
+                //               //Location
+                //               AddListings.dropDownAddlistings1(
+                //                   color: AppColors.white,
+                //                   selectedItem: controller.selectedLocation,
+                //                   Types: controller.location,
+                //                   onChanged: (value) => controller
+                //                       .selectedLocation.value = value!,
+                //                   name: 'Location',
+                //                   hintText: 'Select Location'),
 
-                              AddListings.dropDownAddlistings1(
-                                  color: AppColors.white,
-                                  selectedItem: controller.selectedPropertyType,
-                                  Types: controller.propertType,
-                                  onChanged: (value) => controller
-                                      .selectedPropertyType.value = value!,
-                                  name: 'Property Type',
-                                  hintText: 'Select Property Type'),
-                              AddListings.dropDownAddlistings1(
-                                  color: AppColors.white,
-                                  selectedItem: controller.selectedDeveloper,
-                                  Types: controller.developerType,
-                                  onChanged: (value) => controller
-                                      .selectedDeveloper.value = value!,
-                                  name: 'Developer',
-                                  hintText: 'Select Developer'),
+                //               AddListings.dropDownAddlistings1(
+                //                   color: AppColors.white,
+                //                   selectedItem: controller.selectedPropertyType,
+                //                   Types: controller.propertType,
+                //                   onChanged: (value) => controller
+                //                       .selectedPropertyType.value = value!,
+                //                   name: 'Property Type',
+                //                   hintText: 'Select Property Type'),
+                //               AddListings.dropDownAddlistings1(
+                //                   color: AppColors.white,
+                //                   selectedItem: controller.selectedDeveloper,
+                //                   Types: controller.developerType,
+                //                   onChanged: (value) => controller
+                //                       .selectedDeveloper.value = value!,
+                //                   name: 'Developer',
+                //                   hintText: 'Select Developer'),
 
-                           SearchWidget(onTap: () async {
-                                var data;
-                                var searchQuery = "";
-                                if (searchController.aiSearchController.text ==
-                                    "") {
-                                  data = await Database().searchListing(
-                                      location: searchController
-                                          .locationController.text,
-                                      property: searchController
-                                          .propertyController.text);
-                                  if (searchController
-                                          .locationController.text !=
-                                      "") {
-                                    searchQuery +=
-                                        "Location: ${searchController.locationController.text}";
-                                  } else if (searchController
-                                          .propertyController.text !=
-                                      "") {
-                                    searchQuery +=
-                                        "Property Type: ${searchController.locationController.text}";
-                                  } else if (searchController
-                                          .priceController.text !=
-                                      "") {
-                                    searchQuery +=
-                                        "With price less than: ${searchController.priceController.text}";
-                                  }
-                                } else {
-                                  searchQuery =
-                                      searchController.aiSearchController.text;
-                                }
-                                selectedIndex.value = 2;
-                                searchController.searchResultState.value =
-                                    SearchResultState.loading;
-                                searchController.searchQuery.value =
-                                    searchQuery;
-                                searchController.expanded.value = false;
-                                searchController.showFullSearch.value = false;
-                                searchController.loadData(data);
-                              }),
-                              SizedBox(height: 10.h),
-                            ],
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                  return Container();
-                }),
+                //               SearchWidget(onTap: () async {
+                //                 var data;
+                //                 var searchQuery = "";
+                //                 if (searchController.aiSearchController.text ==
+                //                     "") {
+                //                   data = await Database().searchListing(
+                //                       location: searchController
+                //                           .locationController.text,
+                //                       property: searchController
+                //                           .propertyController.text);
+                //                   if (searchController
+                //                           .locationController.text !=
+                //                       "") {
+                //                     searchQuery +=
+                //                         "Location: ${searchController.locationController.text}";
+                //                   } else if (searchController
+                //                           .propertyController.text !=
+                //                       "") {
+                //                     searchQuery +=
+                //                         "Property Type: ${searchController.locationController.text}";
+                //                   } else if (searchController
+                //                           .priceController.text !=
+                //                       "") {
+                //                     searchQuery +=
+                //                         "With price less than: ${searchController.priceController.text}";
+                //                   }
+                //                 } else {
+                //                   searchQuery =
+                //                       searchController.aiSearchController.text;
+                //                 }
+                //                 selectedIndex.value = 2;
+                //                 searchController.searchResultState.value =
+                //                     SearchResultState.loading;
+                //                 searchController.searchQuery.value =
+                //                     searchQuery;
+                //                 searchController.expanded.value = false;
+                //                 searchController.showFullSearch.value = false;
+                //                 searchController.loadData(data);
+                //               }),
+                //               SizedBox(height: 10.h),
+                //             ],
+                //           ),
+                //         ),
+                //       ],
+                //     );
+                //   }
+                //   return Container();
+                // }),
               ],
             ),
           ),

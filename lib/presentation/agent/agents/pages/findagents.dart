@@ -130,21 +130,24 @@ class FindAgents extends GetView<AgentsController> {
                         SizedBox(height: 10.h),
                         Obx(() {
                           if (!searchResultController.showFullSearch.value) {
-                            return AppTextField(
-                                onPressed: () {},
-                                controller: searchResultController
-                                    .aiSearchAgentsController,
-                                hint: 'Use AI Search',
-                                svgIcon: AppEraAssets.ai3,
-                                bgColor: AppColors.white,
-                                isSuffix: true,
-                                obscureText: false,
-                                onSuffixTap: () async {
-                                  await controller.aiSearch(
-                                      searchResultController
-                                          .aiSearchAgentsController.text);
-                                },
-                                suffixIcons: AppEraAssets.send);
+                            return Container(
+                              height: 58.h,
+                              child: AppTextField(
+                                  onPressed: () {},
+                                  controller: searchResultController
+                                      .aiSearchAgentsController,
+                                  hint: 'Use AI Search',
+                                  svgIcon: AppEraAssets.ai3,
+                                  bgColor: AppColors.white,
+                                  isSuffix: true,
+                                  obscureText: false,
+                                  onSuffixTap: () async {
+                                    await controller.aiSearch(
+                                        searchResultController
+                                            .aiSearchAgentsController.text);
+                                  },
+                                  suffixIcons: AppEraAssets.send),
+                            );
                           }
                           return Container();
                         }),
@@ -197,7 +200,7 @@ class FindAgents extends GetView<AgentsController> {
                                             color: AppColors.white),
                                         SizedBox(height: 5.h),
                                         SizedBox(
-                                          height: 50.h,
+                                          height: 58.h,
                                           child: TextformfieldWidget(
                                             style: TextStyle(
                                               fontSize: 20.sp,

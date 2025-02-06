@@ -21,7 +21,7 @@ class ContactusController extends GetxController {
   TextEditingController aiSearch = TextEditingController();
   TextEditingController message = TextEditingController();
 
-  late YoutubePlayerController youtubePlayerController;
+  //late YoutubePlayerController youtubePlayerController;
 
   var faqs = [].obs;
   final Uri emailUrl = Uri.parse(
@@ -53,12 +53,6 @@ class ContactusController extends GetxController {
             .orderBy('type')
             .get())
         .docs;
-  }
-
-  @override
-  void onClose() {
-    youtubePlayerController.dispose();
-    super.onClose();
   }
 
   submitContact() async {

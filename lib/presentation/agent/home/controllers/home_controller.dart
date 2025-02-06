@@ -38,7 +38,7 @@ class HomeController extends GetxController {
   var carouselC = PageController();
   var homeState = HomeState.loading.obs;
   var news = [];
-  List<Listing> listings = [];
+  List<dynamic> listings = [];
   var listingImages = [];
   final List<Widget> images = [];
   List<Widget> projects = [];
@@ -65,7 +65,12 @@ class HomeController extends GetxController {
       homeState.value = HomeState.loaded;
     } catch (e) {
       print('error ${e}');
-      // print('error in banners ${getBanners()}');
+      print('error in banners ${getBanners()}');
+      print('error in news ${getNews()}');
+      print('error in images ${getImages()}');
+      print('error in listing ${getListings()}');
+      print('error in projects ${getProjects()}');
+
       homeState.value = HomeState.error;
     }
     super.onInit();
