@@ -2,26 +2,21 @@ import 'package:eraphilippines/app/constants/assets.dart';
 import 'package:eraphilippines/app/constants/colors.dart';
 import 'package:eraphilippines/app/constants/strings.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
-import 'package:eraphilippines/app/services/ai_search.dart';
-import 'package:eraphilippines/app/services/firebase_storage.dart';
+
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/find_properties_search_box.dart';
-import 'package:eraphilippines/presentation/agent/listings/listingproperties/controllers/listing_controller.dart';
-import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:number_pagination/number_pagination.dart';
 import '../../../../../app/constants/screens.dart';
-import '../../../../../app/services/firebase_database.dart';
 import '../../../../../app/widgets/custom_appbar.dart';
-import '../../../../../app/widgets/filteredsearch_box.dart';
 import '../../../../../app/widgets/image/image_widget.dart';
 import '../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../repository/listing.dart';
 import '../../../../../repository/user.dart';
-import '../../searchresult/controllers/searchresult_controller.dart';
 import '../controllers/findproperties_controller.dart';
 
 class FindProperties extends GetView<FindpropertiesController> {

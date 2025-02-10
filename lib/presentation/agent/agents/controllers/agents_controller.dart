@@ -70,22 +70,18 @@ class AgentsController extends GetxController with BaseController {
     //   ),
     // );
     pageSize = count.value;
+
     try {
-      var randomUser = (await FirebaseFirestore.instance
+      var allUser = (await FirebaseFirestore.instance
               .collection('users')
               .where('status', isEqualTo: 'approved')
               .get())
           .docs;
-      randomUser.shuffle();
-      for (int i = 0;
-          i < (randomUser.length > 6 ? 6 : randomUser.length);
-          i++) {
-        results.add(EraUser.fromJSON(randomUser[i].data()));
-      }
+      results.addAll(allUser.map((e) => EraUser.fromJSON(e.data())));
       agentState.value = AgentsState.loaded;
     } catch (e) {
-      agentState.value = AgentsState.error;
-    }
+        agentState.value = AgentsState.error;
+      }
     super.onInit();
   }
 
