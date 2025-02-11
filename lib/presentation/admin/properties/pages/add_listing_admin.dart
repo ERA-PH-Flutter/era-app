@@ -571,9 +571,8 @@ class AddPropertyAdmin extends GetView<ListingsController> {
                                 addListingsController.clearFields();
                               },
                               okayButton: "Close",
-                              title: "Listing Uploaded",
-                              description:
-                                  "Your property has been submitted for review. Once approved, this will be published accordingly.");
+                              title: "Submitted",
+                              description: "Listing uploaded");
                         } catch (e) {}
                       },
                       margin: EdgeInsets.symmetric(horizontal: 5),

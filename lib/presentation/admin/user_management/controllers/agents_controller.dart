@@ -92,6 +92,10 @@ class AgentAdminController extends GetxController with BaseController {
 // roster
   TextEditingController message = TextEditingController();
   TextEditingController title = TextEditingController();
+  //find agent text field
+  TextEditingController fname = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
+  TextEditingController emailAdress = TextEditingController();
 
   clearfield() {
     fNameA.clear();
@@ -110,6 +114,14 @@ class AgentAdminController extends GetxController with BaseController {
     licensedNumA.clear();
     parking.clear();
     selectedAgentType.value = null;
+  
+  }
+
+
+  clearFindAgentsField(){
+    phoneNumber.clear();
+    fname.clear();
+    emailAdress.clear();
   }
 
   setValues(EraUser user) {
@@ -182,24 +194,24 @@ class AgentAdminController extends GetxController with BaseController {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getStream({status = 'approved'}) {
-    if (fNameA.text.isNotEmpty) {
+    if (fname.text.isNotEmpty) {
       return FirebaseFirestore.instance
           .collection('users')
-          .where('full_name', isGreaterThanOrEqualTo: fNameA.text)
-          .where('full_name', isLessThanOrEqualTo: '${fNameA.text}\uf8ff')
+          .where('full_name', isGreaterThanOrEqualTo: fname.text)
+          .where('full_name', isLessThanOrEqualTo: '${fname.text}\uf8ff')
           .where('status', isEqualTo: status)
           .orderBy('full_name')
           .snapshots();
-    } else if (phoneNA.text.isNotEmpty) {
+    } else if (phoneNumber.text.isNotEmpty) {
       return FirebaseFirestore.instance
           .collection('users')
-          .where('phone', isEqualTo: emailAdressA.text)
+          .where('phone', isEqualTo: phoneNumber.text)
           .where('status', isEqualTo: status)
           .snapshots();
-    } else if (emailAdressA.text.isNotEmpty) {
+    } else if (emailAdress.text.isNotEmpty) {
       return FirebaseFirestore.instance
           .collection('users')
-          .where('email', isEqualTo: emailAdressA.text)
+          .where('email', isEqualTo: emailAdress.text)
           .where('status', isEqualTo: status)
           .snapshots();
     } else {

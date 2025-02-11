@@ -4,6 +4,7 @@ import 'package:eraphilippines/app/constants/sized_box.dart';
 import 'package:eraphilippines/app/constants/theme.dart';
 import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/presentation/admin/user_management/controllers/agents_controller.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -258,21 +259,41 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                     SizedBox(height: 10.h),
-                                    SharedWidgets.dropDown(
-                                      controller.selectedAgentType,
-                                      controller.agentType,
-                                      (value) => controller
+                                    // SharedWidgets.dropDown(
+                                    //   controller.selectedAgentType,
+                                    //   controller.agentType,
+                                    //   (value) => controller
+                                    //       .selectedAgentType.value = value!,
+                                    //   'Agent Type',
+                                    // ),
+
+                                    AddAgent.dropDownListings(
+                                      selectedItem:
+                                          controller.selectedAgentType,
+                                      Types: controller.agentType,
+                                      onChanged: (value) => controller
                                           .selectedAgentType.value = value!,
-                                      'Agent Type',
+                                      hintText: 'Agent Type *',
+                                    ),
+
+                                    sb20(),
+
+                                    AddAgent.dropDownListings(
+                                      selectedItem:
+                                          controller.selectedAgentRole,
+                                      Types: controller.agentRole,
+                                      onChanged: (value) => controller
+                                          .selectedAgentRole.value = value!,
+                                      hintText: 'Agent Role *',
                                     ),
                                     sb20(),
-                                    SharedWidgets.dropDown(
-                                      controller.selectedAgentRole,
-                                      controller.agentRole,
-                                      (value) => controller
-                                          .selectedAgentRole.value = value!,
-                                      'Agent Role',
-                                    ),
+                                    // SharedWidgets.dropDown(
+                                    //   controller.selectedAgentRole,
+                                    //   controller.agentRole,
+                                    //   (value) => controller
+                                    //       .selectedAgentRole.value = value!,
+                                    //   'Agent Role',
+                                    // ),
                                   ],
                                 ),
                               ),
@@ -292,6 +313,8 @@ class ApprovedAgents extends GetView<AgentAdminController> {
                                 ),
                                 GestureDetector(
                                   onTap: () async {
+                                    listingModels[i].role =
+                                        controller.selectedAgentRole.value;
                                     listingModels[i].position =
                                         controller.selectedAgentType.value;
                                     listingModels[i].eraId =

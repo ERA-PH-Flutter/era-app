@@ -376,6 +376,8 @@ class Roster extends GetView<AgentAdminController> {
                                   Get.find<AgentAdminController>()
                                       .setValues(listingModels[i]);
                                   controllers.onSectionSelected(1);
+
+                                  controller.clearFindAgentsField();
                                 }, Icons.edit),
                                 menuOptions("Delete", () async {
                                   // await listingModels[i].deleteOtherUser(
@@ -461,15 +463,15 @@ class Roster extends GetView<AgentAdminController> {
             SizedBox(
               width: Get.width,
               child: TextformfieldWidget(
-                controller: controller.fNameA,
+                controller: controller.fname,
                 fontSize: 12.sp,
                 maxLines: 1,
               ),
             ),
           ],
         ),
-        buildFormField('Phone Number *', controller.phoneNA, 'Email *',
-            controller.emailAdressA),
+        buildFormField('Phone Number *', controller.phoneNumber, 'Email *',
+            controller.emailAdress),
       ],
     );
   }

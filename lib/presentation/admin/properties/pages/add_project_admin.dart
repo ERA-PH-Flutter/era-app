@@ -340,9 +340,11 @@ class AddProjectAdmin extends GetView<ListingsAdminController> {
                                                                 BaseController()
                                                                     .showSuccessDialogProjects(
                                                                         title:
-                                                                            "Successful!",
+                                                                            "Submitted",
                                                                         description:
-                                                                            "Project ${projectsData != null ? 'update' : 'upload'} Your project were successfully uploaded!",
+                                                                            "Project ${projectsData != null ? 'updated successfully' : 'uploaded'}",
+                                                                        okayButton:
+                                                                            'Close',
                                                                         hitApi:
                                                                             () {
                                                                           Get.back();

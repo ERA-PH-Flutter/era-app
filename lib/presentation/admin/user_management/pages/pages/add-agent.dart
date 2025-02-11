@@ -239,8 +239,9 @@ class AddAgent extends GetView<AgentAdminController> {
                             settings!.agentCount = settings!.agentCount! + 1;
                             await settings!.update();
                             BaseController().showSuccessDialog(
-                                title: "Add Agent Success",
-                                description: "Agent added successfully!",
+                                title: "Submitted",
+                                description: "Account created",
+                                okayButton: 'Close',
                                 hitApi: () {
                                   Get.back();
                                   Get.back();
@@ -257,8 +258,9 @@ class AddAgent extends GetView<AgentAdminController> {
                         } else {
                           BaseController().showLoading();
                           BaseController().showSuccessDialog(
-                              title: "Edit Agent Success",
-                              description: "Agent edited successfully!",
+                              title: "Submitted",
+                              description: "Agent updated successfully!",
+                              okayButton: 'Close',
                               hitApi: () {
                                 Get.back();
                                 Get.back();
@@ -675,7 +677,7 @@ class AddAgent extends GetView<AgentAdminController> {
     );
   }
 
-  Widget dropDownListings(
+  static Widget dropDownListings(
       {RxnString? selectedItem,
       List<String>? Types,
       Function(String?)? onChanged,
