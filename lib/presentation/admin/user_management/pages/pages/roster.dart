@@ -375,7 +375,7 @@ class Roster extends GetView<AgentAdminController> {
                                 menuOptions("Edit", () async {
                                   Get.find<AgentAdminController>()
                                       .setValues(listingModels[i]);
-                                  controllers.onSectionSelected(1);
+                                  controllers.onSectionSelected(27);
 
                                   controller.clearFindAgentsField();
                                 }, Icons.edit),

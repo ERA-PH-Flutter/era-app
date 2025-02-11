@@ -16,8 +16,8 @@ import '../../../../../repository/logs.dart';
 import '../../../../../repository/user.dart';
 import '../../../../global.dart';
 
-class AddAgent extends GetView<AgentAdminController> {
-  const AddAgent({super.key});
+class EditAgent extends GetView<AgentAdminController> {
+  const EditAgent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,8 @@ class AddAgent extends GetView<AgentAdminController> {
                   height: 20.h,
                 ),
                 EraText(
-                  text: 'ADD AGENT',
+                  text:
+                      '${controller.agentListingssss != null ? "EDIT" : "ADD"} AGENT',
                   fontSize: EraTheme.header,
                   color: AppColors.black,
                 ),
@@ -49,7 +50,7 @@ class AddAgent extends GetView<AgentAdminController> {
                       child: Padding(
                         padding: EdgeInsets.only(right: 10.w),
                         child: textFormfield(
-                            controller: controller.addfNameA,
+                            controller: controller.fNameA,
                             hintText: 'First Name *',
                             textInputType: TextInputType.text),
                       ),
@@ -59,7 +60,7 @@ class AddAgent extends GetView<AgentAdminController> {
                       child: Container(
                         padding: EdgeInsets.only(left: 10.w),
                         child: textFormfield(
-                            controller: controller.addlNameA,
+                            controller: controller.lNameA,
                             hintText: 'Last Name *',
                             textInputType: TextInputType.text),
                       ),
@@ -69,7 +70,7 @@ class AddAgent extends GetView<AgentAdminController> {
                     Expanded(
                       flex: 2,
                       child: textFormfield(
-                          controller: controller.addphoneNA,
+                          controller: controller.phoneNA,
                           hintText: 'PhoneNumber *',
                           textInputType: TextInputType.number),
                     ),
@@ -83,7 +84,7 @@ class AddAgent extends GetView<AgentAdminController> {
                     Expanded(
                       flex: 2,
                       child: textFormfield(
-                          controller: controller.addemailAdressA,
+                          controller: controller.emailAdressA,
                           hintText: 'Email Address *',
                           textInputType: TextInputType.text),
                     ),
@@ -96,7 +97,7 @@ class AddAgent extends GetView<AgentAdminController> {
                         child: textFormfield(
                           hintText: 'Age *',
                           textInputType: TextInputType.number,
-                          controller: controller.addage,
+                          controller: controller.age,
                         ),
                       ),
                     ),
@@ -105,10 +106,10 @@ class AddAgent extends GetView<AgentAdminController> {
                       child: Container(
                         padding: EdgeInsets.only(left: 10.w),
                         child: dropDownListings(
-                          selectedItem: controller.addselectedGender,
-                          Types: controller.addagentGender,
+                          selectedItem: controller.selectedGender,
+                          Types: controller.agentGender,
                           onChanged: (value) =>
-                              controller.addselectedGender.value = value!,
+                              controller.selectedGender.value = value!,
                           hintText: 'Gender *',
                         ),
                       ),
@@ -123,10 +124,10 @@ class AddAgent extends GetView<AgentAdminController> {
                     Expanded(
                       flex: 1,
                       child: dropDownListings(
-                        selectedItem: controller.addselectedAgentType,
-                        Types: controller.addagentType,
+                        selectedItem: controller.selectedAgentType,
+                        Types: controller.agentType,
                         onChanged: (value) =>
-                            controller.addselectedAgentType.value = value!,
+                            controller.selectedAgentType.value = value!,
                         hintText: 'Agent Type *',
                       ),
                     ),
@@ -135,10 +136,10 @@ class AddAgent extends GetView<AgentAdminController> {
                     Expanded(
                       flex: 1,
                       child: dropDownListings(
-                        selectedItem: controller.addselectedAgentRole,
-                        Types: controller.addagentRole,
+                        selectedItem: controller.selectedAgentRole,
+                        Types: controller.agentRole,
                         onChanged: (value) =>
-                            controller.addselectedAgentRole.value = value!,
+                            controller.selectedAgentRole.value = value!,
                         hintText: 'Agent Role *',
                       ),
                     ),
@@ -146,7 +147,7 @@ class AddAgent extends GetView<AgentAdminController> {
                     sbw20(),
                     Expanded(
                       child: textFormfield(
-                          controller: controller.addpasswordA,
+                          controller: controller.passwordA,
                           hintText: 'Password *',
                           textInputType: TextInputType.text),
                     ),
@@ -154,7 +155,7 @@ class AddAgent extends GetView<AgentAdminController> {
                     sbw20(),
                     Expanded(
                       child: textFormfield(
-                          controller: controller.addconfirmPA,
+                          controller: controller.confirmPA,
                           hintText: 'Confirm Password *',
                           textInputType: TextInputType.text),
                     ),
@@ -167,7 +168,7 @@ class AddAgent extends GetView<AgentAdminController> {
                   children: [
                     Expanded(
                       child: textFormfield(
-                          controller: controller.addofficeLA,
+                          controller: controller.officeLA,
                           hintText: 'Office Location *',
                           textInputType: TextInputType.text),
                     ),
@@ -175,7 +176,7 @@ class AddAgent extends GetView<AgentAdminController> {
                     sbw20(),
                     Expanded(
                       child: textFormfield(
-                          controller: controller.addlicensedNumA,
+                          controller: controller.licensedNumA,
                           hintText: 'Licensed Number *',
                           textInputType: TextInputType.text),
                     ),
@@ -184,7 +185,7 @@ class AddAgent extends GetView<AgentAdminController> {
                 sb20(),
 
                 textFormfield(
-                    controller: controller.adddescriptionA,
+                    controller: controller.descriptionA,
                     hintText: 'Description *',
                     textInputType: TextInputType.multiline,
                     textInputAction: TextInputAction.newline,
@@ -202,83 +203,89 @@ class AddAgent extends GetView<AgentAdminController> {
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     Button(
                       onTap: () async {
-                        BaseController().showLoading();
-                        try {
-                          await Authentication().signup(
-                              email: controller.addemailAdressA.text,
-                              password: controller.addpasswordA.text);
-                          var id = await Authentication().login(
-                              email: controller.addemailAdressA.text,
-                              password: controller.addpasswordA.text);
-                          //var image = await CloudStorage().upload(file: controller.images, target: 'users/test/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}');
-                          await EraUser(
-                                  id: id,
-                                  firstname: controller.addfNameA.text,
-                                  lastname: controller.addlNameA.text,
-                                  email: controller.addemailAdressA.text,
-                                  //birthday: controller.dateBirthA.text,
-                                  whatsApp: controller.addphoneNA.text,
-                                  //gender: controller.sexA.text,
-                                  location: controller.addofficeLA.text,
-                                  licence: controller.addlicensedNumA.text,
-                                  position:
-                                      controller.addselectedAgentType.value,
-                                  description: controller.adddescriptionA.text,
-                                  role: controller.addselectedAgentRole.value,
-                                  eraId:
-                                      "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
-                                  status: "approved")
-                              .add();
-                          await Logs(
-                                  title:
-                                      "${user!.firstname} ${user!.lastname} added an agent with ID ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
-                                  type: "account")
-                              .add();
-                          settings!.agentCount = settings!.agentCount! + 1;
-                          await settings!.update();
+                        if (controller.agentListingssss == null) {
+                          BaseController().showLoading();
+                          try {
+                            await Authentication().signup(
+                                email: controller.emailAdressA.text,
+                                password: controller.passwordA.text);
+                            var id = await Authentication().login(
+                                email: controller.emailAdressA.text,
+                                password: controller.passwordA.text);
+                            //var image = await CloudStorage().upload(file: controller.images, target: 'users/test/${controller.images.path.split('/')[controller.images.path.split('/').length - 1]}');
+                            await EraUser(
+                                    id: id,
+                                    firstname: controller.fNameA.text,
+                                    lastname: controller.lNameA.text,
+                                    email: controller.emailAdressA.text,
+                                    //birthday: controller.dateBirthA.text,
+                                    whatsApp: controller.phoneNA.text,
+                                    //gender: controller.sexA.text,
+                                    location: controller.officeLA.text,
+                                    licence: controller.licensedNumA.text,
+                                    position:
+                                        controller.selectedAgentType.value,
+                                    description: controller.descriptionA.text,
+                                    role: controller.selectedAgentRole.value,
+                                    eraId:
+                                        "ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
+                                    status: "approved")
+                                .add();
+                            await Logs(
+                                    title:
+                                        "${user!.firstname} ${user!.lastname} added an agent with ID ERA_agent${(settings!.agentCount! + 1).toString().padLeft(5, "0")}",
+                                    type: "account")
+                                .add();
+                            settings!.agentCount = settings!.agentCount! + 1;
+                            await settings!.update();
+                            BaseController().showSuccessDialog(
+                                title: "Submitted",
+                                description: "Account created",
+                                okayButton: 'Close',
+                                hitApi: () {
+                                  Get.back();
+                                  Get.back();
+                                });
+                          } catch (e) {
+                            BaseController().showSuccessDialog(
+                                title: "Error!",
+                                description: "$e",
+                                hitApi: () {
+                                  Get.back();
+                                  Get.back();
+                                });
+                          }
+                        } else {
+                          BaseController().showLoading();
                           BaseController().showSuccessDialog(
                               title: "Submitted",
-                              description: "Account created",
+                              description: "Agent updated successfully!",
                               okayButton: 'Close',
                               hitApi: () {
                                 Get.back();
                                 Get.back();
-                                controller.clearfieldEditAgents();
                               });
-                        } catch (e) {
-                          BaseController().showSuccessDialog(
-                              title: "Error!",
-                              description: "$e",
-                              hitApi: () {
-                                Get.back();
-                                Get.back();
-                              });
+                          try {
+                            await controller.updateValues();
+                          } catch (e) {
+                            BaseController().showSuccessDialog(
+                                title: "Error!",
+                                description: "$e",
+                                hitApi: () {
+                                  Get.back();
+                                  Get.back();
+                                });
+                          }
                         }
                       },
                       margin: EdgeInsets.symmetric(horizontal: 5),
                       width: 150.w,
-                      text: 'SUBMIT',
+                      text: controller.agentListingssss == null
+                          ? 'SUBMIT'
+                          : "EDIT",
                       bgColor: AppColors.blue,
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    Builder(
-                      builder: (context) {
-                        if (controller.agentListingssss == null) {
-                          return Button(
-                            onTap: () {
-                              controller.clearfieldEditAgents();
-                            },
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            width: 150.w,
-                            text: 'CLEAR FIELDS',
-                            bgColor: AppColors.hint,
-                            borderRadius: BorderRadius.circular(30),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      },
-                    )
                   ]),
                 ),
                 SizedBox(

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/models/realestatelisting.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/add-agent.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/repository/listing.dart';
 import 'package:eraphilippines/repository/user.dart';
@@ -71,7 +72,7 @@ class AgentAdminController extends GetxController with BaseController {
 
   var selectedGender = RxnString();
   var agentGender = ['Male', 'Female'];
-
+  // edit agent
   TextEditingController fNameA = TextEditingController();
   TextEditingController lNameA = TextEditingController();
   TextEditingController emailAdressA = TextEditingController();
@@ -88,6 +89,36 @@ class AgentAdminController extends GetxController with BaseController {
   TextEditingController licensedNumA = TextEditingController();
   TextEditingController parking = TextEditingController();
   TextEditingController age = TextEditingController();
+//add agent
+  TextEditingController addfNameA = TextEditingController();
+  TextEditingController addlNameA = TextEditingController();
+  TextEditingController addemailAdressA = TextEditingController();
+  TextEditingController adddateBirthA = TextEditingController();
+  TextEditingController addsexA = TextEditingController();
+  TextEditingController addlocationA = TextEditingController();
+  TextEditingController addlicenseNA = TextEditingController();
+  TextEditingController addphoneNA = TextEditingController();
+  TextEditingController addpasswordA = TextEditingController();
+  TextEditingController addconfirmPA = TextEditingController();
+  TextEditingController addpositionA = TextEditingController();
+  TextEditingController adddescriptionA = TextEditingController();
+  TextEditingController addofficeLA = TextEditingController();
+  TextEditingController addlicensedNumA = TextEditingController();
+  TextEditingController addparking = TextEditingController();
+  TextEditingController addage = TextEditingController();
+  var addselectedGender = RxnString();
+  var addagentGender = ['Male', 'Female'];
+
+  var addagentType = ['ASC', 'AMM', 'MM', 'SMM', 'MD', 'SMD', 'ADD', 'BDD'];
+  var addselectedAgentType = RxnString();
+  var addselectedAgentRole = RxnString();
+
+  var addagentRole = [
+    'ERA Agent',
+    'ERA Broker',
+    'ERA Infinity Agent',
+    'ERA Infinity Broker'
+  ];
 
 // roster
   TextEditingController message = TextEditingController();
@@ -96,6 +127,30 @@ class AgentAdminController extends GetxController with BaseController {
   TextEditingController fname = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController emailAdress = TextEditingController();
+
+  clearfieldEditAgents() {
+    print('Clearing fields...');
+
+    addfNameA.clear();
+    addlNameA.clear();
+    addemailAdressA.clear();
+    adddateBirthA.clear();
+    addsexA.clear();
+    addlocationA.clear();
+    addlicenseNA.clear();
+    addphoneNA.clear();
+    addpasswordA.clear();
+    addconfirmPA.clear();
+    addpositionA.clear();
+    adddescriptionA.clear();
+    addofficeLA.clear();
+    addlicensedNumA.clear();
+    addparking.clear();
+    addselectedAgentType.value = null;
+    addage.clear();
+    addselectedAgentRole.value = null;
+    addselectedGender.value = null;
+  }
 
   clearfield() {
     fNameA.clear();
@@ -114,11 +169,9 @@ class AgentAdminController extends GetxController with BaseController {
     licensedNumA.clear();
     parking.clear();
     selectedAgentType.value = null;
-  
   }
 
-
-  clearFindAgentsField(){
+  clearFindAgentsField() {
     phoneNumber.clear();
     fname.clear();
     emailAdress.clear();
