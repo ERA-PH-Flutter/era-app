@@ -28,6 +28,7 @@ import 'package:eraphilippines/presentation/admin/user_management/pages/pages/ad
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/agent_profile_admin.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/approvedagents.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/delete_account.dart';
+import 'package:eraphilippines/presentation/admin/user_management/pages/pages/edit-agent.dart';
 import 'package:eraphilippines/presentation/admin/user_management/pages/pages/roster.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';
 import 'package:eraphilippines/router/route_string.dart';
@@ -73,6 +74,7 @@ class LandingPage extends GetView<LandingPageController> {
     ListingApproval(), //24
     ApprovalPropertyinformation(), //25
     DeletedRoster(), //26
+    EditAgent(),
     // UploadNews(), //14
     // UploadNews(), //15
   ];

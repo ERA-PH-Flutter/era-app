@@ -10,8 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../../app/widgets/createaccount_widget.dart';
-import '../../../../../repository/logs.dart';
+ import '../../../../../repository/logs.dart';
 import '../../../../../repository/user.dart';
 
 class ApprovedAgents extends GetView<AgentAdminController> {
