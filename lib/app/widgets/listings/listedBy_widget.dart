@@ -23,6 +23,9 @@ class ListedBy extends StatelessWidget {
   final String? email;
   final String? emailIcon;
   final String? listingId;
+  final double? fontSize;
+    final double? fontSize2;
+
   const ListedBy({
     super.key,
     this.text,
@@ -35,6 +38,9 @@ class ListedBy extends StatelessWidget {
     this.whatsappIcon,
     this.email,
     this.emailIcon,
+    this.fontSize,
+    this.fontSize2,
+
   });
 
   @override
@@ -80,7 +86,7 @@ class ListedBy extends StatelessWidget {
                     width: 200.w,
                     child: EraText(
                       text: '$agentFirstName $agentLastName',
-                      fontSize: EraTheme.h5,
+                      fontSize: fontSize ?? EraTheme.h5,
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                       textOverflow: TextOverflow.ellipsis,
@@ -90,7 +96,7 @@ class ListedBy extends StatelessWidget {
                     text: agentType == 'agent'
                         ? 'ERA Infinity Agent'
                         : 'ERA Infinity Broker',
-                    fontSize: EraTheme.h6,
+                    fontSize:fontSize2?? EraTheme.h6,
                     fontWeight: FontWeight.w500,
                     color: AppColors.black,
                   ),

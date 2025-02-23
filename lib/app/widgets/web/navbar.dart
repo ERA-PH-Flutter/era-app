@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../presentation/global.dart';
 
- import '../../../presentation/website/authentication/pages/login_web.dart';
+import '../../../presentation/website/authentication/pages/login_web.dart';
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
 import '../../constants/theme.dart';
@@ -71,6 +71,83 @@ class Navbar extends GetResponsiveView<HomsController> {
                 )
               : _showOverlayProfile(),
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget phone() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () => Get.toNamed('/home'),
+            child: Image.asset(
+              AppEraAssets.eraPh,
+              height: 40.h, // Smaller logo for mobile
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.menu, size: 32.sp, color: AppColors.kRedColor),
+            onPressed: () => _showMobileMenu(), // Function to open menu
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showMobileMenu() {
+    Get.bottomSheet(
+      Container(
+        color: Colors.white,
+        child: ListView.builder(
+          itemCount: controller.items.length,
+          itemBuilder: (context, index) {
+            String item = controller.items[index];
+            bool? isSelected;
+            Map<String, String> routeMapping = {
+              "HOME": "/home",
+              "PROJECTS": "/projects",
+              "SEARCH": "/search",
+              "FIND AGENTS": "/find-agents",
+              "HELP": "/help",
+              "JOIN US": "/join-us",
+              "SELL PROPERTY": "/sell-property",
+              "MORTGAGE CALCULATOR": "/mortgage-calculator",
+            };
+            return ListTile(
+              // tileColor: controller.isSelected.value == item
+              //     ? AppColors.kRedColor
+              //     : null,
+              title: EraText(text: item, color: Colors.black),
+              onTap: () {
+                //   controller.isSelected.value = item;
+                Get.back();
+                Future.delayed(Duration(milliseconds: 300), () {
+                  String? route = routeMapping[item];
+                  if (route != null) {
+                    print("navigate to: $route");
+                    Get.toNamed(route);
+                  } else {
+                    print("route not found: $item");
+                  }
+                });
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -170,88 +247,6 @@ class Navbar extends GetResponsiveView<HomsController> {
         ),
       ],
     );
-    // GestureDetector(
-    //   onTap: () {
-
-    //   },
-    //   child: OverlayPortal(
-    //     controller: controller.overlayPortal,
-    //     overlayChildBuilder: (BuildContext context) {
-    //       return Positioned(
-    //         top: 120,
-    //         right: 20,
-    //         child: Card(
-    //           elevation: 8,
-    //           // borderRadius: BorderRadius.circular(12.0),
-    //           child: Container(
-    //             width: 300.w,
-    //             padding: EdgeInsets.symmetric(vertical: 8.h),
-    //             decoration: BoxDecoration(
-    //               color: Colors.white,
-    //               borderRadius: BorderRadius.circular(12.0),
-    //               boxShadow: [
-    //                 BoxShadow(
-    //                   color: Colors.grey.withOpacity(0.4),
-    //                   blurRadius: 10,
-    //                   offset: Offset(0, 4),
-    //                 ),
-    //               ],
-    //             ),
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 buildMenuWidget(
-    //                   icon: Icons.person,
-    //                   label: user!.firstname!,
-    //                   onTap: () {
-    //                     // selectedIndex.value = 11;
-    //                     // Get.find<HomsController>().onNavbarItemSelected(11);
-    //                     controller.overlayPortal = OverlayPortalController();
-    //                     Get.toNamed('/agent-dashboard');
-    //                   },
-    //                 ),
-    //                 sb10(),
-    //                 Divider(thickness: 1, height: 1, color: Colors.grey[300]),
-    //                 sb10(),
-    //                 buildMenuWidget(
-    //                     icon: Icons.settings,
-    //                     label: "Settings",
-    //                     onTap: () {
-    //                       // selectedIndex.value = 20;
-    //                       // Get.find<HomsController>().onNavbarItemSelected(20);
-    //                       controller.overlayPortal = OverlayPortalController();
-    //                       Get.toNamed('/settings');
-    //                     }),
-    //                 sb10(),
-    //                 Divider(thickness: 1, height: 1, color: Colors.grey[300]),
-    //                 sb10(),
-    //                 buildMenuWidget(
-    //                   icon: Icons.logout,
-    //                   label: "Log-out",
-    //                   onTap: () async {
-    //                     await Authentication().logout();
-    //                     controller.overlayPortal = OverlayPortalController();
-    //                     Get.deleteAll();
-    //                     Get.toNamed('/home');
-    //                     //     controller.
-    //                   },
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       );
-    //     },
-    //     child: GestureDetector(
-    //       onTap: () {
-    //         controller.overlayPortal.toggle();
-    //       },
-    //       child: Container(
-    //         child: Image.asset(AppEraAssets.eraPh),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }
 
