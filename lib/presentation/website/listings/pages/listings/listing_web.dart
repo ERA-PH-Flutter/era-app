@@ -17,13 +17,51 @@ import '../../../../../../app/widgets/listings/listedBy_widget.dart';
 import '../../../../../../repository/listing.dart';
 import '../../../../../../repository/user.dart';
 
-class BuyWeb extends GetView<ListingsWebController> {
-  const BuyWeb({super.key});
+class BuyWeb extends GetResponsiveView<ListingsWebController> {
+  BuyWeb({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: Get.width,
+  Widget builder() {
+    return WillPopScope(
+      onWillPop: () => _onWillPop(),
+      child: SafeArea(
+        child: Obx(() {
+          switch (controller.listingsWebState.value) {
+            case ListingsWebState.loading:
+              return Screens.loading(height: 500.h);
+            case ListingsWebState.loaded:
+              return _buildResponsiveUI();
+            case ListingsWebState.error:
+              return _error();
+            case ListingsWebState.empty:
+              return _empty();
+            case ListingsWebState.searching:
+              return _searching();
+            default:
+              return _error();
+          }
+        }),
+      ),
+    );
+  }
+
+  Future<bool> _onWillPop() {
+    Get.back();
+    return Future.value(false);
+  }
+
+  Widget _buildResponsiveUI() {
+    if (screen.isDesktop) {
+      return _loadedDesktop();
+    } else if (screen.isTablet) {
+      return _loadedTablet();
+    } else {
+      return _loadedMobile();
+    }
+  }
+
+  _loadedDesktop() {
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,252 +87,784 @@ class BuyWeb extends GetView<ListingsWebController> {
             }
             return Container();
           }),
-          Obx(() => switch (controller.listingsWebState.value) {
-                ListingsWebState.loading => Screens.loading(height: 500.h),
-                ListingsWebState.loaded => _loaded(),
-                ListingsWebState.empty => _empty(),
-                ListingsWebState.searching => _searching(),
-                ListingsWebState.error => _error(),
-              }),
+          SizedBox(
+            width: Get.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 5.h),
+                Obx(() {
+                  if (controller.searchQuery.value == "") {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        EraText(
+                          text: 'Showcased Listings',
+                          fontSize: EraTheme.h1,
+                          color: AppColors.kRedColor,
+                          fontWeight: FontWeight.w800,
+                        ),
+                        EraText(
+                          text: 'Explore Our Top Picks',
+                          fontSize: EraTheme.h2,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w300,
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        )
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        EraText(
+                          text: 'Here\'s what I found for you!',
+                          fontSize: EraTheme.h2,
+                          color: AppColors.blue,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        SizedBox(height: 10.h),
+                      ],
+                    );
+                  }
+                }),
+                SizedBox(height: 10.h),
+                GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisExtent: Get.height - 180.h,
+                  ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller.data.length,
+                  itemBuilder: (context, index) {
+                    if (controller.data[index].id != null) {
+                      Listing listing = controller.data[index];
+                      print('id: ${listing.id}');
+                      return GestureDetector(
+                        onTap: () async {
+                          // await Database().addViews(listing.id);
+                          // Get.toNamed('/propertyInfo', arguments: listing);
+                          // listingArgument = listing;
+                          // selectedIndex.value = 10;
+                          // Get.find<HomsController>().onNavbarItemSelected(10);;
+                          Get.delete<ListingsWebController>();
+                          // listingArgument = await Listing().getListing(idArgument);
+                          Get.toNamed('/view-listing/${listing.id}');
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            bottom: 16.h,
+                            right: 20.w,
+                          ),
+                          padding: EdgeInsets.zero,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10.r),
+                              boxShadow: const [
+                                BoxShadow(
+                                    offset: Offset(0, 0),
+                                    spreadRadius: 1,
+                                    blurRadius: 10,
+                                    color: Colors.black12)
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.r),
+                                  child: CloudStorage().imageLoader(
+                                    height: 340.h,
+                                    width: Get.width,
+                                    fit: BoxFit.cover,
+                                    reference: listing.photos != null
+                                        ? (listing.photos!.isNotEmpty
+                                            ? listing.photos!.first
+                                            : AppStrings.noUserImageWhite)
+                                        : AppStrings.noUserImageWhite,
+                                  )),
+                              SizedBox(
+                                height: 17.h,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                child: EraText(
+                                  text: listing.name! == ""
+                                      ? "No Name"
+                                      : listing.name!,
+                                  fontSize: EraTheme.h3,
+                                  color: AppColors.kRedColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                child: EraText(
+                                  text: listing.type!,
+                                  fontSize: EraTheme.h5,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.bold,
+                                  lineHeight: 1,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  HomeWeb.buildFeatureIcon(
+                                    icon: AppEraAssets.area,
+                                    label: '${listing.floorArea} sqm',
+                                  ),
+                                  SizedBox(width: 2.w),
+                                  HomeWeb.buildFeatureIcon(
+                                    icon: AppEraAssets.bed,
+                                    label: '${listing.beds}',
+                                  ),
+                                  SizedBox(width: 2.w),
+                                  HomeWeb.buildFeatureIcon(
+                                    icon: AppEraAssets.tub,
+                                    label: '${listing.baths}',
+                                  ),
+                                  SizedBox(width: 2.w),
+                                  HomeWeb.buildFeatureIcon(
+                                    icon: AppEraAssets.car,
+                                    label: '${listing.cars}',
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                child: EraText(
+                                  text: 'Description:',
+                                  fontSize: EraTheme.h6,
+                                  color: AppColors.black,
+                                  fontWeight: FontWeight.w600,
+                                  lineHeight: 1,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                child: Text(
+                                  listing.description ?? "No description.",
+                                  style: TextStyle(
+                                    fontSize: EraTheme.caption,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.black,
+                                  ),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                child: EraText(
+                                  text: NumberFormat.currency(
+                                          locale: 'en_PH', symbol: 'PHP ')
+                                      .format(
+                                    listing.price.toString() == ""
+                                        ? 0
+                                        : listing.price,
+                                  ),
+                                  color: AppColors.blue,
+                                  fontSize: EraTheme.h4,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              FutureBuilder(
+                                  future: EraUser().getById(listing.by),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      var user1 = snapshot.data;
+                                      return Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 14.w),
+                                        child: ListedBy(
+                                            image: user1!.image ??
+                                                AppStrings.noUserImageWhite,
+                                            agentFirstName:
+                                                user1.firstname ?? "No Name",
+                                            agentType: user1.role ?? "Agent",
+                                            agentLastName:
+                                                user1.lastname ?? ""),
+                                      );
+                                    } else {
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                  }),
+                              sb50(),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                    return Container();
+                  },
+                ),
+              ],
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  _loadedTablet() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 10.h,
+        ),
+        EraText(
+          text: "Tablet View",
+          fontSize: EraTheme.h1,
+          fontWeight: FontWeight.bold,
+          color: AppColors.kRedColor,
+        ),
+        EraText(
+          text: "Property searches made simple.",
+          fontSize: EraTheme.h1,
+          fontWeight: FontWeight.bold,
+          color: AppColors.kRedColor,
+        ),
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 2),
+          child: FilteredSearchBox(),
+        ),
+        sb50(),
+        Obx(() {
+          if (controller.showFullSearch.value == false) {
+            return controller.quickLinks ?? Container();
+          }
+          return Container();
+        }),
+        SizedBox(
+          width: Get.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 5.h),
+              Obx(() {
+                if (controller.searchQuery.value == "") {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      EraText(
+                        text: 'Showcased Listings',
+                        fontSize: EraTheme.h1 + 10.sp,
+                        color: AppColors.kRedColor,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      EraText(
+                        text: 'Explore Our Top Picks',
+                        fontSize: EraTheme.h2 + 10.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      )
+                    ],
+                  );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      EraText(
+                        text: 'Here\'s what I found for you!',
+                        fontSize: EraTheme.h2 + 10.sp,
+                        color: AppColors.blue,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      SizedBox(height: 10.h),
+                    ],
+                  );
+                }
+              }),
+              SizedBox(height: 10.h),
+              GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 16.0,
+                  mainAxisSpacing: 16.0,
+                  crossAxisCount: 2,
+                  mainAxisExtent: Get.height - 340.h,
+                ),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: controller.data.length,
+                itemBuilder: (context, index) {
+                  if (controller.data[index].id != null) {
+                    Listing listing = controller.data[index];
+                    print('id: ${listing.id}');
+                    return GestureDetector(
+                      onTap: () async {
+                        // await Database().addViews(listing.id);
+                        // Get.toNamed('/propertyInfo', arguments: listing);
+                        // listingArgument = listing;
+                        // selectedIndex.value = 10;
+                        // Get.find<HomsController>().onNavbarItemSelected(10);;
+                        Get.delete<ListingsWebController>();
+                        // listingArgument = await Listing().getListing(idArgument);
+                        Get.toNamed('/view-listing/${listing.id}');
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          bottom: 16.h,
+                          right: 20.w,
+                        ),
+                        padding: EdgeInsets.zero,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.r),
+                            boxShadow: const [
+                              BoxShadow(
+                                  offset: Offset(0, 0),
+                                  spreadRadius: 1,
+                                  blurRadius: 10,
+                                  color: Colors.black12)
+                            ]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(10.r),
+                                child: CloudStorage().imageLoader(
+                                  height: 340.h,
+                                  width: Get.width,
+                                  fit: BoxFit.cover,
+                                  reference: listing.photos != null
+                                      ? (listing.photos!.isNotEmpty
+                                          ? listing.photos!.first
+                                          : AppStrings.noUserImageWhite)
+                                      : AppStrings.noUserImageWhite,
+                                )),
+                            SizedBox(
+                              height: 17.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: listing.name! == ""
+                                    ? "No Name"
+                                    : listing.name!,
+                                fontSize: EraTheme.h3 + 10.sp,
+                                color: AppColors.kRedColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: listing.type!,
+                                fontSize: EraTheme.h5 + 10.sp,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.bold,
+                                lineHeight: 1,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                HomeWeb.buildFeatureIcon(
+                                  icon: AppEraAssets.area,
+                                  label: '${listing.floorArea} sqm',
+                                ),
+                                SizedBox(width: 2.w),
+                                HomeWeb.buildFeatureIcon(
+                                  icon: AppEraAssets.bed,
+                                  label: '${listing.beds}',
+                                ),
+                                SizedBox(width: 2.w),
+                                HomeWeb.buildFeatureIcon(
+                                  icon: AppEraAssets.tub,
+                                  label: '${listing.baths}',
+                                ),
+                                SizedBox(width: 2.w),
+                                HomeWeb.buildFeatureIcon(
+                                  icon: AppEraAssets.car,
+                                  label: '${listing.cars}',
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: 'Description:',
+                                fontSize: EraTheme.h6 + 10.sp,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w600,
+                                lineHeight: 1,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: Text(
+                                listing.description ?? "No description.",
+                                style: TextStyle(
+                                  fontSize: EraTheme.caption + 10.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.black,
+                                ),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: NumberFormat.currency(
+                                        locale: 'en_PH', symbol: 'PHP ')
+                                    .format(
+                                  listing.price.toString() == ""
+                                      ? 0
+                                      : listing.price,
+                                ),
+                                color: AppColors.blue,
+                                fontSize: EraTheme.h4 + 10.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            FutureBuilder(
+                                future: EraUser().getById(listing.by),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    var user1 = snapshot.data;
+                                    return Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 14.w),
+                                      child: ListedBy(
+                                          image: user1!.image ??
+                                              AppStrings.noUserImageWhite,
+                                          agentFirstName:
+                                              user1.firstname ?? "No Name",
+                                          agentType: user1.role ?? "Agent",
+                                          agentLastName: user1.lastname ?? ""),
+                                    );
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                }),
+                            sb50(),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  _loadedMobile() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 10.h,
+        ),
+        EraText(
+          text: "Mobile View",
+          fontSize: EraTheme.h1,
+          fontWeight: FontWeight.bold,
+          color: AppColors.kRedColor,
+        ),
+        EraText(
+          text: "Property searches made simple.",
+          fontSize: EraTheme.h1,
+          fontWeight: FontWeight.bold,
+          color: AppColors.kRedColor,
+        ),
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 2),
+          child: FilteredSearchBox(),
+        ),
+        sb50(),
+        Obx(() {
+          if (controller.showFullSearch.value == false) {
+            return controller.quickLinks ?? Container();
+          }
+          return Container();
+        }),
+        SizedBox(
+          width: Get.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 5.h),
+              Obx(() {
+                if (controller.searchQuery.value == "") {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      EraText(
+                        text: 'Showcased Listings',
+                        fontSize: EraTheme.h1 + 10.sp,
+                        color: AppColors.kRedColor,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      EraText(
+                        text: 'Explore Our Top Picks',
+                        fontSize: EraTheme.h2 + 10.sp,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      )
+                    ],
+                  );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      EraText(
+                        text: 'Here\'s what I found for you!',
+                        fontSize: EraTheme.h2 + 10.sp,
+                        color: AppColors.blue,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      SizedBox(height: 10.h),
+                    ],
+                  );
+                }
+              }),
+              SizedBox(height: 10.h),
+              GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 16.0,
+                  mainAxisSpacing: 16.0,
+                  crossAxisCount: 2,
+                  mainAxisExtent: Get.height - 340.h,
+                ),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: controller.data.length,
+                itemBuilder: (context, index) {
+                  if (controller.data[index].id != null) {
+                    Listing listing = controller.data[index];
+                    print('id: ${listing.id}');
+                    return GestureDetector(
+                      onTap: () async {
+                        // await Database().addViews(listing.id);
+                        // Get.toNamed('/propertyInfo', arguments: listing);
+                        // listingArgument = listing;
+                        // selectedIndex.value = 10;
+                        // Get.find<HomsController>().onNavbarItemSelected(10);;
+                        Get.delete<ListingsWebController>();
+                        // listingArgument = await Listing().getListing(idArgument);
+                        Get.toNamed('/view-listing/${listing.id}');
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          bottom: 16.h,
+                          right: 20.w,
+                        ),
+                        padding: EdgeInsets.zero,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.r),
+                            boxShadow: const [
+                              BoxShadow(
+                                  offset: Offset(0, 0),
+                                  spreadRadius: 1,
+                                  blurRadius: 10,
+                                  color: Colors.black12)
+                            ]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(10.r),
+                                child: CloudStorage().imageLoader(
+                                  height: 340.h,
+                                  width: Get.width,
+                                  fit: BoxFit.cover,
+                                  reference: listing.photos != null
+                                      ? (listing.photos!.isNotEmpty
+                                          ? listing.photos!.first
+                                          : AppStrings.noUserImageWhite)
+                                      : AppStrings.noUserImageWhite,
+                                )),
+                            SizedBox(
+                              height: 17.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: listing.name! == ""
+                                    ? "No Name"
+                                    : listing.name!,
+                                fontSize: EraTheme.h3 + 20.sp,
+                                color: AppColors.kRedColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: listing.type!,
+                                fontSize: EraTheme.h5 + 20.sp,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.bold,
+                                lineHeight: 1,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                HomeWeb.buildFeatureIcon(
+                                  fontSize: EraTheme.sbodyText + 30.sp,
+                                  icon: AppEraAssets.area,
+                                  label: '${listing.floorArea} sqm',
+                                ),
+                                SizedBox(width: 2.w),
+                                HomeWeb.buildFeatureIcon(
+                                  fontSize: EraTheme.sbodyText + 30.sp,
+                                  icon: AppEraAssets.bed,
+                                  label: '${listing.beds}',
+                                ),
+                                SizedBox(width: 2.w),
+                                HomeWeb.buildFeatureIcon(
+                                  fontSize: EraTheme.sbodyText + 30.sp,
+                                  icon: AppEraAssets.tub,
+                                  label: '${listing.baths}',
+                                ),
+                                SizedBox(width: 2.w),
+                                HomeWeb.buildFeatureIcon(
+                                  fontSize: EraTheme.sbodyText + 30.sp,
+                                  icon: AppEraAssets.car,
+                                  label: '${listing.cars}',
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: 'Description:',
+                                fontSize: EraTheme.h6 + 20.sp,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w600,
+                                lineHeight: 1,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: Text(
+                                listing.description ?? "No description.",
+                                style: TextStyle(
+                                  fontSize: EraTheme.caption + 20.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.black,
+                                ),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: EraText(
+                                text: NumberFormat.currency(
+                                        locale: 'en_PH', symbol: 'PHP ')
+                                    .format(
+                                  listing.price.toString() == ""
+                                      ? 0
+                                      : listing.price,
+                                ),
+                                color: AppColors.blue,
+                                fontSize: EraTheme.h4 + 20.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            FutureBuilder(
+                                future: EraUser().getById(listing.by),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    var user1 = snapshot.data;
+                                    return Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 14.w),
+                                      child: ListedBy(
+                                          fontSize: EraTheme.h5 + 10.sp,
+                                          fontSize2: EraTheme.h6 + 20.sp,
+                                          image: user1!.image ??
+                                              AppStrings.noUserImageWhite,
+                                          agentFirstName:
+                                              user1.firstname ?? "No Name",
+                                          agentType: user1.role ?? "Agent",
+                                          agentLastName: user1.lastname ?? ""),
+                                    );
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                }),
+                            sb50(),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
   _searching() {
     return Container();
-  }
-
-  _loaded() {
-    return SizedBox(
-      width: Get.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 5.h),
-          Obx(() {
-            if (controller.searchQuery.value == "") {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  EraText(
-                    text: 'Showcased Listings',
-                    fontSize: EraTheme.h1,
-                    color: AppColors.kRedColor,
-                    fontWeight: FontWeight.w800,
-                  ),
-                  EraText(
-                    text: 'Explore Our Top Picks',
-                    fontSize: EraTheme.h2,
-                    color: AppColors.black,
-                    fontWeight: FontWeight.w300,
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  )
-                ],
-              );
-            } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  EraText(
-                    text: 'Here\'s what I found for you!',
-                    fontSize: EraTheme.h2,
-                    color: AppColors.blue,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  SizedBox(height: 10.h),
-                ],
-              );
-            }
-          }),
-          SizedBox(height: 10.h),
-          GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisExtent: Get.height - 180.h,
-            ),
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: controller.data.length,
-            itemBuilder: (context, index) {
-              if (controller.data[index].id != null) {
-                Listing listing = controller.data[index];
-                print('id: ${listing.id}');
-                return GestureDetector(
-                  onTap: () async {
-                    // await Database().addViews(listing.id);
-                    // Get.toNamed('/propertyInfo', arguments: listing);
-                    // listingArgument = listing;
-                    // selectedIndex.value = 10;
-                    // Get.find<HomsController>().onNavbarItemSelected(10);;
-                    Get.delete<ListingsWebController>();
-                    // listingArgument = await Listing().getListing(idArgument);
-                    Get.toNamed('/view-listing/${listing.id}');
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      bottom: 16.h,
-                      right: 20.w,
-                    ),
-                    padding: EdgeInsets.zero,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.r),
-                        boxShadow: const [
-                          BoxShadow(
-                              offset: Offset(0, 0),
-                              spreadRadius: 1,
-                              blurRadius: 10,
-                              color: Colors.black12)
-                        ]),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(10.r),
-                            child: CloudStorage().imageLoader(
-                              height: 340.h,
-                              width: Get.width,
-                              fit: BoxFit.cover,
-                              reference: listing.photos != null
-                                  ? (listing.photos!.isNotEmpty
-                                      ? listing.photos!.first
-                                      : AppStrings.noUserImageWhite)
-                                  : AppStrings.noUserImageWhite,
-                            )),
-                        SizedBox(
-                          height: 17.h,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 14.w),
-                          child: EraText(
-                            text:
-                                listing.name! == "" ? "No Name" : listing.name!,
-                            fontSize: EraTheme.h3,
-                            color: AppColors.kRedColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 14.w),
-                          child: EraText(
-                            text: listing.type!,
-                            fontSize: EraTheme.h5,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
-                            lineHeight: 1,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            HomeWeb.buildFeatureIcon(
-                              icon: AppEraAssets.area,
-                              label: '${listing.floorArea} sqm',
-                            ),
-                            SizedBox(width: 2.w),
-                            HomeWeb.buildFeatureIcon(
-                              icon: AppEraAssets.bed,
-                              label: '${listing.beds}',
-                            ),
-                            SizedBox(width: 2.w),
-                            HomeWeb.buildFeatureIcon(
-                              icon: AppEraAssets.tub,
-                              label: '${listing.baths}',
-                            ),
-                            SizedBox(width: 2.w),
-                            HomeWeb.buildFeatureIcon(
-                              icon: AppEraAssets.car,
-                              label: '${listing.cars}',
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 14.w),
-                          child: EraText(
-                            text: 'Description:',
-                            fontSize: EraTheme.h6,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w600,
-                            lineHeight: 1,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 14.w),
-                          child: Text(
-                            listing.description ?? "No description.",
-                            style: TextStyle(
-                              fontSize: EraTheme.caption,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black,
-                            ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 14.w),
-                          child: EraText(
-                            text: NumberFormat.currency(
-                                    locale: 'en_PH', symbol: 'PHP ')
-                                .format(
-                              listing.price.toString() == ""
-                                  ? 0
-                                  : listing.price,
-                            ),
-                            color: AppColors.blue,
-                            fontSize: EraTheme.h4,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        FutureBuilder(
-                            future: EraUser().getById(listing.by),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                var user1 = snapshot.data;
-                                return Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 14.w),
-                                  child: ListedBy(
-                                      image: user1!.image ??
-                                          AppStrings.noUserImageWhite,
-                                      agentFirstName:
-                                          user1.firstname ?? "No Name",
-                                      agentType: user1.role ?? "Agent",
-                                      agentLastName: user1.lastname ?? ""),
-                                );
-                              } else {
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                            }),
-                        sb50(),
-                      ],
-                    ),
-                  ),
-                );
-              }
-              return Container();
-            },
-          ),
-        ],
-      ),
-    );
   }
 
   _error() {

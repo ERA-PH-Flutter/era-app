@@ -47,7 +47,7 @@ class HomsController extends GetxController {
   RxBool getBack = false.obs;
   var link = LayerLink();
   double? buttonWidth;
-
+  var isSelected = "".obs;
   RxBool isDropdownVisible = false.obs;
   var dashboard = OverlayPortalController();
   var settingAgent = OverlayPortalController();

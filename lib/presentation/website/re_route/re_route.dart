@@ -22,45 +22,71 @@ class ReRoute extends GetView<ReRouteController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
+    return Scaffold(body: LayoutBuilder(builder: (context, constraint) {
+      if (constraint.maxWidth > 800) {
+        return _desktopView();
+      } else {
+        return _mobileView();
+      }
+    }));
+  }
+
+  _mobileView() {
+    return Column(
+      children: [
+        Obx(() => controller.isNavbarVisible.value ? Navbar() : SizedBox()),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                controller.args!.page,
+                buildFooter(),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _desktopView() {
+    return CustomScrollView(
       controller: controller.scrollController,
-        slivers: [
-          Obx(
-            () => SliverAppBar(
-              automaticallyImplyLeading: false,
-              collapsedHeight: 155.h,
-              backgroundColor: AppColors.white,
-              floating: false,
-              pinned: controller.isNavbarVisible.value,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Get.currentRoute != "/privacy-policy"
-                    ? Navbar()
-                    : Container(),
-                background: Container(
-                  color: AppColors.white,
-                ),
+      slivers: [
+        Obx(
+          () => SliverAppBar(
+            automaticallyImplyLeading: false,
+            collapsedHeight: 155.h,
+            backgroundColor: AppColors.white,
+            floating: false,
+            pinned: controller.isNavbarVisible.value,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Get.currentRoute != "/privacy-policy"
+                  ? Navbar()
+                  : Container(),
+              background: Container(
+                color: AppColors.white,
               ),
             ),
           ),
-          SliverList(
-              delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return Stack(
-                children: [
-                  Column(
-                    children: [
-                      controller.args!.page,
-                      buildFooter(),
-                    ],
-                  ),
-                ],
-              );
-            },
-            childCount: 1,
-          ))
-        ],
-      ),
+        ),
+        SliverList(
+            delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return Stack(
+              children: [
+                Column(
+                  children: [
+                    controller.args!.page,
+                    buildFooter(),
+                  ],
+                ),
+              ],
+            );
+          },
+          childCount: 1,
+        ))
+      ],
     );
   }
 
@@ -71,18 +97,36 @@ class ReRoute extends GetView<ReRouteController> {
           color: AppColors.white,
           elevation: 7,
           child: Container(
+            //color: Colors.black,
             padding: EdgeInsets.symmetric(
               horizontal: EraTheme.paddingWidthAdmin * 3,
             ),
             width: Get.width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _columnListing(),
-                _columnAboutUs(),
-                _columnERAph(),
-              ],
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth > 600) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _columnListing(),
+                      _columnAboutUs(),
+                      _columnERAph(),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _columnListing(),
+                      SizedBox(height: 20),
+                      _columnAboutUs(),
+                      SizedBox(height: 20),
+                      _columnERAph(),
+                    ],
+                  );
+                }
+              },
             ),
           ),
         ),
@@ -95,10 +139,11 @@ class ReRoute extends GetView<ReRouteController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   socialMedia(
-                      onTap: () {
-                        launchUrl(controller.facebook);
-                      },
-                      faIcon: FontAwesomeIcons.facebook),
+                    onTap: () {
+                      launchUrl(controller.facebook);
+                    },
+                    faIcon: FontAwesomeIcons.facebook,
+                  ),
                   socialMedia(
                     faIcon: FontAwesomeIcons.instagram,
                     onTap: () {
@@ -216,17 +261,17 @@ class ReRoute extends GetView<ReRouteController> {
                   ],
                 ),
               ),
-              Positioned(
-                  top: -20.h,
-                  left: 0.w,
-                  child: Container(
-                    child: Image.asset(
-                      AppEraAssets.eraPh,
-                      width: 200.w,
-                      height: 260.h,
-                      fit: BoxFit.cover,
-                    ),
-                  )),
+              // Positioned(
+              //     top: -20.h,
+              //     left: 0.w,
+              //     child: Container(
+              //       child: Image.asset(
+              //         AppEraAssets.eraPh,
+              //         width: 200.w,
+              //         height: 260.h,
+              //         fit: BoxFit.cover,
+              //       ),
+              //     )),
               sbw10(),
             ],
           ),
