@@ -802,7 +802,7 @@ Widget _buildUploadPhoto({required String text, required String image}) {
       List types = ['sub-type', 'type', 'type', 'type', 'type'];
       var listings = (await FirebaseFirestore.instance
               .collection('listings')
-              .where('type', isEqualTo: text.toLowerCase())
+              .where('type', isEqualTo: text.toString().capitalizeFirst)
               .get())
           .docs;
       var data = listings.map((listing) {
