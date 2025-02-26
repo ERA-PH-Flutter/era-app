@@ -784,18 +784,15 @@ class AgentDashBoardWeb extends GetResponsiveView<AgentDashboardWebController> {
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
-        Container(
+        SizedBox(
           width: Get.width,
+          height: 260.h,
           child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
             child: Row(
               children: [
                 GestureDetector(
                   onTap: () {
-                    // selectedIndex.value = 13;
-                    // Get.find<HomsController>().onNavbarItemSelected(13);
-                    // Get.toNamed(
-                    //   '/addListings',
-                    // );
                     Get.toNamed('/add-listing');
                   },
                   child: Image.asset(
@@ -806,83 +803,77 @@ class AgentDashBoardWeb extends GetResponsiveView<AgentDashboardWebController> {
                   ),
                 ),
                 //todo insert random
-                SizedBox(
-                  height: 250.h,
-                  width: Get.width,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: controller.listings.length >= 5
-                        ? 5
-                        : controller.listings.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          // Get.toNamed('/propertyInfo',
-                          //     arguments: controller.listings[index]);
-                          // HomsController homsController =
-                          //     Get.find<HomsController>();
-                          // homsController.onNavbarItemSelected(
-                          //   15,
-                          // );
-                          print("aa");
-                          // listingArgument = controller.listings[index];
-                          Get.delete<ListingsWebController>();
-                          Get.toNamed(
-                              '/view-listing/${controller.listings[index].id}');
-                        },
-                        child: Container(
-                            width: width ?? 200.w,
-                            height: height ?? 220.h,
-                            decoration: BoxDecoration(boxShadow: const [
-                              BoxShadow(
-                                  offset: Offset(0, 0),
-                                  blurRadius: 1,
-                                  spreadRadius: 0.5,
-                                  color: Colors.black38)
-                            ], borderRadius: BorderRadius.circular(10.r)),
-                            margin: EdgeInsets.symmetric(horizontal: 5.w),
-                            child: Stack(
-                              children: [
-                                Positioned.fill(
-                                  child: CloudStorage().imageLoaderProvider(
-                                      reference: controller
-                                              .listings[index].photos.isNotEmpty
-                                          ? controller
-                                              .listings[index].photos.first
-                                          : AppStrings.noUserImageWhite,
-                                      height: 100.w,
-                                      width: 100.w,
-                                      borderRadius:
-                                          BorderRadius.circular(10.r)),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(10.r),
-                                            bottomRight:
-                                                Radius.circular(10.r))),
-                                    width: 220.w,
-                                    height: 50.h,
-                                    child: EraText(
-                                      textAlign: TextAlign.center,
-                                      text: controller.listings[index].name,
-                                      color: Colors.black,
-                                      fontSize: 20.sp,
-                                      textOverflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.listings.length >= 5
+                      ? 5
+                      : controller.listings.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        // Get.toNamed('/propertyInfo',
+                        //     arguments: controller.listings[index]);
+                        // HomsController homsController =
+                        //     Get.find<HomsController>();
+                        // homsController.onNavbarItemSelected(
+                        //   15,
+                        // );
+                        print("aa");
+                        // listingArgument = controller.listings[index];
+                        Get.delete<ListingsWebController>();
+                        Get.toNamed(
+                            '/view-listing/${controller.listings[index].id}');
+                      },
+                      child: Container(
+                          width: width ?? 200.w,
+                          height: height ?? 220.h,
+                          decoration: BoxDecoration(boxShadow: const [
+                            BoxShadow(
+                                offset: Offset(0, 0),
+                                blurRadius: 1,
+                                spreadRadius: 0.5,
+                                color: Colors.black38)
+                          ], borderRadius: BorderRadius.circular(10.r)),
+                          margin: EdgeInsets.symmetric(horizontal: 5.w),
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                child: CloudStorage().imageLoaderProvider(
+                                    reference: controller
+                                            .listings[index].photos.isNotEmpty
+                                        ? controller
+                                            .listings[index].photos.first
+                                        : AppStrings.noUserImageWhite,
+                                    height: 100.w,
+                                    width: 100.w,
+                                    borderRadius: BorderRadius.circular(10.r)),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10.r),
+                                          bottomRight: Radius.circular(10.r))),
+                                  width: 220.w,
+                                  height: 50.h,
+                                  child: EraText(
+                                    textAlign: TextAlign.center,
+                                    text: controller.listings[index].name,
+                                    color: Colors.black,
+                                    fontSize: 20.sp,
+                                    textOverflow: TextOverflow.ellipsis,
+                                    fontWeight: FontWeight.w400,
                                   ),
-                                )
-                              ],
-                            )),
-                      );
-                    },
-                  ),
+                                ),
+                              )
+                            ],
+                          )),
+                    );
+                  },
                 ),
                 // HomsController homsController = Get.find<HomsController>();
                 // selectedIndex.value = 17;
@@ -894,10 +885,13 @@ class AgentDashBoardWeb extends GetResponsiveView<AgentDashboardWebController> {
                     Get.delete<AgentListingsWebController>();
                     Get.toNamed('/my-listings');
                   },
-                  child: Image.asset(
-                    AppEraAssets.manageListings,
-                    width: width ?? 200.w,
-                    height: height ?? 220.h,
+                  child: Container(
+                    color: Colors.blue,
+                    child: Image.asset(
+                      AppEraAssets.manageListings,
+                      width: width ?? 200.w,
+                      height: height ?? 220.h,
+                    ),
                   ),
                 ),
               ],
