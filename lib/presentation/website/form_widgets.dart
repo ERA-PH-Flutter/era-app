@@ -7,14 +7,12 @@ import '../../app/constants/colors.dart';
 import '../../app/constants/theme.dart';
 
 class BottomWidgets {
-  static Widget bigCircle({
-    required String text,
-  }) {
+  static Widget bigCircle({required String text, height, width}) {
     return Row(
       children: [
         Container(
-          width: 35.w,
-          height: 35.h,
+          width: height,
+          height: width,
           decoration: BoxDecoration(
             color: const Color(0xFF0e6937),
             shape: BoxShape.circle,

@@ -31,7 +31,10 @@ class SharedWidgets {
           textInputAction: TextInputAction.newline,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: TextStyle(color: AppColors.hint, fontSize: 18.sp),
+            hintStyle: TextStyle(
+                color: AppColors.hint,
+                fontSize:
+                    Theme.of(Get.context!).textTheme.bodyMedium?.fontSize),
             labelStyle: TextStyle(color: AppColors.hint),
             labelText: labelText,
             filled: false,
@@ -142,6 +145,10 @@ class SharedWidgets {
     return Obx(
       () => DropdownButtonFormField<String>(
         decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: TextStyle(
+              color: AppColors.hint,
+              fontSize: Theme.of(Get.context!).textTheme.bodyMedium?.fontSize),
           labelText: labelText,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -159,22 +166,24 @@ class SharedWidgets {
         iconEnabledColor: Colors.black,
         isExpanded: true,
         isDense: true,
-        hint: Align(
-          alignment: Alignment.centerLeft,
-          child: EraText(
-            text: hintText!,
-            textAlign: TextAlign.center,
-            color: Colors.grey,
-            fontSize: 20.sp,
-          ),
-        ),
+        //  hintText: hintText,
+
+        // hint: Align(
+        //   alignment: Alignment.centerLeft,
+        //   child: EraText(
+        //     text: hintText!,
+        //     textAlign: TextAlign.center,
+        //     color: Colors.grey,
+        //     fontSize: Theme.of(Get.context!).textTheme.bodyMedium?.fontSize,
+        //   ),
+        // ),
         items: Types!.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: EraText(
               text: value,
               color: AppColors.black,
-              fontSize: 20.sp,
+              fontSize: Theme.of(Get.context!).textTheme.bodyMedium?.fontSize,
             ),
           );
         }).toList(),

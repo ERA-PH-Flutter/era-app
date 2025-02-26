@@ -306,54 +306,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../controllers/MortageCalculator_controller.dart';
 
-class MortgageCalculatorWeb extends GetView<MortageCalculatorWController> {
-  const MortgageCalculatorWeb({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    //   Get.put(MortageCalculatorWController());
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EraText(
-            text: 'Mortgage Calculator',
-            fontSize: EraTheme.h1,
-            color: AppColors.kRedColor,
-            fontWeight: FontWeight.bold,
-          ),
-          EraText(
-            text: 'Simply Calculate Your Mortgage Payment',
-            fontSize: EraTheme.h3,
-            color: AppColors.black,
-            fontWeight: FontWeight.w400,
-          ),
-          sb50(),
-
-          // Form Fields and Pie Chart Section
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 1,
-                child: _rowTextField(),
-              ),
-              sbw40(),
-              Expanded(
-                flex: 1,
-                child: pieChart(),
-              ),
-            ],
-          ),
-          sb50(),
-        ],
-      ),
-    );
-  }
+class MortgageCalculatorWeb
+    extends GetResponsiveView<MortageCalculatorWController> {
+  MortgageCalculatorWeb({super.key});
 
   Widget pieChart() {
     return Container(
+      width: Get.width,
+      //height: screen.height,
       padding: EdgeInsets.all(20.sp),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -368,7 +328,7 @@ class MortgageCalculatorWeb extends GetView<MortageCalculatorWController> {
             padding: EdgeInsets.all(8.sp),
             child: EraText(
               text: 'Mortgage Payment Breakdown',
-              fontSize: EraTheme.h2,
+              fontSize: Theme.of(Get.context!).textTheme.labelMedium?.fontSize,
               color: AppColors.blue,
               fontWeight: FontWeight.bold,
             ),
@@ -381,7 +341,7 @@ class MortgageCalculatorWeb extends GetView<MortageCalculatorWController> {
           EraText(
               text: 'Summary of Payment',
               fontWeight: FontWeight.bold,
-              fontSize: EraTheme.h2,
+              fontSize: Theme.of(Get.context!).textTheme.titleMedium?.fontSize,
               color: AppColors.kRedColor),
           Center(
             child: Column(
@@ -391,14 +351,18 @@ class MortgageCalculatorWeb extends GetView<MortageCalculatorWController> {
                   children: [
                     EraText(
                       text: 'Downpayment: ',
-                      fontSize: EraTheme.h3,
+                      fontSize:
+                          Theme.of(Get.context!).textTheme.titleSmall?.fontSize,
                       color: AppColors.black,
                     ),
                     Obx(
                       () => EraText(
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 30.sp,
+                            fontSize: Theme.of(Get.context!)
+                                .textTheme
+                                .titleSmall
+                                ?.fontSize,
                             color: AppColors.downPayment,
                             fontWeight: FontWeight.bold),
                         text: controller.downP.value,
@@ -413,7 +377,10 @@ class MortgageCalculatorWeb extends GetView<MortageCalculatorWController> {
                     Flexible(
                       child: EraText(
                         text: 'Monthly Payment: ',
-                        fontSize: EraTheme.h3,
+                        fontSize: Theme.of(Get.context!)
+                            .textTheme
+                            .titleSmall
+                            ?.fontSize,
                         color: AppColors.black,
                       ),
                     ),
@@ -493,7 +460,7 @@ class MortgageCalculatorWeb extends GetView<MortageCalculatorWController> {
           width: Get.width,
           bgColor: AppColors.kRedColor,
           text: 'CALCULATE',
-          fontSize: EraTheme.paragraphWeb,
+          fontSize: Theme.of(Get.context!).textTheme.titleMedium?.fontSize,
           fontWeight: FontWeight.w500,
           height: EraTheme.buttonH60,
           onTap: () async {
@@ -536,7 +503,7 @@ class MortgageCalculatorWeb extends GetView<MortageCalculatorWController> {
       children: [
         EraText(
           text: title!,
-          fontSize: EraTheme.h3,
+          fontSize: Theme.of(Get.context!).textTheme.titleMedium?.fontSize,
           color: AppColors.black,
         ),
         SizedBox(height: 10.h),
@@ -557,4 +524,58 @@ class MortgageCalculatorWeb extends GetView<MortageCalculatorWController> {
       ],
     );
   }
+
+  Widget _buildContent(width, height) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          EraText(
+            text: 'Mortgage Calculator',
+            fontSize: Theme.of(Get.context!).textTheme.displaySmall?.fontSize,
+            color: AppColors.kRedColor,
+            fontWeight: FontWeight.bold,
+          ),
+          EraText(
+            text: 'Simply Calculate Your Mortgage Payment',
+            fontSize: Theme.of(Get.context!).textTheme.titleLarge?.fontSize,
+            color: AppColors.black,
+            fontWeight: FontWeight.w400,
+          ),
+          sb50(),
+          width < 600
+              ? Column(
+                  children: [
+                    _rowTextField(),
+                    sb30(),
+                    pieChart(),
+                  ],
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(flex: 1, child: _rowTextField()),
+                    sbw40(),
+                    Expanded(flex: 1, child: pieChart()),
+                  ],
+                ),
+          sb50(),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget phone() =>
+      Center(child: _buildContent(Get.width * 0.9, Get.height * 0.4));
+
+  @override
+  Widget tablet() =>
+      Center(child: _buildContent(Get.width * 0.6, Get.height * 0.5));
+
+  @override
+  Widget desktop() => Center(
+      //color: Colors.red,
+      child: _buildContent(Get.width * 0.4, Get.height * 0.5));
 }

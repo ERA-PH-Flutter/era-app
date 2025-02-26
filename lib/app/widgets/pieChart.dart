@@ -5,45 +5,49 @@ import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class Piechart extends StatelessWidget {
   var downPayment;
   var interestAmount;
   var initialAmount;
-  Piechart(
-      {super.key, this.downPayment, this.interestAmount, this.initialAmount});
+
+  Piechart({
+    super.key,
+    this.downPayment,
+    this.interestAmount,
+    this.initialAmount,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _createLegend('PRINCIPAL', AppColors.yellow),
-                _createLegend('INTEREST', AppColors.blue4),
-                _createLegend('DOWN PAYMENT', AppColors.grey)
-              ],
-            ),
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _createLegend('PRINCIPAL', AppColors.yellow),
+              _createLegend('INTEREST', AppColors.blue4),
+              _createLegend('DOWN PAYMENT', AppColors.grey)
+            ],
           ),
-          SizedBox(
-            height: 21.h,
+        ),
+        SizedBox(
+          height: 21.h,
+        ),
+        SizedBox(
+          width: 250,
+          height: 250,
+          child: PieChart(
+            PieChartData(
+                centerSpaceRadius: 0,
+                sections: pieChartSection(),
+                sectionsSpace: 0),
           ),
-          SizedBox(
-            width: 250,
-            height: 250,
-            child: PieChart(
-              PieChartData(
-                  centerSpaceRadius: 0,
-                  sections: pieChartSection(),
-                  sectionsSpace: 0),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -60,9 +64,10 @@ class Piechart extends StatelessWidget {
           width: 5.w,
         ),
         EraText(
+          textOverflow: TextOverflow.ellipsis,
           text: text,
           color: Colors.black,
-          fontSize: EraTheme.paragraph,
+          fontSize: Theme.of(Get.context!).textTheme.titleSmall?.fontSize,
         )
       ],
     );

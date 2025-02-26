@@ -679,6 +679,8 @@ class HomeWeb extends GetResponsiveView<HomeWebController> {
               )),
           sb20(),
           Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -715,6 +717,8 @@ class HomeWeb extends GetResponsiveView<HomeWebController> {
           ),
 
           Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
             width: Get.width,
             child: GridView.builder(
               shrinkWrap: true,
@@ -723,7 +727,7 @@ class HomeWeb extends GetResponsiveView<HomeWebController> {
                 crossAxisCount: 2,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
-                mainAxisExtent: Get.height - 410.h,
+                mainAxisExtent: Get.height - 400.h,
               ),
               itemCount: controller.projects.length,
               itemBuilder: (context, index) {
@@ -753,6 +757,8 @@ class HomeWeb extends GetResponsiveView<HomeWebController> {
           // Column(children: controller.projects),
 
           Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -839,7 +845,7 @@ class HomeWeb extends GetResponsiveView<HomeWebController> {
                     crossAxisCount: 2,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
-                    mainAxisExtent: Get.height - 395,
+                    mainAxisExtent: Get.height - 100.h,
                   ),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,

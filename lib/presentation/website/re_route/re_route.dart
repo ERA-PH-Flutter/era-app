@@ -261,17 +261,18 @@ class ReRoute extends GetView<ReRouteController> {
                   ],
                 ),
               ),
-              // Positioned(
-              //     top: -20.h,
-              //     left: 0.w,
-              //     child: Container(
-              //       child: Image.asset(
-              //         AppEraAssets.eraPh,
-              //         width: 200.w,
-              //         height: 260.h,
-              //         fit: BoxFit.cover,
-              //       ),
-              //     )),
+              //   sbw10(),
+              Positioned(
+                  top: -20.h,
+                  left: 0.w,
+                  child: Container(
+                    child: Image.asset(
+                      AppEraAssets.eraPh,
+                      width: 200.w,
+                      height: 260.h,
+                      fit: BoxFit.cover,
+                    ),
+                  )),
               sbw10(),
             ],
           ),

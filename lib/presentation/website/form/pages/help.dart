@@ -15,31 +15,31 @@ import '../../../global.dart';
 import '../controllers/form_web_controller.dart';
 import 'about_us_web.dart';
 
-class HelpWeb extends GetResponsiveView<FormWebController> {
-  HelpWeb({super.key});
+class HelpWeb extends GetView<FormWebController> {
+  const HelpWeb({super.key});
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return SingleChildScrollView(
-  //     child: Padding(
-  //       padding:
-  //           EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
-  //       child: Column(
-  //         children: [
-  //           _buildHeader(),
-  //           sb80(),
-  //           _buildContactOptions(),
-  //           sb80(),
-  //           _buildFaqSection(),
-  //           sb50(),
-  //           _buildContactUsSection(),
-  //           sb80(),
-  //         //  AboutUsWeb.buildJoinUsSection(),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding:
+            EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
+        child: Column(
+          children: [
+            _buildHeader(),
+            sb80(),
+            _buildContactOptions(),
+            sb80(),
+            _buildFaqSection(),
+            sb50(),
+            _buildContactUsSection(),
+            sb80(),
+            //  AboutUsWeb.buildJoinUsSection(),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget _buildContactUsSection() {
     return Container(
@@ -149,7 +149,7 @@ class HelpWeb extends GetResponsiveView<FormWebController> {
   Widget _buildHeader() {
     return Container(
       width: Get.width,
-      height: Get.height / 2,
+      height: Get.height / 3,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -443,23 +443,4 @@ class HelpWeb extends GetResponsiveView<FormWebController> {
       ),
     );
   }
-
-  @override
-  Widget phone() =>
-      Center(child: _buildContent(Get.width * 0.9, Get.height * 0.4));
-
-  @override
-  Widget tablet() => Center(
-          child: Column(
-        children: [
-          EraText(
-            text: 'tabler view',
-            color: Colors.red,
-          ),
-          _buildContent(Get.width * 0.6, Get.height * 0.5),
-        ],
-      ));
-  @override
-  Widget desktop() =>
-      Center(child: _buildContent(Get.width * 0.4, Get.height * 1));
 }

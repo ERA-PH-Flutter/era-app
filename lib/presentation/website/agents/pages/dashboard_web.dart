@@ -24,27 +24,24 @@ import '../../../global.dart';
 import '../../landingpage/controller/homs_controller.dart';
 import '../controllers/agent_myListingWeb_controller.dart';
 
-class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
+class AgentDashBoardWeb extends GetResponsiveView<AgentDashboardWebController> {
   AgentDashBoardWeb({
     super.key,
   });
-  final AgentsWebController agentController = Get.put(AgentsWebController());
 
   @override
-  Widget build(BuildContext context) {
-    Get.put(AgentDashboardWebController());
+  Widget phone() {
+    return Container();
+  }
 
+  @override
+  Widget tablet() {
     return WillPopScope(
         onWillPop: () async {
-          // selectedIndex.value = 0;
-          // pageViewController = PageController(initialPage: 0);
-          // currentRoute = '/home';
-          // Get.offAll(BaseScaffold(),binding: HomeBinding());
           Get.back();
           return Future.value(false);
         },
         child: SingleChildScrollView(
-          //   controller: controller.scrollController,
           scrollDirection: Axis.vertical,
           child: Obx(() {
             if (controller.agentDashboardWebState.value ==
@@ -108,7 +105,109 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
                         ),
                         SizedBox(height: 25.h),
                         SizedBox(height: 25.h),
-                        myListings(),
+                        myListings(
+                          220.w,
+                          250.h,
+                        ),
+                        SizedBox(height: 25.h),
+                        favorites(),
+                        SizedBox(height: 25.h),
+                        archivedListing(),
+                        SizedBox(height: 25.h),
+                        soldProperties(),
+                        SizedBox(height: 25.h),
+                        myTrainings(),
+                        SizedBox(height: 25.h),
+                        findAgentsandOffices(),
+                        SizedBox(height: 25.h),
+                        sb25(),
+                      ],
+                    ),
+                  ),
+                  latestNews(),
+                  SizedBox(height: 25.h),
+                ],
+              );
+            }
+          }),
+        ));
+  }
+
+  @override
+  Widget desktop() {
+    return WillPopScope(
+        onWillPop: () async {
+          Get.back();
+          return Future.value(false);
+        },
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Obx(() {
+            if (controller.agentDashboardWebState.value ==
+                AgentDashboardWebState.loading) {
+              return _loading();
+            } else {
+              return Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: EraTheme.paddingWidthAdmin * 3,
+                        vertical: 80.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        EraText(
+                          text: user != null
+                              ? '${DateTime.now().hour < 12 ? 'Good Morning,' : DateTime.now().hour < 18 ? 'Good Afternoon,' : 'Good Evening,'} ${user!.firstname!.capitalize}'
+                              : DateTime.now().hour < 12
+                                  ? 'Good Morning,'
+                                  : DateTime.now().hour < 18
+                                      ? 'Good Afternoon, Hannah'
+                                      : 'Good Evening, Hannah',
+                          fontSize: EraTheme.headerWeb + 4.sp,
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        EraText(
+                          text: 'Welcome to your Dashboard!',
+                          fontSize: EraTheme.subHeaderWeb,
+                          color: AppColors.kRedColor.withOpacity(0.8),
+                          fontWeight: FontWeight.w600,
+                        ),
+                        SizedBox(height: 20.h),
+                        Divider(color: AppColors.grey, thickness: 0.5),
+                        SizedBox(height: 20.h),
+                        Container(
+                          padding: EdgeInsets.all(20.w),
+                          width: Get.width / 2,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                              ),
+                            ],
+                          ),
+                          child: AgentInfoWidget.agentInformationWeb(
+                            imageProvider: user!.image != null
+                                ? user!.image!
+                                : AppStrings.noUserImageWhite,
+                            firstName: '${user!.firstname}',
+                            lastName: '${user!.lastname}',
+                            whatsApp: '${user!.whatsApp}',
+                            email: '${user!.email}',
+                            role: '${user!.role}',
+                          ),
+                        ),
+                        SizedBox(height: 25.h),
+                        SizedBox(height: 25.h),
+                        myListings(
+                          200.w,
+                          220.h,
+                        ),
                         SizedBox(height: 25.h),
                         favorites(),
                         SizedBox(height: 25.h),
@@ -674,7 +773,7 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
     );
   }
 
-  Widget myListings() {
+  Widget myListings(double? width, double? height) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -685,117 +784,124 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: 10.h),
-        SingleChildScrollView(
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  // selectedIndex.value = 13;
-                  // Get.find<HomsController>().onNavbarItemSelected(13);
-                  // Get.toNamed(
-                  //   '/addListings',
-                  // );
-                  Get.toNamed('/add-listing');
-                },
-                child: Image.asset(
-                  AppEraAssets.addIcon,
-                  width: 200.w,
-                  height: 220.h,
-                ),
-              ),
-              //todo insert random
-              SizedBox(
-                height: 220.h,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: controller.listings.length >= 5
-                      ? 5
-                      : controller.listings.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        // Get.toNamed('/propertyInfo',
-                        //     arguments: controller.listings[index]);
-                        // HomsController homsController =
-                        //     Get.find<HomsController>();
-                        // homsController.onNavbarItemSelected(
-                        //   15,
-                        // );
-                        print("aa");
-                        // listingArgument = controller.listings[index];
-                        Get.delete<ListingsWebController>();
-                        Get.toNamed(
-                            '/view-listing/${controller.listings[index].id}');
-                      },
-                      child: Container(
-                          width: 200.w,
-                          height: 220.h,
-                          decoration: BoxDecoration(boxShadow: const [
-                            BoxShadow(
-                                offset: Offset(0, 0),
-                                blurRadius: 1,
-                                spreadRadius: 0.5,
-                                color: Colors.black38)
-                          ], borderRadius: BorderRadius.circular(10.r)),
-                          margin: EdgeInsets.symmetric(horizontal: 5.w),
-                          child: Stack(
-                            children: [
-                              Positioned.fill(
-                                child: CloudStorage().imageLoaderProvider(
-                                    reference: controller
-                                            .listings[index].photos.isNotEmpty
-                                        ? controller
-                                            .listings[index].photos.first
-                                        : AppStrings.noUserImageWhite,
-                                    height: 100.w,
-                                    width: 100.w,
-                                    borderRadius: BorderRadius.circular(10.r)),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(10.r),
-                                          bottomRight: Radius.circular(10.r))),
-                                  width: 200.w,
-                                  height: 40.h,
-                                  child: EraText(
-                                    textAlign: TextAlign.center,
-                                    text: controller.listings[index].name,
-                                    color: Colors.black,
-                                    fontSize: 20.sp,
-                                    textOverflow: TextOverflow.ellipsis,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )),
-                    );
+        Container(
+          width: Get.width,
+          child: SingleChildScrollView(
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    // selectedIndex.value = 13;
+                    // Get.find<HomsController>().onNavbarItemSelected(13);
+                    // Get.toNamed(
+                    //   '/addListings',
+                    // );
+                    Get.toNamed('/add-listing');
                   },
+                  child: Image.asset(
+                    AppEraAssets.addIcon,
+                    width: width ?? 190.w,
+                    height: height ?? 240.h,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              // HomsController homsController = Get.find<HomsController>();
-              // selectedIndex.value = 17;
-              // homsController.onNavbarItemSelected(17);
-              // // print('agentArgument: $agentArgument');
-              // Get.toNamed('/agentMyListingWeb', arguments: [user!.id]);
-              GestureDetector(
-                onTap: () {
-                  Get.delete<AgentListingsWebController>();
-                  Get.toNamed('/my-listings');
-                },
-                child: Image.asset(
-                  AppEraAssets.manageListings,
-                  width: 200.w,
-                  height: 220.h,
+                //todo insert random
+                SizedBox(
+                  height: 250.h,
+                  width: Get.width,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.listings.length >= 5
+                        ? 5
+                        : controller.listings.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          // Get.toNamed('/propertyInfo',
+                          //     arguments: controller.listings[index]);
+                          // HomsController homsController =
+                          //     Get.find<HomsController>();
+                          // homsController.onNavbarItemSelected(
+                          //   15,
+                          // );
+                          print("aa");
+                          // listingArgument = controller.listings[index];
+                          Get.delete<ListingsWebController>();
+                          Get.toNamed(
+                              '/view-listing/${controller.listings[index].id}');
+                        },
+                        child: Container(
+                            width: width ?? 200.w,
+                            height: height ?? 220.h,
+                            decoration: BoxDecoration(boxShadow: const [
+                              BoxShadow(
+                                  offset: Offset(0, 0),
+                                  blurRadius: 1,
+                                  spreadRadius: 0.5,
+                                  color: Colors.black38)
+                            ], borderRadius: BorderRadius.circular(10.r)),
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            child: Stack(
+                              children: [
+                                Positioned.fill(
+                                  child: CloudStorage().imageLoaderProvider(
+                                      reference: controller
+                                              .listings[index].photos.isNotEmpty
+                                          ? controller
+                                              .listings[index].photos.first
+                                          : AppStrings.noUserImageWhite,
+                                      height: 100.w,
+                                      width: 100.w,
+                                      borderRadius:
+                                          BorderRadius.circular(10.r)),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(10.r),
+                                            bottomRight:
+                                                Radius.circular(10.r))),
+                                    width: 220.w,
+                                    height: 50.h,
+                                    child: EraText(
+                                      textAlign: TextAlign.center,
+                                      text: controller.listings[index].name,
+                                      color: Colors.black,
+                                      fontSize: 20.sp,
+                                      textOverflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+                // HomsController homsController = Get.find<HomsController>();
+                // selectedIndex.value = 17;
+                // homsController.onNavbarItemSelected(17);
+                // // print('agentArgument: $agentArgument');
+                // Get.toNamed('/agentMyListingWeb', arguments: [user!.id]);
+                GestureDetector(
+                  onTap: () {
+                    Get.delete<AgentListingsWebController>();
+                    Get.toNamed('/my-listings');
+                  },
+                  child: Image.asset(
+                    AppEraAssets.manageListings,
+                    width: width ?? 200.w,
+                    height: height ?? 220.h,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -812,59 +918,59 @@ class AgentDashBoardWeb extends GetView<AgentDashboardWebController> {
       ),
     );
   }
-}
 
-Widget iconAgents(String assetPath, Function()? onTap, String name) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      child: Column(
-        children: [
-          CloudStorage().imageLoaderProvider(
-              width: 200.w,
-              height: 220.h,
-              reference: assetPath,
-              borderRadius: BorderRadius.circular(10.r)),
-          EraText(
-            text: name,
-            textAlign: TextAlign.center,
-            color: AppColors.blue,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-            textOverflow: TextOverflow.ellipsis,
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-Widget latestNewIcon(String assetPath, Function()? onTap) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        image: DecorationImage(
-          image: AssetImage(assetPath),
-          fit: BoxFit.cover,
+  Widget iconAgents(String assetPath, Function()? onTap, String name) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        child: Column(
+          children: [
+            CloudStorage().imageLoaderProvider(
+                width: 200.w,
+                height: 220.h,
+                reference: assetPath,
+                borderRadius: BorderRadius.circular(10.r)),
+            EraText(
+              text: name,
+              textAlign: TextAlign.center,
+              color: AppColors.blue,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              textOverflow: TextOverflow.ellipsis,
+            ),
+          ],
         ),
       ),
-      height: 120.h,
-      width: 120.w,
-    ),
-  );
-}
+    );
+  }
 
-Widget settingIcon(Function()? onTap) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Center(
-      child: Icon(
-        CupertinoIcons.settings,
-        color: AppColors.blue,
-        size: 35.sp,
+  Widget latestNewIcon(String assetPath, Function()? onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+            image: AssetImage(assetPath),
+            fit: BoxFit.cover,
+          ),
+        ),
+        height: 120.h,
+        width: 120.w,
       ),
-    ),
-  );
+    );
+  }
+
+  Widget settingIcon(Function()? onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Center(
+        child: Icon(
+          CupertinoIcons.settings,
+          color: AppColors.blue,
+          size: 35.sp,
+        ),
+      ),
+    );
+  }
 }

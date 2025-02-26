@@ -350,11 +350,16 @@ class BuyWeb extends GetResponsiveView<ListingsWebController> {
         sb50(),
         Obx(() {
           if (controller.showFullSearch.value == false) {
-            return controller.quickLinks ?? Container();
+            return Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
+              child: controller.quickLinks ?? Container(),
+            );
           }
           return Container();
         }),
-        SizedBox(
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin),
           width: Get.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -403,7 +408,7 @@ class BuyWeb extends GetResponsiveView<ListingsWebController> {
                   crossAxisSpacing: 16.0,
                   mainAxisSpacing: 16.0,
                   crossAxisCount: 2,
-                  mainAxisExtent: Get.height - 340.h,
+                  mainAxisExtent: Get.height - 100.h,
                 ),
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
