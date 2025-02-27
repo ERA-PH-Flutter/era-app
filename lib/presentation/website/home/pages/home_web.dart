@@ -684,14 +684,8 @@ class HomeWeb extends GetResponsiveView<HomeWebController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: EraText(
-                    text: "Tablet View",
-                    fontSize: EraTheme.h1,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.kRedColor,
-                  ),
-                ),
+               
+              
                 Center(
                   child: EraText(
                     text: "Property searches made simple.",
@@ -1225,14 +1219,7 @@ class HomeWeb extends GetResponsiveView<HomeWebController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: EraText(
-                    text: "Mobile View",
-                    fontSize: EraTheme.h1,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.kRedColor,
-                  ),
-                ),
+             
                 Center(
                   child: EraText(
                     text: "Property searches made simple.",

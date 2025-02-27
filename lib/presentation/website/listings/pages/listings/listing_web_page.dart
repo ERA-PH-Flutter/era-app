@@ -681,7 +681,7 @@ class BuyWebListingPage extends GetView<ListingsWebController> {
     );
   }
 
- static Widget listedByAgent({required Listing listing}) {
+  static Widget listedByAgent({required Listing listing}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: EraTheme.paddingWidthAdmin * 3),
       child: Row(

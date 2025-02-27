@@ -330,12 +330,7 @@ class BuyWeb extends GetResponsiveView<ListingsWebController> {
         SizedBox(
           height: 10.h,
         ),
-        EraText(
-          text: "Tablet View",
-          fontSize: EraTheme.h1,
-          fontWeight: FontWeight.bold,
-          color: AppColors.kRedColor,
-        ),
+     
         EraText(
           text: "Property searches made simple.",
           fontSize: EraTheme.h1,
@@ -602,12 +597,7 @@ class BuyWeb extends GetResponsiveView<ListingsWebController> {
         SizedBox(
           height: 10.h,
         ),
-        EraText(
-          text: "Mobile View",
-          fontSize: EraTheme.h1,
-          fontWeight: FontWeight.bold,
-          color: AppColors.kRedColor,
-        ),
+     
         EraText(
           text: "Property searches made simple.",
           fontSize: EraTheme.h1,
