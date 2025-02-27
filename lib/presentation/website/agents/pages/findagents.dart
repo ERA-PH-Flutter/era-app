@@ -430,25 +430,33 @@ class FindAgentsWeb extends GetView<AgentsWebController> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         sb40(),
 
-        FutureBuilder(
-          future: FirebaseFirestore.instance
-              .collection('users')
-              .where('status', isEqualTo: 'approved')
-              .count()
-              .get(),
-          builder: (data, snapshot) {
-            if (snapshot.hasData) {
-              return EraText(
-                text: "${snapshot.data!.count} ERA Agents",
-                fontSize: EraTheme.h1,
-                fontWeight: FontWeight.bold,
-                color: AppColors.kRedColor,
-                textAlign: TextAlign.center,
-              );
-            } else {
-              return CircularProgressIndicator();
-            }
-          },
+        // FutureBuilder(
+        //   future: FirebaseFirestore.instance
+        //       .collection('users')
+        //       .where('status', isEqualTo: 'approved')
+        //       .count()
+        //       .get(),
+        //   builder: (data, snapshot) {
+        //     if (snapshot.hasData) {
+        //       return EraText(
+        //         text: "${snapshot.data!.count} ERA Agents",
+        //         fontSize: EraTheme.h1,
+        //         fontWeight: FontWeight.bold,
+        //         color: AppColors.kRedColor,
+        //         textAlign: TextAlign.center,
+        //       );
+        //     } else {
+        //       return CircularProgressIndicator();
+        //     }
+        //   },
+        // ),
+
+        EraText(
+          text: "Featured ERA Agents",
+          fontSize: EraTheme.h1,
+          fontWeight: FontWeight.bold,
+          color: AppColors.kRedColor,
+          textAlign: TextAlign.center,
         ),
         EraText(
           text: "Your Go-To Professionals for Seamless Property Transactions",

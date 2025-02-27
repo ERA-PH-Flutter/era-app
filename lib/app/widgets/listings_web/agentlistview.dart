@@ -107,19 +107,8 @@ class AgentListViewWeb extends StatelessWidget {
                         text: 'VIEW LISTING',
                         fontSize: 14.sp,
                         onTap: () {
-                          // selectedIndex.value = 19;
-                          // HomsController homsController =
-                          //     Get.find<HomsController>();
-                          // homsController.onNavbarItemSelected(
-                          //   19,
-                          // );
                           Get.delete<AgentListingsWebController>();
-                           Get.toNamed("/find-agent-view-listings/${agent.id}");
-                        //  Get.toNamed("/view-agent/${agent.id}");
-
-                          // Get.to(AgentListings(),
-                          //     binding: AgentListingsBinding(),
-                          //     arguments: [agent.id]);
+                          Get.toNamed("/find-agent-view-listings/${agent.id}");
                         },
                         bgColor: AppColors.kRedColor,
                         width: 220.w,
