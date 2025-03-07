@@ -1960,7 +1960,7 @@ class ProjectViewsWeb extends StatelessWidget {
                               top: Radius.circular(15.sp)),
                           child: CloudStorage().imageLoader(
                             reference: logoBlock['image'],
-                            height: 450.h,
+                            height: Get.height * 0.32,
                             width: Get.width,
                             fit: BoxFit.cover,
                           ),
@@ -1972,7 +1972,7 @@ class ProjectViewsWeb extends StatelessWidget {
                         BorderRadius.vertical(bottom: Radius.circular(15.sp)),
                     child: CloudStorage().imageLoader(
                       reference: block['image'],
-                      height: 200.h,
+                      height: 300.h,
                       width: Get.width,
                       fit: BoxFit.cover,
                     ),
