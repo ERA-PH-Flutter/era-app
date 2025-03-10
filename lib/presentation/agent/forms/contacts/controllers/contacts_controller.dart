@@ -20,6 +20,15 @@ class ContactusController extends GetxController {
   TextEditingController emailA = TextEditingController();
   TextEditingController aiSearch = TextEditingController();
   TextEditingController message = TextEditingController();
+  var formKey = GlobalKey<FormState>();
+
+  //inquire
+  TextEditingController fname = TextEditingController();
+  TextEditingController lname = TextEditingController();
+
+  TextEditingController mNumber = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController desc = TextEditingController();
 
   late YoutubePlayerController youtubePlayerController;
 
@@ -59,6 +68,37 @@ class ContactusController extends GetxController {
   void onClose() {
     youtubePlayerController.dispose();
     super.onClose();
+  }
+
+  sumbitInquire() async {
+    try {
+      var inquiryContact =
+          FirebaseFirestore.instance.collection('inquire_details').doc();
+      await inquiryContact.set({
+        'id': inquiryContact.id,
+        'fname': fname.text,
+        'lname': lname.text,
+        'email': email.text,
+        'mobile_num': mNumber.text,
+        'desc': desc.text
+      });
+      BaseController().showSuccessDialog(
+          title: "Message Sent",
+          okayButton: "Close",
+          description:
+              "We've received your message and will get back to you soon. Thank you",
+          hitApi: () {
+            fname.clear();
+            lname.clear();
+            email.clear();
+            mNumber.clear();
+            desc.clear();
+
+            Get.back();
+          });
+    } catch (e) {
+      print(e);
+    }
   }
 
   submitContact() async {

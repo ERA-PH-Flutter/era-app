@@ -41,6 +41,7 @@ import '../../content-management/pages/find_agent_page.dart';
 import '../../content-management/pages/join_era.dart';
 import '../../properties/pages/approval_propertyinformation.dart';
 import '../../properties/pages/listing_approval_list.dart';
+import '../../setting/inquire/inquire.dart';
 import '../../statitics/pages/statistics_admin.dart';
 
 class LandingPage extends GetView<LandingPageController> {
@@ -74,7 +75,8 @@ class LandingPage extends GetView<LandingPageController> {
     ListingApproval(), //24
     ApprovalPropertyinformation(), //25
     DeletedRoster(), //26
-    EditAgent(),
+    EditAgent(), //27
+    InquireAdmin(), //28
     // UploadNews(), //14
     // UploadNews(), //15
   ];
@@ -312,6 +314,7 @@ class LandingPage extends GetView<LandingPageController> {
               children: [
                 _buildMenuItem('SELLING PROPERTY', 15),
                 _buildMenuItem('CONTACT US MANAGEMENT', 16),
+                _buildMenuItem('INQUIRE MANAGEMENT', 28),
                 _buildMenuItem('ACTIVITY LIST', 20),
                 if (user?.email == "sales@eraphilippines.com")
                   _buildMenuItem('DEVELOPER TOOLS', 23),

@@ -20,7 +20,7 @@ class DirectContactUs extends GetView<ContactusController> {
       backgroundColor: AppColors.white,
       appBar: CustomAppbar(),
       body: WillPopScope(
-        onWillPop: ()async{
+        onWillPop: () async {
           // selectedIndex.value = 0;
           // pageViewController = PageController(initialPage: 0);
           // currentRoute = '/home';
@@ -61,84 +61,93 @@ class DirectContactUs extends GetView<ContactusController> {
   }
 
   Widget contacts() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        EraText(
-            text: 'Name',
+    return Form(
+      key: controller.formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          EraText(
+              text: 'Name',
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.black),
+          SizedBox(height: 5.h),
+          TextformfieldWidget(
+            hintText: 'Name',
+            maxLines: 1,
+            controller: controller.name,
+            keyboardType: TextInputType.text,
+          ),
+          SizedBox(height: 20.h),
+          EraText(
+              text: 'Phone Number',
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.black),
+          SizedBox(height: 5.h),
+          TextformfieldWidget(
+            controller: controller.number,
+            hintText: '000-000-0000',
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+          ),
+          SizedBox(height: 20.h),
+          EraText(
+              text: 'Email',
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.black),
+          SizedBox(height: 5.h),
+          TextformfieldWidget(
+            controller: controller.emailA,
+            hintText: 'Your email here',
+            maxLines: 1,
+            keyboardType: TextInputType.emailAddress,
+            validator: (value) {
+              if (!RegExp(r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                  .hasMatch(value!)) {
+                return 'Enter a valid email address';
+              }
+              return null;
+            },
+          ),
+          sb20(),
+          AddListings.dropDownAddlistings(
+            selectedItem: controller.selectedSubj,
+            Types: controller.subject,
+            onChanged: (value) => controller.selectedSubj.value = value!,
+            name: 'Subject Type',
+            hintText: 'Select Subject Type',
+            color: AppColors.black,
+            padding: EdgeInsets.zero,
+          ),
+          EraText(
+            text: 'Message',
             fontSize: 18.sp,
             fontWeight: FontWeight.w500,
-            color: AppColors.black),
-        SizedBox(height: 5.h),
-        TextformfieldWidget(
-          hintText: 'Name',
-          maxLines: 1,
-          controller: controller.name,
-          keyboardType: TextInputType.text,
-        ),
-        SizedBox(height: 20.h),
-        EraText(
-            text: 'Phone Number',
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-            color: AppColors.black),
-        SizedBox(height: 5.h),
-        TextformfieldWidget(
-          controller: controller.number,
-          hintText: '000-000-0000',
-          maxLines: 1,
-          keyboardType: TextInputType.number,
-        ),
-        SizedBox(height: 20.h),
-        EraText(
-            text: 'Email',
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
-
-            color: AppColors.black),
-        SizedBox(height: 5.h),
-        TextformfieldWidget(
-          controller: controller.emailA,
-          hintText: 'Your email here',
-          maxLines: 1,
-          keyboardType: TextInputType.emailAddress,
-        ),
-        sb20(),
-        AddListings.dropDownAddlistings(
-          selectedItem: controller.selectedSubj,
-          Types: controller.subject,
-          onChanged: (value) => controller.selectedSubj.value = value!,
-          name: 'Subject Type',
-          hintText: 'Select Subject Type',
-          color: AppColors.black,
-          padding: EdgeInsets.zero,
-        ),
-        EraText(
-          text: 'Message',
-
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w500,
-          color: AppColors.black,
-        ),
-        TextformfieldWidget(
-          controller: controller.message,
-          hintText: 'Type your message here',
-          maxLines: 15,
-          color: AppColors.hint,
-          keyboardType: TextInputType.multiline,
-          textInputAction: TextInputAction.newline,
-        ),
-        sb30(),
-        Button.button2(
-          Get.width,
-          53.h,
-          ()async{
-            await controller.submitContact();
-          },
-          'Send',
-        ),
-        sb30(),
-      ],
+            color: AppColors.black,
+          ),
+          TextformfieldWidget(
+            controller: controller.message,
+            hintText: 'Type your message here',
+            maxLines: 15,
+            color: AppColors.hint,
+            keyboardType: TextInputType.multiline,
+            textInputAction: TextInputAction.newline,
+          ),
+          sb30(),
+          Button.button2(
+            Get.width,
+            53.h,
+            () async {
+              await controller.submitContact();
+            },
+            'Send',
+          ),
+          sb30(),
+        ],
+      ),
     );
   }
 }
