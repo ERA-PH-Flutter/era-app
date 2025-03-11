@@ -123,6 +123,8 @@ class Help extends GetView<ContactusController> {
               GestureDetector(
                 onTap: () async {
                   //launchUrl(controller.whatsappUrl);
+                                    launchUrl(controller.emailUrl);
+
                 },
                 child: Container(
                   width: Get.width - (EraTheme.paddingWidth * 2),
