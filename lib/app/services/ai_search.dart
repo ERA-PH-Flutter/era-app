@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 
 class AI {
   String query;
-  String key = 'AIzaSyAk9ngjt9Wb8Nf8-j899_6yJphIdG0yCWg';
   AI({required this.query});
   userSearch() async {
     var data = {
@@ -442,51 +441,16 @@ class AI {
   }
 
   geminiSearch(data, {name = '', description = ''}) async {
-    Map<String, dynamic> body = {
-      if (query.isNotEmpty) ...{
-        "contents": [
-          {
-            "role": "user",
-            "parts": [
-              {"text": query}
-            ]
-          }
-        ]
-      },
-      "tools": [
-        {
-          "functionDeclarations": [
-            {
-              "name": name,
-              "description": description,
-              "parameters": {"type": "object", "properties": data}
-            }
-          ]
-        }
-      ],
-      "toolConfig": {
-        "functionCallingConfig": {"mode": "ANY"}
-      },
-      "generationConfig": {
-        "temperature": 1,
-        "topK": 64,
-        "topP": 0.95,
-        "maxOutputTokens": 8192,
-        "responseMimeType": "text/plain"
-      }
-    };
     try {
-      final geminiResult = (await GetConnect().post(
-          'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$key',
-          body,
-          headers: {'Content-Type': 'application/json'}));
+      final geminiResult = (await GetConnect()
+          .get('https://api.eraphilippines.com/gemini.php?$query'));
       print(geminiResult.body);
       if (geminiResult.isOk) {
-        final result = geminiResult.body['candidates']?[0]['content']?['parts']
-            ?[0]?['functionCall']?['args'];
-        print('result gemini $result');
+        //final result = geminiResult.body['candidates']?[0]['content']?['parts']
+        //?[0]?['functionCall']?['args'];
         // add fallback if result has error
-        return result ?? {'field': data};
+        final result = geminiResult.body;
+        return result.body ?? {'field': data};
       }
     } catch (e) {
       print('result gemini error $e');
