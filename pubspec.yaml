@@ -2,7 +2,7 @@ name: eraphilippines
 description: "ERA Philippines"
 publish_to: "none"
 
-version: 1.1.30+1
+version: 1.1.31+1
 
 environment:
   sdk: ">=3.3.3 <4.0.0"
@@ -86,3 +86,4 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - shorebird.yaml

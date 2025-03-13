@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 
 class AI {
   String query;
-  String key = 'AIzaSyAGrHQ2vwgVgYB6bOP4QyQrRjdIaaGi1Sw';
+  String key = 'AIzaSyAk9ngjt9Wb8Nf8-j899_6yJphIdG0yCWg';
   AI({required this.query});
   userSearch() async {
     var data = {
@@ -477,9 +477,10 @@ class AI {
     };
     try {
       final geminiResult = (await GetConnect().post(
-          'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$key',
+          'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$key',
           body,
           headers: {'Content-Type': 'application/json'}));
+      print(geminiResult.body);
       if (geminiResult.isOk) {
         final result = geminiResult.body['candidates']?[0]['content']?['parts']
             ?[0]?['functionCall']?['args'];
