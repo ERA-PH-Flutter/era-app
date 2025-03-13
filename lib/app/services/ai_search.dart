@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:eraphilippines/app/models/ai_filters.dart';
@@ -443,14 +445,14 @@ class AI {
   geminiSearch(data, {name = '', description = ''}) async {
     try {
       final geminiResult = (await GetConnect()
-          .get('https://api.eraphilippines.com/gemini.php?$query'));
-      print(geminiResult.body);
+          .get('https://api.eraphilippines.com/gemini.php?prompt=$query'));
+      print("gemini result: ${geminiResult.body}");
       if (geminiResult.isOk) {
         //final result = geminiResult.body['candidates']?[0]['content']?['parts']
         //?[0]?['functionCall']?['args'];
-        // add fallback if result has error
-        final result = geminiResult.body;
-        return result.body ?? {'field': data};
+
+        final result = jsonDecode(geminiResult.body);
+        return result ?? {'field': data};
       }
     } catch (e) {
       print('result gemini error $e');
