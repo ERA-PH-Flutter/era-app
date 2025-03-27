@@ -1,5 +1,4 @@
 import 'package:eraphilippines/app/constants/colors.dart';
-import 'package:eraphilippines/app/widgets/app_text.dart';
 import 'package:eraphilippines/app/widgets/button.dart';
 import 'package:eraphilippines/app/widgets/createaccount_widget.dart';
 import 'package:eraphilippines/presentation/agent/utility/controller/base_controller.dart';

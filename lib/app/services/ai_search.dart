@@ -345,7 +345,7 @@ class AI {
       }
 
       if (score >= 1 || (minMatch && maxMatch) || equalsMatch) {
-        print('gemini search dataid ${data.id}, ${data.name} ${score} ');
+        print('gemini search dataid ${data.id}, ${data.name} $score ');
 
         filteredData[data] = score;
       }

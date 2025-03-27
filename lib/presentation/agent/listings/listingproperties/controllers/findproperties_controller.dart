@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eraphilippines/app/models/ai_filters.dart';
 import 'package:eraphilippines/app/services/ai_search.dart';
 import 'package:eraphilippines/app/widgets/quick_links.dart';
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 
 import '../../../../../app/services/local_storage.dart';
 import '../../../../../repository/listing.dart';
-import '../../../../global.dart';
 
 enum FindPropertiesState {
   loading,
