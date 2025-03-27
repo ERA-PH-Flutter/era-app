@@ -1,6 +1,8 @@
+
 import 'package:eraphilippines/app/services/firebase_storage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class ImageWidget extends StatelessWidget {
   final String thumbnailUrl;
@@ -33,6 +35,7 @@ class ImageWidget extends StatelessWidget {
           return Icon(Icons.broken_image);
         } else {
           return Image.network(
+            key: Key(const Uuid().v1()),
             snapshot.data!,
             fit: fit ?? BoxFit.cover,
             height: height,

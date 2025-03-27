@@ -96,17 +96,20 @@ class CloudStorage {
 
   Widget imageLoader({reference, height, width, BoxFit? fit}) {
     return FutureBuilder(
+      key: Key(const Uuid().v1()),
       future: ref.child(reference).getDownloadURL(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return kIsWeb
               ? Image.network(
+                  key: Key(const Uuid().v1()),
                   snapshot.data!,
                   fit: fit ?? BoxFit.cover,
                   height: height,
                   width: width,
                 )
               : CachedNetworkImage(
+                  key: Key(const Uuid().v1()),
                   imageUrl: snapshot.data!,
                   fit: fit ?? BoxFit.cover,
                   height: height,
