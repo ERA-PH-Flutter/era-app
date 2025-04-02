@@ -28,9 +28,7 @@ class CloudStorage {
   }) async {
     try {
       final bytes = await ref.child(docRef).getData();
-      final appDirectory = Platform.isAndroid
-          ? await getTemporaryDirectory()
-          : await getApplicationDocumentsDirectory();
+      final appDirectory = await getApplicationDocumentsDirectory();
       final String imagePath =
           '${appDirectory.path}/${Uuid().v4()}_${Random().nextInt(100)}.jpg';
       final File file = File(imagePath);

@@ -21,14 +21,17 @@ class AI {
     var result = await geminiSearch(data, name: "userSearch");
     Query firebaseQuery = FirebaseFirestore.instance.collection('users');
     List<AiFilters> prompts = [];
+    if (result.isNotEmpty) {
+      result!.forEach((key, value) {
+        if (key == "full_name") {
+          prompts
+              .add(AiFilters(field: key, value: value, operator: "contains"));
+        } else {
+          prompts.add(AiFilters(field: key, value: value, operator: "=="));
+        }
+      });
+    }
 
-    result!.forEach((key, value) {
-      if (key == "full_name") {
-        prompts.add(AiFilters(field: key, value: value, operator: "contains"));
-      } else {
-        prompts.add(AiFilters(field: key, value: value, operator: "=="));
-      }
-    });
     final docs = (await firebaseQuery.get()).docs;
     final list = docs
         .map((e) => EraUser.fromJSON(e.data() as Map<String, dynamic>))

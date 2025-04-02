@@ -61,13 +61,17 @@ class SplashController extends GetxController {
         await Permission.storage.request();
         await Permission.camera.request();
       }
-      if ((store.settings == null)) {
-        await loadLocalImage();
-      }
+
       if (store.settings == null) {
         await loadLocalImage();
       } else if (settings!.id != store.settings!.id) {
         await loadLocalImage();
+      } else {
+        try {
+          File(store.images?['quick_links']);
+        } catch (e) {
+          await loadLocalImage();
+        }
       }
     }
     if (user != null) {
